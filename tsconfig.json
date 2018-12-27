@@ -1,0 +1,50 @@
+{
+  "compilerOptions": {
+    "allowJs": false,
+    "allowSyntheticDefaultImports": true,
+    "allowUnusedLabels": true,
+    "declaration": false,
+    "experimentalDecorators": true,
+    "esModuleInterop": true,
+    "noImplicitAny": true,
+    "noImplicitReturns": true,
+    "noImplicitThis": true,
+    "noUnusedLocals": true,
+    "noUnusedParameters": true,
+    "removeComments": true,
+    "skipLibCheck": true,
+    "sourceMap": false,
+    "strictNullChecks": true,
+    "target": "es2015",
+    "module": "esnext",
+    "moduleResolution": "node",
+    "jsx": "react",
+    "rootDir": "src",
+    "outDir": "dist",
+    "baseUrl": "./src",
+    "paths": {
+      "src/*": [""],
+      "ABIs/*": ["ABIs/*"],
+      "assets/*": ["assets/*"],
+      "components/*": ["components/*"],
+      "routes/*": ["components/routes/*"],
+      "shared/*": ["components/shared/*"],
+      "HOCs/*": ["HOCs/*"],
+      "networking/*": ["networking/*"],
+      "configs/*": ["configs/*"],
+      "styled/*": ["styled/*"],
+      "utils/*": ["utils/*"]
+    },
+    "typeRoots": ["node_modules/@types"],
+    "types": ["react", "react-dom", "node", "jest"],
+    "lib": ["dom", "es5", "es6", "esnext", "scripthost"]
+  },
+  "files": ["custom.d.ts"],
+  "include": ["src/**/*"],
+  "exclude": ["node_modules", "dist", "config", "docs"],
+  "awesomeTypescriptLoaderOptions": {
+    "useCache": true,
+    "isolatedModules": true,
+    "reportFiles": ["src/**/*.{ts,tsx}"]
+  }
+}

@@ -1,0 +1,12 @@
+<svg xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink" width="24" height="24" viewBox="0 0 24 24">
+  <defs>
+    <path id="card-a" d="M3.25,7.25 L3.25,16.75 L20.75,16.75 L20.75,7.25 L3.25,7.25 Z M3,6 L21,6 C21.5522847,6 22,6.44771525 22,7 L22,17 C22,17.5522847 21.5522847,18 21,18 L3,18 C2.44771525,18 2,17.5522847 2,17 L2,7 C2,6.44771525 2.44771525,6 3,6 Z M3.25,9 L3.25,12 L20.75,12 L20.75,9 L3.25,9 Z M3.25,9.9375 L20.75,9.9375 L20.75,11.0625 L3.25,11.0625 L3.25,9.9375 Z M20.75,9.9375 L20.75,11.0625 L20.75,9.9375 Z M3.25,11.0625 L3.25,9.9375 L3.25,11.0625 Z"/>
+  </defs>
+  <g fill="currentColor" fill-rule="evenodd">
+    <!-- Removed <mask> because Safari would render this SVG as a square. See here for more info: https://github.com/thebeetoken/beenest/pull/445 -->
+    <g fill-rule="nonzero">
+      <use xlink:href="#card-a"/>
+      <use filter="url(#card-b)"/>
+    </g>
+  </g>
+</svg>

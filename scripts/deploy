@@ -1,0 +1,54 @@
+#!/usr/bin/env node
+
+/**
+ * This is a deploy to our dev instances script.
+ *
+ */
+const program = require('commander');
+const { spawnSync } = require('child_process');
+
+const AWS_REGION = 'us-west-2';
+
+program.option('-i, --instance <instance>', 'deploy output: dev01, dev02, dev03').parse(process.argv);
+
+let bucketName;
+let cloudfrontId;
+
+switch (program.instance) {
+  case 'dev01':
+    bucketName = 'dev01.beenest.io';
+    cloudfrontId = 'E6P43Z9BYSDG5';
+    break;
+  case 'dev02':
+    bucketName = 'dev02.beenest.io';
+    cloudfrontId = 'E15DCHUJXMYC69';
+    break;
+  case 'dev03':
+    bucketName = 'dev03.beenest.io';
+    cloudfrontId = 'E27ABI2WZCRUN6';
+    break;
+  default:
+    console.error('Missing -i');
+    process.exit(-1);
+    break;
+}
+
+const build = `npm run testnet`;
+const s3deployPath = './node_modules/s3-deploy/.bin/s3-deploy';
+const deployCmd = `${s3deployPath} './dist/**' --cwd './dist/' --region ${AWS_REGION} --bucket ${bucketName} --distId ${cloudfrontId} --invalidate "/*"`;
+
+function runCmd(cmd) {
+  const output = spawnSync(cmd, { stdio: 'inherit', shell: true });
+
+  if (output.stdout) {
+    console.log(output.stdout);
+  }
+
+  if (output.stderr) {
+    console.error(output.stderr);
+  }
+}
+
+runCmd(build);
+runCmd(deployCmd);
+console.log(`Visit https://${bucketName}`);

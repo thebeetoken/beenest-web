@@ -1,0 +1,12 @@
+<svg xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink" width="24" height="24" viewBox="0 0 24 24">
+  <defs>
+    <path id="cancel-a" d="M6.04792248,6.84341761 C4.84995866,8.22498625 4.125,10.0278315 4.125,12 C4.125,16.3492424 7.6507576,19.875 12,19.875 C13.9721685,19.875 15.7750137,19.1500413 17.1565824,17.9520775 L6.04792248,6.84341761 Z M6.84341761,6.04792248 L17.9520775,17.1565824 C19.1500413,15.7750137 19.875,13.9721685 19.875,12 C19.875,7.6507576 16.3492424,4.125 12,4.125 C10.0278315,4.125 8.22498625,4.84995866 6.84341761,6.04792248 Z M12,21 C7.02943725,21 3,16.9705627 3,12 C3,7.02943725 7.02943725,3 12,3 C16.9705627,3 21,7.02943725 21,12 C21,16.9705627 16.9705627,21 12,21 Z"/>
+  </defs>
+  <g fill="currentColor" fill-rule="evenodd">
+    <!-- Removed <mask> because Safari would render this SVG as a square. See here for more info: https://github.com/thebeetoken/beenest/pull/445 -->
+    <g fill-rule="nonzero">
+      <use xlink:href="#cancel-a"/>
+      <use filter="url(#cancel-b)"/>
+    </g>
+  </g>
+</svg>

@@ -1,0 +1,12 @@
+<svg xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink" width="24" height="24" viewBox="0 0 24 24">
+  <defs>
+    <path id="email-a" d="M21.12,6 L2.87,6 C2.38789916,6.00547877 1.99996887,6.39786803 2,6.88 L2,17.12 C2.00261181,17.3578102 2.10029377,17.5846828 2.27125553,17.7500085 C2.44221729,17.9153341 2.67223587,18.0053587 2.91,18 L21.09,18 C21.3277641,18.0053587 21.5577827,17.9153341 21.7287445,17.7500085 C21.8997062,17.5846828 21.9973882,17.3578102 22,17.12 L22,6.88 C21.9945944,6.39624617 21.6037538,6.00540557 21.12,6 Z M19.81,6.91 L12,13.34 L4.19,6.92 L19.81,6.91 Z M3,17.12 L3,7.12 L11.78,14.34 C11.9603954,14.4873689 12.2196046,14.4873689 12.4,14.34 L21.14,7.15 L21.14,17.15 L3,17.12 Z"/>
+  </defs>
+  <g fill="currentColor" fill-rule="evenodd">
+    <!-- Removed <mask> because Safari would render this SVG as a square. See here for more info: https://github.com/thebeetoken/beenest/pull/445 -->
+    <g fill-rule="nonzero">
+      <use xlink:href="#email-a"/>
+      <use filter="url(#email-b)"/>
+    </g>
+  </g>
+</svg>

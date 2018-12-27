@@ -1,0 +1,51 @@
+import * as React from 'react';
+
+import LazyImage from 'shared/LazyImage';
+import Button from 'components/shared/Button';
+import { ToggleProvider, ToggleProviderRef } from 'components/shared/ToggleProvider';
+import CloseButton from 'components/shared/CloseButton';
+import Portal from 'components/shared/Portal';
+import ListingCarousel from 'components/routes/Listing/Listing/ListingCarousel';
+
+import ListingCarouselPortalContainer from './ListingCarouselPortal.container';
+
+interface Props {
+  listingPicUrl: string;
+  photos: string[];
+}
+
+const ListingGallery = ({ listingPicUrl, photos }: Props) => {
+  return (
+    <div className="listing-gallery-container">
+      <ToggleProvider>
+        {({ show, toggle }: ToggleProviderRef) => (
+          <>
+            <LazyImage src={listingPicUrl} onClick={toggle} transition />
+            <div className="listing-gallery-container--btn-wrapper">
+              <Button
+                background="secondary"
+                className="view-photos-button"
+                color="white"
+                radius="4px"
+                onClick={toggle}
+                suffix="decorative/camera"
+                textStyle="light-6">
+                View Photos
+              </Button>
+            </div>
+            {show && (
+              <Portal color="black" opacity={0.75}>
+                <ListingCarouselPortalContainer>
+                  <CloseButton onClose={toggle} />
+                  <ListingCarousel photos={photos} />
+                </ListingCarouselPortalContainer>
+              </Portal>
+            )}
+          </>
+        )}
+      </ToggleProvider>
+    </div>
+  );
+};
+
+export default ListingGallery;

@@ -1,0 +1,12 @@
+{
+  "name": "BeenestCloudfrontRewrite",
+  "version": "0.0.1",
+  "description": "",
+  "author": "me",
+  "private": true,
+  "keywords": [],
+  "devDependencies": {
+    "jest": "^23.4.1"
+  },
+  "dependencies": {}
+}
