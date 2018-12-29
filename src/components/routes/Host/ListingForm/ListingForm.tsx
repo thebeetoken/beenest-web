@@ -268,11 +268,10 @@ export default compose(
 )(ListingForm);
 
 function populateListingForm(fields: FormValues, listing: ListingInput): FormValues {
-  const a = Object.keys(fields).reduce((result: any, key) => {
+  return Object.keys(fields).reduce((result: any, key) => {
     result[key] = listing[key] || fields[key];
     return result;
   }, {});
-  return a;
 }
 
 function omitFields(key: string, value: any) {
