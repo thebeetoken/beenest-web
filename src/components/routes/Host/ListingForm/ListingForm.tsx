@@ -31,7 +31,7 @@ const defaultValues: FormValues = {
   },
   checkOutTime: '11:00 a.m.',
   city: '',
-  country: 'United States',
+  country: 'USA',
   description: '',
   homeType: 'Entire Place',
   // housing: '',
@@ -41,14 +41,14 @@ const defaultValues: FormValues = {
   lat: 0,
   lng: 0,
   listingPicUrl: '',
-  maxGuests: '',
-  minimumNights: '',
-  numberOfBathrooms: '',
-  numberOfBedrooms: '',
+  maxGuests: undefined,
+  minimumNights: undefined,
+  numberOfBathrooms: undefined,
+  numberOfBedrooms: undefined,
   photos: [],
   postalCode: '',
-  pricePerNightUsd: '',
-  securityDepositUsd: '',
+  pricePerNightUsd: undefined,
+  securityDepositUsd: undefined,
   sharedBathroom: '',
   sleepingArrangement: '',
   state: '',
@@ -145,8 +145,7 @@ class ListingForm extends React.Component<Props, State> {
             actions.setSubmitting(true);
             const { updateListing } = props;
             const { id } = props.match.params;
-            const listingInput = omitUntouchedFields(values, defaultValues);
-            return updateListing(id, listingInput)
+            return updateListing(id, values)
               .then(() => {
                 props.history.push(`/host/listings/${this.state.nextCrumb}`);
               })
@@ -277,13 +276,4 @@ function populateListingForm(fields: FormValues, listing: ListingInput): FormVal
 
 function omitFields(key: string, value: any) {
   return ['id', '__typename', 'createdAt'].includes(key) ? undefined : value;
-}
-
-function omitUntouchedFields(formValues: FormValues, defaultValues: FormValues): ListingInput {
-  return Object.keys(formValues)
-    .filter(key => formValues[key] !== defaultValues[key])
-    .reduce((obj: FormValues, key) => {
-      obj[key] = formValues[key];
-      return obj;
-    }, {});
 }
