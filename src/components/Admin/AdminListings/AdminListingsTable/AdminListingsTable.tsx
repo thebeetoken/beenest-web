@@ -41,11 +41,11 @@ const AdminListingsTable = ({ deleteListing }: Props): JSX.Element => (
 const AdminListingsTableHeader = () => (
   <tr className="admin-table-row-container">
     <th className="admin-table-row--item">ID</th>
-    <th className="admin-table-row--item">Listing Title</th>
+    <th className="admin-table-row--item">Title</th>
     <th className="admin-table-row--item">Location</th>
     <th className="admin-table-row--item">Host</th>
     <th className="admin-table-row--item">Status</th>
-    <th className="admin-table-row--item">Edit/Remove</th>
+    <th className="admin-table-row--item">Edit</th>
   </tr>
 );
 
