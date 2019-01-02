@@ -1,6 +1,10 @@
 import { Currency } from 'networking/bookings';
 
 export function numberToLocaleString(value: number, currency: Currency | null = Currency.USD): string {
+  if (!value) {
+    return '';
+  }
+
   return value.toLocaleString(undefined, {
     minimumFractionDigits: getMinimumFractionDigits(currency),
     maximumFractionDigits: getMaximumFractionDigits(currency),
