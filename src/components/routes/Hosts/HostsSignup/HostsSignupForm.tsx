@@ -112,11 +112,11 @@ class HostsSignupForm extends React.Component<HostsSignupProps, State> {
             before we can access the .then() in the handleSubmit function.
           */
           if (user && submitted) {
-            return <Redirect to="/hosts/signup/thank_you?utm_campaign=host_account_created" />
+            return <Redirect to="/host/listings?utm_campaign=host_account_created" />
           }
 
           if (user && !submitted) {
-            return <Redirect to="/host" />
+            return <Redirect to="/host/listings" />
           }
 
           return (
