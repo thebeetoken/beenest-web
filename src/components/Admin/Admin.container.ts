@@ -38,6 +38,10 @@ const AdminContainer = styled.div`
         position: relative;
         right: 0;
         width: 1000px;
+
+        table {
+          overflow-x:auto;
+        }
       }
     }
   }

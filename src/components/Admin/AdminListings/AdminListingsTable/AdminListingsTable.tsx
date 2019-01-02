@@ -39,14 +39,13 @@ const AdminListingsTable = ({ deleteListing }: Props): JSX.Element => (
 );
 
 const AdminListingsTableHeader = () => (
-  <tr className="admin-table-header-container">
-    <th className="admin-table-header--item">ID</th>
-    <th className="admin-table-header--item">Listing Title</th>
-    <th className="admin-table-header--item">Location</th>
-    <th className="admin-table-header--item">Host</th>
-    <th className="admin-table-header--item">Host Email</th>
-    <th className="admin-table-header--item">Status</th>
-    <th className="admin-table-header--item">Edit/Remove</th>
+  <tr className="admin-table-row-container">
+    <th className="admin-table-row--item">ID</th>
+    <th className="admin-table-row--item">Listing Title</th>
+    <th className="admin-table-row--item">Location</th>
+    <th className="admin-table-row--item">Host</th>
+    <th className="admin-table-row--item">Status</th>
+    <th className="admin-table-row--item">Edit/Remove</th>
   </tr>
 );
 

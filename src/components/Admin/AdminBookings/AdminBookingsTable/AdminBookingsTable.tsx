@@ -34,13 +34,13 @@ const AdminBookingsTable = (): JSX.Element => (
 );
 
 const AdminBookingsTableHeader = () => (
-  <tr className="admin-table-header-container">
-    <th className="admin-table-header--item">Booking ID</th>
-    <th className="admin-table-header--item">Listing</th>
-    <th className="admin-table-header--item">Dates</th>
-    <th className="admin-table-header--item">Paid Amount</th>
-    <th className="admin-table-header--item">Status</th>
-    <th className="admin-table-header--item">Confirmation</th>
+  <tr className="admin-table-row-container">
+    <th className="admin-table-row--item">ID</th>
+    <th className="admin-table-row--item">Listing</th>
+    <th className="admin-table-row--item">Dates</th>
+    <th className="admin-table-row--item">Paid Amount</th>
+    <th className="admin-table-row--item">Status</th>
+    <th className="admin-table-row--item">Confirmation</th>
   </tr>
 );
 

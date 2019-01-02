@@ -99,13 +99,12 @@ class AdminUsersTable extends React.Component<Props, State> {
 }
 
 const AdminUsersTableHeader = () => (
-  <tr className="admin-table-header-container">
-    <th className="admin-table-header--item">ID</th>
-    <th className="admin-table-header--item">Email</th>
-    <th className="admin-table-header--item">Name</th>
-    <th className="admin-table-header--item">Payout Accounts</th>
-    <th className="admin-table-header--item">Account Status</th>
-    <th className="admin-table-header--item">Edit</th>
+  <tr className="admin-table-row-container">
+    <th className="admin-table-row--item">ID</th>
+    <th className="admin-table-row--item">User</th>
+    <th className="admin-table-row--item">Payout Accounts</th>
+    <th className="admin-table-row--item">Account Status</th>
+    <th className="admin-table-row--item">Edit</th>
   </tr>
 );
 
@@ -128,9 +127,8 @@ class SearchInput extends React.Component<SearchInputProps, SearchInputState> {
         <AdminInputWrapper>
           <input
             onChange={this.handleInput}
-            placeholder="Enter email or partial email"
+            placeholder="Enter email"
             name="query"
-            ref="adminUserquery"
             type="text"
             value={this.state.query} />
         </AdminInputWrapper>
@@ -140,7 +138,7 @@ class SearchInput extends React.Component<SearchInputProps, SearchInputState> {
           radius="4px"
           type="submit"
           size="small">
-          Submit
+          Search
         </Button>
       </form>
     )

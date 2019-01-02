@@ -8,8 +8,6 @@ const AdminBookingsTableContainer = styled(AdminTableContainer)`
   height: 100%;
   .admin-table-row-container {
     .admin-table-row--item:nth-of-type(1) {
-      cursor: pointer;
-      word-break: break-all;
       @media (min-width: 1025px) {
         &:hover {
           opacity: 0.5;
@@ -18,7 +16,6 @@ const AdminBookingsTableContainer = styled(AdminTableContainer)`
     }
     .admin-table-row--item:nth-of-type(2) {
       cursor: pointer;
-      word-break: break-all;
       @media (min-width: 1025px) {
         &:hover {
           opacity: 0.5;
