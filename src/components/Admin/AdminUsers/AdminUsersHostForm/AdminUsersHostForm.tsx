@@ -390,18 +390,17 @@ class AdminUsersHostForm extends React.Component<HostProps, HostFormState> {
           </div>
 
           <div className="admin-form--item-notice">
-            <h4>Host Stripe Express:</h4>
+            <h4>Stripe Express Account:</h4>
             {(this.props.host && this.props.host.stripeAccountDashboardLink) ?
               <BeeLink href={this.props.host.stripeAccountDashboardLink} target="_blank">
                 <span>Click here to go to Host's Stripe Express Account</span>
               </BeeLink>
               :
               <>
-                <p>Host does not have a Host Stripe Express Account, please ask the host to visit:</p>
-                <BeeLink href={`${BEENEST_HOST}/account/stripe_express/new`} target="_blank">
-                  {`${BEENEST_HOST}/account/stripe_express/new`}
+                <p>Host has not entered their banking info for payout, please ask the host to visit:</p>
+                <BeeLink href={`${BEENEST_HOST}/host/payments`} target="_blank">
+                  {`${BEENEST_HOST}/host/payments`}
                 </BeeLink>
-                <p>after creating a Beenest account to create a Stripe Express Account</p>
               </>
             }
           </div>
