@@ -12,7 +12,7 @@ const AdminListings = () => (
   <AdminListingsContainer className="admin-sub-container">
     <div className="admin-sub-content-container">
       <Switch>
-        <Redirect exact from="/admin/listings" to="/admin/listings/all" />
+        <Redirect exact from="/admin/listings" to={{ pathname: '/admin/listings/all', search: location.search }} />
         <Route exact path="/admin/listings/all" component={AdminListingsTable} />
         <Route exact path="/admin/listings/new" component={AdminListingsNew} />
         <Route exact path={`/admin/listings/:id/edit`} component={(props: RouterProps) => <AdminListingsEdit {...props} />} />
