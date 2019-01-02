@@ -15,7 +15,6 @@ interface Props extends Listing {
 class AdminListingTableRow extends React.Component<Props> {
   render() {
     const { city, country, createdAt, id, isInactive, host, state } = this.props;
-    const splitEmail = host ? host.email.split('@') : '';
     const title = this.props.title.length <= 30 ? this.props.title : `${this.props.title.substring(0, 30)}...`;
     return (
       <tr className="admin-table-row-container">
@@ -37,10 +36,10 @@ class AdminListingTableRow extends React.Component<Props> {
         </td>
         <td className="admin-table-row--item">
           <BeeLink to={host ? `/admin/users/${host.id}` : ''}>
-            <span>{`${host.firstName} ${host.lastName}`}</span>
+            <span>{host ? `${host.firstName} ${host.lastName}` : ''}</span>
           </BeeLink>
           <CopyToClipboard text={host ? host.email : 'email does not exist'}>
-            <span>{host.email ? host.email : 'email does not exist'}</span>
+            <span>{host && host.email ? host.email : 'email does not exist'}</span>
           </CopyToClipboard>
         </td>
         <td className="admin-table-row--item">
