@@ -62,7 +62,7 @@ class Host extends React.Component<Props, State> {
                   <AuthenticatedRoute exact path="/host/bookings" component={HostBookings} />
                   <AuthenticatedRoute exact path="/host/listings" render={() => <HostListings createListing={this.handleNewListingClick} />} />
                   <AuthenticatedRoute exact path="/host/payments" component={HostPayments} />
-                  <Redirect from="/host" to="/host/bookings" />
+                  <Redirect from="/host" to="/host/listings" />
                   <Route component={NotFound} />
                 </Switch>
               );
