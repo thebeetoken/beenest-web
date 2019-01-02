@@ -107,7 +107,7 @@ class AdminBookingStatusOptions extends React.Component<Props, State> {
                 noPadding
                 onClick={toggle}
                 width="24px">
-                {guestPaid ? 'payout' : 'accept'}
+                {guestPaid ? 'Payout' : 'Accept'}
               </Fab>
               {show && (
                 <Portal color="up" opacity={0.9} onClick={toggle}>
@@ -131,7 +131,7 @@ class AdminBookingStatusOptions extends React.Component<Props, State> {
               {show && (
                 <Portal color="up" opacity={0.9} onClick={toggle}>
                   <AdminBookingStatusOptionsCard
-                    verb={guestPaid ? 'refund' : 'reject'}
+                    verb={guestPaid ? 'Refund' : 'Reject'}
                     updateBooking={this.handleBooking.bind(this, toggle, rescindBooking)}
                     onClose={toggle}
                     {...this.props}
