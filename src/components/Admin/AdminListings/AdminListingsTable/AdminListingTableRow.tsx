@@ -6,7 +6,7 @@ import BeeLink from 'shared/BeeLink';
 import Fab from 'shared/Fab';
 import { getListingStatus } from 'utils/listingStatus';
 import { Listing } from 'networking/listings';
-import { dateToYear } from 'utils/formatDate';
+import { formatSingleDate } from 'utils/formatDate';
 
 interface Props extends Listing {
   deleteListing: (id: string) => Promise<any>,
@@ -44,7 +44,7 @@ class AdminListingTableRow extends React.Component<Props> {
         </td>
         <td className="admin-table-row--item">
           <span>{getListingStatus(isInactive)}</span>
-          <span>Created: {dateToYear(createdAt)}</span>
+          <span>Created: {formatSingleDate(createdAt)}</span>
         </td>
         <td className="admin-table-row--item">
           <span className="edit-container">
