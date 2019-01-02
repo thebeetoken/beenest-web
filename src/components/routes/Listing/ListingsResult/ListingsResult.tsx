@@ -68,7 +68,7 @@ const ListingQuery = () => {
             <div className="listing-query-body--no-results">
               <h3>No listings found.</h3>
               <p>You're in luck! Be the first to list your property in {locationQuery} and get $200 in BEE as a signing bonus!</p>
-              <BeeLink href="/hosts/signup"><Button>Add your listing now</Button></BeeLink>
+              <BeeLink href="/hosts/signup?utm_source=search_host_signup_button"><Button>Add your listing now</Button></BeeLink>
             </div>
           );
         }
