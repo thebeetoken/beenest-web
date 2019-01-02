@@ -115,12 +115,13 @@ class EnhancedComponent extends React.Component<Props, HostPaymentsContentState>
           <div className="host-payments-wallet-container">
             <div className="host-payments-wallet-container--input">
               <InputLabel htmlFor="walletAddress">Wallet Address</InputLabel>
+              <p>Add Wallet Address to receive crypto currency payments.</p>
               <InputWrapper>
                 <input
                   className={getInputValidationClass(inputValidation.walletAddress)}
                   id="walletAddress"
                   onChange={this.handleChange}
-                  placeholder="Add Wallet Address for Payments Recieved"
+                  placeholder="0xYYYYY"
                   type="text"
                   name="walletAddress"
                   value={inputForm.walletAddress} />
@@ -148,11 +149,11 @@ class EnhancedComponent extends React.Component<Props, HostPaymentsContentState>
           </div>
           <div className="host-payments-stripe-container">
             <div className="host-payments-stripe-container--meta">
-              <InputLabel>Stripe Express</InputLabel>
+              <InputLabel>Bank Information</InputLabel>
               <p>
                 {stripeAccountDashboardLink
-                  ? 'Congrats! Stripe express account has been set up.'
-                  : 'Stripe express account has not been set up.'
+                  ? 'Congrats! Your bank information has been set up and you are able to get paid.'
+                  : 'Add your bank information to our payment processing partner, Stripe, so you can get paid.'
                 }
               </p>
             </div>
@@ -162,7 +163,7 @@ class EnhancedComponent extends React.Component<Props, HostPaymentsContentState>
               <Button background="secondary" color="white" size="small">
                 {stripeAccountDashboardLink
                   ? 'Go To Stripe Dashboard'
-                  : 'Setup Stripe Express'
+                  : 'Setup Stripe Account'
                 }
               </Button>
             </BeeLink>
