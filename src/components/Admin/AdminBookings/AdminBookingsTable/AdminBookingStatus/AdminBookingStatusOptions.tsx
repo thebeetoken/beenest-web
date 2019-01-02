@@ -65,7 +65,9 @@ class AdminBookingStatusOptions extends React.Component<Props, State> {
           <ToggleProvider>
             {({ show, toggle }: ToggleProviderRef) => (
               <>
-                <Fab clear color="upper" height="40px" icon="utils/undo" noPadding onClick={toggle} width="40px" />
+                <Fab clear color="upper" height="40px" icon="utils/undo" noPadding onClick={toggle} width="40px">
+                  Cancel
+                </Fab>
                 {show && (
                   <Portal color="up" opacity={0.9} onClick={toggle}>
                     <AdminBookingStatusOptionsCard
@@ -104,8 +106,9 @@ class AdminBookingStatusOptions extends React.Component<Props, State> {
                 icon="utils/check-circle"
                 noPadding
                 onClick={toggle}
-                width="24px"
-              />
+                width="24px">
+                {guestPaid ? 'payout' : 'accept'}
+              </Fab>
               {show && (
                 <Portal color="up" opacity={0.9} onClick={toggle}>
                   <AdminBookingStatusOptionsCard
@@ -122,7 +125,9 @@ class AdminBookingStatusOptions extends React.Component<Props, State> {
         <ToggleProvider>
           {({ show, toggle }: ToggleProviderRef) => (
             <>
-              <Fab clear color="error" height="24px" icon="utils/x-circle" noPadding onClick={toggle} width="24px" />
+              <Fab clear color="error" height="24px" icon="utils/x-circle" noPadding onClick={toggle} width="24px">
+                {guestPaid ? 'refund' : 'reject'}
+              </Fab>
               {show && (
                 <Portal color="up" opacity={0.9} onClick={toggle}>
                   <AdminBookingStatusOptionsCard
