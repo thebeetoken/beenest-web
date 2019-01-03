@@ -70,7 +70,7 @@ function getInitialState(props: Props): State {
     checkInDate ? moment(checkInDate) : null;
   const endDate = props.checkOutDate ? moment(props.checkOutDate) :
     checkOutDate ? moment(checkOutDate) : null;
-  const isDisabled: boolean = !(checkInDate && checkOutDate);
+  const isDisabled: boolean = !(startDate && endDate);
   return {
     startDate,
     endDate,
@@ -178,7 +178,9 @@ class BookingRequestCard extends React.Component<Props, State> {
       .clone()
       .utc()
       .set('hours', 0);
-    return utcDay.isBefore(this.firstAvailableDay) || utcDay.isAfter(this.futureBlockedDates);
+    const firstDay = this.props.checkInDate ? moment.utc(this.props.checkInDate) : this.firstAvailableDay;
+    const lastDay = this.props.checkOutDate ? moment.utc(this.props.checkOutDate) : this.futureBlockedDates;
+    return utcDay.isBefore(firstDay) || utcDay.isAfter(lastDay);
   };
 
   handleOnDatesChange = ({ startDate, endDate }: DateRange) => {
