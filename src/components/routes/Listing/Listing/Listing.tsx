@@ -46,6 +46,7 @@ class Listing extends React.Component<RouterProps> {
               pricePerNightEth,
               pricePerNightUsd,
               reservations,
+              totalQuantity,
               host,
             } = listing;
             const { showCard } = this.state;
@@ -80,6 +81,7 @@ class Listing extends React.Component<RouterProps> {
                       pricePerNightEth={pricePerNightEth}
                       pricePerNightUsd={pricePerNightUsd}
                       reservations={reservations}
+                      totalQuantity={totalQuantity}
                     />
                   );
                 }}
