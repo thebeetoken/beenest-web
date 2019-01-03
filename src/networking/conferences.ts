@@ -93,7 +93,7 @@ export const GET_CONFERENCE = gql`
         homeType
         id
         idSlug
-        isInactive
+        isActive
         listingPicUrl
         pricePerNight
         pricePerNightUsd
