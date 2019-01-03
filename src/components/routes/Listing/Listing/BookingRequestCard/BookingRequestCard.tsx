@@ -289,9 +289,9 @@ class BookingRequestCard extends React.Component<Props, State> {
       );
     }
 
-    return reservations.some(({ startDate, endDate }: Reservation) => {
+    return reservations.filter(({ startDate, endDate }: Reservation) => {
       return utcDay.isBetween(startDate, endDate, undefined, pickingEnd ? '(]' : '[)');
-    });
+    }).length >= totalQuantity;
   };
 }
 

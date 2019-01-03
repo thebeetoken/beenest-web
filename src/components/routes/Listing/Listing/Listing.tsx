@@ -81,7 +81,7 @@ class Listing extends React.Component<RouterProps> {
                       pricePerNightEth={pricePerNightEth}
                       pricePerNightUsd={pricePerNightUsd}
                       reservations={reservations}
-                      totalQuantity={totalQuantity}
+                      totalQuantity={totalQuantity || 1}
                     />
                   );
                 }}
