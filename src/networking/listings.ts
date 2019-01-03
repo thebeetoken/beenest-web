@@ -27,7 +27,7 @@ export interface Listing {
   houseRules: string;
   id: string;
   idSlug: string;
-  isInactive: boolean;
+  isActive: boolean;
   lat: number;
   lng: number;
   maxGuests: number;
@@ -93,7 +93,7 @@ export interface ListingInput {
   homeType?: string;
   houseRules?: string;
   icalUrls?: string[];
-  isInactive?: boolean;
+  isActive?: boolean;
   lat?: number | undefined;
   listingPicUrl?: string;
   lng?: number | undefined;
@@ -228,7 +228,7 @@ export const GET_LISTING = gql`
       hostNameSlug
       hostId
       icalUrls
-      isInactive
+      isActive
       postalCode
       totalQuantity
       updatedAt
@@ -303,7 +303,7 @@ export const GET_LISTING_FORM = gql`
       houseRules
       icalUrls
       id
-      isInactive
+      isActive
       maxGuests
       minimumNights
       numberOfBathrooms
@@ -377,7 +377,7 @@ export const GET_ALL_LISTINGS = gql`
       hostNameSlug
       hostId
       id
-      isInactive
+      isActive
       lat
       lng
       maxGuests
@@ -421,7 +421,7 @@ export const CREATE_LISTING = gql`
       hostNameSlug
       hostId
       icalUrls
-      isInactive
+      isActive
       postalCode
       updatedAt
       ...ListingDetails
