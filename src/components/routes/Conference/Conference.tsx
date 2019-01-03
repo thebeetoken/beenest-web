@@ -64,7 +64,7 @@ const Conference = ({ match }: RouterProps) => (
             {({ screenType }: AppConsumerProps) => (
               <>
                 <div className="conference-hero">
-                  <Overlay color="black" opacity={0.3}>
+                  <Overlay color="black" opacity={0.6}>
                     <LazyImage src={coverImage && coverImage.url} position='bottom left' transition />
                     <div className="text-container">
                       <h1>{title}</h1>
