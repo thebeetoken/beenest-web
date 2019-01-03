@@ -4,14 +4,11 @@ import CopyToClipboard from 'react-copy-to-clipboard';
 
 import AdminUsersDeleteCard from './AdminUsersDeleteCard';
 
-import { SETTINGS } from 'configs/settings';
 import BeeLink from 'shared/BeeLink';
 import Fab from 'shared/Fab';
 import Portal from 'shared/Portal';
 import { ToggleProvider, ToggleProviderRef } from 'shared/ToggleProvider';
 import { User } from 'networking/users';
-
-const { BEENEST_HOST } = SETTINGS;
 
 interface Props extends User {
   onDeleteUser: (id: string) => Promise<any>;
@@ -19,7 +16,6 @@ interface Props extends User {
 
 const AdminUsersTableRow = (props: Props) => {
   const { completedVerification, onDeleteUser, id, email, firstName, lastName, stripeAccountDashboardLink, walletAddress } = props;
-  const splitEmail = email ? email.split('@') : 'email does not exist';
   return (
     <tr className="admin-table-row-container">
       <td className="admin-table-row--item">
@@ -28,30 +24,20 @@ const AdminUsersTableRow = (props: Props) => {
       </CopyToClipboard>
       </td>
       <td className="admin-table-row--item">
-      <CopyToClipboard text={email || 'email does not exist'}>
-        <span>
-          <span>{email ? splitEmail[0] : 'email does not exist'}</span>
-          <span>@{email ? splitEmail[1] : 'email does not exist'}</span>
-        </span>
-      </CopyToClipboard>
-      </td>
-      <td className="admin-table-row--item">
-        <span>{firstName}</span>
-        <span>{lastName}</span>
+        <span>{firstName} {lastName}</span>
+        <CopyToClipboard text={email || 'email does not exist'}>
+          <span>{email}</span>
+        </CopyToClipboard>
       </td>
       <td className="admin-table-row--item">
         <span className={walletAddress ? 'found' : 'not-found'}>Wallet: {walletAddress ? 'Found' : 'Not Found'}</span>
         <span className={stripeAccountDashboardLink ? 'found' : 'not-found'}>Stripe:
-          {stripeAccountDashboardLink
-            ? 'Found'
-            : <BeeLink href={`${BEENEST_HOST}/account/stripe_express/new`} target="_blank">
-                Not Found
-              </BeeLink>
-          }
+          {stripeAccountDashboardLink ? 'Found' : 'Not Found' }
         </span>
       </td>
       <td className="admin-table-row--item">
         <span>{completedVerification ? 'Verified' : 'Not Verified'}</span>
+        <span><BeeLink href={`https://app.autopilothq.com/#contacts/list/all/search/${email}/`} target="_blank">User Activity Autopilot</BeeLink></span>
       </td>
       <td className="admin-table-row--item">
         <span className="edit-container">

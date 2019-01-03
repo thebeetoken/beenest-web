@@ -16,13 +16,9 @@ const AdminTableContainer = styled.div`
   table {
     border-collapse: collapse;
     height: 100%;
-    table-layout: fixed;
-    width: 1000px;
+    width: 100%;
     tbody {
       display: block;
-      height: calc(100% - 74px);
-      overflow-x: hidden;
-      overflow-y: scroll;
       padding-bottom: 96px;
       position: relative;
       &::-webkit-scrollbar {
@@ -40,40 +36,14 @@ const AdminTableContainer = styled.div`
         z-index: 1;
       }
     }
-    thead {
-      display: flex;
-      justify-content: center;
-    }
   }
 
 
-  .admin-table-header-container {
-    display: flex;
-    height: 74px;
-    position: relative;
-    width: 960px;
-    z-index: 1;
-    &::before {
-      background-color: ${color('body')};
-      top: 74px;
-      content: '';
-      height: 1px;
-      left: 0;
-      position: absolute;
-      right: 0;
-    }
-    .admin-table-header--item {
-      ${typography('welter', 5)}
-      align-items: center;
-      color: ${color('dark')};
-      display: flex;
-      flex-shrink: 0;
-      justify-content: center;
-      padding: 0;
-      width: 160px;
-    }
+  td.admin-table-row--item {
+    ${typography('welter', 5)}
+    color: ${color('dark')};
+    padding: 8px;
   }
-
 
   .admin-table-row-container {
     background-color: transparent;

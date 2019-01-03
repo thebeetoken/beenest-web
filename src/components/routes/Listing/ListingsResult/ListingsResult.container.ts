@@ -36,6 +36,10 @@ const ListingsContainerContainerMobile = styled.section`
   .listing-query-body--map-toggle {
     display: none;
   }
+
+  .listing-query-body--no-results p {
+    margin: 12px 0;
+  }
 `;
 
 const ListingsContainerContainerTablet = styled(ListingsContainerContainerMobile)`

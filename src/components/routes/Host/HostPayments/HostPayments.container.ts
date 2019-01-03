@@ -17,6 +17,13 @@ const HostPaymentsContainer = styled.section`
     .host-payments-stripe-container--meta {
       width: 416px;
     }
+    p {
+      margin-top: 8px;
+      ${typography('read', 1)}
+      align-items: center;
+      color: ${color('upper')};
+      display: flex;
+    }
     button {
       width: 164px;
     }
@@ -37,13 +44,6 @@ const HostPaymentsContainer = styled.section`
     .host-payments-stripe-container--meta {
       display: flex;
       flex-direction: column;
-      p {
-        ${typography('read', 1)}
-        align-items: center;
-        color: ${color('upper')};
-        display: flex;
-        height: 40px;
-      }
     }
     a {
       width: 182px;

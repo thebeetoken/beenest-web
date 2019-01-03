@@ -7,6 +7,8 @@ import ListingsResultMap from './ListingsResultMap';
 
 import AudioLoading from 'shared/loading/AudioLoading';
 import { SEARCH_LISTINGS } from 'networking/listings';
+import BeeLink from 'shared/BeeLink';
+import Button from 'shared/Button';
 import ListingCards from 'shared/ListingCards';
 import { parseQueryString } from 'utils/queryParams';
 import SearchBar from 'shared/SearchBar';
@@ -63,20 +65,10 @@ const ListingQuery = () => {
         const { searchListings } = data;
         if (!searchListings.length) {
           return (
-            <div>
-              <h3>We couldn't find any results for {locationQuery}</h3>
-              <p>We are currently in:</p>
-              <ul>
-                <li>
-                  <a href="/listings?locationQuery=san+francisco&utc_term=san+francisco">San Francisco</a>
-                </li>
-                <li>
-                  <a href="/listings?locationQuery=los+angeles&utc_term=los+angeles">Los Angeles</a>
-                </li>
-                <li>
-                  <a href="/listings?locationQuery=new+york&utc_term=new+york">New York</a>
-                </li>
-              </ul>
+            <div className="listing-query-body--no-results">
+              <h3>No listings found.</h3>
+              <p>You're in luck! Be the first to list your property in {locationQuery} and get $200 in BEE as a signing bonus!</p>
+              <BeeLink to="/hosts/signup?utm_source=search_host_signup_button"><Button>Add your listing now</Button></BeeLink>
             </div>
           );
         }
