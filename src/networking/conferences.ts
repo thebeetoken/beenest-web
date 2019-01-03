@@ -104,6 +104,7 @@ export const GET_CONFERENCE = gql`
       }
       listingIds
       startDate
+      city
       state
       title
       venue

@@ -1,7 +1,7 @@
 import * as React from 'react';
 
 import { Query } from 'react-apollo';
-import { GET_CONFERENCE } from 'networking/conferences';
+import { GET_CONFERENCE, Conference } from 'networking/conferences';
 import format from 'date-fns/format';
 import { ListingShort } from 'networking/listings';
 
@@ -13,8 +13,25 @@ import LazyImage from 'shared/LazyImage';
 import { HotelCard } from 'shared/HotelCard';
 import Overlay from 'shared/Overlay';
 import ListingCards from 'shared/ListingCards';
+import Button from 'shared/Button';
 
 const HOTEL_ROOM = 'Hotel Room';
+
+const HostCta = ({title, city}:Conference) => (
+  <section className="host-cta">
+    <div className="host-cta-content">
+      <h2>Do You Own a Vacation Rental?</h2>
+      <p>
+         Want to Feature Your Listing for {title} or a Future Conference in the {city} Area
+      </p>
+      <BeeLink to="/hosts/signup?utm_source=conference_host_signup_cta">
+        <Button size="short">
+          Start Earning Now
+        </Button>
+      </BeeLink>
+    </div>
+  </section>
+);
 
 const Conference = ({ match }: RouterProps) => (
   <ConferenceContainer className="bee-conference">
@@ -65,6 +82,8 @@ const Conference = ({ match }: RouterProps) => (
                   </div>
                   {!!propertyListings.length && <h2>Available Nearby Listings:</h2>}
                   <ListingCards listings={propertyListings} />
+
+                  <HostCta {...conference} />
                 </div>
               </>
             )}
