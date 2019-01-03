@@ -61,7 +61,7 @@ const ConferenceContainerMobile = styled.section`
     .host-cta {
       display: flex;
       flex-direction: column;
-      padding: 16px;
+      padding: 48px 16px 16pc 16px;
       .host-cta-content {
         margin: 0 0 0 24px;
         h2 {
