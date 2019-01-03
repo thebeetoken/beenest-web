@@ -62,11 +62,14 @@ interface QueryParams {
   numberOfGuests?: string;
 }
 
-function getInitialState({ maxGuests }: Props): State {
+function getInitialState(props: Props): State {
+  const { maxGuests } = props;
   const queryParams: QueryParams = parseQueryString(location.search);
   const { checkInDate, checkOutDate, numberOfGuests } = queryParams;
-  const startDate = checkInDate ? moment(checkInDate) : null;
-  const endDate = checkOutDate ? moment(checkOutDate) : null;
+  const startDate = props.checkInDate ? moment(props.checkInDate) :
+    checkInDate ? moment(checkInDate) : null;
+  const endDate = props.checkOutDate ? moment(props.checkOutDate) :
+    checkOutDate ? moment(checkOutDate) : null;
   const isDisabled: boolean = !(checkInDate && checkOutDate);
   return {
     startDate,

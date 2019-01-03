@@ -72,6 +72,8 @@ class Listing extends React.Component<RouterProps> {
                       loggedIn={!!user}
                       completedVerification={completedVerification}
                       listingId={id}
+                      checkInDate={checkInDate}
+                      checkOutDate={checkOutDate}
                       maxGuests={maxGuests}
                       minimumNights={minimumNights}
                       pricePerNight={pricePerNight}
