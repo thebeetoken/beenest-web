@@ -18,20 +18,12 @@ interface Props {
   deleteListing: (id: string) => Promise<any>,
 }
 
-function match(listing: Listing, params: QueryParams) {
-  if (params.userId) {
-    return !!listing.host && listing.host.id === params.userId;
-  }
-  if (params.userEmail) {
-    return !!listing.host && listing.host.email === params.userEmail;
-  }
-  return true;
-}
-
 const AdminListingsTable = ({ deleteListing }: Props): JSX.Element => {
   const queryParams: QueryParams = parseQueryString(location.search);
+  const { userId, userEmail } = queryParams;
+  console.log(userId, userEmail);
   return (<AdminListingsTableContainer>
-    <Query query={GET_ALL_LISTINGS}>
+    <Query query={GET_ALL_LISTINGS} variables={{ input: { userId, userEmail } }}>
       {({ loading, error, data }): JSX.Element => {
         if (loading) {
           return <AdminLoading />;
@@ -40,9 +32,7 @@ const AdminListingsTable = ({ deleteListing }: Props): JSX.Element => {
           return <h1>{error ? error.message : 'Error / No Data'}</h1>;
         }
         const { allListings } = data;
-        const renderAdminListingTableRow = allListings.filter((listing: Listing) => (
-          match(listing, queryParams)
-        )).map((listing: Listing) => (
+        const renderAdminListingTableRow = allListings.map((listing: Listing) => (
           <AdminListingTableRow key={listing.id} {...listing} deleteListing={deleteListing} />
         ));
         return (
