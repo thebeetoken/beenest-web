@@ -68,10 +68,9 @@ const ListingFormSchema = Yup.object().shape({
   checkInTime: Yup.object().shape({
     from: Yup.string().oneOf(timeOptions),
     to: Yup.string().oneOf(timeOptions),
-  }).test('validCheckOutTime', '${path} interval is not valid', function () {
+  }).test('validCheckOutTime', 'Check-in (from) and Check-in (to) cannot be the same.', function () {
     const { from, to } = this.parent.checkInTime;
-    const fromIndex = timeOptions.indexOf(from);
-    return fromIndex !== -1 && timeOptions.indexOf(to) > fromIndex;
+    return from !== to;
   }),
   checkOutTime: Yup.string().oneOf(timeOptions),
   city: Yup.string().max(60, 'Too Long!'),
