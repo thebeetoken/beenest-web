@@ -15,7 +15,6 @@ import GeneralWrapper from 'shared/GeneralWrapper';
 import NotFound from 'routes/NotFound';
 import Button from 'components/shared/Button';
 import timeOptions from 'utils/timeOptions';
-import BeeLink from 'components/shared/BeeLink';
 
 interface FormValues {
   [name: string]: boolean | string | string[] | number | object | undefined;
@@ -199,10 +198,6 @@ class ListingForm extends React.Component<Props, State> {
                     <Redirect exact from="/host/listings/:id/edit" to="/host/listings/:id/listing_info" />
                     <Route component={NotFound} />
                   </Switch>
-                  
-                  <div className="form-item asterisk-text">
-                    <p>*Your listing is not approved yet. Please email <BeeLink href={`mailto:${`support+${this.props.listing.id}@beenest.com`}?Subject=Your%20listing%20on%20Beenest!`}>support@beenest.com</BeeLink> to approve your listing.</p>
-                  </div>
 
                   <Button
                     onClick={() => {
