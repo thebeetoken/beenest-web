@@ -26,6 +26,8 @@ interface CreateBookingInput {
 
 interface Props extends RouterProps {
   loggedIn: boolean;
+  checkInDate: string;
+  checkOutDate: string;
   completedVerification: boolean;
   listingId: number;
   maxGuests: number;
@@ -34,6 +36,7 @@ interface Props extends RouterProps {
   pricePerNightEth: number;
   pricePerNightUsd: number;
   reservations: Reservation[];
+  totalQuantity: number;
   createBooking: (input: CreateBookingInput) => Promise<Booking>;
 }
 
@@ -268,7 +271,7 @@ class BookingRequestCard extends React.Component<Props, State> {
   handleIsDayBlocked = (day: moment.Moment): boolean => {
     if (!this.props.reservations.length) return false;
 
-    const { reservations } = this.props;
+    const { reservations, totalQuantity } = this.props;
     const { focusedInput } = this.state;
     const utcDay = day
       .clone()
@@ -280,9 +283,9 @@ class BookingRequestCard extends React.Component<Props, State> {
       const selectedStartDate = this.state.startDate.utc().set('hours', 0);
       return (
         utcDay.isBefore(selectedStartDate) ||
-        reservations.some(({ startDate, endDate }: Reservation) => {
+        reservations.filter(({ startDate, endDate }: Reservation) => {
           return selectedStartDate.isBefore(endDate) && utcDay.isAfter(startDate);
-        })
+        }).length >= totalQuantity
       );
     }
 
