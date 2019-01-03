@@ -21,7 +21,6 @@ interface Props {
 const AdminListingsTable = ({ deleteListing }: Props): JSX.Element => {
   const queryParams: QueryParams = parseQueryString(location.search);
   const { userId, userEmail } = queryParams;
-  console.log(userId, userEmail);
   return (<AdminListingsTableContainer>
     <Query query={GET_ALL_LISTINGS} variables={{ input: { userId, userEmail } }}>
       {({ loading, error, data }): JSX.Element => {
