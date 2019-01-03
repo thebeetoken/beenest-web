@@ -76,13 +76,21 @@ const Conference = ({ match }: RouterProps) => (
                   </Overlay>
                 </div>
                 <div className="conference-body">
-                  {!!renderHotelListings.length && <h2>Hotel Packages Available:</h2>}
-                  <div className="conference-hotels-container">
-                    {renderHotelListings}
-                  </div>
-                  {!!propertyListings.length && <h2>Available Nearby Listings:</h2>}
-                  <ListingCards listings={propertyListings} />
+                  {!!renderHotelListings.length &&
+                     <>
+                       <h2>Hotel Packages Available:</h2>
+                       <div className="conference-hotels-container">
+                         {renderHotelListings}
+                       </div>
+                     </>
+                  }
 
+                  {!!propertyListings.length &&
+                    <>
+                      <h2>Available Nearby Listings:</h2>
+                      <ListingCards listings={propertyListings} />
+                    </>
+                  }
                   <HostCta {...conference} />
                 </div>
               </>
