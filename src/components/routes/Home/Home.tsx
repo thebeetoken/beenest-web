@@ -86,22 +86,23 @@ const HostCta = () => (
   </section>
 );
 
+
 const PopularCities = () => (
   <section className="popular-cities">
     <h1>Explore Popular Cities</h1>
     <div className="popular-cities-container">
+
       <PopularCityCard
         backgroundImg="https://static.beenest.com/images/featured-cities/san-francisco.jpg"
         city="San Francisco"
-        lat={37.7749295}
-        lng={-122.41941550000001}
+        link="/markets/san-francisco"
       />
       <PopularCityCard
-        city="Los Angeles"
         backgroundImg="https://static.beenest.com/images/featured-cities/los-angeles.jpg"
-        lat={34.0522342}
-        lng={-118.2436849}
+        city="Los Angeles"
+        link="/markets/los-angeles"
       />
+
     </div>
   </section>
 );
@@ -109,8 +110,7 @@ const PopularCities = () => (
 interface PopularCityCardProps {
   backgroundImg: string;
   city: string;
-  lat: number;
-  lng: number;
+  link: string;
 }
 
 //Uncoment once BD team has a conference to promote
@@ -138,9 +138,9 @@ interface PopularCityCardProps {
 //  </Query>
 //);
 
-const PopularCityCard = ({ backgroundImg, city, lat, lng }: PopularCityCardProps) => (
+const PopularCityCard = ({ backgroundImg, city, link }: PopularCityCardProps) => (
   <BeeLink
-    to={`/listings?locationQuery=${encodeURIComponent(city)}&coordinates%5Blat%5D=${lat}&coordinates%5Blng%5D=${lng}`}
+    to={link}
   >
     <div className="popular-city-card">
       <Overlay color="white" opacity={0.3}>
@@ -148,7 +148,6 @@ const PopularCityCard = ({ backgroundImg, city, lat, lng }: PopularCityCardProps
       </Overlay>
       <div className="popular-city-card--light-box">
         <div className="popular-city-card--text">
-          <h3>EXPLORE</h3>
           <h4>{city}</h4>
         </div>
       </div>

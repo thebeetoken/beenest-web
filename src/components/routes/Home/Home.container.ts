@@ -180,7 +180,7 @@ const HomeContainerMobile = styled.section`
         display: flex;
         flex-direction: column;
         width: 100%;
-        a:not(:last-of-type) {
+        a {
           margin-bottom: 40px;
         }
         .popular-city-card {
@@ -190,7 +190,7 @@ const HomeContainerMobile = styled.section`
           height: 256px;
           justify-content: center;
           position: relative;
-          width: 256px;
+          width: 280px;
           .popular-city-card--light-box {
             align-items: center;
             background-color: ${color('white', 0.9)};
@@ -393,10 +393,6 @@ const HomeContainerTablet = styled(HomeContainerMobile)`
           flex-direction: row;
           flex-wrap: wrap;
           justify-content: space-between;
-          a:nth-last-child(-n + 2) {
-            /* targets last 2 children */
-            margin-bottom: 0;
-          }
         }
       }
       .social-banner {
@@ -511,9 +507,9 @@ const HomeContainer = styled(HomeContainerTablet)`
         .popular-cities-container {
           flex-direction: row;
           .popular-city-card {
-            height: 400px;
+            height: 220px;
+            width: 300px;
             overflow: hidden;
-            width: 440px;
             .bee-overlay {
               .bee-lazy-image {
                 transition: transform 10s cubic-bezier(0,.5,0,1);
