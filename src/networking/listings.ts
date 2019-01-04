@@ -368,8 +368,8 @@ export const SEARCH_LISTINGS = gql`
 `;
 
 export const GET_ALL_LISTINGS = gql`
-  query allListings {
-    allListings {
+  query allListings($input: AllListingsInput) {
+    allListings(input: $input) {
       city
       country
       createdAt
