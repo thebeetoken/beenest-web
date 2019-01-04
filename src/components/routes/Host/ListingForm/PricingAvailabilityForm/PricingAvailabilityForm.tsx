@@ -42,7 +42,7 @@ const PricingAvailabilityForm = (props: any): JSX.Element => {
       </div>
 
       <div className="form-item security-deposit">
-        <InputLabel htmlFor="securityDepositUsd">Security Deposit</InputLabel>
+        <InputLabel htmlFor="securityDepositUsd" subLabel="(USD)">Security Deposit</InputLabel>
         <InputWrapper>
           <Field
             name="securityDepositUsd"
