@@ -21,8 +21,7 @@ const SearchBarContainerMobile = styled.div`
     }
     .search-bar-form--location,
     .search-bar-form--guests,
-    .search-bar-form--check-out-date,
-    .search-bar-form--check-in-date {
+    .search-bar-form--date-range {
       display: flex;
       flex-direction: column;
       margin-bottom: 8px;
@@ -33,15 +32,34 @@ const SearchBarContainerMobile = styled.div`
         height: 40px;
       }
     }
-    .search-bar-form--check-out-date,
-    .search-bar-form--check-in-date {
-      width: 45%;
-      .SingleDatePicker {
+    .search-bar-form--date-range {
+      margin-left: 32px;
+      width: 230px;
+      .calendar-labels-container {
+        display: flex;
+        flex-direction: row;
+        justify-content: space-between;
+        .bee--input-label {
+          width: calc((100% - 24px) / 2);
+        }
+      }
+      .DateRangePicker {
         width: 100%;
-        .SingleDatePickerInput {
-          width: 100%;
+        max-width: 100%;
+        .DateRangePickerInput {
+          display: flex;
+          flex-direction: row;
           .DateInput {
             width: 100%;
+            input {
+              border: 0;
+            }
+          }
+          .DateRangePickerInput__arrow,
+          .DateRangePickerInput_arrow_1 {
+            display: flex;
+            flex-direction: column;
+            justify-content: center;
           }
         }
       }
@@ -52,11 +70,6 @@ const SearchBarContainerMobile = styled.div`
     .search-button {
       align-self: flex-end;
       width: 100%;
-    }
-    .search-bar-form--row {
-      display: flex;
-      flex-direction: row;
-      justify-content: space-between;
     }
   }
 `;
@@ -81,22 +94,14 @@ const SearchBarContainerDesktop = styled(SearchBarContainerTablet)`
       flex-direction: row;
       .search-bar-form--location,
       .search-bar-form--guests,
-      .search-bar-form--check-out-date,
-      .search-bar-form--check-in-date {
+      .search-bar-form--date-range {
         margin-bottom: 0;
       }
       .search-bar-form--location {
         width: 272px;
       }
-      .search-bar-form--check-out-date,
-      .search-bar-form--check-in-date {
-        width: 108px;
-      }
-      .search-bar-form--check-in-date {
-        margin-left: 32px;
-      }
-      .search-bar-form--check-out-date {
-        margin-left: 24px;
+      .search-bar-form--date-range {
+        width: 230px;
       }
       .search-bar-form--guests {
         margin-left: 32px;
