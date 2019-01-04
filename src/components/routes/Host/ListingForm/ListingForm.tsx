@@ -148,6 +148,7 @@ class ListingForm extends React.Component<Props, State> {
                 props.history.push(`/host/listings/${this.state.nextCrumb}`);
               })
               .catch((error: Error) => {
+                alert(`${error}. If this continues to occur, please contact us at support@beetoken.com`);
                 console.error(error);
                 return actions.setSubmitting(false);
               });
