@@ -66,7 +66,6 @@ const HomeContent = () => (
       }}
     </AppConsumer>
     <HostCta />
-    <FeaturedListings />
     <PopularCities />
     <PressLinks />
   </>
@@ -89,39 +88,6 @@ const HostCta = () => (
       </BeeLink>
     </div>
   </section>
-);
-
-const FeaturedListings = () => (
-  <Query query={GET_FEATURED_LISTINGS} variables={ LISTING_CARD_IMAGE_DIMENSIONS }>
-    {({ loading, error, data }) => {
-      if (loading) {
-        return (
-          <section className="featured-listings">
-            <h1>Featured Listings</h1>
-            <div className="featured-listings-container">
-              <ListingCardPlaceholder />
-              <ListingCardPlaceholder />
-              <ListingCardPlaceholder />
-            </div>
-          </section>
-        );
-      }
-      if (error || !data || !data.featuredListings) {
-        return <NoopComponent />;
-      }
-
-      const { featuredListings } = data;
-      const renderFeaturedListings = featuredListings.map((listing: ListingShort) => (
-        <ListingCard hover key={listing.id} {...listing} />
-      ));
-      return (
-        <section className="featured-listings">
-          <h1>Featured Listings</h1>
-          <div className="featured-listings-container">{renderFeaturedListings}</div>
-        </section>
-      );
-    }}
-  </Query>
 );
 
 const PopularCities = () => (
