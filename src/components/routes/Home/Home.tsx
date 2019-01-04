@@ -1,20 +1,16 @@
 import * as React from 'react';
-import { Query } from 'react-apollo';
 
 import HomeContainer from './Home.container';
 
 import { AppConsumer, AppConsumerProps, ScreenType } from 'components/App.context';
-import { GET_FEATURED_LISTINGS, ListingShort } from 'networking/listings';
 import BeeLink from 'shared/BeeLink';
 import Button from 'shared/Button';
 import Divider from 'shared/Divider';
 import GeneralWrapper from 'shared/GeneralWrapper';
 import LazyImage from 'shared/LazyImage';
-import { ListingCard, ListingCardPlaceholder } from 'shared/ListingCard';
 import Overlay from 'shared/Overlay';
 import SearchBar from 'shared/SearchBar';
 import Svg from 'shared/Svg';
-import { LISTING_CARD_IMAGE_DIMENSIONS } from 'utils/imageDimensions';
 
 class Home extends React.Component {
   render() {
@@ -39,7 +35,7 @@ class Home extends React.Component {
                 </div>
               );
             }
-    
+
             return (
               <GeneralWrapper className="home-content">
                 <HomeContent />
