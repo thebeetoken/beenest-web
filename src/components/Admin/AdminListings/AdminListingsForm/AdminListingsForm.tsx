@@ -619,7 +619,7 @@ class AdminListingsForm extends React.Component<Props, State> {
         </div>
 
         <div className="admin-form--item">
-          <AdminInputLabel htmlFor="photos" subLabel="(minimum 1 photo)">
+          <AdminInputLabel htmlFor="photos" subLabel="(limit 25)">
             Upload Listing Photos:
           </AdminInputLabel>
           <PhotoUploader
@@ -630,7 +630,7 @@ class AdminListingsForm extends React.Component<Props, State> {
                   })
                 : []
             }
-            maxFiles={10}
+            maxFiles={25}
             onPhotosUpdated={this.setListingPhotos}
           />
           <Svg
