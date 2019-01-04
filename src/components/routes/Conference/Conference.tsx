@@ -47,7 +47,7 @@ const Conference = ({ match }: RouterProps) => (
         }
 
         const { conference } = data;
-        const { coverImage, description, link, listings, startDate, title, venue } = conference;
+        const { coverImage, description, link, listings, startDate, endDate, title, venue } = conference;
 
         const renderHotelListings = (listings || [])
           .filter((listing: ListingShort) => listing.homeType === HOTEL_ROOM)
@@ -68,10 +68,15 @@ const Conference = ({ match }: RouterProps) => (
                     <LazyImage src={coverImage && coverImage.url} position='bottom left' transition />
                     <div className="text-container">
                       <h1>{title}</h1>
-                      {startDate && <h2>{`${format(startDate.replace('Z',''), 'MMMM D, YYYY')} @ ${venue || 'TBD'}`}</h2>}
+                      {startDate && endDate &&
+                        <h2>
+                        {`${format(startDate.replace('Z',''), 'MMMM D, YYYY')} - ${format(endDate.replace('Z',''), 'MMMM D, YYYY')}`}
+                        </h2>
+                      }
+                      {venue && <h2>{venue}</h2>}
                       {screenType >= ScreenType.TABLET &&<h3>{description}</h3>}
                       <h4>{screenType >= ScreenType.TABLET && 'Still Don\'t Have Conference Tickets? '}
-                        <BeeLink href={link}>Purchase Tickets Here</BeeLink></h4>
+                        <BeeLink href={link}>Get Tickets Here</BeeLink></h4>
                     </div>
                   </Overlay>
                 </div>

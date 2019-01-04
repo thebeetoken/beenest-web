@@ -21,7 +21,6 @@ const ConferenceContainerMobile = styled.section`
         left: 50%;
         position: absolute;
         text-align: center;
-        text-transform: capitalize;
         top: 50%;
         transform: translate3d(-50%, -50%, 0);
         width: 100%;
