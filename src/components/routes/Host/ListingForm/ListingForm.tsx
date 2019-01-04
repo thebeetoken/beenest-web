@@ -15,7 +15,6 @@ import GeneralWrapper from 'shared/GeneralWrapper';
 import NotFound from 'routes/NotFound';
 import Button from 'components/shared/Button';
 import timeOptions from 'utils/timeOptions';
-import BeeLink from 'components/shared/BeeLink';
 
 interface FormValues {
   [name: string]: boolean | string | string[] | number | object | undefined;
@@ -68,10 +67,9 @@ const ListingFormSchema = Yup.object().shape({
   checkInTime: Yup.object().shape({
     from: Yup.string().oneOf(timeOptions),
     to: Yup.string().oneOf(timeOptions),
-  }).test('validCheckOutTime', '${path} interval is not valid', function () {
+  }).test('validCheckOutTime', 'Check-in (from) and Check-in (to) cannot be the same.', function () {
     const { from, to } = this.parent.checkInTime;
-    const fromIndex = timeOptions.indexOf(from);
-    return fromIndex !== -1 && timeOptions.indexOf(to) > fromIndex;
+    return from !== to;
   }),
   checkOutTime: Yup.string().oneOf(timeOptions),
   city: Yup.string().max(60, 'Too Long!'),
@@ -199,10 +197,6 @@ class ListingForm extends React.Component<Props, State> {
                     <Redirect exact from="/host/listings/:id/edit" to="/host/listings/:id/listing_info" />
                     <Route component={NotFound} />
                   </Switch>
-                  
-                  <div className="form-item asterisk-text">
-                    <p>*Your listing is not approved yet. Please email <BeeLink href={`mailto:${`support+${this.props.listing.id}@beenest.com`}?Subject=Your%20listing%20on%20Beenest!`}>support@beenest.com</BeeLink> to approve your listing.</p>
-                  </div>
 
                   <Button
                     onClick={() => {

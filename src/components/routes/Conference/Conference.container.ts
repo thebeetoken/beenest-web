@@ -58,6 +58,28 @@ const ConferenceContainerMobile = styled.section`
       margin-bottom: 24px;
       text-align: left;
     }
+    .host-cta {
+      display: flex;
+      flex-direction: column;
+      padding: 48px 16px 16pc 16px;
+      .host-cta-content {
+        margin: 0 0 0 24px;
+        h2 {
+          ${typography('emp', 2)};
+          margin: 0;
+        }
+        p {
+          ${typography('read', 1)};
+          margin: 12px 0 12px 0;
+        }
+        a {
+          margin: 18px 0 0;
+          .bee-button {
+            width: 182px;
+          }
+        }
+      }
+    }
     .conference-hotels-container {
       display: flex;
       flex-direction: column;

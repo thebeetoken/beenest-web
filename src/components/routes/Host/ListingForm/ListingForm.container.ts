@@ -1,5 +1,5 @@
 import styled from 'styled-components';
-import { color, typography } from 'styled/utils';
+import { color } from 'styled/utils';
 
 const ListingFormContainer = styled.section`
   width: 100%;
@@ -72,18 +72,6 @@ const ListingFormContainer = styled.section`
           .bee-google-maps {
             height: 168px;
             width: 100%;
-          }
-        }
-        &.asterisk-text {
-          p {
-            ${typography('read', 2)}
-            a {
-              color: ${color('link')};
-              &:hover {
-                opacity: 0.5
-              }
-            }
-            
           }
         }
       }
