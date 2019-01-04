@@ -68,7 +68,12 @@ const Conference = ({ match }: RouterProps) => (
                     <LazyImage src={coverImage && coverImage.url} position='bottom left' transition />
                     <div className="text-container">
                       <h1>{title}</h1>
-                      {startDate && endDate &&
+                      {startDate && endDate && startDate === endDate &&
+                        <h2>
+                        {`${format(startDate.replace('Z',''), 'MMMM D, YYYY')}`}
+                        </h2>
+                      }
+                      {startDate && endDate && startDate !== endDate &&
                         <h2>
                         {`${format(startDate.replace('Z',''), 'MMMM D, YYYY')} - ${format(endDate.replace('Z',''), 'MMMM D, YYYY')}`}
                         </h2>
