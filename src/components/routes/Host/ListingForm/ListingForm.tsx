@@ -40,14 +40,14 @@ const defaultValues: FormValues = {
   lat: 0,
   lng: 0,
   listingPicUrl: '',
-  maxGuests: undefined,
-  minimumNights: undefined,
-  numberOfBathrooms: undefined,
-  numberOfBedrooms: undefined,
+  maxGuests: 1,
+  minimumNights: 1,
+  numberOfBathrooms: 0,
+  numberOfBedrooms: 0,
   photos: [],
   postalCode: '',
-  pricePerNightUsd: undefined,
-  securityDepositUsd: undefined,
+  pricePerNightUsd: 100,
+  securityDepositUsd: 50,
   sharedBathroom: '',
   sleepingArrangement: '',
   state: '',
@@ -95,10 +95,10 @@ const ListingFormSchema = Yup.object().shape({
     .moreThan(0)
     .required('Please provide the minimum number of nights.'),
   numberOfBathrooms: Yup.number()
-    .moreThan(0)
+    .min(0)
     .required('Please provide the number of bathrooms.'),
   numberOfBedrooms: Yup.number()
-    .moreThan(0)
+    .min(0)
     .required('Please provide the number of bedrooms.'),
   photos: Yup.array().of(Yup.string().url()),
   postalCode: Yup.string().max(45, 'Too Long!'),

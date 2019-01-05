@@ -60,6 +60,7 @@ const AccommodationsForm = (props: any): JSX.Element => {
             <Field
               name="numberOfBathrooms"
               placeholder="# of Bathrooms"
+              step={0.5}
               type="number" />
           </InputWrapper>
           <ErrorMessage name="numberOfBathrooms" />
