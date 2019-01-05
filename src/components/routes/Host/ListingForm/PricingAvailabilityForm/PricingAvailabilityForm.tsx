@@ -58,6 +58,7 @@ const PricingAvailabilityForm = (props: any): JSX.Element => {
       <div className="form-item">
         <InputLabel htmlFor="icalUrls">iCal URL:</InputLabel>
         <Textarea
+          textareaHeight="80px"
           name="icalUrls"
           onBlur={() => setFieldTouched('icalUrls', true)}
           onChange={(event: TextareaEvent) => {
