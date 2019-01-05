@@ -119,7 +119,7 @@ const HomeContainerMobile = styled.section`
           width: 280px;
           .popular-city-card--light-box {
             align-items: center;
-            background-color: ${color('white', 0.4)};
+            background-color: ${color('white', 0.9)};
             border-radius: 4px;
             display: flex;
             height: 72px;
@@ -333,7 +333,7 @@ const HomeContainer = styled(HomeContainerTablet)`
               }
             }
             .popular-city-card--light-box {
-              width: 344px;
+              width: 80%;
               .popular-city-card--text {
                 h3 {
                   ${typography('read', 3)}
