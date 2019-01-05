@@ -4,7 +4,7 @@ import InputLabel from 'shared/InputLabel';
 import InputWrapper from 'shared/InputWrapper';
 import Textarea from 'shared/Textarea';
 import { TextareaEvent } from 'components/shared/Textarea/Textarea';
-import { Field } from 'formik';
+import { Field, ErrorMessage } from 'formik';
 import { stringToArray, arrayToString } from 'utils/formatter';
 
 const PricingAvailabilityForm = (props: any): JSX.Element => {
@@ -19,6 +19,7 @@ const PricingAvailabilityForm = (props: any): JSX.Element => {
             placeholder="# of Guests"
             type="number" />
         </InputWrapper>
+        <ErrorMessage name="maxGuests" />
       </div>
 
       <div className="form-item min-nights">
@@ -29,6 +30,7 @@ const PricingAvailabilityForm = (props: any): JSX.Element => {
             placeholder="# of nights"
             type="number" />
         </InputWrapper>
+        <ErrorMessage name="minimumNights" />
       </div>
 
       <div className="form-item price-per-night">
@@ -39,6 +41,7 @@ const PricingAvailabilityForm = (props: any): JSX.Element => {
             placeholder="$"
             type="number" />
         </InputWrapper>
+        <ErrorMessage name="pricePerNightUsd" />
       </div>
 
       <div className="form-item security-deposit">
@@ -49,6 +52,7 @@ const PricingAvailabilityForm = (props: any): JSX.Element => {
             placeholder="$"
             type="number" />
         </InputWrapper>
+        <ErrorMessage name="securityDepositUsd" />
       </div>
 
       <div className="form-item">

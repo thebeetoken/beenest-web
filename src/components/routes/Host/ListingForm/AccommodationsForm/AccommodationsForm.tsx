@@ -3,7 +3,7 @@ import * as React from 'react';
 import InputLabel from 'shared/InputLabel';
 import InputWrapper from 'shared/InputWrapper';
 import Textarea from 'shared/Textarea';
-import { Field } from 'formik';
+import { Field, ErrorMessage } from 'formik';
 import { TextareaEvent } from 'components/shared/Textarea/Textarea';
 import { stringToArray, arrayToString } from 'utils/formatter';
 
@@ -39,6 +39,7 @@ const AccommodationsForm = (props: any): JSX.Element => {
               placeholder="# of Bedrooms"
               type="number" />
           </InputWrapper>
+          <ErrorMessage name="numberOfBedrooms" />
         </div>
 
         <div className="input-container">
@@ -61,6 +62,7 @@ const AccommodationsForm = (props: any): JSX.Element => {
               placeholder="# of Bathrooms"
               type="number" />
           </InputWrapper>
+          <ErrorMessage name="numberOfBathrooms" />
         </div>
         
         <div className="input-container">
