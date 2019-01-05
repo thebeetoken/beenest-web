@@ -90,19 +90,19 @@ const HostCta = () => (
 const PopularCities = () => {
   const imageSize = '400x400';
   const cities = [
-      {name: 'San Francisco', nameDashCase: 'san-francisco'},
-      {name: 'Los Angeles', nameDashCase: 'los-angeles'},
-      {name: 'New York', nameDashCase: 'new-york'},
-      {name: 'Las Vegas', nameDashCase: 'las-vegas'},
-      {name: 'Miami', nameDashCase: 'miami'},
-      {name: 'Hawaii', nameDashCase: 'hawaii'},
-      {name: 'Denver', nameDashCase: 'denver'},
-      {name: 'Boston', nameDashCase: 'boston'},
-      {name: 'Seattle', nameDashCase: 'seattle'},
-      {name: 'Austin', nameDashCase: 'austin'},
-      {name: 'New Orleans', nameDashCase: 'new-orleans'},
-      {name: 'Houston', nameDashCase: 'houston'},
-      {name: 'Orlando', nameDashCase: 'orlando'},
+      {name: 'San Francisco', id: 'san-francisco'},
+      {name: 'Los Angeles', id: 'los-angeles'},
+      {name: 'New York', id: 'new-york'},
+      {name: 'Las Vegas', id: 'las-vegas'},
+      {name: 'Miami', id: 'miami'},
+      {name: 'Hawaii', id: 'hawaii'},
+      {name: 'Denver', id: 'denver'},
+      {name: 'Boston', id: 'boston'},
+      {name: 'Seattle', id: 'seattle'},
+      {name: 'Austin', id: 'austin'},
+      {name: 'New Orleans', id: 'new-orleans'},
+      {name: 'Houston', id: 'houston'},
+      {name: 'Orlando', id: 'orlando'},
   ];
 
   return <section className="popular-cities">
@@ -110,9 +110,10 @@ const PopularCities = () => {
     <div className="popular-cities-container">
       {cities.map(city => (
           <PopularCityCard
-            backgroundImg={`https://d9lhrxmc0upxv.cloudfront.net/fit-in/${imageSize}/images/featured-cities/${city.nameDashCase}.jpg`}
+            key={city.id}
+            backgroundImg={`https://d9lhrxmc0upxv.cloudfront.net/fit-in/${imageSize}/images/featured-cities/${city.id}.jpg`}
             city={city.name}
-            link={`/markets/${city.nameDashCase}`}
+            link={`/markets/${city.id}`}
           />
         )
       )}
