@@ -86,61 +86,50 @@ const HostCta = () => (
   </section>
 );
 
-const PopularCities = () => (
-  <section className="popular-cities">
-    <h1>Explore Popular Cities</h1>
+
+const PopularCities = () => {
+  const imageSize = '400x400';
+  const cities = [
+      {name: 'San Francisco', id: 'san-francisco'},
+      {name: 'Los Angeles', id: 'los-angeles'},
+      {name: 'New York', id: 'new-york'},
+      {name: 'Las Vegas', id: 'las-vegas'},
+      {name: 'Miami', id: 'miami'},
+      {name: 'Hawaii', id: 'hawaii'},
+      {name: 'Denver', id: 'denver'},
+      {name: 'Boston', id: 'boston'},
+      {name: 'Seattle', id: 'seattle'},
+      {name: 'Austin', id: 'austin'},
+      {name: 'New Orleans', id: 'new-orleans'},
+      {name: 'Houston', id: 'houston'},
+      {name: 'Orlando', id: 'orlando'},
+  ];
+
+  return <section className="popular-cities">
+    <h1>Pay for your next trip with credit/debit or crypto. Explore these amazing locations and many more!</h1>
     <div className="popular-cities-container">
-      <PopularCityCard
-        backgroundImg="https://static.beenest.com/images/featured-cities/san-francisco.jpg"
-        city="San Francisco"
-        lat={37.7749295}
-        lng={-122.41941550000001}
-      />
-      <PopularCityCard
-        city="Los Angeles"
-        backgroundImg="https://static.beenest.com/images/featured-cities/los-angeles.jpg"
-        lat={34.0522342}
-        lng={-118.2436849}
-      />
+      {cities.map(city => (
+          <PopularCityCard
+            key={city.id}
+            backgroundImg={`https://d9lhrxmc0upxv.cloudfront.net/fit-in/${imageSize}/images/featured-cities/${city.id}.jpg`}
+            city={city.name}
+            link={`/markets/${city.id}`}
+          />
+        )
+      )}
     </div>
   </section>
-);
+};
 
 interface PopularCityCardProps {
   backgroundImg: string;
   city: string;
-  lat: number;
-  lng: number;
+  link: string;
 }
 
-//Uncoment once BD team has a conference to promote
-//In the future we want to support this toggle in a CMS
-//const FeaturedConference = () => (
-//  <Query query={GET_FEATURED_CONFERENCE}>
-//    {({ loading, error, data }) => {
-//      if (loading) {
-//        return (
-//          <section className="featured-conference">
-//            <HomeFeaturedConferencePlaceholder />
-//          </section>
-//        );
-//      }
-//      if (error || !data || !data.featuredConference) {
-//        return <NoopComponent />;
-//      }
-//
-//      return (
-//        <section className="featured-conference">
-//          <HomeFeaturedConference {...data.featuredConference} />
-//        </section>
-//      );
-//    }}
-//  </Query>
-//);
-
-const PopularCityCard = ({ backgroundImg, city, lat, lng }: PopularCityCardProps) => (
+const PopularCityCard = ({ backgroundImg, city, link }: PopularCityCardProps) => (
   <BeeLink
-    to={`/listings?locationQuery=${encodeURIComponent(city)}&coordinates%5Blat%5D=${lat}&coordinates%5Blng%5D=${lng}`}
+    to={link}
   >
     <div className="popular-city-card">
       <Overlay color="white" opacity={0.3}>
@@ -148,7 +137,6 @@ const PopularCityCard = ({ backgroundImg, city, lat, lng }: PopularCityCardProps
       </Overlay>
       <div className="popular-city-card--light-box">
         <div className="popular-city-card--text">
-          <h3>EXPLORE</h3>
           <h4>{city}</h4>
         </div>
       </div>

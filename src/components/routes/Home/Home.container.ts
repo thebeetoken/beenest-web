@@ -93,80 +93,6 @@ const HomeContainerMobile = styled.section`
         }
       }
     }
-    .featured-conference {
-      padding: 12px 24px 48px;
-      > h1 {
-        ${typography('title', 5)};
-        margin-bottom: 24px;
-      }
-      .featured-conference-card {
-        box-shadow: 0 0 15px ${color('black', 0.15)};
-        display: flex;
-        flex-direction: column;
-        height: 316px;
-        .featured-conference-image {
-          height: 166px;
-          position: relative;
-          width: 100%;
-        }
-        .featured-conference-meta {
-          animation: fade-in 0.5s ease-in-out forwards;
-          border-top: 4px solid ${color('style')}; 
-          display: flex;
-          flex-direction: column;
-          height: 150px;
-          padding: 18px 16px 8px;
-          width: 100%;
-          h1 {
-            ${typography('title', 6)};
-            color: ${color('body')};
-            margin-bottom: 8px;
-          }
-          h2 {
-            ${typography('emp', 7)};
-            color: ${color('secondary')};
-            margin-bottom: 8px;
-            text-transform: uppercase;
-          }
-          .book-now-button {
-            width: 132px;
-          }
-        }
-      }
-      .featured-conference-card-placeholder {
-        box-shadow: 0 0 15px ${color('black', 0.15)};
-        display: flex;
-        flex-direction: column;
-        height: 316px;
-        .featured-conference-image-placeholder {
-          height: 166px;
-          width: 100%;
-        }
-        .featured-conference-meta-placeholder {
-          height: 150px;
-          width: 100%;
-        }
-      }
-    }
-    .featured-listings {
-      background-color: ${color('light')};
-      padding: 32px 24px 32px;
-      width: 100%;
-      > h1 {
-        ${typography('title', 5)};
-        margin: 0 0 24px;
-      }
-      .featured-listings-container {
-        display: flex;
-        flex-direction: column;
-        width: 100%;
-        a:not(:last-of-type),
-        .listing-card-placeholder {
-          display: flex;
-          margin-bottom: 40px;
-        }
-      }
-    }
     .popular-cities {
       background-color: ${color('light')};
       padding: 24px 32px 48px;
@@ -180,7 +106,7 @@ const HomeContainerMobile = styled.section`
         display: flex;
         flex-direction: column;
         width: 100%;
-        a:not(:last-of-type) {
+        a {
           margin-bottom: 40px;
         }
         .popular-city-card {
@@ -190,7 +116,7 @@ const HomeContainerMobile = styled.section`
           height: 256px;
           justify-content: center;
           position: relative;
-          width: 256px;
+          width: 280px;
           .popular-city-card--light-box {
             align-items: center;
             background-color: ${color('white', 0.9)};
@@ -317,75 +243,6 @@ const HomeContainerTablet = styled(HomeContainerMobile)`
           }
         }
       }
-      .featured-conference {
-        padding: 0 0 72px;
-        > h1 {
-          ${typography('title', 4)};
-          margin: 24px 0;
-        }
-        .featured-conference-card {
-          box-shadow: none;
-          height: 264px;
-          margin: 0 auto;
-          position: relative;
-          width: 544px;
-          .featured-conference-image {
-            box-shadow: 0 0 15px ${color('black', 0.15)};
-            height: 100%;
-            width: 100%;
-          }
-          .featured-conference-meta {
-            background-color: ${color('white')};
-            box-shadow: 0 0 15px ${color('black', 0.15)};
-            bottom: -60px;
-            height: 142px;
-            position: absolute;
-            right: -16px;
-            width: 362px;
-            z-index: 1;
-            .book-now-button {
-              align-self: flex-end;
-              width: 154px;
-            }
-          }
-        }
-        .featured-conference-card-placeholder {
-          box-shadow: none;
-          height: 264px;
-          margin: 0 auto;
-          position: relative;
-          width: 544px;
-          .featured-conference-image-placeholder {
-            box-shadow: 0 0 15px ${color('black', 0.15)};
-            height: 100%;
-            width: 100%;
-          }
-          .featured-conference-meta-placeholder {
-            background-color: ${color('white')};
-            border-top: 4px solid ${color('style')};
-            box-shadow: 0 0 15px ${color('black', 0.15)};
-            bottom: -60px;
-            height: 142px;
-            position: absolute;
-            right: -16px;
-            width: 362px;
-            z-index: 1;
-          }
-        }
-      }
-      .featured-listings {
-        background-color: transparent;
-        padding: 0 0 32px;
-        > h1 {
-          ${typography('title', 4)};
-          margin: 24px 0;
-        }
-        .featured-listings-container {
-          flex-direction: row;
-          flex-wrap: wrap;
-          justify-content: space-between;
-        }
-      }
       .popular-cities {
         background-color: transparent;
         padding: 0 0 32px;
@@ -393,10 +250,6 @@ const HomeContainerTablet = styled(HomeContainerMobile)`
           flex-direction: row;
           flex-wrap: wrap;
           justify-content: space-between;
-          a:nth-last-child(-n + 2) {
-            /* targets last 2 children */
-            margin-bottom: 0;
-          }
         }
       }
       .social-banner {
@@ -460,60 +313,13 @@ const HomeContainer = styled(HomeContainerTablet)`
           }
         }
       }
-      .featured-listings {
-        padding: 0 0 32px;
-        > h1 {
-          margin: 32px 0 24px;
-        }
-        .featured-listings-container {
-          justify-content: flex-start;
-          a,
-          .listing-card-placeholder {
-            margin-bottom: 40px;
-          }
-          a:not(:first-of-type),
-          .listing-card-placeholder:not(:first-of-type) {
-            margin-left: 65px;
-          }
-        }
-      }
-      .featured-conference {
-        .featured-conference-card {
-          height: 330px;
-          width: 900px;
-          .featured-conference-meta {
-            bottom: -54px;
-            height: 166px;
-            padding: 18px 24px 8px;
-            right: -14px;
-            width: 374px;
-            h1 {
-              ${typography('title', 5)};
-            }
-            h2 {
-              ${typography('emp', 6)};
-            }
-          }
-        }
-        .featured-conference-card-placeholder {
-          height: 330px;
-          width: 900px;
-          .featured-conference-meta-placeholder {
-            bottom: -54px;
-            height: 166px;
-            padding: 18px 24px 8px;
-            right: -14px;
-            width: 374px;
-          }
-        }
-      }
       .popular-cities {
         .popular-cities-container {
           flex-direction: row;
           .popular-city-card {
-            height: 400px;
+            height: 220px;
+            width: 300px;
             overflow: hidden;
-            width: 440px;
             .bee-overlay {
               .bee-lazy-image {
                 transition: transform 10s cubic-bezier(0,.5,0,1);
@@ -527,7 +333,7 @@ const HomeContainer = styled(HomeContainerTablet)`
               }
             }
             .popular-city-card--light-box {
-              width: 344px;
+              width: 80%;
               .popular-city-card--text {
                 h3 {
                   ${typography('read', 3)}
