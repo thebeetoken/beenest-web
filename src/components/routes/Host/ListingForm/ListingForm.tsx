@@ -88,25 +88,25 @@ const ListingFormSchema = Yup.object().shape({
     .lessThan(180),
   listingPicUrl: Yup.string().url(),
   maxGuests: Yup.number()
-    .moreThan(0)
-    .lessThan(51)
+    .moreThan(0, 'Max guests must be greater than 0.')
+    .lessThan(51, 'Max guests must not exceed 50.')
     .required('Please provide the maximum number of guests.'),
   minimumNights: Yup.number()
-    .moreThan(0)
+    .moreThan(0, 'Minimum Nights must be greater than 0.')
     .required('Please provide the minimum number of nights.'),
   numberOfBathrooms: Yup.number()
-    .min(0)
+    .min(0, 'Number of bathrooms must be greater than or equal to 0.')
     .required('Please provide the number of bathrooms.'),
   numberOfBedrooms: Yup.number()
-    .min(0)
+    .min(0, 'Number of bedrooms must be greater than or equal to 0.')
     .required('Please provide the number of bedrooms.'),
   photos: Yup.array().of(Yup.string().url()),
   postalCode: Yup.string().max(45, 'Too Long!'),
   pricePerNightUsd: Yup.number()
-    .moreThan(0)
+    .moreThan(0, 'Price per night must be greater than 0.')
     .required('Please provide the price per night.'),
   securityDepositUsd: Yup.number()
-    .min(0)
+    .min(0, 'Security Deposit must be greater than or equal to 0.')
     .required('Please provide the security deposit amount.'),
   sharedBathroom: Yup.string(),
   sleepingArrangement: Yup.string(),
