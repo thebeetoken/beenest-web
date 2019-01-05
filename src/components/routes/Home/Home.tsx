@@ -126,31 +126,6 @@ interface PopularCityCardProps {
   link: string;
 }
 
-//Uncoment once BD team has a conference to promote
-//In the future we want to support this toggle in a CMS
-//const FeaturedConference = () => (
-//  <Query query={GET_FEATURED_CONFERENCE}>
-//    {({ loading, error, data }) => {
-//      if (loading) {
-//        return (
-//          <section className="featured-conference">
-//            <HomeFeaturedConferencePlaceholder />
-//          </section>
-//        );
-//      }
-//      if (error || !data || !data.featuredConference) {
-//        return <NoopComponent />;
-//      }
-//
-//      return (
-//        <section className="featured-conference">
-//          <HomeFeaturedConference {...data.featuredConference} />
-//        </section>
-//      );
-//    }}
-//  </Query>
-//);
-
 const PopularCityCard = ({ backgroundImg, city, link }: PopularCityCardProps) => (
   <BeeLink
     to={link}
