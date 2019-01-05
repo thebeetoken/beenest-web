@@ -87,25 +87,38 @@ const HostCta = () => (
 );
 
 
-const PopularCities = () => (
-  <section className="popular-cities">
-    <h1>Explore Popular Cities</h1>
+const PopularCities = () => {
+  const imageSize = '400x400';
+  const cities = [
+      {name: 'San Francisco', nameDashCase: 'san-francisco'},
+      {name: 'Los Angeles', nameDashCase: 'los-angeles'},
+      {name: 'New York', nameDashCase: 'new-york'},
+      {name: 'Las Vegas', nameDashCase: 'las-vegas'},
+      {name: 'Miami', nameDashCase: 'miami'},
+      {name: 'Hawaii', nameDashCase: 'hawaii'},
+      {name: 'Denver', nameDashCase: 'denver'},
+      {name: 'Boston', nameDashCase: 'boston'},
+      {name: 'Seattle', nameDashCase: 'seattle'},
+      {name: 'Austin', nameDashCase: 'austin'},
+      {name: 'New Orleans', nameDashCase: 'new-orleans'},
+      {name: 'Houston', nameDashCase: 'houston'},
+      {name: 'Orlando', nameDashCase: 'orlando'},
+  ];
+
+  return <section className="popular-cities">
+    <h1>Pay for your next trip with credit/debit or crypto. Explore these amazing locations and many more!</h1>
     <div className="popular-cities-container">
-
-      <PopularCityCard
-        backgroundImg="https://static.beenest.com/images/featured-cities/san-francisco.jpg"
-        city="San Francisco"
-        link="/markets/san-francisco"
-      />
-      <PopularCityCard
-        backgroundImg="https://static.beenest.com/images/featured-cities/los-angeles.jpg"
-        city="Los Angeles"
-        link="/markets/los-angeles"
-      />
-
+      {cities.map(city => (
+          <PopularCityCard
+            backgroundImg={`https://d9lhrxmc0upxv.cloudfront.net/fit-in/${imageSize}/images/featured-cities/${city.nameDashCase}.jpg`}
+            city={city.name}
+            link={`/markets/${city.nameDashCase}`}
+          />
+        )
+      )}
     </div>
   </section>
-);
+};
 
 interface PopularCityCardProps {
   backgroundImg: string;

@@ -193,7 +193,7 @@ const HomeContainerMobile = styled.section`
           width: 280px;
           .popular-city-card--light-box {
             align-items: center;
-            background-color: ${color('white', 0.9)};
+            background-color: ${color('white', 0.4)};
             border-radius: 4px;
             display: flex;
             height: 72px;
