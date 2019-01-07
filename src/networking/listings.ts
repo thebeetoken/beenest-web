@@ -72,10 +72,12 @@ export interface ListingShort {
 }
 
 export interface HostListingShort {
+  canPublish: boolean;
   city: string;
   country: string;
   id: string;
   idSlug: string;
+  isActive: boolean;
   listingPicUrl: string;
   state: string;
   title: string;
@@ -258,10 +260,12 @@ export const DELETE_LISTING = gql`
 export const GET_HOST_LISTINGS = gql`
   query GetHostListings {
     hostListings {
+      canPublish
       city
       country
       id
       idSlug
+      isActive
       listingPicUrl
       state
       title
@@ -451,6 +455,22 @@ export const UPDATE_LISTING = gql`
       postalCode
       updatedAt
       ...ListingDetails
+    }
+  }
+`;
+
+export const ACTIVATE_LISTING = gql`
+  mutation ActivateListing($id: ID!) {
+    activateListing(id: $id) {
+      isActive
+    }
+  }
+`;
+
+export const DEACTIVATE_LISTING = gql`
+  mutation ActivateListing($id: ID!) {
+    deactivateListing(id: $id) {
+      isActive
     }
   }
 `;
