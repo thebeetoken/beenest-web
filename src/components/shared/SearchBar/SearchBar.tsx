@@ -8,7 +8,6 @@ import DateRangePickerContainer from 'styled/containers/DateRangePicker.containe
 
 import Button from 'shared/Button';
 import GoogleAutoComplete from 'shared/GoogleAutoComplete';
-import InputLabel from 'shared/InputLabel';
 import InputWrapper from 'shared/InputWrapper';
 import { parseQueryString, stringifyQueryString } from 'utils/queryParams';
 import { AppConsumer, AppConsumerProps, ScreenType } from 'components/App.context';
@@ -71,7 +70,6 @@ class SearchBar extends React.Component<RouterProps, State> {
       <SearchBarContainer className="search-bar">
         <form className="search-bar-form" onKeyPress={this.disableEnter} onSubmit={this.handleSubmit}>
           <div className="search-bar-form--location">
-            <InputLabel htmlFor="locationQuery">Location</InputLabel>
             <div className="search-bar-autocomplete-container">
               <GoogleAutoComplete placesRef={this.placesRef} inputRef={this.inputRef} defaultValue={locationQuery} />
             </div>
@@ -81,10 +79,6 @@ class SearchBar extends React.Component<RouterProps, State> {
               const isMobile = screenType <= ScreenType.TABLET;
               return (
                 <div className="search-bar-form--date-range">
-                  <div className="calendar-labels-container">
-                    <InputLabel>Check-in</InputLabel>
-                    <InputLabel>Check-out</InputLabel>
-                  </div>
                   <DateRangePickerContainer>
                     <DateRangePicker
                       isOutsideRange={this.handleIsOutsideRange}
@@ -105,7 +99,6 @@ class SearchBar extends React.Component<RouterProps, State> {
             }}
           </AppConsumer>
           <div className="search-bar-form--guests">
-            <InputLabel htmlFor="numberOfGuests">Guests</InputLabel>
             <InputWrapper box>
               <input
                 id="numberOfGuests"
@@ -120,7 +113,9 @@ class SearchBar extends React.Component<RouterProps, State> {
             </InputWrapper>
           </div>
           <div className="bee-flex-div" />
-          <Button className="search-button" type="submit">
+          <Button
+            className="search-button"
+            type="submit">
             Search Listings
           </Button>
         </form>

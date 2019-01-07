@@ -19,6 +19,15 @@ const SearchBarContainerMobile = styled.div`
     label {
       height: 24px;
     }
+    .bee-input-wrapper {
+      > input {
+        border: none;
+        border-bottom: 1px solid ${color('body')};
+        &:focus {
+          border-bottom: 2px solid ${color('style')};
+        }
+      }
+    }
     .search-bar-form--location,
     .search-bar-form--guests,
     .search-bar-form--date-range {
@@ -69,6 +78,7 @@ const SearchBarContainerMobile = styled.div`
     }
     .search-button {
       align-self: flex-end;
+      height: 40px;
       width: 100%;
     }
   }
@@ -83,8 +93,8 @@ const SearchBarContainerTablet = styled(SearchBarContainerMobile)`
 
 const SearchBarContainerDesktop = styled(SearchBarContainerTablet)`
   @media (min-width: 1025px) {
-    height: 124px;
-    padding: 24px 30px 36px 34px;
+    height: 92px;
+    padding: 26px 30px 26px 34px;
     max-width: 960px;
     width: 960px;
     z-index: 1;
