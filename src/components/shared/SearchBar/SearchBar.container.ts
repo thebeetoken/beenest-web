@@ -53,15 +53,6 @@ const SearchBarContainerMobile = styled.div`
           width: calc((100% - 24px) / 2);
         }
       }
-      .DateRangePicker {
-        .DateRangePickerInput {
-          .DateInput {
-            input {
-              border: 0;
-            }
-          }
-        }
-      }
     }
     .search-bar-form--guests {
       width: 100%;
