@@ -715,7 +715,7 @@ const DateRangePickerContainer = styled.div`
     color: #484848;
     display: flex;
     flex-direction: column;
-    height: 41px;  /* need this bsince weird bottom border shows up at certain screen sizes */
+    height: 41px;  /* need this since weird bottom border shows up at certain screen sizes */
     justify-content: center;
     margin-left: 16px;
     margin-right: 20px;
