@@ -4,8 +4,9 @@ import InputLabel from 'shared/InputLabel';
 import InputWrapper from 'shared/InputWrapper';
 import Textarea from 'shared/Textarea';
 import { Field, ErrorMessage } from 'formik';
-import { TextareaEvent } from 'components/shared/Textarea/Textarea';
+import { TextareaEvent } from 'shared/Textarea/Textarea';
 import { stringToArray, arrayToString } from 'utils/formatter';
+import ErrorMessageWrapper from 'shared/ErrorMessageWrapper/ErrorMessageWrapper';
 
 const AccommodationsForm = (props: any): JSX.Element => {
   const { setFieldTouched, setFieldValue, values } = props;
@@ -30,7 +31,7 @@ const AccommodationsForm = (props: any): JSX.Element => {
         </SelectBoxWrapper>
       </div> */}
 
-      <div className="form-item row-bed-bathroom">
+      <div className="form-item row">
         <div className="input-container">
           <InputLabel htmlFor="numberOfBedrooms">Bedrooms</InputLabel>
           <InputWrapper>
@@ -39,7 +40,9 @@ const AccommodationsForm = (props: any): JSX.Element => {
               placeholder="# of Bedrooms"
               type="number" />
           </InputWrapper>
-          <ErrorMessage name="numberOfBedrooms" />
+          <ErrorMessageWrapper>
+            <ErrorMessage name="numberOfBedrooms" />
+          </ErrorMessageWrapper>
         </div>
 
         <div className="input-container">
@@ -53,7 +56,7 @@ const AccommodationsForm = (props: any): JSX.Element => {
         </div>
       </div>
 
-      <div className="form-item row-bed-bathroom">
+      <div className="form-item row">
         <div className="input-container">
           <InputLabel htmlFor="numberOfBathrooms">Bathrooms</InputLabel>
           <InputWrapper>
@@ -63,7 +66,9 @@ const AccommodationsForm = (props: any): JSX.Element => {
               step={0.5}
               type="number" />
           </InputWrapper>
-          <ErrorMessage name="numberOfBathrooms" />
+          <ErrorMessageWrapper>
+            <ErrorMessage name="numberOfBathrooms" />
+          </ErrorMessageWrapper>
         </div>
         
         <div className="input-container">
