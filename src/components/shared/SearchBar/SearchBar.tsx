@@ -106,7 +106,7 @@ class SearchBar extends React.Component<RouterProps, State> {
                 step="1"
                 name="numberOfGuests"
                 onChange={this.handleGuests}
-                placeholder="# of Guests"
+                placeholder="Guests"
                 type="number"
                 value={numberOfGuests}
               />

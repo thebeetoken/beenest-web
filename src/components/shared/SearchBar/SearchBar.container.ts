@@ -23,8 +23,9 @@ const SearchBarContainerMobile = styled.div`
       > input {
         border: none;
         border-bottom: 1px solid ${color('body')};
+        padding: 0;
         &:focus {
-          border-bottom: 2px solid ${color('style')};
+          border-bottom: 1px solid ${color('style')};
         }
       }
     }
@@ -53,22 +54,11 @@ const SearchBarContainerMobile = styled.div`
         }
       }
       .DateRangePicker {
-        width: 100%;
-        max-width: 100%;
         .DateRangePickerInput {
-          display: flex;
-          flex-direction: row;
           .DateInput {
-            width: 100%;
             input {
               border: 0;
             }
-          }
-          .DateRangePickerInput__arrow,
-          .DateRangePickerInput_arrow_1 {
-            display: flex;
-            flex-direction: column;
-            justify-content: center;
           }
         }
       }
@@ -108,13 +98,14 @@ const SearchBarContainerDesktop = styled(SearchBarContainerTablet)`
         margin-bottom: 0;
       }
       .search-bar-form--location {
-        width: 272px;
+        width: 256px;
       }
       .search-bar-form--date-range {
+        margin-left: 64px;
         width: 230px;
       }
       .search-bar-form--guests {
-        margin-left: 32px;
+        margin-left: 64px;
         width: 80px;
       }
       .search-button {

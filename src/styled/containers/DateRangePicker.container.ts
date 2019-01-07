@@ -594,8 +594,11 @@ const DateRangePickerContainer = styled.div`
     background: #fff;
     position: relative;
     display: inline-block;
-    width: 130px;
+    width: 100%;
     vertical-align: middle;
+    > input {
+      border: 0;
+    }
   }
   .DateInput__small {
     width: 97px;
@@ -627,9 +630,6 @@ const DateRangePickerContainer = styled.div`
     }
     &::-moz-placeholder {
       line-height: 38px;
-    }
-    &:focus {
-      border: 1px solid ${color('style')};
     }
     -webkit-appearance: none;
   }
@@ -682,15 +682,20 @@ const DateRangePickerContainer = styled.div`
   }
   .DateRangePickerInput {
     background-color: #fff;
-    display: inline-block;
+    border: 0;
+    border-bottom: 1px solid ${color('black')};
+    display: flex;
+    flex-direction: row;
+    transition: all 0.2s ease-in-out;
+    &:focus-within {
+      border-bottom: 1px solid ${color('style')};
+      transition: all 0.2s ease-in-out;
+    }
   }
   .DateRangePickerInput__disabled {
     background: #f2f2f2;
   }
   .DateRangePickerInput__withBorder {
-    border-radius: 2px;
-    border: 0;
-    border-bottom: 1px solid ${color('black')};
   }
   .DateRangePickerInput__rtl {
     direction: rtl;
@@ -769,6 +774,8 @@ const DateRangePickerContainer = styled.div`
   .DateRangePicker {
     position: relative;
     display: inline-block;
+    width: 100%;
+    max-width: 100%;
   }
   .DateRangePicker__block {
     display: block;
@@ -820,6 +827,12 @@ const DateRangePickerContainer = styled.div`
     height: 15px;
     width: 15px;
     fill: #cacccd;
+  }
+  .DateRangePickerInput__arrow,
+  .DateRangePickerInput_arrow_1 {
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
   }
 `;
 
