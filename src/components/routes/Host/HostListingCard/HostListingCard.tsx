@@ -10,7 +10,10 @@ import LazyImage from 'shared/LazyImage';
 import { HostListingShort } from 'networking/listings';
 import { formatAddress } from 'utils/formatter';
 
-const HostListingCard = (props: HostListingShort): JSX.Element => {
+interface Props extends HostListingShort {
+}
+
+const HostListingCard = (props: Props): JSX.Element => {
   const { canPublish, city, country, id, idSlug, isActive, listingPicUrl, state, title, updatedAt } = props;
   return (
     <HostListingCardContainer className="host-listing-card">
