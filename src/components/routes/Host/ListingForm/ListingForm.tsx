@@ -36,7 +36,7 @@ const defaultValues: FormValues = {
   // housing: '',
   houseRules: '',
   icalUrls: [],
-  isInactive: true,
+  isActive: true,
   lat: 0,
   lng: 0,
   listingPicUrl: '',
@@ -79,7 +79,7 @@ const ListingFormSchema = Yup.object().shape({
   homeType: Yup.string(),
   houseRules: Yup.string(),
   icalUrls: Yup.array().of(Yup.string()),
-  isInactive: Yup.bool(),
+  isActive: Yup.bool(),
   lat: Yup.number()
     .moreThan(-90)
     .lessThan(90),
