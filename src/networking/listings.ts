@@ -461,7 +461,7 @@ export const UPDATE_LISTING = gql`
 
 export const ACTIVATE_LISTING = gql`
   mutation ActivateListing($id: ID!) {
-    activateListing(id: $ID) {
+    activateListing(id: $id) {
       isActive
     }
   }
@@ -469,7 +469,7 @@ export const ACTIVATE_LISTING = gql`
 
 export const DEACTIVATE_LISTING = gql`
   mutation ActivateListing($id: ID!) {
-    deactivateListing(id: $ID) {
+    deactivateListing(id: $id) {
       isActive
     }
   }

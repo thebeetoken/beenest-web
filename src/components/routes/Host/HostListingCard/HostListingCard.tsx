@@ -18,6 +18,7 @@ interface Props extends HostListingShort {
 
 const HostListingCard = (props: Props): JSX.Element => {
   const { canPublish, city, country, id, idSlug, isActive, listingPicUrl, state, title, updatedAt } = props;
+  const toggleListing = isActive ? props.deactivateListing : props.activateListing;
   return (
     <HostListingCardContainer className="host-listing-card">
       <div className="host-listing-meta">
@@ -41,7 +42,7 @@ const HostListingCard = (props: Props): JSX.Element => {
               Preview
             </Button>
           </BeeLink>
-          <Checkbox checked={isActive} disabled={!canPublish} onChange={() => console.log('foo')}>
+          <Checkbox checked={isActive} disabled={!canPublish} onChange={() => toggleListing(id)}>
             Publish
           </Checkbox>
         </div>
