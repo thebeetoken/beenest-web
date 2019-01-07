@@ -5,6 +5,7 @@ import AppContainer from './App.container';
 import Account from './routes/Account';
 import Booking from './routes/Booking';
 import Conference from './routes/Conference';
+import Markets from './routes/Markets';
 import BuyNow from './routes/BuyNow';
 import BuyNowReceipt from './routes/BuyNow/BuyNowReceipt';
 import ForgotPassword from './routes/authentication/ForgotPassword';
@@ -81,6 +82,7 @@ const AppRoutes = () => (
             <AuthenticatedRoute path="/bookings" component={Booking} />
             <AuthenticatedRoute path="/trips/:id/receipt" component={TripsReceipt} />
             <AuthenticatedRoute path="/trips" component={Trips} />
+            <Route path="/markets" component={Markets} />
             <Route exact path="/" component={HomeWithZendesk} />
             <Route component={NotFound} />
           </Switch>

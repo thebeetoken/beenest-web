@@ -26,6 +26,8 @@ interface CreateBookingInput {
 
 interface Props extends RouterProps {
   loggedIn: boolean;
+  checkInDate: string;
+  checkOutDate: string;
   completedVerification: boolean;
   listingId: number;
   maxGuests: number;
@@ -34,6 +36,7 @@ interface Props extends RouterProps {
   pricePerNightEth: number;
   pricePerNightUsd: number;
   reservations: Reservation[];
+  totalQuantity: number;
   createBooking: (input: CreateBookingInput) => Promise<Booking>;
 }
 
@@ -62,12 +65,15 @@ interface QueryParams {
   numberOfGuests?: string;
 }
 
-function getInitialState({ maxGuests }: Props): State {
+function getInitialState(props: Props): State {
+  const { maxGuests } = props;
   const queryParams: QueryParams = parseQueryString(location.search);
   const { checkInDate, checkOutDate, numberOfGuests } = queryParams;
-  const startDate = checkInDate ? moment(checkInDate) : null;
-  const endDate = checkOutDate ? moment(checkOutDate) : null;
-  const isDisabled: boolean = !(checkInDate && checkOutDate);
+  const startDate = checkInDate ? moment(checkInDate) :
+    props.checkInDate ? moment(props.checkInDate) : null;
+  const endDate = checkOutDate ? moment(checkOutDate) :
+    props.checkOutDate ? moment(props.checkOutDate) : null;
+  const isDisabled: boolean = !(startDate && endDate);
   return {
     startDate,
     endDate,
@@ -175,7 +181,9 @@ class BookingRequestCard extends React.Component<Props, State> {
       .clone()
       .utc()
       .set('hours', 0);
-    return utcDay.isBefore(this.firstAvailableDay) || utcDay.isAfter(this.futureBlockedDates);
+    const firstDay = this.props.checkInDate ? moment.utc(this.props.checkInDate) : this.firstAvailableDay;
+    const lastDay = this.props.checkOutDate ? moment.utc(this.props.checkOutDate) : this.futureBlockedDates;
+    return utcDay.isBefore(firstDay) || utcDay.isAfter(lastDay);
   };
 
   handleOnDatesChange = ({ startDate, endDate }: DateRange) => {
@@ -263,7 +271,7 @@ class BookingRequestCard extends React.Component<Props, State> {
   handleIsDayBlocked = (day: moment.Moment): boolean => {
     if (!this.props.reservations.length) return false;
 
-    const { reservations } = this.props;
+    const { reservations, totalQuantity } = this.props;
     const { focusedInput } = this.state;
     const utcDay = day
       .clone()
@@ -275,15 +283,15 @@ class BookingRequestCard extends React.Component<Props, State> {
       const selectedStartDate = this.state.startDate.utc().set('hours', 0);
       return (
         utcDay.isBefore(selectedStartDate) ||
-        reservations.some(({ startDate, endDate }: Reservation) => {
+        reservations.filter(({ startDate, endDate }: Reservation) => {
           return selectedStartDate.isBefore(endDate) && utcDay.isAfter(startDate);
-        })
+        }).length >= totalQuantity
       );
     }
 
-    return reservations.some(({ startDate, endDate }: Reservation) => {
+    return reservations.filter(({ startDate, endDate }: Reservation) => {
       return utcDay.isBetween(startDate, endDate, undefined, pickingEnd ? '(]' : '[)');
-    });
+    }).length >= totalQuantity;
   };
 }
 

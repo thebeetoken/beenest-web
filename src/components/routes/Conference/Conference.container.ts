@@ -21,7 +21,6 @@ const ConferenceContainerMobile = styled.section`
         left: 50%;
         position: absolute;
         text-align: center;
-        text-transform: capitalize;
         top: 50%;
         transform: translate3d(-50%, -50%, 0);
         width: 100%;
@@ -61,7 +60,7 @@ const ConferenceContainerMobile = styled.section`
     .host-cta {
       display: flex;
       flex-direction: column;
-      padding: 48px 16px 16pc 16px;
+      padding: 0px 16px 48px 16px;
       .host-cta-content {
         margin: 0 0 0 24px;
         h2 {
