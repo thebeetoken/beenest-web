@@ -263,6 +263,7 @@ export const GET_HOST_LISTINGS = gql`
       country
       id
       idSlug
+      isActive
       listingPicUrl
       state
       title
