@@ -1,7 +1,7 @@
 import * as React from 'react';
 
 import { Query } from 'react-apollo';
-import { GET_CONFERENCE } from 'networking/conferences';
+import { GET_CONFERENCE, Conference } from 'networking/conferences';
 import format from 'date-fns/format';
 import { ListingShort } from 'networking/listings';
 
@@ -13,8 +13,25 @@ import LazyImage from 'shared/LazyImage';
 import { HotelCard } from 'shared/HotelCard';
 import Overlay from 'shared/Overlay';
 import ListingCards from 'shared/ListingCards';
+import Button from 'shared/Button';
 
 const HOTEL_ROOM = 'Hotel Room';
+
+const HostCta = ({title, city}:Conference) => (
+  <section className="host-cta">
+    <div className="host-cta-content">
+      <h2>Do You Own a Vacation Rental?</h2>
+      <p>
+         Want to Feature Your Listing for {title} or a Future Conference in the {city} Area
+      </p>
+      <BeeLink to="/hosts/signup?utm_source=conference_host_signup_cta">
+        <Button size="short">
+          Start Earning Now
+        </Button>
+      </BeeLink>
+    </div>
+  </section>
+);
 
 const Conference = ({ match }: RouterProps) => (
   <ConferenceContainer className="bee-conference">
@@ -30,7 +47,7 @@ const Conference = ({ match }: RouterProps) => (
         }
 
         const { conference } = data;
-        const { coverImage, description, link, listings, startDate, title, venue } = conference;
+        const { coverImage, description, link, listings, startDate, endDate, title, venue } = conference;
 
         const renderHotelListings = (listings || [])
           .filter((listing: ListingShort) => listing.homeType === HOTEL_ROOM)
@@ -47,24 +64,44 @@ const Conference = ({ match }: RouterProps) => (
             {({ screenType }: AppConsumerProps) => (
               <>
                 <div className="conference-hero">
-                  <Overlay color="black" opacity={0.3}>
+                  <Overlay color="black" opacity={0.6}>
                     <LazyImage src={coverImage && coverImage.url} position='bottom left' transition />
                     <div className="text-container">
                       <h1>{title}</h1>
-                      {startDate && <h2>{`${format(startDate.replace('Z',''), 'MMMM D, YYYY')} @ ${venue || 'TBD'}`}</h2>}
+                      {startDate && endDate && startDate === endDate &&
+                        <h2>
+                        {`${format(startDate.replace('Z',''), 'MMMM D, YYYY')}`}
+                        </h2>
+                      }
+                      {startDate && endDate && startDate !== endDate &&
+                        <h2>
+                        {`${format(startDate.replace('Z',''), 'MMMM D, YYYY')} - ${format(endDate.replace('Z',''), 'MMMM D, YYYY')}`}
+                        </h2>
+                      }
+                      {venue && <h2>{venue}</h2>}
                       {screenType >= ScreenType.TABLET &&<h3>{description}</h3>}
                       <h4>{screenType >= ScreenType.TABLET && 'Still Don\'t Have Conference Tickets? '}
-                        <BeeLink href={link}>Purchase Tickets Here</BeeLink></h4>
+                        <BeeLink href={link}>Get Tickets Here</BeeLink></h4>
                     </div>
                   </Overlay>
                 </div>
                 <div className="conference-body">
-                  {!!renderHotelListings.length && <h2>Hotel Packages Available:</h2>}
-                  <div className="conference-hotels-container">
-                    {renderHotelListings}
-                  </div>
-                  {!!propertyListings.length && <h2>Available Nearby Listings:</h2>}
-                  <ListingCards listings={propertyListings} />
+                  <HostCta {...conference} />
+                  {!!renderHotelListings.length &&
+                     <>
+                       <h2>Hotel Packages Available:</h2>
+                       <div className="conference-hotels-container">
+                         {renderHotelListings}
+                       </div>
+                     </>
+                  }
+
+                  {!!propertyListings.length &&
+                    <>
+                      <h2>Available Nearby Listings:</h2>
+                      <ListingCards listings={propertyListings} />
+                    </>
+                  }
                 </div>
               </>
             )}

@@ -21,7 +21,6 @@ const ConferenceContainerMobile = styled.section`
         left: 50%;
         position: absolute;
         text-align: center;
-        text-transform: capitalize;
         top: 50%;
         transform: translate3d(-50%, -50%, 0);
         width: 100%;
@@ -57,6 +56,28 @@ const ConferenceContainerMobile = styled.section`
       ${typography('emp', 6)};
       margin-bottom: 24px;
       text-align: left;
+    }
+    .host-cta {
+      display: flex;
+      flex-direction: column;
+      padding: 0px 16px 48px 16px;
+      .host-cta-content {
+        margin: 0 0 0 24px;
+        h2 {
+          ${typography('emp', 2)};
+          margin: 0;
+        }
+        p {
+          ${typography('read', 1)};
+          margin: 12px 0 12px 0;
+        }
+        a {
+          margin: 18px 0 0;
+          .bee-button {
+            width: 182px;
+          }
+        }
+      }
     }
     .conference-hotels-container {
       display: flex;

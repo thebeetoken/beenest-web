@@ -8,6 +8,7 @@ import LazyImage from 'shared/LazyImage';
 import { numberToLocaleString } from 'utils/numberToLocaleString';
 import { Currency } from 'networking/bookings';
 import { parseQueryString, stringifyQueryString } from 'utils/queryParams';
+import { formatAddress } from 'utils/formatter';
 
 interface Props extends ListingShort, RouterProps {
   className?: string;
@@ -61,7 +62,7 @@ const enhancedListingCard = ({
           <h1>{title}</h1>
           <div className="bee-flex-div" />
           <h4>
-            {city && `${city}, `}{state && `${state}, `}{country.toUpperCase()}
+            {formatAddress(city, state, country)}
           </h4>
         </div>
       </ListingCardContainer>
