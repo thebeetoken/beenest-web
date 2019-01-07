@@ -132,6 +132,16 @@ const CheckboxContainer = styled<Props, any>('label')`
   ${checkboxColorClasses}
 
 
+  &.bee-checkbox--disabled {
+    color: ${color('upper')};
+    cursor: not-allowed;
+    .bee-checkmark--container {
+      border: 2px solid ${color('upper')};
+      color: ${color('upper')};
+    }
+  }
+
+
   @media (min-width: 1025px) {
     /* Style to show hidden border hover state */
     &:hover input ~ .bee-checkmark--container {

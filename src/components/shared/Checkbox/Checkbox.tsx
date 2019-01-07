@@ -15,6 +15,7 @@ interface CheckboxProps {
   children?: any;
   className?: string;
   color?: string;
+  disabled?: boolean;
   hoverColor?: string;
   hoverOpacity?: number;
   icon?: string;
@@ -28,7 +29,7 @@ interface CheckboxClassesObjectProps {
 }
 
 const Checkbox = (props: CheckboxProps) => {
-  const { checked, children, icon, name, onBlur, onChange } = props;
+  const { checked, children, disabled, icon, name, onBlur, onChange } = props;
   return (
     <CheckboxContainer 
       className={children ? getCheckboxClasses(props, children) : getCheckboxClasses(props)} 
@@ -42,6 +43,7 @@ const Checkbox = (props: CheckboxProps) => {
         type="checkbox"
         name={name}
         checked={checked}
+        disabled={disabled}
         onBlur={(event) => onBlur && onBlur(event)}
         onChange={onChange} />
       <div className="bee-checkmark--container">
@@ -52,11 +54,12 @@ const Checkbox = (props: CheckboxProps) => {
 };
 
 const getCheckboxClasses = (props: CheckboxProps, children?: string): string => {
-  const { className, color } = props;
+  const { className, color, disabled } = props;
   const checkboxClassesObject: CheckboxClassesObjectProps = { 
     color: !!color ? `bee-checkbox-color__${color}` : '',
     children: !!children ? 'bee-checkbox__has-text' : '',
     default: 'bee-checkbox',
+    disabled: !!disabled ? 'bee-checkbox--disabled' : '',
     className: !!className ? className : ''
   };
 

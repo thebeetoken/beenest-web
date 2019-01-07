@@ -11,7 +11,7 @@ import { HostListingShort } from 'networking/listings';
 import { formatAddress } from 'utils/formatter';
 
 const HostListingCard = (props: HostListingShort): JSX.Element => {
-  const { city, country, id, idSlug, isActive, listingPicUrl, state, title, updatedAt } = props;
+  const { canPublish, city, country, id, idSlug, isActive, listingPicUrl, state, title, updatedAt } = props;
   return (
     <HostListingCardContainer className="host-listing-card">
       <div className="host-listing-meta">
@@ -35,7 +35,7 @@ const HostListingCard = (props: HostListingShort): JSX.Element => {
               Preview
             </Button>
           </BeeLink>
-          <Checkbox checked={isActive} onChange={() => console.log('foo')}>
+          <Checkbox checked={isActive} disabled={!canPublish} onChange={() => console.log('foo')}>
             Publish
           </Checkbox>
         </div>
