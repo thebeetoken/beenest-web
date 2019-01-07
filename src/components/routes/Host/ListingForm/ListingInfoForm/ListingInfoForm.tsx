@@ -152,7 +152,7 @@ const ListingInfoForm = (props: FormikProps<ListingInput>): JSX.Element => {
       </div>
 
       <div className="form-item photo">
-        <InputLabel htmlFor="photos">
+        <InputLabel htmlFor="photos" subLabel="(limit 25)">
           Listing Photos:
         </InputLabel>
         <PhotoUploader
@@ -160,7 +160,7 @@ const ListingInfoForm = (props: FormikProps<ListingInput>): JSX.Element => {
               return { url };
             })
           }
-          maxFiles={10}
+          maxFiles={25}
           onPhotosUpdated={(photo: Photo[]) => setFieldValue('photos', photo.map(photo => photo.url))} />
       </div>
     </>
