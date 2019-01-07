@@ -5,7 +5,7 @@ const SearchBarContainerMobile = styled.div`
   align-items: flex-end;
   background-color: ${color('white')};
   display: flex;
-  height: 334px;
+  height: 304px;
   justify-content: center;
   width: 100%;
   padding: 24px;
@@ -34,7 +34,6 @@ const SearchBarContainerMobile = styled.div`
     .search-bar-form--date-range {
       display: flex;
       flex-direction: column;
-      margin-bottom: 8px;
     }
     .search-bar-form--location {
       width: 100%;
@@ -43,7 +42,7 @@ const SearchBarContainerMobile = styled.div`
       }
     }
     .search-bar-form--date-range {
-      width: 272px;
+      width: 100%;
       .calendar-labels-container {
         display: flex;
         flex-direction: row;
@@ -99,6 +98,7 @@ const SearchBarContainerDesktop = styled(SearchBarContainerTablet)`
         width: 80px;
       }
       .search-button {
+        margin-left: 38px;
         width: 160px;
       }
     }

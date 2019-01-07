@@ -710,10 +710,15 @@ const DateRangePickerContainer = styled.div`
   .DateRangePickerInput__showClearDates {
     padding-right: 30px;
   }
-  .DateRangePickerInput_arrow {
-    display: inline-block;
-    vertical-align: middle;
+  .DateRangePickerInput__arrow,
+  .DateRangePickerInput_arrow_1 {
     color: #484848;
+    display: flex;
+    flex-direction: column;
+    height: 41px;  /* need this bsince weird bottom border shows up at certain screen sizes */
+    justify-content: center;
+    margin-left: 16px;
+    margin-right: 20px;
   }
   .DateRangePickerInput_arrow_svg {
     vertical-align: middle;
@@ -831,14 +836,6 @@ const DateRangePickerContainer = styled.div`
     height: 15px;
     width: 15px;
     fill: #cacccd;
-  }
-  .DateRangePickerInput__arrow,
-  .DateRangePickerInput_arrow_1 {
-    display: flex;
-    flex-direction: column;
-    justify-content: center;
-    margin-left: 16px;
-    margin-right: 20px;
   }
 `;
 

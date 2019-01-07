@@ -113,7 +113,6 @@ class SearchBar extends React.Component<RouterProps, State> {
               />
             </InputWrapper>
           </div>
-          <div className="bee-flex-div" />
           <Button
             className="search-button"
             type="submit">
