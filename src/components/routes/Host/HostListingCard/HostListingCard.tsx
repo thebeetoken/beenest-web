@@ -1,5 +1,6 @@
 import * as React from 'react';
 import format from 'date-fns/format';
+import { compose, graphql } from 'react-apollo';
 
 import HostListingCardContainer from './HostListingCard.container';
 
@@ -7,10 +8,12 @@ import BeeLink from 'shared/BeeLink';
 import Button from 'shared/Button';
 import Checkbox from 'shared/Checkbox';
 import LazyImage from 'shared/LazyImage';
-import { HostListingShort } from 'networking/listings';
+import { ACTIVATE_LISTING, DEACTIVATE_LISTING, GET_HOST_LISTINGS, HostListingShort, Listing } from 'networking/listings';
 import { formatAddress } from 'utils/formatter';
 
 interface Props extends HostListingShort {
+  activateListing: (id: string) => Promise<Listing>;
+  deactivateListing: (id: string) => Promise<Listing>;
 }
 
 const HostListingCard = (props: Props): JSX.Element => {
@@ -50,4 +53,69 @@ const HostListingCard = (props: Props): JSX.Element => {
   );
 }
 
-export default HostListingCard;
+export default compose(
+  graphql(ACTIVATE_LISTING, {
+    props: ({ mutate }: any) => ({
+      activateListing: (id: string) => {
+        return mutate({
+          variables: { id },
+          refetchQueries: [{ query: GET_HOST_LISTINGS }],
+          update: (store: any, { data }: any) => {
+            if (!store.data.data.ROOT_QUERY || !store.data.data.ROOT_QUERY.hostListings) {
+              return;
+            }
+
+            const { activateListing } = data;
+            const { hostListings } = store.readQuery({ query: GET_HOST_LISTINGS });
+            const index = hostListings.findIndex((listing: Listing) => listing.id === id);
+            store.writeQuery({
+              query: GET_HOST_LISTINGS,
+              data: {
+                hostListings: [
+                  ...hostListings.slice(0, index),
+                  {
+                    ...hostListings[index],
+                    ...activateListing,
+                  },
+                  ...hostListings.slice(index + 1),
+                ],
+              },
+            });
+          },
+        });
+      },
+    }),
+  }),
+  graphql(DEACTIVATE_LISTING, {
+    props: ({ mutate }: any) => ({
+      deactivateListing: (id: string) => {
+        return mutate({
+          variables: { id },
+          refetchQueries: [{ query: GET_HOST_LISTINGS }],
+          update: (store: any, { data }: any) => {
+            if (!store.data.data.ROOT_QUERY || !store.data.data.ROOT_QUERY.hostListings) {
+              return;
+            }
+
+            const { deactivateListing } = data;
+            const { hostListings } = store.readQuery({ query: GET_HOST_LISTINGS });
+            const index = hostListings.findIndex((listing: Listing) => listing.id === id);
+            store.writeQuery({
+              query: GET_HOST_LISTINGS,
+              data: {
+                hostListings: [
+                  ...hostListings.slice(0, index),
+                  {
+                    ...hostListings[index],
+                    ...deactivateListing,
+                  },
+                  ...hostListings.slice(index + 1),
+                ],
+              },
+            });
+          },
+        });
+      },
+    }),
+  })
+)(HostListingCard);
