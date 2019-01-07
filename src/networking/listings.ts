@@ -72,6 +72,7 @@ export interface ListingShort {
 }
 
 export interface HostListingShort {
+  canPublish: boolean;
   city: string;
   country: string;
   id: string;
@@ -259,6 +260,7 @@ export const DELETE_LISTING = gql`
 export const GET_HOST_LISTINGS = gql`
   query GetHostListings {
     hostListings {
+      canPublish
       city
       country
       id
