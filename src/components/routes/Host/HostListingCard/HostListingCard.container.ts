@@ -33,7 +33,10 @@ const HostListingCardContainer = styled.article`
       width: 504px;
       button,
       a {
-        width: 131px;
+        width: 127px;
+      }
+      label {
+        margin: 7px;
       }
     }
   }
