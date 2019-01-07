@@ -43,8 +43,7 @@ const SearchBarContainerMobile = styled.div`
       }
     }
     .search-bar-form--date-range {
-      margin-left: 32px;
-      width: 230px;
+      width: 272px;
       .calendar-labels-container {
         display: flex;
         flex-direction: row;

@@ -84,6 +84,7 @@ class SearchBar extends React.Component<RouterProps, State> {
                       isOutsideRange={this.handleIsOutsideRange}
                       startDate={checkInDate} // momentPropTypes.momentObj or null,
                       startDateId="startDate"
+                      daySize={32}
                       endDate={checkOutDate} // momentPropTypes.momentObj or null,
                       endDateId="endDate"
                       onDatesChange={this.handleOnDatesChange} // PropTypes.func.isRequired,

@@ -257,6 +257,7 @@ const DateRangePickerContainer = styled.div`
     box-sizing: border-box;
     cursor: pointer;
     ${typography('read', 3)}
+    outline: 0;
     text-align: center;
   }
   .CalendarDay:active {
