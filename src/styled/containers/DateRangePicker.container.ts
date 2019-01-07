@@ -633,6 +633,9 @@ const DateRangePickerContainer = styled.div`
     }
     -webkit-appearance: none;
   }
+  .DateInput_input_1 {
+    padding-left: 0;
+  }
   .DateInput_input__small {
     font-size: 15px;
     line-height: 18px;
@@ -833,6 +836,8 @@ const DateRangePickerContainer = styled.div`
     display: flex;
     flex-direction: column;
     justify-content: center;
+    margin-left: 16px;
+    margin-right: 20px;
   }
 `;
 
