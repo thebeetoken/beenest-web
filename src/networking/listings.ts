@@ -76,6 +76,7 @@ export interface HostListingShort {
   country: string;
   id: string;
   idSlug: string;
+  isActive: boolean;
   listingPicUrl: string;
   state: string;
   title: string;
