@@ -121,7 +121,6 @@ const ListingContainerMobile = styled.div`
               margin-bottom: 8px;
               span {
                 padding-top: 2px;
-                text-transform: capitalize;
               }
             }
           }
