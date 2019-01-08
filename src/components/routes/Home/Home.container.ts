@@ -9,23 +9,19 @@ const HomeContainerMobile = styled.section`
   .home-hero {
     align-items: flex-end;
     display: flex;
-    height: 43.06vh;
+    height: 100vh;
     min-height: 560px;
     position: relative;
     width: 100%;
     z-index: 2;
-    .bee-overlay {
-      .bee-lazy-image {
-        height: 256px;
-      }
-    }
+
     .text-container {
       left: 50%;
       position: absolute;
       top: 64px;
       transform: translate3d(-50%, 0, 0);
       z-index: 1;
-      width: 264px;
+      width: 80%;
       h1 {
         ${typography('title', 6)};
         color: ${color('white')};
@@ -44,13 +40,12 @@ const HomeContainerMobile = styled.section`
       }
       p {
         ${typography('read', 3)};
-        color: ${color('up')};
+        color: ${color('white')};
         font-weight: 300;
       }
-    }
-    .search-bar {
-      position: relative;
-      z-index: 1;
+      .search-bar {
+        margin-top: 48px;
+      }
     }
   }
 
@@ -178,7 +173,6 @@ const HomeContainerMobile = styled.section`
 const HomeContainerTablet = styled(HomeContainerMobile)`
   @media (min-width: 768px) {
     .home-hero {
-      min-height: 620px;
       .bee-overlay {
       .bee-lazy-image {
           height: 100%;
@@ -187,7 +181,7 @@ const HomeContainerTablet = styled(HomeContainerMobile)`
       .text-container {
         left: 50%;
         position: absolute;
-        top: 102px;
+        top: 142px;
         transform: translate3d(-50%, 0, 0);
         z-index: 1;
         width: 500px;
@@ -203,14 +197,8 @@ const HomeContainerTablet = styled(HomeContainerMobile)`
         }
         p {
           ${typography('read', 1)};
-          color: ${color('up')};
+          color: ${color('white')};
         }
-      }
-      .search-bar {
-        bottom: 48px;
-        left: 50%;
-        position: absolute;
-        transform: translate3d(-50%, 0, 0);
       }
     }
 
@@ -273,17 +261,19 @@ const HomeContainer = styled(HomeContainerTablet)`
     .home-hero {
       .text-container {
         width: 940px;
-        top: 168px;
+        top: 248px;
         h1 {
           ${typography('title', 2)};
           width: 605px;
         }
         p {
           ${typography('title', 6)};
+          color: ${color('white')};
         }
       }
+
       .search-bar {
-        bottom: 121px;
+        margin-top: 48px;
       }
     }
 
