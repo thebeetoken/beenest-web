@@ -96,6 +96,9 @@ const InputWrapperContainer = styled.div`
       font-weight: 300;
       color: ${({ placeholderColor }: Props) => color(placeholderColor || 'upper')};
     }
+    &::-moz-placeholder {
+      color: ${({ placeholderColor }: Props) => color(placeholderColor || 'top')};
+    }
     &:focus {
       ${({ box }: Props) => {
         const type = box ? 'border' : 'border-bottom';

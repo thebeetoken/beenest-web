@@ -630,6 +630,7 @@ const DateRangePickerContainer = styled.div`
       line-height: 20px;
     }
     &::-moz-placeholder {
+      color: ${color('top')};
       line-height: 38px;
     }
     -webkit-appearance: none;
