@@ -113,6 +113,8 @@ const PopularCities = () => {
       {name: 'Miami', id: 'miami'},
       {name: 'Hawaii', id: 'hawaii'},
       {name: 'Denver', id: 'denver'},
+      {name: 'Chicago', id: 'chicago'},
+      {name: 'San Diego', id: 'san-diego'},
       {name: 'Boston', id: 'boston'},
       {name: 'Seattle', id: 'seattle'},
       {name: 'Austin', id: 'austin'},
