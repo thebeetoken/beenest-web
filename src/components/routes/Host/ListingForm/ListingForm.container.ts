@@ -47,7 +47,7 @@ const ListingFormContainer = styled.section`
         &.photo {
           width: 488px;
         }
-        &.row-bed-bathroom {
+        &.row {
           display: flex;
           flex-direction: row;
           justify-content: space-between;
@@ -59,13 +59,6 @@ const ListingFormContainer = styled.section`
               margin-bottom: 8px;
             }
           }
-        }
-        &.max-guests,
-        &.price-per-night,
-        &.security-deposit,
-        &.min-nights
-        {
-          width: 180px;
         }
         &.map-preview {
           width: 100%;

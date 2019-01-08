@@ -4,8 +4,8 @@ import ListingFormNavContainer from './ListingFormNav.container';
 import BeeLink from 'shared/BeeLink';
 import GeneralWrapper from 'shared/GeneralWrapper';
 import { FormikErrors } from 'formik';
-import { ListingInput } from 'networking/listings';
 import { History } from 'history';
+import { ListingInput } from 'networking/listings';
 
 interface Props {
   history: History;
@@ -63,7 +63,7 @@ const ListingFormNav = ({ errors, history, id, isValid, onSubmit, setNextCrumb, 
       <GeneralWrapper width={976}>
         <Prompt
           when={showAlert}
-          message={`Listing has unsaved changes ${!isValid ? `due to the following errors: ${JSON.stringify(errors)}`: ''}. Are you sure you want to proceed?`}>
+          message={`Listing has unsaved changes ${!isValid ? `due to the following errors: ${JSON.stringify(Object.values(errors), null, 4)}`: ''}. Are you sure you want to proceed?`}>
         </Prompt>
         <nav>
           {renderListingFormNavItems}

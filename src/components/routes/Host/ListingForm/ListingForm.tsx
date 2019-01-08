@@ -36,18 +36,18 @@ const defaultValues: FormValues = {
   // housing: '',
   houseRules: '',
   icalUrls: [],
-  isInactive: true,
+  isActive: true,
   lat: 0,
   lng: 0,
   listingPicUrl: '',
-  maxGuests: undefined,
-  minimumNights: undefined,
-  numberOfBathrooms: undefined,
-  numberOfBedrooms: undefined,
+  maxGuests: 1,
+  minimumNights: 1,
+  numberOfBathrooms: 0,
+  numberOfBedrooms: 0,
   photos: [],
   postalCode: '',
-  pricePerNightUsd: undefined,
-  securityDepositUsd: undefined,
+  pricePerNightUsd: 100,
+  securityDepositUsd: 50,
   sharedBathroom: '',
   sleepingArrangement: '',
   state: '',
@@ -60,17 +60,18 @@ interface Props extends RouterProps {
 }
 
 const ListingFormSchema = Yup.object().shape({
-  addressLine1: Yup.string()
-    .min(1, 'Too Short!'),
+  addressLine1: Yup.string().min(1, 'Too Short!'),
   addressLine2: Yup.string(),
   amenities: Yup.array().of(Yup.string()),
-  checkInTime: Yup.object().shape({
-    from: Yup.string().oneOf(timeOptions),
-    to: Yup.string().oneOf(timeOptions),
-  }).test('validCheckOutTime', 'Check-in (from) and Check-in (to) cannot be the same.', function () {
-    const { from, to } = this.parent.checkInTime;
-    return from !== to;
-  }),
+  checkInTime: Yup.object()
+    .shape({
+      from: Yup.string().oneOf(timeOptions),
+      to: Yup.string().oneOf(timeOptions),
+    })
+    .test('validCheckOutTime', 'Check-in (from) and Check-in (to) cannot be the same.', function() {
+      const { from, to } = this.parent.checkInTime;
+      return from !== to;
+    }),
   checkOutTime: Yup.string().oneOf(timeOptions),
   city: Yup.string().max(60, 'Too Long!'),
   country: Yup.string().max(60, 'Too Long!'),
@@ -78,7 +79,7 @@ const ListingFormSchema = Yup.object().shape({
   homeType: Yup.string(),
   houseRules: Yup.string(),
   icalUrls: Yup.array().of(Yup.string()),
-  isInactive: Yup.bool(),
+  isActive: Yup.bool(),
   lat: Yup.number()
     .moreThan(-90)
     .lessThan(90),
@@ -87,15 +88,26 @@ const ListingFormSchema = Yup.object().shape({
     .lessThan(180),
   listingPicUrl: Yup.string().url(),
   maxGuests: Yup.number()
-    .moreThan(0)
-    .lessThan(51),
-  minimumNights: Yup.number().moreThan(0),
-  numberOfBathrooms: Yup.number().moreThan(0),
-  numberOfBedrooms: Yup.number().moreThan(0),
+    .moreThan(0, 'Max guests must be greater than 0.')
+    .lessThan(51, 'Max guests must not exceed 50.')
+    .required('Please provide the maximum number of guests.'),
+  minimumNights: Yup.number()
+    .moreThan(0, 'Minimum Nights must be greater than 0.')
+    .required('Please provide the minimum number of nights.'),
+  numberOfBathrooms: Yup.number()
+    .min(0, 'Number of bathrooms must be greater than or equal to 0.')
+    .required('Please provide the number of bathrooms.'),
+  numberOfBedrooms: Yup.number()
+    .min(0, 'Number of bedrooms must be greater than or equal to 0.')
+    .required('Please provide the number of bedrooms.'),
   photos: Yup.array().of(Yup.string().url()),
   postalCode: Yup.string().max(45, 'Too Long!'),
-  pricePerNightUsd: Yup.number().moreThan(0),
-  securityDepositUsd: Yup.number().min(0),
+  pricePerNightUsd: Yup.number()
+    .moreThan(0, 'Price per night must be greater than 0.')
+    .required('Please provide the price per night.'),
+  securityDepositUsd: Yup.number()
+    .min(0, 'Security Deposit must be greater than or equal to 0.')
+    .required('Please provide the security deposit amount.'),
   sharedBathroom: Yup.string(),
   sleepingArrangement: Yup.string(),
   state: Yup.string(),
@@ -104,12 +116,7 @@ const ListingFormSchema = Yup.object().shape({
     .max(50, 'Too Long!'),
 });
 
-const formCrumbs = [
-  'listing_info',
-  'accommodations',
-  'pricing_availability',
-  'checkin_details',
-]
+const formCrumbs = ['listing_info', 'accommodations', 'pricing_availability', 'checkin_details'];
 
 interface State {
   nextCrumb: string;
@@ -117,7 +124,7 @@ interface State {
 
 class ListingForm extends React.Component<Props, State> {
   readonly state: State = {
-    nextCrumb: ''
+    nextCrumb: '',
   };
 
   componentDidMount = () => {
@@ -125,11 +132,9 @@ class ListingForm extends React.Component<Props, State> {
     const currentCrumb = path.substr(path.lastIndexOf('/') + 1);
     const nextCrumb = formCrumbs[formCrumbs.indexOf(currentCrumb) + 1];
     this.setState({
-      nextCrumb: nextCrumb
-        ? `${this.props.match.params.id}/${nextCrumb}`
-        : ''
+      nextCrumb: nextCrumb ? `${this.props.match.params.id}/${nextCrumb}` : '',
     });
-  }
+  };
 
   render() {
     const { props } = this;
@@ -148,13 +153,14 @@ class ListingForm extends React.Component<Props, State> {
                 props.history.push(`/host/listings/${this.state.nextCrumb}`);
               })
               .catch((error: Error) => {
+                alert(`${error}. If this continues to occur, please contact us at support@beetoken.com`);
                 console.error(error);
                 return actions.setSubmitting(false);
               });
           }}
         >
           {(FormikProps: FormikProps<ListingInput>) => (
-            <> 
+            <>
               <ListingFormNav
                 errors={FormikProps.errors}
                 history={props.history}
@@ -162,37 +168,30 @@ class ListingForm extends React.Component<Props, State> {
                 isValid={FormikProps.isValid}
                 showAlert={!FormikProps.isSubmitting && FormikProps.dirty}
                 setNextCrumb={this.setNextCrumb}
-                onSubmit={FormikProps.submitForm} />
+                onSubmit={FormikProps.submitForm}
+              />
               <GeneralWrapper align="flex-start" direction="row" justify="flex-start" width={976}>
                 <Form>
                   <Switch>
                     <Route
                       exact
                       path="/host/listings/:id/accommodations"
-                      render={() => (
-                        <AccommodationsForm {...FormikProps} />
-                      )}
+                      render={() => <AccommodationsForm {...FormikProps} />}
                     />
                     <Route
                       exact
                       path="/host/listings/:id/checkin_details"
-                      render={() => (
-                        <CheckinDetailsForm {...FormikProps} />
-                      )}
+                      render={() => <CheckinDetailsForm {...FormikProps} />}
                     />
                     <Route
                       exact
                       path="/host/listings/:id/listing_info"
-                      render={() => (
-                        <ListingInfoForm {...FormikProps} />
-                      )}
+                      render={() => <ListingInfoForm {...FormikProps} />}
                     />
                     <Route
                       exact
                       path="/host/listings/:id/pricing_availability"
-                      render={() => (
-                        <PricingAvailabilityForm {...FormikProps} />
-                      )}
+                      render={() => <PricingAvailabilityForm {...FormikProps} />}
                     />
                     <Redirect exact from="/host/listings/:id/edit" to="/host/listings/:id/listing_info" />
                     <Route component={NotFound} />
@@ -201,17 +200,17 @@ class ListingForm extends React.Component<Props, State> {
                   <Button
                     onClick={() => {
                       if (!FormikProps.isValid) {
-                        alert(`Cannot save changes due to errors: ${JSON.stringify(FormikProps.errors)}`);
+                        alert(`Cannot save changes due to errors: ${JSON.stringify(Object.values(FormikProps.errors), null, 4)}`);
                       }
                       FormikProps.submitForm();
                     }}
                     textStyle="title-8"
-                    type="button">
+                    type="button"
+                  >
                     Save &amp; Continue
                   </Button>
                 </Form>
-                <aside>
-                </aside>
+                <aside />
               </GeneralWrapper>
             </>
           )}
@@ -220,9 +219,7 @@ class ListingForm extends React.Component<Props, State> {
     );
   }
 
-  setNextCrumb = (nextCrumb: string) => (
-    this.setState({ nextCrumb })
-  )
+  setNextCrumb = (nextCrumb: string) => this.setState({ nextCrumb });
 }
 
 export default compose(
