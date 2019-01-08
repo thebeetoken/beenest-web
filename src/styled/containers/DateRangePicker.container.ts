@@ -257,6 +257,7 @@ const DateRangePickerContainer = styled.div`
     box-sizing: border-box;
     cursor: pointer;
     ${typography('read', 3)}
+    outline: 0;
     text-align: center;
   }
   .CalendarDay:active {
@@ -594,8 +595,11 @@ const DateRangePickerContainer = styled.div`
     background: #fff;
     position: relative;
     display: inline-block;
-    width: 130px;
+    width: 100%;
     vertical-align: middle;
+    > input {
+      border: 0;
+    }
   }
   .DateInput__small {
     width: 97px;
@@ -626,12 +630,13 @@ const DateRangePickerContainer = styled.div`
       line-height: 20px;
     }
     &::-moz-placeholder {
+      color: ${color('top')};
       line-height: 38px;
     }
-    &:focus {
-      border: 1px solid ${color('style')};
-    }
     -webkit-appearance: none;
+  }
+  .DateInput_input_1 {
+    padding-left: 0;
   }
   .DateInput_input__small {
     font-size: 15px;
@@ -682,15 +687,20 @@ const DateRangePickerContainer = styled.div`
   }
   .DateRangePickerInput {
     background-color: #fff;
-    display: inline-block;
+    border: 0;
+    border-bottom: 1px solid ${color('black')};
+    display: flex;
+    flex-direction: row;
+    transition: all 0.2s ease-in-out;
+    &:focus-within {
+      border-bottom: 1px solid ${color('style')};
+      transition: all 0.2s ease-in-out;
+    }
   }
   .DateRangePickerInput__disabled {
     background: #f2f2f2;
   }
   .DateRangePickerInput__withBorder {
-    border-radius: 2px;
-    border: 0;
-    border-bottom: 1px solid ${color('black')};
   }
   .DateRangePickerInput__rtl {
     direction: rtl;
@@ -701,10 +711,15 @@ const DateRangePickerContainer = styled.div`
   .DateRangePickerInput__showClearDates {
     padding-right: 30px;
   }
-  .DateRangePickerInput_arrow {
-    display: inline-block;
-    vertical-align: middle;
+  .DateRangePickerInput__arrow,
+  .DateRangePickerInput_arrow_1 {
     color: #484848;
+    display: flex;
+    flex-direction: column;
+    height: 41px;  /* need this since weird bottom border shows up at certain screen sizes */
+    justify-content: center;
+    margin-left: 16px;
+    margin-right: 20px;
   }
   .DateRangePickerInput_arrow_svg {
     vertical-align: middle;
@@ -769,6 +784,8 @@ const DateRangePickerContainer = styled.div`
   .DateRangePicker {
     position: relative;
     display: inline-block;
+    width: 100%;
+    max-width: 100%;
   }
   .DateRangePicker__block {
     display: block;

@@ -9,8 +9,8 @@ const HomeContainerMobile = styled.section`
   .home-hero {
     align-items: flex-end;
     display: flex;
-    height: 100vh;
-    min-height: 560px;
+    height: 46vh;
+    min-height: 180px;
     position: relative;
     width: 100%;
     z-index: 2;
@@ -173,6 +173,7 @@ const HomeContainerMobile = styled.section`
 const HomeContainerTablet = styled(HomeContainerMobile)`
   @media (min-width: 768px) {
     .home-hero {
+      height: 100vh;
       .bee-overlay {
       .bee-lazy-image {
           height: 100%;

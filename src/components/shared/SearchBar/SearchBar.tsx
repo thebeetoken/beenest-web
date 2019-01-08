@@ -1,6 +1,6 @@
 import * as React from 'react';
 import { withRouter } from 'react-router-dom';
-import { SingleDatePicker } from 'react-dates';
+import { DateRangePicker } from 'react-dates';
 import moment from 'moment';
 
 import SearchBarContainer from './SearchBar.container';
@@ -8,7 +8,6 @@ import DateRangePickerContainer from 'styled/containers/DateRangePicker.containe
 
 import Button from 'shared/Button';
 import GoogleAutoComplete from 'shared/GoogleAutoComplete';
-import InputLabel from 'shared/InputLabel';
 import InputWrapper from 'shared/InputWrapper';
 import { parseQueryString, stringifyQueryString } from 'utils/queryParams';
 import { AppConsumer, AppConsumerProps, ScreenType } from 'components/App.context';
@@ -20,11 +19,15 @@ interface QueryParams {
   numberOfGuests?: string;
 }
 
+interface DateRange {
+  startDate: moment.Moment;
+  endDate: moment.Moment;
+}
+
 interface State {
   checkInDate: moment.Moment | null;
   checkOutDate: moment.Moment | null;
-  checkInDateFocus: boolean;
-  checkOutDateFocus: boolean;
+  focusedInput: 'startDate' | 'endDate' | null;
   locationQuery: string | undefined;
   numberOfGuests: string;
 }
@@ -34,8 +37,7 @@ function getInitialState({ location }: RouterProps): State {
   const { checkInDate, checkOutDate, numberOfGuests, locationQuery } = queryParams;
   return {
     locationQuery,
-    checkInDateFocus: false,
-    checkOutDateFocus: false,
+    focusedInput: null,
     checkInDate: checkInDate ? moment(checkInDate) : null,
     checkOutDate: checkOutDate ? moment(checkOutDate) : null,
     numberOfGuests: numberOfGuests && Number(numberOfGuests) ? parseInt(numberOfGuests).toFixed() : '1',
@@ -47,12 +49,20 @@ class SearchBar extends React.Component<RouterProps, State> {
   private placesRef: React.RefObject<google.maps.places.SearchBox | null> = React.createRef();
   private inputRef: React.RefObject<HTMLInputElement | null> = React.createRef();
 
+  private firstAvailableDay: moment.Moment = moment()
+    .utc()
+    .startOf('day')
+    .add(2, 'days');
+  private futureBlockedDates: moment.Moment = moment()
+    .utc()
+    .startOf('day')
+    .add(6, 'months');
+  
   render() {
     const {
       checkInDate,
-      checkInDateFocus,
       checkOutDate,
-      checkOutDateFocus,
+      focusedInput,
       locationQuery,
       numberOfGuests,
     } = this.state;
@@ -60,7 +70,6 @@ class SearchBar extends React.Component<RouterProps, State> {
       <SearchBarContainer className="search-bar">
         <form className="search-bar-form" onKeyPress={this.disableEnter} onSubmit={this.handleSubmit}>
           <div className="search-bar-form--location">
-            <InputLabel htmlFor="locationQuery">Location</InputLabel>
             <div className="search-bar-autocomplete-container">
               <GoogleAutoComplete placesRef={this.placesRef} inputRef={this.inputRef} defaultValue={locationQuery} />
             </div>
@@ -69,44 +78,30 @@ class SearchBar extends React.Component<RouterProps, State> {
             {({ screenType }: AppConsumerProps) => {
               const isMobile = screenType <= ScreenType.TABLET;
               return (
-                <div className="search-bar-form--row">
-                  <div className="search-bar-form--check-in-date">
-                    <InputLabel htmlFor="checkInDate">Check-in</InputLabel>
-                    <DateRangePickerContainer>
-                      <SingleDatePicker
-                        date={checkInDate}
-                        focused={checkInDateFocus}
-                        daySize={32}
-                        id="checkInDate"
-                        numberOfMonths={1}
-                        onDateChange={this.handleCheckInDate}
-                        onFocusChange={this.handleCheckInFocus}
-                        readOnly={isMobile}
-                      />
-                    </DateRangePickerContainer>
-                  </div>
-                  <div className="search-bar-form--check-out-date">
-                    <InputLabel htmlFor="checkOutDate">Check-out</InputLabel>
-                    <DateRangePickerContainer>
-                      <SingleDatePicker
-                        anchorDirection="right"
-                        date={checkOutDate}
-                        daySize={32}
-                        focused={checkOutDateFocus}
-                        id="checkOutDate"
-                        numberOfMonths={1}
-                        onDateChange={this.handleCheckOutDate}
-                        onFocusChange={this.handleCheckOutFocus}
-                        readOnly={isMobile}
-                      />
-                    </DateRangePickerContainer>
-                  </div>
+                <div className="search-bar-form--date-range">
+                  <DateRangePickerContainer>
+                    <DateRangePicker
+                      isOutsideRange={this.handleIsOutsideRange}
+                      startDate={checkInDate} // momentPropTypes.momentObj or null,
+                      startDateId="startDate"
+                      startDatePlaceholderText="Check-In"
+                      daySize={32}
+                      endDate={checkOutDate} // momentPropTypes.momentObj or null,
+                      endDateId="endDate"
+                      endDatePlaceholderText="Check-Out"
+                      onDatesChange={this.handleOnDatesChange} // PropTypes.func.isRequired,
+                      focusedInput={focusedInput} // PropTypes.oneOf(['startDate', 'endDate']) or null,
+                      onFocusChange={this.handleOnFocusChange} // PropTypes.func.isRequired,
+                      minimumNights={1}
+                      numberOfMonths={1}
+                      readOnly={isMobile}
+                    />
+                  </DateRangePickerContainer>
                 </div>
               );
             }}
           </AppConsumer>
           <div className="search-bar-form--guests">
-            <InputLabel htmlFor="numberOfGuests">Guests</InputLabel>
             <InputWrapper box>
               <input
                 id="numberOfGuests"
@@ -114,14 +109,15 @@ class SearchBar extends React.Component<RouterProps, State> {
                 step="1"
                 name="numberOfGuests"
                 onChange={this.handleGuests}
-                placeholder="# of Guests"
+                placeholder="Guests"
                 type="number"
                 value={numberOfGuests}
               />
             </InputWrapper>
           </div>
-          <div className="bee-flex-div" />
-          <Button className="search-button" type="submit">
+          <Button
+            className="search-button"
+            type="submit">
             Search Listings
           </Button>
         </form>
@@ -129,26 +125,24 @@ class SearchBar extends React.Component<RouterProps, State> {
     );
   }
 
-  handleCheckInDate = (checkInDate: moment.Moment | null) => {
-    if (checkInDate && this.state.checkOutDate && checkInDate.isSameOrAfter(this.state.checkOutDate)) {
-      return this.setState({
-        checkInDate,
-        checkOutDate: null,
-      });
-    }
-    return this.setState({ checkInDate });
-  }
-  handleCheckOutDate = (checkOutDate: moment.Moment | null) => {
-    if (checkOutDate && this.state.checkInDate && checkOutDate.isSameOrBefore(this.state.checkInDate)) {
-      return this.setState({
-        checkInDate: null,
-        checkOutDate,
-      });
-    }
-    return this.setState({ checkOutDate });
-  }
-  handleCheckInFocus = () => this.setState({ checkInDateFocus: !this.state.checkInDateFocus });
-  handleCheckOutFocus = () => this.setState({ checkOutDateFocus: !this.state.checkOutDateFocus });
+  handleIsOutsideRange = (day: moment.Moment) => {
+    const utcDay = day
+      .clone()
+      .utc()
+      .set('hours', 0);
+    return utcDay.isBefore(this.firstAvailableDay) || utcDay.isAfter(this.futureBlockedDates);
+  };
+
+  handleOnDatesChange = ({ startDate, endDate }: DateRange) => {
+    const checkInDate = startDate && startDate.utc().set('hours', 0);
+    const checkOutDate = endDate && endDate.utc().set('hours', 0);
+    this.setState({
+      checkInDate,
+      checkOutDate,
+    });
+  };
+
+  handleOnFocusChange = (focusedInput: 'startDate' | 'endDate' | null) => this.setState({ focusedInput });
   handleGuests = (event: React.ChangeEvent<HTMLInputElement>) => this.setState({ numberOfGuests: event.target.value });
 
   disableEnter = (event: React.KeyboardEvent) => {

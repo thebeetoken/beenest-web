@@ -139,8 +139,10 @@ class BookingRequestCard extends React.Component<Props, State> {
                   isDayBlocked={this.handleIsDayBlocked}
                   startDate={startDate} // momentPropTypes.momentObj or null,
                   startDateId="startDate"
+                  startDatePlaceholderText="Check-In"
                   endDate={endDate} // momentPropTypes.momentObj or null,
                   endDateId="endDate"
+                  endDatePlaceholderText="Check-Out"
                   onDatesChange={this.handleOnDatesChange} // PropTypes.func.isRequired,
                   focusedInput={focusedInput} // PropTypes.oneOf(['startDate', 'endDate']) or null,
                   onFocusChange={this.handleOnFocusChange} // PropTypes.func.isRequired,
