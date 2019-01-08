@@ -317,7 +317,7 @@ const MobileUnauthenticatedHamburger = ({ closeMenu, showMenu }: MobileHamburger
 const NavigationItems = () => (
   <div className="header-navigation--items">
     <BeeLink href={HOST_INTEREST_LINK}>
-      <span>Become a Host</span>
+      <HomeBecomeAHostButton />
     </BeeLink>
     <BeeLink to="/help">
       <span>Help</span>
@@ -359,25 +359,16 @@ const UnauthenticatedNavLinks = () => (
       <span>Login</span>
     </BeeLink>
     <BeeLink to="/signup">
-      <Switch>
-        <Route exact path="/" component={HomeSignUpButton} />
-        <Route component={DefaultSignUpButton} />
-      </Switch>
+      <span>Sign Up</span>
     </BeeLink>
   </div>
 );
 
 const NoopComponent = () => null;
 
-const HomeSignUpButton = () => (
+const HomeBecomeAHostButton = () => (
   <Button className="header-navigation--signup" border="white" color="white" size="small" textStyle="title-7">
-    Sign Up
-  </Button>
-);
-
-const DefaultSignUpButton = () => (
-  <Button className="header-navigation--signup home" border="core" size="small" textStyle="title-7">
-    Sign Up
+    Become a Host
   </Button>
 );
 

@@ -89,7 +89,7 @@ const validationMap: Validation = {
   description: isNotEmpty,
   pricePerNightUsd: isPositive,
   securityDepositUsd: isNonNegative,
-  isInactive: bypass,
+  isActive: bypass,
   lat: bypass,
   listingPicUrl: isValidUrl,
   icalUrls: isValidIcalUrls,
@@ -135,7 +135,7 @@ function convertToListingForm(listing = {} as Listing): AdminListingInput {
     homeType: listing.homeType || '',
     hostEmail: listing.host && listing.host.email ? listing.host.email : '',
     houseRules: listing.houseRules || '',
-    isInactive: listing.isInactive || false,
+    isActive: listing.isActive !== undefined ? listing.isActive : true,
     lat: listing.lat,
     icalUrls: listing.icalUrls || [],
     listingPicUrl: listing.listingPicUrl || '',
@@ -316,7 +316,7 @@ class AdminListingsForm extends React.Component<Props, State> {
       homeType,
       hostEmail,
       houseRules,
-      isInactive,
+      isActive,
       icalUrls,
       maxGuests,
       minimumNights,
@@ -336,16 +336,16 @@ class AdminListingsForm extends React.Component<Props, State> {
         <div className="admin-form--item">
           <div className="single-input-validator-container">
             <Checkbox
-              checked={!!isInactive}
-              name="isInactive"
+              checked={!!isActive}
+              name="isActive"
               onChange={this.handleCheckbox}>
-              Inactive
+              Active
             </Checkbox>
             <Svg
-              className={`admin-input__success ${getInputSuccessClass(inputValidation.isInactive)}`.trim()}
+              className={`admin-input__success ${getInputSuccessClass(inputValidation.isActive)}`.trim()}
               src="utils/check-circle"
             />
-            <span className={`admin-input__error ${getInputErrorClass(inputValidation.isInactive)}`.trim()}>
+            <span className={`admin-input__error ${getInputErrorClass(inputValidation.isActive)}`.trim()}>
               {errorMessages.generic}
             </span>
           </div>

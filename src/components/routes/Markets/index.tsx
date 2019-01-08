@@ -3,7 +3,7 @@ import NotFound from 'components/routes/NotFound';
 import { Route, Redirect, Switch } from 'react-router-dom';
 
 const generateSearchLink = (market:string, lat:number, lng:number) => (
-  `/listings?locationQuery=${encodeURIComponent(market)}&coordinates%5Blat%5D=${lat}&coordinates%5Blng%5D=${lng}`
+  `/listings?locationQuery=${encodeURIComponent(market.replace(/-/g,' '))}&coordinates%5Blat%5D=${lat}&coordinates%5Blng%5D=${lng}`
 );
 
 const markets = [

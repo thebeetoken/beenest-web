@@ -14,7 +14,7 @@ interface Props extends Listing {
 
 class AdminListingTableRow extends React.Component<Props> {
   render() {
-    const { city, country, createdAt, id, isInactive, host, state } = this.props;
+    const { city, country, createdAt, id, isActive, host, state } = this.props;
     const title = this.props.title.length <= 30 ? this.props.title : `${this.props.title.substring(0, 30)}...`;
     return (
       <tr className="admin-table-row-container">
@@ -43,7 +43,7 @@ class AdminListingTableRow extends React.Component<Props> {
           </CopyToClipboard>
         </td>
         <td className="admin-table-row--item">
-          <span>{getListingStatus(isInactive)}</span>
+          <span>{getListingStatus(!isActive)}</span>
           <span>Created: {formatSingleDate(createdAt)}</span>
         </td>
         <td className="admin-table-row--item">

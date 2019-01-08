@@ -30,10 +30,13 @@ const HostListingCardContainer = styled.article`
     &--button-container {
       display: flex;
       justify-content: space-between;
-      width: 409px;
+      width: 504px;
       button,
       a {
-        width: 131px;
+        width: 127px;
+      }
+      label {
+        margin: 7px;
       }
     }
   }
