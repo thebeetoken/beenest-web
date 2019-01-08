@@ -51,7 +51,7 @@ export default compose<{}, Props>(
       <InputWrapper box>
         <input
           ref={inputRef}
-          placeholder="Search Location"
+          placeholder="Try San Francisco"
           type="text"
           name="locationQuery"
           id="locationQuery"
