@@ -176,10 +176,10 @@ class BookingRequestCard extends React.Component<Props, State> {
       .set('hours', 0);
     const firstDay = this.props.checkInDate ?
       moment.utc(this.props.checkInDate) :
-      moment().utc().startOf('day').add(2, 'days');
+      moment.utc().startOf('day').add(2, 'days');
     const lastDay = this.props.checkOutDate ?
       moment.utc(this.props.checkOutDate) :
-      moment().utc().startOf('day').add(6, 'months');
+      moment.utc().startOf('day').add(6, 'months');
     return utcDay.isBefore(firstDay) || utcDay.isAfter(lastDay);
   };
 
