@@ -36,6 +36,7 @@ const HostListingCardContainer = styled.article`
         width: 127px;
       }
       label {
+        display: inline-flex;
         max-height: 40px;
         padding: 6px;
         span {
