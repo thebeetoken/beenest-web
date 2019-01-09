@@ -248,7 +248,7 @@ class AdminListingsForm extends React.Component<Props, State> {
         const { updateListing } = this.props;
         return compileListing(this.state.inputForm)
           .then((input: AdminListingInput) => {
-            if (!!this.state.incompleteField) {
+            if (!!this.state.incompleteField && input.isActive) {
               alert('Form is incomplete. Please review each form field.');
               this.setState({ isSubmitClicked: false });
               return Promise.reject(new Error('Form is incomplete. Please review each form field.'));
@@ -1105,7 +1105,7 @@ class AdminListingsForm extends React.Component<Props, State> {
               <Button
                 background="correct"
                 color="white"
-                disabled={!!incompleteField || isSubmitClicked}
+                disabled={(!!incompleteField && isActive) || isSubmitClicked}
                 noRadius
                 textStyle="welter-5"
                 type="submit">
