@@ -69,10 +69,10 @@ function getInitialState(props: Props): State {
   const { maxGuests } = props;
   const queryParams: QueryParams = parseQueryString(location.search);
   const { checkInDate, checkOutDate, numberOfGuests } = queryParams;
-  const startDate = props.checkInDate ? moment(props.checkInDate) :
-    checkInDate ? moment(checkInDate) : null;
-  const endDate = props.checkOutDate ? moment(props.checkOutDate) :
-    checkOutDate ? moment(checkOutDate) : null;
+  const startDate = props.checkInDate ? moment.utc(props.checkInDate) :
+    checkInDate ? moment.utc(checkInDate) : null;
+  const endDate = props.checkOutDate ? moment.utc(props.checkOutDate) :
+    checkOutDate ? moment.utc(checkOutDate) : null;
   const isDisabled: boolean = !(startDate && endDate);
   return {
     startDate,
@@ -86,15 +86,6 @@ function getInitialState(props: Props): State {
 
 class BookingRequestCard extends React.Component<Props, State> {
   readonly state = getInitialState(this.props);
-
-  firstAvailableDay: moment.Moment = moment()
-    .utc()
-    .startOf('day')
-    .add(2, 'days');
-  futureBlockedDates: moment.Moment = moment()
-    .utc()
-    .startOf('day')
-    .add(6, 'months');
 
   render() {
     const { pricePerNight, pricePerNightEth, pricePerNightUsd } = this.props;
@@ -183,8 +174,12 @@ class BookingRequestCard extends React.Component<Props, State> {
       .clone()
       .utc()
       .set('hours', 0);
-    const firstDay = this.props.checkInDate ? moment.utc(this.props.checkInDate) : this.firstAvailableDay;
-    const lastDay = this.props.checkOutDate ? moment.utc(this.props.checkOutDate) : this.futureBlockedDates;
+    const firstDay = this.props.checkInDate ?
+      moment.utc(this.props.checkInDate) :
+      moment.utc().startOf('day').add(2, 'days');
+    const lastDay = this.props.checkOutDate ?
+      moment.utc(this.props.checkOutDate) :
+      moment.utc().startOf('day').add(6, 'months');
     return utcDay.isBefore(firstDay) || utcDay.isAfter(lastDay);
   };
 

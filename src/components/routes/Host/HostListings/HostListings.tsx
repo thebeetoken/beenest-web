@@ -23,7 +23,7 @@ const HostListings = ({ createListing }: Props): JSX.Element => (
           return <h1>{error ? error.message : 'Error / No Data'}</h1>;
         }
 
-        const listings = data.hostListings;
+        const listings = data.hostListings || [];
 
         if (listings.length < 1) {
           return (
