@@ -36,7 +36,7 @@ const HostListingCardContainer = styled.article`
         width: 127px;
       }
       label {
-        margin: 7px;
+        padding: 6px;
       }
     }
   }
