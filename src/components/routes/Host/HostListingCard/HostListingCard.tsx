@@ -1,12 +1,12 @@
 import * as React from 'react';
 import format from 'date-fns/format';
 import { compose, graphql } from 'react-apollo';
+import Switch from 'react-switch';
 
 import HostListingCardContainer from './HostListingCard.container';
 
 import BeeLink from 'shared/BeeLink';
 import Button from 'shared/Button';
-import Checkbox from 'shared/Checkbox';
 import LazyImage from 'shared/LazyImage';
 import { ACTIVATE_LISTING, DEACTIVATE_LISTING, GET_HOST_LISTINGS, HostListingShort, Listing } from 'networking/listings';
 import { formatAddress } from 'utils/formatter';
@@ -42,9 +42,10 @@ const HostListingCard = (props: Props): JSX.Element => {
               Preview
             </Button>
           </BeeLink>
-          <Checkbox checked={isActive} disabled={!canPublish} onChange={() => toggleListing(id)}>
-            Publish
-          </Checkbox>
+          <label htmlFor={`publish-${id}`}>
+            <span>Publish</span>
+            <Switch checked={isActive} disabled={!canPublish} onChange={() => toggleListing(id)} id={`publish-${id}`} />
+          </label>
         </div>
       </div>
       <div className="host-listing-image">
