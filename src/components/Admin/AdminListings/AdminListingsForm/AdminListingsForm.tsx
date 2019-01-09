@@ -1039,8 +1039,8 @@ class AdminListingsForm extends React.Component<Props, State> {
         </div>
 
         <div className="admin-form--item">
-          <AdminInputLabel htmlFor="icalUrls" subLabel="(optional)">
-            iCal URL:
+          <AdminInputLabel htmlFor="icalUrls" subLabel="(optional, separate by comma)">
+            iCal URLs:
           </AdminInputLabel>
           <div className="single-input-validator-container">
             <AdminTextarea
