@@ -16,6 +16,8 @@ interface Props extends HostListingShort {
   deactivateListing: (id: string) => Promise<Listing>;
 }
 
+const INCOMPLETE_LISTING = "This listing is incomplete. Use the Edit button to complete this listing to publish.";
+
 const HostListingCard = (props: Props): JSX.Element => {
   const { canPublish, city, country, id, idSlug, isActive, listingPicUrl, state, title, updatedAt } = props;
   const toggleListing = isActive ? props.deactivateListing : props.activateListing;
@@ -42,7 +44,7 @@ const HostListingCard = (props: Props): JSX.Element => {
               Preview
             </Button>
           </BeeLink>
-          <label htmlFor={`publish-${id}`}>
+          <label htmlFor={`publish-${id}`} title={canPublish ? '' : INCOMPLETE_LISTING}>
             <span className={canPublish ? '' : 'host-listing-meta--disabled'}>Publish</span>
             <Switch checked={isActive} disabled={!canPublish} onChange={() => toggleListing(id)} id={`publish-${id}`} />
           </label>
