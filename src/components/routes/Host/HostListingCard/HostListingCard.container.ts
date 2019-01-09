@@ -40,6 +40,7 @@ const HostListingCardContainer = styled.article`
         max-height: 40px;
         padding: 6px;
         span {
+          ${typography('caption', 2)};
           padding: 6px;
         }
       }
