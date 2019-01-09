@@ -43,7 +43,7 @@ const HostListingCard = (props: Props): JSX.Element => {
             </Button>
           </BeeLink>
           <label htmlFor={`publish-${id}`}>
-            <span>Publish</span>
+            <span className={canPublish ? '' : 'host-listing-meta--disabled'}>Publish</span>
             <Switch checked={isActive} disabled={!canPublish} onChange={() => toggleListing(id)} id={`publish-${id}`} />
           </label>
         </div>

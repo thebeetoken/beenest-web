@@ -43,6 +43,9 @@ const HostListingCardContainer = styled.article`
           ${typography('caption', 2)};
           padding: 6px;
         }
+        span.host-listing-meta--disabled {
+          color: ${color('upper')};
+        }
       }
     }
   }
