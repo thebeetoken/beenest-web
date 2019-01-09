@@ -42,6 +42,9 @@ const HostListingCard = (props: Props): JSX.Element => {
               Preview
             </Button>
           </BeeLink>
+          <Button background="core" color="white" size="small" onClick={() => alert(id)}>
+            Delete
+          </Button>          
           <Checkbox checked={isActive} disabled={!canPublish} onChange={() => toggleListing(id)}>
             Publish
           </Checkbox>
