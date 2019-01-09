@@ -38,6 +38,9 @@ const HostListingCardContainer = styled.article`
       label {
         max-height: 40px;
         padding: 6px;
+        span {
+          padding: 6px;
+        }
       }
     }
   }
