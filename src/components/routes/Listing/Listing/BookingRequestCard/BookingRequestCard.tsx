@@ -87,15 +87,6 @@ function getInitialState(props: Props): State {
 class BookingRequestCard extends React.Component<Props, State> {
   readonly state = getInitialState(this.props);
 
-  firstAvailableDay: moment.Moment = moment()
-    .utc()
-    .startOf('day')
-    .add(2, 'days');
-  futureBlockedDates: moment.Moment = moment()
-    .utc()
-    .startOf('day')
-    .add(6, 'months');
-
   render() {
     const { pricePerNight, pricePerNightEth, pricePerNightUsd } = this.props;
     const { endDate, startDate, focusedInput, isDisabled, numberOfGuests } = this.state;
@@ -139,8 +130,10 @@ class BookingRequestCard extends React.Component<Props, State> {
                   isDayBlocked={this.handleIsDayBlocked}
                   startDate={startDate} // momentPropTypes.momentObj or null,
                   startDateId="startDate"
+                  startDatePlaceholderText="Check-In"
                   endDate={endDate} // momentPropTypes.momentObj or null,
                   endDateId="endDate"
+                  endDatePlaceholderText="Check-Out"
                   onDatesChange={this.handleOnDatesChange} // PropTypes.func.isRequired,
                   focusedInput={focusedInput} // PropTypes.oneOf(['startDate', 'endDate']) or null,
                   onFocusChange={this.handleOnFocusChange} // PropTypes.func.isRequired,
@@ -181,8 +174,12 @@ class BookingRequestCard extends React.Component<Props, State> {
       .clone()
       .utc()
       .set('hours', 0);
-    const firstDay = this.props.checkInDate ? moment.utc(this.props.checkInDate) : this.firstAvailableDay;
-    const lastDay = this.props.checkOutDate ? moment.utc(this.props.checkOutDate) : this.futureBlockedDates;
+    const firstDay = this.props.checkInDate ?
+      moment.utc(this.props.checkInDate) :
+      moment.utc().startOf('day').add(2, 'days');
+    const lastDay = this.props.checkOutDate ?
+      moment.utc(this.props.checkOutDate) :
+      moment.utc().startOf('day').add(6, 'months');
     return utcDay.isBefore(firstDay) || utcDay.isAfter(lastDay);
   };
 

@@ -5,7 +5,7 @@ const SearchBarContainerMobile = styled.div`
   align-items: flex-end;
   background-color: ${color('white')};
   display: flex;
-  height: 334px;
+  height: 304px;
   justify-content: center;
   width: 100%;
   padding: 24px;
@@ -19,13 +19,21 @@ const SearchBarContainerMobile = styled.div`
     label {
       height: 24px;
     }
+    .bee-input-wrapper {
+      > input {
+        border: none;
+        border-bottom: 1px solid ${color('body')};
+        padding: 0;
+        &:focus {
+          border-bottom: 1px solid ${color('style')};
+        }
+      }
+    }
     .search-bar-form--location,
     .search-bar-form--guests,
-    .search-bar-form--check-out-date,
-    .search-bar-form--check-in-date {
+    .search-bar-form--date-range {
       display: flex;
       flex-direction: column;
-      margin-bottom: 8px;
     }
     .search-bar-form--location {
       width: 100%;
@@ -33,16 +41,14 @@ const SearchBarContainerMobile = styled.div`
         height: 40px;
       }
     }
-    .search-bar-form--check-out-date,
-    .search-bar-form--check-in-date {
-      width: 45%;
-      .SingleDatePicker {
-        width: 100%;
-        .SingleDatePickerInput {
-          width: 100%;
-          .DateInput {
-            width: 100%;
-          }
+    .search-bar-form--date-range {
+      width: 100%;
+      .calendar-labels-container {
+        display: flex;
+        flex-direction: row;
+        justify-content: space-between;
+        .bee--input-label {
+          width: calc((100% - 24px) / 2);
         }
       }
     }
@@ -51,12 +57,8 @@ const SearchBarContainerMobile = styled.div`
     }
     .search-button {
       align-self: flex-end;
+      height: 40px;
       width: 100%;
-    }
-    .search-bar-form--row {
-      display: flex;
-      flex-direction: row;
-      justify-content: space-between;
     }
   }
 `;
@@ -70,8 +72,8 @@ const SearchBarContainerTablet = styled(SearchBarContainerMobile)`
 
 const SearchBarContainerDesktop = styled(SearchBarContainerTablet)`
   @media (min-width: 1025px) {
-    height: 124px;
-    padding: 24px 30px 36px 34px;
+    height: 92px;
+    padding: 26px 30px 26px 34px;
     max-width: 960px;
     width: 960px;
     z-index: 1;
@@ -81,28 +83,22 @@ const SearchBarContainerDesktop = styled(SearchBarContainerTablet)`
       flex-direction: row;
       .search-bar-form--location,
       .search-bar-form--guests,
-      .search-bar-form--check-out-date,
-      .search-bar-form--check-in-date {
+      .search-bar-form--date-range {
         margin-bottom: 0;
       }
       .search-bar-form--location {
-        width: 272px;
+        width: 256px;
       }
-      .search-bar-form--check-out-date,
-      .search-bar-form--check-in-date {
-        width: 108px;
-      }
-      .search-bar-form--check-in-date {
-        margin-left: 32px;
-      }
-      .search-bar-form--check-out-date {
-        margin-left: 24px;
+      .search-bar-form--date-range {
+        margin-left: 64px;
+        width: 230px;
       }
       .search-bar-form--guests {
-        margin-left: 32px;
+        margin-left: 64px;
         width: 80px;
       }
       .search-button {
+        margin-left: 38px;
         width: 160px;
       }
     }

@@ -26,7 +26,15 @@ class Home extends React.Component {
               Pay with credit card or crypto – <br/>
               Beenest is the easiest way to spend and earn cryptocurrency when you travel.
             </p>
-            <SearchBar />
+            <AppConsumer>
+              {({ screenType }: AppConsumerProps) => {
+                if (screenType < ScreenType.TABLET) {
+                  return <NoopComponent />;
+                }
+
+                return <SearchBar />;
+              }}
+            </AppConsumer>
           </div>
         </div>
         <AppConsumer>
@@ -61,7 +69,12 @@ const HomeContent = () => (
           return <NoopComponent />;
         }
 
-        return <Divider color="middle" />;
+        return (
+          <>
+            <SearchBar />
+            <Divider color="middle" />
+          </>
+        )
       }}
     </AppConsumer>
     <HostCta />
@@ -100,6 +113,8 @@ const PopularCities = () => {
       {name: 'Miami', id: 'miami'},
       {name: 'Hawaii', id: 'hawaii'},
       {name: 'Denver', id: 'denver'},
+      {name: 'Chicago', id: 'chicago'},
+      {name: 'San Diego', id: 'san-diego'},
       {name: 'Boston', id: 'boston'},
       {name: 'Seattle', id: 'seattle'},
       {name: 'Austin', id: 'austin'},

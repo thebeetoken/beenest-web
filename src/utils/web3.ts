@@ -11,6 +11,7 @@
 import Web3 from 'web3'; // We're only importing the types
 import once from 'lodash.once';
 import Big from 'big.js'; // Deprecate in later PR
+import moment from 'moment';
 import { Booking, CryptoParams } from 'networking/bookings';
 import { APP_ENV, SETTINGS, AppEnv } from 'configs/settings';
 import { BEE_TOKEN_ABI } from 'ABIs/beeToken';
@@ -252,8 +253,8 @@ export async function invoice(
   const price = guestTotalAmount - guestDepositAmount;
 
   const paymentId = `0x${id.padStart(64, '0')}`;
-  const cancelDeadline = Math.floor(new Date(checkInDate).valueOf() / 1000);
-  const disputeDeadline = Math.floor(new Date(checkOutDate).valueOf() / 1000) +
+  const cancelDeadline = Math.floor(moment.utc(checkInDate).valueOf() / 1000);
+  const disputeDeadline = Math.floor(moment.utc(checkOutDate).valueOf() / 1000) +
     THIRTY_SIX_HOURS_IN_SEC;
   const costDust = UNITS.AMOUNT_PER_BEE.times(price).toFixed(0);
   const depositDust = UNITS.AMOUNT_PER_BEE.times(guestDepositAmount).toFixed(0);

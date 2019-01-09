@@ -31,26 +31,6 @@ const BookingRequestCardContainerMobile = styled.div`
           width: calc((100% - 24px) / 2);
         }
       }
-      .DateRangePicker {
-        width: 100%;
-        max-width: 100%;
-        .DateRangePickerInput {
-          display: flex;
-          flex-direction: row;
-          .DateInput {
-            width: 100%;
-            input {
-              border: 0;
-            }
-          }
-          .DateRangePickerInput__arrow,
-          .DateRangePickerInput_arrow_1 {
-            display: flex;
-            flex-direction: column;
-            justify-content: center;
-          }
-        }
-      }
     }
     .pricing-container {
       align-items: flex-start;
