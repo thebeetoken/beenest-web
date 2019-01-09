@@ -64,6 +64,7 @@ const HomeContainerMobile = styled.section`
         flex-shrink: 0;
         min-height: 162px;
         position: relative;
+        z-index: 0;
       }
       .host-cta-content {
         display: flex;

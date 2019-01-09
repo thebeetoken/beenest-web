@@ -76,7 +76,8 @@ class SearchBar extends React.Component<RouterProps, State> {
           </div>
           <AppConsumer>
             {({ screenType }: AppConsumerProps) => {
-              const isMobile = screenType <= ScreenType.TABLET;
+              const isMobile = screenType < ScreenType.TABLET;
+              const isTablet = screenType <= ScreenType.TABLET;
               return (
                 <div className="search-bar-form--date-range">
                   <DateRangePickerContainer>
@@ -85,7 +86,7 @@ class SearchBar extends React.Component<RouterProps, State> {
                       startDate={checkInDate} // momentPropTypes.momentObj or null,
                       startDateId="startDate"
                       startDatePlaceholderText="Check-In"
-                      daySize={32}
+                      daySize={isMobile ? 32 : 40}
                       endDate={checkOutDate} // momentPropTypes.momentObj or null,
                       endDateId="endDate"
                       endDatePlaceholderText="Check-Out"
@@ -94,7 +95,7 @@ class SearchBar extends React.Component<RouterProps, State> {
                       onFocusChange={this.handleOnFocusChange} // PropTypes.func.isRequired,
                       minimumNights={1}
                       numberOfMonths={1}
-                      readOnly={isMobile}
+                      readOnly={isTablet}
                     />
                   </DateRangePickerContainer>
                 </div>
