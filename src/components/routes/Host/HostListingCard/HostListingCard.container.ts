@@ -30,7 +30,7 @@ const HostListingCardContainer = styled.article`
     &--button-container {
       display: flex;
       justify-content: space-between;
-      width: 504px;
+      width: 530px;
       button,
       a {
         width: 127px;
