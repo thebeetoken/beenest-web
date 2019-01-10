@@ -2,6 +2,7 @@ import * as React from 'react';
 
 import InputLabel from 'shared/InputLabel';
 import InputWrapper from 'shared/InputWrapper';
+import NumberInput from 'shared/NumberInput';
 import Textarea from 'shared/Textarea';
 import { Field, ErrorMessage } from 'formik';
 import { TextareaEvent } from 'shared/Textarea/Textarea';
@@ -53,6 +54,16 @@ const AccommodationsForm = (props: any): JSX.Element => {
               placeholder="# of Beds"
               type="text" />
           </InputWrapper>
+        </div>
+      </div>
+
+      <div className="form-item">
+        <div className="input-container">
+          <InputLabel>Testing Number Input 123</InputLabel>
+          <NumberInput
+            defaultValue={1}
+            max={50}
+            min={1} />
         </div>
       </div>
 
