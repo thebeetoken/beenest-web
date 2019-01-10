@@ -786,6 +786,7 @@ const DateRangePickerContainer = styled.div`
     display: inline-block;
     width: 100%;
     max-width: 100%;
+    z-index: 2;
   }
   .DateRangePicker__block {
     display: block;
