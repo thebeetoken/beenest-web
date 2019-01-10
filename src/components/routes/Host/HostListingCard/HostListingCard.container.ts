@@ -42,9 +42,9 @@ const HostListingCardContainer = styled.article`
         span {
           ${typography('caption', 2)};
           padding: 6px;
-        }
-        span.host-listing-meta--disabled {
-          color: ${color('upper')};
+          &.host-listing-meta--disabled {
+            color: ${color('upper')};
+          }
         }
       }
     }
