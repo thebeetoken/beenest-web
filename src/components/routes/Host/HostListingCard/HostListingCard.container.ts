@@ -34,7 +34,6 @@ const HostListingCardContainer = styled.article`
       a,
       button {
         min-width: 105px;
-        width: 105px;
       }
       label {
         margin: 7px;
