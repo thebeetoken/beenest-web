@@ -63,7 +63,13 @@ const AccommodationsForm = (props: any): JSX.Element => {
           <NumberInput
             defaultValue={1}
             max={50}
-            min={1} />
+            min={1}
+            onChange={(value: number) => {
+              setFieldValue('numberOfBathrooms', value);
+              setFieldTouched('numberofBathrooms');
+            }}
+            step={0.5}
+          />
         </div>
       </div>
 

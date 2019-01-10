@@ -5,9 +5,9 @@ import Fab from 'components/shared/Fab';
 
 interface Props {
   defaultValue: number;
-  onChange: (value: number) => number;
   max: number;
   min: number;
+  onChange: (value: number) => void;
   step: number;
 }
 
