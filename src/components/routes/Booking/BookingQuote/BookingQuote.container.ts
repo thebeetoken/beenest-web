@@ -101,6 +101,11 @@ const BookingQuoteContainer = styled.div`
       ${typography('caption', 3)}
     }
   }
+
+  .disclaimer {
+    ${typography('caption', 3)}
+    padding: 10px 0px 10px 0px;
+  }
 `;
 
 export default BookingQuoteContainer;
