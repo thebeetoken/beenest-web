@@ -77,9 +77,9 @@ const AccommodationsForm = (props: any): JSX.Element => {
 
       <div className="form-item">
         <Checkbox
-          checked={values.sharedBathroom === 'Yes' || values.sharedBathroom === 'yes'}
+          checked={isSharedBathroom(values.sharedBathroom)}
           onChange={() => {
-            const value = (values.sharedBathroom === 'Yes' || values.sharedBathroom === 'yes') ? 'No' : 'Yes';
+            const value = isSharedBathroom(values.sharedBathroom) ? 'Yes' : 'No';
             setFieldValue('sharedBathroom', value);
             setFieldTouched('sharedBathroom', true);
           }}>
@@ -103,3 +103,14 @@ const AccommodationsForm = (props: any): JSX.Element => {
 };
 
 export default AccommodationsForm;
+
+// Temporary fix until sharedBathroom is changed into a boolean
+function isSharedBathroom(input: string): boolean {
+  if (!input) return false;
+  if (parseInt(input) && (parseInt(input) !== 0)) {
+    return true;
+  }
+  if (input.length > 10) return true;
+  const normalizedInput = input.toLowerCase();
+  return normalizedInput === 'yes';
+}
