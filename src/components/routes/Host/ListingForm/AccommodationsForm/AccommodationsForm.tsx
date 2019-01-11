@@ -79,7 +79,7 @@ const AccommodationsForm = (props: any): JSX.Element => {
         <Checkbox
           checked={isSharedBathroom(values.sharedBathroom)}
           onChange={() => {
-            const value = isSharedBathroom(values.sharedBathroom) ? 'Yes' : 'No';
+            const value = isSharedBathroom(values.sharedBathroom) ? 'No' : 'Yes';
             setFieldValue('sharedBathroom', value);
             setFieldTouched('sharedBathroom', true);
           }}>
