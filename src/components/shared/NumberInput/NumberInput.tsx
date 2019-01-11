@@ -19,7 +19,7 @@ class NumberInput extends React.Component<Props, State> {
   static defaultProps: Props = {
     value: 0,
     max: Number.MAX_SAFE_INTEGER,
-    min: Number.MIN_SAFE_INTEGER,
+    min: 0,
     onChange: () => 0,
     step: 1,
   };
