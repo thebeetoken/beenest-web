@@ -98,11 +98,13 @@ class EnhancedComponent extends React.Component<Props, HostPaymentsContentState>
   }
 
   componentDidMount() {
-    this.props.createStripeLoginLink()
-      .then((stripeLoginLink: any) => {
-        this.setState({ stripeLoginLink: stripeLoginLink.data.createStripeLoginLink.url })
-      })
-      .catch(error => console.error(error));
+    if (this.props.stripeAccountDashboardLink) {
+      this.props.createStripeLoginLink()
+        .then((stripeLoginLink: any) => {
+          this.setState({ stripeLoginLink: stripeLoginLink.data.createStripeLoginLink.url })
+        })
+        .catch(error => console.error(error));
+    }
   }
 
   render() {
