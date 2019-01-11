@@ -7,26 +7,29 @@ import { TextareaEvent } from 'shared/Textarea/Textarea';
 import { Field, ErrorMessage } from 'formik';
 import { stringToArray, arrayToString } from 'utils/formatter';
 import ErrorMessageWrapper from 'shared/ErrorMessageWrapper/ErrorMessageWrapper';
+import NumberInput from 'shared/NumberInput';
 
 const PricingAvailabilityForm = (props: any): JSX.Element => {
   const { setFieldTouched, setFieldValue, values } = props;
   return (
     <>
-      <div className="form-item row">
+      <div className="form-item">
         <div className="input-container max-guests">
           <InputLabel htmlFor="maxGuests">Max Guests</InputLabel>
-          <InputWrapper>
-            <Field
-              name="maxGuests"
-              placeholder="# of Guests"
-              type="number" />
-          </InputWrapper>
-          <ErrorMessageWrapper>
-            <ErrorMessage name="maxGuests" />
-          </ErrorMessageWrapper>
+          <NumberInput
+            value={values.maxGuests}
+            max={16}
+            min={1}
+            onChange={(value: number) => {
+              setFieldValue('maxGuests', value);
+              setFieldTouched('maxGuests');
+            }}
+          />
         </div>
+      </div>
 
-        <div className="input-container min-nights">
+      <div className="form-item short">
+        <div className="input-container">
           <InputLabel htmlFor="minimumNights">Min Nights</InputLabel>
           <InputWrapper>
             <Field
@@ -40,8 +43,8 @@ const PricingAvailabilityForm = (props: any): JSX.Element => {
         </div>
       </div>
 
-      <div className="form-item row">
-        <div className="input-container price-per-night">
+      <div className="form-item short">
+        <div className="input-container">
           <InputLabel htmlFor="pricePerNightUsd" subLabel="(USD)">Price Per Night</InputLabel>
           <InputWrapper>
             <Field
@@ -53,7 +56,9 @@ const PricingAvailabilityForm = (props: any): JSX.Element => {
             <ErrorMessage name="pricePerNightUsd" />
           </ErrorMessageWrapper>
         </div>
-
+      </div>
+      
+      <div className="form-item short">
         <div className="input-container security-deposit">
           <InputLabel htmlFor="securityDepositUsd" subLabel="(USD)">Security Deposit</InputLabel>
           <InputWrapper>

@@ -32,14 +32,13 @@ const AccommodationsForm = (props: any): JSX.Element => {
         </SelectBoxWrapper>
       </div> */}
 
-      <div className="form-item row">
-
+      <div className="form-item">
         <div className="input-container">
           <InputLabel htmlFor="sleepingArrangement">Sleeping Arrangement</InputLabel>
           <InputWrapper>
             <Field
               name="sleepingArrangement"
-              placeholder="# of Beds"
+              placeholder="1 King, 2 Queens"
               type="text" />
           </InputWrapper>
         </div>
@@ -66,7 +65,7 @@ const AccommodationsForm = (props: any): JSX.Element => {
           <NumberInput
             value={values.numberOfBathrooms}
             max={50}
-            min={1}
+            min={0}
             onChange={(value: number) => {
               setFieldValue('numberOfBathrooms', value);
               setFieldTouched('numberOfBathrooms');

@@ -70,6 +70,9 @@ const ListingFormContainer = styled.section`
             }
           }
         }
+        &.short {
+          width: 180px;
+        }
         &.map-preview {
           width: 100%;
           .bee-google-maps {
