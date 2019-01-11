@@ -65,3 +65,5 @@ export const color = (colors: string, opacity: number = 1): string => {
   const b = parseInt(hexCode.slice(5, 7), 16);
   return `rgba(${r},${g},${b},${opacity})`;
 };
+
+export const hexColor = (c: string) => canvas[c];

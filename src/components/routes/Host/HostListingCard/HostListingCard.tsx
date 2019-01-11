@@ -10,6 +10,7 @@ import Button from 'shared/Button';
 import LazyImage from 'shared/LazyImage';
 import { ACTIVATE_LISTING, DEACTIVATE_LISTING, DELETE_LISTING, GET_HOST_LISTINGS, HostListingShort, Listing } from 'networking/listings';
 import { formatAddress } from 'utils/formatter';
+import { hexColor } from 'styled/utils';
 
 interface Props extends HostListingShort {
   activateListing: (id: string) => Promise<Listing>;
@@ -64,7 +65,7 @@ const HostListingCard = (props: Props): JSX.Element => {
           </Button>          
           <label htmlFor={`publish-${id}`} title={canPublish ? '' : INCOMPLETE_LISTING}>
             <span className={canPublish ? '' : 'host-listing-meta--disabled'}>Publish</span>
-            <Switch checked={isActive} disabled={!canPublish} onChange={() => toggleListing(id)} id={`publish-${id}`} />
+            <Switch checked={isActive} disabled={!canPublish} onColor={hexColor('correct')} onChange={() => toggleListing(id)} id={`publish-${id}`} />
           </label>
         </div>
       </div>
