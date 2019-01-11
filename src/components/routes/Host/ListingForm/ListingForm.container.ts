@@ -23,6 +23,16 @@ const ListingFormContainer = styled.section`
         .bee-textarea {
           width: 100%;
         }
+        .input-number-container {
+          align-items: center;
+          display: flex;
+          flex-direction: row;
+          justify-content: space-between;
+          width: 100%;
+          > label {
+            margin-bottom: 0;
+          }
+        }
         &.address {
           > * {
             margin-bottom: 16px;

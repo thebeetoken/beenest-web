@@ -4,7 +4,7 @@ import NumberInputContainer from './NumberInput.container';
 import Fab from 'components/shared/Fab';
 
 interface Props {
-  defaultValue: number;
+  value: number;
   max: number;
   min: number;
   onChange: (value: number) => void;
@@ -17,7 +17,7 @@ interface State {
 
 class NumberInput extends React.Component<Props, State> {
   static defaultProps: Props = {
-    defaultValue: 0,
+    value: 0,
     max: Number.MAX_SAFE_INTEGER,
     min: Number.MIN_SAFE_INTEGER,
     onChange: () => 0,
@@ -25,7 +25,7 @@ class NumberInput extends React.Component<Props, State> {
   };
 
   readonly state = {
-    value: this.props.defaultValue || 0
+    value: this.props.value
   };
 
   render() {
@@ -38,20 +38,20 @@ class NumberInput extends React.Component<Props, State> {
           color="upper"
           disabled={value === min}
           height="24px"
-          icon="utils/arrow-left"
+          icon="utils/minus-circle-outline"
           iconColor="secondary"
           noPadding
           onClick={this.handleMinus}
           type="button"
           width="24px"
         />
-        <p>{this.state.value}</p>
+        <span>{this.state.value}</span>
         <Fab
           clear
           color="upper"
           disabled={value === max}
           height="24px"
-          icon="utils/arrow-right"
+          icon="utils/add-circle-outline"
           iconColor="secondary"
           noPadding
           onClick={this.handlePlus}

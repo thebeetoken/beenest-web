@@ -4,10 +4,10 @@ import InputLabel from 'shared/InputLabel';
 import InputWrapper from 'shared/InputWrapper';
 import NumberInput from 'shared/NumberInput';
 import Textarea from 'shared/Textarea';
-import { Field, ErrorMessage } from 'formik';
 import { TextareaEvent } from 'shared/Textarea/Textarea';
 import { stringToArray, arrayToString } from 'utils/formatter';
-import ErrorMessageWrapper from 'shared/ErrorMessageWrapper/ErrorMessageWrapper';
+import Checkbox from 'shared/Checkbox';
+import { Field } from 'formik';
 
 const AccommodationsForm = (props: any): JSX.Element => {
   const { setFieldTouched, setFieldValue, values } = props;
@@ -33,21 +33,9 @@ const AccommodationsForm = (props: any): JSX.Element => {
       </div> */}
 
       <div className="form-item row">
-        <div className="input-container">
-          <InputLabel htmlFor="numberOfBedrooms">Bedrooms</InputLabel>
-          <InputWrapper>
-            <Field
-              name="numberOfBedrooms"
-              placeholder="# of Bedrooms"
-              type="number" />
-          </InputWrapper>
-          <ErrorMessageWrapper>
-            <ErrorMessage name="numberOfBedrooms" />
-          </ErrorMessageWrapper>
-        </div>
 
         <div className="input-container">
-          <InputLabel htmlFor="sleepingArrangement">Beds</InputLabel>
+          <InputLabel htmlFor="sleepingArrangement">Sleeping Arrangement</InputLabel>
           <InputWrapper>
             <Field
               name="sleepingArrangement"
@@ -58,46 +46,45 @@ const AccommodationsForm = (props: any): JSX.Element => {
       </div>
 
       <div className="form-item">
-        <div className="input-container">
-          <InputLabel>Testing Number Input 123</InputLabel>
+        <div className="input-number-container">
+          <InputLabel>Number of Bedrooms</InputLabel>
           <NumberInput
-            defaultValue={1}
+            value={values.numberOfBedrooms}
+            max={50}
+            min={1}
+            onChange={(value: number) => {
+              setFieldValue('numberOfBedrooms', value);
+              setFieldTouched('numberOfBedrooms');
+            }}
+          />
+        </div>
+      </div>
+
+      <div className="form-item">
+        <div className="input-number-container">
+          <InputLabel>Number of Bathrooms</InputLabel>
+          <NumberInput
+            value={values.numberOfBathrooms}
             max={50}
             min={1}
             onChange={(value: number) => {
               setFieldValue('numberOfBathrooms', value);
-              setFieldTouched('numberofBathrooms');
+              setFieldTouched('numberOfBathrooms');
             }}
             step={0.5}
           />
         </div>
       </div>
 
-      <div className="form-item row">
-        <div className="input-container">
-          <InputLabel htmlFor="numberOfBathrooms">Bathrooms</InputLabel>
-          <InputWrapper>
-            <Field
-              name="numberOfBathrooms"
-              placeholder="# of Bathrooms"
-              step={0.5}
-              type="number" />
-          </InputWrapper>
-          <ErrorMessageWrapper>
-            <ErrorMessage name="numberOfBathrooms" />
-          </ErrorMessageWrapper>
-        </div>
-        
-        <div className="input-container">
-          <InputLabel htmlFor="sharedBathroom">Shared Bathroom</InputLabel>
-          <InputWrapper>
-            <Field
-              name="sharedBathroom"
-              placeholder="Yes or No"
-              type="text" />
-          </InputWrapper>
-        </div>
-      </div>
+      <Checkbox
+        checked={values.sharedBathroom === 'Yes' || values.sharedBathroom === 'yes'}
+        onChange={() => {
+          const value = (values.sharedBathroom === 'Yes' || values.sharedBathroom === 'yes') ? 'No' : 'Yes';
+          setFieldValue('sharedBathroom', value);
+          setFieldTouched('sharedBathroom', true);
+        }}>
+        Shared Bathroom
+      </Checkbox>
 
       <div className="form-item">
         <InputLabel htmlFor="amenities" subLabel="(separate by comma)">Amenities</InputLabel>
