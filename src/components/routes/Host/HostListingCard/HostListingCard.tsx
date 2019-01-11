@@ -1,21 +1,24 @@
 import * as React from 'react';
 import format from 'date-fns/format';
 import { compose, graphql } from 'react-apollo';
+import Switch from 'react-switch';
 
 import HostListingCardContainer from './HostListingCard.container';
 
 import BeeLink from 'shared/BeeLink';
 import Button from 'shared/Button';
-import Checkbox from 'shared/Checkbox';
 import LazyImage from 'shared/LazyImage';
 import { ACTIVATE_LISTING, DEACTIVATE_LISTING, DELETE_LISTING, GET_HOST_LISTINGS, HostListingShort, Listing } from 'networking/listings';
 import { formatAddress } from 'utils/formatter';
+import { hexColor } from 'styled/utils';
 
 interface Props extends HostListingShort {
   activateListing: (id: string) => Promise<Listing>;
   deactivateListing: (id: string) => Promise<Listing>;
   deleteListing: (id: string) => Promise<any>;
 }
+
+const INCOMPLETE_LISTING = "This listing is incomplete. Use the Edit button to complete all required fields to publish this listing.";
 
 const HostListingCard = (props: Props): JSX.Element => {
   const {
@@ -60,9 +63,10 @@ const HostListingCard = (props: Props): JSX.Element => {
           <Button background="core" color="white" size="small" onClick={() => deleteListing(id)}>
             Delete
           </Button>          
-          <Checkbox checked={isActive} disabled={!canPublish} onChange={() => toggleListing(id)}>
-            Publish
-          </Checkbox>
+          <label htmlFor={`publish-${id}`} title={canPublish ? '' : INCOMPLETE_LISTING}>
+            <span className={canPublish ? '' : 'host-listing-meta--disabled'}>Publish</span>
+            <Switch checked={isActive} disabled={!canPublish} onColor={hexColor('correct')} onChange={() => toggleListing(id)} id={`publish-${id}`} />
+          </label>
         </div>
       </div>
       <div className="host-listing-image">
