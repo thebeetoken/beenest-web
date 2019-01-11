@@ -76,15 +76,17 @@ const AccommodationsForm = (props: any): JSX.Element => {
         </div>
       </div>
 
-      <Checkbox
-        checked={values.sharedBathroom === 'Yes' || values.sharedBathroom === 'yes'}
-        onChange={() => {
-          const value = (values.sharedBathroom === 'Yes' || values.sharedBathroom === 'yes') ? 'No' : 'Yes';
-          setFieldValue('sharedBathroom', value);
-          setFieldTouched('sharedBathroom', true);
-        }}>
-        Shared Bathroom
-      </Checkbox>
+      <div className="form-item">
+        <Checkbox
+          checked={values.sharedBathroom === 'Yes' || values.sharedBathroom === 'yes'}
+          onChange={() => {
+            const value = (values.sharedBathroom === 'Yes' || values.sharedBathroom === 'yes') ? 'No' : 'Yes';
+            setFieldValue('sharedBathroom', value);
+            setFieldTouched('sharedBathroom', true);
+          }}>
+          Shared Bathroom
+        </Checkbox>
+      </div>
 
       <div className="form-item">
         <InputLabel htmlFor="amenities" subLabel="(separate by comma)">Amenities</InputLabel>
