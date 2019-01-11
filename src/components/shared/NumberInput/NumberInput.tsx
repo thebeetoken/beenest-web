@@ -3,12 +3,31 @@ import * as React from 'react';
 import NumberInputContainer from './NumberInput.container';
 import Fab from 'components/shared/Fab';
 
+/**
+ * This component is a
+ * Number Input.
+ *
+ * @author jeremy
+ *
+ * Created: January 11, 2019
+ **/
+
 interface Props {
   value: number;
   max: number;
   min: number;
   onChange: (value: number) => void;
   step: number;
+
+  end?: string;
+  font?: string;
+  prefixColor?: string;
+  prefixSize?: string;
+  start?: string;
+  suffixColor?: string;
+  suffixSize?: string;
+  svgSize?: string;
+  textColor?: string;
 }
 
 interface State {
@@ -30,16 +49,19 @@ class NumberInput extends React.Component<Props, State> {
 
   render() {
     const { value } = this.state;
-    const { max, min } = this.props;
+    const { max, min, prefixColor, suffixColor } = this.props;
+    const containerProps = {
+      ...this.props,
+      onChange: undefined // prevents Container typescript error
+    };
     return (
-      <NumberInputContainer className="bee-number-input">
+      <NumberInputContainer className="bee-number-input" {...containerProps}>
         <Fab
           clear
-          color="upper"
           disabled={value === min}
           height="24px"
           icon="utils/minus-circle-outline"
-          iconColor="secondary"
+          iconColor={prefixColor || 'secondary'}
           noPadding
           onClick={this.handleMinus}
           type="button"
@@ -48,11 +70,10 @@ class NumberInput extends React.Component<Props, State> {
         <span>{this.state.value}</span>
         <Fab
           clear
-          color="upper"
           disabled={value === max}
           height="24px"
           icon="utils/add-circle-outline"
-          iconColor="secondary"
+          iconColor={suffixColor || 'secondary'}
           noPadding
           onClick={this.handlePlus}
           type="button"
