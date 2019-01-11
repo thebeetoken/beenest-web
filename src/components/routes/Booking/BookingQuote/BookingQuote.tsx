@@ -88,7 +88,7 @@ const BookingQuote = ({ booking, currency }: Props) => {
 
         {currentQuote.currency === Currency.USD &&
          <p className="disclaimer">
-           * Security Deposit is not charged but we reserve the right to to charge if any damages occur.
+           * Security Deposit is not charged but we reserve the right to charge if any damages occur.
          </p>
         }
       </div>
