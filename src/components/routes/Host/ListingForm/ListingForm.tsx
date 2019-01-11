@@ -36,7 +36,7 @@ const defaultValues: FormValues = {
   // housing: '',
   houseRules: '',
   icalUrls: [],
-  isActive: true,
+  isActive: false,
   lat: 0,
   lng: 0,
   listingPicUrl: '',

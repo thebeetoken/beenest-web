@@ -69,10 +69,10 @@ function getInitialState(props: Props): State {
   const { maxGuests } = props;
   const queryParams: QueryParams = parseQueryString(location.search);
   const { checkInDate, checkOutDate, numberOfGuests } = queryParams;
-  const startDate = checkInDate ? moment(checkInDate) :
-    props.checkInDate ? moment(props.checkInDate) : null;
-  const endDate = checkOutDate ? moment(checkOutDate) :
-    props.checkOutDate ? moment(props.checkOutDate) : null;
+  const startDate = props.checkInDate ? moment.utc(props.checkInDate) :
+    checkInDate ? moment.utc(checkInDate) : null;
+  const endDate = props.checkOutDate ? moment.utc(props.checkOutDate) :
+    checkOutDate ? moment.utc(checkOutDate) : null;
   const isDisabled: boolean = !(startDate && endDate);
   return {
     startDate,

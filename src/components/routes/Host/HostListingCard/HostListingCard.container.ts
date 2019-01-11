@@ -30,13 +30,22 @@ const HostListingCardContainer = styled.article`
     &--button-container {
       display: flex;
       justify-content: space-between;
-      width: 504px;
-      button,
-      a {
-        width: 127px;
+      width: 555px;
+      a,
+      button {
+        min-width: 105px;
       }
       label {
-        margin: 7px;
+        display: inline-flex;
+        max-height: 40px;
+        padding: 6px;
+        span {
+          ${typography('caption', 2)};
+          padding: 6px;
+          &.host-listing-meta--disabled {
+            color: ${color('upper')};
+          }
+        }
       }
     }
   }

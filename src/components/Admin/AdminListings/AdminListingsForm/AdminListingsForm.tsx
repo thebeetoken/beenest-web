@@ -248,7 +248,7 @@ class AdminListingsForm extends React.Component<Props, State> {
         const { updateListing } = this.props;
         return compileListing(this.state.inputForm)
           .then((input: AdminListingInput) => {
-            if (!!this.state.incompleteField) {
+            if (!!this.state.incompleteField && input.isActive) {
               alert('Form is incomplete. Please review each form field.');
               this.setState({ isSubmitClicked: false });
               return Promise.reject(new Error('Form is incomplete. Please review each form field.'));
@@ -1039,8 +1039,8 @@ class AdminListingsForm extends React.Component<Props, State> {
         </div>
 
         <div className="admin-form--item">
-          <AdminInputLabel htmlFor="icalUrls" subLabel="(optional)">
-            iCal URL:
+          <AdminInputLabel htmlFor="icalUrls" subLabel="(optional, separate by comma)">
+            iCal URLs:
           </AdminInputLabel>
           <div className="single-input-validator-container">
             <AdminTextarea
@@ -1105,7 +1105,7 @@ class AdminListingsForm extends React.Component<Props, State> {
               <Button
                 background="correct"
                 color="white"
-                disabled={!!incompleteField || isSubmitClicked}
+                disabled={(!!incompleteField && isActive) || isSubmitClicked}
                 noRadius
                 textStyle="welter-5"
                 type="submit">

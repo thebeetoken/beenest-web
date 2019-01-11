@@ -62,13 +62,13 @@ const BookingQuote = ({ booking, currency }: Props) => {
           <div className="fee-text">Security Deposit</div>
           <div className="fee-currency">
             <span className="fee-currency-price">{numberToLocaleString(currentQuote.securityDeposit, currency)}</span>
-            <span className="fee-currency-type">{currency}</span>
+            <span className="fee-currency-type">{currency}{currentQuote.currency === Currency.USD && '*'}</span>
           </div>
         </div>
         <div className="fee-row">
           <div className="fee-text">Transaction Fee</div>
           <div className="fee-currency">
-            <span className="fee-currency-price">{numberToLocaleString(currentQuote.transactionFee, currency)}</span>
+            <span className="fee-currency-price">{numberToLocaleString(currentQuote.transactionFee, currency) || '0'}</span>
             <span className="fee-currency-type">{currency}</span>
           </div>
         </div>
@@ -85,6 +85,12 @@ const BookingQuote = ({ booking, currency }: Props) => {
             <span className="total-usd-text">USD</span>
           </div>
         )}
+
+        {currentQuote.currency === Currency.USD &&
+         <p className="disclaimer">
+           * Security Deposit is not charged but we reserve the right to charge if any damages occur.
+         </p>
+        }
       </div>
     </BookingQuoteContainer>
   );
