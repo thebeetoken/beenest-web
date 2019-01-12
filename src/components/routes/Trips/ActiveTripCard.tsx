@@ -13,6 +13,9 @@ import Fab from 'shared/Fab';
 import Svg from 'shared/Svg';
 import { formatSingleDate } from 'utils/formatDate';
 import { getUserBookingDisplayStatus } from 'utils/bookingsDisplayStatus';
+import { ToggleProvider, ToggleProviderRef } from 'shared/ToggleProvider';
+import Portal from 'shared/Portal';
+import ContactHostForm from 'shared/ContactHostForm';
 
 
 interface Props {
@@ -64,18 +67,30 @@ const ActiveTripCard = ({ onCancelClick, trip }: Props) => {
           <Divider />
         </div>
         <div className="actions">
-          <BeeLink href={mailTo}>
-            <Fab
-              clear
-              color="upper"
-              icon="decorative/email"
-              iconColor="secondary"
-              noFlex
-              noPadding
-              textStyle="read-4">
-              Contact Host
-            </Fab>
-          </BeeLink>
+          <ToggleProvider>
+            {({ show, toggle }: ToggleProviderRef) => (
+              <>
+                <Fab
+                  clear
+                  color="upper"
+                  icon="decorative/email"
+                  iconColor="secondary"
+                  onClick={toggle}
+                  noFlex
+                  noPadding
+                  textStyle="read-4">
+                  Contact Hostz
+                </Fab>
+                {show && (
+                  <Portal color="up" opacity={0.9} onClick={toggle}>
+                    <ContactHostForm
+                      onClose={toggle}
+                    />
+                  </Portal>
+                )}
+              </>
+            )}
+          </ToggleProvider>
           {isApproved && (
             <BeeLink href={`/trips/${trip.id}/receipt`}>
               <Fab
