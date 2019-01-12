@@ -47,7 +47,7 @@ class GoogleAutoComplete extends React.Component<Props, any> {
             ref={this.props.inputRef}
             id="locationQuery"
             name="locationQuery"
-            placeholder="Enter your address"
+            placeholder="Try &quot;San Francisco&quot;"
             defaultValue={this.props.defaultValue}
             required
             type="text" />
