@@ -110,7 +110,6 @@ function isSharedBathroom(input: string): boolean {
   if (parseInt(input) && (parseInt(input) !== 0)) {
     return true;
   }
-  if (input.length > 10) return true;
   const normalizedInput = input.toLowerCase();
   return normalizedInput === 'yes';
 }

@@ -22,11 +22,8 @@ interface Props {
   end?: string;
   font?: string;
   prefixColor?: string;
-  prefixSize?: string;
   start?: string;
   suffixColor?: string;
-  suffixSize?: string;
-  svgSize?: string;
   textColor?: string;
 }
 
