@@ -22,6 +22,7 @@ export interface User {
   stripeAccountDashboardLink: string | null;
   supportEmail: string | null;
   walletAddress: string | null;
+  listingCount: number | null;
 }
 
 export interface CreateUser {
@@ -51,6 +52,7 @@ export const GET_ACCOUNT_PAGE = gql`
       profilePicUrl
       stripeAccountDashboardLink
       walletAddress
+      listingCount
     }
 
     creditBalance {
@@ -67,12 +69,12 @@ export const GET_USER = gql`
       email
       firstName
       id
-      # greeting # Greeting column not in DB yet
       lastName
       phoneNumber
       profilePicUrl
       stripeAccountDashboardLink
       walletAddress
+      listingCount
     }
   }
 `;
@@ -89,6 +91,7 @@ export const GET_USER_BY_ID = gql`
       profilePicUrl
       stripeAccountDashboardLink
       walletAddress
+      listingCount
     }
   }
 `;
@@ -105,6 +108,7 @@ export const GET_ALL_USERS = gql`
       profilePicUrl
       stripeAccountDashboardLink
       walletAddress
+      listingCount
     }
   }
 `;
@@ -138,6 +142,7 @@ export const SEARCH_USERS = gql`
         lastName
         stripeAccountDashboardLink
         walletAddress
+        listingCount
       }
       count
     }
@@ -155,6 +160,7 @@ export const SEARCH_HOSTS = gql`
         lastName
         stripeAccountDashboardLink
         walletAddress
+        listingCount
       }
       count
     }
@@ -246,7 +252,6 @@ export const UPDATE_USER = gql`
       about
       email
       firstName
-      # greeting # greeting column not in DB yet
       lastName
       phoneNumber
       profilePicUrl
