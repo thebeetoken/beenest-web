@@ -1,5 +1,6 @@
 import * as React from 'react';
 import ContactHostFormContainer from './ContactHostForm.container';
+import Button from 'shared/Button';
 import Svg from 'shared/Svg';
 import { Formik } from 'formik';
 import * as Yup from 'yup';
@@ -48,8 +49,12 @@ class ContactHostForm extends React.Component<Props, State> {
 
         </Formik>
         <h2>Contact {firstName}</h2>
-        <h2>Contact {firstName}</h2>
-        <div>I LIKE BURRITOS</div>
+        <input />
+        <input />
+        <Button
+          type="submit">
+          Send Message
+        </Button>
         <div className="close" onClick={onClose}>
           <Svg src="utils/x" />
         </div>
