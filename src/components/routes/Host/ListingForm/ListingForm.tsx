@@ -43,7 +43,7 @@ const defaultValues: FormValues = {
   maxGuests: 1,
   minimumNights: 1,
   numberOfBathrooms: 0,
-  numberOfBedrooms: 0,
+  numberOfBedrooms: 1,
   photos: [],
   postalCode: '',
   pricePerNightUsd: 100,
