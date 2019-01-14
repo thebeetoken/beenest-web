@@ -35,12 +35,6 @@ import AuthenticatedRoute from 'HOCs/AuthenticatedRoute';
 import { BannerConsumer, BannerConsumerProps } from 'HOCs/BannerProvider';
 import ZendeskWebWidgetWrapper from 'HOCs/ZendeskWebWidgetWrapper';
 
-const HomeWithZendesk = () => (
-  <ZendeskWebWidgetWrapper>
-    <Home />
-  </ZendeskWebWidgetWrapper>
-);
-
 const HostWithZendesk = (props: RouterProps) => (
   <ZendeskWebWidgetWrapper>
     <Host {...props} />
@@ -83,7 +77,7 @@ const AppRoutes = () => (
             <AuthenticatedRoute path="/trips/:id/receipt" component={TripsReceipt} />
             <AuthenticatedRoute path="/trips" component={Trips} />
             <Route path="/markets" component={Markets} />
-            <Route exact path="/" component={HomeWithZendesk} />
+            <Route exact path="/" component={Home} />
             <Route component={NotFound} />
           </Switch>
         </AppContainer>

@@ -27,8 +27,8 @@ const markets = [
 export default function Markets() {
   return (
     <Switch>
-      {markets.map((market:{id:string, lat:number, lng:number}) => (
-         <Redirect from={`/markets/${market.id}`} to={generateSearchLink(market.id, market.lat, market.lng)} />
+      {markets.map((market: {id:string, lat:number, lng:number}) => (
+         <Redirect from={`/markets/${market.id}`} to={generateSearchLink(market.id, market.lat, market.lng)} key={market.id} />
         )
       )}
       <Route component={NotFound} />

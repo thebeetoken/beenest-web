@@ -74,7 +74,7 @@ export class StripeExpressComplete extends React.Component<RouterProps> {
               For any Stripe account changes or updates please follow the email confirmation link to access your Stripe account.
             </p>
 
-            <BeeLink to="/">
+            <BeeLink to="/host/listings">
               <Button>Finished!</Button>
             </BeeLink>
           </>
