@@ -25,7 +25,6 @@ interface Props {
 
 const ActiveTripCard = ({ onCancelClick, trip }: Props) => {
   const { checkInDate, checkOutDate, id, listing, status } = trip;
-  const mailTo = trip.supportEmail ? `mailto:${trip.supportEmail}` : 'mailto:support@beetoken.com';
   const streetAddress = (listing.addressLine1 || '').concat(listing.addressLine2 ? `, ${listing.addressLine2}` : '');
   const isApproved = status === 'host_approved';
   const isStarted = status === 'started';
@@ -79,11 +78,14 @@ const ActiveTripCard = ({ onCancelClick, trip }: Props) => {
                   noFlex
                   noPadding
                   textStyle="read-4">
-                  Contact Hostz
+                  Contact Host
                 </Fab>
                 {show && (
                   <Portal color="up" opacity={0.9} onClick={toggle}>
                     <ContactHostForm
+                      firstName={trip.host && trip.host.firstName || 'Host'}
+                      hostEmail={trip.host && trip.host.supportEmail || `support+${listing.id}@beenest.com`}
+                      listingId={listing.id}
                       onClose={toggle}
                     />
                   </Portal>

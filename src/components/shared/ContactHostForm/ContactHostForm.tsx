@@ -2,8 +2,13 @@ import * as React from 'react';
 import ContactHostFormContainer from './ContactHostForm.container';
 import Button from 'shared/Button';
 import Svg from 'shared/Svg';
-import { Formik } from 'formik';
+import { Formik, Field, ErrorMessage } from 'formik';
 import * as Yup from 'yup';
+import InputWrapper from 'components/shared/InputWrapper';
+import Textarea from 'components/shared/Textarea';
+import InputLabel from 'components/shared/InputLabel';
+import ErrorMessageWrapper from 'components/shared/ErrorMessageWrapper';
+import { TextareaEvent } from 'components/shared/Textarea/Textarea';
 
 interface Props {
   firstName: string;
@@ -34,6 +39,7 @@ class ContactHostForm extends React.Component<Props, State> {
           validationSchema={ContactHostSchema}
           onSubmit={(values, actions) => {
           actions.setSubmitting(true);
+          console.log('values:', values);
           // return contactHost(id, values)
           //   .then(() => {
           //     // Success Message / Screen, then toggle close
@@ -45,16 +51,53 @@ class ContactHostForm extends React.Component<Props, State> {
           //   });
           }}
         >
+          {({
+            handleSubmit,
+            isSubmitting,
+            setFieldTouched,
+            setFieldValue,
+            values,
+          }) => (
+            <form onSubmit={handleSubmit}>
+              <h2>Contact {firstName}</h2>
+              
+              <div className="form-item">
+                <InputLabel htmlFor="subject">Subject</InputLabel>
+                <InputWrapper>
+                  <Field
+                    name="subject"
+                    placeholder="Subject"
+                    type="text" />
+                </InputWrapper>
+                <ErrorMessageWrapper>
+                  <ErrorMessage name="subject" />
+                </ErrorMessageWrapper>
+              </div>
 
+              <div className="form-item">
+                <InputLabel>Message</InputLabel>
+                <Textarea
+                  textareaHeight="200px"
+                  name="icalUrls"
+                  onBlur={() => setFieldTouched('icalUrls', true)}
+                  onChange={(event: TextareaEvent) => {
+                    setFieldValue('message', event.target.value);
+                  }}
+                  value={values.message}
+                  placeholder="Let the host know of any questions or concerns you may have" />
+                <ErrorMessageWrapper>
+                  <ErrorMessage name="message" />
+                </ErrorMessageWrapper>
+              </div>
 
+              <Button
+                disabled={isSubmitting}
+                type="submit">
+                Send Message
+              </Button>
+            </form>
+          )}
         </Formik>
-        <h2>Contact {firstName}</h2>
-        <input />
-        <input />
-        <Button
-          type="submit">
-          Send Message
-        </Button>
         <div className="close" onClick={onClose}>
           <Svg src="utils/x" />
         </div>

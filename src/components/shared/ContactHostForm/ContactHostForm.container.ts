@@ -1,15 +1,38 @@
 import styled from 'styled-components';
-import { color } from 'styled/utils';
+import { color, typography } from 'styled/utils';
 
 const ContactHostFormCardContainer = styled.div`
   background-color: ${color('white')};
   box-shadow: 0 0 25px ${color('black', 0.1)};
-  display: flex;
-  flex-direction: column;
-  height: 256px;
-  padding: 24px 24px 32px;
+  height: 570px;
+  padding: 40px;
   position: relative;
   width: 584px;
+
+
+  form {
+    display: flex;
+    flex-direction: column;
+    .bee--input-label {
+      ${typography('emp', 7)}
+      color: ${color('core')};
+      margin-bottom: 8px;
+    }
+    h2 {
+      ${typography('title', 3)}
+      color: ${color('core')};
+      margin-bottom: 24px;
+      text-transform: capitalize;
+    }
+    .form-item {
+      margin-bottom: 8px;
+    }
+    .bee-button {
+      align-self: flex-end;
+      width: 200px;
+    }
+  }
+
 
   .close {
     cursor: pointer;

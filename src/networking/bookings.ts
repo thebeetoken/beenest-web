@@ -292,6 +292,10 @@ export const GET_GUEST_SORTED_BOOKINGS = gql`
   fragment baseTripFields on Booking {
     checkInDate
     checkOutDate
+    host {
+      firstName
+      supportEmail
+    }
     id
     listing {
       city
