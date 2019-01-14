@@ -28,7 +28,7 @@ class GoogleAutoComplete extends React.Component<Props, any> {
 
     this.autocomplete = new google.maps.places.Autocomplete(
       this.props.inputRef.current,
-      {"types": ["(cities)"]}
+      {"types": ["(regions)"]}
     )
     if (this.autocomplete.setFields) this.autocomplete.setFields(['geometry', 'name']);
     this.autocomplete.addListener('place_changed', this.handlePlaceChanged);
