@@ -24,7 +24,13 @@ interface DateRange {
   endDate: moment.Moment;
 }
 
+interface LatLng {
+  lat: number,
+  lng: number,
+}
+
 interface State {
+  coordinates: LatLng;
   checkInDate: moment.Moment | null;
   checkOutDate: moment.Moment | null;
   focusedInput: 'startDate' | 'endDate' | null;
@@ -36,6 +42,10 @@ function getInitialState({ location }: RouterProps): State {
   const queryParams: QueryParams = parseQueryString(location.search);
   const { checkInDate, checkOutDate, numberOfGuests, locationQuery } = queryParams;
   return {
+    coordinates: {
+      lat: 0,
+      lng: 0,
+    },
     locationQuery,
     focusedInput: null,
     checkInDate: checkInDate ? moment(checkInDate) : null,
@@ -46,7 +56,6 @@ function getInitialState({ location }: RouterProps): State {
 
 class SearchBar extends React.Component<RouterProps, State> {
   readonly state: State = getInitialState(this.props);
-  private placesRef: React.RefObject<google.maps.places.SearchBox | null> = React.createRef();
   private inputRef: React.RefObject<HTMLInputElement | null> = React.createRef();
 
   private firstAvailableDay: moment.Moment = moment()
@@ -71,7 +80,7 @@ class SearchBar extends React.Component<RouterProps, State> {
         <form className="search-bar-form" onKeyPress={this.disableEnter} onSubmit={this.handleSubmit}>
           <div className="search-bar-form--location">
             <div className="search-bar-autocomplete-container">
-              <GoogleAutoComplete placesRef={this.placesRef} inputRef={this.inputRef} defaultValue={locationQuery} />
+              <GoogleAutoComplete onPlaceChange={this.handlePlaceChange} inputRef={this.inputRef} defaultValue={locationQuery} />
             </div>
           </div>
           <AppConsumer>
@@ -145,6 +154,15 @@ class SearchBar extends React.Component<RouterProps, State> {
 
   handleOnFocusChange = (focusedInput: 'startDate' | 'endDate' | null) => this.setState({ focusedInput });
   handleGuests = (event: React.ChangeEvent<HTMLInputElement>) => this.setState({ numberOfGuests: event.target.value });
+  
+  handlePlaceChange = (place: google.maps.places.PlaceResult) => {
+    this.setState({
+      coordinates: {
+        lat: place.geometry.location.lat(),
+        lng: place.geometry.location.lng(),
+      }
+    })
+  }
 
   disableEnter = (event: React.KeyboardEvent) => {
     // Places Array does not update in time, so we need to disable the native submit enter keypress and force the
@@ -154,23 +172,17 @@ class SearchBar extends React.Component<RouterProps, State> {
     }
   };
 
+
   handleSubmit = (event: React.FormEvent) => {
     event.preventDefault();
-    const { checkInDate, checkOutDate, numberOfGuests } = this.state;
+    const { coordinates, checkInDate, checkOutDate, numberOfGuests } = this.state;
     const locationQuery = this.inputRef.current ? this.inputRef.current.value : '';
-    const places = this.placesRef.current ? this.placesRef.current.getPlaces() : undefined;
     return this.props.history.push({
       pathname: '/listings',
       search: stringifyQueryString({
         locationQuery,
         utm_term: locationQuery,
-        ...(places &&
-          places.length && {
-            coordinates: {
-              lat: places[0].geometry.location.lat(),
-              lng: places[0].geometry.location.lng(),
-            },
-          }),
+        coordinates,
         ...(numberOfGuests && { numberOfGuests }),
         ...(checkInDate && {
           checkInDate: checkInDate.format('YYYY-MM-DD'),
