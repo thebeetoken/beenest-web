@@ -35,8 +35,7 @@ class GoogleAutoComplete extends React.Component<Props, any> {
   }
 
   handlePlaceChanged = () => {
-    const a = this.autocomplete.getPlace();
-    this.props.onPlaceChange(a);
+    this.props.onPlaceChange(this.autocomplete.getPlace());
   }
 
   render() {
