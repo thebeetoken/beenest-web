@@ -89,7 +89,7 @@ class NumberInput extends React.Component<Props, State> {
         value: nextValue
       }, this.handleChange);
     }
-  };
+  }
 
   handleMinus = () => {
     const { min, step } = this.props;
