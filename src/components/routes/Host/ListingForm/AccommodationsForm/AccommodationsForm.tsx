@@ -2,11 +2,12 @@ import * as React from 'react';
 
 import InputLabel from 'shared/InputLabel';
 import InputWrapper from 'shared/InputWrapper';
+import NumberInput from 'shared/NumberInput';
 import Textarea from 'shared/Textarea';
-import { Field, ErrorMessage } from 'formik';
 import { TextareaEvent } from 'shared/Textarea/Textarea';
 import { stringToArray, arrayToString } from 'utils/formatter';
-import ErrorMessageWrapper from 'shared/ErrorMessageWrapper/ErrorMessageWrapper';
+import Checkbox from 'shared/Checkbox';
+import { Field } from 'formik';
 
 const AccommodationsForm = (props: any): JSX.Element => {
   const { setFieldTouched, setFieldValue, values } = props;
@@ -31,55 +32,59 @@ const AccommodationsForm = (props: any): JSX.Element => {
         </SelectBoxWrapper>
       </div> */}
 
-      <div className="form-item row">
+      <div className="form-item">
         <div className="input-container">
-          <InputLabel htmlFor="numberOfBedrooms">Bedrooms</InputLabel>
-          <InputWrapper>
-            <Field
-              name="numberOfBedrooms"
-              placeholder="# of Bedrooms"
-              type="number" />
-          </InputWrapper>
-          <ErrorMessageWrapper>
-            <ErrorMessage name="numberOfBedrooms" />
-          </ErrorMessageWrapper>
-        </div>
-
-        <div className="input-container">
-          <InputLabel htmlFor="sleepingArrangement">Beds</InputLabel>
+          <InputLabel htmlFor="sleepingArrangement">Sleeping Arrangement</InputLabel>
           <InputWrapper>
             <Field
               name="sleepingArrangement"
-              placeholder="# of Beds"
+              placeholder="1 King, 2 Queens"
               type="text" />
           </InputWrapper>
         </div>
       </div>
 
-      <div className="form-item row">
-        <div className="input-container">
-          <InputLabel htmlFor="numberOfBathrooms">Bathrooms</InputLabel>
-          <InputWrapper>
-            <Field
-              name="numberOfBathrooms"
-              placeholder="# of Bathrooms"
-              step={0.5}
-              type="number" />
-          </InputWrapper>
-          <ErrorMessageWrapper>
-            <ErrorMessage name="numberOfBathrooms" />
-          </ErrorMessageWrapper>
+      <div className="form-item">
+        <div className="input-number-container">
+          <InputLabel>Number of Bedrooms</InputLabel>
+          <NumberInput
+            value={values.numberOfBedrooms}
+            max={50}
+            min={1}
+            onChange={(value: number) => {
+              setFieldValue('numberOfBedrooms', value);
+              setFieldTouched('numberOfBedrooms');
+            }}
+          />
         </div>
-        
-        <div className="input-container">
-          <InputLabel htmlFor="sharedBathroom">Shared Bathroom</InputLabel>
-          <InputWrapper>
-            <Field
-              name="sharedBathroom"
-              placeholder="Yes or No"
-              type="text" />
-          </InputWrapper>
+      </div>
+
+      <div className="form-item">
+        <div className="input-number-container">
+          <InputLabel>Number of Bathrooms</InputLabel>
+          <NumberInput
+            value={values.numberOfBathrooms}
+            max={50}
+            min={0}
+            onChange={(value: number) => {
+              setFieldValue('numberOfBathrooms', value);
+              setFieldTouched('numberOfBathrooms');
+            }}
+            step={0.5}
+          />
         </div>
+      </div>
+
+      <div className="form-item">
+        <Checkbox
+          checked={isSharedBathroom(values.sharedBathroom)}
+          onChange={() => {
+            const value = isSharedBathroom(values.sharedBathroom) ? 'No' : 'Yes';
+            setFieldValue('sharedBathroom', value);
+            setFieldTouched('sharedBathroom', true);
+          }}>
+          Shared Bathroom
+        </Checkbox>
       </div>
 
       <div className="form-item">
@@ -98,3 +103,13 @@ const AccommodationsForm = (props: any): JSX.Element => {
 };
 
 export default AccommodationsForm;
+
+// Temporary fix until sharedBathroom is changed into a boolean
+function isSharedBathroom(input: string): boolean {
+  if (!input) return false;
+  if (parseInt(input) && (parseInt(input) !== 0)) {
+    return true;
+  }
+  const normalizedInput = input.toLowerCase();
+  return normalizedInput === 'yes';
+}

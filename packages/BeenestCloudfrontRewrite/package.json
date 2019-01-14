@@ -5,6 +5,9 @@
   "author": "me",
   "private": true,
   "keywords": [],
+  "scripts": {
+    "test": "NODE_ENV=test jest"
+  },
   "devDependencies": {
     "jest": "^23.4.1"
   },
