@@ -149,16 +149,11 @@ const HeaderContainerTablet = styled(HeaderContainerMobile)`
           display: flex;
           height: 100%;
           justify-content: center;
-          width: 238px;
         }
         .header-unauthenticated {
           align-items: center;
           display: flex;
           justify-content: space-between;
-          width: 238px;
-          a:last-of-type {
-            padding: 0;
-          }
         }
         .header-authenticated {
           align-items: center;
@@ -194,7 +189,6 @@ const HeaderContainerTablet = styled(HeaderContainerMobile)`
             }
             a + a {
               ${typography('read', 4)}
-              color: ${color('upper')};
             }
           }
         }
