@@ -26,6 +26,7 @@ module.exports = {
     STRIPE_CLIENT_KEY: 'pk_test_7GNkTJHiPbROv4gPDuQNvThc',
     STRIPE_CLIENT_ID: 'ca_CmC1grl4bBfjYWWwKg548UPazsb6USUW',
     SENTRY_CLIENT_DSN: 'https://ee59845fce1746e4a2d6d664fd7a441b@sentry.io/1193097',
+    UNIPAY_ADDRESS: '0xf6615278bd3EC063C173821cb14A5BD318D5A3bF'
   },
   testnet: {
     BEENEST_HOST: 'https://testnet.beenest.io',
@@ -45,6 +46,7 @@ module.exports = {
     STRIPE_CLIENT_KEY: 'pk_test_7GNkTJHiPbROv4gPDuQNvThc',
     STRIPE_CLIENT_ID: 'ca_CmC1grl4bBfjYWWwKg548UPazsb6USUW',
     SENTRY_CLIENT_DSN: 'https://ee59845fce1746e4a2d6d664fd7a441b@sentry.io/1193097',
+    UNIPAY_ADDRESS: '0xf6615278bd3EC063C173821cb14A5BD318D5A3bF'
   },
   staging: {
     BEENEST_HOST: 'https://staging.beenest.io',
