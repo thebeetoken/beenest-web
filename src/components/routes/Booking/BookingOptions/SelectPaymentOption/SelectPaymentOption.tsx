@@ -45,6 +45,7 @@ class SelectPaymentOption extends React.Component<Props> {
                   Select Payment Type
                 </option>
                 {showBee && <option value={Currency.BEE}>BEE</option>}
+                {showBee && <option value={Currency.DAI}>DAI</option>}
                 {showEth && <option value={Currency.ETH}>ETH</option>}
                 <option value={Currency.USD}>Credit Card</option>
               </select>
@@ -76,9 +77,9 @@ export default SelectPaymentOption;
 function currencyOptions(currency: string | undefined, booking: Booking): React.ReactNode {
   switch (currency) {
     case Currency.BEE:
-      return <BookingOptionsCrypto booking={booking} currency={Currency.BEE} />;
+    case Currency.DAI:
     case Currency.ETH:
-      return <BookingOptionsCrypto booking={booking} currency={Currency.ETH} />;
+      return <BookingOptionsCrypto booking={booking} currency={currency} />;
     case Currency.USD:
       return <BookingOptionsUSD booking={booking} />;
     default:
