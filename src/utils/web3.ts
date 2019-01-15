@@ -231,24 +231,17 @@ export async function payWithEth(
 
 export async function priceWithToken(
   ethProvider: Web3['eth'],
-  booking: Booking
+  currency: Currency,
+  beePrice: number
 ): Promise<number> {
-  const currency = booking.currency;
-  if (!currency) {
-    throw new Error(`No currency selected for booking ${booking.id}`);
-  }
   const tokenAddress = TOKEN_ADDRESSES[currency];
   if (!tokenAddress) {
     throw new Error(`Unknown ERC-20 token ${currency}.`);
   }
-  const priceQuote = booking.priceQuotes.find(({ currency }) => currency === Currency.BEE);
-  if (!tokenAddress || !priceQuote) {
-    throw new Error(`No BEE price for booking ${booking.id}`);
-  }
-  const beePrice = UNITS.AMOUNT_PER_BEE.times(priceQuote.guestTotalAmount).toFixed(0);
+  const beeDust = UNITS.AMOUNT_PER_BEE.times(beePrice).toFixed(0);
   try {
     const { methods } = new ethProvider.Contract(UNIPAY_ABI, UNIPAY_ADDRESS);
-    const response = await methods.price(tokenAddress, beePrice).call();
+    const response = await methods.price(tokenAddress, beeDust).call();
     console.log(response);
     return 0;
   } catch (error) {

@@ -12,7 +12,7 @@ import InputLabel from 'shared/InputLabel';
 import SelectBoxWrapper from 'shared/SelectBoxWrapper';
 import Svg from 'shared/Svg';
 import { AppEnv, APP_ENV } from 'configs/settings';
-import { loadWeb3 } from 'utils/web3';
+import { loadWeb3, priceWithToken } from 'utils/web3';
 
 interface Props {
   booking: Booking;
@@ -76,7 +76,8 @@ class SelectPaymentOption extends React.Component<Props> {
     this.setState({ currency, erc20Price: undefined });
     if (currency === Currency.DAI) {
       const web3 = loadWeb3();
-      console.log(web3);
+      const beeQuote = this.props.booking.priceQuotes.find(q => q.currency === Currency.BEE);
+      priceWithToken(web3.eth, currency, beeQuote.guestTotalAmount);
     }
   };
 }
