@@ -2,33 +2,44 @@ import * as React from 'react';
 import ContactHostFormContainer from './ContactHostForm.container';
 import Button from 'shared/Button';
 import Svg from 'shared/Svg';
-import { Formik, Field, ErrorMessage } from 'formik';
+import { Formik, Field, ErrorMessage, Form } from 'formik';
 import * as Yup from 'yup';
 import InputWrapper from 'components/shared/InputWrapper';
 import Textarea from 'components/shared/Textarea';
 import InputLabel from 'components/shared/InputLabel';
 import ErrorMessageWrapper from 'components/shared/ErrorMessageWrapper';
 import { TextareaEvent } from 'components/shared/Textarea/Textarea';
+import { compose, graphql } from 'react-apollo';
+import { CONTACT_USER } from 'networking/users';
+
 
 interface Props {
-  firstName: string;
+  hostFirstName: string;
   hostEmail: string;
   listingId: string;
   onClose: () => void;
+  contactUser: (input: ContactHostInput) => Promise<boolean>;
 }
 
 interface State {
 
 }
 
+interface ContactHostInput {
+  hostFirstName: string;
+  subject: string;
+  message: string;
+  listingId: string;
+}
+
 const ContactHostSchema = Yup.object().shape({
-  subject: Yup.string().min(1, 'Too Short!'),
-  message : Yup.string(),
+  subject: Yup.string().required('Please fill out the subject.'),
+  message: Yup.string().required('Please fill out the message field.'),
 });
 
 class ContactHostForm extends React.Component<Props, State> {
   render () {
-    const { firstName, onClose } = this.props;
+    const { hostFirstName, listingId, onClose } = this.props;
     return (
       <ContactHostFormContainer>
         <Formik
@@ -36,30 +47,34 @@ class ContactHostForm extends React.Component<Props, State> {
             subject: '',
             message: '',
           }}
+          isInitialValid
           validationSchema={ContactHostSchema}
-          onSubmit={(values, actions) => {
+          onSubmit={(values: ContactHostInput, actions) => {
           actions.setSubmitting(true);
-          console.log('values:', values);
-          // return contactHost(id, values)
-          //   .then(() => {
-          //     // Success Message / Screen, then toggle close
-          //   })
-          //   .catch((error: Error) => {
-          //     alert(`${error}. If this continues to occur, please contact us at support@beetoken.com`);
-          //     console.error(error);
-          //     return actions.setSubmitting(false);
-          //   });
+          const input = {
+            ...values,
+            hostFirstName,
+            listingId,
+          };
+          return this.props.contactUser(input)
+            .then(() => {
+              // Success Message / Screen, then toggle close
+            })
+            .catch((error: Error) => {
+              alert(`${error}. If this continues to occur, please contact us at support@beetoken.com`);
+              console.error(error);
+              return actions.setSubmitting(false);
+            });
           }}
         >
           {({
-            handleSubmit,
             isSubmitting,
             setFieldTouched,
             setFieldValue,
             values,
           }) => (
-            <form onSubmit={handleSubmit}>
-              <h2>Contact {firstName}</h2>
+            <Form>
+              <h2>Contact {hostFirstName}</h2>
               
               <div className="form-item">
                 <InputLabel htmlFor="subject">Subject</InputLabel>
@@ -78,8 +93,8 @@ class ContactHostForm extends React.Component<Props, State> {
                 <InputLabel>Message</InputLabel>
                 <Textarea
                   textareaHeight="200px"
-                  name="icalUrls"
-                  onBlur={() => setFieldTouched('icalUrls', true)}
+                  name="message"
+                  onBlur={() => setFieldTouched('message', true)}
                   onChange={(event: TextareaEvent) => {
                     setFieldValue('message', event.target.value);
                   }}
@@ -95,7 +110,7 @@ class ContactHostForm extends React.Component<Props, State> {
                 type="submit">
                 Send Message
               </Button>
-            </form>
+            </Form>
           )}
         </Formik>
         <div className="close" onClick={onClose}>
@@ -106,4 +121,14 @@ class ContactHostForm extends React.Component<Props, State> {
   }
 };
 
-export default ContactHostForm;
+export default compose(
+  graphql(CONTACT_USER, {
+    props: ({ mutate }: any) => ({
+      contactUser: (input: ContactHostInput) => {
+        return mutate({
+          variables: { input }
+        });
+      },
+    }),
+  })
+)(ContactHostForm);

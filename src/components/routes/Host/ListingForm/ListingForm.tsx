@@ -142,7 +142,6 @@ class ListingForm extends React.Component<Props, State> {
       <ListingFormContainer>
         <Formik
           initialValues={populateListingForm(defaultValues, props.listing)}
-          isInitialValid
           validationSchema={ListingFormSchema}
           onSubmit={(values: ListingInput, actions: FormikActions<FormValues>) => {
             actions.setSubmitting(true);

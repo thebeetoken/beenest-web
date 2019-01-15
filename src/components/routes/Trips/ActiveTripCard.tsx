@@ -83,7 +83,7 @@ const ActiveTripCard = ({ onCancelClick, trip }: Props) => {
                 {show && (
                   <Portal color="up" opacity={0.9} onClick={toggle}>
                     <ContactHostForm
-                      firstName={trip.host && trip.host.firstName || 'Host'}
+                      hostFirstName={trip.host && trip.host.firstName || 'Host'}
                       hostEmail={trip.host && trip.host.supportEmail || `support+${listing.id}@beenest.com`}
                       listingId={listing.id}
                       onClose={toggle}
