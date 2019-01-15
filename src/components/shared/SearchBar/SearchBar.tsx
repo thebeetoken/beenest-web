@@ -30,7 +30,7 @@ interface LatLng {
 }
 
 interface State {
-  coordinates: LatLng;
+  coordinates: LatLng | null;
   checkInDate: moment.Moment | null;
   checkOutDate: moment.Moment | null;
   focusedInput: 'startDate' | 'endDate' | null;
@@ -42,10 +42,7 @@ function getInitialState({ location }: RouterProps): State {
   const queryParams: QueryParams = parseQueryString(location.search);
   const { checkInDate, checkOutDate, numberOfGuests, locationQuery } = queryParams;
   return {
-    coordinates: {
-      lat: 0,
-      lng: 0,
-    },
+    coordinates: null,
     locationQuery,
     focusedInput: null,
     checkInDate: checkInDate ? moment(checkInDate) : null,
@@ -156,6 +153,8 @@ class SearchBar extends React.Component<RouterProps, State> {
   handleGuests = (event: React.ChangeEvent<HTMLInputElement>) => this.setState({ numberOfGuests: event.target.value });
   
   handlePlaceChange = (place: google.maps.places.PlaceResult) => {
+    if (!place.geometry) return;
+    
     this.setState({
       coordinates: {
         lat: place.geometry.location.lat(),
@@ -182,7 +181,7 @@ class SearchBar extends React.Component<RouterProps, State> {
       search: stringifyQueryString({
         locationQuery,
         utm_term: locationQuery,
-        coordinates,
+        ...(coordinates && { coordinates }),
         ...(numberOfGuests && { numberOfGuests }),
         ...(checkInDate && {
           checkInDate: checkInDate.format('YYYY-MM-DD'),
