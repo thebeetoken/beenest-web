@@ -59,7 +59,8 @@ const BookingOptionsCrypto = ({ booking, currency, fromBee, history }: Props) =>
           return null;
         }
         const availableFunds = getAvailableAmount(accounts, currency);
-        const hasInsufficientFunds = availableFunds < quote.guestTotalAmount;
+        const total = fromBee ? fromBee(quote.guestTotalAmount) : quote.guestTotalAmount;
+        const hasInsufficientFunds = availableFunds < total;
         return (
           <BookingOptionsCryptoContainer>
             <AppConsumer>
