@@ -19,21 +19,23 @@ interface Props {
 }
 
 interface State {
-  erc20Price?: number;
+  conversionRateFromBee?: number;
   currency: Currency | undefined;
 }
 class SelectPaymentOption extends React.Component<Props> {
   readonly state: State = {
-    erc20Price: 0,
+    conversionRateFromBee: 0,
     currency: undefined,
   };
 
   render() {
-    const { currency } = this.state;
+    const { currency, conversionRateFromBee } = this.state;
     const { booking } = this.props;
     const showBee = !!booking.host.walletAddress;
     const showEth = !!booking.host.walletAddress && APP_ENV !== AppEnv.PRODUCTION;
-    const fromBee = currency === Currency.DAI ? ((value: number) => value * 2) : undefined;
+    const fromBee = conversionRateFromBee ?
+      ((value: number) => value * conversionRateFromBee) :
+      undefined;
     return (
       <SelectPaymentOptionContainer>
         <div className="select-payment-left">
@@ -78,8 +80,9 @@ class SelectPaymentOption extends React.Component<Props> {
       const web3 = loadWeb3();
       const beeQuote = this.props.booking.priceQuotes.find(q => q.currency === Currency.BEE);
       if (beeQuote) {
-        priceWithToken(web3.eth, currency, beeQuote.guestTotalAmount)
-          .then(price => console.log(price));
+        const total = beeQuote.guestTotalAmount;
+        priceWithToken(web3.eth, currency, total)
+          .then(price => this.setState({ conversionRateFromBee: price / total }));
       }
     }
   };
