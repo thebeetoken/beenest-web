@@ -250,6 +250,26 @@ export async function priceWithToken(
   }
 }
 
+export async function balanceOf(
+  ethProvider: Web3['eth'],
+  currency: Currency,
+  address: string
+): Promise<number> {
+  const tokenAddress = TOKEN_ADDRESSES[currency];
+  if (!tokenAddress) {
+    throw new Error(`Unknown ERC-20 token ${currency}.`);
+  }
+  try {
+    const { methods } = new ethProvider.Contract(BEE_TOKEN_ABI, tokenAddress);
+    const tokenDust = await methods.balanceOf(address).call();
+    const balance = Big(tokenDust).div(UNITS.WEI_PER_ETH); // TODO: Not all tokens have 18 digits...
+    return parseFloat(balance.valueOf());
+  } catch (error) {
+    console.error(error);
+    throw error;
+  }
+}
+
 export async function invoice(
   ethProvider: Web3['eth'],
   booking: Booking
