@@ -12,13 +12,20 @@ import Web3 from 'web3'; // We're only importing the types
 import once from 'lodash.once';
 import Big from 'big.js'; // Deprecate in later PR
 import moment from 'moment';
-import { Booking, CryptoParams } from 'networking/bookings';
+import { Booking, Currency, CryptoParams } from 'networking/bookings';
 import { APP_ENV, SETTINGS, AppEnv } from 'configs/settings';
 import { BEE_TOKEN_ABI } from 'ABIs/beeToken';
 import { BEE_PAYMENT_ABI } from 'ABIs/beePayment';
 import { ETH_PAYMENT_ABI } from 'ABIs/ethPayment';
+import UNIPAY_ABI from 'ABIs/unipay.json';
 
-const { BEETOKEN_ADDRESS, BEETOKEN_PAYMENT_ADDRESS, ETH_PAYMENT_ADDRESS } = SETTINGS;
+const {
+  BEETOKEN_ADDRESS,
+  BEETOKEN_PAYMENT_ADDRESS,
+  ETH_PAYMENT_ADDRESS,
+  TOKEN_ADDRESSES,
+  UNIPAY_ADDRESS
+} = SETTINGS;
 const { utils } = Web3;
 
 const SEVEN_DAYS_IN_SEC = 7 * 24 * 60 * 60;
@@ -216,6 +223,34 @@ export async function payWithEth(
       transactionHash,
       paymentProtocolAddress: ETH_PAYMENT_ADDRESS,
     };
+  } catch (error) {
+    console.error(error);
+    throw error;
+  }
+}
+
+export async function priceWithToken(
+  ethProvider: Web3['eth'],
+  booking: Booking
+): Promise<number> {
+  const currency = booking.currency;
+  if (!currency) {
+    throw new Error(`No currency selected for booking ${booking.id}`);
+  }
+  const tokenAddress = TOKEN_ADDRESSES[currency];
+  if (!tokenAddress) {
+    throw new Error(`Unknown ERC-20 token ${currency}.`);
+  }
+  const priceQuote = booking.priceQuotes.find(({ currency }) => currency === Currency.BEE);
+  if (!tokenAddress || !priceQuote) {
+    throw new Error(`No BEE price for booking ${booking.id}`);
+  }
+  const beePrice = UNITS.AMOUNT_PER_BEE.times(priceQuote.guestTotalAmount).toFixed(0);
+  try {
+    const { methods } = new ethProvider.Contract(UNIPAY_ABI, UNIPAY_ADDRESS);
+    const response = await methods.price(tokenAddress, beePrice).call();
+    console.log(response);
+    return 0;
   } catch (error) {
     console.error(error);
     throw error;
