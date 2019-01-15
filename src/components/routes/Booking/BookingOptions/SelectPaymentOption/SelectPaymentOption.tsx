@@ -12,16 +12,19 @@ import InputLabel from 'shared/InputLabel';
 import SelectBoxWrapper from 'shared/SelectBoxWrapper';
 import Svg from 'shared/Svg';
 import { AppEnv, APP_ENV } from 'configs/settings';
+import { loadWeb3 } from 'utils/web3';
 
 interface Props {
   booking: Booking;
 }
 
 interface State {
+  erc20Price?: number;
   currency: Currency | undefined;
 }
 class SelectPaymentOption extends React.Component<Props> {
   readonly state: State = {
+    erc20Price: 0,
     currency: undefined,
   };
 
@@ -69,7 +72,12 @@ class SelectPaymentOption extends React.Component<Props> {
   }
 
   handleSelectedCurrencyOption = (event: React.ChangeEvent<HTMLSelectElement>) => {
-    this.setState({ currency: event.target.value });
+    const currency = event.target.value;
+    this.setState({ currency, erc20Price: undefined });
+    if (currency === Currency.DAI) {
+      const web3 = loadWeb3();
+      console.log(web3);
+    }
   };
 }
 
