@@ -242,8 +242,8 @@ export async function priceWithToken(
   try {
     const { methods } = new ethProvider.Contract(UNIPAY_ABI, UNIPAY_ADDRESS);
     const [ tokenDust ] = await methods.price(tokenAddress, beeDust).call();
-    console.log(tokenDust);
-    return 0;
+    const tokenPrice = Big(tokenDust).div(UNITS.WEI_PER_ETH);
+    return parseFloat(tokenPrice);
   } catch (error) {
     console.error(error);
     throw error;

@@ -77,7 +77,8 @@ class SelectPaymentOption extends React.Component<Props> {
     if (currency === Currency.DAI) {
       const web3 = loadWeb3();
       const beeQuote = this.props.booking.priceQuotes.find(q => q.currency === Currency.BEE);
-      priceWithToken(web3.eth, currency, beeQuote.guestTotalAmount);
+      priceWithToken(web3.eth, currency, beeQuote.guestTotalAmount)
+        .then(price => console.log(price));
     }
   };
 }
