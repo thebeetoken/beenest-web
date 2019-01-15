@@ -18,9 +18,10 @@ import { AppConsumer, AppConsumerProps, ScreenType } from 'components/App.contex
 interface Props extends RouterProps {
   booking: Booking;
   currency: Currency;
+  fromBee?: (value: number) => number;
 }
 
-const BookingOptionsCrypto = ({ booking, currency, history }: Props) => (
+const BookingOptionsCrypto = ({ booking, currency, fromBee, history }: Props) => (
   <Web3Provider>
     <Web3Consumer>
       {({ connecting, accounts, networkType }: Web3Data) => {
@@ -51,7 +52,9 @@ const BookingOptionsCrypto = ({ booking, currency, history }: Props) => (
           return <p>Please log in to your wallet (e.g. MetaMask)</p>;
         }
         const { priceQuotes } = booking;
-        const quote = priceQuotes.find(p => p.currency === currency);
+        const quote = fromBee ?
+          priceQuotes.find(p => p.currency === Currency.BEE) :
+          priceQuotes.find(p => p.currency === currency);
         if (!quote) {
           return null;
         }

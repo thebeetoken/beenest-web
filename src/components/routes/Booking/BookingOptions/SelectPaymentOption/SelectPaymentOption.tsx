@@ -58,7 +58,7 @@ class SelectPaymentOption extends React.Component<Props> {
               <Svg className="suffix" src="utils/carat-down" />
             </SelectBoxWrapper>
           </div>
-          <div>{currencyOptions(currency, booking)}</div>
+          <div>{currencyOptions(currency, booking, fromBee)}</div>
         </div>
         <AppConsumer>
           {({ screenType }: AppConsumerProps) =>
@@ -90,12 +90,12 @@ class SelectPaymentOption extends React.Component<Props> {
 
 export default SelectPaymentOption;
 
-function currencyOptions(currency: string | undefined, booking: Booking): React.ReactNode {
+function currencyOptions(currency: string | undefined, booking: Booking, fromBee?: (value: number) => number): React.ReactNode {
   switch (currency) {
     case Currency.BEE:
     case Currency.DAI:
     case Currency.ETH:
-      return <BookingOptionsCrypto booking={booking} currency={currency} />;
+      return <BookingOptionsCrypto booking={booking} currency={currency} fromBee={fromBee} />;
     case Currency.USD:
       return <BookingOptionsUSD booking={booking} />;
     default:
