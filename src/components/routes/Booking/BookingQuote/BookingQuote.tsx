@@ -10,11 +10,33 @@ import { numberToLocaleString } from 'utils/numberToLocaleString';
 interface Props {
   booking: Booking;
   currency: Currency;
+  fromBee?: (value: number) => number;
 }
 
-const BookingQuote = ({ booking, currency }: Props) => {
+function getMatchingPriceQuote(priceQuotes: PriceQuote[], currency: Currency, fromBee?: (value: number) => number) {
+  if (!fromBee) {
+    return priceQuotes.find((quote: PriceQuote) => quote.currency === currency);
+  }
+  const priceQuote: PriceQuote | undefined =
+    priceQuotes.find((quote: PriceQuote) => quote.currency === Currency.BEE);
+  if (!priceQuote) {
+    return undefined;
+  }
+  return {
+    creditAmountApplied: fromBee(priceQuote.creditAmountApplied),
+    currency,
+    guestTotalAmount: fromBee(priceQuote.guestTotalAmount),
+    guestTotalAmountUsd: priceQuote.guestTotalAmountUsd,
+    pricePerNight: fromBee(priceQuote.pricePerNight),
+    priceTotalNights: fromBee(priceQuote.priceTotalNights),
+    securityDeposit: fromBee(priceQuote.securityDeposit),
+    transactionFee: fromBee(priceQuote.transactionFee)
+  };
+}
+
+const BookingQuote = ({ booking, currency, fromBee }: Props) => {
   const { checkInDate, checkOutDate, host, priceQuotes, numberOfGuests } = booking;
-  const currentQuote: PriceQuote | undefined = priceQuotes.find((quote: PriceQuote) => quote.currency === currency);
+  const currentQuote: PriceQuote | undefined = getMatchingPriceQuote(priceQuotes, currency, fromBee);
   if (!currentQuote) {
     return <div>Quote does not exist</div>;
   }

@@ -30,6 +30,7 @@ class SelectPaymentOption extends React.Component<Props> {
     const { booking } = this.props;
     const showBee = !!booking.host.walletAddress;
     const showEth = !!booking.host.walletAddress && APP_ENV !== AppEnv.PRODUCTION;
+    const fromBee = currency === Currency.DAI ? ((value: number) => value * 2) : undefined;
     return (
       <SelectPaymentOptionContainer>
         <div className="select-payment-left">
@@ -58,7 +59,7 @@ class SelectPaymentOption extends React.Component<Props> {
           {({ screenType }: AppConsumerProps) =>
             screenType > ScreenType.TABLET && (
               <div className="select-payment-quote-desktop">
-                <BookingQuote booking={booking} currency={currency || Currency.BEE} />
+                <BookingQuote booking={booking} currency={currency || Currency.BEE} fromBee={fromBee} />
               </div>
             )
           }
