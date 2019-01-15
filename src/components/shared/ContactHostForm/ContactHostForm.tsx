@@ -22,10 +22,6 @@ interface Props {
   contactUser: (input: ContactHostInput) => Promise<boolean>;
 }
 
-interface State {
-
-}
-
 interface ContactHostInput {
   bookingId: string;
   listingId: string;
@@ -39,9 +35,8 @@ const ContactHostSchema = Yup.object().shape({
   message: Yup.string().required('Please fill out the message field.'),
 });
 
-class ContactHostForm extends React.Component<Props, State> {
-  render () {
-    const { host, listingId, onClose, tripId } = this.props;
+const ContactHostForm = (props: Props) => {
+  const { host, listingId, onClose, tripId } = props;
     return (
       <ContactHostFormContainer>
         <Formik
@@ -60,7 +55,7 @@ class ContactHostForm extends React.Component<Props, State> {
             recipientId: host.id,
           };
           console.log('input:', input);
-          return this.props.contactUser(input)
+        return props.contactUser(input)
             .then((returnedObject: any) => {
               console.log('returnedObject:', returnedObject);
               console.log('success (technically)');
@@ -123,7 +118,6 @@ class ContactHostForm extends React.Component<Props, State> {
         </div>
       </ContactHostFormContainer>
     );
-  }
 };
 
 export default compose(
