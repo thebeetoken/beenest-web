@@ -241,8 +241,8 @@ export async function priceWithToken(
   const beeDust = UNITS.AMOUNT_PER_BEE.times(beePrice).toFixed(0);
   try {
     const { methods } = new ethProvider.Contract(UNIPAY_ABI, UNIPAY_ADDRESS);
-    const response = await methods.price(tokenAddress, beeDust).call();
-    console.log(response);
+    const [ tokenDust ] = await methods.price(tokenAddress, beeDust).call();
+    console.log(tokenDust);
     return 0;
   } catch (error) {
     console.error(error);
