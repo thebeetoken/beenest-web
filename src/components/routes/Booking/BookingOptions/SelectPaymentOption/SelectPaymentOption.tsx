@@ -75,7 +75,7 @@ class SelectPaymentOption extends React.Component<Props> {
 
   handleSelectedCurrencyOption = (event: React.ChangeEvent<HTMLSelectElement>) => {
     const currency = event.target.value;
-    this.setState({ currency, erc20Price: undefined });
+    this.setState({ currency, conversionRateFromBee: undefined });
     if (currency === Currency.DAI) {
       const web3 = loadWeb3();
       const beeQuote = this.props.booking.priceQuotes.find(q => q.currency === Currency.BEE);
