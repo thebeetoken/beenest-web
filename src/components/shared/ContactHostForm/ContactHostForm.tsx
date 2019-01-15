@@ -11,11 +11,12 @@ import ErrorMessageWrapper from 'components/shared/ErrorMessageWrapper';
 import { TextareaEvent } from 'components/shared/Textarea/Textarea';
 import { compose, graphql } from 'react-apollo';
 import { CONTACT_USER } from 'networking/users';
+import { User } from 'networking/listings';
 
 
 interface Props {
-  hostFirstName: string;
-  hostEmail: string;
+  host: User;
+  tripId: string;
   listingId: string;
   onClose: () => void;
   contactUser: (input: ContactHostInput) => Promise<boolean>;
@@ -26,10 +27,11 @@ interface State {
 }
 
 interface ContactHostInput {
-  hostFirstName: string;
-  subject: string;
-  message: string;
+  bookingId: string;
   listingId: string;
+  message: string;
+  recipientId: string;
+  subject: string;
 }
 
 const ContactHostSchema = Yup.object().shape({
@@ -39,7 +41,7 @@ const ContactHostSchema = Yup.object().shape({
 
 class ContactHostForm extends React.Component<Props, State> {
   render () {
-    const { hostFirstName, listingId, onClose } = this.props;
+    const { host, listingId, onClose, tripId } = this.props;
     return (
       <ContactHostFormContainer>
         <Formik
@@ -53,12 +55,15 @@ class ContactHostForm extends React.Component<Props, State> {
           actions.setSubmitting(true);
           const input = {
             ...values,
-            hostFirstName,
+            bookingId: tripId,
             listingId,
+            recipientId: host.id,
           };
+          console.log('input:', input);
           return this.props.contactUser(input)
-            .then(() => {
-              // Success Message / Screen, then toggle close
+            .then((returnedObject: any) => {
+              console.log('returnedObject:', returnedObject);
+              console.log('success (technically)');
             })
             .catch((error: Error) => {
               alert(`${error}. If this continues to occur, please contact us at support@beetoken.com`);
@@ -74,7 +79,7 @@ class ContactHostForm extends React.Component<Props, State> {
             values,
           }) => (
             <Form>
-              <h2>Contact {hostFirstName}</h2>
+              <h2>Contact {host.firstName || 'Host'}</h2>
               
               <div className="form-item">
                 <InputLabel htmlFor="subject">Subject</InputLabel>

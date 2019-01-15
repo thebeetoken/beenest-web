@@ -261,8 +261,8 @@ export const UPDATE_USER = gql`
 
 export const CONTACT_USER = gql`
   mutation contactUser($input: ContactUserInput!) {
-    updateUser(input: $input) {
-      status
+    contactUser(input: $input) {
+      id
     }
   }
 `;

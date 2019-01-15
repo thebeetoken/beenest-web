@@ -293,6 +293,7 @@ export const GET_GUEST_SORTED_BOOKINGS = gql`
     checkInDate
     checkOutDate
     host {
+      id
       firstName
       supportEmail
     }
