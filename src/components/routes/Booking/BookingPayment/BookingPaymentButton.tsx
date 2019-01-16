@@ -101,12 +101,8 @@ class BookingPaymentButton extends React.Component<Props, State> {
   handleSubmit = async (guestWalletAddress: string | undefined = undefined) => {
     const { booking, fromBee, guestConfirmBooking } = this.props;
     this.setState({ isSubmitting: true });
-    if (fromBee) {
-      alert("From BEE!");
-      return;
-    }
     try {
-      const cryptoParams = await getCryptoParams(booking, guestWalletAddress);
+      const cryptoParams = await getCryptoParams(booking, guestWalletAddress, fromBee);
       return await guestConfirmBooking(cryptoParams);
     } catch (error) {
       console.error(error);
@@ -116,12 +112,17 @@ class BookingPaymentButton extends React.Component<Props, State> {
   };
 }
 
-function getCryptoParams(booking: Booking, guestWalletAddress: string | undefined): Promise<CryptoParams> | undefined {
+function getCryptoParams(
+  booking: Booking,
+  guestWalletAddress: string | undefined,
+  fromBee?: (value: number) => number
+): Promise<CryptoParams> | undefined {
   if (booking.currency === Currency.USD || !guestWalletAddress) {
     return undefined;
   }
   const web3 = loadWeb3();
-  const priceQuote = booking.priceQuotes.find(({ currency }) => currency === booking.currency);
+  const bookingCurrency = fromBee ? Currency.BEE : booking.currency;
+  const priceQuote = booking.priceQuotes.find(({ currency }) => currency === bookingCurrency);
   if (!priceQuote) {
     alert('There was an error in submitting your payment. Please contact us at support@beetoken.com');
     throw new Error('INVALID_CRYPTO_CURRENCY_AT_BOOKING_PAYMENT');
