@@ -22,6 +22,7 @@ export interface User {
   stripeAccountDashboardLink: string | null;
   supportEmail: string | null;
   btcWalletAddress: string | null;
+  ethWalletAddress: string | null;
   walletAddress: string | null;
   listingCount: number | null;
 }

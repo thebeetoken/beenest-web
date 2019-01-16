@@ -1,7 +1,6 @@
 import * as React from 'react';
 import { compose, graphql, Query } from 'react-apollo';
-import { Formik, Field, ErrorMessage, Form } from 'formik';
-import * as Yup from 'yup';
+import { Formik, Field, ErrorMessage, Form, FormikValues, FormikActions } from 'formik';
 
 import HostPaymentsContainer from './HostPayments.container';
 
@@ -15,7 +14,6 @@ import AudioLoading from 'shared/loading/AudioLoading';
 import ErrorMessageWrapper from 'shared/ErrorMessageWrapper';
 import Snackbar from 'shared/Snackbar';
 import {
-  getDisplayErrorMessage,
   getDisplaySuccessMessage,
   getFriendlyErrorMessage,
   SuccessMessage
@@ -23,13 +21,6 @@ import {
 
 const { BEENEST_HOST } = SETTINGS;
 const SNACKBAR_DURATION_MS = 5000;
-
-const btcWalletAddressSchema = Yup.object().shape({
-  btcWalletAddress: Yup.string().required('Please fill a valid BTC address.'),
-});
-const ethWalletAddressSchema = Yup.object().shape({
-  ethWalletAddress: Yup.string().required('Please fill a valid ETH address.'),
-});
 
 const HostPayments = (): JSX.Element => {
   return (
@@ -94,7 +85,10 @@ class EnhancedComponent extends React.Component<Props, HostPaymentsContentState>
     }
   }
 
-  handleUpdateWalletAddressSubmit(input: UpdateWalletAddressInput) {
+  handleUpdateWalletAddressSubmit(values: FormikValues, actions: FormikActions<FormikValues>) {
+    const input = {btcWalletAddress: values.btcWalletAddress, ethWalletAddress: values.ethWalletAddress};
+    actions.setSubmitting(true);
+
     return this.props.updateWalletAddress(input)
       .then(_ => {
         this.setState({
@@ -114,7 +108,7 @@ class EnhancedComponent extends React.Component<Props, HostPaymentsContentState>
           },
         });
       }).finally(() => {
-        //return actions.setSubmitting(false);
+        return actions.setSubmitting(false);
       });
   }
 
@@ -127,15 +121,14 @@ class EnhancedComponent extends React.Component<Props, HostPaymentsContentState>
         <HostPaymentsContainer>
 
         <Formik
-          initialValues={{ btcWalletAddress, ethWalletAddress: walletAddress, }}
-          validationSchema={btcWalletAddressSchema}
-          onSubmit={this.handleUpdateWalletAddressSubmit}>
-          {({ isSubmitting, values }) => (
+          initialValues={{ btcWalletAddress: btcWalletAddress || '', ethWalletAddress: walletAddress || '' }}
+          onSubmit={this.handleUpdateWalletAddressSubmit.bind(this)}
+          render={({ isSubmitting }) => (
           <Form>
-            <div className="host-payments-wallet-container">
-              <div className="host-payments-wallet-container--input">
+            <div className="host-payments-section-container">
+              <div className="host-payments-section-container--input">
                 <InputLabel htmlFor="btcWalletAddress">Bitcoin (BTC) Wallet Address</InputLabel>
-                <p>Add Wallet Address to receive bitcoin payments.</p>
+                <p>Add bitcoin wallet address to receive bitcoin payments.</p>
                 <InputWrapper>
                   <Field
                     id="btcWalletAddress"
@@ -147,20 +140,38 @@ class EnhancedComponent extends React.Component<Props, HostPaymentsContentState>
                   <ErrorMessage name="btcWalletAddress" />
                 </ErrorMessageWrapper>
               </div>
+            </div>
+            <div className="host-payments-section-container">
+              <div className="host-payments-section-container--input">
+                <InputLabel htmlFor="ethWalletAddress">Etherum (ETH) Wallet Address</InputLabel>
+                <p>Add your wallet address to receive ETH and ERC20 payments.</p>
+                <InputWrapper>
+                  <Field
+                    id="ethWalletAddress"
+                    name="ethWalletAddress"
+                    placeholder="0xYYY"
+                    type="text" />
+                </InputWrapper>
+                <ErrorMessageWrapper>
+                  <ErrorMessage name="ethWalletAddress" />
+                </ErrorMessageWrapper>
+              </div>
 
+            </div>
+            <div className="host-payments-section-container">
               <Button
                 type="submit"
                 background="secondary"
                 color="white"
                 disabled={isSubmitting}
-                size="small">Save BTC Wallet Address</Button>
+                size="small">Save</Button>
             </div>
           </Form>
           )}
-        </Formik>
+        />
 
-          <div className="host-payments-stripe-container">
-            <div className="host-payments-stripe-container--meta">
+          <div className="host-payments-section-container">
+            <div className="host-payments-section-container--input">
               <InputLabel>Bank Information</InputLabel>
               <p>
                 {stripeAccountDashboardLink
@@ -169,6 +180,8 @@ class EnhancedComponent extends React.Component<Props, HostPaymentsContentState>
                 }
               </p>
             </div>
+          </div>
+          <div className="host-payments-section-container">
             <BeeLink
               href={(stripeAccountDashboardLink && stripeLoginLink) ? stripeLoginLink : `${BEENEST_HOST}/account/stripe_express/new`}
               target="_blank">
@@ -180,6 +193,7 @@ class EnhancedComponent extends React.Component<Props, HostPaymentsContentState>
               </Button>
             </BeeLink>
           </div>
+
         </HostPaymentsContainer>
         {snackbar.open &&
           <Snackbar
@@ -206,8 +220,9 @@ class EnhancedComponent extends React.Component<Props, HostPaymentsContentState>
 const HostPaymentsContent = compose(
   graphql(UPDATE_WALLET_ADDRESS, {
     props: ({ mutate }: any) => ({
-        updateWalletAddress: (input:UpdateWalletAddressInput): Promise<User> => {
-          return mutate({ variables: { input } });
+      updateWalletAddress: (input:UpdateWalletAddressInput): Promise<User> => {
+        console.log('input:', input);
+        return mutate({ variables: { input } });
       },
     }),
   }),
