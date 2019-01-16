@@ -1,5 +1,6 @@
 import * as React from 'react';
 import { withRouter } from 'react-router-dom';
+import Async from 'react-promise';
 
 import { Web3Provider, Web3Consumer } from 'HOCs/Web3Provider';
 import { Booking, Currency } from 'networking/bookings';
@@ -138,6 +139,7 @@ const BookingOptionsCrypto = ({ booking, currency, fromBee, history }: Props) =>
           );
         };
         return (
+          <Async promise={renderContents()} then={contents => contents} />
         );
       }}
     </Web3Consumer>
