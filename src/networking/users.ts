@@ -21,6 +21,7 @@ export interface User {
   residence: string | null;
   stripeAccountDashboardLink: string | null;
   supportEmail: string | null;
+  btcWalletAddress: string | null;
   walletAddress: string | null;
   listingCount: number | null;
 }
@@ -57,6 +58,25 @@ export const GET_ACCOUNT_PAGE = gql`
 
     creditBalance {
       amountUsd
+    }
+  }
+`;
+
+export const GET_HOST_PAGE = gql`
+  query user {
+    user {
+      about
+      completedVerification
+      email
+      firstName
+      id
+      lastName
+      phoneNumber
+      profilePicUrl
+      stripeAccountDashboardLink
+      btcWalletAddress
+      walletAddress
+      listingCount
     }
   }
 `;
@@ -238,10 +258,11 @@ export const UPDATE_HOST = gql`
   }
 `;
 
-export const UPDATE_HOST_WALLET = gql`
-  mutation UpdateHostWallet($walletAddress: String) {
-    updateHostWallet(walletAddress: $walletAddress) {
-      walletAddress
+export const UPDATE_WALLET_ADDRESS = gql`
+  mutation UpdateWalletAddress($input: UpdateWalletAddressInput!) {
+    updateWalletAddress(input: $input) {
+      btcWalletAddress
+      ethWalletAddress
     }
   }
 `;
