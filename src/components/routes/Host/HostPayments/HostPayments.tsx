@@ -119,57 +119,6 @@ class EnhancedComponent extends React.Component<Props, HostPaymentsContentState>
     return (
       <>
         <HostPaymentsContainer>
-
-        <Formik
-          initialValues={{ btcWalletAddress: btcWalletAddress || '', ethWalletAddress: walletAddress || '' }}
-          onSubmit={this.handleUpdateWalletAddressSubmit.bind(this)}
-          render={({ isSubmitting }) => (
-          <Form>
-            <div className="host-payments-section-container">
-              <div className="host-payments-section-container--input">
-                <InputLabel htmlFor="btcWalletAddress">Bitcoin (BTC) Wallet Address</InputLabel>
-                <p>Add bitcoin wallet address to receive bitcoin payments.</p>
-                <InputWrapper>
-                  <Field
-                    id="btcWalletAddress"
-                    name="btcWalletAddress"
-                    placeholder="YYYYY"
-                    type="text" />
-                </InputWrapper>
-                <ErrorMessageWrapper>
-                  <ErrorMessage name="btcWalletAddress" />
-                </ErrorMessageWrapper>
-              </div>
-            </div>
-            <div className="host-payments-section-container">
-              <div className="host-payments-section-container--input">
-                <InputLabel htmlFor="ethWalletAddress">Etherum (ETH) Wallet Address</InputLabel>
-                <p>Add your wallet address to receive ETH and ERC20 payments.</p>
-                <InputWrapper>
-                  <Field
-                    id="ethWalletAddress"
-                    name="ethWalletAddress"
-                    placeholder="0xYYY"
-                    type="text" />
-                </InputWrapper>
-                <ErrorMessageWrapper>
-                  <ErrorMessage name="ethWalletAddress" />
-                </ErrorMessageWrapper>
-              </div>
-
-            </div>
-            <div className="host-payments-section-container">
-              <Button
-                type="submit"
-                background="secondary"
-                color="white"
-                disabled={isSubmitting}
-                size="small">Save</Button>
-            </div>
-          </Form>
-          )}
-        />
-
           <div className="host-payments-section-container">
             <div className="host-payments-section-container--input">
               <InputLabel>Bank Information</InputLabel>
@@ -193,7 +142,54 @@ class EnhancedComponent extends React.Component<Props, HostPaymentsContentState>
               </Button>
             </BeeLink>
           </div>
-
+          <Formik
+            initialValues={{ btcWalletAddress: btcWalletAddress || '', ethWalletAddress: walletAddress || '' }}
+            onSubmit={this.handleUpdateWalletAddressSubmit.bind(this)}
+            render={({ isSubmitting }) => (
+            <Form>
+              <div className="host-payments-section-container">
+                <div className="host-payments-section-container--input">
+                  <InputLabel htmlFor="btcWalletAddress">Bitcoin (BTC) Wallet Address</InputLabel>
+                  <p>Add bitcoin wallet address to receive bitcoin payments.</p>
+                  <InputWrapper>
+                    <Field
+                      id="btcWalletAddress"
+                      name="btcWalletAddress"
+                      placeholder="YYYYY"
+                      type="text" />
+                  </InputWrapper>
+                  <ErrorMessageWrapper>
+                    <ErrorMessage name="btcWalletAddress" />
+                  </ErrorMessageWrapper>
+                </div>
+              </div>
+              <div className="host-payments-section-container">
+                <div className="host-payments-section-container--input">
+                  <InputLabel htmlFor="ethWalletAddress">Etherum (ETH) Wallet Address</InputLabel>
+                  <p>Add your wallet address to receive ETH and ERC20 payments.</p>
+                  <InputWrapper>
+                    <Field
+                      id="ethWalletAddress"
+                      name="ethWalletAddress"
+                      placeholder="0xYYY"
+                      type="text" />
+                  </InputWrapper>
+                  <ErrorMessageWrapper>
+                    <ErrorMessage name="ethWalletAddress" />
+                  </ErrorMessageWrapper>
+                </div>
+              </div>
+              <div className="host-payments-section-container">
+                <Button
+                  type="submit"
+                  background="secondary"
+                  color="white"
+                  disabled={isSubmitting}
+                  size="small">Save</Button>
+              </div>
+            </Form>
+            )}
+          />
         </HostPaymentsContainer>
         {snackbar.open &&
           <Snackbar
