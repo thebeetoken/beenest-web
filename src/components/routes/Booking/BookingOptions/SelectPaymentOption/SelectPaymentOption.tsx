@@ -34,7 +34,7 @@ class SelectPaymentOption extends React.Component<Props> {
     const showBee = !!booking.host.walletAddress;
     const showEth = !!booking.host.walletAddress && APP_ENV !== AppEnv.PRODUCTION;
     const fromBee = conversionRateFromBee ?
-      ((value: number) => value * conversionRateFromBee) :
+      ((value: number) => value * conversionRateFromBee * 1.01) :
       undefined;
     return (
       <SelectPaymentOptionContainer>

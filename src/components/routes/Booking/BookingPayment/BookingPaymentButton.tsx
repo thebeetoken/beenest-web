@@ -107,7 +107,7 @@ class BookingPaymentButton extends React.Component<Props, State> {
     this.setState({ isSubmitting: true });
     try {
       const cryptoParams = await getCryptoParams(booking, guestWalletAddress, currency, fromBee);
-      return await guestConfirmBooking(cryptoParams);
+      return guestConfirmBooking(cryptoParams);
     } catch (error) {
       console.error(error);
       alert('There was an error in submitting your payment. Please contact us at support@beetoken.com');

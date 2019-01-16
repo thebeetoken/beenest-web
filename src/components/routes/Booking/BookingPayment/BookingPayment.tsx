@@ -48,7 +48,7 @@ const BookingPayment = ({ history, match }: RouterProps) => (
       return (
         <Async promise={pricePromise} then={price => {
           const fromBee = (!!price && currency !== booking.currency) ?
-            ((value: number) => value * price / booking.guestTotalAmount) :
+            ((value: number) => value * price * 1.01 / booking.guestTotalAmount) :
             undefined;
           return (
             <BookingPaymentContainer>
