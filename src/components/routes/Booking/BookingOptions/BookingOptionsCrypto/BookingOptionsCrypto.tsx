@@ -53,9 +53,8 @@ const BookingOptionsCrypto = ({ booking, currency, fromBee, history }: Props) =>
           return <p>Please log in to your wallet (e.g. MetaMask)</p>;
         }
         const { priceQuotes } = booking;
-        const quote = fromBee ?
-          priceQuotes.find(p => p.currency === Currency.BEE) :
-          priceQuotes.find(p => p.currency === currency);
+        const outputCurrency = fromBee ? Currency.BEE : currency;
+        const quote = priceQuotes.find(p => p.currency === outputCurrency);
         if (!quote) {
           return null;
         }
@@ -126,7 +125,7 @@ const BookingOptionsCrypto = ({ booking, currency, fromBee, history }: Props) =>
                         </Button>
                         <SelectPaymentButton
                           booking={booking}
-                          currency={currency}
+                          currency={outputCurrency}
                           disabled={hasInsufficientFunds}
                           onSuccess={() => history.push(`/bookings/${booking.id}/payment`)}
                         />
