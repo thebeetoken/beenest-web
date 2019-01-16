@@ -229,6 +229,15 @@ export async function payWithEth(
   }
 }
 
+export async function payWithToken(
+  ethProvider: Web3['eth'],
+  paymentOptions: PaymentOptions,
+  fromBee: (value: number) => number
+): Promise<any> {
+  console.log(ethProvider, paymentOptions, fromBee);
+  alert("FOO!");
+}
+
 export async function priceWithToken(
   ethProvider: Web3['eth'],
   currency: Currency | string,

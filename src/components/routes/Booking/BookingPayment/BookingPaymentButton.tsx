@@ -9,7 +9,7 @@ import Button from 'shared/Button';
 import Portal from 'shared/Portal';
 import GridLoading from 'shared/loading/GridLoading';
 import CryptoPortal from 'shared/CryptoPortal';
-import { Web3Data, isNetworkValid, payWithBee, payWithEth, getValidNetworkName, loadWeb3 } from 'utils/web3';
+import { Web3Data, isNetworkValid, payWithBee, payWithEth, payWithToken, getValidNetworkName, loadWeb3 } from 'utils/web3';
 
 interface Props {
   booking: Booking;
@@ -112,11 +112,11 @@ class BookingPaymentButton extends React.Component<Props, State> {
   };
 }
 
-function getCryptoParams(
+async function getCryptoParams(
   booking: Booking,
   guestWalletAddress: string | undefined,
   fromBee?: (value: number) => number
-): Promise<CryptoParams> | undefined {
+): Promise<CryptoParams | undefined> {
   if (booking.currency === Currency.USD || !guestWalletAddress) {
     return undefined;
   }
@@ -135,6 +135,9 @@ function getCryptoParams(
     securityDeposit: priceQuote.securityDeposit,
     transactionFee: priceQuote.transactionFee,
   };
+  if (fromBee) {
+    return payWithToken(web3.eth, paymentOptions, fromBee);
+  }
   switch (booking.currency) {
     case Currency.BEE:
       return payWithBee(web3.eth, paymentOptions);
