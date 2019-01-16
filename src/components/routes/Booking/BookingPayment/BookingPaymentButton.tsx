@@ -23,6 +23,8 @@ interface State {
   isSubmitting: boolean;
 }
 
+const FROM_BEE_MESSAGE = 'You will be prompted to Confirm two Ethereum transactions to complete this payment.';
+
 class BookingPaymentButton extends React.Component<Props, State> {
   readonly state = {
     isSubmitting: false,
@@ -30,7 +32,7 @@ class BookingPaymentButton extends React.Component<Props, State> {
 
   render() {
     const { isSubmitting } = this.state;
-    const { booking } = this.props;
+    const { booking, fromBee } = this.props;
     if (booking.currency === Currency.USD) {
       // We do this onclick pattern because if bound, the guestWalletAddress will be an event handler
       return (
@@ -79,9 +81,10 @@ class BookingPaymentButton extends React.Component<Props, State> {
               }
               const isButtonDisabled = isSubmitting || !accounts || !accounts.length;
               const { walletAddress } = accounts[0];
+              const message = fromBee && FROM_BEE_MESSAGE;
               return (
                 <>
-                  {isSubmitting && <CryptoPortal />}
+                  {isSubmitting && <CryptoPortal message={message}/>}
                   <Button
                     disabled={isButtonDisabled}
                     onClick={() => this.handleSubmit(walletAddress)}
