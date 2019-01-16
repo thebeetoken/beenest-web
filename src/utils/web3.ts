@@ -231,7 +231,7 @@ export async function payWithEth(
 
 export async function priceWithToken(
   ethProvider: Web3['eth'],
-  currency: Currency,
+  currency: Currency | string,
   beePrice: number
 ): Promise<number> {
   const tokenAddress = TOKEN_ADDRESSES[currency];
