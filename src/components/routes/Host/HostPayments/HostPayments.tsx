@@ -150,7 +150,7 @@ class EnhancedComponent extends React.Component<Props, HostPaymentsContentState>
               <div className="host-payments-section-container">
                 <div className="host-payments-section-container--input">
                   <InputLabel htmlFor="btcWalletAddress">Bitcoin (BTC) Wallet Address</InputLabel>
-                  <p>Add bitcoin wallet address to receive bitcoin payments.</p>
+                  <p>Add your bitcoin wallet address to receive bitcoin payments.</p>
                   <InputWrapper>
                     <Field
                       id="btcWalletAddress"
