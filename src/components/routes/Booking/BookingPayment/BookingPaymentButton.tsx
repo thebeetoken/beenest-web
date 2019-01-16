@@ -13,6 +13,7 @@ import { Web3Data, isNetworkValid, payWithBee, payWithEth, getValidNetworkName, 
 
 interface Props {
   booking: Booking;
+  fromBee?: (value: number) => number;
   onSuccess: () => void;
   guestConfirmBooking: (cryptoParams?: CryptoParams | undefined) => void;
 }
@@ -98,8 +99,12 @@ class BookingPaymentButton extends React.Component<Props, State> {
   }
 
   handleSubmit = async (guestWalletAddress: string | undefined = undefined) => {
-    const { booking, guestConfirmBooking } = this.props;
+    const { booking, fromBee, guestConfirmBooking } = this.props;
     this.setState({ isSubmitting: true });
+    if (fromBee) {
+      alert("From BEE!");
+      return;
+    }
     try {
       const cryptoParams = await getCryptoParams(booking, guestWalletAddress);
       return await guestConfirmBooking(cryptoParams);
