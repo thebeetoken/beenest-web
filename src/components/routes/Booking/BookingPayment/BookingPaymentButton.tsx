@@ -13,6 +13,7 @@ import { Web3Data, isNetworkValid, payWithBee, payWithEth, payWithToken, getVali
 
 interface Props {
   booking: Booking;
+  currency?: Currency | string;
   fromBee?: (value: number) => number;
   onSuccess: () => void;
   guestConfirmBooking: (cryptoParams?: CryptoParams | undefined) => void;
@@ -99,10 +100,10 @@ class BookingPaymentButton extends React.Component<Props, State> {
   }
 
   handleSubmit = async (guestWalletAddress: string | undefined = undefined) => {
-    const { booking, fromBee, guestConfirmBooking } = this.props;
+    const { booking, currency, fromBee, guestConfirmBooking } = this.props;
     this.setState({ isSubmitting: true });
     try {
-      const cryptoParams = await getCryptoParams(booking, guestWalletAddress, fromBee);
+      const cryptoParams = await getCryptoParams(booking, guestWalletAddress, currency, fromBee);
       return await guestConfirmBooking(cryptoParams);
     } catch (error) {
       console.error(error);
@@ -115,6 +116,7 @@ class BookingPaymentButton extends React.Component<Props, State> {
 async function getCryptoParams(
   booking: Booking,
   guestWalletAddress: string | undefined,
+  currency?: Currency | string,
   fromBee?: (value: number) => number
 ): Promise<CryptoParams | undefined> {
   if (booking.currency === Currency.USD || !guestWalletAddress) {
@@ -136,7 +138,7 @@ async function getCryptoParams(
     transactionFee: priceQuote.transactionFee,
   };
   if (fromBee) {
-    return payWithToken(web3.eth, paymentOptions, fromBee);
+    return payWithToken(web3.eth, paymentOptions, currency, fromBee);
   }
   switch (booking.currency) {
     case Currency.BEE:

@@ -79,6 +79,7 @@ const BookingPayment = ({ history, match }: RouterProps) => (
                           </Button>
                           <BookingPaymentButton
                             booking={booking}
+                            currency={currency}
                             fromBee={fromBee}
                             onSuccess={() => history.push(`/bookings/${booking.id}/receipt`)}
                           />

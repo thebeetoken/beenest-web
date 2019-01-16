@@ -232,6 +232,7 @@ export async function payWithEth(
 export async function payWithToken(
   ethProvider: Web3['eth'],
   paymentOptions: PaymentOptions,
+  currency: Currency | string,
   fromBee: (value: number) => number
 ): Promise<any> {
   const { amount, guestWalletAddress } = paymentOptions;
@@ -251,7 +252,7 @@ export async function payWithToken(
       tokenAddress,
       beeDust,
       Date.now() / 1000 + 5 * 60 // Five minutes from now.
-    ).send({ from: geustWalletAddress });
+    ).send({ from: guestWalletAddress });
     return {
       guestWalletAddress,
       transactionHash,
