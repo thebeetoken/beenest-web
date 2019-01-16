@@ -234,8 +234,34 @@ export async function payWithToken(
   paymentOptions: PaymentOptions,
   fromBee: (value: number) => number
 ): Promise<any> {
-  console.log(ethProvider, paymentOptions, fromBee);
-  alert("FOO!");
+  const { amount, guestWalletAddress } = paymentOptions;
+  const tokenAddress = TOKEN_ADDRESSES[currency];
+  if (!tokenAddress) {
+    throw new Error(`Unknown ERC-20 token ${currency}.`);
+  }
+  const ercDust = UNITS.AMOUNT_PER_BEE.times(fromBee(amount)).toFixed(0);
+  const beeDust = UNITS.AMOUNT_PER_BEE.times(amount).toFixed(0);
+  try {
+    const token = new ethProvider.Contract(BEE_TOKEN_ABI, tokenAddress);
+    await token.methods.approve(UNIPAY_ADDRESS, ercDust)
+      .send({ from: guestWalletAddress });
+    const unipay = new ethProvider.Contract(UNIPAY_ABI, UNIPAY_ADDRESS);
+    const { transactionHash } = await unipay.methods.collect(
+      guestWalletAddress,
+      tokenAddress,
+      beeDust,
+      Date.now() / 1000 + 5 * 60 // Five minutes from now.
+    ).send({ from: geustWalletAddress });
+    return {
+      guestWalletAddress,
+      transactionHash,
+      paymentProtocolAddress: BEETOKEN_PAYMENT_ADDRESS,
+      tokenContractAddress: tokenAddress,
+    };
+  } catch (error) {
+    console.error(error);
+    throw error;
+  }
 }
 
 export async function priceWithToken(
