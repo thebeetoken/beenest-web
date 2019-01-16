@@ -140,7 +140,7 @@ async function getCryptoParams(
     securityDeposit: priceQuote.securityDeposit,
     transactionFee: priceQuote.transactionFee,
   };
-  if (fromBee) {
+  if (fromBee && currency) {
     return payWithToken(web3.eth, paymentOptions, currency, fromBee);
   }
   switch (booking.currency) {

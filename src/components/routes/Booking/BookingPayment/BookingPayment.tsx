@@ -1,11 +1,11 @@
 import * as React from 'react';
 import { Query } from 'react-apollo';
 import { Redirect } from 'react-router-dom';
-import Async from 'react-promise';
 
 import { Booking, GET_BOOKING, Currency } from 'networking/bookings';
 import BookingPaymentContainer from './BookingPayment.container';
 
+import Async from 'shared/Async';
 import Button from 'shared/Button';
 import BookingQuote from '../BookingQuote';
 import BookingPaymentBar from './BookingPaymentBar';
@@ -47,7 +47,7 @@ const BookingPayment = ({ history, match }: RouterProps) => (
         Promise.resolve(booking.guestTotalAmount);
       return (
         <Async promise={pricePromise} then={price => {
-          const fromBee = (currency !== booking.currency) ?
+          const fromBee = (!!price && currency !== booking.currency) ?
             ((value: number) => value * price / booking.guestTotalAmount) :
             undefined;
           return (

@@ -1,6 +1,5 @@
 import * as React from 'react';
 import { withRouter } from 'react-router-dom';
-import Async from 'react-promise';
 
 import { Web3Provider, Web3Consumer } from 'HOCs/Web3Provider';
 import { Booking, Currency } from 'networking/bookings';
@@ -9,6 +8,7 @@ import BookingOptionsCryptoContainer from './BookingOptionsCrypto.container';
 import BookingOptionsBar from '../BookingOptionsBar';
 import SelectPaymentButton from '../SelectPaymentButton';
 
+import Async from 'shared/Async';
 import Button from 'shared/Button';
 import BeeLink from 'shared/BeeLink';
 
