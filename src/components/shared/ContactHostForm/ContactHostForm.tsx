@@ -19,10 +19,18 @@ interface Props {
   tripId: string;
   listingId: string;
   onClose: () => void;
-  contactUser: (input: ContactHostInput) => Promise<boolean>;
+  contactUser: (input: ContactHostInput) => Promise<EmailResponse>;
 }
 
 interface ContactHostInput {
+  bookingId: string;
+  listingId: string;
+  message: string;
+  recipientId: string;
+  subject: string;
+}
+
+interface EmailResponse {
   bookingId: string;
   listingId: string;
   message: string;
@@ -54,11 +62,9 @@ const ContactHostForm = (props: Props) => {
             listingId,
             recipientId: host.id,
           };
-          console.log('input:', input);
-        return props.contactUser(input)
-            .then((returnedObject: any) => {
+          return props.contactUser(input)
+            .then((returnedObject: EmailResponse) => {
               console.log('returnedObject:', returnedObject);
-              console.log('success (technically)');
             })
             .catch((error: Error) => {
               alert(`${error}. If this continues to occur, please contact us at support@beetoken.com`);
@@ -92,14 +98,15 @@ const ContactHostForm = (props: Props) => {
               <div className="form-item">
                 <InputLabel>Message</InputLabel>
                 <Textarea
-                  textareaHeight="200px"
+                  html
                   name="message"
                   onBlur={() => setFieldTouched('message', true)}
                   onChange={(event: TextareaEvent) => {
                     setFieldValue('message', event.target.value);
                   }}
-                  value={values.message}
-                  placeholder="Let the host know of any questions or concerns you may have" />
+                  placeholder="Let the host know of any questions or concerns you may have"
+                  textareaHeight="200px"
+                  value={values.message} />
                 <ErrorMessageWrapper>
                   <ErrorMessage name="message" />
                 </ErrorMessageWrapper>

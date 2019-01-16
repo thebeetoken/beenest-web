@@ -262,7 +262,11 @@ export const UPDATE_USER = gql`
 export const CONTACT_USER = gql`
   mutation contactUser($input: ContactUserInput!) {
     contactUser(input: $input) {
-      id
+      bookingId
+      listingId
+      message
+      recipientId
+      subject
     }
   }
 `;
