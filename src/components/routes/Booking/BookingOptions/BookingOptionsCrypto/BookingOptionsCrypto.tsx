@@ -127,7 +127,7 @@ const BookingOptionsCrypto = ({ booking, currency, fromBee, history }: Props) =>
                           booking={booking}
                           currency={outputCurrency}
                           disabled={hasInsufficientFunds}
-                          onSuccess={() => history.push(`/bookings/${booking.id}/payment`)}
+                          onSuccess={() => history.push(`/bookings/${booking.id}/payment?currency=${currency}`)}
                         />
                       </div>
                     </div>
