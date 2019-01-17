@@ -27,7 +27,7 @@ class SelectPaymentOption extends React.Component<Props> {
   readonly state: State = {
     conversionRateFromBee: 0,
     currency: undefined,
-    errorPricingToken: false;
+    errorPricingToken: false
   };
 
   render() {
@@ -95,7 +95,7 @@ class SelectPaymentOption extends React.Component<Props> {
 
 export default SelectPaymentOption;
 
-function currencyOptions(currency: string | undefined, booking: Booking, fromBee?: (value: number) => number): React.ReactNode {
+function currencyOptions(currency: string | undefined, booking: Booking, fromBee?: (value: number) => (number | string)): React.ReactNode {
   switch (currency) {
     case Currency.BEE:
     case Currency.DAI:

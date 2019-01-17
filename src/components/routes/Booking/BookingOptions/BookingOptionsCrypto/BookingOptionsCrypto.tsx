@@ -19,7 +19,7 @@ import { AppConsumer, AppConsumerProps, ScreenType } from 'components/App.contex
 interface Props extends RouterProps {
   booking: Booking;
   currency: Currency;
-  fromBee?: (value: number) => number;
+  fromBee?: (value: number) => number | string;
 }
 
 const BookingOptionsCrypto = ({ booking, currency, fromBee, history }: Props) => (

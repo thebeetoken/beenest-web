@@ -10,10 +10,10 @@ import { numberToLocaleString } from 'utils/numberToLocaleString';
 interface Props {
   booking: Booking;
   currency: Currency;
-  fromBee?: (value: number) => number;
+  fromBee?: (value: number) => (number | string);
 }
 
-function getMatchingPriceQuote(priceQuotes: PriceQuote[], currency: Currency, fromBee?: (value: number) => number) {
+function getMatchingPriceQuote(priceQuotes: PriceQuote[], currency: Currency, fromBee?: (value: number) => (number | string)) {
   if (!fromBee) {
     return priceQuotes.find((quote: PriceQuote) => quote.currency === currency);
   }
@@ -36,7 +36,7 @@ function getMatchingPriceQuote(priceQuotes: PriceQuote[], currency: Currency, fr
 
 const BookingQuote = ({ booking, currency, fromBee }: Props) => {
   const { checkInDate, checkOutDate, host, priceQuotes, numberOfGuests } = booking;
-  const currentQuote: PriceQuote | undefined = getMatchingPriceQuote(priceQuotes, currency, fromBee);
+  const currentQuote = getMatchingPriceQuote(priceQuotes, currency, fromBee);
   if (!currentQuote) {
     return <div>Quote does not exist</div>;
   }
