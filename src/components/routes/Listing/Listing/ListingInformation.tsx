@@ -3,7 +3,6 @@ import sanitizeHtml from 'sanitize-html';
 
 import { FirebaseConsumer, FirebaseUserProps } from 'HOCs/FirebaseProvider';
 import { Listing, User } from 'networking/listings';
-import BeeLink from 'shared/BeeLink';
 import Button from 'shared/Button';
 import Divider from 'shared/Divider';
 import GoogleMaps from 'shared/GoogleMaps';
