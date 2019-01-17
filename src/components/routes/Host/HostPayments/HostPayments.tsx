@@ -217,7 +217,6 @@ const HostPaymentsContent = compose(
   graphql(UPDATE_WALLET_ADDRESS, {
     props: ({ mutate }: any) => ({
       updateWalletAddress: (input:UpdateWalletAddressInput): Promise<User> => {
-        console.log('input:', input);
         return mutate({ variables: { input } });
       },
     }),
