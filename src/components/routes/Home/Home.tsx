@@ -21,10 +21,9 @@ class Home extends React.Component {
             <LazyImage src="https://static.beenest.com/images/app/misc/painted-ladies2.jpg" transition />
           </Overlay>
           <div className="text-container">
-            <h1>Home for the Cryptocurrency Community</h1>
+            <h1>Book Rentals and Homes for your Business</h1>
             <p>
-              Pay with credit card or crypto – <br/>
-              Beenest is the easiest way to spend and earn cryptocurrency when you travel.
+               Beenest is the easiest way for business travelers to book a home or rental.
             </p>
             <AppConsumer>
               {({ screenType }: AppConsumerProps) => {
