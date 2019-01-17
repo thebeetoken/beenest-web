@@ -6,8 +6,6 @@ const ContactHostFormContainerMobile = styled.div`
   display: flex;
   justify-content: center;
   height: 100%;
-  padding-top: 32px;
-  padding-bottom: 74px;
   width: 100%;
 
   form {
