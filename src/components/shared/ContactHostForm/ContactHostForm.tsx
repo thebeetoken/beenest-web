@@ -94,7 +94,7 @@ class ContactHostForm extends React.Component<Props, State> {
                 this.setState({ response: response.data.contactUser });
               })
               .catch((error: Error) => {
-                alert(`${error}. If this continues to occur, please contact us at support@beetoken.com`);
+                alert(`${error}. If this continues to occur, please contact us at support@beenest.com`);
                 console.error(error);
                 return actions.setSubmitting(false);
               });

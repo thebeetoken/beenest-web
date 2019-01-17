@@ -119,8 +119,6 @@ const ListingInformation = ({ listing, host }: Props) => {
               if (!completedVerification) {
                 return null;
               }
-              // TODO: When page is refreshed, supportEmail is null due to firebase user query and our listing query running in parallel.
-              // listing query needs verified user in order to return a supportEmail. Need to figure out best way to wait for firebase then make supportEmail query.
               return (
                 <ToggleProvider>
                   {({ show, toggle }: ToggleProviderRef) => (
