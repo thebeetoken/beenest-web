@@ -7,6 +7,7 @@ type CardContainerProps = Partial<{
 }>;
 
 const AlertCardContainerMobile = styled.div`
+  animation: fade-in 0.5s ease-in-out forwards;
   display: flex;
   flex-direction: column;
 
@@ -37,6 +38,16 @@ const AlertCardContainerMobile = styled.div`
     align-self: flex-end;
     margin-top: 40px;
     width: auto;
+  }
+
+
+  @keyframes fade-in {
+    from {
+      opacity: 0;
+    }
+    to {
+      opacity: 1;
+    }
   }
 `;
 
