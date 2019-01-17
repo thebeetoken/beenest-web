@@ -338,6 +338,7 @@ export const GET_PUBLIC_LISTING = gql`
   query PublicListing($id: ID!) {
     listing(id: $id) {
       host {
+        id
         createdAt
         about
         firstName

@@ -44,7 +44,7 @@ const ListingInformation = ({ listing, host }: Props) => {
     state,
     title,
   } = listing;
-  const { about, createdAt, firstName, profilePicUrl, supportEmail } = host;
+  const { about, createdAt, firstName, profilePicUrl } = host;
   const renderAmenities = (amenities || []).map(amenity=> {
     const noFlex = amenity && amenity.length > 25;
     return (
