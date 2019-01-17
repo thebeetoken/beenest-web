@@ -84,7 +84,7 @@ const ActiveTripCard = ({ onCancelClick, trip }: Props) => {
                     <ContactHostForm
                       host={trip.host}
                       listingId={listing.id}
-                      tripId={trip.id}
+                      bookingId={trip.id}
                       onClose={toggle} />
                   </Portal>
                 )}

@@ -17,9 +17,9 @@ import Card from 'shared/Card';
 interface Props {
   contactUser: (input: ContactHostInput) => Promise<EmailResponse>;
   host: User;
-  listingId: string;
+  listingId?: string;
   onClose: () => void;
-  tripId: string;
+  bookingId?: string;
 }
 
 interface State {
@@ -27,8 +27,8 @@ interface State {
 }
 
 interface ContactHostInput {
-  bookingId: string;
-  listingId: string;
+  bookingId?: string;
+  listingId?: string;
   message: string;
   recipientId: string;
   subject: string;
@@ -53,7 +53,7 @@ class ContactHostForm extends React.Component<Props, State> {
   }
 
   render () {
-    const { contactUser, host, listingId, onClose, tripId } = this.props;
+    const { contactUser, host, listingId, onClose, bookingId } = this.props;
     if (this.state.response) {
       const { subject, recipient } = this.state.response || { subject: '', recipient: { firstName: 'the host' }};
       return (
@@ -85,7 +85,7 @@ class ContactHostForm extends React.Component<Props, State> {
             actions.setSubmitting(true);
             const input = {
               ...values,
-              bookingId: tripId,
+              bookingId,
               listingId,
               recipientId: host.id,
             };
