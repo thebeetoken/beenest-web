@@ -62,6 +62,9 @@ const BookingOptionsCrypto = ({ booking, currency, fromBee, history }: Props) =>
           const availableFunds = await getAvailableAmount(accounts, currency);
           const total = fromBee ? fromBee(quote.guestTotalAmount) : quote.guestTotalAmount;
           const hasInsufficientFunds = availableFunds < total;
+          // TODO: Communicate error state more clearly
+          const currencyUnavailable = total === '--.--';
+          const isDisabled = hasInsufficientFunds || currencyUnavailable;
           return (
             <BookingOptionsCryptoContainer>
               <AppConsumer>
@@ -87,6 +90,13 @@ const BookingOptionsCrypto = ({ booking, currency, fromBee, history }: Props) =>
                           </p>
                         </div>
                       )}
+                      {currencyUnavailable && (
+                        <div className="booking-options-error">
+                          <p>
+                            Exchange currently unavailable for this token.
+                          </p>
+                        </div>
+                      )}
                     </div>
                     <div className="crypto-address">
                       <h3>Address:</h3>
@@ -99,7 +109,7 @@ const BookingOptionsCrypto = ({ booking, currency, fromBee, history }: Props) =>
                   if (screenType < ScreenType.TABLET) {
                     return (
                       <div className="booking-options-crypto-bar">
-                        <BookingOptionsBar booking={booking} currency={currency} disabled={hasInsufficientFunds} />
+                        <BookingOptionsBar booking={booking} currency={currency} disabled={isDisabled} />
                       </div>
                     );
                   }
@@ -126,7 +136,7 @@ const BookingOptionsCrypto = ({ booking, currency, fromBee, history }: Props) =>
                         <SelectPaymentButton
                           booking={booking}
                           currency={outputCurrency}
-                          disabled={hasInsufficientFunds}
+                          disabled={isDisabled}
                           onSuccess={() => history.push(`/bookings/${booking.id}/payment?currency=${currency}`)}
                         />
                       </div>
