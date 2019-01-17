@@ -23,7 +23,7 @@ class Home extends React.Component {
           <div className="text-container">
             <h1>Book Rentals and Homes for your Business</h1>
             <p>
-              Beenest is the easiest way to spend and earn when you travel.
+               Beenest is the easiest way for businesses to book a home or vacation rental.
             </p>
             <AppConsumer>
               {({ screenType }: AppConsumerProps) => {
