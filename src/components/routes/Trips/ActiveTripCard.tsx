@@ -17,7 +17,6 @@ import { ToggleProvider, ToggleProviderRef } from 'shared/ToggleProvider';
 import Portal from 'shared/Portal';
 import ContactHostForm from 'shared/ContactHostForm';
 
-
 interface Props {
   onCancelClick: () => void;
   trip: Booking;
@@ -84,10 +83,9 @@ const ActiveTripCard = ({ onCancelClick, trip }: Props) => {
                   <Portal color="up" opacity={0.9} onClick={toggle}>
                     <ContactHostForm
                       host={trip.host}
-                      tripId={trip.id}
                       listingId={listing.id}
-                      onClose={toggle}
-                    />
+                      tripId={trip.id}
+                      onClose={toggle} />
                   </Portal>
                 )}
               </>

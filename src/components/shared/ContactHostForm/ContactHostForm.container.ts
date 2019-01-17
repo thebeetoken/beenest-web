@@ -2,12 +2,9 @@ import styled from 'styled-components';
 import { color, typography } from 'styled/utils';
 
 const ContactHostFormCardContainer = styled.div`
-  background-color: ${color('white')};
-  box-shadow: 0 0 25px ${color('black', 0.1)};
-  height: 570px;
   padding: 40px;
-  position: relative;
-  width: 584px;
+  height: 100%;
+  width: 100%;
 
 
   form {
@@ -21,11 +18,11 @@ const ContactHostFormCardContainer = styled.div`
     h2 {
       ${typography('title', 3)}
       color: ${color('core')};
-      margin-bottom: 24px;
+      margin-bottom: 32px;
       text-transform: capitalize;
     }
     .form-item {
-      margin-bottom: 8px;
+      margin-bottom: 12px;
     }
     .bee-button {
       align-self: flex-end;
@@ -34,22 +31,11 @@ const ContactHostFormCardContainer = styled.div`
   }
 
 
-  .close {
-    cursor: pointer;
-    height: 24px;
-    opacity: 1;
+  .bee-close-button {
     position: absolute;
-    right: 24px;
-    top: 24px;
-    transition: opacity 0.2s ease-in-out;
-    width: 24px;
-    z-index: 1;
-    &:hover {
-      opacity: 0.5;
-    }
-    .bee-svg {
-      color: ${color('middle')};
-    }
+    top: 0;
+    right: 0;
+    z-index: 10;
   }
 `;
 

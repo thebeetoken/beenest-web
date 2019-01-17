@@ -1,25 +1,29 @@
 import * as React from 'react';
 import ContactHostFormContainer from './ContactHostForm.container';
 import Button from 'shared/Button';
-import Svg from 'shared/Svg';
 import { Formik, Field, ErrorMessage, Form } from 'formik';
 import * as Yup from 'yup';
-import InputWrapper from 'components/shared/InputWrapper';
-import Textarea from 'components/shared/Textarea';
-import InputLabel from 'components/shared/InputLabel';
-import ErrorMessageWrapper from 'components/shared/ErrorMessageWrapper';
-import { TextareaEvent } from 'components/shared/Textarea/Textarea';
+import InputWrapper from 'shared/InputWrapper';
+import Textarea from 'shared/Textarea';
+import InputLabel from 'shared/InputLabel';
+import ErrorMessageWrapper from 'shared/ErrorMessageWrapper';
+import { TextareaEvent } from 'shared/Textarea/Textarea';
 import { compose, graphql } from 'react-apollo';
 import { CONTACT_USER } from 'networking/users';
 import { User } from 'networking/listings';
-
+import Modal from 'components/shared/Modal';
+import SuccessModal from 'components/shared/SuccessModal';
 
 interface Props {
+  contactUser: (input: ContactHostInput) => Promise<EmailResponse>;
   host: User;
-  tripId: string;
   listingId: string;
   onClose: () => void;
-  contactUser: (input: ContactHostInput) => Promise<EmailResponse>;
+  tripId: string;
+}
+
+interface State {
+  response: EmailResponse | null;
 }
 
 interface ContactHostInput {
@@ -34,7 +38,7 @@ interface EmailResponse {
   bookingId: string;
   listingId: string;
   message: string;
-  recipientId: string;
+  recipient: User;
   subject: string;
 }
 
@@ -43,88 +47,105 @@ const ContactHostSchema = Yup.object().shape({
   message: Yup.string().required('Please fill out the message field.'),
 });
 
-const ContactHostForm = (props: Props) => {
-  const { host, listingId, onClose, tripId } = props;
+class ContactHostForm extends React.Component<Props, State> {
+  readonly state = {
+    response: null
+  }
+
+  render () {
+    const { contactUser, host, listingId, onClose, tripId } = this.props;
+    if (this.state.response) {
+      const { subject, recipient } = this.state.response || { subject: '', recipient: { firstName: 'the host' }};
+      return (
+        <SuccessModal onClose={onClose}>
+          <p>{`Your message ${subject ? `"${subject}" ` : ' '}was sent to ${recipient.firstName}.`}</p>
+        </SuccessModal>
+      );
+    }
+
     return (
-      <ContactHostFormContainer>
-        <Formik
-          initialValues={{
-            subject: '',
-            message: '',
-          }}
-          isInitialValid
-          validationSchema={ContactHostSchema}
-          onSubmit={(values: ContactHostInput, actions) => {
-          actions.setSubmitting(true);
-          const input = {
-            ...values,
-            bookingId: tripId,
-            listingId,
-            recipientId: host.id,
-          };
-          return props.contactUser(input)
-            .then((returnedObject: EmailResponse) => {
-              console.log('returnedObject:', returnedObject);
-            })
-            .catch((error: Error) => {
-              alert(`${error}. If this continues to occur, please contact us at support@beetoken.com`);
-              console.error(error);
-              return actions.setSubmitting(false);
-            });
-          }}
-        >
-          {({
-            isSubmitting,
-            setFieldTouched,
-            setFieldValue,
-            values,
-          }) => (
-            <Form>
-              <h2>Contact {host.firstName || 'Host'}</h2>
-              
-              <div className="form-item">
-                <InputLabel htmlFor="subject">Subject</InputLabel>
-                <InputWrapper>
-                  <Field
-                    name="subject"
-                    placeholder="Subject"
-                    type="text" />
-                </InputWrapper>
-                <ErrorMessageWrapper>
-                  <ErrorMessage name="subject" />
-                </ErrorMessageWrapper>
-              </div>
+      <Modal
+        height="570px"
+        width="800px"
+        onClose={onClose}>
+        <ContactHostFormContainer>
+          <Formik
+            initialValues={{
+              subject: '',
+              message: '',
+            }}
+            isInitialValid
+            validationSchema={ContactHostSchema}
+            onSubmit={(values: ContactHostInput, actions) => {
+            actions.setSubmitting(true);
+            const input = {
+              ...values,
+              bookingId: tripId,
+              listingId,
+              recipientId: host.id,
+            };
+            return contactUser(input)
+              .then((response: EmailResponse) => {
+                this.setState({ response });
+              })
+              .catch((error: Error) => {
+                alert(`${error}. If this continues to occur, please contact us at support@beetoken.com`);
+                console.error(error);
+                return actions.setSubmitting(false);
+              });
+            }}
+          >
+            {({
+              isSubmitting,
+              setFieldTouched,
+              setFieldValue,
+              values,
+            }) => (
+              <Form>
+                <h2>Contact {host.firstName || 'Host'}</h2>
+                
+                <div className="form-item">
+                  <InputLabel htmlFor="subject">Subject</InputLabel>
+                  <InputWrapper>
+                    <Field
+                      name="subject"
+                      placeholder="Subject"
+                      type="text" />
+                  </InputWrapper>
+                  <ErrorMessageWrapper>
+                    <ErrorMessage name="subject" />
+                  </ErrorMessageWrapper>
+                </div>
 
-              <div className="form-item">
-                <InputLabel>Message</InputLabel>
-                <Textarea
-                  html
-                  name="message"
-                  onBlur={() => setFieldTouched('message', true)}
-                  onChange={(event: TextareaEvent) => {
-                    setFieldValue('message', event.target.value);
-                  }}
-                  placeholder="Let the host know of any questions or concerns you may have"
-                  textareaHeight="200px"
-                  value={values.message} />
-                <ErrorMessageWrapper>
-                  <ErrorMessage name="message" />
-                </ErrorMessageWrapper>
-              </div>
+                <div className="form-item">
+                  <InputLabel>Message</InputLabel>
+                  <Textarea
+                    html
+                    name="message"
+                    onBlur={() => setFieldTouched('message', true)}
+                    onChange={(event: TextareaEvent) => {
+                      setFieldValue('message', event.target.value);
+                    }}
+                    placeholder="Your message here"
+                    textareaHeight="200px"
+                    value={values.message} />
+                  <ErrorMessageWrapper>
+                    <ErrorMessage name="message" />
+                  </ErrorMessageWrapper>
+                </div>
 
-              <Button
-                disabled={isSubmitting}
-                type="submit">
-                Send Message
-              </Button>
-            </Form>
-          )}
-        </Formik>
-        <div className="close" onClick={onClose}>
-          <Svg src="utils/x" />
-        </div>
-      </ContactHostFormContainer>
+                <Button
+                  disabled={isSubmitting}
+                  type="submit">
+                  Send Message
+                </Button>
+              </Form>
+            )}
+          </Formik>
+        </ContactHostFormContainer>
+      </Modal>
     );
+  }
 };
 
 export default compose(
