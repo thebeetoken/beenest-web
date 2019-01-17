@@ -53,7 +53,7 @@ const ListingQuery = () => {
     checkOutDate: checkOutDate && isValid(new Date(checkOutDate)) ? checkOutDate : '',
     numberOfGuests: numberOfGuests ? parseInt(numberOfGuests) : 1,
     locationQuery: locationQuery || '',
-    ...(areBoundsValid && {
+    ...(areBoundsValid && !!bounds && {
       bounds: {
         east: parseFloat(bounds.east),
         north: parseFloat(bounds.north),
