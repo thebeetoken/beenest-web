@@ -29,7 +29,15 @@ interface LatLng {
   lng: number,
 }
 
+interface LatLngBounds {
+  east: number;
+  north: number;
+  south: number;
+  west: number;
+}
+
 interface State {
+  bounds: LatLngBounds | null;
   coordinates: LatLng | null;
   checkInDate: moment.Moment | null;
   checkOutDate: moment.Moment | null;
@@ -42,6 +50,7 @@ function getInitialState({ location }: RouterProps): State {
   const queryParams: QueryParams = parseQueryString(location.search);
   const { checkInDate, checkOutDate, numberOfGuests, locationQuery } = queryParams;
   return {
+    bounds: null,
     coordinates: null,
     locationQuery,
     focusedInput: null,
@@ -154,12 +163,12 @@ class SearchBar extends React.Component<RouterProps, State> {
   
   handlePlaceChange = (place: google.maps.places.PlaceResult) => {
     if (!place.geometry) return;
-    
     this.setState({
       coordinates: {
         lat: place.geometry.location.lat(),
         lng: place.geometry.location.lng(),
-      }
+      },
+      bounds: place.geometry.viewport.toJSON()
     })
   }
 
