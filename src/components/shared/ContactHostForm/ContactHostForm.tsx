@@ -11,8 +11,8 @@ import { TextareaEvent } from 'shared/Textarea/Textarea';
 import { compose, graphql } from 'react-apollo';
 import { CONTACT_USER } from 'networking/users';
 import { User } from 'networking/listings';
-import Modal from 'components/shared/Modal';
-import SuccessModal from 'components/shared/SuccessModal';
+import AlertCard from 'shared/AlertCard';
+import Card from 'shared/Card';
 
 interface Props {
   contactUser: (input: ContactHostInput) => Promise<EmailResponse>;
@@ -57,14 +57,19 @@ class ContactHostForm extends React.Component<Props, State> {
     if (this.state.response) {
       const { subject, recipient } = this.state.response || { subject: '', recipient: { firstName: 'the host' }};
       return (
-        <SuccessModal onClose={onClose}>
-          <p>{`Your message ${subject ? `"${subject}" ` : ' '}was sent to ${recipient.firstName}.`}</p>
-        </SuccessModal>
+        <AlertCard
+          buttonBackgroundColor="brand"
+          cta="OK"
+          message={`Your message ${subject ? `"${subject}" ` : ' '}was sent to ${recipient.firstName}.`}
+          onClose={onClose}
+          srcColor="secondary"
+          title="Success!">
+        </AlertCard>
       );
     }
 
     return (
-      <Modal
+      <Card
         height="570px"
         width="800px"
         onClose={onClose}>
@@ -85,8 +90,8 @@ class ContactHostForm extends React.Component<Props, State> {
               recipientId: host.id,
             };
             return contactUser(input)
-              .then((response: EmailResponse) => {
-                this.setState({ response });
+              .then((response: any) => {
+                this.setState({ response: response.data.contactUser });
               })
               .catch((error: Error) => {
                 alert(`${error}. If this continues to occur, please contact us at support@beetoken.com`);
@@ -143,7 +148,7 @@ class ContactHostForm extends React.Component<Props, State> {
             )}
           </Formik>
         </ContactHostFormContainer>
-      </Modal>
+      </Card>
     );
   }
 };

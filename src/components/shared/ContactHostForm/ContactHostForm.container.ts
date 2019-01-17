@@ -2,7 +2,6 @@ import styled from 'styled-components';
 import { color, typography } from 'styled/utils';
 
 const ContactHostFormCardContainer = styled.div`
-  padding: 40px;
   height: 100%;
   width: 100%;
 

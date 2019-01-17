@@ -265,7 +265,9 @@ export const CONTACT_USER = gql`
       bookingId
       listingId
       message
-      recipientId
+      recipient {
+        firstName
+      }
       subject
     }
   }
