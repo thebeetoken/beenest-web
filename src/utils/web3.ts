@@ -248,12 +248,16 @@ export async function payWithToken(
       .send({ from: guestWalletAddress });
     const unipay = new ethProvider.Contract(UNIPAY_ABI, UNIPAY_ADDRESS);
     const deadline = (Date.now() / 1000 + 5 * 60).toFixed(0); // Five minutes from now.
-    const { transactionHash } = await unipay.methods.collect(
-      guestWalletAddress,
-      tokenAddress,
-      beeDust,
-      deadline
-    ).send({ from: guestWalletAddress });
+    const transactionHash: string = await new Promise<string>(
+      (resolve, reject) => unipay.methods.collect(
+          guestWalletAddress,
+          tokenAddress,
+          beeDust,
+          deadline
+        ).send({ from: guestWalletAddress })
+        .once('transactionHash', resolve)
+        .on('error', reject)
+    );
     return {
       guestWalletAddress: UNIPAY_ADDRESS, // This will be the address to invoice
       transactionHash,
