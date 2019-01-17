@@ -183,13 +183,14 @@ class SearchBar extends React.Component<RouterProps, State> {
 
   handleSubmit = (event: React.FormEvent) => {
     event.preventDefault();
-    const { coordinates, checkInDate, checkOutDate, numberOfGuests } = this.state;
+    const { bounds, coordinates, checkInDate, checkOutDate, numberOfGuests } = this.state;
     const locationQuery = this.inputRef.current ? this.inputRef.current.value : '';
     return this.props.history.push({
       pathname: '/listings',
       search: stringifyQueryString({
         locationQuery,
         utm_term: locationQuery,
+        ...(bounds && { bounds }),
         ...(coordinates && { coordinates }),
         ...(numberOfGuests && { numberOfGuests }),
         ...(checkInDate && {
