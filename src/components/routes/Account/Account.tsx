@@ -15,7 +15,7 @@ import AudioLoading from 'shared/loading/AudioLoading';
 import Divider from 'shared/Divider';
 import GeneralWrapper from 'shared/GeneralWrapper';
 import NotFound from 'routes/NotFound';
-import { GET_ACCOUNT_PAGE } from 'networking/users';
+import { GET_ACCOUNT_PAGE, GET_USER } from 'networking/users';
 
 import { AppConsumerProps, AppConsumer, ScreenType } from 'components/App.context';
 
@@ -38,7 +38,33 @@ const Account = () => (
             </div>
             <div className="content">
               <div className="left">
-                <AccountNav />
+                <FirebaseConsumer>
+                  {({ user, completedVerification }: FirebaseUserProps) => (
+                    <AccountNav config={[
+                      {
+                        title: 'General Info',
+                        to: '/account/general',
+                        src: 'decorative/profile',
+                      },
+                      {
+                        title: 'Payment',
+                        to: '/account/payment',
+                        src: 'decorative/card',
+                      },
+                      {
+                        title: 'Security',
+                        to: '/account/security',
+                        src: 'decorative/lock',
+                      },
+                      {
+                        title: 'Verification',
+                        to: '/account/verification',
+                        src: 'utils/check-circle',
+                        showBadge: user && !completedVerification
+                      },
+                    ]} />
+                  )}
+                </FirebaseConsumer>
                 <Switch>
                   <Route exact path="/account/general" render={(props: RouterProps) => <AccountGeneral {...props} user={user} />} />
                   <Route exact path="/account/payment" render={() => <AccountPayment creditBalance={creditBalance} />} />

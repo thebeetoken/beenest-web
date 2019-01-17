@@ -9,85 +9,48 @@ import BeeLink from 'shared/BeeLink';
 import Svg from 'shared/Svg';
 import TabNav from 'shared/TabNav/TabNav';
 
-const tabNavConfig = [
-  {
-    title: 'General Info',
-    to: '/account/general',
-  },
-  {
-    title: 'Payment',
-    to: '/account/payment',
-  },
-  {
-    title: 'Security',
-    to: '/account/security',
-  },
-]
+interface Props {
+  config: TabNavItem[];
+}
 
-const AccountNav = (): JSX.Element => (
+interface TabNavItem {
+  showBadge?: boolean | null;
+  src: string;
+  title: string;
+  to: string;
+}
+
+const AccountNav = ({ config }: Props): JSX.Element => (
   <AccountNavContainer>
     <AppConsumer>
       {({ screenType }: AppConsumerProps) => {
         if (screenType < ScreenType.TABLET) {
           return (
             <>
-              <BeeLink to="/account/general" isNav activeClassName="active">
-                <Svg src="decorative/profile" />
-              </BeeLink>
-              <BeeLink to="/account/payment" isNav activeClassName="active">
-                <Svg src="decorative/card" />
-              </BeeLink>
-              <BeeLink to="/account/security" isNav activeClassName="active">
-                <Svg src="decorative/lock" />
-              </BeeLink>
-              <Query query={GET_USER}>
-              {({ data }) => {
-                  if (data.user && !data.user.completedVerification) {
-                    return (
-                      <div className="verification-needed-container">
-                        <span className="verification-badge">!</span>
-                        <BeeLink to="/account/verification" isNav activeClassName="active">
-                          <Svg src="utils/check-circle" />
-                        </BeeLink>
-                      </div>
-                    );
-                  }
-          
+              {config.map(({ showBadge, src, to}: TabNavItem)=> {
+                if (showBadge) {
                   return (
-                    <BeeLink to="/account/verification" isNav activeClassName="active">
-                      <Svg src="utils/check-circle" />
-                    </BeeLink>
+                    <div className="verification-needed-container">
+                      <span className="verification-badge">!</span>
+                      <BeeLink to={to} isNav activeClassName="active">
+                        <Svg src={src} />
+                      </BeeLink>
+                    </div>
                   );
-                }}
-              </Query>
+                }
+
+                return (
+                  <BeeLink to={to} isNav activeClassName="active">
+                    <Svg src={src} />
+                  </BeeLink>
+                );
+              })}
             </>
           );
         };
 
         return (
-          <>
-            <TabNav config={tabNavConfig} height={48} />
-            <Query query={GET_USER}>
-            {({ data }) => {
-                if (data.user && !data.user.completedVerification) {
-                  return (
-                    <div className="verification-needed-container">
-                      <span className="verification-badge">!</span>
-                      <BeeLink to="/account/verification" isNav activeClassName="active">
-                        Verification
-                      </BeeLink>
-                    </div>
-                  );
-                }
-        
-                return (
-                  <BeeLink to="/account/verification" isNav activeClassName="active">
-                    Verification
-                  </BeeLink>
-                );
-              }}
-            </Query>
-          </>
+          <TabNav config={config} height={48} />
         );
       }}
     </AppConsumer>

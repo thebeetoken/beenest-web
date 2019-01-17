@@ -34,6 +34,7 @@ const AccountNavContainerMobile = styled.nav`
 
   .verification-needed-container {
     flex-grow: 1;
+    height: 100%;
     position: relative;
     .verification-badge {
       ${typography('title', 3)}

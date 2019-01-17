@@ -33,8 +33,6 @@ interface State {
   isSubmitting: boolean;
 }
 
-const SNACKBAR_DURATION_MS = 5000;
-
 class Trips extends React.Component<Props, State> {
   readonly state = {
     message: '',
@@ -129,7 +127,7 @@ class Trips extends React.Component<Props, State> {
                     </section>
                   )}
                   {open && (
-                    <Snackbar autoHideDuration={SNACKBAR_DURATION_MS} open={open} onClose={this.closeSnackbar}>
+                    <Snackbar autoHideDuration={5000} open={open} onClose={this.closeSnackbar}>
                       {message}
                     </Snackbar>
                   )}
