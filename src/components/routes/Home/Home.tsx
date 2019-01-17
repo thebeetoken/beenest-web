@@ -123,7 +123,7 @@ const PopularCities = () => {
   ];
 
   return <section className="popular-cities">
-    <h1>Pay for your next trip with credit/debit or crypto. Explore these amazing locations and many more!</h1>
+    <h1>Plan for your next trip with us. Explore these amazing locations and many more!</h1>
     <div className="popular-cities-container">
       {cities.map(city => (
           <PopularCityCard
