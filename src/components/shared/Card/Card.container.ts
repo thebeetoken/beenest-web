@@ -9,16 +9,16 @@ type CardContainerProps = Partial<{
   width: string;
 }>;
 
-const Card = styled.div`
+const CardContainerMobile = styled.div`
   align-items: center;
   background-color: ${color('white')};
   box-shadow: 0 4px 15px ${color('black', 0.1)};
   display: flex;
-  height: ${({ height }: CardContainerProps) => height || '100%'};
+  height: 100vh;
   justify-content: center;
-  padding: ${({ padding }: CardContainerProps) => padding || '40px'};
+  padding: 24px;
   position: relative;
-  width: ${({ width }: CardContainerProps) => width || '100%'};
+  width: 100vw;
 
 
   .bee-close-button {
@@ -29,4 +29,17 @@ const Card = styled.div`
   }
 `;
 
-export default Card;
+const CardContainerTablet = styled(CardContainerMobile)`
+  @media (min-width: 768px) {
+  }
+`;
+
+const CardContainer = styled(CardContainerTablet)`
+  @media (min-width: 1025px) {
+    height: ${({ height }: CardContainerProps) => height || '100%'};
+    padding: ${({ padding }: CardContainerProps) => padding || '40px'};
+    width: ${({ width }: CardContainerProps) => width || '100%'};
+  }
+`;
+
+export default CardContainer;

@@ -20,7 +20,9 @@ const Card = (props: Props) => {
         height="64px"
         onClose={onClose}
         width="64px" />
+      <div className="bee-flex-div" />
       {children}
+      <div className="bee-flex-div" />
     </CardContainer>
   );
 };

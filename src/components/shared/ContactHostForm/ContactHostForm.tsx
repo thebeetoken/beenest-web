@@ -132,7 +132,7 @@ class ContactHostForm extends React.Component<Props, State> {
                       setFieldValue('message', event.target.value);
                     }}
                     placeholder="Your message here"
-                    textareaHeight="200px"
+                    textareaHeight="164px"
                     value={values.message} />
                   <ErrorMessageWrapper>
                     <ErrorMessage name="message" />

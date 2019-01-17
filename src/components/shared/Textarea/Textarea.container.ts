@@ -26,9 +26,9 @@ const TextareaContainer = styled.div`
   box-shadow: ${({ noBoxShadow }: TextareaContainerProps) => noBoxShadow ? 'none' : `0 2px 10px ${color('black', 0.08)}`};
   cursor: text;
   display: flex;
-  height: ${({ textareaHeight }: TextareaContainerProps) => textareaHeight || '224px'};
+  height: ${({ textareaHeight }: TextareaContainerProps) => textareaHeight || '164px'};
   max-height: 224px;
-  min-height: 80px;
+  min-height: 164px;
   outline: 0;
   padding: 0;
   position: relative;

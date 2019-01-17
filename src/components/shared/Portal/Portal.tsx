@@ -35,7 +35,7 @@ class Portal extends React.Component<PortalProps> {
   render() {
     const { className, children, ...overlayProps } = this.props;
     return ReactDOM.createPortal(
-      <PortalContainer className={`bee-portal ${className}`.trim()}>
+      <PortalContainer className={`bee-portal ${className || ''}`.trim()}>
         <Overlay {...overlayProps} />
         <div className="bee-portal--children">
           {children}
