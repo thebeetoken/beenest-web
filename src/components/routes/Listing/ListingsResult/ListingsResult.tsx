@@ -54,10 +54,12 @@ const ListingQuery = () => {
     numberOfGuests: numberOfGuests ? parseInt(numberOfGuests) : 1,
     locationQuery: locationQuery || '',
     ...(areBoundsValid && {
-      east: parseFloat(bounds.east),
-      north: parseFloat(bounds.north),
-      south: parseFloat(bounds.south),
-      west: parseFloat(bounds.west),
+      bounds: {
+        east: parseFloat(bounds.east),
+        north: parseFloat(bounds.north),
+        south: parseFloat(bounds.south),
+        west: parseFloat(bounds.west),
+      }
     }),
     ...(areCoordinatesValid && {
       coordinates: {
