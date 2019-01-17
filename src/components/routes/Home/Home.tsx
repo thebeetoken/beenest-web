@@ -21,10 +21,9 @@ class Home extends React.Component {
             <LazyImage src="https://static.beenest.com/images/app/misc/painted-ladies2.jpg" transition />
           </Overlay>
           <div className="text-container">
-            <h1>Home for the Cryptocurrency Community</h1>
+            <h1>Book Rentals and Homes for your Business</h1>
             <p>
-              Pay with credit card or crypto – <br/>
-              Beenest is the easiest way to spend and earn cryptocurrency when you travel.
+               Beenest is the easiest way for business travelers to book a home or rental.
             </p>
             <AppConsumer>
               {({ screenType }: AppConsumerProps) => {
@@ -124,7 +123,7 @@ const PopularCities = () => {
   ];
 
   return <section className="popular-cities">
-    <h1>Pay for your next trip with credit/debit or crypto. Explore these amazing locations and many more!</h1>
+    <h1>Plan for your next trip with us. Explore these amazing locations and many more!</h1>
     <div className="popular-cities-container">
       {cities.map(city => (
           <PopularCityCard

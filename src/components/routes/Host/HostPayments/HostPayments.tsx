@@ -1,41 +1,30 @@
 import * as React from 'react';
 import { compose, graphql, Query } from 'react-apollo';
+import { Formik, Field, ErrorMessage, Form, FormikValues, FormikActions } from 'formik';
 
 import HostPaymentsContainer from './HostPayments.container';
 
 import { SETTINGS } from 'configs/settings';
-import { GET_USER, UPDATE_HOST_WALLET, User, CREATE_STRIPE_LOGIN_LINK } from 'networking/users';
+import { GET_HOST_PAGE, UPDATE_WALLET_ADDRESS, User, CREATE_STRIPE_LOGIN_LINK } from 'networking/users';
 import BeeLink from 'shared/BeeLink';
 import Button from 'shared/Button';
 import InputLabel from 'shared/InputLabel';
 import InputWrapper from 'shared/InputWrapper';
 import AudioLoading from 'shared/loading/AudioLoading';
+import ErrorMessageWrapper from 'shared/ErrorMessageWrapper';
 import Snackbar from 'shared/Snackbar';
 import {
-  ErrorMessage,
-  FieldValidation,
-  getDisplayErrorMessage,
   getDisplaySuccessMessage,
-  getInputValidationClass,
-  getInputErrorClass,
   getFriendlyErrorMessage,
-  isValidEthWallet,
   SuccessMessage
 } from 'utils/validators';
 
 const { BEENEST_HOST } = SETTINGS;
 const SNACKBAR_DURATION_MS = 5000;
 
-export enum SubmitStatus {
-  ERROR = 'ERROR',
-  LOADING = 'LOADING',
-  PRISTINE = 'PRISTINE',
-  SUCCESS = 'SUCCESS'
-}
-
 const HostPayments = (): JSX.Element => {
   return (
-    <Query query={GET_USER}>
+    <Query query={GET_HOST_PAGE}>
       {({ loading, error, data }) => {
         if (loading) {
           return <AudioLoading height={48} width={96} />;
@@ -54,25 +43,22 @@ const HostPayments = (): JSX.Element => {
 }
 
 interface HostPaymentsContentState {
-  inputForm: {
-    walletAddress: string;
-  },
-  inputValidation: {
-    submitError: FieldValidation;
-    walletAddress: FieldValidation;
-  },
   snackbar: {
     autoHideDuration: number;
     message: string;
     open: boolean;
   };
   stripeLoginLink: string | null;
-  submitStatus: string;
 }
 
 interface Props extends User {
-  updateHostWallet: (walletAddress: string) => Promise<User>,
+  updateWalletAddress: (input: UpdateWalletAddressInput) => Promise<User>,
   createStripeLoginLink: () => Promise<StripeLoginLink>,
+}
+
+interface UpdateWalletAddressInput {
+  btcWalletAddress: string;
+  ethWalletAddress: string;
 }
 
 interface StripeLoginLink {
@@ -81,20 +67,12 @@ interface StripeLoginLink {
 
 class EnhancedComponent extends React.Component<Props, HostPaymentsContentState> {
   readonly state = {
-    inputForm: {
-      walletAddress: this.props.walletAddress || '',
-    },
-    inputValidation: {
-      submitError: FieldValidation.PRISTINE,
-      walletAddress: FieldValidation.PRISTINE,
-    },
     snackbar: {
       autoHideDuration: SNACKBAR_DURATION_MS,
       message: '',
       open: false,
     },
     stripeLoginLink: null,
-    submitStatus: getDisplayErrorMessage(ErrorMessage.GENERIC),
   }
 
   componentDidMount() {
@@ -107,50 +85,42 @@ class EnhancedComponent extends React.Component<Props, HostPaymentsContentState>
     }
   }
 
+  handleUpdateWalletAddressSubmit(values: FormikValues, actions: FormikActions<FormikValues>) {
+    const input = {btcWalletAddress: values.btcWalletAddress, ethWalletAddress: values.ethWalletAddress};
+    actions.setSubmitting(true);
+
+    return this.props.updateWalletAddress(input)
+      .then(_ => {
+        this.setState({
+          snackbar: {
+            autoHideDuration: SNACKBAR_DURATION_MS,
+            message: getDisplaySuccessMessage(SuccessMessage.WALLET_ADDED),
+            open: true,
+          },
+        });
+      })
+      .catch((error: Error) => {
+        this.setState({
+          snackbar: {
+            autoHideDuration: SNACKBAR_DURATION_MS,
+            message: getFriendlyErrorMessage(error) || 'There was an error.',
+            open: true,
+          },
+        });
+      }).finally(() => {
+        return actions.setSubmitting(false);
+      });
+  }
+
   render() {
-    const { inputForm, inputValidation, snackbar, stripeLoginLink, submitStatus } = this.state;
-    const { stripeAccountDashboardLink, walletAddress } = this.props;
+    const { snackbar, stripeLoginLink } = this.state;
+    const { stripeAccountDashboardLink, btcWalletAddress, walletAddress } = this.props;
 
     return (
       <>
         <HostPaymentsContainer>
-          <div className="host-payments-wallet-container">
-            <div className="host-payments-wallet-container--input">
-              <InputLabel htmlFor="walletAddress">Wallet Address</InputLabel>
-              <p>Add Wallet Address to receive crypto currency payments.</p>
-              <InputWrapper>
-                <input
-                  className={getInputValidationClass(inputValidation.walletAddress)}
-                  id="walletAddress"
-                  onChange={this.handleChange}
-                  placeholder="0xYYYYY"
-                  type="text"
-                  name="walletAddress"
-                  value={inputForm.walletAddress} />
-              </InputWrapper>
-              <span
-                className={`bee-error-message ${getInputErrorClass(inputValidation.walletAddress)}`.trim()}>
-                {getDisplayErrorMessage(ErrorMessage.INVALID_WALLET_ADDRESS)}
-              </span>
-            </div>
-            <Button
-              background="secondary"
-              color="white"
-              disabled={
-                (inputValidation.walletAddress !== FieldValidation.SUCCESS)
-                || (submitStatus === SubmitStatus.ERROR)
-                || (submitStatus === SubmitStatus.LOADING)
-              }
-              onClick={this.handleSubmit}
-              size="small">
-              {walletAddress
-                ? 'Set Wallet Address'
-                : 'Add Wallet Address'
-              }
-            </Button>
-          </div>
-          <div className="host-payments-stripe-container">
-            <div className="host-payments-stripe-container--meta">
+          <div className="host-payments-section-container">
+            <div className="host-payments-section-container--input">
               <InputLabel>Bank Information</InputLabel>
               <p>
                 {stripeAccountDashboardLink
@@ -159,6 +129,8 @@ class EnhancedComponent extends React.Component<Props, HostPaymentsContentState>
                 }
               </p>
             </div>
+          </div>
+          <div className="host-payments-section-container">
             <BeeLink
               href={(stripeAccountDashboardLink && stripeLoginLink) ? stripeLoginLink : `${BEENEST_HOST}/account/stripe_express/new`}
               target="_blank">
@@ -170,6 +142,54 @@ class EnhancedComponent extends React.Component<Props, HostPaymentsContentState>
               </Button>
             </BeeLink>
           </div>
+          <Formik
+            initialValues={{ btcWalletAddress: btcWalletAddress || '', ethWalletAddress: walletAddress || '' }}
+            onSubmit={this.handleUpdateWalletAddressSubmit.bind(this)}
+            render={({ isSubmitting }) => (
+            <Form>
+              <div className="host-payments-section-container">
+                <div className="host-payments-section-container--input">
+                  <InputLabel htmlFor="btcWalletAddress">Bitcoin (BTC) Wallet Address</InputLabel>
+                  <p>Add your bitcoin wallet address to receive bitcoin payments.</p>
+                  <InputWrapper>
+                    <Field
+                      id="btcWalletAddress"
+                      name="btcWalletAddress"
+                      placeholder="YYYYY"
+                      type="text" />
+                  </InputWrapper>
+                  <ErrorMessageWrapper>
+                    <ErrorMessage name="btcWalletAddress" />
+                  </ErrorMessageWrapper>
+                </div>
+              </div>
+              <div className="host-payments-section-container">
+                <div className="host-payments-section-container--input">
+                  <InputLabel htmlFor="ethWalletAddress">Etherum (ETH) Wallet Address</InputLabel>
+                  <p>Add your wallet address to receive ETH and ERC20 payments.</p>
+                  <InputWrapper>
+                    <Field
+                      id="ethWalletAddress"
+                      name="ethWalletAddress"
+                      placeholder="0xYYY"
+                      type="text" />
+                  </InputWrapper>
+                  <ErrorMessageWrapper>
+                    <ErrorMessage name="ethWalletAddress" />
+                  </ErrorMessageWrapper>
+                </div>
+              </div>
+              <div className="host-payments-section-container">
+                <Button
+                  type="submit"
+                  background="secondary"
+                  color="white"
+                  disabled={isSubmitting}
+                  size="small">Save</Button>
+              </div>
+            </Form>
+            )}
+          />
         </HostPaymentsContainer>
         {snackbar.open &&
           <Snackbar
@@ -191,48 +211,13 @@ class EnhancedComponent extends React.Component<Props, HostPaymentsContentState>
       }
     });
   }
-
-  handleChange = (event: React.ChangeEvent<HTMLInputElement>) => {
-    this.setState({
-      inputForm: { walletAddress: event.target.value },
-      inputValidation: {
-        walletAddress: isValidEthWallet(event.target.value),
-        submitError: FieldValidation.PRISTINE
-      }
-    });
-  }
-
-  handleSubmit = () => {
-    this.setState({ submitStatus: SubmitStatus.LOADING });
-    this.props.updateHostWallet(this.state.inputForm.walletAddress)
-      .then(_ => {
-        this.setState({
-          snackbar: {
-            autoHideDuration: SNACKBAR_DURATION_MS,
-            message: getDisplaySuccessMessage(SuccessMessage.WALLET_ADDED),
-            open: true,
-          },
-          submitStatus: SubmitStatus.SUCCESS,
-        });
-      })
-      .catch((error: Error) => {
-        this.setState({
-          snackbar: {
-            autoHideDuration: SNACKBAR_DURATION_MS,
-            message: getFriendlyErrorMessage(error) || getDisplayErrorMessage(ErrorMessage.GENERIC),
-            open: true,
-          },
-          submitStatus: SubmitStatus.ERROR,
-        });
-      })
-  }
 }
 
 const HostPaymentsContent = compose(
-  graphql(UPDATE_HOST_WALLET, {
+  graphql(UPDATE_WALLET_ADDRESS, {
     props: ({ mutate }: any) => ({
-      updateHostWallet: (walletAddress: string): Promise<User> => {
-        return mutate({ variables: { walletAddress } });
+      updateWalletAddress: (input:UpdateWalletAddressInput): Promise<User> => {
+        return mutate({ variables: { input } });
       },
     }),
   }),
