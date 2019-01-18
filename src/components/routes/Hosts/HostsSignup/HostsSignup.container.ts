@@ -13,14 +13,13 @@ const HostsSignupContainerMobile = styled(SignUpContainer)`
       }
       .signup-input-container {
         margin-bottom: 24px;
+        .signup-form-promo-code-container,
         .signup-form-number-of-properties-container,
         .signup-form-properties-listed-container {
           h2 {
             ${typography('read', 2)}
             margin-bottom: 8px;
           }
-        }
-        .signup-form-properties-listed-container {
           margin-top: 8px;
         }
       }
@@ -64,6 +63,7 @@ const HostsSignupContainerTablet = styled(HostsSignupContainerMobile)`
           ${typography('title', 6)}
         }
         .signup-input-container {
+          .signup-form-promo-code-container,
           .signup-form-number-of-properties-container,
           .signup-form-properties-listed-container {
             h2 {
