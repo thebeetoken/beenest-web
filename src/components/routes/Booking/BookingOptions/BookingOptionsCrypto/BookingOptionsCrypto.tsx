@@ -58,97 +58,95 @@ const BookingOptionsCrypto = ({ booking, currency, fromBee, history }: Props) =>
         if (!quote) {
           return null;
         }
-        const renderContents = async () => {
-          const availableFunds = await getAvailableAmount(accounts, currency);
-          const total = fromBee ? fromBee(quote.guestTotalAmount) : quote.guestTotalAmount;
-          const hasInsufficientFunds = availableFunds < total;
-          // TODO: Communicate error state more clearly
-          const currencyUnavailable = total === '--.--';
-          const isDisabled = hasInsufficientFunds || currencyUnavailable;
-          return (
-            <BookingOptionsCryptoContainer>
-              <AppConsumer>
-                {({ screenType }: AppConsumerProps) =>
-                  screenType < ScreenType.DESKTOP && (
-                    <div className="mobile-wallet-note">
-                      <p>Note: This is the current wallet selected on your app</p>
-                    </div>
-                  )
-                }
-              </AppConsumer>
-              {accounts &&
-                accounts.map(account => (
-                  <div className="crypto-container" key={account.walletAddress}>
-                    <div className="crypto-currency">
-                      <h3>Available {currency}:</h3>
-                      <span>{numberToLocaleString(availableFunds, currency)}</span>
+        return (
+          <Async promise={getAvailableAmount(accounts, currency)} then={availableFunds => {
+            const total = fromBee ? fromBee(quote.guestTotalAmount) : quote.guestTotalAmount;
+            const hasInsufficientFunds = !availableFunds || (availableFunds < total);
+            // TODO: Communicate error state more clearly
+            const currencyUnavailable = total === '--.--';
+            const isDisabled = hasInsufficientFunds || currencyUnavailable;
+            return (
+              <BookingOptionsCryptoContainer>
+                <AppConsumer>
+                  {({ screenType }: AppConsumerProps) =>
+                    screenType < ScreenType.DESKTOP && (
+                      <div className="mobile-wallet-note">
+                        <p>Note: This is the current wallet selected on your app</p>
+                      </div>
+                    )
+                  }
+                </AppConsumer>
+                {accounts &&
+                  accounts.map(account => (
+                    <div className="crypto-container" key={account.walletAddress}>
+                      <div className="crypto-currency">
+                        <h3>Available {currency}:</h3>
+                        <span>{numberToLocaleString(availableFunds || 0, currency)}</span>
 
-                      {hasInsufficientFunds && (
-                        <div className="booking-options-error">
-                          <p>
-                            You do not have enough tokens for this booking.
-                          </p>
-                        </div>
-                      )}
-                      {currencyUnavailable && (
-                        <div className="booking-options-error">
-                          <p>
-                            Exchange currently unavailable for this token.
-                          </p>
-                        </div>
-                      )}
+                        {hasInsufficientFunds && (
+                          <div className="booking-options-error">
+                            <p>
+                              You do not have enough tokens for this booking.
+                            </p>
+                          </div>
+                        )}
+                        {currencyUnavailable && (
+                          <div className="booking-options-error">
+                            <p>
+                              Exchange currently unavailable for this token.
+                            </p>
+                          </div>
+                        )}
+                      </div>
+                      <div className="crypto-address">
+                        <h3>Address:</h3>
+                        <span>{account.walletAddress}</span>
+                      </div>
                     </div>
-                    <div className="crypto-address">
-                      <h3>Address:</h3>
-                      <span>{account.walletAddress}</span>
-                    </div>
-                  </div>
-                ))}
-              <AppConsumer>
-                {({ screenType }: AppConsumerProps) => {
-                  if (screenType < ScreenType.TABLET) {
+                  ))}
+                <AppConsumer>
+                  {({ screenType }: AppConsumerProps) => {
+                    if (screenType < ScreenType.TABLET) {
+                      return (
+                        <div className="booking-options-crypto-bar">
+                          <BookingOptionsBar booking={booking} currency={currency} disabled={isDisabled} />
+                        </div>
+                      );
+                    }
                     return (
-                      <div className="booking-options-crypto-bar">
-                        <BookingOptionsBar booking={booking} currency={currency} disabled={isDisabled} />
+                      <div>
+                        {accounts && (
+                          <div className="booking-options-disclaimer">
+                            <p>
+                              <span>Note:&nbsp;</span>
+                              Wallet Address is automatically updated to the current wallet selected in your Metamask
+                              browser application. Make sure the correct wallet is selected and matches the wallet address
+                              below.
+                            </p>
+                          </div>
+                        )}
+                        <div className="crypto-button-container">
+                          <Button
+                            className="back-button"
+                            background="light"
+                            onClick={() => history.push(`/listings/${booking.listingId}`)}
+                          >
+                            Back
+                          </Button>
+                          <SelectPaymentButton
+                            booking={booking}
+                            currency={outputCurrency}
+                            disabled={isDisabled}
+                            onSuccess={() => history.push(`/bookings/${booking.id}/payment?currency=${currency}`)}
+                          />
+                        </div>
                       </div>
                     );
-                  }
-                  return (
-                    <div>
-                      {accounts && (
-                        <div className="booking-options-disclaimer">
-                          <p>
-                            <span>Note:&nbsp;</span>
-                            Wallet Address is automatically updated to the current wallet selected in your Metamask
-                            browser application. Make sure the correct wallet is selected and matches the wallet address
-                            below.
-                          </p>
-                        </div>
-                      )}
-                      <div className="crypto-button-container">
-                        <Button
-                          className="back-button"
-                          background="light"
-                          onClick={() => history.push(`/listings/${booking.listingId}`)}
-                        >
-                          Back
-                        </Button>
-                        <SelectPaymentButton
-                          booking={booking}
-                          currency={outputCurrency}
-                          disabled={isDisabled}
-                          onSuccess={() => history.push(`/bookings/${booking.id}/payment?currency=${currency}`)}
-                        />
-                      </div>
-                    </div>
-                  );
-                }}
-              </AppConsumer>
-            </BookingOptionsCryptoContainer>
-          );
-        };
-        return (
-          <Async promise={renderContents()} then={contents => contents} />
+                  }}
+                </AppConsumer>
+              </BookingOptionsCryptoContainer>
+            );
+          }} />
         );
       }}
     </Web3Consumer>
