@@ -23,7 +23,7 @@ const {
   BEETOKEN_ADDRESS,
   BEETOKEN_PAYMENT_ADDRESS,
   ETH_PAYMENT_ADDRESS,
-  TOKEN_ADDRESSES,
+  ERC20_ADDRESSES,
   UNIPAY_ADDRESS
 } = SETTINGS;
 const { utils } = Web3;
@@ -236,7 +236,7 @@ export async function payWithToken(
   fromBee: (value: number) => number
 ): Promise<any> {
   const { amount, guestWalletAddress } = paymentOptions;
-  const tokenAddress = TOKEN_ADDRESSES[currency];
+  const tokenAddress = ERC20_ADDRESSES[currency];
   if (!tokenAddress) {
     throw new Error(`Unknown ERC-20 token ${currency}.`);
   }
@@ -275,7 +275,7 @@ export async function priceWithToken(
   currency: Currency | string,
   beePrice: number
 ): Promise<number> {
-  const tokenAddress = TOKEN_ADDRESSES[currency];
+  const tokenAddress = ERC20_ADDRESSES[currency];
   if (!tokenAddress) {
     throw new Error(`Unknown ERC-20 token ${currency}.`);
   }
@@ -296,7 +296,7 @@ export async function balanceOf(
   currency: Currency,
   address: string
 ): Promise<number> {
-  const tokenAddress = TOKEN_ADDRESSES[currency];
+  const tokenAddress = ERC20_ADDRESSES[currency];
   if (!tokenAddress) {
     throw new Error(`Unknown ERC-20 token ${currency}.`);
   }
