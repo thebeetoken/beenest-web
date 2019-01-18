@@ -75,7 +75,7 @@ module.exports = {
     TOKEN_ADDRESSES: {
       DAI: '0x89d24a6b4ccb1b6faa2625fe562bdd9a23260359'
     },
-    UNIPAY_ADDRESS: ''
+    UNIPAY_ADDRESS: '0x21e1c35410cf17d8b71d1536e5cd9d8851e3a7fd'
   },
   production: {
     BEENEST_HOST: 'https://www.beenest.com',
@@ -98,6 +98,6 @@ module.exports = {
     TOKEN_ADDRESSES: {
       DAI: '0x89d24a6b4ccb1b6faa2625fe562bdd9a23260359'
     },
-    UNIPAY_ADDRESS: ''
+    UNIPAY_ADDRESS: '0x21e1c35410cf17d8b71d1536e5cd9d8851e3a7fd'
   },
 };
