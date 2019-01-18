@@ -5,6 +5,7 @@ interface AsyncProps<T> {
   then: (value?: T) => JSX.Element | undefined;
 }
 
+// This implements an API-compatible subset of the react-promise module.
 export default class Async<T> extends React.Component<AsyncProps<T>> {
   readonly state = { waiting: true, value: undefined };
 
