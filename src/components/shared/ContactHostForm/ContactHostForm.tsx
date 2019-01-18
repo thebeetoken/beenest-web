@@ -43,7 +43,7 @@ interface EmailResponse {
 }
 
 const ContactHostSchema = Yup.object().shape({
-  subject: Yup.string().required('Please fill out the subject.'),
+  subject: Yup.string().required('Please fill out the subject field.'),
   message: Yup.string().required('Please fill out the message field.'),
 });
 

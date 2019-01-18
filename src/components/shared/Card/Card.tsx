@@ -6,6 +6,7 @@ import CloseButton from 'components/shared/CloseButton';
 
 type Props = Partial<{
   children: React.ReactNode;
+  className: string;
   height: string;
   onClose: () => void;
   padding: string;
@@ -15,14 +16,12 @@ type Props = Partial<{
 const Card = (props: Props) => {
   const { children, onClose } = props;
   return (
-    <CardContainer {...props}>
+    <CardContainer className={`bee-card ${props.className || ''}`.trim()} {...props}>
       <CloseButton
         height="64px"
         onClose={onClose}
         width="64px" />
-      <div className="bee-flex-div" />
       {children}
-      <div className="bee-flex-div" />
     </CardContainer>
   );
 };

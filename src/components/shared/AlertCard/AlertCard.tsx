@@ -18,28 +18,26 @@ type Props = Partial<{
 
 const AlertCard = ({ buttonBackgroundColor, cta, ctaColor, message, onClose, src, srcColor, title }: Props) => {
   return (
-    <Card
-      height="208px"
-      onClose={onClose}
-      padding="32px 32px 30px 24px"
-      width="620px">
-      <AlertCardContainer srcColor={srcColor}>
-        <div className="alert-card--header">
-          <Svg src={src || 'utils/check-circle'} />
-          {!!title && <h1>{title}</h1>}
+    <AlertCardContainer srcColor={srcColor}>
+      <Card onClose={onClose}>
+        <div className="alert-card--content">
+          <div className="alert-card--title">
+            <Svg src={src || 'utils/check-circle'} />
+            {!!title && <h1>{title}</h1>}
+          </div>
+          {!!message && <p>{message}</p>}
+          <div className="bee-flex-div" />
+          {!!cta &&
+            <Button
+              background={buttonBackgroundColor || 'style'}
+              onClick={onClose}
+              color={ctaColor || 'body'}>
+              {cta}
+            </Button>
+          }
         </div>
-        {!!message && <p>{message}</p>}
-        <div className="bee-flex-div" />
-        {!!cta &&
-          <Button
-            background={buttonBackgroundColor || 'style'}
-            onClick={onClose}
-            color={ctaColor || 'body'}>
-            {cta}
-          </Button>
-        }
-      </AlertCardContainer>
-    </Card>
+      </Card>
+    </AlertCardContainer>
   );
 };
 
