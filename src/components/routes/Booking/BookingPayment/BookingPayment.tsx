@@ -47,6 +47,7 @@ const BookingPayment = ({ history, match }: RouterProps) => (
         Promise.resolve(booking.guestTotalAmount);
       return (
         <Async promise={pricePromise} then={price => {
+          // The 1.01 multiplier below accounts for fluctuating exchange rates etc.
           const fromBee = (!!price && currency !== booking.currency) ?
             ((value: number) => value * price * 1.01 / booking.guestTotalAmount) :
             undefined;

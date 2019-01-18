@@ -35,6 +35,7 @@ class SelectPaymentOption extends React.Component<Props> {
     const { booking } = this.props;
     const showBee = !!booking.host.walletAddress;
     const showEth = !!booking.host.walletAddress && APP_ENV !== AppEnv.PRODUCTION;
+    // The 1.01 multiplier below accounts for fluctuating exchange rates etc.
     const fromBee = errorPricingToken ?
       (() => '--.--' ) :
       conversionRateFromBee ?
