@@ -12,24 +12,35 @@ import InputLabel from 'shared/InputLabel';
 import SelectBoxWrapper from 'shared/SelectBoxWrapper';
 import Svg from 'shared/Svg';
 import { AppEnv, APP_ENV } from 'configs/settings';
+import { loadWeb3, priceWithToken } from 'utils/web3';
 
 interface Props {
   booking: Booking;
 }
 
 interface State {
+  conversionRateFromBee?: number;
   currency: Currency | undefined;
+  errorPricingToken: boolean;
 }
 class SelectPaymentOption extends React.Component<Props> {
   readonly state: State = {
+    conversionRateFromBee: 0,
     currency: undefined,
+    errorPricingToken: false
   };
 
   render() {
-    const { currency } = this.state;
+    const { currency, conversionRateFromBee, errorPricingToken } = this.state;
     const { booking } = this.props;
     const showBee = !!booking.host.walletAddress;
     const showEth = !!booking.host.walletAddress && APP_ENV !== AppEnv.PRODUCTION;
+    // The 1.01 multiplier below accounts for fluctuating exchange rates etc.
+    const fromBee = errorPricingToken ?
+      (() => '--.--' ) :
+      conversionRateFromBee ?
+        ((value: number) => value * conversionRateFromBee * 1.01) :
+        undefined;
     return (
       <SelectPaymentOptionContainer>
         <div className="select-payment-left">
@@ -45,19 +56,20 @@ class SelectPaymentOption extends React.Component<Props> {
                   Select Payment Type
                 </option>
                 {showBee && <option value={Currency.BEE}>BEE</option>}
+                {showBee && <option value={Currency.DAI}>DAI</option>}
                 {showEth && <option value={Currency.ETH}>ETH</option>}
                 <option value={Currency.USD}>Credit Card</option>
               </select>
               <Svg className="suffix" src="utils/carat-down" />
             </SelectBoxWrapper>
           </div>
-          <div>{currencyOptions(currency, booking)}</div>
+          <div>{currencyOptions(currency, booking, fromBee)}</div>
         </div>
         <AppConsumer>
           {({ screenType }: AppConsumerProps) =>
             screenType > ScreenType.TABLET && (
               <div className="select-payment-quote-desktop">
-                <BookingQuote booking={booking} currency={currency || Currency.BEE} />
+                <BookingQuote booking={booking} currency={currency || Currency.BEE} fromBee={fromBee} />
               </div>
             )
           }
@@ -67,18 +79,29 @@ class SelectPaymentOption extends React.Component<Props> {
   }
 
   handleSelectedCurrencyOption = (event: React.ChangeEvent<HTMLSelectElement>) => {
-    this.setState({ currency: event.target.value });
+    const currency = event.target.value;
+    this.setState({ currency, conversionRateFromBee: undefined });
+    if (currency === Currency.DAI) {
+      const web3 = loadWeb3();
+      const beeQuote = this.props.booking.priceQuotes.find(q => q.currency === Currency.BEE);
+      if (beeQuote) {
+        const total = beeQuote.guestTotalAmount;
+        priceWithToken(web3.eth, currency, total)
+          .then(price => this.setState({ conversionRateFromBee: price / total }))
+          .catch(() => this.setState({ errorPricingToken: true }));
+      }
+    }
   };
 }
 
 export default SelectPaymentOption;
 
-function currencyOptions(currency: string | undefined, booking: Booking): React.ReactNode {
+function currencyOptions(currency: string | undefined, booking: Booking, fromBee?: (value: number) => (number | string)): React.ReactNode {
   switch (currency) {
     case Currency.BEE:
-      return <BookingOptionsCrypto booking={booking} currency={Currency.BEE} />;
+    case Currency.DAI:
     case Currency.ETH:
-      return <BookingOptionsCrypto booking={booking} currency={Currency.ETH} />;
+      return <BookingOptionsCrypto booking={booking} currency={currency} fromBee={fromBee} />;
     case Currency.USD:
       return <BookingOptionsUSD booking={booking} />;
     default:

@@ -280,3 +280,17 @@ export const UPDATE_USER = gql`
     }
   }
 `;
+
+export const CONTACT_USER = gql`
+  mutation contactUser($input: ContactUserInput!) {
+    contactUser(input: $input) {
+      bookingId
+      listingId
+      message
+      recipient {
+        firstName
+      }
+      subject
+    }
+  }
+`;

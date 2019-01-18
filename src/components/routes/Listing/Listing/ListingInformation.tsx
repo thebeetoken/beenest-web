@@ -3,7 +3,6 @@ import sanitizeHtml from 'sanitize-html';
 
 import { FirebaseConsumer, FirebaseUserProps } from 'HOCs/FirebaseProvider';
 import { Listing, User } from 'networking/listings';
-import BeeLink from 'shared/BeeLink';
 import Button from 'shared/Button';
 import Divider from 'shared/Divider';
 import GoogleMaps from 'shared/GoogleMaps';
@@ -12,6 +11,9 @@ import ListItem from 'shared/ListItem';
 import Svg from 'shared/Svg';
 import { dateToYear } from 'utils/formatDate';
 import { formatAddress  } from 'utils/formatter'
+import Portal from 'components/shared/Portal';
+import ContactHostForm from 'components/shared/ContactHostForm';
+import { ToggleProviderRef, ToggleProvider } from 'components/shared/ToggleProvider';
 
 interface Props {
   listing: Listing;
@@ -41,7 +43,7 @@ const ListingInformation = ({ listing, host }: Props) => {
     state,
     title,
   } = listing;
-  const { about, createdAt, firstName, profilePicUrl, supportEmail } = host;
+  const { about, createdAt, firstName, profilePicUrl } = host;
   const renderAmenities = (amenities || []).map(amenity=> {
     const noFlex = amenity && amenity.length > 25;
     return (
@@ -117,14 +119,31 @@ const ListingInformation = ({ listing, host }: Props) => {
               if (!completedVerification) {
                 return null;
               }
-              // TODO: When page is refreshed, supportEmail is null due to firebase user query and our listing query running in parallel.
-              // listing query needs verified user in order to return a supportEmail. Need to figure out best way to wait for firebase then make supportEmail query.
               return (
-                <BeeLink href={`mailto:${supportEmail || `support+${id}@beetoken.com`}?Subject=Your%20listing%20on%20Beenest!`}>
-                  <Button background="white" border="core" className="about-host-container--contact-btn" color="core" textStyle="" size="small" suffix="decorative/email">
-                    Contact Host
-                  </Button>
-                </BeeLink>
+                <ToggleProvider>
+                  {({ show, toggle }: ToggleProviderRef) => (
+                    <>
+                      <Button
+                        background="white"
+                        border="core"
+                        className="about-host-container--contact-btn"
+                        color="core"
+                        onClick={toggle}
+                        size="small"
+                        suffix="decorative/email">
+                        Contact Host
+                      </Button>
+                      {show && (
+                        <Portal color="up" opacity={0.9} onClick={toggle}>
+                          <ContactHostForm
+                            host={host}
+                            listingId={id}
+                            onClose={toggle} />
+                        </Portal>
+                      )}
+                    </>
+                  )}
+                </ToggleProvider>
               );
             }}
           </FirebaseConsumer>
