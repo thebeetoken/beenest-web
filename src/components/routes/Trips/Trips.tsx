@@ -19,9 +19,12 @@ import Snackbar from 'shared/Snackbar';
 import { AppConsumerProps, ScreenType, AppConsumer } from 'components/App.context';
 import ExpiredTripCard from 'routes/Trips/ExpiredTripCard';
 import { cancel, loadWeb3 } from 'utils/web3';
-import Button from 'components/shared/Button';
-import BeeLink from 'components/shared/BeeLink';
+import Button from 'shared/Button';
+import BeeLink from 'shared/BeeLink';
 import CryptoPortal from 'shared/CryptoPortal';
+import AccountNav from 'routes/Account/AccountNav';
+import { Switch, Router, Route, Redirect } from 'react-router';
+import NotFound from 'components/routes/NotFound';
 
 interface Props {
   cancelBooking: (booking: Booking) => Promise<void>;
@@ -74,45 +77,111 @@ class Trips extends React.Component<Props, State> {
               }
               return (
                 <>
+                  <AccountNav config={[
+                    {
+                      title: 'Current',
+                      to: '/trips/current',
+                    },
+                    {
+                      title: 'Upcoming',
+                      to: '/trips/upcoming',
+                    },
+                    {
+                      title: 'Past',
+                      to: '/trips/past',
+                    },
+                    {
+                      title: 'Cancelled',
+                      to: '/trips/cancelled',
+                    }
+                  ]} />
+                  <Switch>
+                    <Route exact path="/trips/current" component={() =>
+                      <>
+                        {!!pending.length && (
+                          <section>
+                            <h3>Pending Trips</h3>
+                            <div className="active-cards-container">
+                              {pending.map((trip: Booking) => (
+                                <ActiveTripCard 
+                                  onCancelClick={this.handleCancelBooking.bind(this, trip)}
+                                  key={trip.id}
+                                  trip={trip} />
+                              ))}
+                            </div>
+                            <Divider />
+                          </section>
+                        )}
+                      </>
+                    } />
+                    <Route exact path="/trips/upcoming" component={() => 
+                      <>
+                        {!!upcoming.length && (
+                          <section>
+                            <AppConsumer>
+                              {({ screenType }: AppConsumerProps) => {
+                                const mobile = screenType < ScreenType.TABLET;
+                                return (
+                                  <>
+                                    {!mobile && <h3>Upcoming Trips</h3>}
+                                    <div className="active-cards-container">
+                                      {upcoming.map((trip: Booking) => (
+                                        <ActiveTripCard
+                                          onCancelClick={this.handleCancelBooking.bind(this, trip)}
+                                          key={trip.id}
+                                          trip={trip}
+                                        />
+                                      ))}
+                                    </div>
+                                  </>
+                                );
+                              }}
+                            </AppConsumer>
+                            <Divider />
+                          </section>
+                        )}
+                      </>
+                    } />
+                    <Route exact path="/trips/past" component={() =>
+                      <>
+                        {!!(past.length || cancelled.length) && (
+                          <section>
+                            <h3>Past / Cancelled Trips</h3>
+                            <div className="expired-trip-cards">
+                              {past.map((trip: Booking) => (
+                                <ExpiredTripCard key={trip.id} trip={trip} />
+                              ))}
+                              {cancelled.map((trip: Booking) => (
+                                <ExpiredTripCard key={trip.id} trip={trip} />
+                              ))}
+                            </div>
+                          </section>
+                        )}
+                      </>
+                    } />
+                    <Route exact path="/trips/cancelled" component={() =>
+                      <>
+                        {!!(past.length || cancelled.length) && (
+                          <section>
+                            <h3>Past / Cancelled Trips</h3>
+                            <div className="expired-trip-cards">
+                              {past.map((trip: Booking) => (
+                                <ExpiredTripCard key={trip.id} trip={trip} />
+                              ))}
+                              {cancelled.map((trip: Booking) => (
+                                <ExpiredTripCard key={trip.id} trip={trip} />
+                              ))}
+                            </div>
+                          </section>
+                        )}
+                      </>}
+                    />
+                    <Redirect exact from="/trips" to="/trips/current" />
+                    <Route component={NotFound} />
+                  </Switch>
                   {isSubmitting && <CryptoPortal />}
-                  {!!upcoming.length && (
-                    <section>
-                      <AppConsumer>
-                        {({ screenType }: AppConsumerProps) => {
-                          const mobile = screenType < ScreenType.TABLET;
-                          return (
-                            <>
-                              {!mobile && <h3>Upcoming Trips</h3>}
-                              <div className="active-cards-container">
-                                {upcoming.map((trip: Booking) => (
-                                  <ActiveTripCard
-                                    onCancelClick={this.handleCancelBooking.bind(this, trip)}
-                                    key={trip.id}
-                                    trip={trip}
-                                  />
-                                ))}
-                              </div>
-                            </>
-                          );
-                        }}
-                      </AppConsumer>
-                      <Divider />
-                    </section>
-                  )}
-                  {!!pending.length && (
-                    <section>
-                      <h3>Pending Trips</h3>
-                      <div className="active-cards-container">
-                        {pending.map((trip: Booking) => (
-                          <ActiveTripCard 
-                            onCancelClick={this.handleCancelBooking.bind(this, trip)}
-                            key={trip.id}
-                            trip={trip} />
-                        ))}
-                      </div>
-                      <Divider />
-                    </section>
-                  )}
+                  
+                  
                   {!!(past.length || cancelled.length) && (
                     <section>
                       <h3>Past / Cancelled Trips</h3>

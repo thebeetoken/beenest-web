@@ -12,6 +12,7 @@ const AccountNavContainerMobile = styled.nav`
     background-color: ${color('light')};
     color: ${color('secondary')};
     display: flex;
+    flex-basis: 0;
     flex-grow: 1;
     flex-shrink: 0;
     height: 64px;
@@ -23,6 +24,9 @@ const AccountNavContainerMobile = styled.nav`
       color: ${color('white')};
       position: relative;
       z-index: 1;
+    }
+    h2 {
+      ${typography('read', 3)}
     }
     .bee-svg {
       height: 24px;

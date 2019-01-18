@@ -27,21 +27,27 @@ const AccountNav = ({ config }: Props): JSX.Element => (
         if (screenType < ScreenType.TABLET) {
           return (
             <>
-              {config.map(({ showBadge, src, to}: TabNavItem)=> {
+              {config.map(({ showBadge, src, title, to}: TabNavItem)=> {
                 if (showBadge) {
                   return (
-                    <div className="verification-needed-container">
+                    <div className="verification-needed-container" key={to}>
                       <span className="verification-badge">!</span>
                       <BeeLink to={to} isNav activeClassName="active">
-                        <Svg src={src} />
+                      {src
+                        ? <Svg src={src} />
+                        : <h2>{title}</h2>
+                      }
                       </BeeLink>
                     </div>
                   );
                 }
 
                 return (
-                  <BeeLink to={to} isNav activeClassName="active">
-                    <Svg src={src} />
+                  <BeeLink to={to} isNav activeClassName="active" key={to}>
+                    {src
+                      ? <Svg src={src} />
+                      : <h2>{title}</h2>
+                    }
                   </BeeLink>
                 );
               })}

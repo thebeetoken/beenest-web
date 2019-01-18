@@ -15,7 +15,7 @@ import AudioLoading from 'shared/loading/AudioLoading';
 import Divider from 'shared/Divider';
 import GeneralWrapper from 'shared/GeneralWrapper';
 import NotFound from 'routes/NotFound';
-import { GET_ACCOUNT_PAGE, GET_USER } from 'networking/users';
+import { GET_ACCOUNT_PAGE } from 'networking/users';
 
 import { AppConsumerProps, AppConsumer, ScreenType } from 'components/App.context';
 
