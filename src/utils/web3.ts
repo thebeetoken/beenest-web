@@ -12,13 +12,20 @@ import Web3 from 'web3'; // We're only importing the types
 import once from 'lodash.once';
 import Big from 'big.js'; // Deprecate in later PR
 import moment from 'moment';
-import { Booking, CryptoParams } from 'networking/bookings';
+import { Booking, Currency, CryptoParams } from 'networking/bookings';
 import { APP_ENV, SETTINGS, AppEnv } from 'configs/settings';
 import { BEE_TOKEN_ABI } from 'ABIs/beeToken';
 import { BEE_PAYMENT_ABI } from 'ABIs/beePayment';
 import { ETH_PAYMENT_ABI } from 'ABIs/ethPayment';
+import UNIPAY_ABI from 'ABIs/unipay.json';
 
-const { BEETOKEN_ADDRESS, BEETOKEN_PAYMENT_ADDRESS, ETH_PAYMENT_ADDRESS } = SETTINGS;
+const {
+  BEETOKEN_ADDRESS,
+  BEETOKEN_PAYMENT_ADDRESS,
+  ETH_PAYMENT_ADDRESS,
+  ERC20_ADDRESSES,
+  UNIPAY_ADDRESS
+} = SETTINGS;
 const { utils } = Web3;
 
 const SEVEN_DAYS_IN_SEC = 7 * 24 * 60 * 60;
@@ -216,6 +223,88 @@ export async function payWithEth(
       transactionHash,
       paymentProtocolAddress: ETH_PAYMENT_ADDRESS,
     };
+  } catch (error) {
+    console.error(error);
+    throw error;
+  }
+}
+
+export async function payWithToken(
+  ethProvider: Web3['eth'],
+  paymentOptions: PaymentOptions,
+  currency: Currency | string,
+  fromBee: (value: number) => number
+): Promise<any> {
+  const { amount, guestWalletAddress } = paymentOptions;
+  const tokenAddress = ERC20_ADDRESSES[currency];
+  if (!tokenAddress) {
+    throw new Error(`Unknown ERC-20 token ${currency}.`);
+  }
+  const ercDust = UNITS.AMOUNT_PER_BEE.times(fromBee(amount)).toFixed(0);
+  const beeDust = UNITS.AMOUNT_PER_BEE.times(amount).toFixed(0);
+  try {
+    const token = new ethProvider.Contract(BEE_TOKEN_ABI, tokenAddress);
+    await token.methods.approve(UNIPAY_ADDRESS, ercDust)
+      .send({ from: guestWalletAddress });
+    const unipay = new ethProvider.Contract(UNIPAY_ABI, UNIPAY_ADDRESS);
+    const deadline = (Date.now() / 1000 + 5 * 60).toFixed(0); // Five minutes from now.
+    const transactionHash: string = await new Promise<string>(
+      (resolve, reject) => unipay.methods.collect(
+          guestWalletAddress,
+          tokenAddress,
+          beeDust,
+          deadline
+        ).send({ from: guestWalletAddress })
+        .once('transactionHash', resolve)
+        .on('error', reject)
+    );
+    return {
+      guestWalletAddress: UNIPAY_ADDRESS, // This will be the address to invoice
+      transactionHash,
+      paymentProtocolAddress: BEETOKEN_PAYMENT_ADDRESS,
+      tokenContractAddress: tokenAddress,
+    };
+  } catch (error) {
+    console.error(error);
+    throw error;
+  }
+}
+
+export async function priceWithToken(
+  ethProvider: Web3['eth'],
+  currency: Currency | string,
+  beePrice: number
+): Promise<number> {
+  const tokenAddress = ERC20_ADDRESSES[currency];
+  if (!tokenAddress) {
+    throw new Error(`Unknown ERC-20 token ${currency}.`);
+  }
+  const beeDust = UNITS.AMOUNT_PER_BEE.times(beePrice).toFixed(0);
+  try {
+    const { methods } = new ethProvider.Contract(UNIPAY_ABI, UNIPAY_ADDRESS);
+    const [ tokenDust ] = await methods.price(tokenAddress, beeDust).call();
+    const tokenPrice = Big(tokenDust).div(UNITS.WEI_PER_ETH); // TODO: Not all tokens have 18 digits...
+    return parseFloat(tokenPrice.valueOf());
+  } catch (error) {
+    console.error(error);
+    throw error;
+  }
+}
+
+export async function balanceOf(
+  ethProvider: Web3['eth'],
+  currency: Currency,
+  address: string
+): Promise<number> {
+  const tokenAddress = ERC20_ADDRESSES[currency];
+  if (!tokenAddress) {
+    throw new Error(`Unknown ERC-20 token ${currency}.`);
+  }
+  try {
+    const { methods } = new ethProvider.Contract(BEE_TOKEN_ABI, tokenAddress);
+    const tokenDust = await methods.balanceOf(address).call();
+    const balance = Big(tokenDust).div(UNITS.WEI_PER_ETH); // TODO: Not all tokens have 18 digits...
+    return parseFloat(balance.valueOf());
   } catch (error) {
     console.error(error);
     throw error;
