@@ -69,11 +69,9 @@ class ContactHostForm extends React.Component<Props, State> {
     }
 
     return (
-      <Card
-        height="570px"
-        width="800px"
-        onClose={onClose}>
-        <ContactHostFormContainer>
+      <ContactHostFormContainer>
+        <Card
+          onClose={onClose}>
           <Formik
             initialValues={{
               subject: '',
@@ -147,8 +145,8 @@ class ContactHostForm extends React.Component<Props, State> {
               </Form>
             )}
           </Formik>
-        </ContactHostFormContainer>
-      </Card>
+        </Card>
+      </ContactHostFormContainer>
     );
   }
 };
