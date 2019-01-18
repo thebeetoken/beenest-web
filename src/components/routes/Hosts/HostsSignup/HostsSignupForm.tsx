@@ -241,7 +241,10 @@ class HostsSignupForm extends React.Component<HostsSignupProps, State> {
                           </div>
                         </div>
                       </div>
+
+                      {!!inputForm.code && <h4>You are using the referral code: {inputForm.code}</h4> }
                     </div>
+
                     <div className="bee-flex-div" />
                     <Button
                       disabled={this.state.isSubmitting || this.areFormInputsValid()}

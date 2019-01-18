@@ -137,7 +137,6 @@ export interface User {
   id: string;
   lastName: string;
   profilePicUrl: string;
-  supportEmail: string;
 }
 
 interface Price {
@@ -241,7 +240,6 @@ export const GET_LISTING = gql`
         email
         firstName
         profilePicUrl
-        supportEmail
       }
       ...ListingDetails
     }
@@ -338,11 +336,11 @@ export const GET_PUBLIC_LISTING = gql`
   query PublicListing($id: ID!) {
     listing(id: $id) {
       host {
+        id
         createdAt
         about
         firstName
-        profilePicUrl
-        supportEmail
+        profilePicUrl        
       }
       ...ListingDetails
     }

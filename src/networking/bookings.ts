@@ -26,7 +26,6 @@ export interface Booking {
   priceQuotes: PriceQuote[];
   rejectedBy: string | null;
   status: string;
-  supportEmail: string;
 }
 
 export enum BookingStatus {
@@ -292,6 +291,10 @@ export const GET_GUEST_SORTED_BOOKINGS = gql`
   fragment baseTripFields on Booking {
     checkInDate
     checkOutDate
+    host {
+      id
+      firstName
+    }
     id
     listing {
       city

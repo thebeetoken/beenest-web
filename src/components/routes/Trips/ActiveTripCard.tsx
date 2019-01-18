@@ -13,7 +13,9 @@ import Fab from 'shared/Fab';
 import Svg from 'shared/Svg';
 import { formatSingleDate } from 'utils/formatDate';
 import { getUserBookingDisplayStatus } from 'utils/bookingsDisplayStatus';
-
+import { ToggleProvider, ToggleProviderRef } from 'shared/ToggleProvider';
+import Portal from 'shared/Portal';
+import ContactHostForm from 'shared/ContactHostForm';
 
 interface Props {
   onCancelClick: () => void;
@@ -22,7 +24,6 @@ interface Props {
 
 const ActiveTripCard = ({ onCancelClick, trip }: Props) => {
   const { checkInDate, checkOutDate, id, listing, status } = trip;
-  const mailTo = trip.supportEmail ? `mailto:${trip.supportEmail}` : 'mailto:support@beetoken.com';
   const streetAddress = (listing.addressLine1 || '').concat(listing.addressLine2 ? `, ${listing.addressLine2}` : '');
   const isApproved = status === 'host_approved';
   const isStarted = status === 'started';
@@ -64,18 +65,32 @@ const ActiveTripCard = ({ onCancelClick, trip }: Props) => {
           <Divider />
         </div>
         <div className="actions">
-          <BeeLink href={mailTo}>
-            <Fab
-              clear
-              color="upper"
-              icon="decorative/email"
-              iconColor="secondary"
-              noFlex
-              noPadding
-              textStyle="read-4">
-              Contact Host
-            </Fab>
-          </BeeLink>
+          <ToggleProvider>
+            {({ show, toggle }: ToggleProviderRef) => (
+              <>
+                <Fab
+                  clear
+                  color="upper"
+                  icon="decorative/email"
+                  iconColor="secondary"
+                  onClick={toggle}
+                  noFlex
+                  noPadding
+                  textStyle="read-4">
+                  Contact Host
+                </Fab>
+                {show && (
+                  <Portal color="up" opacity={0.9} onClick={toggle}>
+                    <ContactHostForm
+                      host={trip.host}
+                      listingId={listing.id}
+                      bookingId={trip.id}
+                      onClose={toggle} />
+                  </Portal>
+                )}
+              </>
+            )}
+          </ToggleProvider>
           {isApproved && (
             <BeeLink href={`/trips/${trip.id}/receipt`}>
               <Fab
