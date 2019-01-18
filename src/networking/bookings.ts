@@ -26,7 +26,6 @@ export interface Booking {
   priceQuotes: PriceQuote[];
   rejectedBy: string | null;
   status: string;
-  supportEmail: string;
 }
 
 export enum BookingStatus {
@@ -295,7 +294,6 @@ export const GET_GUEST_SORTED_BOOKINGS = gql`
     host {
       id
       firstName
-      supportEmail
     }
     id
     listing {
