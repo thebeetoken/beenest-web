@@ -23,7 +23,7 @@ interface State {
   isSubmitting: boolean;
 }
 
-const FROM_BEE_MESSAGE = 'You will be prompted to Confirm two Ethereum transactions to complete this payment.';
+const FROM_BEE_MESSAGE = 'You will be prompted to confirm TWO Ethereum transactions to complete this payment.';
 
 class BookingPaymentButton extends React.Component<Props, State> {
   readonly state = {
