@@ -50,7 +50,7 @@ class Trips extends React.Component<Props, State> {
         <GeneralWrapper className="trips-wrapper" direction="column" justify="flex-start">
           <div className="trips-header">
             <h1>My Trips</h1>
-            <div className="trips-header--border" />
+            <Divider size="tall"/>
           </div>
           <Query query={GET_GUEST_SORTED_BOOKINGS}>
             {({ loading, error, data }) => {
@@ -60,7 +60,7 @@ class Trips extends React.Component<Props, State> {
               if (error || !data) {
                 return <h1>{error ? error.message : 'Error / No Data'}</h1>;
               }
-              const { cancelled, past, pending, upcoming } = data;
+              const { cancelled, current, past, started, upcoming } = data;
               const isEmpty = Object.values(data).every((bookings: Booking[]) => !bookings.length);
               if (isEmpty) {
                 return (
@@ -75,6 +75,7 @@ class Trips extends React.Component<Props, State> {
                   </div>
                 );
               }
+              console.log('started:', started);
               return (
                 <>
                   <AccountNav config={[
@@ -97,61 +98,45 @@ class Trips extends React.Component<Props, State> {
                   ]} />
                   <Switch>
                     <Route exact path="/trips/current" component={() =>
-                      <>
-                        {!!pending.length && (
-                          <section>
-                            <h3>Pending Trips</h3>
-                            <div className="active-cards-container">
-                              {pending.map((trip: Booking) => (
-                                <ActiveTripCard 
-                                  onCancelClick={this.handleCancelBooking.bind(this, trip)}
-                                  key={trip.id}
-                                  trip={trip} />
-                              ))}
-                            </div>
-                            <Divider />
-                          </section>
-                        )}
-                      </>
+                      <section>
+                        <div className="active-cards-container">
+                          {!!started.length && <ActiveTripCard 
+                            onCancelClick={this.handleCancelBooking.bind(this, started[0])}
+                            key={started[0].id}
+                            trip={started[0]} />
+                          }
+                          {!!current.length && current.map((trip: Booking) => (
+                            <ActiveTripCard 
+                              onCancelClick={this.handleCancelBooking.bind(this, trip)}
+                              key={trip.id}
+                              trip={trip} />
+                          ))}
+                        </div>
+                      </section>
                     } />
-                    <Route exact path="/trips/upcoming" component={() => 
+                    <Route exact path="/trips/upcoming" component={() =>
                       <>
                         {!!upcoming.length && (
                           <section>
-                            <AppConsumer>
-                              {({ screenType }: AppConsumerProps) => {
-                                const mobile = screenType < ScreenType.TABLET;
-                                return (
-                                  <>
-                                    {!mobile && <h3>Upcoming Trips</h3>}
-                                    <div className="active-cards-container">
-                                      {upcoming.map((trip: Booking) => (
-                                        <ActiveTripCard
-                                          onCancelClick={this.handleCancelBooking.bind(this, trip)}
-                                          key={trip.id}
-                                          trip={trip}
-                                        />
-                                      ))}
-                                    </div>
-                                  </>
-                                );
-                              }}
-                            </AppConsumer>
-                            <Divider />
+                            <div className="active-cards-container">
+                              {upcoming.map((trip: Booking) => (
+                                <ActiveTripCard
+                                  onCancelClick={this.handleCancelBooking.bind(this, trip)}
+                                  key={trip.id}
+                                  trip={trip}
+                                />
+                              ))}
+                            </div>
                           </section>
                         )}
                       </>
                     } />
                     <Route exact path="/trips/past" component={() =>
                       <>
-                        {!!(past.length || cancelled.length) && (
+                        {!!past.length && (
                           <section>
-                            <h3>Past / Cancelled Trips</h3>
                             <div className="expired-trip-cards">
                               {past.map((trip: Booking) => (
-                                <ExpiredTripCard key={trip.id} trip={trip} />
-                              ))}
-                              {cancelled.map((trip: Booking) => (
                                 <ExpiredTripCard key={trip.id} trip={trip} />
                               ))}
                             </div>
@@ -161,13 +146,10 @@ class Trips extends React.Component<Props, State> {
                     } />
                     <Route exact path="/trips/cancelled" component={() =>
                       <>
-                        {!!(past.length || cancelled.length) && (
+                        {!!cancelled.length && (
                           <section>
                             <h3>Past / Cancelled Trips</h3>
                             <div className="expired-trip-cards">
-                              {past.map((trip: Booking) => (
-                                <ExpiredTripCard key={trip.id} trip={trip} />
-                              ))}
                               {cancelled.map((trip: Booking) => (
                                 <ExpiredTripCard key={trip.id} trip={trip} />
                               ))}
@@ -179,22 +161,8 @@ class Trips extends React.Component<Props, State> {
                     <Redirect exact from="/trips" to="/trips/current" />
                     <Route component={NotFound} />
                   </Switch>
+
                   {isSubmitting && <CryptoPortal />}
-                  
-                  
-                  {!!(past.length || cancelled.length) && (
-                    <section>
-                      <h3>Past / Cancelled Trips</h3>
-                      <div className="expired-trip-cards">
-                        {past.map((trip: Booking) => (
-                          <ExpiredTripCard key={trip.id} trip={trip} />
-                        ))}
-                        {cancelled.map((trip: Booking) => (
-                          <ExpiredTripCard key={trip.id} trip={trip} />
-                        ))}
-                      </div>
-                    </section>
-                  )}
                   {open && (
                     <Snackbar autoHideDuration={5000} open={open} onClose={this.closeSnackbar}>
                       {message}

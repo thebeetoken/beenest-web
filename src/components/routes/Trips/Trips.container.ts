@@ -2,9 +2,11 @@ import styled from 'styled-components';
 import { color, typography } from 'styled/utils';
 
 const TripsContainerMobile = styled.div`
+  align-items: center;
   display: flex;
   justify-content: center;
-  align-items: center;
+  min-height: 100vh;
+  width: 100%;
 
   
   .trips-wrapper {
@@ -87,7 +89,7 @@ const TripsContainerTablet = styled(TripsContainerMobile)`
       padding-top: 64px;
       width: 644px;
       .trips-header {
-        margin-bottom: 34px;
+        margin-bottom: 12px;
         width: 100%;
         h1 {
           ${typography('title', 4)};
@@ -101,6 +103,10 @@ const TripsContainerTablet = styled(TripsContainerMobile)`
           height: 2px;
           width: 100%;
         }
+      }
+      nav {
+        align-self: flex-start;
+        margin-bottom: 32px;
       }
       .trips-book-now {
         .trips-book-now--text {
@@ -159,7 +165,7 @@ const TripsContainerDesktop = styled(TripsContainerTablet)`
     .trips-wrapper {
       width: 976px;
       .trips-header {
-        margin-bottom: 42px;
+        margin-bottom: 12px;
         width: 100%;
         h1 {
           ${typography('title', 2)};
@@ -173,6 +179,9 @@ const TripsContainerDesktop = styled(TripsContainerTablet)`
           height: 2px;
           width: 100%;
         }
+      }
+      nav {
+        margin-bottom: 60px;
       }
       .trips-book-now {
         .trips-book-now--text {
