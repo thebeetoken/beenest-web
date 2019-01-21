@@ -152,9 +152,12 @@ const LISTING_CARD_FRAGMENT = gql`
     country
     id
     idSlug
-    pricePerNight
     pricePerNightUsd
-    pricePerNightEth
+    prices {
+      currency
+      pricePerNight
+      securityDeposit
+    }
     state
     title
   }
@@ -187,30 +190,11 @@ const LISTING_DETAILS_FRAGMENT = gql`
       startDate
       endDate
     }
-    securityDeposit
-    securityDepositEth
     securityDepositUsd
     sharedBathroom
     sleepingArrangement
     totalQuantity
     ...ListingCard
-  }
-`;
-
-export const GET_PAYMENT_INFO = gql`
-  query GetPaymentInfo($id: ID!) {
-    paymentInfo(id: $id) {
-      hostWalletAddress
-      listing {
-        id
-        description
-        title
-      }
-      prices {
-        amount
-        currency
-      }
-    }
   }
 `;
 
