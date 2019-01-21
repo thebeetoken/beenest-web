@@ -73,10 +73,19 @@ const ListingContainerMobile = styled.div`
         justify-content: flex-start;
         margin-bottom: 24px;
         .host-welcome-container--img {
+          align-items: center;
           border-radius: 50%;
+          display: flex;
           height: 90px;
+          justify-content: center;
           overflow: hidden;
           width: 90px;
+          .bee-lazy-image {
+            height: auto;
+            max-height: 100%;
+            max-width: 100%;
+            width: auto;
+          }
         }
         h3 {
           ${typography('read', 2)};
@@ -163,11 +172,19 @@ const ListingContainerMobile = styled.div`
             }
           }
           .about-host-container--img {
-            align-self: flex-start;
+            align-items: center;
             border-radius: 50%;
+            display: flex;
             height: 80px;
+            justify-content: center;
             overflow: hidden;
             width: 80px;
+            .bee-lazy-image {
+              height: auto;
+              max-height: 100%;
+              max-width: 100%;
+              width: auto;
+            }
           }
           .about-host-container--contact-btn {
             bottom: 24;
