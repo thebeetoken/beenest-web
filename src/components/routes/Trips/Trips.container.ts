@@ -4,16 +4,22 @@ import { color, typography } from 'styled/utils';
 const TripsContainerMobile = styled.div`
   align-items: center;
   display: flex;
-  justify-content: center;
   min-height: 100vh;
   width: 100%;
 
   
-  .trips-wrapper {
+  .trips-body {
+    align-items: flex-start;
+    align-self: flex-start;
+    display: flex;
+    flex-direction: column;
     padding: 32px 24px 0;
-    width: 320px;
+    height: 100%;
+    justify-content: space-between;
+    margin: 0 auto;
     min-width: 320px;
     min-height: 100%;
+    padding: 24px 0 40px;
     .trips-header {
       margin-bottom: 34px;
       width: 100%;
@@ -84,7 +90,7 @@ const TripsContainerMobile = styled.div`
 
 const TripsContainerTablet = styled(TripsContainerMobile)`
   @media (min-width: 768px) {
-    .trips-wrapper {
+    .trips-body {
       padding: 0;
       padding-top: 64px;
       width: 644px;
@@ -162,7 +168,7 @@ const TripsContainerTablet = styled(TripsContainerMobile)`
 
 const TripsContainerDesktop = styled(TripsContainerTablet)`
   @media (min-width: 1025px) {
-    .trips-wrapper {
+    .trips-body {
       width: 976px;
       .trips-header {
         margin-bottom: 12px;

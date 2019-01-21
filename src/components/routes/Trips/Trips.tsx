@@ -47,7 +47,7 @@ class Trips extends React.Component<Props, State> {
     const { message, open, isSubmitting } = this.state;
     return (
       <TripsContainer>
-        <GeneralWrapper className="trips-wrapper" direction="column" justify="flex-start">
+        <GeneralWrapper className="trips-body" width="100%">
           <div className="trips-header">
             <h1>My Trips</h1>
             <Divider size="tall"/>
