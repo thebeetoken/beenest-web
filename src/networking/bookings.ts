@@ -176,6 +176,7 @@ export const GET_BOOKING = gql`
       currency
       guestTotalAmount
       host {
+        id
         firstName
         walletAddress
       }
