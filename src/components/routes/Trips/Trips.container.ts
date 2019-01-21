@@ -36,6 +36,9 @@ const TripsContainerMobile = styled.div`
         width: 100%;
       }
     }
+    nav {
+      margin-bottom: 40px;
+    }
     .trips-book-now {
       margin-bottom: 32px;
       width: 100%;
@@ -74,8 +77,9 @@ const TripsContainerMobile = styled.div`
         margin-bottom: 24px;
       }
       .expired-trip-cards {
+        align-items: center;
         display: flex;
-        flex-direction: row;
+        flex-direction: column;
         flex-wrap: wrap;
         margin: 0 auto;
         width: 100%;
