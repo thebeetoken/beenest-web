@@ -360,11 +360,12 @@ export const GET_ALL_LISTINGS = gql`
       maxGuests
       minimumNights
       listingPicUrl
-      pricePerNight
+      prices {
+        currency
+        pricePerNight
+        securityDeposit
+      }
       pricePerNightUsd
-      pricePerNightEth
-      securityDeposit
-      securityDepositEth
       securityDepositUsd
       state
       title
