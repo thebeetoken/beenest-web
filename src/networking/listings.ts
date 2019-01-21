@@ -141,11 +141,6 @@ export interface User {
   profilePicUrl: string;
 }
 
-interface Price {
-  amount: number;
-  currency: Currency;
-}
-
 const LISTING_CARD_FRAGMENT = gql`
   fragment ListingCard on Listing {
     city
