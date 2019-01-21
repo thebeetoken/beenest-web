@@ -95,9 +95,10 @@ export const GET_CONFERENCE = gql`
         idSlug
         isActive
         listingPicUrl
-        pricePerNight
+        prices {
+          pricePerNight
+        }
         pricePerNightUsd
-        pricePerNightEth
         sleepingArrangement
         state
         title
