@@ -30,7 +30,7 @@ const enhancedListingCard = ({
   idSlug,
   listingPicUrl,
   location,
-  pricePerNight,
+  prices,
   pricePerNightUsd,
   state,
   target,
@@ -43,6 +43,7 @@ const enhancedListingCard = ({
     checkOutDate,
     numberOfGuests,
   });
+  const beePrice = prices.find(({ currency }) => currency === Currency.BEE);
   const queryParams = !!Object.keys(queryString).length ? `?${queryString}` : '';
   return (
     <BeeLink target={target} to={`/listings/${idSlug}${queryParams}`}>
@@ -55,9 +56,9 @@ const enhancedListingCard = ({
             <h2>
               {numberToLocaleString(pricePerNightUsd)} <span>USD per night</span>
             </h2>
-            <h3>
-              {numberToLocaleString(pricePerNight, Currency.BEE)} <span>BEE</span>
-            </h3>
+            {beePrice && <h3>
+              {numberToLocaleString(beePrice.pricePerNight, Currency.BEE)} <span>BEE</span>
+            </h3>}
           </div>
           <h1>{title}</h1>
           <div className="bee-flex-div" />
