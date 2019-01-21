@@ -38,12 +38,9 @@ export interface Listing {
   listingPicUrl: string;
   photos: string[];
   postalCode: string;
-  pricePerNight: number;
   pricePerNightUsd: number;
-  pricePerNightEth: number;
+  prices: Price[];
   reservations: Reservation[];
-  securityDeposit: number;
-  securityDepositEth: number;
   securityDepositUsd: number;
   sharedBathroom: string;
   sleepingArrangement: string;
@@ -63,9 +60,8 @@ export interface ListingShort {
   lat: number;
   lng: number;
   listingPicUrl: string;
-  pricePerNight: number;
   pricePerNightUsd: number;
-  pricePerNightEth: number;
+  prices: Price[];
   sleepingArrangement: string;
   state: string;
   title: string;
@@ -124,6 +120,12 @@ export interface HostListingReservations {
   title: string;
 }
 
+export interface Price {
+  currency: Currency;
+  pricePerNight: number;
+  securityDeposit: number;
+}
+
 export interface Reservation {
   startDate: Date;
   endDate: Date;
@@ -142,12 +144,6 @@ export interface User {
 interface Price {
   amount: number;
   currency: Currency;
-}
-
-export interface PaymentInfo {
-  hostWalletAddress: string;
-  listing: Listing;
-  prices: Price[];
 }
 
 const LISTING_CARD_FRAGMENT = gql`
