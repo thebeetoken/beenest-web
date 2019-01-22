@@ -14,7 +14,7 @@ interface State {
 
 interface QueryParams {
   mode?: string;
-  actionCode?: string;
+  oobCode?: string;
   continueUrl?: string;
   lang?: string;
 }
