@@ -2,6 +2,7 @@ import { Currency } from 'networking/bookings';
 
 const CURRENCY_DIGITS = {
   [Currency.BEE]: 0,
+  [Currency.BTC]: 6,
   [Currency.ETH]: 4,
   [Currency.USD]: 2,
 };
