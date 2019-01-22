@@ -86,7 +86,7 @@ export class StripeExpressComplete extends React.Component<RouterProps> {
               There was an error processing your information. Please restart the sign up process by clicking the link from your email. 
             </p>
             <p>
-              <BeeLink href="mailto:support@beetoken.com">
+              <BeeLink href="mailto:support@beenest.com">
                 <Button>Contact us for further help.</Button>
               </BeeLink>
             </p>

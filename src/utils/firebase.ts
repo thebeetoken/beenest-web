@@ -28,6 +28,11 @@ export function resetPassword(email: string): Promise<any> {
   return auth.sendPasswordResetEmail(email);
 }
 
+// @see https://firebase.google.com/docs/auth/custom-email-handler
+export function verifyEmail(actionCode: string): Promise<any> {
+  return auth.applyActionCode(actionCode);
+}
+
 export function signInWithPhoneNumber(
   phoneNumber: string,
   appVerifier: firebase.auth.ApplicationVerifier
