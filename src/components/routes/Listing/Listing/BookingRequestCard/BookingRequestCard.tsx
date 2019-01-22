@@ -105,7 +105,7 @@ class BookingRequestCard extends React.Component<Props, State> {
                   </div>
                   <div className="pricing-container--other-rates">
                     {prices.map(({ currency, pricePerNight }) => (
-                      <h5>
+                      <h5 key={currency}>
                         {numberToLocaleString(pricePerNight, currency)}
                         <span>{currency}</span>
                       </h5>
