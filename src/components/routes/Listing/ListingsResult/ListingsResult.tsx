@@ -27,12 +27,6 @@ const ListingsResult = () => (
 );
 
 interface QueryParams {
-  bounds?: {
-    east: string;
-    north: string;
-    south: string;
-    west: string;
-  };
   checkInDate?: string;
   checkOutDate?: string;
   coordinates?: {
@@ -45,22 +39,13 @@ interface QueryParams {
 
 const ListingQuery = () => {
   const queryParams: QueryParams = parseQueryString(location.search);
-  const { bounds, checkInDate, checkOutDate, coordinates, numberOfGuests, locationQuery } = queryParams;
-  const areBoundsValid = bounds && bounds.east && bounds.north && bounds.south && bounds.west;
+  const { checkInDate, checkOutDate, coordinates, numberOfGuests, locationQuery } = queryParams;
   const areCoordinatesValid = coordinates && coordinates.lat && coordinates.lng;
   const input = {
     checkInDate: checkInDate && isValid(new Date(checkInDate)) ? checkInDate : '',
     checkOutDate: checkOutDate && isValid(new Date(checkOutDate)) ? checkOutDate : '',
     numberOfGuests: numberOfGuests ? parseInt(numberOfGuests) : 1,
     locationQuery: locationQuery || '',
-    ...(areBoundsValid && !!bounds && {
-      bounds: {
-        east: parseFloat(bounds.east),
-        north: parseFloat(bounds.north),
-        south: parseFloat(bounds.south),
-        west: parseFloat(bounds.west),
-      }
-    }),
     ...(areCoordinatesValid && {
       coordinates: {
         lat: coordinates && coordinates.lat ? parseFloat(coordinates.lat) : 0,

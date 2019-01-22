@@ -9,12 +9,10 @@ import Button from 'shared/Button';
 import Portal from 'shared/Portal';
 import GridLoading from 'shared/loading/GridLoading';
 import CryptoPortal from 'shared/CryptoPortal';
-import { Web3Data, isNetworkValid, payWithBee, payWithEth, payWithToken, getValidNetworkName, loadWeb3 } from 'utils/web3';
+import { Web3Data, isNetworkValid, payWithBee, payWithEth, getValidNetworkName, loadWeb3 } from 'utils/web3';
 
 interface Props {
   booking: Booking;
-  currency?: Currency | string;
-  fromBee?: (value: number) => number;
   onSuccess: () => void;
   guestConfirmBooking: (cryptoParams?: CryptoParams | undefined) => void;
 }
@@ -23,8 +21,6 @@ interface State {
   isSubmitting: boolean;
 }
 
-const FROM_BEE_MESSAGE = 'You will be prompted to confirm TWO Ethereum transactions to complete this payment.';
-
 class BookingPaymentButton extends React.Component<Props, State> {
   readonly state = {
     isSubmitting: false,
@@ -32,7 +28,7 @@ class BookingPaymentButton extends React.Component<Props, State> {
 
   render() {
     const { isSubmitting } = this.state;
-    const { booking, fromBee } = this.props;
+    const { booking } = this.props;
     if (booking.currency === Currency.USD) {
       // We do this onclick pattern because if bound, the guestWalletAddress will be an event handler
       return (
@@ -81,10 +77,9 @@ class BookingPaymentButton extends React.Component<Props, State> {
               }
               const isButtonDisabled = isSubmitting || !accounts || !accounts.length;
               const { walletAddress } = accounts[0];
-              const message = fromBee && FROM_BEE_MESSAGE;
               return (
                 <>
-                  {isSubmitting && <CryptoPortal message={message}/>}
+                  {isSubmitting && <CryptoPortal />}
                   <Button
                     disabled={isButtonDisabled}
                     onClick={() => this.handleSubmit(walletAddress)}
@@ -103,11 +98,11 @@ class BookingPaymentButton extends React.Component<Props, State> {
   }
 
   handleSubmit = async (guestWalletAddress: string | undefined = undefined) => {
-    const { booking, currency, fromBee, guestConfirmBooking } = this.props;
+    const { booking, guestConfirmBooking } = this.props;
     this.setState({ isSubmitting: true });
     try {
-      const cryptoParams = await getCryptoParams(booking, guestWalletAddress, currency, fromBee);
-      return guestConfirmBooking(cryptoParams);
+      const cryptoParams = await getCryptoParams(booking, guestWalletAddress);
+      return await guestConfirmBooking(cryptoParams);
     } catch (error) {
       console.error(error);
       alert('There was an error in submitting your payment. Please contact us at support@beetoken.com');
@@ -116,18 +111,12 @@ class BookingPaymentButton extends React.Component<Props, State> {
   };
 }
 
-async function getCryptoParams(
-  booking: Booking,
-  guestWalletAddress: string | undefined,
-  currency?: Currency | string,
-  fromBee?: (value: number) => number
-): Promise<CryptoParams | undefined> {
+function getCryptoParams(booking: Booking, guestWalletAddress: string | undefined): Promise<CryptoParams> | undefined {
   if (booking.currency === Currency.USD || !guestWalletAddress) {
     return undefined;
   }
   const web3 = loadWeb3();
-  const bookingCurrency = fromBee ? Currency.BEE : booking.currency;
-  const priceQuote = booking.priceQuotes.find(({ currency }) => currency === bookingCurrency);
+  const priceQuote = booking.priceQuotes.find(({ currency }) => currency === booking.currency);
   if (!priceQuote) {
     alert('There was an error in submitting your payment. Please contact us at support@beetoken.com');
     throw new Error('INVALID_CRYPTO_CURRENCY_AT_BOOKING_PAYMENT');
@@ -140,9 +129,6 @@ async function getCryptoParams(
     securityDeposit: priceQuote.securityDeposit,
     transactionFee: priceQuote.transactionFee,
   };
-  if (fromBee && currency) {
-    return payWithToken(web3.eth, paymentOptions, currency, fromBee);
-  }
   switch (booking.currency) {
     case Currency.BEE:
       return payWithBee(web3.eth, paymentOptions);

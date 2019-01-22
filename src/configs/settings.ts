@@ -36,8 +36,6 @@ interface Setting {
   STRIPE_CLIENT_KEY: string;
   STRIPE_CLIENT_ID: string;
   SENTRY_CLIENT_DSN: string;
-  ERC20_ADDRESSES: { [key: string]: string; };
-  UNIPAY_ADDRESS: string;
 }
 
 declare const process: {

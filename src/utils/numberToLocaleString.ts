@@ -1,10 +1,6 @@
 import { Currency } from 'networking/bookings';
 
-export function numberToLocaleString(value: number | string, currency: Currency | null = Currency.USD): string {
-  if (typeof value !== 'number') {
-    return value;
-  }
-
+export function numberToLocaleString(value: number, currency: Currency | null = Currency.USD): string {
   if (!value) {
     return '';
   }
