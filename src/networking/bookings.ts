@@ -162,6 +162,7 @@ export const GET_BOOKING = gql`
       currency
       guestTotalAmount
       host {
+        id
         firstName
         walletAddress
       }
@@ -196,6 +197,7 @@ export const GET_BOOKING_TRIPS_RECEIPT = gql`
       guestTotalAmount
       guestTxHash
       host {
+        id
         createdAt
         firstName
         profilePicUrl
