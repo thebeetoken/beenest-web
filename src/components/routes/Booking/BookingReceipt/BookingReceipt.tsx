@@ -44,7 +44,7 @@ const BookingReceipt = ({ match }: RouterProps) => (
                 <Confirmation {...booking} />
               </div>
               <div className="total-paid-container">
-                <h2>Total Paid:</h2>
+                <h2>Total {currency !== Currency.BTC ? 'Paid' : 'Due'}:</h2>
                 <span>{totalPaid}</span>
               </div>
               <div className="payment-option-container">
