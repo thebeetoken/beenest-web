@@ -1,6 +1,6 @@
 import { Currency } from 'networking/bookings';
 
-const CURRENCY_DIGITS = {
+const CURRENCY_DIGITS: {[index: string]: number} = {
   [Currency.BEE]: 0,
   [Currency.BTC]: 6,
   [Currency.ETH]: 4,
@@ -17,7 +17,7 @@ export function numberToLocaleString(value: number | string, currency: Currency 
     return '';
   }
 
-  const digits = CURRENCY_DIGITS.hasOwnProperty(currency) ?
+  const digits = !!currency && CURRENCY_DIGITS.hasOwnProperty(currency) ?
     CURRENCY_DIGITS[currency] : DEFAULT_DIGITS;
 
   return value.toLocaleString(undefined, {
