@@ -211,6 +211,7 @@ export const GET_BOOKING_TRIPS_RECEIPT = gql`
       guestTotalAmount
       guestTxHash
       host {
+        id
         createdAt
         firstName
         profilePicUrl
