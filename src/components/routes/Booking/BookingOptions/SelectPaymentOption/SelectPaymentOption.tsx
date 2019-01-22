@@ -4,6 +4,7 @@ import { Booking, Currency } from 'networking/bookings';
 
 import SelectPaymentOptionContainer from './SelectPaymentOption.container';
 import BookingOptionsUSD from '../BookingOptionsUSD';
+import BookingOptionsBTC from '../BookingOptionsBTC';
 import BookingQuote from '../../BookingQuote';
 import { AppConsumer, AppConsumerProps, ScreenType } from 'components/App.context';
 import BookingOptionsCrypto from '../BookingOptionsCrypto';
@@ -106,6 +107,8 @@ function currencyOptions(currency: string | undefined, booking: Booking, fromBee
       return <BookingOptionsCrypto booking={booking} currency={currency} fromBee={fromBee} />;
     case Currency.USD:
       return <BookingOptionsUSD booking={booking} />;
+    case Currency.BTC:
+      return <BookingOptionsBTC booking={booking} />;
     default:
       return null;
   }
