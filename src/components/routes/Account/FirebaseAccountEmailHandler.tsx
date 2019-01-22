@@ -28,19 +28,19 @@ export class FirebaseAccountEmailHandler extends React.Component<RouterProps> {
 
   componentDidMount() {
     const queryParams: QueryParams = parseQueryString(this.props.location.search);
-    const { mode, actionCode } = queryParams;
+    const { mode, oobCode } = queryParams;
     if (!mode) {
       alert('Error, no mode defined.');
       return;
     }
 
-    if (!actionCode) {
-      alert('Error, no actionCode defined.');
+    if (!oobCode) {
+      alert('Error, no oobCode defined.');
       return;
     }
 
     if (mode === 'verifyEmail') {
-      verifyEmail(actionCode).then(() => {
+      verifyEmail(oobCode).then(() => {
         this.setState({ isSubmitting: false });
       }).catch(err => {
         console.error(err);
@@ -51,7 +51,7 @@ export class FirebaseAccountEmailHandler extends React.Component<RouterProps> {
 
   render() {
     if (this.state.isSubmitting) {
-      return <AudioLoading />;
+      return <AudioLoading height={48} width={96} />;
     }
 
     const { hasError } = this.state;
