@@ -47,6 +47,7 @@ export enum BookingStatus {
 
 export enum Currency {
   BEE = 'BEE',
+  DAI = 'DAI',
   ETH = 'ETH',
   USD = 'USD',
 }
@@ -175,6 +176,7 @@ export const GET_BOOKING = gql`
       currency
       guestTotalAmount
       host {
+        id
         firstName
         walletAddress
       }

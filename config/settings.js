@@ -26,6 +26,10 @@ module.exports = {
     STRIPE_CLIENT_KEY: 'pk_test_7GNkTJHiPbROv4gPDuQNvThc',
     STRIPE_CLIENT_ID: 'ca_CmC1grl4bBfjYWWwKg548UPazsb6USUW',
     SENTRY_CLIENT_DSN: 'https://ee59845fce1746e4a2d6d664fd7a441b@sentry.io/1193097',
+    ERC20_ADDRESSES: {
+      DAI: '0x909E4dbdef114c9B39078Df314177780b89d8062'
+    },
+    UNIPAY_ADDRESS: '0xf6615278bd3EC063C173821cb14A5BD318D5A3bF'
   },
   testnet: {
     BEENEST_HOST: 'https://testnet.beenest.io',
@@ -45,6 +49,10 @@ module.exports = {
     STRIPE_CLIENT_KEY: 'pk_test_7GNkTJHiPbROv4gPDuQNvThc',
     STRIPE_CLIENT_ID: 'ca_CmC1grl4bBfjYWWwKg548UPazsb6USUW',
     SENTRY_CLIENT_DSN: 'https://ee59845fce1746e4a2d6d664fd7a441b@sentry.io/1193097',
+    ERC20_ADDRESSES: {
+      DAI: '0x909E4dbdef114c9B39078Df314177780b89d8062'
+    },
+    UNIPAY_ADDRESS: '0xf6615278bd3EC063C173821cb14A5BD318D5A3bF'
   },
   staging: {
     BEENEST_HOST: 'https://staging.beenest.io',
@@ -64,6 +72,10 @@ module.exports = {
     STRIPE_CLIENT_KEY: 'pk_test_7GNkTJHiPbROv4gPDuQNvThc',
     STRIPE_CLIENT_ID: 'ca_CmC1grl4bBfjYWWwKg548UPazsb6USUW',
     SENTRY_CLIENT_DSN: 'https://ee59845fce1746e4a2d6d664fd7a441b@sentry.io/1193097',
+    ERC20_ADDRESSES: {
+      DAI: '0x89d24a6b4ccb1b6faa2625fe562bdd9a23260359'
+    },
+    UNIPAY_ADDRESS: '0x21e1c35410cf17d8b71d1536e5cd9d8851e3a7fd'
   },
   production: {
     BEENEST_HOST: 'https://www.beenest.com',
@@ -83,5 +95,9 @@ module.exports = {
     STRIPE_CLIENT_KEY: 'pk_live_OyGfyNWsZZ7oDnPvNfo9hgR9',
     STRIPE_CLIENT_ID: 'ca_CmC1a1XXC4miwI2C3TrFrgLVK6aDw7cj',
     SENTRY_CLIENT_DSN: 'https://ee59845fce1746e4a2d6d664fd7a441b@sentry.io/1193097',
+    ERC20_ADDRESSES: {
+      DAI: '0x89d24a6b4ccb1b6faa2625fe562bdd9a23260359'
+    },
+    UNIPAY_ADDRESS: '0x21e1c35410cf17d8b71d1536e5cd9d8851e3a7fd'
   },
 };
