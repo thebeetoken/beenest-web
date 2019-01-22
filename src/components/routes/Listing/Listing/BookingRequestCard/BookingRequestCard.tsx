@@ -8,7 +8,7 @@ import { DateRangePicker } from 'react-dates';
 
 import BookingRequestCardContainer from './BookingRequestCard.container';
 import DateRangePickerContainer from 'styled/containers/DateRangePicker.container';
-import { Booking, CREATE_BOOKING, GET_GUEST_SORTED_BOOKINGS } from 'networking/bookings';
+import { Booking, Currency, CREATE_BOOKING, GET_GUEST_SORTED_BOOKINGS } from 'networking/bookings';
 import { Price, Reservation } from 'networking/listings';
 import Button from 'shared/Button';
 import InputLabel from 'shared/InputLabel';
@@ -104,7 +104,9 @@ class BookingRequestCard extends React.Component<Props, State> {
                     <span>USD / night</span>
                   </div>
                   <div className="pricing-container--other-rates">
-                    {prices.map(({ currency, pricePerNight }) => (
+                    {prices
+                      .filter(({ currency }) => Object.values(Currency).includes(currency))
+                      .map(({ currency, pricePerNight }) => (
                       <h5 key={currency}>
                         {numberToLocaleString(pricePerNight, currency)}
                         <span>{currency}</span>
