@@ -35,6 +35,7 @@ class SelectPaymentOption extends React.Component<Props> {
     const { booking } = this.props;
     const showBee = !!booking.host.walletAddress;
     const showEth = !!booking.host.walletAddress && APP_ENV !== AppEnv.PRODUCTION;
+    const showBtc = booking.priceQuotes.some(({ currency }) => currency === Currency.BTC);
     // The 1.01 multiplier below accounts for fluctuating exchange rates etc.
     const fromBee = errorPricingToken ?
       (() => '--.--' ) :
@@ -58,6 +59,7 @@ class SelectPaymentOption extends React.Component<Props> {
                 {showBee && <option value={Currency.BEE}>BEE</option>}
                 {showBee && <option value={Currency.DAI}>DAI</option>}
                 {showEth && <option value={Currency.ETH}>ETH</option>}
+                {showBtc && <option value={Currency.BTC}>BTC</option>}
                 <option value={Currency.USD}>Credit Card</option>
               </select>
               <Svg className="suffix" src="utils/carat-down" />
