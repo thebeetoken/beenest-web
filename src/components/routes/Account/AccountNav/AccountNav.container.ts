@@ -25,7 +25,7 @@ const AccountNavContainerMobile = styled.nav`
       position: relative;
       z-index: 1;
     }
-    h2 {
+    > span {
       ${typography('read', 2)}
       text-align: center;
       word-break: break-word;
@@ -79,7 +79,7 @@ const AccountNavContainer = styled(AccountNavContainerMobile)`
         position: relative;
         z-index: 1;
       }
-      h2 {
+      > span {
         ${typography('title', 7)}
         text-align: center;
         word-break: break-word;

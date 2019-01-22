@@ -33,7 +33,7 @@ const AccountNav = ({ config }: Props): JSX.Element => (
                       <BeeLink to={to} isNav activeClassName="active">
                       {src
                         ? <Svg src={src} />
-                        : <h2>{title}</h2>
+                        : <span>{title}</span>
                       }
                       </BeeLink>
                     </div>
@@ -44,7 +44,7 @@ const AccountNav = ({ config }: Props): JSX.Element => (
                   <BeeLink to={to} isNav activeClassName="active" key={to}>
                     {src
                       ? <Svg src={src} />
-                      : <h2>{title}</h2>
+                      : <span>{title}</span>
                     }
                   </BeeLink>
                 );
