@@ -28,14 +28,19 @@ const BookingReceipt = ({ match }: RouterProps) => (
       }
       const { currency, guestTotalAmount, guestWalletAddress, guestTxHash } = booking;
       const totalPaid = `${numberToLocaleString(guestTotalAmount, currency)} ${currency}`;
-      const isCrypto = currency !== Currency.USD;
+      const isCrypto = currency !== Currency.USD && currency !== Currency.BTC;
       return (
         <BookingReceiptContainer>
           <BookingNavBar />
           <div className="booking-receipt-wrapper">
             <div className="booking-receipt-body">
               <div className="confirmation-container">
-                <h2>Payment confirmed. Your request has been sent to host for approval.</h2>
+                {currency !== Currency.BTC &&
+                  <h2>Payment confirmed. Your request has been sent to host for approval.</h2>
+                }
+                {currency === Currency.BTC &&
+                  <h2>Your request has been sent to host for approval.</h2>
+                }
                 <Confirmation {...booking} />
               </div>
               <div className="total-paid-container">
@@ -108,6 +113,20 @@ const Confirmation = ({ currency, id, guestTxHash }: Booking) => (
               You will be notified via email within 24 hours once your host confirms your booking. In the instance where
               the host fails to confirm, we will refund your payment in full. A full transaction receipt will be sent to
               your email.
+            </div>
+          </>
+        );
+      }
+      if (currency === Currency.BTC) {
+        return (
+          <>
+            <div className="usd-confirmation-container">
+              <h3>Payment Address</h3>
+              <span>{'abcXFADSGADSkmn120321BTC!!'}</span>
+            </div>
+            <div className="disclaimer">
+              Payment is due at the address above. This booking is not valid until paid.
+              You will be notified via email within 24 hours once your host confirms your booking.
             </div>
           </>
         );
