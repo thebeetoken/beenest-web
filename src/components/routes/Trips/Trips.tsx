@@ -146,12 +146,10 @@ class Trips extends React.Component<Props, State> {
                     <Route exact path="/trips/cancelled" component={() =>
                       <>
                         {!!cancelled.length && (
-                          <section>
-                            <div className="expired-trip-cards">
-                              {cancelled.map((trip: Booking) => (
-                                <ExpiredTripCard key={trip.id} trip={trip} />
-                              ))}
-                            </div>
+                          <section className="expired-trip-cards">
+                            {cancelled.map((trip: Booking) => (
+                              <ExpiredTripCard key={trip.id} trip={trip} />
+                            ))}
                           </section>
                         )}
                       </>

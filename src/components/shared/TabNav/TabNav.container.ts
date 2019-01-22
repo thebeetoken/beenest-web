@@ -6,7 +6,7 @@ type Props = Partial<{
   width: number;
 }>;
 
-const TabNavContainer = styled.nav`
+const TabNavContainer = styled.div`
   display: flex;
   height: ${({ height }: Props) => height ? `${height}px` : '100%'};
 

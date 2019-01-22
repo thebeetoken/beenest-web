@@ -54,7 +54,7 @@ const AccountNav = ({ config }: Props): JSX.Element => (
         };
 
         return (
-          <TabNav config={config} height={48} />
+          <TabNav config={config} />
         );
       }}
     </AppConsumer>

@@ -37,6 +37,7 @@ const TripsContainerMobile = styled.div`
       }
     }
     nav {
+      align-self: center;
       margin-bottom: 40px;
     }
     .trips-book-now {
@@ -59,6 +60,7 @@ const TripsContainerMobile = styled.div`
       }
     }
     .active-cards-container {
+      align-items: center;
       display: flex;
       flex-direction: column;
       margin-bottom: 24px;
@@ -74,14 +76,14 @@ const TripsContainerMobile = styled.div`
       .bee-active-trip-card {
         margin-bottom: 24px;
       }
-      .expired-trip-cards {
-        align-items: center;
-        display: flex;
-        flex-direction: column;
-        flex-wrap: wrap;
-        margin: 0 auto;
-        width: 100%;
-      }
+    }
+    .expired-trip-cards {
+      align-items: center;
+      display: flex;
+      flex-direction: column;
+      flex-wrap: wrap;
+      margin: 0 auto;
+      width: 100%;
     }
   }
 
@@ -113,7 +115,8 @@ const TripsContainerTablet = styled(TripsContainerMobile)`
         }
       }
       nav {
-        align-self: flex-start;
+        align-self: center;
+        /* align-self: flex-start; */
         margin-bottom: 32px;
       }
       .trips-book-now {
@@ -145,17 +148,17 @@ const TripsContainerTablet = styled(TripsContainerMobile)`
             margin-left: 100px;
           }
         }
-        .expired-trip-cards {
-          display: flex;
-          flex-direction: row;
-          flex-wrap: wrap;
-          margin: 0 auto;
-          width: 100%;
-          .expired-trip-card {
-            margin-bottom: 48px;
-            &:nth-of-type(2n) {
-              margin-left: 100px;
-            }
+      }
+      .expired-trip-cards {
+        display: flex;
+        flex-direction: row;
+        flex-wrap: wrap;
+        margin: 0 auto;
+        width: 100%;
+        .expired-trip-card {
+          margin-bottom: 48px;
+          &:nth-of-type(2n) {
+            margin-left: 100px;
           }
         }
       }
@@ -184,6 +187,7 @@ const TripsContainerDesktop = styled(TripsContainerTablet)`
         }
       }
       nav {
+        align-self: flex-start;
         margin-bottom: 60px;
       }
       .trips-book-now {
@@ -214,11 +218,6 @@ const TripsContainerDesktop = styled(TripsContainerTablet)`
         }
       }
       .expired-trip-cards {
-        display: flex;
-        flex-direction: row;
-        flex-wrap: wrap;
-        margin: 0 auto;
-        width: 100%;
         .expired-trip-card {
           &:nth-of-type(3n + 4),
           &:nth-of-type(3n + 5),
