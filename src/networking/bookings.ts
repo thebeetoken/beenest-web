@@ -47,6 +47,7 @@ export enum BookingStatus {
 
 export enum Currency {
   BEE = 'BEE',
+  BTC = 'BTC',
   DAI = 'DAI',
   ETH = 'ETH',
   USD = 'USD',
