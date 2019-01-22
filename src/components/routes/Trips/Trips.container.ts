@@ -59,31 +59,43 @@ const TripsContainerMobile = styled.div`
         width: 100%;
       }
     }
-    .active-cards-container {
-      align-items: center;
-      display: flex;
-      flex-direction: column;
-      margin-bottom: 24px;
+    .trip-cards-container {
+      padding: 0 24px;
       width: 100%;
       .started-trip-container {
+        align-items: center;
+        display: flex;
+        flex-direction: column;
+        justify-content: center;
+        width: 100%;
         > h3 {
+          align-self: flex-start;
           ${typography('title', 7)};
           color: ${color('body')};
           margin-bottom: 24px;
         }
+      }
+      .active-cards-container {
+        align-items: center;
+        display: flex;
+        flex-direction: column;
+        margin-bottom: 24px;
+        width: 100%;
+        .bee-active-trip-card {
+          margin-bottom: 24px;
+        }
+      }
+      .expired-trip-cards {
+        align-items: center;
+        display: flex;
+        flex-direction: column;
+        flex-wrap: wrap;
+        margin: 0 auto;
         width: 100%;
       }
-      .bee-active-trip-card {
+      > .bee-divider {
         margin-bottom: 24px;
       }
-    }
-    .expired-trip-cards {
-      align-items: center;
-      display: flex;
-      flex-direction: column;
-      flex-wrap: wrap;
-      margin: 0 auto;
-      width: 100%;
     }
   }
 
@@ -116,8 +128,7 @@ const TripsContainerTablet = styled(TripsContainerMobile)`
       }
       nav {
         align-self: center;
-        /* align-self: flex-start; */
-        margin-bottom: 32px;
+        margin-bottom: 40px;
       }
       .trips-book-now {
         .trips-book-now--text {
@@ -131,34 +142,37 @@ const TripsContainerTablet = styled(TripsContainerMobile)`
           }
         }
       }
-      .active-cards-container {
-        display: flex;
-        flex-direction: row;
-        flex-wrap: wrap;
-        margin-bottom: 24px;
-        width: 100%;
-        .started-trip-container {
-          > h3 {
-            ${typography('title', 7)};
+      .trip-cards-container {
+        padding: 0;
+        .active-cards-container {
+          display: flex;
+          flex-direction: row;
+          flex-wrap: wrap;
+          margin-bottom: 24px;
+          width: 100%;
+          .started-trip-container {
+            > h3 {
+              ${typography('title', 7)};
+            }
+          }
+          .bee-active-trip-card {
+            margin-bottom: 48px;
+            &:nth-of-type(2n) {
+              margin-left: 100px;
+            }
           }
         }
-        .bee-active-trip-card {
-          margin-bottom: 48px;
-          &:nth-of-type(2n) {
-            margin-left: 100px;
-          }
-        }
-      }
-      .expired-trip-cards {
-        display: flex;
-        flex-direction: row;
-        flex-wrap: wrap;
-        margin: 0 auto;
-        width: 100%;
-        .expired-trip-card {
-          margin-bottom: 48px;
-          &:nth-of-type(2n) {
-            margin-left: 100px;
+        .expired-trip-cards {
+          display: flex;
+          flex-direction: row;
+          flex-wrap: wrap;
+          margin: 0 auto;
+          width: 100%;
+          .expired-trip-card {
+            margin-bottom: 48px;
+            &:nth-of-type(2n) {
+              margin-left: 100px;
+            }
           }
         }
       }
@@ -201,33 +215,35 @@ const TripsContainerDesktop = styled(TripsContainerTablet)`
           width: 200px;
         }
       }
-      .active-cards-container {
-        display: flex;
-        margin-bottom: 24px;
-        width: 100%;
-        .started-trip-container {
-          > h3 {
-            ${typography('emp', 5)};
+      .trip-cards-container {
+        .active-cards-container {
+          display: flex;
+          margin-bottom: 24px;
+          width: 100%;
+          .started-trip-container {
+            > h3 {
+              ${typography('emp', 5)};
+            }
+          }
+          .bee-active-trip-card {
+            margin-bottom: 48px;
+            &:nth-of-type(2n) {
+              margin-left: 0;
+            }
           }
         }
-        .bee-active-trip-card {
-          margin-bottom: 48px;
-          &:nth-of-type(2n) {
-            margin-left: 0;
-          }
-        }
-      }
-      .expired-trip-cards {
-        .expired-trip-card {
-          &:nth-of-type(3n + 4),
-          &:nth-of-type(3n + 5),
-          &:nth-of-type(3n + 6) {
-            margin-left: 0;
-          }
+        .expired-trip-cards {
+          .expired-trip-card {
+            &:nth-of-type(3n + 4),
+            &:nth-of-type(3n + 5),
+            &:nth-of-type(3n + 6) {
+              margin-left: 0;
+            }
 
-          &:nth-of-type(3n + 2),
-          &:nth-of-type(3n + 3) {
-            margin-left: 80px;
+            &:nth-of-type(3n + 2),
+            &:nth-of-type(3n + 3) {
+              margin-left: 80px;
+            }
           }
         }
       }

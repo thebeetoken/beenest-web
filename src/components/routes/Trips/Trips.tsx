@@ -94,70 +94,75 @@ class Trips extends React.Component<Props, State> {
                       to: '/trips/cancelled',
                     }
                   ]} />
-                  <Switch>
-                    <Route exact path="/trips/current" component={() =>
-                      <section className="active-cards-container">
-                        {!!started.length &&
-                          <>
-                            <div className="started-trip-container">
-                              <h3>Finish your booking:</h3>
-                              <ActiveTripCard 
-                                onCancelClick={this.handleCancelBooking.bind(this, started[0])}
-                                key={started[0].id}
-                                trip={started[0]} />
-                            </div>
-                            <Divider />
-                          </>
-                        }
-                        {!!current.length && current.map((trip: Booking) =>
-                          <ActiveTripCard 
-                            onCancelClick={this.handleCancelBooking.bind(this, trip)}
-                            key={trip.id}
-                            trip={trip} />
-                        )}
-                      </section>
-                    } />
-                    <Route exact path="/trips/upcoming" component={() =>
-                      <>
-                        {!!upcoming.length && (
-                          <section className="active-cards-container">
-                            {upcoming.map((trip: Booking) => (
-                              <ActiveTripCard
-                                onCancelClick={this.handleCancelBooking.bind(this, trip)}
-                                key={trip.id}
-                                trip={trip}
-                              />
-                            ))}
-                          </section>
-                        )}
-                      </>
-                    } />
-                    <Route exact path="/trips/past" component={() =>
-                      <>
-                        {!!past.length && (
-                          <section className="expired-trip-cards">
-                            {past.map((trip: Booking) => (
-                              <ExpiredTripCard key={trip.id} trip={trip} />
-                            ))}
-                          </section>
-                        )}
-                      </>
-                    } />
-                    <Route exact path="/trips/cancelled" component={() =>
-                      <>
-                        {!!cancelled.length && (
-                          <section className="expired-trip-cards">
-                            {cancelled.map((trip: Booking) => (
-                              <ExpiredTripCard key={trip.id} trip={trip} />
-                            ))}
-                          </section>
-                        )}
-                      </>
-                    } />
-                    <Redirect exact from="/trips" to="/trips/current" />
-                    <Route component={NotFound} />
-                  </Switch>
-
+                  <div className="trip-cards-container">
+                    <Switch>
+                      <Route exact path="/trips/current" component={() =>
+                        <>
+                          {/* {!!started.length &&
+                            <>
+                              <div className="started-trip-container">
+                                <h3>Finish your booking:</h3>
+                                <ActiveTripCard 
+                                  onCancelClick={this.handleCancelBooking.bind(this, started[0])}
+                                  key={started[0].id}
+                                  trip={started[0]} />
+                              </div>
+                              <Divider />
+                            </>
+                          } */}
+                          {!!current.length &&
+                            <section className="active-cards-container">
+                              {current.map((trip: Booking) =>
+                                <ActiveTripCard 
+                                  onCancelClick={this.handleCancelBooking.bind(this, trip)}
+                                  key={trip.id}
+                                  trip={trip} />
+                              )}
+                            </section>
+                          }
+                        </>
+                      } />
+                      <Route exact path="/trips/upcoming" component={() =>
+                        <>
+                          {!!upcoming.length && (
+                            <section className="active-cards-container">
+                              {upcoming.map((trip: Booking) => (
+                                <ActiveTripCard
+                                  onCancelClick={this.handleCancelBooking.bind(this, trip)}
+                                  key={trip.id}
+                                  trip={trip}
+                                />
+                              ))}
+                            </section>
+                          )}
+                        </>
+                      } />
+                      <Route exact path="/trips/past" component={() =>
+                        <>
+                          {!!past.length && (
+                            <section className="expired-trip-cards">
+                              {past.map((trip: Booking) => (
+                                <ExpiredTripCard key={trip.id} trip={trip} />
+                              ))}
+                            </section>
+                          )}
+                        </>
+                      } />
+                      <Route exact path="/trips/cancelled" component={() =>
+                        <>
+                          {!!cancelled.length && (
+                            <section className="expired-trip-cards">
+                              {cancelled.map((trip: Booking) => (
+                                <ExpiredTripCard key={trip.id} trip={trip} />
+                              ))}
+                            </section>
+                          )}
+                        </>
+                      } />
+                      <Redirect exact from="/trips" to="/trips/current" />
+                      <Route component={NotFound} />
+                    </Switch>
+                  </div>
                   {isSubmitting && <CryptoPortal />}
                   {open && (
                     <Snackbar autoHideDuration={5000} open={open} onClose={this.closeSnackbar}>
