@@ -21,7 +21,8 @@ const TripsContainerMobile = styled.div`
     min-height: 100%;
     padding: 24px 0 40px;
     .trips-header {
-      margin-bottom: 34px;
+      margin-bottom: 16px;
+      padding: 0 24px;
       width: 100%;
       h1 {
         ${typography('title', 4)};
@@ -116,6 +117,7 @@ const TripsContainerTablet = styled(TripsContainerMobile)`
       width: 644px;
       .trips-header {
         margin-bottom: 12px;
+        padding: 0;
         width: 100%;
         h1 {
           ${typography('title', 4)};
