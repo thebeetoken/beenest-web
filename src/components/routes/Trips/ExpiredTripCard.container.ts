@@ -38,7 +38,13 @@ const ExpiredTripCardContainer = styled.div`
       margin-bottom: 8px;
       text-transform: uppercase;
     }
-    h5 {
+    > h5 {
+      ${typography('emp', 7)};
+      color: ${color('secondary')};
+      margin-bottom: 8px;
+      text-transform: capitalize;
+    }
+    h6 {
       ${typography('read', 3)};
       color: ${color('body')};
       margin-bottom: 8px;

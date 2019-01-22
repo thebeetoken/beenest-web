@@ -60,7 +60,7 @@ const ActiveTripCard = ({ onCancelClick, trip }: Props) => {
           </h5>
         </div>
         <h4>Status: {displayStatus}</h4>
-        <h5>Booking ID: <span>{id}</span></h5>
+        <h5>Booking: <span>{id}</span></h5>
         <div className="divider">
           <Divider />
         </div>

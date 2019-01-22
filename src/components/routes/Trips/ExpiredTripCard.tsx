@@ -11,6 +11,7 @@ import { formatDateRange } from 'utils/formatDate';
 import { ToggleProvider, ToggleProviderRef } from 'shared/ToggleProvider';
 import Portal from 'shared/Portal';
 import ContactHostForm from 'shared/ContactHostForm';
+import { getUserBookingDisplayStatus } from 'utils/bookingsDisplayStatus';
 
 interface Props {
   trip: Booking;
@@ -20,14 +21,21 @@ interface DisplayMap {
   [key: string]: string;
 }
 
-const cancelledByMap: DisplayMap = {
-  host_cancelled: 'host',
-  guest_cancelled: 'you',
+const cancelledDisplayMap: DisplayMap = {
+  host_cancelled: 'Trip cancelled by host',
+  host_rejected: 'Trip rejected by host',
+  guest_cancelled: 'Trip cancelled by you',
+  guest_cancel_initiated: 'Cancel initiated by you',
+  guest_rejected_payment: 'Payment rejected by you',
+  expired_before_host_approved: 'Expired before host approved',
+  payment_failed: 'Payment failed',
+  refunded: 'Refunded',
 };
 
 const ExpiredTripCard = ({ trip }: Props) => {
   const { checkInDate, checkOutDate, id, listing, status } = trip;
-  const cancelledBy = cancelledByMap[status] || '';
+  const cancelledStatus = cancelledDisplayMap[status] || '';
+  const displayStatus = getUserBookingDisplayStatus(status);
   return (
     <ExpiredTripCardContainer className="expired-trip-card">
       <div className="trip-card--img">
@@ -44,13 +52,14 @@ const ExpiredTripCard = ({ trip }: Props) => {
         <h4>
           {listing.city}, {listing.state}
         </h4>
-        <h5>Booking ID: <span>{id}</span></h5>
+        {!cancelledStatus && <h5>Status: {displayStatus}</h5>}
+        <h6>Booking: <span>{id}</span></h6>
         <div className="bee-flex-div" />
-        {cancelledBy && (
+        {cancelledStatus && (
           <>
             <Divider />
             <div className="trip-card--cancelled-bar">
-              <h4>Trip cancelled by {cancelledBy}.</h4>
+              <h4>{cancelledStatus}</h4>
             </div>
           </>
         )}

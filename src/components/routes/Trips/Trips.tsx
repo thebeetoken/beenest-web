@@ -90,7 +90,7 @@ class Trips extends React.Component<Props, State> {
                       to: '/trips/past',
                     },
                     {
-                      title: 'Cancelled',
+                      title: 'Cancelled/\nRejected',
                       to: '/trips/cancelled',
                     }
                   ]} />
@@ -98,18 +98,19 @@ class Trips extends React.Component<Props, State> {
                     <Switch>
                       <Route exact path="/trips/current" component={() =>
                         <>
-                          {/* {!!started.length &&
+                          {!!started.length &&
                             <>
                               <div className="started-trip-container">
-                                <h3>Finish your booking:</h3>
+                                <h3>Finish this booking:</h3>
                                 <ActiveTripCard 
                                   onCancelClick={this.handleCancelBooking.bind(this, started[0])}
                                   key={started[0].id}
                                   trip={started[0]} />
                               </div>
-                              <Divider />
+                              <Divider size="tall" />
+                              <h2>Current bookings:</h2>
                             </>
-                          } */}
+                          }
                           {!!current.length &&
                             <section className="active-cards-container">
                               {current.map((trip: Booking) =>

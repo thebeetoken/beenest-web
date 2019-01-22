@@ -26,7 +26,9 @@ const AccountNavContainerMobile = styled.nav`
       z-index: 1;
     }
     h2 {
-      ${typography('read', 3)}
+      ${typography('read', 2)}
+      text-align: center;
+      word-break: break-word;
     }
     .bee-svg {
       height: 24px;
@@ -60,10 +62,10 @@ const AccountNavContainer = styled(AccountNavContainerMobile)`
     /* need to re-add styled here for last tab because it goes through a query
     first so cannot put within the tab nav component */
     a {
-      ${typography('title', 7)}
       background-color: ${color('light')};
       color: ${color('upper')};
       height: 48px;
+      text-align: center;
       transition: all 0.2s ease-in-out;
       width: 132px;
       &:hover:not(.active) {
@@ -76,6 +78,11 @@ const AccountNavContainer = styled(AccountNavContainerMobile)`
         color: ${color('secondary')};
         position: relative;
         z-index: 1;
+      }
+      h2 {
+        ${typography('title', 7)}
+        text-align: center;
+        word-break: break-word;
       }
     }
   }
