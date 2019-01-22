@@ -26,7 +26,7 @@ interface State {
 class SelectPaymentOption extends React.Component<Props> {
   readonly state: State = {
     conversionRateFromBee: 0,
-    currency: undefined,
+    currency: Currency.USD,
     errorPricingToken: false
   };
 
