@@ -8,6 +8,9 @@ import Divider from 'shared/Divider';
 import Fab from 'shared/Fab';
 import LazyImage from 'shared/LazyImage';
 import { formatDateRange } from 'utils/formatDate';
+import { ToggleProvider, ToggleProviderRef } from 'shared/ToggleProvider';
+import Portal from 'shared/Portal';
+import ContactHostForm from 'shared/ContactHostForm';
 
 interface Props {
   trip: Booking;
@@ -53,6 +56,32 @@ const ExpiredTripCard = ({ trip }: Props) => {
         )}
         <Divider />
         <div className="actions">
+          <ToggleProvider>
+            {({ show, toggle }: ToggleProviderRef) => (
+              <>
+                <Fab
+                  clear
+                  color="upper"
+                  icon="decorative/email"
+                  iconColor="secondary"
+                  onClick={toggle}
+                  noFlex
+                  noPadding
+                  textStyle="read-4">
+                  Contact Host
+                </Fab>
+                {show && (
+                  <Portal color="up" opacity={0.9} onClick={toggle}>
+                    <ContactHostForm
+                      host={trip.host}
+                      listingId={listing.id}
+                      bookingId={trip.id}
+                      onClose={toggle} />
+                  </Portal>
+                )}
+              </>
+            )}
+          </ToggleProvider>
           <BeeLink href={`/trips/${trip.id}/receipt`}>
             <Fab
               clear

@@ -58,22 +58,20 @@ const TripsContainerMobile = styled.div`
         width: 100%;
       }
     }
-    section {
+    .active-cards-container {
       display: flex;
       flex-direction: column;
       margin-bottom: 24px;
       width: 100%;
-      .active-cards-container {
-        display: flex;
-        flex-direction: column;
-        width: 100%;
-        .bee-active-trip-card {
+      .started-trip-container {
+        > h3 {
+          ${typography('title', 7)};
+          color: ${color('body')};
           margin-bottom: 24px;
         }
+        width: 100%;
       }
-      > h3 {
-      ${typography('title', 7)};
-        color: ${color('body')};
+      .bee-active-trip-card {
         margin-bottom: 24px;
       }
       .expired-trip-cards {
@@ -130,27 +128,22 @@ const TripsContainerTablet = styled(TripsContainerMobile)`
           }
         }
       }
-      section {
+      .active-cards-container {
         display: flex;
-        flex-direction: column;
+        flex-direction: row;
+        flex-wrap: wrap;
         margin-bottom: 24px;
         width: 100%;
-        .active-cards-container {
-          display: flex;
-          flex-direction: row;
-          flex-wrap: wrap;
-          width: 100%;
-          .bee-active-trip-card {
-            margin-bottom: 48px;
-            &:nth-of-type(2n) {
-              margin-left: 100px;
-            }
+        .started-trip-container {
+          > h3 {
+            ${typography('title', 7)};
           }
         }
-        > h3 {
-        ${typography('title', 7)};
-          color: ${color('body')};
-          margin-bottom: 24px;
+        .bee-active-trip-card {
+          margin-bottom: 48px;
+          &:nth-of-type(2n) {
+            margin-left: 100px;
+          }
         }
         .expired-trip-cards {
           display: flex;
@@ -204,45 +197,38 @@ const TripsContainerDesktop = styled(TripsContainerTablet)`
           width: 200px;
         }
       }
-      section {
+      .active-cards-container {
         display: flex;
-        flex-direction: column;
         margin-bottom: 24px;
         width: 100%;
-        .active-cards-container {
-          display: flex;
-          flex-direction: row;
-          flex-wrap: wrap;
-          width: 100%;
-          .bee-active-trip-card {
-            margin-bottom: 48px;
-            &:nth-of-type(2n) {
-              margin-left: 0;
-            }
+        .started-trip-container {
+          > h3 {
+            ${typography('emp', 5)};
           }
         }
-        > h3 {
-        ${typography('emp', 5)};
-          color: ${color('body')};
-          margin-bottom: 24px;
+        .bee-active-trip-card {
+          margin-bottom: 48px;
+          &:nth-of-type(2n) {
+            margin-left: 0;
+          }
         }
-        .expired-trip-cards {
-          display: flex;
-          flex-direction: row;
-          flex-wrap: wrap;
-          margin: 0 auto;
-          width: 100%;
-          .expired-trip-card {
-            &:nth-of-type(3n + 4),
-            &:nth-of-type(3n + 5),
-            &:nth-of-type(3n + 6) {
-              margin-left: 0;
-            }
+      }
+      .expired-trip-cards {
+        display: flex;
+        flex-direction: row;
+        flex-wrap: wrap;
+        margin: 0 auto;
+        width: 100%;
+        .expired-trip-card {
+          &:nth-of-type(3n + 4),
+          &:nth-of-type(3n + 5),
+          &:nth-of-type(3n + 6) {
+            margin-left: 0;
+          }
 
-            &:nth-of-type(3n + 2),
-            &:nth-of-type(3n + 3) {
-              margin-left: 80px;
-            }
+          &:nth-of-type(3n + 2),
+          &:nth-of-type(3n + 3) {
+            margin-left: 80px;
           }
         }
       }

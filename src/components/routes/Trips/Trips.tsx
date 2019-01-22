@@ -16,14 +16,13 @@ import TripsContainer from './Trips.container';
 import ActiveTripCard from 'routes/Trips/ActiveTripCard';
 import { compose } from 'recompose';
 import Snackbar from 'shared/Snackbar';
-import { AppConsumerProps, ScreenType, AppConsumer } from 'components/App.context';
 import ExpiredTripCard from 'routes/Trips/ExpiredTripCard';
 import { cancel, loadWeb3 } from 'utils/web3';
 import Button from 'shared/Button';
 import BeeLink from 'shared/BeeLink';
 import CryptoPortal from 'shared/CryptoPortal';
 import AccountNav from 'routes/Account/AccountNav';
-import { Switch, Router, Route, Redirect } from 'react-router';
+import { Switch, Route, Redirect } from 'react-router';
 import NotFound from 'components/routes/NotFound';
 
 interface Props {
@@ -75,7 +74,6 @@ class Trips extends React.Component<Props, State> {
                   </div>
                 );
               }
-              console.log('started:', started);
               return (
                 <>
                   <AccountNav config={[
@@ -98,35 +96,38 @@ class Trips extends React.Component<Props, State> {
                   ]} />
                   <Switch>
                     <Route exact path="/trips/current" component={() =>
-                      <section>
-                        <div className="active-cards-container">
-                          {!!started.length && <ActiveTripCard 
-                            onCancelClick={this.handleCancelBooking.bind(this, started[0])}
-                            key={started[0].id}
-                            trip={started[0]} />
-                          }
-                          {!!current.length && current.map((trip: Booking) => (
-                            <ActiveTripCard 
-                              onCancelClick={this.handleCancelBooking.bind(this, trip)}
-                              key={trip.id}
-                              trip={trip} />
-                          ))}
-                        </div>
+                      <section className="active-cards-container">
+                        {!!started.length &&
+                          <>
+                            <div className="started-trip-container">
+                              <h3>Finish your booking:</h3>
+                              <ActiveTripCard 
+                                onCancelClick={this.handleCancelBooking.bind(this, started[0])}
+                                key={started[0].id}
+                                trip={started[0]} />
+                            </div>
+                            <Divider />
+                          </>
+                        }
+                        {!!current.length && current.map((trip: Booking) =>
+                          <ActiveTripCard 
+                            onCancelClick={this.handleCancelBooking.bind(this, trip)}
+                            key={trip.id}
+                            trip={trip} />
+                        )}
                       </section>
                     } />
                     <Route exact path="/trips/upcoming" component={() =>
                       <>
                         {!!upcoming.length && (
-                          <section>
-                            <div className="active-cards-container">
-                              {upcoming.map((trip: Booking) => (
-                                <ActiveTripCard
-                                  onCancelClick={this.handleCancelBooking.bind(this, trip)}
-                                  key={trip.id}
-                                  trip={trip}
-                                />
-                              ))}
-                            </div>
+                          <section className="active-cards-container">
+                            {upcoming.map((trip: Booking) => (
+                              <ActiveTripCard
+                                onCancelClick={this.handleCancelBooking.bind(this, trip)}
+                                key={trip.id}
+                                trip={trip}
+                              />
+                            ))}
                           </section>
                         )}
                       </>
@@ -134,12 +135,10 @@ class Trips extends React.Component<Props, State> {
                     <Route exact path="/trips/past" component={() =>
                       <>
                         {!!past.length && (
-                          <section>
-                            <div className="expired-trip-cards">
-                              {past.map((trip: Booking) => (
-                                <ExpiredTripCard key={trip.id} trip={trip} />
-                              ))}
-                            </div>
+                          <section className="expired-trip-cards">
+                            {past.map((trip: Booking) => (
+                              <ExpiredTripCard key={trip.id} trip={trip} />
+                            ))}
                           </section>
                         )}
                       </>
@@ -148,7 +147,6 @@ class Trips extends React.Component<Props, State> {
                       <>
                         {!!cancelled.length && (
                           <section>
-                            <h3>Past / Cancelled Trips</h3>
                             <div className="expired-trip-cards">
                               {cancelled.map((trip: Booking) => (
                                 <ExpiredTripCard key={trip.id} trip={trip} />
@@ -156,8 +154,8 @@ class Trips extends React.Component<Props, State> {
                             </div>
                           </section>
                         )}
-                      </>}
-                    />
+                      </>
+                    } />
                     <Redirect exact from="/trips" to="/trips/current" />
                     <Route component={NotFound} />
                   </Switch>
