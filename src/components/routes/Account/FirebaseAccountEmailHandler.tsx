@@ -19,7 +19,7 @@ interface QueryParams {
   lang?: string;
 }
 
-export class FirebaseAccountEmailHandler extends React.Component<RouterProps> {
+export default class FirebaseAccountEmailHandler extends React.Component<RouterProps> {
   readonly state: State = {
     isSubmitting: true,
     hasError: false,
