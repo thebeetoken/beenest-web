@@ -1,10 +1,8 @@
 import * as React from 'react';
-import { Query } from 'react-apollo';
 
 import AccountNavContainer from './AccountNav.container';
 
 import { AppConsumer, AppConsumerProps, ScreenType } from 'components/App.context';
-import { GET_USER } from 'networking/users';
 import BeeLink from 'shared/BeeLink';
 import Svg from 'shared/Svg';
 import TabNav from 'shared/TabNav/TabNav';
