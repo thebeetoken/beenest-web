@@ -1,5 +1,13 @@
 import { Currency } from 'networking/bookings';
 
+const CURRENCY_DIGITS: {[index: string]: number} = {
+  [Currency.BEE]: 0,
+  [Currency.BTC]: 6,
+  [Currency.ETH]: 4,
+  [Currency.USD]: 2,
+};
+const DEFAULT_DIGITS = 2;
+
 export function numberToLocaleString(value: number | string, currency: Currency | null = Currency.USD): string {
   if (typeof value !== 'number') {
     return value;
@@ -9,34 +17,11 @@ export function numberToLocaleString(value: number | string, currency: Currency 
     return '';
   }
 
+  const digits = !!currency && CURRENCY_DIGITS.hasOwnProperty(currency) ?
+    CURRENCY_DIGITS[currency] : DEFAULT_DIGITS;
+
   return value.toLocaleString(undefined, {
-    minimumFractionDigits: getMinimumFractionDigits(currency),
-    maximumFractionDigits: getMaximumFractionDigits(currency),
+    minimumFractionDigits: digits,
+    maximumFractionDigits: digits,
   });
-}
-
-function getMinimumFractionDigits(currency: Currency | null): number {
-  switch (currency) {
-    case Currency.BEE:
-      return 0;
-    case Currency.ETH:
-      return 4;
-    case Currency.USD:
-      return 2;
-    default:
-      return 2;
-  }
-}
-
-function getMaximumFractionDigits(currency: Currency | null): number {
-  switch (currency) {
-    case Currency.BEE:
-      return 0;
-    case Currency.ETH:
-      return 4;
-    case Currency.USD:
-      return 2;
-    default:
-      return 2;
-  }
 }

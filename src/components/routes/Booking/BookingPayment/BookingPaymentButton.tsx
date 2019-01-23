@@ -33,7 +33,7 @@ class BookingPaymentButton extends React.Component<Props, State> {
   render() {
     const { isSubmitting } = this.state;
     const { booking, fromBee } = this.props;
-    if (booking.currency === Currency.USD) {
+    if (booking.currency === Currency.USD || booking.currency === Currency.BTC) {
       // We do this onclick pattern because if bound, the guestWalletAddress will be an event handler
       return (
         <>
@@ -43,7 +43,7 @@ class BookingPaymentButton extends React.Component<Props, State> {
                 <GridLoading height={105} width={105} />
                 <div className="processing-card">
                   <h2>Processing payment...</h2>
-                  <p>Crypto payments may take up to 30 seconds to complete transaction.</p>
+                  <p>Payments may take up to 30 seconds to complete transaction.</p>
                 </div>
               </BookingPaymentLoadingContainer>
             </Portal>
@@ -122,7 +122,7 @@ async function getCryptoParams(
   currency?: Currency | string,
   fromBee?: (value: number) => number
 ): Promise<CryptoParams | undefined> {
-  if (booking.currency === Currency.USD || !guestWalletAddress) {
+  if (booking.currency === Currency.USD || booking.currency === Currency.BTC || !guestWalletAddress) {
     return undefined;
   }
   const web3 = loadWeb3();
