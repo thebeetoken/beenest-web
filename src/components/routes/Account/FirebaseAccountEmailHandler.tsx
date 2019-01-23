@@ -5,6 +5,8 @@ import { verifyEmail } from 'utils/firebase';
 import Button from 'shared/Button';
 import BeeLink from 'shared/BeeLink';
 import GeneralWrapper from 'shared/GeneralWrapper';
+import styled from 'styled-components';
+import { FirebaseConsumer, FirebaseUserProps } from 'HOCs/FirebaseProvider';
 
 interface State {
   isSubmitting: boolean;
@@ -18,6 +20,17 @@ interface QueryParams {
   continueUrl?: string;
   lang?: string;
 }
+
+const DefaultContainer = styled.div`
+    h2 {
+      margin-top: 18px;
+    }
+
+    section {
+      margin-top: 18px;
+    }
+  }
+`;
 
 export default class FirebaseAccountEmailHandler extends React.Component<RouterProps> {
   readonly state: State = {
@@ -67,22 +80,46 @@ export default class FirebaseAccountEmailHandler extends React.Component<RouterP
           </>
           :
           <>
-            <p>Thanks for verifying your email.</p>
+            <h2>Thanks for verifying your email.</h2>
 
-            <BeeLink to="/host/listings">
-              <Button>List your home for rent</Button>
-            </BeeLink>
-            or
-            <BeeLink to="/">
-              <Button>Book a rental</Button>
-            </BeeLink>
+            <FirebaseConsumer>
+            {({ loading, user, completedVerification }: FirebaseUserProps) => {
+              if (loading) {
+                return <AudioLoading />;
+              }
+
+              if (user && !completedVerification) {
+                return <section>
+                        <BeeLink to="/account/verification">
+                          <Button>Verify your phone number to book a rental</Button>
+                        </BeeLink>
+                      </section>;
+              }
+
+              if (user && !!completedVerification) {
+                return <section>
+                  <BeeLink to="/host/listings">
+                    <Button>List your home for rent</Button>
+                  </BeeLink>
+                  or
+                  <BeeLink to="/">
+                    <Button border="core" background="white">Find a place to stay at</Button>
+                  </BeeLink>
+                </section>;
+              }
+
+              return <></>;
+            }}
+            </FirebaseConsumer>
           </>;
 
     return (
         <GeneralWrapper width={976}>
+          <DefaultContainer>
           <div className="complete">
             {renderBody}
           </div>
+          </DefaultContainer>
         </GeneralWrapper>
     );
   }
