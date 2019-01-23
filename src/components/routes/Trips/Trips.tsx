@@ -208,9 +208,9 @@ export default compose(
   graphql(GUEST_CANCEL_BOOKING, {
     props: ({ mutate }: any) => ({
       cancelBooking: async (booking: Booking) => {
-        const { id, currency, checkInDate } = booking;
+        const { id, currency, checkInDate, status } = booking;
         const days = differenceInDays(checkInDate, Date.now());
-        if (currency === Currency.BEE && days >= 7) {
+        if (currency === Currency.BEE && days >= 7 && status === 'guest_paid') {
           const web3 = loadWeb3();
           await cancel(web3.eth, id);
         }

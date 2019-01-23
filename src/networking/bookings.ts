@@ -47,6 +47,7 @@ export enum BookingStatus {
 
 export enum Currency {
   BEE = 'BEE',
+  BTC = 'BTC',
   DAI = 'DAI',
   ETH = 'ETH',
   USD = 'USD',
@@ -63,25 +64,11 @@ export interface PriceQuote {
   transactionFee: number;
 }
 
-export interface CryptoPayment {
-  guestWalletAddress: string;
-  hostWalletAddress: string;
-  transactionHash: string;
-}
-
 export interface CryptoParams {
   guestWalletAddress: string;
   paymentProtocolAddress: string;
   tokenContractAddress?: string;
   transactionHash: string;
-}
-
-export interface BuyNowInput {
-  listingId: string;
-  currency: string;
-  amount: number;
-  paymentSourceId?: string;
-  cryptoPayment?: CryptoPayment;
 }
 
 export const GET_ALL_BOOKINGS = gql`
@@ -410,15 +397,6 @@ export const PAYOUT_BOOKING = gql`
     payoutBooking(id: $id) {
       id
       status
-    }
-  }
-`;
-//
-
-export const BUY_NOW = gql`
-  mutation BuyNow($input: BuyNowInput!) {
-    buyNow(input: $input) {
-      id
     }
   }
 `;

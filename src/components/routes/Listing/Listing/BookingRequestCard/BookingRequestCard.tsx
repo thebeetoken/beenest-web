@@ -8,8 +8,8 @@ import { DateRangePicker } from 'react-dates';
 
 import BookingRequestCardContainer from './BookingRequestCard.container';
 import DateRangePickerContainer from 'styled/containers/DateRangePicker.container';
-import { Booking, CREATE_BOOKING, Currency, GET_GUEST_SORTED_BOOKINGS } from 'networking/bookings';
-import { Reservation } from 'networking/listings';
+import { Booking, Currency, CREATE_BOOKING, GET_GUEST_SORTED_BOOKINGS } from 'networking/bookings';
+import { Price, Reservation } from 'networking/listings';
 import Button from 'shared/Button';
 import InputLabel from 'shared/InputLabel';
 import InputWrapper from 'shared/InputWrapper';
@@ -32,9 +32,8 @@ interface Props extends RouterProps {
   listingId: number;
   maxGuests: number;
   minimumNights: number;
-  pricePerNight: number;
-  pricePerNightEth: number;
   pricePerNightUsd: number;
+  prices: Price[];
   reservations: Reservation[];
   totalQuantity: number;
   createBooking: (input: CreateBookingInput) => Promise<Booking>;
@@ -88,7 +87,7 @@ class BookingRequestCard extends React.Component<Props, State> {
   readonly state = getInitialState(this.props);
 
   render() {
-    const { pricePerNight, pricePerNightEth, pricePerNightUsd } = this.props;
+    const { prices, pricePerNightUsd } = this.props;
     const { endDate, startDate, focusedInput, isDisabled, numberOfGuests } = this.state;
     return (
       <BookingRequestCardContainer>
@@ -105,14 +104,14 @@ class BookingRequestCard extends React.Component<Props, State> {
                     <span>USD / night</span>
                   </div>
                   <div className="pricing-container--other-rates">
-                    <h5>
-                      {pricePerNight && numberToLocaleString(pricePerNight, Currency.BEE)}
-                      <span>BEE</span>
-                    </h5>
-                    <h5>
-                      {pricePerNightEth && numberToLocaleString(pricePerNightEth, Currency.ETH)}
-                      <span>ETH</span>
-                    </h5>
+                    {prices
+                      .filter(({ currency }) => Object.values(Currency).includes(currency))
+                      .map(({ currency, pricePerNight }) => (
+                      <h5 key={currency}>
+                        {numberToLocaleString(pricePerNight, currency)}
+                        <span>{currency}</span>
+                      </h5>
+                    ))}
                   </div>
                 </div>
               );

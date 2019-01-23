@@ -6,8 +6,6 @@ import Account from './routes/Account';
 import Booking from './routes/Booking';
 import Conference from './routes/Conference';
 import Markets from './routes/Markets';
-import BuyNow from './routes/BuyNow';
-import BuyNowReceipt from './routes/BuyNow/BuyNowReceipt';
 import ForgotPassword from './routes/authentication/ForgotPassword';
 import ForgotPasswordConfirmation from './routes/authentication/ForgotPasswordConfirmation';
 import Help from './routes/Help';
@@ -27,6 +25,7 @@ import Login from './routes/authentication/Login';
 import Logout from './routes/authentication/Logout';
 import SignUp from './routes/authentication/SignUp';
 import { StripeExpressComplete, StripeExpressNew } from './routes/Account/StripeExpress';
+import FirebaseAccountEmailHandler from './routes/Account/FirebaseAccountEmailHandler';
 import Trips from './routes/Trips';
 import TripsReceipt from './routes/Trips/TripsReceipt';
 import NotFound from './routes/NotFound';
@@ -47,6 +46,7 @@ const AppRoutes = () => (
       return (
         <AppContainer className="bee-app" {...bannerState}>
           <Switch>
+            <Route exact path="/account/verify" component={FirebaseAccountEmailHandler} />
             <Route exact path="/account/stripe_express/new" component={StripeExpressNew} />
             <Route exact path="/account/stripe_express/complete" component={StripeExpressComplete} />
             <AuthenticatedRoute path="/account" component={Account} />
@@ -66,13 +66,11 @@ const AppRoutes = () => (
             <Route exact path="/hosts/signup-outreach" component={HostsSignupOutreach} />
             <Route exact path="/hosts/signup" component={HostsSignup} />
             <Route exact path="/hosts/start" component={HostsStart} />
-            <AuthenticatedRoute path="/listings/:id/buy" component={BuyNow} />
             <Route exact path="/listings/:id" component={Listing} />
             <Route path="/listings" component={ListingsResult} />
             <Route exact path="/login" component={Login} />
             <Route exact path="/logout" component={Logout} />
             <Route exact path="/signup" component={SignUp} />
-            <AuthenticatedRoute path="/bookings/:id/buy/receipt" component={BuyNowReceipt} />
             <AuthenticatedRoute path="/bookings" component={Booking} />
             <AuthenticatedRoute path="/trips/:id/receipt" component={TripsReceipt} />
             <AuthenticatedRoute path="/trips" component={Trips} />
