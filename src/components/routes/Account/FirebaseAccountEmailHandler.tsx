@@ -41,45 +41,41 @@ export default class FirebaseAccountEmailHandler extends React.Component<RouterP
 
   componentDidMount() {
     const queryParams: QueryParams = parseQueryString(this.props.location.search);
-    const { mode, oobCode } = queryParams;
-    if (!mode) {
-      alert('Error, no mode defined.');
-      return;
-    }
+     const { mode, oobCode } = queryParams;
+     if (!mode) {
+       alert('Error, no mode defined.');
+       return;
+     }
 
-    if (!oobCode) {
-      alert('Error, no oobCode defined.');
-      return;
-    }
+     if (!oobCode) {
+       alert('Error, no oobCode defined.');
+       return;
+     }
 
-    if (mode === 'verifyEmail') {
-      verifyEmail(oobCode).then(() => {
-        this.setState({ isSubmitting: false });
-      }).catch(err => {
-        console.error(err);
-        this.setState({ isSubmitting: false, hasError: true });
-      });
-    }
+     if (mode === 'verifyEmail') {
+       verifyEmail(oobCode).then(() => {
+         this.setState({ isSubmitting: false });
+       }).catch(err => {
+         console.error(err);
+         this.setState({ isSubmitting: false, hasError: true });
+       });
+     }
   }
 
-  render() {
-    if (this.state.isSubmitting) {
-      return <AudioLoading height={48} width={96} />;
-    }
+  renderError() {
+    return <>
+      <h2>There was an error verifying your email.</h2>
+      <p>{this.state.errorMessage}</p>
+      <p>
+        <BeeLink href="mailto:support@beenest.com">
+          <Button>Contact us for further help.</Button>
+        </BeeLink>
+      </p>
+    </>;
+  }
 
-    const { hasError } = this.state;
-    const renderBody = hasError ?
-          <>
-            <h2>There was an error verifying your email.</h2>
-            <p>{this.state.errorMessage}</p>
-            <p>
-              <BeeLink href="mailto:support@beenest.com">
-                <Button>Contact us for further help.</Button>
-              </BeeLink>
-            </p>
-          </>
-          :
-          <>
+  renderSuccess() {
+     return <>
             <h2>Thanks for verifying your email.</h2>
 
             <FirebaseConsumer>
@@ -103,7 +99,7 @@ export default class FirebaseAccountEmailHandler extends React.Component<RouterP
                   </BeeLink>
                   or
                   <BeeLink to="/">
-                    Find a place to stay at
+                    <Button border="black" background="white">Find a place to stay at</Button>
                   </BeeLink>
                 </section>;
               }
@@ -112,12 +108,19 @@ export default class FirebaseAccountEmailHandler extends React.Component<RouterP
             }}
             </FirebaseConsumer>
           </>;
+  }
+
+  render() {
+    if (this.state.isSubmitting) {
+      return <AudioLoading height={48} width={96} />;
+    }
+    const { hasError } = this.state;
 
     return (
         <GeneralWrapper width={976}>
           <DefaultContainer>
           <div className="complete">
-            {renderBody}
+            {hasError ? this.renderError() : this.renderSuccess()}
           </div>
           </DefaultContainer>
         </GeneralWrapper>
