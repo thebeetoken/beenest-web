@@ -3,7 +3,7 @@ import { Query } from 'react-apollo';
 import { Link, Redirect } from 'react-router-dom';
 
 import { GET_BOOKING_RECEIPT, Booking, Currency } from 'networking/bookings';
-import { APP_ENV, AppEnv } from 'configs/settings';
+import { APP_ENV, AppEnv, SETTINGS } from 'configs/settings';
 
 import BookingReceiptContainer from './BookingReceipt.container';
 import BookingNavBar from '../BookingNavBar';
@@ -11,6 +11,8 @@ import BookingReceiptBar from './BookingReceiptBar';
 import Button from 'shared/Button';
 import { numberToLocaleString } from 'utils/numberToLocaleString';
 import { AppConsumer, AppConsumerProps, ScreenType } from 'components/App.context';
+
+const { BTC_PAYMENT_ADDRESS } = SETTINGS;
 
 const BookingReceipt = ({ match }: RouterProps) => (
   <Query query={GET_BOOKING_RECEIPT} variables={{ id: match.params.id }}>
@@ -122,7 +124,7 @@ const Confirmation = ({ currency, id, guestTxHash }: Booking) => (
           <>
             <div className="usd-confirmation-container">
               <h3>Payment Address</h3>
-              <span>{'abcXFADSGADSkmn120321BTC!!'}</span>
+              <span>{BTC_PAYMENT_ADDRESS}</span>
             </div>
             <div className="disclaimer">
               Payment is due at the address above. This booking is not valid until paid.

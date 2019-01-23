@@ -14,6 +14,7 @@ module.exports = {
     BEETOKEN_ADDRESS: '0x7fffac23d59d287560dfeca7680b5393426cf503',
     BEETOKEN_PAYMENT_ADDRESS: '0x3a5ad6a52582c18dad0a7d300f3a2beac3e762e4',
     ETH_PAYMENT_ADDRESS: '0x8a436f1b5f6d30ddd9c05d1fd47fdb937366ee1a',
+    BTC_PAYMENT_ADDRESS: 'btc-payment-address-goes-here',
     FIREBASE_CONFIG: {
       apiKey: 'AIzaSyBVVBElrARlNDNLeTAHYuD6dvvAIXdU93E',
       authDomain: 'the-bee-token-firebae-dev.firebaseapp.com',
@@ -37,6 +38,7 @@ module.exports = {
     BEETOKEN_ADDRESS: '0x7fffac23d59d287560dfeca7680b5393426cf503',
     BEETOKEN_PAYMENT_ADDRESS: '0x3a5ad6a52582c18dad0a7d300f3a2beac3e762e4',
     ETH_PAYMENT_ADDRESS: '0x8a436f1b5f6d30ddd9c05d1fd47fdb937366ee1a',
+    BTC_PAYMENT_ADDRESS: 'btc-payment-address-goes-here',
     FIREBASE_CONFIG: {
       apiKey: 'AIzaSyBVVBElrARlNDNLeTAHYuD6dvvAIXdU93E',
       authDomain: 'the-bee-token-firebae-dev.firebaseapp.com',
@@ -60,6 +62,7 @@ module.exports = {
     BEETOKEN_ADDRESS: '0x4D8fc1453a0F359e99c9675954e656D80d996FbF',
     BEETOKEN_PAYMENT_ADDRESS: '0xb3C348c4a6D95fee050bF8A770fC91EC60aa4ab2',
     ETH_PAYMENT_ADDRESS: '0x8a436f1b5f6d30ddd9c05d1fd47fdb937366ee1a',
+    BTC_PAYMENT_ADDRESS: 'btc-payment-address-goes-here',
     FIREBASE_CONFIG: {
       apiKey: 'AIzaSyAv9jUUQcob4SjtUIMOylkImD8UogfaqNo',
       authDomain: 'beetoken-staging.firebaseapp.com',
@@ -83,6 +86,7 @@ module.exports = {
     BEETOKEN_ADDRESS: '0x4D8fc1453a0F359e99c9675954e656D80d996FbF',
     BEETOKEN_PAYMENT_ADDRESS: '0xb3C348c4a6D95fee050bF8A770fC91EC60aa4ab2',
     ETH_PAYMENT_ADDRESS: '',
+    BTC_PAYMENT_ADDRESS: 'btc-payment-address-goes-here',
     FIREBASE_CONFIG: {
       apiKey: 'AIzaSyDS9QPfvghy3gX0pLIayXLnpOCTV2rJwe0',
       authDomain: 'beetoken-prod.firebaseapp.com',
