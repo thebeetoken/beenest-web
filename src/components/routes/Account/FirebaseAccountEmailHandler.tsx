@@ -57,7 +57,7 @@ export default class FirebaseAccountEmailHandler extends React.Component<RouterP
     const { hasError } = this.state;
     const renderBody = hasError ?
           <>
-            <h1 >There was an error verifying your email.</h1>
+            <h2>There was an error verifying your email.</h2>
             <p>{this.state.errorMessage}</p>
             <p>
               <BeeLink href="mailto:support@beenest.com">
@@ -67,9 +67,6 @@ export default class FirebaseAccountEmailHandler extends React.Component<RouterP
           </>
           :
           <>
-            <h1>You verified your email.</h1>
-
-            <h2>Next Steps:</h2>
             <p>Thanks for verifying your email.</p>
 
             <BeeLink to="/host/listings">
