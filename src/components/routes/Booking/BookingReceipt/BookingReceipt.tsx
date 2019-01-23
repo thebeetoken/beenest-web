@@ -1,7 +1,6 @@
 import * as React from 'react';
 import { Query } from 'react-apollo';
 import { Link, Redirect } from 'react-router-dom';
-import BitcoinQRCode from 'react-bitcoin-qr';
 
 import { GET_BOOKING_RECEIPT, Booking, Currency } from 'networking/bookings';
 import { APP_ENV, AppEnv, SETTINGS } from 'configs/settings';
@@ -9,6 +8,7 @@ import { APP_ENV, AppEnv, SETTINGS } from 'configs/settings';
 import BookingReceiptContainer from './BookingReceipt.container';
 import BookingNavBar from '../BookingNavBar';
 import BookingReceiptBar from './BookingReceiptBar';
+import BitcoinQRCode from 'shared/BitcoinQRCode';
 import Button from 'shared/Button';
 import { numberToLocaleString } from 'utils/numberToLocaleString';
 import { AppConsumer, AppConsumerProps, ScreenType } from 'components/App.context';
@@ -137,7 +137,7 @@ const Confirmation = ({ currency, id, guestTotalAmount, guestTxHash }: Booking) 
             <div>
               <BitcoinQRCode
                 address={BTC_PAYMENT_ADDRESS}
-                amount={guestTotalAmount * BTC_TO_SATOSHI}
+                amount={`${guestTotalAmount * BTC_TO_SATOSHI}`}
                 message={`beenest.com booking ${id}`}
               />
             </div>

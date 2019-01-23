@@ -9,7 +9,7 @@ interface Props {
   message?: string;
 }
 
-const toBitcoinUri = ({ address, amount, label, message }) => URL.format({
+const toBitcoinUri = ({ address, amount, label, message }: Props) => URL.format({
   protocol: 'bitcoin',
   host: address,
   query: { amount, label, message }
