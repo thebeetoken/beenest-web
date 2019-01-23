@@ -1,13 +1,12 @@
 import styled from 'styled-components';
 import { color, typography } from 'styled/utils';
 
-const ExpiredTripCardContainer = styled.div`
+const ExpiredTripCardMobile = styled.div`
   box-shadow: 0 4px 15px 0 ${color('middle')};
   display: flex;
   flex-direction: column;
   height: 426px;
   margin-bottom: 48px;
-  width: 272px;
   .trip-card--img {
     height: 142px;
   }
@@ -74,4 +73,12 @@ const ExpiredTripCardContainer = styled.div`
   }
 `;
 
-export default ExpiredTripCardContainer;
+const ExpiredTripCardTablet = styled(ExpiredTripCardMobile)`
+  @media (min-width: 768px) {
+    width: 272px;
+  }
+`;
+
+
+
+export default ExpiredTripCardTablet;

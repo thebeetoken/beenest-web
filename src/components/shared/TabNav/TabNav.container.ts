@@ -3,12 +3,13 @@ import { color, typography } from 'styled/utils';
 
 type Props = Partial<{
   height: number;
-  width: number;
+  tabWidth: number;
 }>;
 
 const TabNavContainer = styled.div`
   display: flex;
   height: ${({ height }: Props) => height ? `${height}px` : '100%'};
+  width: 100%;
 
 
   .bee-tab-nav--item {
@@ -16,7 +17,7 @@ const TabNavContainer = styled.div`
     display: flex;
     height: inherit;
     justify-content: center;
-    width: ${({ width }: Props) => `${width || 132}px`};
+    width: ${({ tabWidth }: Props) => tabWidth ? `${tabWidth}px` : '100%'};
     a {
       ${typography('title', 7)}
       align-items: center;

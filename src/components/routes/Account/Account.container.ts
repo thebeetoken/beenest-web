@@ -67,6 +67,13 @@ const AccountContainerTablet = styled(AccountContainerMobile)`
           padding-left: 8px;
         }
       }
+      .content {
+        .left {
+          nav {
+            width: 528px;
+          }
+        }
+      }
     }
   }
 `;

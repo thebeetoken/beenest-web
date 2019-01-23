@@ -6,7 +6,6 @@ const ActiveTripCardMobile = styled.div`
   height: 402px;
   flex-direction: column;
   min-width: 272px;
-  width: 272px;
   .trip-large-section {
     display: flex;
     flex-direction: column;
@@ -71,12 +70,12 @@ const ActiveTripCardMobile = styled.div`
   }
   .active-trip-photo {
     height: 142px;
-    width: 272px;
   }
 `;
 
 const ActiveTripCardTablet = styled(ActiveTripCardMobile)`
   @media (min-width: 768px) {
+    width: 272px;
   }
 `;
 

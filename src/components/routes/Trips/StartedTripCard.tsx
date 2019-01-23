@@ -14,7 +14,6 @@ import { stringifyQueryString } from 'utils/queryParams';
 import { Listing } from 'networking/listings';
 
 interface Props {
-  // onCancelClick: () => void;
   trip: Booking;
 }
 
@@ -37,7 +36,6 @@ const StartedTripCard = ({ trip }: Props) => {
         <h3>
           <BeeLink target="_blank" to={`/listings/${idSlug}${queryParams}`}>{listing.title}</BeeLink>
         </h3>
-        {/* <div className="bee-flex-div" /> */}
         <div className="address">
         <BeeLink href={getGoogleMapURI(listing)} target="_blank">
           <ListItem noHover suffixColor="secondary" textColor="secondary" textTransform="uppercase">
@@ -51,12 +49,22 @@ const StartedTripCard = ({ trip }: Props) => {
         </BeeLink>
         </div>
         <div className="dates">
-          <h5>
-            Check-in: <span>{formatSingleDate(checkInDate)}</span>
-          </h5>
-          <h5>
-            Check-out: <span>{formatSingleDate(checkOutDate)}</span>
-          </h5>
+          <div className="date">
+            <h5>
+              Check-in:
+            </h5>
+            <h6>
+              {formatSingleDate(checkInDate)}
+            </h6>
+          </div>
+          <div className="date">
+            <h5>
+              Check-out:
+            </h5>
+            <h6>
+              {formatSingleDate(checkOutDate)}
+            </h6>
+          </div>
         </div>
         <div className="divider">
           <Divider />
@@ -71,7 +79,6 @@ const StartedTripCard = ({ trip }: Props) => {
             Continue Booking
           </Button>
         </BeeLink>
-        <div className="bee-flex-div"></div>
       </div>
     </StartedTripCardContainer>
   );

@@ -79,9 +79,8 @@ const TripsContainerMobile = styled.div`
         }
       }
       .active-cards-container {
-        align-items: center;
         display: flex;
-        flex-direction: row;
+        flex-direction: column;
         margin-bottom: 24px;
         width: 100%;
         .active-trip-card {

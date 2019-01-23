@@ -53,10 +53,10 @@ const AccountNavContainerMobile = styled.nav`
   }
 `;
 
-const AccountNavContainer = styled(AccountNavContainerMobile)`
+const AccountNavTablet = styled(AccountNavContainerMobile)`
   @media (min-width: 768px) {
     height: 48px;
-    width: 528px;
+    width: 100%;
 
 
     /* need to re-add styled here for last tab because it goes through a query
@@ -88,4 +88,10 @@ const AccountNavContainer = styled(AccountNavContainerMobile)`
   }
 `;
 
-export default AccountNavContainer;
+// const AccountNavDesktop = styled(AccountNavTablet)`
+//   @media (min-width: 1025px) {
+//     width: 528px;
+//   }
+// `;
+
+export default AccountNavTablet;

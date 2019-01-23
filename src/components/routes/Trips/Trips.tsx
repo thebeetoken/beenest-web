@@ -91,7 +91,7 @@ class Trips extends React.Component<Props, State> {
                       to: '/trips/past',
                     },
                     {
-                      title: 'Cancelled/\nRejected',
+                      title: 'Cancelled /\nRejected',
                       to: '/trips/cancelled',
                     }
                   ]} />
