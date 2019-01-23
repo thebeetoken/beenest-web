@@ -129,6 +129,8 @@ const Confirmation = ({ currency, id, guestTxHash }: Booking) => (
             <div className="disclaimer">
               Payment is due at the address above. This booking is not valid until paid.
               You will be notified via email within 24 hours once your host confirms your booking.
+              If the booking is declined, the paid amount will be returned to the address you used
+              to pay.
             </div>
           </>
         );
