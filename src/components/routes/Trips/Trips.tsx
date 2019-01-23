@@ -61,20 +61,8 @@ class Trips extends React.Component<Props, State> {
                 return <h1>{error ? error.message : 'Error / No Data'}</h1>;
               }
               const { cancelled, current, past, started, upcoming } = data;
-              const isEmpty = Object.values(data).every((bookings: Booking[]) => !bookings.length);
-              if (isEmpty) {
-                return (
-                  <div className="trips-book-now">
-                    <div className="trips-book-now--text">
-                      <h2>You haven't booked any trips yet.</h2>
-                      <BeeLink to="/">Let's change that!</BeeLink>
-                    </div>
-                    <BeeLink to="/">
-                      <Button radius="4px">Book a Home Today!</Button>
-                    </BeeLink>
-                  </div>
-                );
-              }
+              const isCurrentEmpty = !(current ? [] : current).length;
+              const isUpcomingEmpty = !(upcoming ? [] : upcoming).length;
               return (
                 <>
                   <AccountNav config={[
@@ -124,17 +112,28 @@ class Trips extends React.Component<Props, State> {
                       } />
                       <Route exact path="/trips/upcoming" component={() =>
                         <>
-                          {!!upcoming.length && (
-                            <section className="active-cards-container">
-                              {upcoming.map((trip: Booking) => (
-                                <ActiveTripCard
-                                  onCancelClick={this.handleCancelBooking.bind(this, trip)}
-                                  key={trip.id}
-                                  trip={trip}
-                                />
-                              ))}
-                            </section>
-                          )}
+                          {isUpcomingEmpty
+                            ?
+                              <div className="trips-book-now">
+                                <div className="trips-book-now--text">
+                                  <h2>You haven't booked any trips yet.</h2>
+                                  <BeeLink to="/">Let's change that!</BeeLink>
+                                </div>
+                                <BeeLink to="/">
+                                  <Button radius="4px">Book a Home Today!</Button>
+                                </BeeLink>
+                              </div>
+                            :
+                              <section className="active-cards-container">
+                                {upcoming.map((trip: Booking) => (
+                                  <ActiveTripCard
+                                    onCancelClick={this.handleCancelBooking.bind(this, trip)}
+                                    key={trip.id}
+                                    trip={trip}
+                                  />
+                                ))}
+                              </section>
+                          }
                         </>
                       } />
                       <Route exact path="/trips/past" component={() =>
@@ -159,7 +158,7 @@ class Trips extends React.Component<Props, State> {
                           )}
                         </>
                       } />
-                      <Redirect exact from="/trips" to="/trips/current" />
+                      <Redirect exact from="/trips" to={isCurrentEmpty ? "/trips/upcoming" : "/trips/current"} />
                       <Route component={NotFound} />
                     </Switch>
                   </div>
