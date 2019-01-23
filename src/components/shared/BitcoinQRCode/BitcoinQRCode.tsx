@@ -2,6 +2,7 @@ import * as React from 'react';
 import URL from 'url';
 import { QRCode } from 'react-qr-svg';
 
+// Interface designed for compatibility with react-bitcoin-qr
 interface Props {
   address: string;
   amount: string;
