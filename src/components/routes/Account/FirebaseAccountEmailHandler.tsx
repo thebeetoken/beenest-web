@@ -86,7 +86,7 @@ export default class FirebaseAccountEmailHandler extends React.Component<RouterP
 
               if (user && !completedVerification) {
                 return <section>
-                        <BeeLink to="/account/verification">
+                        <BeeLink href="/account/verification">
                           <Button>Verify your phone number to book a rental</Button>
                         </BeeLink>
                       </section>;
