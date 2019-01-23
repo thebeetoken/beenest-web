@@ -38,7 +38,6 @@ const TripsContainerMobile = styled.div`
       }
     }
     nav {
-      align-self: center;
       margin-bottom: 40px;
     }
     .trips-book-now {
@@ -68,13 +67,12 @@ const TripsContainerMobile = styled.div`
         margin-bottom: 24px;
       }
       .started-trip-container {
-        align-items: center;
         display: flex;
         flex-direction: column;
         justify-content: center;
+        margin-bottom: 24px;
         width: 100%;
         > h3 {
-          align-self: flex-start;
           ${typography('title', 7)};
           color: ${color('body')};
           margin-bottom: 24px;
@@ -133,7 +131,6 @@ const TripsContainerTablet = styled(TripsContainerMobile)`
         }
       }
       nav {
-        align-self: center;
         margin-bottom: 40px;
       }
       .trips-book-now {

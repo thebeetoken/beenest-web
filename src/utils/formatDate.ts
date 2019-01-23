@@ -16,8 +16,8 @@ export const formatDateRange = (checkInDate: string, checkOutDate: string): stri
  * @param {string} string ex. 2019-01-09T00:00:00.000Z
  * @returns {string} ex. 01/09/2019
  */
-export const formatSingleDate = (date: string): string => {
-  return format(date.slice(0, 10), 'MM/DD/YY');
+export const formatSingleDate = (date: string, formatString?: string): string => {
+  return format(date.slice(0, 10), formatString || 'MM/DD/YYYY');
 }
 
 /**

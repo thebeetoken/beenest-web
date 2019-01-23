@@ -26,7 +26,7 @@ const AccountNavContainerMobile = styled.nav`
       z-index: 1;
     }
     > span {
-      ${typography('read', 2)}
+      ${typography('read', 3)}
       text-align: center;
       word-break: break-word;
     }

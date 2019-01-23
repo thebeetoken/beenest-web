@@ -24,6 +24,7 @@ import CryptoPortal from 'shared/CryptoPortal';
 import AccountNav from 'routes/Account/AccountNav';
 import { Switch, Route, Redirect } from 'react-router';
 import NotFound from 'components/routes/NotFound';
+import StartedTripCard from 'components/routes/Trips/StartedTripCard';
 
 interface Props {
   cancelBooking: (booking: Booking) => Promise<void>;
@@ -102,9 +103,7 @@ class Trips extends React.Component<Props, State> {
                             <>
                               <div className="started-trip-container">
                                 <h3>Finish this booking:</h3>
-                                <ActiveTripCard 
-                                  onCancelClick={this.handleCancelBooking.bind(this, started[0])}
-                                  key={started[0].id}
+                                <StartedTripCard
                                   trip={started[0]} />
                               </div>
                               <Divider size="tall" />
