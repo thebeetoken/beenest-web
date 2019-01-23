@@ -98,7 +98,7 @@ export default BookingReceipt;
 const Confirmation = ({ currency, id, guestTotalAmount, guestTxHash }: Booking) => (
   <AppConsumer>
     {({ screenType }: AppConsumerProps) => {
-      if (screenType < ScreenType.DESKTOP) {
+      if (screenType < ScreenType.DESKTOP && currency !== Currency.BTC) {
         return (
           <div className="disclaimer">
             *You will be notified via email within 24 hours once your host confirms your booking.
