@@ -103,7 +103,7 @@ export default class FirebaseAccountEmailHandler extends React.Component<RouterP
                   </BeeLink>
                   or
                   <BeeLink to="/">
-                    <Button border="core" background="white">Find a place to stay at</Button>
+                    Find a place to stay at
                   </BeeLink>
                 </section>;
               }
