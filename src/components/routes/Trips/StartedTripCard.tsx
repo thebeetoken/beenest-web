@@ -12,6 +12,7 @@ import Button from 'components/shared/Button';
 import { Booking } from 'networking/bookings';
 import { stringifyQueryString } from 'utils/queryParams';
 import { Listing } from 'networking/listings';
+import { formatAddress } from 'utils/formatter';
 
 interface Props {
   trip: Booking;
@@ -20,7 +21,6 @@ interface Props {
 const StartedTripCard = ({ trip }: Props) => {
   const { checkInDate, checkOutDate, listing, numberOfGuests } = trip;
   const { idSlug } = listing;
-  const streetAddress = (listing.addressLine1 || '').concat(listing.addressLine2 ? `, ${listing.addressLine2}` : '');
   const queryString = stringifyQueryString({
     checkInDate: formatSingleDate(checkInDate, 'YYYY-MM-DD'),
     checkOutDate: formatSingleDate(checkOutDate, 'YYYY-MM-DD'),
@@ -39,7 +39,7 @@ const StartedTripCard = ({ trip }: Props) => {
         <div className="address">
         <BeeLink href={getGoogleMapURI(listing)} target="_blank">
           <ListItem noHover suffixColor="secondary" textColor="secondary" textTransform="uppercase">
-            <span>{trip.status === 'host_approved' && streetAddress} {listing.city && `${listing.city}, `}{listing.state && `${listing.state}, `}{listing.country.toUpperCase()}</span>
+            <span>{formatAddress(listing.city, listing.state, listing.country.toUpperCase())}</span>
             <AppConsumer>
               {({ screenType }: AppConsumerProps) => (
                 screenType > ScreenType.TABLET && <Svg className="suffix" src="decorative/location" />
