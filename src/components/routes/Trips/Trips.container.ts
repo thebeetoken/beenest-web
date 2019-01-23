@@ -156,16 +156,8 @@ const TripsContainerTablet = styled(TripsContainerMobile)`
           }
         }
         .active-cards-container {
-          display: flex;
-          flex-direction: row;
-          flex-wrap: wrap;
-          margin-bottom: 24px;
-          width: 100%;
           .active-trip-card {
-            margin-bottom: 48px;
-            &:nth-of-type(2n) {
-              margin-left: 100px;
-            }
+            margin-bottom: 40px;
           }
         }
         .expired-trip-cards {
@@ -227,17 +219,6 @@ const TripsContainerDesktop = styled(TripsContainerTablet)`
           > h3 {
             ${typography('emp', 5)};
             align-self: flex-start;
-          }
-        }
-        .active-cards-container {
-          display: flex;
-          margin-bottom: 24px;
-          width: 100%;
-          .active-trip-card {
-            margin-bottom: 48px;
-            &:nth-of-type(2n) {
-              margin-left: 0;
-            }
           }
         }
         .expired-trip-cards {

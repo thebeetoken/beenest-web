@@ -34,7 +34,7 @@ const ActiveTripCard = ({ onCancelClick, trip }: Props) => {
       <div className="active-trip-photo">
         <LazyImage src={listing.listingPicUrl} transition />
       </div>
-      <div className="trip-large-section">
+      <div className="active-trip-info">
         <h3>
           <BeeLink to={titleLink}>{listing.title}</BeeLink>
         </h3>
@@ -52,12 +52,14 @@ const ActiveTripCard = ({ onCancelClick, trip }: Props) => {
         </BeeLink>
         </div>
         <div className="dates">
-          <h5>
-            Check-in: <span>{formatSingleDate(checkInDate)}</span>
-          </h5>
-          <h5>
-            Check-out: <span>{formatSingleDate(checkOutDate)}</span>
-          </h5>
+          <div className="date">
+            <h5>Check-in:</h5>
+            <h6>{formatSingleDate(checkInDate)}</h6>
+          </div>
+          <div className="date">
+            <h5>Check-out:</h5>
+            <h6>{formatSingleDate(checkOutDate)}</h6>
+          </div>
         </div>
         <h4>Status: {displayStatus}</h4>
         <h5>Booking: <span>{id}</span></h5>
