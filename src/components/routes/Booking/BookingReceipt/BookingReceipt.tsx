@@ -1,6 +1,7 @@
 import * as React from 'react';
 import { Query } from 'react-apollo';
 import { Link, Redirect } from 'react-router-dom';
+import BitcoinQRCode from 'react-bitcoin-qr';
 
 import { GET_BOOKING_RECEIPT, Booking, Currency } from 'networking/bookings';
 import { APP_ENV, AppEnv, SETTINGS } from 'configs/settings';
@@ -13,6 +14,7 @@ import { numberToLocaleString } from 'utils/numberToLocaleString';
 import { AppConsumer, AppConsumerProps, ScreenType } from 'components/App.context';
 
 const { BTC_PAYMENT_ADDRESS } = SETTINGS;
+const BTC_TO_SATOSHI = Math.pow(10, 8);
 
 const BookingReceipt = ({ match }: RouterProps) => (
   <Query query={GET_BOOKING_RECEIPT} variables={{ id: match.params.id }}>
@@ -94,7 +96,7 @@ const BookingReceipt = ({ match }: RouterProps) => (
 
 export default BookingReceipt;
 
-const Confirmation = ({ currency, id, guestTxHash }: Booking) => (
+const Confirmation = ({ currency, id, guestTotalAmount, guestTxHash }: Booking) => (
   <AppConsumer>
     {({ screenType }: AppConsumerProps) => {
       if (screenType < ScreenType.DESKTOP) {
@@ -131,6 +133,13 @@ const Confirmation = ({ currency, id, guestTxHash }: Booking) => (
               You will be notified via email within 24 hours once your host confirms your booking.
               If the booking is declined, the paid amount will be returned to the address you used
               to pay.
+            </div>
+            <div>
+              <BitcoinQRCode
+                address={BTC_PAYMENT_ADDRESS}
+                amount={guestTotalAmount * BTC_TO_SATOSHI}
+                message={`beenest.com booking ${id}`}
+              />
             </div>
           </>
         );
