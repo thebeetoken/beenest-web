@@ -4,7 +4,6 @@ import ActiveTripCardContainer from './ActiveTripCard.container';
 
 import { AppConsumer, AppConsumerProps, ScreenType } from 'components/App.context';
 import { Booking } from 'networking/bookings';
-import { Listing } from 'networking/listings';
 import BeeLink from 'shared/BeeLink';
 import Divider from 'shared/Divider';
 import LazyImage from 'shared/LazyImage';
@@ -24,6 +23,7 @@ interface Props {
 
 const ActiveTripCard = ({ onCancelClick, trip }: Props) => {
   const { checkInDate, checkOutDate, id, listing, status } = trip;
+  const { lat, lng } = listing;
   const streetAddress = (listing.addressLine1 || '').concat(listing.addressLine2 ? `, ${listing.addressLine2}` : '');
   const isApproved = status === 'host_approved';
   const isStarted = status === 'started';
@@ -40,7 +40,7 @@ const ActiveTripCard = ({ onCancelClick, trip }: Props) => {
         </h3>
         <div className="bee-flex-div" />
         <div className="address">
-        <BeeLink href={getGoogleMapURI(listing)} target="_blank">
+        <BeeLink href={`https://www.google.com/maps/search/?api=1&query=${lat},${lng}`} target="_blank">
           <ListItem noHover suffixColor="secondary" textColor="secondary" textTransform="uppercase">
             <span>{trip.status === 'host_approved' && streetAddress} {listing.city && `${listing.city}, `}{listing.state && `${listing.state}, `}{listing.country.toUpperCase()}</span>
             <AppConsumer>
@@ -129,7 +129,3 @@ const ActiveTripCard = ({ onCancelClick, trip }: Props) => {
 
 export default ActiveTripCard;
 
-function getGoogleMapURI(listing: Listing): string {
-  const listingAddress = `${listing.addressLine1 ? listing.addressLine1 + ' ' : ''}${listing.city} ${listing.state}`;
-  return `https://www.google.com/maps/place/${encodeURIComponent(listingAddress)}`;
-}

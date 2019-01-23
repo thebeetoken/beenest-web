@@ -291,7 +291,9 @@ export const GET_GUEST_SORTED_BOOKINGS = gql`
       country
       id
       idSlug
+      lat
       listingPicUrl
+      lng
       state
       title
     }
@@ -303,7 +305,6 @@ export const GET_GUEST_SORTED_BOOKINGS = gql`
     upcoming: guestBookings(status: "upcoming") {
       currency
       listing {
-        id
         addressLine1
         addressLine2
       }

@@ -11,7 +11,6 @@ import Svg from 'components/shared/Svg';
 import Button from 'components/shared/Button';
 import { Booking } from 'networking/bookings';
 import { stringifyQueryString } from 'utils/queryParams';
-import { Listing } from 'networking/listings';
 import { formatAddress } from 'utils/formatter';
 
 interface Props {
@@ -20,7 +19,7 @@ interface Props {
 
 const StartedTripCard = ({ trip }: Props) => {
   const { checkInDate, checkOutDate, listing, numberOfGuests } = trip;
-  const { idSlug } = listing;
+  const { idSlug, lat, lng } = listing;
   const queryString = stringifyQueryString({
     checkInDate: formatSingleDate(checkInDate, 'YYYY-MM-DD'),
     checkOutDate: formatSingleDate(checkOutDate, 'YYYY-MM-DD'),
@@ -37,7 +36,7 @@ const StartedTripCard = ({ trip }: Props) => {
           <BeeLink target="_blank" to={`/listings/${idSlug}${queryParams}`}>{listing.title}</BeeLink>
         </h3>
         <div className="address">
-        <BeeLink href={getGoogleMapURI(listing)} target="_blank">
+        <BeeLink href={`https://www.google.com/maps/search/?api=1&query=${lat},${lng}`} target="_blank">
           <ListItem noHover suffixColor="secondary" textColor="secondary" textTransform="uppercase">
             <span>{formatAddress(listing.city, listing.state, listing.country.toUpperCase())}</span>
             <AppConsumer>
@@ -85,8 +84,3 @@ const StartedTripCard = ({ trip }: Props) => {
 };
 
 export default StartedTripCard;
-
-function getGoogleMapURI(listing: Listing): string {
-  const listingAddress = `${listing.addressLine1 ? listing.addressLine1 + ' ' : ''}${listing.city} ${listing.state}`;
-  return `https://www.google.com/maps/place/${encodeURIComponent(listingAddress)}`;
-}
