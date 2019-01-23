@@ -123,7 +123,7 @@ const StartedTripCardTablet = styled(StartedTripCardMobile)`
       }
     }
     .started-trip-photo {
-      height: 238px;
+      height: auto;
       width: 312px;
     }
   }
@@ -178,7 +178,7 @@ const StartedTripCardDesktop = styled(StartedTripCardTablet)`
       }
     }
     .started-trip-photo {
-      height: 238px;
+      height: 290px;
       width: 472px;
     }
   }
