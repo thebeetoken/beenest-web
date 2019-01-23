@@ -25,6 +25,7 @@ import Login from './routes/authentication/Login';
 import Logout from './routes/authentication/Logout';
 import SignUp from './routes/authentication/SignUp';
 import { StripeExpressComplete, StripeExpressNew } from './routes/Account/StripeExpress';
+import FirebaseAccountEmailHandler from './routes/Account/FirebaseAccountEmailHandler';
 import Trips from './routes/Trips';
 import TripsReceipt from './routes/Trips/TripsReceipt';
 import NotFound from './routes/NotFound';
@@ -45,6 +46,7 @@ const AppRoutes = () => (
       return (
         <AppContainer className="bee-app" {...bannerState}>
           <Switch>
+            <Route exact path="/account/verify" component={FirebaseAccountEmailHandler} />
             <Route exact path="/account/stripe_express/new" component={StripeExpressNew} />
             <Route exact path="/account/stripe_express/complete" component={StripeExpressComplete} />
             <AuthenticatedRoute path="/account" component={Account} />
