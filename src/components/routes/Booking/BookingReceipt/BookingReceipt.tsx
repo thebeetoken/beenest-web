@@ -14,7 +14,6 @@ import { numberToLocaleString } from 'utils/numberToLocaleString';
 import { AppConsumer, AppConsumerProps, ScreenType } from 'components/App.context';
 
 const { BTC_PAYMENT_ADDRESS } = SETTINGS;
-const BTC_TO_SATOSHI = Math.pow(10, 8);
 
 const BookingReceipt = ({ match }: RouterProps) => (
   <Query query={GET_BOOKING_RECEIPT} variables={{ id: match.params.id }}>
@@ -131,7 +130,7 @@ const Confirmation = ({ currency, id, guestTotalAmount, guestTxHash }: Booking) 
             <div className="btc-qr-code">
               <BitcoinQRCode
                 address={BTC_PAYMENT_ADDRESS}
-                amount={`${guestTotalAmount * BTC_TO_SATOSHI}`}
+                amount={`${guestTotalAmount}`}
                 message={`beenest.com booking ${id}`}
               />
             </div>
