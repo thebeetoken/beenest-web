@@ -3,7 +3,6 @@ import { color, typography } from 'styled/utils';
 
 const StartedTripCardMobile = styled.div`
   display: flex;
-  height: 402px;
   flex-direction: column;
   min-width: 272px;
   width: 272px;
@@ -77,9 +76,8 @@ const StartedTripCardTablet = styled(StartedTripCardMobile)`
 const StartedTripCardDesktop = styled(StartedTripCardTablet)`
   @media (min-width: 1025px) {
     flex-direction: row-reverse;
-    height: 312px;
+    height: 238px;
     justify-content: space-between;
-    margin-bottom: 44px;
     width: 976px;
     .started-trip-info {
       height: 100%;
@@ -126,7 +124,7 @@ const StartedTripCardDesktop = styled(StartedTripCardTablet)`
       }
     }
     .started-trip-photo {
-      height: 292px;
+      height: 238px;
       width: 472px;
     }
   }

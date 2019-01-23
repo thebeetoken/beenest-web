@@ -75,16 +75,16 @@ const TripsContainerMobile = styled.div`
         > h3 {
           ${typography('title', 7)};
           color: ${color('body')};
-          margin-bottom: 24px;
+          margin-bottom: 16px;
         }
       }
       .active-cards-container {
         align-items: center;
         display: flex;
-        flex-direction: column;
+        flex-direction: row;
         margin-bottom: 24px;
         width: 100%;
-        .bee-active-trip-card {
+        .active-trip-card {
           margin-bottom: 24px;
         }
       }
@@ -162,7 +162,7 @@ const TripsContainerTablet = styled(TripsContainerMobile)`
           flex-wrap: wrap;
           margin-bottom: 24px;
           width: 100%;
-          .bee-active-trip-card {
+          .active-trip-card {
             margin-bottom: 48px;
             &:nth-of-type(2n) {
               margin-left: 100px;
@@ -224,6 +224,7 @@ const TripsContainerDesktop = styled(TripsContainerTablet)`
       }
       .trip-cards-container {
         .started-trip-container {
+          margin-bottom: 40px;
           > h3 {
             ${typography('emp', 5)};
             align-self: flex-start;
@@ -233,7 +234,7 @@ const TripsContainerDesktop = styled(TripsContainerTablet)`
           display: flex;
           margin-bottom: 24px;
           width: 100%;
-          .bee-active-trip-card {
+          .active-trip-card {
             margin-bottom: 48px;
             &:nth-of-type(2n) {
               margin-left: 0;

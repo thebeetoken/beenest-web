@@ -30,7 +30,7 @@ const ActiveTripCard = ({ onCancelClick, trip }: Props) => {
   const displayStatus = getUserBookingDisplayStatus(status);
   const titleLink = status === 'started' ? `/bookings/${id}/options` : `listings/${listing.idSlug}`;
   return (
-    <ActiveTripCardContainer className="bee-active-trip-card">
+    <ActiveTripCardContainer className="active-trip-card">
       <div className="active-trip-photo">
         <LazyImage src={listing.listingPicUrl} transition />
       </div>

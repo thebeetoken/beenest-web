@@ -71,6 +71,7 @@ const StartedTripCard = ({ trip }: Props) => {
             Continue Booking
           </Button>
         </BeeLink>
+        <div className="bee-flex-div"></div>
       </div>
     </StartedTripCardContainer>
   );
