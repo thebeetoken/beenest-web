@@ -151,6 +151,7 @@ const BookingReceiptContainer = styled.div`
 
     .booking-receipt-bar-container {
       position: fixed;
+      background-color: ${color('white')};
       bottom: 0;
       left: 0;
       height: 80px;
