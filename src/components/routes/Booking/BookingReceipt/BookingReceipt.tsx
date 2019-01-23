@@ -124,22 +124,22 @@ const Confirmation = ({ currency, id, guestTotalAmount, guestTxHash }: Booking) 
       if (currency === Currency.BTC) {
         return (
           <>
-            <div className="usd-confirmation-container">
+            <div className="btc-confirmation-container">
               <h3>Payment Address</h3>
               <span>{BTC_PAYMENT_ADDRESS}</span>
             </div>
-            <div className="disclaimer">
-              Payment is due at the address above. This booking is not valid until paid.
-              You will be notified via email within 24 hours once your host confirms your booking.
-              If the booking is declined, the paid amount will be returned to the address you used
-              to pay.
-            </div>
-            <div>
+            <div className="btc-qr-code">
               <BitcoinQRCode
                 address={BTC_PAYMENT_ADDRESS}
                 amount={`${guestTotalAmount * BTC_TO_SATOSHI}`}
                 message={`beenest.com booking ${id}`}
               />
+            </div>
+            <div className="disclaimer">
+              Payment is due at the address (or using the QR code) above. This booking is not valid until paid.
+              You will be notified via email within 24 hours once your host confirms your booking.
+              If the booking is declined, the paid amount will be returned to the address you used
+              to pay.
             </div>
           </>
         );
