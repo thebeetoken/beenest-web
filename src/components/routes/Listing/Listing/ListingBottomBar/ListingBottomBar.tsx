@@ -4,16 +4,18 @@ import Button from 'components/shared/Button';
 import ListingBottomBarContainer from './ListingBottomBar.container';
 import { numberToLocaleString } from 'utils/numberToLocaleString';
 import { Currency } from 'networking/bookings';
+import { Price } from 'networking/listings';
 
 interface Props {
-  pricePerNight: number;
   pricePerNightUsd: number;
+  prices: Price[];
   showCard: boolean;
   toggleCard?: () => void;
 }
 
-const ListingBottomBar = ({ pricePerNight, pricePerNightUsd, showCard, toggleCard }: Props) => (
-  <ListingBottomBarContainer>
+const ListingBottomBar = ({ prices, pricePerNightUsd, showCard, toggleCard }: Props) => {
+  const beePrice = prices.find(({ currency }) => currency === Currency.BEE);
+  return (<ListingBottomBarContainer>
     <div className="pricing-container">
       <div className="pricing-container--primary">
         <h4>
@@ -22,10 +24,10 @@ const ListingBottomBar = ({ pricePerNight, pricePerNightUsd, showCard, toggleCar
         </h4>
       </div>
       <div className="pricing-container--other-rates">
-        <h5>
-          {numberToLocaleString(pricePerNight, Currency.BEE)}
+        { beePrice && <h5>
+          {numberToLocaleString(beePrice.pricePerNight, Currency.BEE)}
           <span>BEE</span>
-        </h5>
+        </h5>}
       </div>
     </div>
     {!showCard && (
@@ -33,7 +35,7 @@ const ListingBottomBar = ({ pricePerNight, pricePerNightUsd, showCard, toggleCar
         Request to Book
       </Button>
     )}
-  </ListingBottomBarContainer>
-);
+  </ListingBottomBarContainer>);
+};
 
 export default ListingBottomBar;

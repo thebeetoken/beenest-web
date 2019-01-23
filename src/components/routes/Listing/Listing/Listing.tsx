@@ -3,7 +3,6 @@ import { Query } from 'react-apollo';
 
 import ListingContainer from './Listing.container';
 import BookingRequestCard from './BookingRequestCard';
-import BuyNowCard from './BuyNowCard';
 import ListingBottomBar from './ListingBottomBar';
 import ListingGallery from './ListingGallery';
 import ListingInformation from './ListingInformation';
@@ -34,7 +33,6 @@ class Listing extends React.Component<RouterProps> {
             }
             const { listing } = data;
             const {
-              autoApprove,
               checkInDate,
               checkOutDate,
               id,
@@ -42,9 +40,8 @@ class Listing extends React.Component<RouterProps> {
               maxGuests,
               minimumNights,
               photos,
-              pricePerNight,
-              pricePerNightEth,
               pricePerNightUsd,
+              prices,
               reservations,
               totalQuantity,
               host,
@@ -53,21 +50,6 @@ class Listing extends React.Component<RouterProps> {
             const renderBookCard = (
               <FirebaseConsumer>
                 {({ user, completedVerification }: FirebaseUserProps) => {
-                  if (autoApprove) {
-                    return (
-                      <BuyNowCard
-                        loggedIn={!!user}
-                        completedVerification={completedVerification}
-                        listingId={id}
-                        checkInDate={checkInDate}
-                        checkOutDate={checkOutDate}
-                        pricePerNight={pricePerNight}
-                        pricePerNightEth={pricePerNightEth}
-                        pricePerNightUsd={pricePerNightUsd}
-                      />
-                    );
-                  }
-
                   return (
                     <BookingRequestCard
                       loggedIn={!!user}
@@ -77,8 +59,7 @@ class Listing extends React.Component<RouterProps> {
                       checkOutDate={checkOutDate}
                       maxGuests={maxGuests}
                       minimumNights={minimumNights}
-                      pricePerNight={pricePerNight}
-                      pricePerNightEth={pricePerNightEth}
+                      prices={prices}
                       pricePerNightUsd={pricePerNightUsd}
                       reservations={reservations}
                       totalQuantity={totalQuantity || 1}
@@ -101,7 +82,7 @@ class Listing extends React.Component<RouterProps> {
                       {responsive && (
                         <PopUpCard peekHeight={88} showCard={showCard} toggleCard={this.toggleCard}>
                           <ListingBottomBar
-                            pricePerNight={pricePerNight}
+                            prices={prices}
                             pricePerNightUsd={pricePerNightUsd}
                             showCard={showCard}
                             toggleCard={this.toggleCard}

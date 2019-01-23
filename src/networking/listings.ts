@@ -38,12 +38,9 @@ export interface Listing {
   listingPicUrl: string;
   photos: string[];
   postalCode: string;
-  pricePerNight: number;
   pricePerNightUsd: number;
-  pricePerNightEth: number;
+  prices: Price[];
   reservations: Reservation[];
-  securityDeposit: number;
-  securityDepositEth: number;
   securityDepositUsd: number;
   sharedBathroom: string;
   sleepingArrangement: string;
@@ -63,9 +60,8 @@ export interface ListingShort {
   lat: number;
   lng: number;
   listingPicUrl: string;
-  pricePerNight: number;
   pricePerNightUsd: number;
-  pricePerNightEth: number;
+  prices: Price[];
   sleepingArrangement: string;
   state: string;
   title: string;
@@ -124,6 +120,12 @@ export interface HostListingReservations {
   title: string;
 }
 
+export interface Price {
+  currency: Currency;
+  pricePerNight: number;
+  securityDeposit: number;
+}
+
 export interface Reservation {
   startDate: Date;
   endDate: Date;
@@ -139,26 +141,18 @@ export interface User {
   profilePicUrl: string;
 }
 
-interface Price {
-  amount: number;
-  currency: Currency;
-}
-
-export interface PaymentInfo {
-  hostWalletAddress: string;
-  listing: Listing;
-  prices: Price[];
-}
-
 const LISTING_CARD_FRAGMENT = gql`
   fragment ListingCard on Listing {
     city
     country
     id
     idSlug
-    pricePerNight
     pricePerNightUsd
-    pricePerNightEth
+    prices {
+      currency
+      pricePerNight
+      securityDeposit
+    }
     state
     title
   }
@@ -191,30 +185,11 @@ const LISTING_DETAILS_FRAGMENT = gql`
       startDate
       endDate
     }
-    securityDeposit
-    securityDepositEth
     securityDepositUsd
     sharedBathroom
     sleepingArrangement
     totalQuantity
     ...ListingCard
-  }
-`;
-
-export const GET_PAYMENT_INFO = gql`
-  query GetPaymentInfo($id: ID!) {
-    paymentInfo(id: $id) {
-      hostWalletAddress
-      listing {
-        id
-        description
-        title
-      }
-      prices {
-        amount
-        currency
-      }
-    }
   }
 `;
 
@@ -385,11 +360,12 @@ export const GET_ALL_LISTINGS = gql`
       maxGuests
       minimumNights
       listingPicUrl
-      pricePerNight
+      prices {
+        currency
+        pricePerNight
+        securityDeposit
+      }
       pricePerNightUsd
-      pricePerNightEth
-      securityDeposit
-      securityDepositEth
       securityDepositUsd
       state
       title
