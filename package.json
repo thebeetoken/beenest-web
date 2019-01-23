@@ -62,7 +62,6 @@
     "rc-calendar": "^9.8.2",
     "react": "^16.6.0",
     "react-apollo": "^2.2.4",
-    "react-bitcoin-qr": "0.0.3",
     "react-copy-to-clipboard": "^5.0.1",
     "react-dates": "^18.2.0",
     "react-dom": "^16.6.0",
