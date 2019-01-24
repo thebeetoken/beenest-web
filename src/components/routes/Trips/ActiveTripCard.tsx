@@ -15,6 +15,7 @@ import { getUserBookingDisplayStatus } from 'utils/bookingsDisplayStatus';
 import { ToggleProvider, ToggleProviderRef } from 'shared/ToggleProvider';
 import Portal from 'shared/Portal';
 import ContactHostForm from 'shared/ContactHostForm';
+import { getGoogleMapURI } from 'utils/formatter';
 
 interface Props {
   onCancelClick: () => void;
@@ -23,7 +24,6 @@ interface Props {
 
 const ActiveTripCard = ({ onCancelClick, trip }: Props) => {
   const { checkInDate, checkOutDate, id, listing, status } = trip;
-  const { lat, lng } = listing;
   const streetAddress = (listing.addressLine1 || '').concat(listing.addressLine2 ? `, ${listing.addressLine2}` : '');
   const isApproved = status === 'host_approved';
   const isStarted = status === 'started';
@@ -40,7 +40,7 @@ const ActiveTripCard = ({ onCancelClick, trip }: Props) => {
         </h3>
         <div className="bee-flex-div" />
         <div className="address">
-        <BeeLink href={`https://www.google.com/maps/search/?api=1&query=${lat},${lng}`} target="_blank">
+        <BeeLink href={getGoogleMapURI(listing)} target="_blank">
           <ListItem noHover suffixColor="secondary" textColor="secondary" textTransform="uppercase">
             <span>{trip.status === 'host_approved' && streetAddress} {listing.city && `${listing.city}, `}{listing.state && `${listing.state}, `}{listing.country.toUpperCase()}</span>
             <AppConsumer>
@@ -128,4 +128,3 @@ const ActiveTripCard = ({ onCancelClick, trip }: Props) => {
 };
 
 export default ActiveTripCard;
-

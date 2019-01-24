@@ -11,7 +11,7 @@ import Svg from 'components/shared/Svg';
 import Button from 'components/shared/Button';
 import { Booking } from 'networking/bookings';
 import { stringifyQueryString } from 'utils/queryParams';
-import { formatAddress } from 'utils/formatter';
+import { formatAddress, getGoogleMapURI } from 'utils/formatter';
 
 interface Props {
   trip: Booking;
@@ -19,7 +19,7 @@ interface Props {
 
 const StartedTripCard = ({ trip }: Props) => {
   const { checkInDate, checkOutDate, listing, numberOfGuests } = trip;
-  const { idSlug, lat, lng } = listing;
+  const { idSlug } = listing;
   const queryString = stringifyQueryString({
     checkInDate: formatSingleDate(checkInDate, 'YYYY-MM-DD'),
     checkOutDate: formatSingleDate(checkOutDate, 'YYYY-MM-DD'),
@@ -36,7 +36,7 @@ const StartedTripCard = ({ trip }: Props) => {
           <BeeLink target="_blank" to={`/listings/${idSlug}${queryParams}`}>{listing.title}</BeeLink>
         </h3>
         <div className="address">
-        <BeeLink href={`https://www.google.com/maps/search/?api=1&query=${lat},${lng}`} target="_blank">
+        <BeeLink href={getGoogleMapURI(listing)} target="_blank">
           <ListItem noHover suffixColor="secondary" textColor="secondary" textTransform="uppercase">
             <span>{formatAddress(listing.city, listing.state, listing.country.toUpperCase())}</span>
             <AppConsumer>
