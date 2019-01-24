@@ -4,6 +4,7 @@ import { Booking, Currency } from 'networking/bookings';
 
 import SelectPaymentOptionContainer from './SelectPaymentOption.container';
 import BookingOptionsUSD from '../BookingOptionsUSD';
+import BookingOptionsBTC from '../BookingOptionsBTC';
 import BookingQuote from '../../BookingQuote';
 import { AppConsumer, AppConsumerProps, ScreenType } from 'components/App.context';
 import BookingOptionsCrypto from '../BookingOptionsCrypto';
@@ -35,6 +36,7 @@ class SelectPaymentOption extends React.Component<Props> {
     const { booking } = this.props;
     const showBee = !!booking.host.walletAddress;
     const showEth = !!booking.host.walletAddress && APP_ENV !== AppEnv.PRODUCTION;
+    const showBtc = booking.priceQuotes.some(({ currency }) => currency === Currency.BTC);
     // The 1.01 multiplier below accounts for fluctuating exchange rates etc.
     const fromBee = errorPricingToken ?
       (() => '--.--' ) :
@@ -58,6 +60,7 @@ class SelectPaymentOption extends React.Component<Props> {
                 {showBee && <option value={Currency.BEE}>BEE</option>}
                 {showBee && <option value={Currency.DAI}>DAI</option>}
                 {showEth && <option value={Currency.ETH}>ETH</option>}
+                {showBtc && <option value={Currency.BTC}>BTC</option>}
                 <option value={Currency.USD}>Credit Card</option>
               </select>
               <Svg className="suffix" src="utils/carat-down" />
@@ -104,6 +107,8 @@ function currencyOptions(currency: string | undefined, booking: Booking, fromBee
       return <BookingOptionsCrypto booking={booking} currency={currency} fromBee={fromBee} />;
     case Currency.USD:
       return <BookingOptionsUSD booking={booking} />;
+    case Currency.BTC:
+      return <BookingOptionsBTC booking={booking} />;
     default:
       return null;
   }

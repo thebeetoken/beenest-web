@@ -3,14 +3,17 @@ import { Query } from 'react-apollo';
 import { Link, Redirect } from 'react-router-dom';
 
 import { GET_BOOKING_RECEIPT, Booking, Currency } from 'networking/bookings';
-import { APP_ENV, AppEnv } from 'configs/settings';
+import { APP_ENV, AppEnv, SETTINGS } from 'configs/settings';
 
 import BookingReceiptContainer from './BookingReceipt.container';
 import BookingNavBar from '../BookingNavBar';
 import BookingReceiptBar from './BookingReceiptBar';
+import BitcoinQRCode from 'shared/BitcoinQRCode';
 import Button from 'shared/Button';
 import { numberToLocaleString } from 'utils/numberToLocaleString';
 import { AppConsumer, AppConsumerProps, ScreenType } from 'components/App.context';
+
+const { BTC_PAYMENT_ADDRESS } = SETTINGS;
 
 const BookingReceipt = ({ match }: RouterProps) => (
   <Query query={GET_BOOKING_RECEIPT} variables={{ id: match.params.id }}>
@@ -28,18 +31,23 @@ const BookingReceipt = ({ match }: RouterProps) => (
       }
       const { currency, guestTotalAmount, guestWalletAddress, guestTxHash } = booking;
       const totalPaid = `${numberToLocaleString(guestTotalAmount, currency)} ${currency}`;
-      const isCrypto = currency !== Currency.USD;
+      const isCrypto = currency !== Currency.USD && currency !== Currency.BTC;
       return (
         <BookingReceiptContainer>
           <BookingNavBar />
           <div className="booking-receipt-wrapper">
             <div className="booking-receipt-body">
               <div className="confirmation-container">
-                <h2>Payment confirmed. Your request has been sent to host for approval.</h2>
+                {currency !== Currency.BTC &&
+                  <h2>Payment confirmed. Your request has been sent to host for approval.</h2>
+                }
+                {currency === Currency.BTC &&
+                  <h2>Your request has been sent to host for approval.</h2>
+                }
                 <Confirmation {...booking} />
               </div>
               <div className="total-paid-container">
-                <h2>Total Paid:</h2>
+                <h2>Total {currency !== Currency.BTC ? 'Paid' : 'Due'}:</h2>
                 <span>{totalPaid}</span>
               </div>
               <div className="payment-option-container">
@@ -87,10 +95,10 @@ const BookingReceipt = ({ match }: RouterProps) => (
 
 export default BookingReceipt;
 
-const Confirmation = ({ currency, id, guestTxHash }: Booking) => (
+const Confirmation = ({ currency, id, guestTotalAmount, guestTxHash }: Booking) => (
   <AppConsumer>
     {({ screenType }: AppConsumerProps) => {
-      if (screenType < ScreenType.DESKTOP) {
+      if (screenType < ScreenType.DESKTOP && currency !== Currency.BTC) {
         return (
           <div className="disclaimer">
             *You will be notified via email within 24 hours once your host confirms your booking.
@@ -108,6 +116,29 @@ const Confirmation = ({ currency, id, guestTxHash }: Booking) => (
               You will be notified via email within 24 hours once your host confirms your booking. In the instance where
               the host fails to confirm, we will refund your payment in full. A full transaction receipt will be sent to
               your email.
+            </div>
+          </>
+        );
+      }
+      if (currency === Currency.BTC) {
+        return (
+          <>
+            <div className="btc-confirmation-container">
+              <h3>Payment Address</h3>
+              <span>{BTC_PAYMENT_ADDRESS}</span>
+            </div>
+            <div className="btc-qr-code">
+              <BitcoinQRCode
+                address={BTC_PAYMENT_ADDRESS}
+                amount={`${guestTotalAmount}`}
+                message={`beenest.com booking ${id}`}
+              />
+            </div>
+            <div className="disclaimer">
+              Payment is due at the address (or using the QR code) above. This booking is not valid until paid.
+              You will be notified via email within 24 hours once your host confirms your booking.
+              If the booking is declined, the paid amount will be returned to the address you used
+              to pay.
             </div>
           </>
         );
