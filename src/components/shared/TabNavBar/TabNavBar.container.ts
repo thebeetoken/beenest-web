@@ -1,7 +1,7 @@
 import styled from 'styled-components';
 import { color, typography } from 'styled/utils';
 
-const ReusableNavBarContainerMobile = styled.nav`
+const TabNavBarContainerMobile = styled.nav`
   height: 64px;
   width: 100%;
   display: flex;
@@ -51,7 +51,7 @@ const ReusableNavBarContainerMobile = styled.nav`
   }
 `;
 
-const ReusableNavBarTablet = styled(ReusableNavBarContainerMobile)`
+const TabNavBarTablet = styled(TabNavBarContainerMobile)`
   @media (min-width: 768px) {
     height: 48px;
     width: 100%;
@@ -86,10 +86,4 @@ const ReusableNavBarTablet = styled(ReusableNavBarContainerMobile)`
   }
 `;
 
-// const ReusableNavBarDesktop = styled(ReusableNavBarTablet)`
-//   @media (min-width: 1025px) {
-//     width: 528px;
-//   }
-// `;
-
-export default ReusableNavBarTablet;
+export default TabNavBarTablet;

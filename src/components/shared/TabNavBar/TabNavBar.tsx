@@ -1,6 +1,6 @@
 import * as React from 'react';
 
-import ReusableNavBarContainer from './ReusableNavBar.container';
+import TabNavBarContainer from './TabNavBar.container';
 
 import { AppConsumer, AppConsumerProps, ScreenType } from 'components/App.context';
 import BeeLink from 'shared/BeeLink';
@@ -18,8 +18,8 @@ interface TabNavItem {
   to: string;
 }
 
-const ReusableNavBar = ({ config }: Props): JSX.Element => (
-  <ReusableNavBarContainer>
+const TabNavBar = ({ config }: Props): JSX.Element => (
+  <TabNavBarContainer>
     <AppConsumer>
       {({ screenType }: AppConsumerProps) => {
         if (screenType < ScreenType.TABLET) {
@@ -47,7 +47,7 @@ const ReusableNavBar = ({ config }: Props): JSX.Element => (
         );
       }}
     </AppConsumer>
-  </ReusableNavBarContainer>
+  </TabNavBarContainer>
 );
 
-export default ReusableNavBar;
+export default TabNavBar;
