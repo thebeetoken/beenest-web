@@ -35,7 +35,7 @@ function getMatchingPriceQuote(priceQuotes: PriceQuote[], currency: Currency, fr
 }
 
 const BookingQuote = ({ booking, currency, fromBee }: Props) => {
-  const { checkInDate, checkOutDate, host, priceQuotes, numberOfGuests } = booking;
+  const { checkInDate, checkOutDate, host, listing, numberOfGuests, priceQuotes } = booking;
   const currentQuote = getMatchingPriceQuote(priceQuotes, currency, fromBee);
   if (!currentQuote) {
     return <div>Quote does not exist</div>;
@@ -51,7 +51,7 @@ const BookingQuote = ({ booking, currency, fromBee }: Props) => {
             {host.firstName}
             's
           </span>
-          &nbsp;Home
+          &nbsp;{listing.homeType}
         </h4>
       </div>
       <div className="booking-quote-dates-container">
