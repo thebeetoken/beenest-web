@@ -60,7 +60,7 @@ const Account = () => (
                         title: 'Verification',
                         to: '/account/verification',
                         src: 'utils/check-circle',
-                        badge: (user && !completedVerification) && '!'
+                        badge: (user && !completedVerification) ? '!' : ''
                       },
                     ]} />
                   )}
