@@ -9,7 +9,6 @@ const TripsContainerMobile = styled.div`
 
   
   .trips-body {
-    align-items: flex-start;
     align-self: flex-start;
     display: flex;
     flex-direction: column;
