@@ -3,7 +3,7 @@ import { Query } from 'react-apollo';
 import { Link, Redirect } from 'react-router-dom';
 
 import { GET_BOOKING_RECEIPT, Booking, Currency } from 'networking/bookings';
-import { APP_ENV, AppEnv, SETTINGS } from 'configs/settings';
+import { APP_ENV, AppEnv } from 'configs/settings';
 
 import BookingReceiptContainer from './BookingReceipt.container';
 import BookingNavBar from '../BookingNavBar';
@@ -118,7 +118,7 @@ const Confirmation = ({ btcWalletAddress, currency, id, guestTotalAmount, guestT
           </>
         );
       }
-      if (currency === Currency.BTC) {
+      if (currency === Currency.BTC && btcWalletAddress) {
         return (
           <>
             <div className="btc-confirmation-container">
