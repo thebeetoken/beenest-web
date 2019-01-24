@@ -116,7 +116,6 @@ class Trips extends React.Component<Props, State> {
                               <div className="trips-book-now">
                                 <div className="trips-book-now--text">
                                   <h2>You haven't booked any trips yet.</h2>
-                                  <BeeLink to="/">Let's change that!</BeeLink>
                                 </div>
                                 <BeeLink to="/">
                                   <Button radius="4px">Book a Home Today!</Button>
