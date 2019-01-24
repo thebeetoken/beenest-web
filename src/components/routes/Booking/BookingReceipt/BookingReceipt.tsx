@@ -8,6 +8,7 @@ import { APP_ENV, AppEnv, SETTINGS } from 'configs/settings';
 import BookingReceiptContainer from './BookingReceipt.container';
 import BookingNavBar from '../BookingNavBar';
 import BookingReceiptBar from './BookingReceiptBar';
+import BitcoinQRCode from 'shared/BitcoinQRCode';
 import Button from 'shared/Button';
 import { numberToLocaleString } from 'utils/numberToLocaleString';
 import { AppConsumer, AppConsumerProps, ScreenType } from 'components/App.context';
@@ -92,10 +93,10 @@ const BookingReceipt = ({ match }: RouterProps) => (
 
 export default BookingReceipt;
 
-const Confirmation = ({ btcWalletAddress, currency, id, guestTxHash }: Booking) => (
+const Confirmation = ({ btcWalletAddress, currency, id, guestTotalAmount, guestTxHash }: Booking) => (
   <AppConsumer>
     {({ screenType }: AppConsumerProps) => {
-      if (screenType < ScreenType.DESKTOP) {
+      if (screenType < ScreenType.DESKTOP && currency !== Currency.BTC) {
         return (
           <div className="disclaimer">
             *You will be notified via email within 24 hours once your host confirms your booking.
@@ -120,12 +121,19 @@ const Confirmation = ({ btcWalletAddress, currency, id, guestTxHash }: Booking) 
       if (currency === Currency.BTC) {
         return (
           <>
-            <div className="usd-confirmation-container">
+            <div className="btc-confirmation-container">
               <h3>Payment Address</h3>
               <span>{btcWalletAddress}</span>
             </div>
+            <div className="btc-qr-code">
+              <BitcoinQRCode
+                address={btcWalletAddress}
+                amount={`${guestTotalAmount}`}
+                message={`beenest.com booking ${id}`}
+              />
+            </div>
             <div className="disclaimer">
-              Payment is due at the address above. This booking is not valid until paid.
+              Payment is due at the address (or using the QR code) above. This booking is not valid until paid.
               You will be notified via email within 24 hours once your host confirms your booking.
               If the booking is declined, the paid amount will be returned to the address you used
               to pay.

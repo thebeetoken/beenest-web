@@ -12,8 +12,9 @@ const BookingReceiptContainer = styled.div`
     box-sizing: border-box;
     padding: 0 24px 24px;
     @media (min-width: 768px) {
+      margin-bottom: 32px;
       max-width: 520px;
-      height: 100vh;
+      min-height: 100vh;
       padding: 0 0;
     }
 
@@ -38,6 +39,7 @@ const BookingReceiptContainer = styled.div`
         }
       }
 
+      .btc-confirmation-container,
       .usd-confirmation-container {
         padding-bottom: 24px;
         h3 {
@@ -45,6 +47,16 @@ const BookingReceiptContainer = styled.div`
         }
         span {
           ${typography('title', 7)}
+        }
+      }
+
+      .btc-qr-code {
+        margin: 25px 0;
+        text-align: center;
+        svg {
+          display: inline-block;
+          height: 300px;
+          width: 300px;
         }
       }
 
@@ -139,6 +151,7 @@ const BookingReceiptContainer = styled.div`
 
     .booking-receipt-bar-container {
       position: fixed;
+      background-color: ${color('white')};
       bottom: 0;
       left: 0;
       height: 80px;
