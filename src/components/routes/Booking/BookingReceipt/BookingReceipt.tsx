@@ -12,8 +12,6 @@ import Button from 'shared/Button';
 import { numberToLocaleString } from 'utils/numberToLocaleString';
 import { AppConsumer, AppConsumerProps, ScreenType } from 'components/App.context';
 
-const { BTC_PAYMENT_ADDRESS } = SETTINGS;
-
 const BookingReceipt = ({ match }: RouterProps) => (
   <Query query={GET_BOOKING_RECEIPT} variables={{ id: match.params.id }}>
     {({ loading, error, data }) => {
@@ -124,7 +122,7 @@ const Confirmation = ({ currency, id, guestTxHash }: Booking) => (
           <>
             <div className="usd-confirmation-container">
               <h3>Payment Address</h3>
-              <span>{BTC_PAYMENT_ADDRESS}</span>
+              <span></span>
             </div>
             <div className="disclaimer">
               Payment is due at the address above. This booking is not valid until paid.
