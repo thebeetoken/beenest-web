@@ -15,7 +15,7 @@ import { getUserBookingDisplayStatus } from 'utils/bookingsDisplayStatus';
 import { ToggleProvider, ToggleProviderRef } from 'shared/ToggleProvider';
 import Portal from 'shared/Portal';
 import ContactHostForm from 'shared/ContactHostForm';
-import { getGoogleMapURI } from 'utils/formatter';
+import { getGoogleMapURI, formatAddress } from 'utils/formatter';
 
 interface Props {
   onCancelClick: () => void;
@@ -42,7 +42,7 @@ const ActiveTripCard = ({ onCancelClick, trip }: Props) => {
         <div className="address">
         <BeeLink href={getGoogleMapURI(listing)} target="_blank">
           <ListItem noHover suffixColor="secondary" textColor="secondary" textTransform="uppercase">
-            <span>{trip.status === 'host_approved' && streetAddress} {listing.city && `${listing.city}, `}{listing.state && `${listing.state}, `}{listing.country.toUpperCase()}</span>
+            <span>{formatAddress(streetAddress, listing.city, listing.state, listing.country.toUpperCase())}</span>
             <AppConsumer>
               {({ screenType }: AppConsumerProps) => (
                 screenType > ScreenType.TABLET && <Svg className="suffix" src="decorative/location" />
