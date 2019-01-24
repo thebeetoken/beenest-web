@@ -26,9 +26,6 @@ const TabNavContainer = styled.div`
       top: -16px;
       z-index: 2;
     }
-  }
-
-
     .bee-tab-nav--item {
       align-items: center;
       display: flex;
