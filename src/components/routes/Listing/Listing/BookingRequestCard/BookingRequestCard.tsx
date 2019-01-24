@@ -309,7 +309,7 @@ export default compose(
               data: {
                 guestBookings: {
                   ...guestBookings,
-                  pending: [...guestBookings.pending, createBooking],
+                  current: [...guestBookings.current, createBooking],
                 },
               },
             });

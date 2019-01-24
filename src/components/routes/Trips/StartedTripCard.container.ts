@@ -1,16 +1,16 @@
 import styled from 'styled-components';
 import { color, typography } from 'styled/utils';
 
-const ActiveTripCardMobile = styled.div`
+const StartedTripCardMobile = styled.div`
+  box-shadow: 0 4px 15px ${color('black', 0.1)};
   display: flex;
-  height: 402px;
   flex-direction: column;
   min-width: 272px;
-  .active-trip-info {
+  .started-trip-info {
     display: flex;
     flex-direction: column;
     height: 100%;
-    padding-top: 8px;
+    padding: 24px;
     width: 100%;
     h3 {
       ${typography('title', 7)};
@@ -27,20 +27,22 @@ const ActiveTripCardMobile = styled.div`
     }
     .dates {
       display: flex;
-      flex-direction: row;
+      justify-content: space-between;
       margin-bottom: 16px;
+      width: 100%;
       .date {
-        color: ${color('body')};
+        display: flex;
+        flex-direction: column;
+        width: 50%;
         h5 {
           ${typography('read', 3)};
+          color: ${color('body')};
         }
         h6 {
           ${typography('emp', 7)};
         }
       }
-      .date:not(:first-of-type) {
-        margin-left: 68px;
-      }
+    }
     }
     h4 {
       ${typography('emp', 7)};
@@ -57,37 +59,86 @@ const ActiveTripCardMobile = styled.div`
       }
     }
     .divider {
+      margin-bottom: 16px;
       width: 100%;
     }
-    .actions {
-      align-items: center;
-      display: flex;
-      height: 72px;
-      justify-content: space-around;
-      padding: 0;
-      margin: 0;
-      .bee-fab {
-        height: 72px;
-        width: 72px;
+    a {
+      .bee-button {
+        width: 100%;
       }
     }
   }
-  .active-trip-photo {
+  .started-trip-photo {
     height: 142px;
   }
 `;
 
-const ActiveTripCardTablet = styled(ActiveTripCardMobile)`
+const StartedTripCardTablet = styled(StartedTripCardMobile)`
   @media (min-width: 768px) {
     flex-direction: row-reverse;
-    height: 312px;
     justify-content: space-between;
-    .active-trip-info {
+    width: 100%;
+    .started-trip-info {
       height: 100%;
-      padding: 0 16px 8px 0;
-      width: 324px;
+      padding: 24px;
+      width: 306px;
       h3 {
         ${typography('title', 5)};
+        color: ${color('body')};
+      }
+      .address {
+        .bee-list-item {
+          width: 358px;
+        }
+      }
+      .dates {
+        .date {
+          h5 {
+            ${typography('read', 2)};
+          }
+          h6 {
+            ${typography('emp', 6)};
+          }
+        }
+      }
+      h4 {
+        ${typography('title', 7)};
+        height: 24px;
+        text-transform: capitalize;
+      }
+      > h5 {
+        ${typography('read', 2)};
+        span {
+          ${typography('emp', 6)};
+        }
+      }
+      .divider {
+        width: 100%;
+      }
+      a {
+        width: 248px;
+        .bee-button {
+          width: 100%;
+        }
+      }
+    }
+    .started-trip-photo {
+      height: auto;
+      width: 312px;
+    }
+  }
+`;
+
+const StartedTripCardDesktop = styled(StartedTripCardTablet)`
+  @media (min-width: 1025px) {
+    flex-direction: row-reverse;
+    justify-content: space-between;
+    width: 976px;
+    .started-trip-info {
+      height: 100%;
+      width: 464px;
+      h3 {
+        ${typography('title', 3)};
         color: ${color('body')};
         line-height: 34px;
       }
@@ -105,9 +156,6 @@ const ActiveTripCardTablet = styled(ActiveTripCardMobile)`
             ${typography('emp', 6)};
           }
         }
-        .date:not(:first-of-type) {
-          margin-left: 84px;
-        }
       }
       h4 {
         ${typography('title', 7)};
@@ -120,27 +168,20 @@ const ActiveTripCardTablet = styled(ActiveTripCardMobile)`
           ${typography('emp', 6)};
         }
       }
-      .actions {
-        justify-content: flex-start;
-        .bee-fab {
-          height: 80px;
-          width: 100px;
+      .divider {
+        width: 448px;
+      }
+      a {
+        .bee-button {
+          width: 248px;
         }
       }
     }
-    .active-trip-photo {
-      height: 225px;
+    .started-trip-photo {
+      height: 290px;
       width: 472px;
     }
   }
 `;
 
-const ActiveTripCardDesktop = styled(ActiveTripCardTablet)`
-  @media (min-width: 1025px) {
-    .active-trip-info {
-      width: 448px;
-    }
-  }
-`;
-
-export default ActiveTripCardDesktop;
+export default StartedTripCardDesktop;

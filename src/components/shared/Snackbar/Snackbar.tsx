@@ -5,7 +5,7 @@ import SnackbarContainer from './Snackbar.container';
 import Svg from 'shared/Svg';
 
 interface Props {
-  autoHideDuration?: number;
+  autoHideDuration?: number; // milliseconds
   children?: React.ReactNode; // message
   className?: string;
   layout?: string; // top or bottom

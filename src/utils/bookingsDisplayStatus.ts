@@ -69,6 +69,7 @@ enum UserBookingDisplayStatus {
   EXPIRED_BEFORE_GUEST_CONFIRMED = 'Expired Before Guest Confirmed',
   GUEST_CONFIRMED = 'Waiting for Host Approval',
   GUEST_CANCELLED = 'Guest Cancelled',
+  GUEST_CANCEL_INITIATED = 'Guest Cancel Initiated',
   GUEST_REJECTED_PAYMENT = 'Guest Rejected Payment',
   HOST_REJECTED = 'Host Rejected',
   HOST_APPROVED = 'Host Approved',
@@ -79,6 +80,7 @@ enum UserBookingDisplayStatus {
   GUEST_PAID = 'Guest Paid',
   HOST_PAID = 'Host Paid',
   REFUNDED = 'Refunded',
+  REFUND_INITIATED= 'Refund Initiated',
   COMPLETED = 'Completed',
   ERROR = 'Error',
 }
@@ -92,6 +94,7 @@ const bookingStatus: BookingDisplayStatus = {
   'expired_before_guest_confirmed': UserBookingDisplayStatus.EXPIRED_BEFORE_GUEST_CONFIRMED,
   'guest_confirmed': UserBookingDisplayStatus.GUEST_CONFIRMED,
   'guest_cancelled': UserBookingDisplayStatus.GUEST_CANCELLED,
+  'guest_cancel_initiated': UserBookingDisplayStatus.GUEST_CANCEL_INITIATED,
   'guest_rejected_payment': UserBookingDisplayStatus.GUEST_REJECTED_PAYMENT,
   'host_rejected': UserBookingDisplayStatus.HOST_REJECTED,
   'host_approved': UserBookingDisplayStatus.HOST_APPROVED,
@@ -102,6 +105,7 @@ const bookingStatus: BookingDisplayStatus = {
   'guest_paid': UserBookingDisplayStatus.GUEST_PAID,
   'host_paid': UserBookingDisplayStatus.HOST_PAID,
   'refunded': UserBookingDisplayStatus.REFUNDED,
+  'refund_initiated': UserBookingDisplayStatus.REFUND_INITIATED,
   'completed': UserBookingDisplayStatus.COMPLETED,
 }
 
