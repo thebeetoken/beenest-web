@@ -12,7 +12,7 @@ interface Props {
 }
 
 interface TabNavItem {
-  badge?: string;
+  badge?: string | boolean;
   src?: string;
   title: string;
   to: string;

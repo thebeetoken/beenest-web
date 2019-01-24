@@ -11,7 +11,7 @@ interface Props {
 }
 
 interface Config {
-  badge?: string;
+  badge?: string | boolean;
   title: string;
   to: string;
 }
