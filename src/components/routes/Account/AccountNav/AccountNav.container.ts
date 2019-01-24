@@ -7,41 +7,11 @@ const AccountNavContainerMobile = styled.nav`
   display: flex;
 
 
-  a {
-    align-items: center;
-    background-color: ${color('light')};
-    color: ${color('secondary')};
-    display: flex;
-    flex-basis: 0;
-    flex-grow: 1;
-    flex-shrink: 0;
-    height: 64px;
-    justify-content: center;
-    transition: all .2s ease-in-out;
-    &.active {
-      background-color: ${color('secondary')};
-      box-shadow: 0 2px 10px ${color('black', 0.25)};
-      color: ${color('white')};
-      position: relative;
-      z-index: 1;
-    }
-    > span {
-      ${typography('read', 3)}
-      text-align: center;
-      word-break: break-word;
-    }
-    .bee-svg {
-      height: 24px;
-      width: 24px;
-    }
-  }
-
-
-
-  .verification-needed-container {
+  .bee-tab-nav-item--container {
     flex-grow: 1;
     height: 100%;
     position: relative;
+    width: 100%;
     .verification-badge {
       ${typography('title', 3)}
       color: ${color('error')};
@@ -49,6 +19,34 @@ const AccountNavContainerMobile = styled.nav`
       right: 16px;
       top: -16px;
       z-index: 2;
+    }
+    a {
+      align-items: center;
+      background-color: ${color('light')};
+      color: ${color('secondary')};
+      display: flex;
+      flex-basis: 0;
+      flex-grow: 1;
+      flex-shrink: 0;
+      height: 64px;
+      justify-content: center;
+      transition: all .2s ease-in-out;
+      &.active {
+        background-color: ${color('secondary')};
+        box-shadow: 0 2px 10px ${color('black', 0.25)};
+        color: ${color('white')};
+        position: relative;
+        z-index: 1;
+      }
+      > span {
+        ${typography('read', 3)}
+        text-align: center;
+        word-break: break-word;
+      }
+      .bee-svg {
+        height: 24px;
+        width: 24px;
+      }
     }
   }
 `;

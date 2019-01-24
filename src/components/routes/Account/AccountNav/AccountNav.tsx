@@ -12,7 +12,7 @@ interface Props {
 }
 
 interface TabNavItem {
-  showBadge?: boolean | null;
+  badge?: string;
   src?: string;
   title: string;
   to: string;
@@ -25,28 +25,17 @@ const AccountNav = ({ config }: Props): JSX.Element => (
         if (screenType < ScreenType.TABLET) {
           return (
             <>
-              {config.map(({ showBadge, src, title, to}: TabNavItem)=> {
-                if (showBadge) {
-                  return (
-                    <div className="verification-needed-container" key={to}>
-                      <span className="verification-badge">!</span>
-                      <BeeLink to={to} isNav activeClassName="active">
-                      {src
-                        ? <Svg src={src} />
-                        : <span>{title}</span>
-                      }
-                      </BeeLink>
-                    </div>
-                  );
-                }
-
+              {config.map(({ badge, src, title, to}: TabNavItem)=> {
                 return (
-                  <BeeLink to={to} isNav activeClassName="active" key={to}>
+                  <div className="bee-tab-nav-item--container" key={to}>
+                    {!!badge && <span className="verification-badge">{badge}</span>}
+                    <BeeLink to={to} isNav activeClassName="active">
                     {src
                       ? <Svg src={src} />
                       : <span>{title}</span>
                     }
-                  </BeeLink>
+                    </BeeLink>
+                  </div>
                 );
               })}
             </>
