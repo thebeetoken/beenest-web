@@ -3,7 +3,7 @@ import { Query } from 'react-apollo';
 import { Link, Redirect } from 'react-router-dom';
 
 import { GET_BOOKING_RECEIPT, Booking, Currency } from 'networking/bookings';
-import { APP_ENV, AppEnv, SETTINGS } from 'configs/settings';
+import { APP_ENV, AppEnv } from 'configs/settings';
 
 import BookingReceiptContainer from './BookingReceipt.container';
 import BookingNavBar from '../BookingNavBar';
@@ -12,8 +12,6 @@ import BitcoinQRCode from 'shared/BitcoinQRCode';
 import Button from 'shared/Button';
 import { numberToLocaleString } from 'utils/numberToLocaleString';
 import { AppConsumer, AppConsumerProps, ScreenType } from 'components/App.context';
-
-const { BTC_PAYMENT_ADDRESS } = SETTINGS;
 
 const BookingReceipt = ({ match }: RouterProps) => (
   <Query query={GET_BOOKING_RECEIPT} variables={{ id: match.params.id }}>
@@ -95,7 +93,7 @@ const BookingReceipt = ({ match }: RouterProps) => (
 
 export default BookingReceipt;
 
-const Confirmation = ({ currency, id, guestTotalAmount, guestTxHash }: Booking) => (
+const Confirmation = ({ btcWalletAddress, currency, id, guestTotalAmount, guestTxHash }: Booking) => (
   <AppConsumer>
     {({ screenType }: AppConsumerProps) => {
       if (screenType < ScreenType.DESKTOP && currency !== Currency.BTC) {
@@ -120,16 +118,16 @@ const Confirmation = ({ currency, id, guestTotalAmount, guestTxHash }: Booking) 
           </>
         );
       }
-      if (currency === Currency.BTC) {
+      if (currency === Currency.BTC && btcWalletAddress) {
         return (
           <>
             <div className="btc-confirmation-container">
               <h3>Payment Address</h3>
-              <span>{BTC_PAYMENT_ADDRESS}</span>
+              <span>{btcWalletAddress}</span>
             </div>
             <div className="btc-qr-code">
               <BitcoinQRCode
-                address={BTC_PAYMENT_ADDRESS}
+                address={btcWalletAddress}
                 amount={`${guestTotalAmount}`}
                 message={`beenest.com booking ${id}`}
               />
