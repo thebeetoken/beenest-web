@@ -18,7 +18,7 @@ const TabNavContainer = styled.div`
     width: 100%;
     height: 100%;
     position: relative;
-    .verification-badge {
+    .alert-badge {
       ${typography('title', 3)}
       color: ${color('error')};
       position: absolute;

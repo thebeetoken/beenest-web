@@ -12,7 +12,7 @@ const ReusableNavBarContainerMobile = styled.nav`
     height: 100%;
     position: relative;
     width: 100%;
-    .verification-badge {
+    .alert-badge {
       ${typography('title', 3)}
       color: ${color('error')};
       position: absolute;

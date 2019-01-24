@@ -20,7 +20,7 @@ const TabNav = (props: Props): JSX.Element => {
   const renderTabNavItems = props.config.map(({ badge, title, to }: Config) => {
     return (
       <div className="bee-tab-nav-item--container">
-        {!!badge && <span className="verification-badge">{badge}</span>}
+        {!!badge && <span className="alert-badge">{badge}</span>}
         <div className="bee-tab-nav--item" key={title}>
           <BeeLink isNav to={to}>
             {title}

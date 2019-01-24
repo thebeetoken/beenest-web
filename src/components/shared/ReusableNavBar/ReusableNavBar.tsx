@@ -28,7 +28,7 @@ const ReusableNavBar = ({ config }: Props): JSX.Element => (
               {config.map(({ badge, src, title, to}: TabNavItem)=> {
                 return (
                   <div className="bee-tab-nav-item--container" key={to}>
-                    {!!badge && <span className="verification-badge">{badge}</span>}
+                    {!!badge && <span className="alert-badge">{badge}</span>}
                     <BeeLink to={to} isNav activeClassName="active">
                     {src
                       ? <Svg src={src} />
