@@ -21,7 +21,7 @@ import { cancel, loadWeb3 } from 'utils/web3';
 import Button from 'shared/Button';
 import BeeLink from 'shared/BeeLink';
 import CryptoPortal from 'shared/CryptoPortal';
-import AccountNav from 'routes/Account/AccountNav';
+import ReusableNavBar from 'shared/ReusableNavBar';
 import { Switch, Route, Redirect } from 'react-router';
 import NotFound from 'components/routes/NotFound';
 import StartedTripCard from 'components/routes/Trips/StartedTripCard';
@@ -65,7 +65,7 @@ class Trips extends React.Component<Props, State> {
               const isUpcomingEmpty = !(upcoming || []).length;
               return (
                 <>
-                  <AccountNav config={[
+                  <ReusableNavBar config={[
                     {
                       title: 'Current',
                       to: '/trips/current',

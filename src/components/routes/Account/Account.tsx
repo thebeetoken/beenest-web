@@ -5,7 +5,6 @@ import { FirebaseConsumer, FirebaseUserProps } from 'HOCs/FirebaseProvider';
 
 import AccountContainer from './Account.container';
 import AccountGeneral from './AccountGeneral';
-import AccountNav from './AccountNav';
 import AccountPayment from './AccountPayment';
 import AccountProfile from './AccountProfile';
 import { AccountSecurity } from './AccountSecurity';
@@ -15,6 +14,7 @@ import AudioLoading from 'shared/loading/AudioLoading';
 import Divider from 'shared/Divider';
 import GeneralWrapper from 'shared/GeneralWrapper';
 import NotFound from 'routes/NotFound';
+import ReusableNavBar from 'shared/ReusableNavBar';
 import { GET_ACCOUNT_PAGE } from 'networking/users';
 
 import { AppConsumerProps, AppConsumer, ScreenType } from 'components/App.context';
@@ -40,7 +40,7 @@ const Account = () => (
               <div className="left">
                 <FirebaseConsumer>
                   {({ user, completedVerification }: FirebaseUserProps) => (
-                    <AccountNav config={[
+                    <ReusableNavBar config={[
                       {
                         title: 'General Info',
                         to: '/account/general',

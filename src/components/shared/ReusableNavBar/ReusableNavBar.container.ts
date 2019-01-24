@@ -1,7 +1,7 @@
 import styled from 'styled-components';
 import { color, typography } from 'styled/utils';
 
-const AccountNavContainerMobile = styled.nav`
+const ReusableNavBarContainerMobile = styled.nav`
   height: 64px;
   width: 100%;
   display: flex;
@@ -51,7 +51,7 @@ const AccountNavContainerMobile = styled.nav`
   }
 `;
 
-const AccountNavTablet = styled(AccountNavContainerMobile)`
+const ReusableNavBarTablet = styled(ReusableNavBarContainerMobile)`
   @media (min-width: 768px) {
     height: 48px;
     width: 100%;
@@ -86,10 +86,10 @@ const AccountNavTablet = styled(AccountNavContainerMobile)`
   }
 `;
 
-// const AccountNavDesktop = styled(AccountNavTablet)`
+// const ReusableNavBarDesktop = styled(ReusableNavBarTablet)`
 //   @media (min-width: 1025px) {
 //     width: 528px;
 //   }
 // `;
 
-export default AccountNavTablet;
+export default ReusableNavBarTablet;
