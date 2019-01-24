@@ -5,6 +5,7 @@ import { User } from 'networking/users';
 
 export interface Booking {
   approvedBy: string | null;
+  btcWalletAddress?: string;
   cancelledBy: string | null;
   checkInDate: string;
   checkOutDate: string;
@@ -236,6 +237,7 @@ export const GET_BOOKING_TRIPS_RECEIPT = gql`
 export const GET_BOOKING_RECEIPT = gql`
   query booking($id: ID!) {
     booking(id: $id) {
+      btcWalletAddress
       currency
       guestTotalAmount
       guestWalletAddress

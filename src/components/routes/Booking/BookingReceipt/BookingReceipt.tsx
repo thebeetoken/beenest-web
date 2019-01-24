@@ -92,7 +92,7 @@ const BookingReceipt = ({ match }: RouterProps) => (
 
 export default BookingReceipt;
 
-const Confirmation = ({ currency, id, guestTxHash }: Booking) => (
+const Confirmation = ({ btcWalletAddress, currency, id, guestTxHash }: Booking) => (
   <AppConsumer>
     {({ screenType }: AppConsumerProps) => {
       if (screenType < ScreenType.DESKTOP) {
@@ -122,7 +122,7 @@ const Confirmation = ({ currency, id, guestTxHash }: Booking) => (
           <>
             <div className="usd-confirmation-container">
               <h3>Payment Address</h3>
-              <span></span>
+              <span>{btcWalletAddress}</span>
             </div>
             <div className="disclaimer">
               Payment is due at the address above. This booking is not valid until paid.
