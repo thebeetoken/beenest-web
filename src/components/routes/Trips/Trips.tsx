@@ -94,8 +94,7 @@ class Trips extends React.Component<Props, State> {
                                 <StartedTripCard
                                   trip={started[0]} />
                               </div>
-                              <Divider size="tall" />
-                              <h2>Current bookings:</h2>
+                              {!!current.length && <h2>Current bookings:</h2>}
                             </>
                           }
                           {!!current.length &&
