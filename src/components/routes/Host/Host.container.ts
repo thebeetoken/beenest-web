@@ -13,6 +13,16 @@ const HostContainer = styled.div`
     }
   }
 
+  
+  .bee-divider {
+    margin-bottom: 16px;
+  }
+
+  nav {
+    margin-bottom: 56px;
+    width: 480px;
+  }
+
 
   .bee-general-wrapper {
     margin: 40px auto 0;
