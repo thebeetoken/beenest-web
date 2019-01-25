@@ -48,7 +48,7 @@ const defaultValues: FormValues = {
   postalCode: '',
   pricePerNightUsd: 100,
   securityDepositUsd: 50,
-  sharedBathroom: '',
+  sharedBathroom: 'No',
   sleepingArrangement: '',
   state: '',
   title: '',
@@ -142,6 +142,7 @@ class ListingForm extends React.Component<Props, State> {
       <ListingFormContainer>
         <Formik
           initialValues={populateListingForm(defaultValues, props.listing)}
+          isInitialValid
           validationSchema={ListingFormSchema}
           onSubmit={(values: ListingInput, actions: FormikActions<FormValues>) => {
             actions.setSubmitting(true);
