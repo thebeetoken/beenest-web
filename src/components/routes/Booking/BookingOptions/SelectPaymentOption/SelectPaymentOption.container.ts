@@ -40,7 +40,7 @@ const SelectPaymentOptionContainerTablet = styled(SelectPaymentOptionContainerMo
 
 
     .select-payment-quote-desktop {
-      height: 440px;
+      height: auto;
       width: 352px;
     }
   }
@@ -52,7 +52,7 @@ const SelectPaymentOptionContainer = styled(SelectPaymentOptionContainerTablet)`
 
 
     .select-payment-quote-desktop {
-      height: 440px;
+      height: auto;
       width: 352px;
     }
   }
