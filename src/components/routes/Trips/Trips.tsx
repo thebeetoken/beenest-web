@@ -79,7 +79,7 @@ class Trips extends React.Component<Props, State> {
                       to: '/trips/past',
                     },
                     {
-                      title: 'Cancelled /\nRejected',
+                      title: 'Cancelled / Rejected',  // \xa0 is a non-breaking space
                       to: '/trips/cancelled',
                     }
                   ]} />
