@@ -172,7 +172,10 @@ export const GET_BOOKING = gql`
       listingId
       listing {
         id
+        city
+        homeType
         houseRules
+        title
       }
       numberOfGuests
       priceQuotes {
