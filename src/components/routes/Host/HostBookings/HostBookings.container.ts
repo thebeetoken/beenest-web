@@ -2,6 +2,7 @@ import styled from 'styled-components';
 import { color, typography } from 'styled/utils';
 
 const HostBookingsContainer = styled.section`
+  width: 100%;
   h1,
   p {
     color: ${color('body')};
