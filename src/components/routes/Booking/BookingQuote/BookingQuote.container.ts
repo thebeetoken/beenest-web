@@ -9,16 +9,13 @@ const BookingQuoteContainer = styled.div`
   width: 100%;
   .booking-quote-title-container {
     .title {
-      ${typography('title', 3)}
+      ${typography('title', 6)}
       color: ${color('body')};
       padding-bottom: 6px;
     }
-    .duration {
+    .home-type {
       ${typography('title', 8)}
       color: ${color('core')};
-      span {
-        text-transform: capitalize;
-      }
     }
   }
 
