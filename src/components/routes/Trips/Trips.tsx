@@ -16,12 +16,15 @@ import TripsContainer from './Trips.container';
 import ActiveTripCard from 'routes/Trips/ActiveTripCard';
 import { compose } from 'recompose';
 import Snackbar from 'shared/Snackbar';
-import { AppConsumerProps, ScreenType, AppConsumer } from 'components/App.context';
 import ExpiredTripCard from 'routes/Trips/ExpiredTripCard';
 import { cancel, loadWeb3 } from 'utils/web3';
-import Button from 'components/shared/Button';
-import BeeLink from 'components/shared/BeeLink';
+import Button from 'shared/Button';
+import BeeLink from 'shared/BeeLink';
 import CryptoPortal from 'shared/CryptoPortal';
+import TabNavBar from 'shared/TabNavBar';
+import { Switch, Route, Redirect } from 'react-router';
+import NotFound from 'components/routes/NotFound';
+import StartedTripCard from 'components/routes/Trips/StartedTripCard';
 
 interface Props {
   cancelBooking: (booking: Booking) => Promise<void>;
@@ -32,8 +35,6 @@ interface State {
   open: boolean;
   isSubmitting: boolean;
 }
-
-const SNACKBAR_DURATION_MS = 5000;
 
 class Trips extends React.Component<Props, State> {
   readonly state = {
@@ -46,10 +47,10 @@ class Trips extends React.Component<Props, State> {
     const { message, open, isSubmitting } = this.state;
     return (
       <TripsContainer>
-        <GeneralWrapper className="trips-wrapper" direction="column" justify="flex-start">
+        <GeneralWrapper className="trips-body" width="100%">
           <div className="trips-header">
             <h1>My Trips</h1>
-            <div className="trips-header--border" />
+            <Divider size="tall"/>
           </div>
           <Query query={GET_GUEST_SORTED_BOOKINGS}>
             {({ loading, error, data }) => {
@@ -59,33 +60,69 @@ class Trips extends React.Component<Props, State> {
               if (error || !data) {
                 return <h1>{error ? error.message : 'Error / No Data'}</h1>;
               }
-              const { cancelled, past, pending, upcoming } = data;
-              const isEmpty = Object.values(data).every((bookings: Booking[]) => !bookings.length);
-              if (isEmpty) {
-                return (
-                  <div className="trips-book-now">
-                    <div className="trips-book-now--text">
-                      <h2>You haven't booked any trips yet.</h2>
-                      <BeeLink to="/">Let's change that!</BeeLink>
-                    </div>
-                    <BeeLink to="/">
-                      <Button radius="4px">Book a Home Today!</Button>
-                    </BeeLink>
-                  </div>
-                );
-              }
+              const { cancelled, current, past, started, upcoming } = data;
+              const isCurrentEmpty = !(current || []).length;
+              const isUpcomingEmpty = !(upcoming || []).length;
               return (
                 <>
-                  {isSubmitting && <CryptoPortal />}
-                  {!!upcoming.length && (
-                    <section>
-                      <AppConsumer>
-                        {({ screenType }: AppConsumerProps) => {
-                          const mobile = screenType < ScreenType.TABLET;
-                          return (
+                  <TabNavBar config={[
+                    {
+                      title: 'Current',
+                      to: '/trips/current',
+                    },
+                    {
+                      title: 'Upcoming',
+                      to: '/trips/upcoming',
+                    },
+                    {
+                      title: 'Past',
+                      to: '/trips/past',
+                    },
+                    {
+                      title: 'Cancelled /\nRejected',
+                      to: '/trips/cancelled',
+                    }
+                  ]} />
+                  <div className="trip-cards-container">
+                    <Switch>
+                      <Route exact path="/trips/current" component={() =>
+                        <>
+                          {!!started.length &&
                             <>
-                              {!mobile && <h3>Upcoming Trips</h3>}
-                              <div className="active-cards-container">
+                              <div className="started-trip-container">
+                                <h3>Finish this booking:</h3>
+                                <StartedTripCard
+                                  trip={started[0]} />
+                              </div>
+                              {!!current.length && <h2>Current bookings:</h2>}
+                            </>
+                          }
+                          {!!current.length &&
+                            <section className="active-cards-container">
+                              {current.map((trip: Booking) =>
+                                <ActiveTripCard 
+                                  onCancelClick={this.handleCancelBooking.bind(this, trip)}
+                                  key={trip.id}
+                                  trip={trip} />
+                              )}
+                            </section>
+                          }
+                        </>
+                      } />
+                      <Route exact path="/trips/upcoming" component={() =>
+                        <>
+                          {isUpcomingEmpty
+                            ?
+                              <div className="trips-book-now">
+                                <div className="trips-book-now--text">
+                                  <h2>You haven't booked any trips yet.</h2>
+                                </div>
+                                <BeeLink to="/">
+                                  <Button radius="4px">Book a Home Today!</Button>
+                                </BeeLink>
+                              </div>
+                            :
+                              <section className="active-cards-container">
                                 {upcoming.map((trip: Booking) => (
                                   <ActiveTripCard
                                     onCancelClick={this.handleCancelBooking.bind(this, trip)}
@@ -93,43 +130,39 @@ class Trips extends React.Component<Props, State> {
                                     trip={trip}
                                   />
                                 ))}
-                              </div>
-                            </>
-                          );
-                        }}
-                      </AppConsumer>
-                      <Divider />
-                    </section>
-                  )}
-                  {!!pending.length && (
-                    <section>
-                      <h3>Pending Trips</h3>
-                      <div className="active-cards-container">
-                        {pending.map((trip: Booking) => (
-                          <ActiveTripCard 
-                            onCancelClick={this.handleCancelBooking.bind(this, trip)}
-                            key={trip.id}
-                            trip={trip} />
-                        ))}
-                      </div>
-                      <Divider />
-                    </section>
-                  )}
-                  {!!(past.length || cancelled.length) && (
-                    <section>
-                      <h3>Past / Cancelled Trips</h3>
-                      <div className="expired-trip-cards">
-                        {past.map((trip: Booking) => (
-                          <ExpiredTripCard key={trip.id} trip={trip} />
-                        ))}
-                        {cancelled.map((trip: Booking) => (
-                          <ExpiredTripCard key={trip.id} trip={trip} />
-                        ))}
-                      </div>
-                    </section>
-                  )}
+                              </section>
+                          }
+                        </>
+                      } />
+                      <Route exact path="/trips/past" component={() =>
+                        <>
+                          {!!past.length && (
+                            <section className="expired-trip-cards">
+                              {past.map((trip: Booking) => (
+                                <ExpiredTripCard key={trip.id} trip={trip} />
+                              ))}
+                            </section>
+                          )}
+                        </>
+                      } />
+                      <Route exact path="/trips/cancelled" component={() =>
+                        <>
+                          {!!cancelled.length && (
+                            <section className="expired-trip-cards">
+                              {cancelled.map((trip: Booking) => (
+                                <ExpiredTripCard key={trip.id} trip={trip} />
+                              ))}
+                            </section>
+                          )}
+                        </>
+                      } />
+                      <Redirect exact from="/trips" to={isCurrentEmpty ? "/trips/upcoming" : "/trips/current"} />
+                      <Route component={NotFound} />
+                    </Switch>
+                  </div>
+                  {isSubmitting && <CryptoPortal />}
                   {open && (
-                    <Snackbar autoHideDuration={SNACKBAR_DURATION_MS} open={open} onClose={this.closeSnackbar}>
+                    <Snackbar autoHideDuration={5000} open={open} onClose={this.closeSnackbar}>
                       {message}
                     </Snackbar>
                   )}

@@ -25,6 +25,7 @@ class GoogleAutoComplete extends React.Component<Props, any> {
   
   componentDidMount() {
     if (!this.props.inputRef.current) return;
+    if (!window.google) return;
 
     this.autocomplete = new google.maps.places.Autocomplete(
       this.props.inputRef.current,

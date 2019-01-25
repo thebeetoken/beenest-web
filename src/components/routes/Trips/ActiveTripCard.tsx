@@ -4,7 +4,6 @@ import ActiveTripCardContainer from './ActiveTripCard.container';
 
 import { AppConsumer, AppConsumerProps, ScreenType } from 'components/App.context';
 import { Booking } from 'networking/bookings';
-import { Listing } from 'networking/listings';
 import BeeLink from 'shared/BeeLink';
 import Divider from 'shared/Divider';
 import LazyImage from 'shared/LazyImage';
@@ -16,6 +15,7 @@ import { getUserBookingDisplayStatus } from 'utils/bookingsDisplayStatus';
 import { ToggleProvider, ToggleProviderRef } from 'shared/ToggleProvider';
 import Portal from 'shared/Portal';
 import ContactHostForm from 'shared/ContactHostForm';
+import { getGoogleMapURI, formatAddress } from 'utils/formatter';
 
 interface Props {
   onCancelClick: () => void;
@@ -30,11 +30,11 @@ const ActiveTripCard = ({ onCancelClick, trip }: Props) => {
   const displayStatus = getUserBookingDisplayStatus(status);
   const titleLink = status === 'started' ? `/bookings/${id}/options` : `listings/${listing.idSlug}`;
   return (
-    <ActiveTripCardContainer className="bee-active-trip-card">
+    <ActiveTripCardContainer className="active-trip-card">
       <div className="active-trip-photo">
         <LazyImage src={listing.listingPicUrl} transition />
       </div>
-      <div className="trip-large-section">
+      <div className="active-trip-info">
         <h3>
           <BeeLink to={titleLink}>{listing.title}</BeeLink>
         </h3>
@@ -42,7 +42,7 @@ const ActiveTripCard = ({ onCancelClick, trip }: Props) => {
         <div className="address">
         <BeeLink href={getGoogleMapURI(listing)} target="_blank">
           <ListItem noHover suffixColor="secondary" textColor="secondary" textTransform="uppercase">
-            <span>{trip.status === 'host_approved' && streetAddress} {listing.city && `${listing.city}, `}{listing.state && `${listing.state}, `}{listing.country.toUpperCase()}</span>
+            <span>{formatAddress(streetAddress, listing.city, listing.state, listing.country.toUpperCase())}</span>
             <AppConsumer>
               {({ screenType }: AppConsumerProps) => (
                 screenType > ScreenType.TABLET && <Svg className="suffix" src="decorative/location" />
@@ -52,15 +52,17 @@ const ActiveTripCard = ({ onCancelClick, trip }: Props) => {
         </BeeLink>
         </div>
         <div className="dates">
-          <h5>
-            Check-in: <span>{formatSingleDate(checkInDate)}</span>
-          </h5>
-          <h5>
-            Check-out: <span>{formatSingleDate(checkOutDate)}</span>
-          </h5>
+          <div className="date">
+            <h5>Check-in:</h5>
+            <h6>{formatSingleDate(checkInDate)}</h6>
+          </div>
+          <div className="date">
+            <h5>Check-out:</h5>
+            <h6>{formatSingleDate(checkOutDate)}</h6>
+          </div>
         </div>
         <h4>Status: {displayStatus}</h4>
-        <h5>Booking ID: <span>{id}</span></h5>
+        <h5>Booking: <span>{id}</span></h5>
         <div className="divider">
           <Divider />
         </div>
@@ -126,8 +128,3 @@ const ActiveTripCard = ({ onCancelClick, trip }: Props) => {
 };
 
 export default ActiveTripCard;
-
-function getGoogleMapURI(listing: Listing): string {
-  const listingAddress = `${listing.addressLine1 ? listing.addressLine1 + ' ' : ''}${listing.city} ${listing.state}`;
-  return `https://www.google.com/maps/place/${encodeURIComponent(listingAddress)}`;
-}

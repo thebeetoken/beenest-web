@@ -5,7 +5,6 @@ import HostBookings from './HostBookings';
 import HostListings from './HostListings';
 import HostPayments from './HostPayments';
 import HostContainer from './Host.container';
-import HostNav from './HostNav';
 
 import { FirebaseConsumer, FirebaseUserProps } from 'HOCs/FirebaseProvider';
 import NotFound from 'routes/NotFound';
@@ -17,6 +16,7 @@ import AuthenticatedRoute from 'HOCs/AuthenticatedRoute';
 import { compose, graphql } from 'react-apollo';
 import { CREATE_LISTING, Listing, GET_HOST_LISTINGS } from 'networking/listings';
 import { getFriendlyErrorMessage } from 'utils/validators';
+import TabNavBar from 'components/shared/TabNavBar';
 
 interface Props extends RouterProps {
   createListing: () => Promise<Listing>;
@@ -46,7 +46,20 @@ class Host extends React.Component<Props, State> {
             </Button>
           </header>
           <Divider color="light" size="tall" />
-          <HostNav />
+          <TabNavBar config={[
+              {
+                title: 'Bookings',
+                to: '/host/bookings',
+              },
+              {
+                title: 'Listings',
+                to: '/host/listings',
+              },
+              {
+                title: 'Payments',
+                to: '/host/payments',
+              }
+          ]} />
           <FirebaseConsumer>
             {({ loading, user }: FirebaseUserProps) => {
               if (loading) {

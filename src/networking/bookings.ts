@@ -5,6 +5,7 @@ import { User } from 'networking/users';
 
 export interface Booking {
   approvedBy: string | null;
+  btcWalletAddress?: string;
   cancelledBy: string | null;
   checkInDate: string;
   checkOutDate: string;
@@ -171,7 +172,10 @@ export const GET_BOOKING = gql`
       listingId
       listing {
         id
+        city
+        homeType
         houseRules
+        title
       }
       numberOfGuests
       priceQuotes {
@@ -236,6 +240,7 @@ export const GET_BOOKING_TRIPS_RECEIPT = gql`
 export const GET_BOOKING_RECEIPT = gql`
   query booking($id: ID!) {
     booking(id: $id) {
+      btcWalletAddress
       currency
       guestTotalAmount
       guestWalletAddress
@@ -291,10 +296,13 @@ export const GET_GUEST_SORTED_BOOKINGS = gql`
       country
       id
       idSlug
+      lat
       listingPicUrl
+      lng
       state
       title
     }
+    numberOfGuests
     status
   }
 
@@ -302,13 +310,16 @@ export const GET_GUEST_SORTED_BOOKINGS = gql`
     upcoming: guestBookings(status: "upcoming") {
       currency
       listing {
-        id
         addressLine1
         addressLine2
       }
       ...baseTripFields
     }
-    pending: guestBookings(status: "pending") {
+    started: guestBookings(status: "started") {
+      currency
+      ...baseTripFields
+    }
+    current: guestBookings(status: "current") {
       currency
       ...baseTripFields
     }

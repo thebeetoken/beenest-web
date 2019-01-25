@@ -2,18 +2,26 @@ import styled from 'styled-components';
 import { color, typography } from 'styled/utils';
 
 const TripsContainerMobile = styled.div`
-  display: flex;
-  justify-content: center;
   align-items: center;
+  display: flex;
+  min-height: 100vh;
+  width: 100%;
 
   
-  .trips-wrapper {
+  .trips-body {
+    align-self: flex-start;
+    display: flex;
+    flex-direction: column;
     padding: 32px 24px 0;
-    width: 320px;
+    height: 100%;
+    justify-content: space-between;
+    margin: 0 auto;
     min-width: 320px;
     min-height: 100%;
+    padding: 24px 0 40px;
     .trips-header {
-      margin-bottom: 34px;
+      margin-bottom: 16px;
+      padding: 0 24px;
       width: 100%;
       h1 {
         ${typography('title', 4)};
@@ -27,6 +35,9 @@ const TripsContainerMobile = styled.div`
         height: 2px;
         width: 100%;
       }
+    }
+    nav {
+      margin-bottom: 40px;
     }
     .trips-book-now {
       margin-bottom: 32px;
@@ -47,30 +58,44 @@ const TripsContainerMobile = styled.div`
         width: 100%;
       }
     }
-    section {
-      display: flex;
-      flex-direction: column;
-      margin-bottom: 24px;
+    .trip-cards-container {
+      padding: 0 24px;
       width: 100%;
+      > h2 {
+        ${typography('title', 7)};
+        margin-bottom: 24px;
+      }
+      .started-trip-container {
+        display: flex;
+        flex-direction: column;
+        justify-content: center;
+        margin-bottom: 24px;
+        width: 100%;
+        > h3 {
+          ${typography('title', 7)};
+          color: ${color('body')};
+          margin-bottom: 16px;
+        }
+      }
       .active-cards-container {
         display: flex;
         flex-direction: column;
+        margin-bottom: 24px;
         width: 100%;
-        .bee-active-trip-card {
+        .active-trip-card {
           margin-bottom: 24px;
         }
       }
-      > h3 {
-      ${typography('title', 7)};
-        color: ${color('body')};
-        margin-bottom: 24px;
-      }
       .expired-trip-cards {
+        align-items: center;
         display: flex;
-        flex-direction: row;
+        flex-direction: column;
         flex-wrap: wrap;
         margin: 0 auto;
         width: 100%;
+      }
+      > .bee-divider {
+        margin-bottom: 24px;
       }
     }
   }
@@ -82,12 +107,13 @@ const TripsContainerMobile = styled.div`
 
 const TripsContainerTablet = styled(TripsContainerMobile)`
   @media (min-width: 768px) {
-    .trips-wrapper {
+    .trips-body {
       padding: 0;
       padding-top: 64px;
       width: 644px;
       .trips-header {
-        margin-bottom: 34px;
+        margin-bottom: 12px;
+        padding: 0;
         width: 100%;
         h1 {
           ${typography('title', 4)};
@@ -102,6 +128,9 @@ const TripsContainerTablet = styled(TripsContainerMobile)`
           width: 100%;
         }
       }
+      nav {
+        margin-bottom: 40px;
+      }
       .trips-book-now {
         .trips-book-now--text {
           flex-direction: column;
@@ -114,27 +143,21 @@ const TripsContainerTablet = styled(TripsContainerMobile)`
           }
         }
       }
-      section {
-        display: flex;
-        flex-direction: column;
-        margin-bottom: 24px;
-        width: 100%;
-        .active-cards-container {
-          display: flex;
-          flex-direction: row;
-          flex-wrap: wrap;
-          width: 100%;
-          .bee-active-trip-card {
-            margin-bottom: 48px;
-            &:nth-of-type(2n) {
-              margin-left: 100px;
-            }
+      .trip-cards-container {
+        padding: 0;
+        > h2 {
+          ${typography('title', 7)};
+          margin-bottom: 24px;
+        }
+        .started-trip-container {
+          > h3 {
+            ${typography('title', 7)};
           }
         }
-        > h3 {
-        ${typography('title', 7)};
-          color: ${color('body')};
-          margin-bottom: 24px;
+        .active-cards-container {
+          .active-trip-card {
+            margin-bottom: 40px;
+          }
         }
         .expired-trip-cards {
           display: flex;
@@ -156,10 +179,10 @@ const TripsContainerTablet = styled(TripsContainerMobile)`
 
 const TripsContainerDesktop = styled(TripsContainerTablet)`
   @media (min-width: 1025px) {
-    .trips-wrapper {
+    .trips-body {
       width: 976px;
       .trips-header {
-        margin-bottom: 42px;
+        margin-bottom: 12px;
         width: 100%;
         h1 {
           ${typography('title', 2)};
@@ -174,6 +197,10 @@ const TripsContainerDesktop = styled(TripsContainerTablet)`
           width: 100%;
         }
       }
+      nav {
+        align-self: flex-start;
+        margin-bottom: 60px;
+      }
       .trips-book-now {
         .trips-book-now--text {
           flex-direction: row;
@@ -185,34 +212,15 @@ const TripsContainerDesktop = styled(TripsContainerTablet)`
           width: 200px;
         }
       }
-      section {
-        display: flex;
-        flex-direction: column;
-        margin-bottom: 24px;
-        width: 100%;
-        .active-cards-container {
-          display: flex;
-          flex-direction: row;
-          flex-wrap: wrap;
-          width: 100%;
-          .bee-active-trip-card {
-            margin-bottom: 48px;
-            &:nth-of-type(2n) {
-              margin-left: 0;
-            }
+      .trip-cards-container {
+        .started-trip-container {
+          margin-bottom: 40px;
+          > h3 {
+            ${typography('emp', 5)};
+            align-self: flex-start;
           }
         }
-        > h3 {
-        ${typography('emp', 5)};
-          color: ${color('body')};
-          margin-bottom: 24px;
-        }
         .expired-trip-cards {
-          display: flex;
-          flex-direction: row;
-          flex-wrap: wrap;
-          margin: 0 auto;
-          width: 100%;
           .expired-trip-card {
             &:nth-of-type(3n + 4),
             &:nth-of-type(3n + 5),
