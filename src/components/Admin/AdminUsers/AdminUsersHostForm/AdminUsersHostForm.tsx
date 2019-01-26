@@ -285,6 +285,7 @@ class AdminUsersHostForm extends React.Component<HostProps, HostFormState> {
   render() {
     const { errors } = this.state;
     const { about, btcWalletAddress, email, firstName, lastName, phoneNumber, profilePicUrl, walletAddress } = errors;
+    const { id, listingCount } = this.props.host;
     const nameError = firstName.error || lastName.error;
     const nameSuccess = firstName.success && lastName.success;
     const $formError = this.state.isSubmitClicked && !this.isFormValid() ? 'opacity--1' : '';
@@ -427,6 +428,11 @@ class AdminUsersHostForm extends React.Component<HostProps, HostFormState> {
               </>
             }
           </div>
+
+          {!!listingCount && listingCount > 0 && <div className="admin-form--item-link">
+            <span><BeeLink to={`/admin/listings?userId=${id}`}>See {listingCount} listings</BeeLink></span>
+          </div>}
+
         </div>
         <footer>
           <div className={`error-state ${$formError}`}>
