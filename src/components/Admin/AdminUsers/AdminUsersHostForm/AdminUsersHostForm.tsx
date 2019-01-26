@@ -429,7 +429,7 @@ class AdminUsersHostForm extends React.Component<HostProps, HostFormState> {
             }
           </div>
 
-          {!!listingCount && listingCount > 0 && <div className="admin-form--item-link">
+          {!!listingCount && <div className="admin-form--item-link">
             <span><BeeLink to={`/admin/listings?userId=${id}`}>See {listingCount} listings</BeeLink></span>
           </div>}
 
