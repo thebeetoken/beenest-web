@@ -46,7 +46,7 @@ const AppRoutes = () => (
       return (
         <AppContainer className="bee-app" {...bannerState}>
           <Switch>
-            <Route exact path="/account/verify" component={FirebaseAccountEmailHandler} />
+            <Route exact path="/account/action" component={FirebaseAccountEmailHandler} />
             <Route exact path="/account/stripe_express/new" component={StripeExpressNew} />
             <Route exact path="/account/stripe_express/complete" component={StripeExpressComplete} />
             <AuthenticatedRoute path="/account" component={Account} />
