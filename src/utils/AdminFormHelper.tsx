@@ -17,6 +17,7 @@ export const generateDefaultState = () => {
     isSubmitClicked: false,
     errors: {
       about: generateErrorBoundary(),
+      btcWalletAddress: generateErrorBoundary(),
       email: generateErrorBoundary(),
       firstName: generateErrorBoundary(),
       lastName: generateErrorBoundary(),
@@ -26,6 +27,7 @@ export const generateDefaultState = () => {
     },
     userForm: {
       about: '',
+      btcWalletAddress: '',
       email: '',
       firstName: '',
       id: '',

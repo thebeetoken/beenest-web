@@ -20,6 +20,7 @@ const { BEENEST_HOST } = SETTINGS;
 
 interface AdminCreateHostInput {
   about: string;
+  btcWalletAddress: string;
   email: string;
   firstName: string;
   lastName: string;
@@ -31,6 +32,7 @@ interface AdminCreateHostInput {
 
 interface Errors {
   about: HostFormErrorState;
+  btcWalletAddress: HostFormErrorState;
   email: HostFormErrorState;
   firstName: HostFormErrorState;
   lastName: HostFormErrorState;
@@ -42,6 +44,7 @@ interface Errors {
 
 interface Host {
   about: string;
+  btcWalletAddress: string;
   email: string;
   firstName: string;
   id: string;
@@ -82,6 +85,7 @@ interface HostProps extends RouterProps {
 
 interface UpdateHostInput {
   about: string;
+  btcWalletAddress: string;
   email: string;
   firstName: string;
   id: string;
@@ -93,6 +97,7 @@ interface UpdateHostInput {
 
 const HOST_PARAMS = {
   about: 'about',
+  btcWalletAddress: 'btcWalletAddress',
   email: 'email',
   firstName: 'firstName',
   lastName: 'lastName',
@@ -191,6 +196,7 @@ class AdminUsersHostForm extends React.Component<HostProps, HostFormState> {
     const { userForm } = this.state;
     const host: any = {
       about: userForm.about,
+      btcWalletAddress: userForm.btcWalletAddress,
       email: userForm.email,
       firstName: userForm.firstName,
       lastName: userForm.lastName,
@@ -257,6 +263,8 @@ class AdminUsersHostForm extends React.Component<HostProps, HostFormState> {
     switch (field) {
       case HOST_PARAMS.about:
         return formHelper.isOptional();
+      case HOST_PARAMS.btcWalletAddress:
+        return formHelper.isOptional();
       case HOST_PARAMS.email:
         return formHelper.isValidEmail(value);
       case HOST_PARAMS.firstName:
@@ -276,7 +284,7 @@ class AdminUsersHostForm extends React.Component<HostProps, HostFormState> {
 
   render() {
     const { errors } = this.state;
-    const { about, email, firstName, lastName, phoneNumber, profilePicUrl, walletAddress } = errors;
+    const { about, btcWalletAddress, email, firstName, lastName, phoneNumber, profilePicUrl, walletAddress } = errors;
     const nameError = firstName.error || lastName.error;
     const nameSuccess = firstName.success && lastName.success;
     const $formError = this.state.isSubmitClicked && !this.isFormValid() ? 'opacity--1' : '';
@@ -345,7 +353,7 @@ class AdminUsersHostForm extends React.Component<HostProps, HostFormState> {
           </div>
 
           <div className="admin-form--item">
-            <AdminInputLabel htmlFor="walletAddress">Wallet Address:</AdminInputLabel>
+            <AdminInputLabel htmlFor="walletAddress">Ethereum Wallet Address:</AdminInputLabel>
             <AdminInputWrapper>
               <input
                 id="walletAddress"
@@ -356,6 +364,21 @@ class AdminUsersHostForm extends React.Component<HostProps, HostFormState> {
                 value={this.state.userForm.walletAddress} />
               {walletAddress.error && <p className="admin-input__error show">Please enter a valid wallet address</p>}
               {walletAddress.success && <Svg className="admin-input__success show" src="utils/check-circle" />}
+            </AdminInputWrapper>
+          </div>
+
+          <div className="admin-form--item">
+            <AdminInputLabel htmlFor="btcWalletAddress">Bitcoin Wallet Address:</AdminInputLabel>
+            <AdminInputWrapper>
+              <input
+                id="btcWalletAddress"
+                name="btcWalletAddress"
+                onChange={this.handleInput}
+                placeholder="26e221b83e3342114b18C1D1699466E6E311b0123"
+                type="text"
+                value={this.state.userForm.btcWalletAddress} />
+              {btcWalletAddress.error && <p className="admin-input__error show">Please enter a valid wallet address</p>}
+              {btcWalletAddress.success && <Svg className="admin-input__success show" src="utils/check-circle" />}
             </AdminInputWrapper>
           </div>
 
