@@ -120,6 +120,7 @@ export const GET_USER_BY_ID = gql`
 export const GET_ALL_USERS = gql`
   query allUsers {
     allUsers {
+      btcWalletAddress
       completedVerification
       email
       firstName
@@ -156,6 +157,7 @@ export const SEARCH_USERS = gql`
   query SearchUsers($input: SearchUsersInput) {
     searchUsers(input: $input) {
       users {
+        btcWalletAddress
         completedVerification
         email
         firstName
