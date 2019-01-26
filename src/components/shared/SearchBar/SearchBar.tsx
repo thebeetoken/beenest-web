@@ -162,7 +162,9 @@ class SearchBar extends React.Component<RouterProps, State> {
   handleGuests = (event: React.ChangeEvent<HTMLInputElement>) => this.setState({ numberOfGuests: event.target.value });
   
   handlePlaceChange = (place: google.maps.places.PlaceResult) => {
-    if (!place.geometry) return;
+    if (!place.geometry) {
+      return this.setState({ coordinates: null, bounds: null });
+    }
     this.setState({
       coordinates: {
         lat: place.geometry.location.lat(),

@@ -44,6 +44,7 @@ class GoogleAutoComplete extends React.Component<Props, any> {
       <GoogleAutoCompleteContainer>
         <InputWrapper box>
           <input
+            onChange={() => this.props.onPlaceChange({})}
             ref={this.props.inputRef}
             id="locationQuery"
             name="locationQuery"
