@@ -28,9 +28,26 @@ class GoogleMapsWithMarkers extends React.Component<Props, State> {
   state: State = {}
 
   handleMapMounted = (map: GoogleMap) => {
-    const { bounds } = this.props;
-    if (bounds && map) {
+    if (!map) {
+      return;
+    }
+    const { bounds, listings } = this.props;
+    if (bounds) {
       map.fitBounds(bounds);
+      return;
+    }
+    if (listings && listings.length > 1) {
+      map.fitBounds(listings.reduce(({north, south, east, west}, {lat, lng}) => ({
+        north: Math.max(north, lat),
+        south: Math.min(south, lat),
+        east: Math.max(east, lng),
+        west: Math.min(west, lng)
+      }), {
+        north: -90,
+        south: 90,
+        east: -180,
+        west: 180
+      }));
     }
   }
 
