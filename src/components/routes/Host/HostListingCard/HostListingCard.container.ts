@@ -48,8 +48,12 @@ const HostListingCardContainer = styled.article`
         }
       }
     }
+
   }
 
+   .host-listing-notice {
+    ${typography('caption', 3)};
+   }
 
   .host-listing-image {
     height: 100%;
