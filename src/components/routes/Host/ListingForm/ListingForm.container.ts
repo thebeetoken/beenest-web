@@ -18,7 +18,7 @@ const ListingFormContainer = styled.section`
         margin-bottom: 8px;
       }
       .form-item {
-        margin-bottom: 40px;
+        margin-bottom: 24px;
         width: 100%;
         .bee-textarea {
           width: 100%;
@@ -41,6 +41,7 @@ const ListingFormContainer = styled.section`
             display: flex;
             flex-direction: row;
             justify-content: space-between;
+            margin-bottom: 0;
             .bee-input-wrapper {
               &:nth-of-type(1) {
                 width: 45%;

@@ -84,6 +84,9 @@ const PricingAvailabilityForm = (props: any): JSX.Element => {
           }}
           value={arrayToString(values.icalUrls)}
           placeholder="https://www.airbnb.com/calendar/ical/XXX" />
+          <ErrorMessageWrapper>
+            <ErrorMessage name="icalUrls" />
+          </ErrorMessageWrapper>
       </div>
     </>
   );

@@ -7,7 +7,8 @@ import Textarea from 'shared/Textarea';
 import { TextareaEvent } from 'shared/Textarea/Textarea';
 import { stringToArray, arrayToString } from 'utils/formatter';
 import Checkbox from 'shared/Checkbox';
-import { Field } from 'formik';
+import { Field, ErrorMessage } from 'formik';
+import ErrorMessageWrapper from 'components/shared/ErrorMessageWrapper';
 
 const AccommodationsForm = (props: any): JSX.Element => {
   const { setFieldTouched, setFieldValue, values } = props;
@@ -33,15 +34,16 @@ const AccommodationsForm = (props: any): JSX.Element => {
       </div> */}
 
       <div className="form-item">
-        <div className="input-container">
-          <InputLabel htmlFor="sleepingArrangement">Sleeping Arrangement</InputLabel>
-          <InputWrapper>
-            <Field
-              name="sleepingArrangement"
-              placeholder="1 King, 2 Queens"
-              type="text" />
-          </InputWrapper>
-        </div>
+        <InputLabel htmlFor="sleepingArrangement">Sleeping Arrangement</InputLabel>
+        <InputWrapper>
+          <Field
+            name="sleepingArrangement"
+            placeholder="1 King, 2 Queens"
+            type="text" />
+        </InputWrapper>
+        <ErrorMessageWrapper>
+          <ErrorMessage name="sleepingArrangement" />
+        </ErrorMessageWrapper>
       </div>
 
       <div className="form-item">
@@ -97,6 +99,9 @@ const AccommodationsForm = (props: any): JSX.Element => {
           }}
           value={arrayToString(values.amenities)}
           placeholder="Towels, Soap, Detergent" />
+          <ErrorMessageWrapper>
+            <ErrorMessage name="amenities" />
+          </ErrorMessageWrapper>
       </div>
     </>
   );

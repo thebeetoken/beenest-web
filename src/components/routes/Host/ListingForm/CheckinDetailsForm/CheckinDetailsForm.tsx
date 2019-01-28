@@ -6,6 +6,8 @@ import Svg from 'shared/Svg';
 import Textarea from 'shared/Textarea';
 import { TextareaEvent } from 'components/shared/Textarea/Textarea';
 import timeOptions from 'utils/timeOptions';
+import ErrorMessageWrapper from 'components/shared/ErrorMessageWrapper';
+import { ErrorMessage } from 'formik';
 
 const CheckinDetailsForm = (props: any): JSX.Element => {
   const { setFieldTouched, setFieldValue, values } = props;
@@ -19,8 +21,10 @@ const CheckinDetailsForm = (props: any): JSX.Element => {
             id="from"
             name="from"
             value={values.checkInTime.from}
-            onChange={(event: React.ChangeEvent<HTMLSelectElement>) =>
-              setFieldValue('checkInTime', { ...values.checkInTime, from: event.target.value })}>
+            onChange={(event: React.ChangeEvent<HTMLSelectElement>) => {
+              setFieldTouched('checkInTime', true);
+              setFieldValue('checkInTime', { ...values.checkInTime, from: event.target.value });
+            }}>
             {timeOptions.map(
               time => <option key={time} value={time}>{time}</option>
             )}
@@ -38,8 +42,10 @@ const CheckinDetailsForm = (props: any): JSX.Element => {
             id="to"
             name="to"
             value={values.checkInTime.to}
-            onChange={(event: React.ChangeEvent<HTMLSelectElement>) =>
-              setFieldValue('checkInTime', { ...values.checkInTime, to: event.target.value })}>
+            onChange={(event: React.ChangeEvent<HTMLSelectElement>) => {
+              setFieldTouched('checkInTime', true);
+              setFieldValue('checkInTime', { ...values.checkInTime, to: event.target.value })
+            }}>
             {timeOptions.map(
               time => <option key={time} value={time}>{time}</option>
             )}
@@ -48,6 +54,9 @@ const CheckinDetailsForm = (props: any): JSX.Element => {
             <Svg className="suffix" src="utils/carat-down" />
           </label>
         </SelectBoxWrapper>
+        <ErrorMessageWrapper>
+          <ErrorMessage name="checkInTime" />
+        </ErrorMessageWrapper>
       </div>
 
       <div className="form-item">
@@ -79,6 +88,9 @@ const CheckinDetailsForm = (props: any): JSX.Element => {
           }}
           value={values.houseRules}
           placeholder="Let your guests know about quiet hours, pets, etc." />
+          <ErrorMessageWrapper>
+            <ErrorMessage name="houseRules" />
+          </ErrorMessageWrapper>
       </div>
     </>
   );

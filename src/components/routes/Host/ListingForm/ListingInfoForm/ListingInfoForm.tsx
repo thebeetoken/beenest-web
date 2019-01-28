@@ -10,14 +10,15 @@ import { formatAddress } from 'utils/formatter';
 import { HomeTypeHostForm } from 'utils/validators';
 import { PhotoUploader, Photo } from 'components/shared/PhotoUploader';
 import GoogleMaps from 'components/shared/GoogleMaps';
-import { Field, FormikProps } from 'formik';
+import { Field, FormikProps, ErrorMessage } from 'formik';
 import { TextareaEvent } from 'components/shared/Textarea/Textarea';
 import { ListingInput } from 'networking/listings';
+import ErrorMessageWrapper from 'components/shared/ErrorMessageWrapper';
 
 const LAT_LNG_EPSILON = Math.pow(10, -6); // decimal places stored in db
 
 const ListingInfoForm = (props: FormikProps<ListingInput>): JSX.Element => {
-  const { setFieldValue, setFieldTouched, values } = props;
+  const { errors, setFieldValue, setFieldTouched, values } = props;
   const { addressLine1, city, postalCode, state } = values;
   const address = formatAddress(addressLine1, city, state, postalCode);
   return (
@@ -41,6 +42,9 @@ const ListingInfoForm = (props: FormikProps<ListingInput>): JSX.Element => {
             <Svg className="suffix" src="utils/carat-down" />
           </label>
         </SelectBoxWrapper>
+        <ErrorMessageWrapper>
+          <ErrorMessage name="homeType" />
+        </ErrorMessageWrapper>
       </div>
 
       <div className="form-item">
@@ -51,6 +55,9 @@ const ListingInfoForm = (props: FormikProps<ListingInput>): JSX.Element => {
             placeholder="Title"
             type="text" />
         </InputWrapper>
+        <ErrorMessageWrapper>
+          <ErrorMessage name="title" />
+        </ErrorMessageWrapper>
       </div>
 
       <div className="form-item">
@@ -64,6 +71,9 @@ const ListingInfoForm = (props: FormikProps<ListingInput>): JSX.Element => {
           }}
           value={values.description}
           placeholder="Tell us about your home" />
+          <ErrorMessageWrapper>
+            <ErrorMessage name="description" />
+          </ErrorMessageWrapper>
       </div>
 
       <div className="form-item address">
@@ -102,6 +112,12 @@ const ListingInfoForm = (props: FormikProps<ListingInput>): JSX.Element => {
               type="text" />
           </InputWrapper>
         </div>
+        <ErrorMessageWrapper>
+          {errors.addressLine1 && <ErrorMessage name="addressLine1" /> ||
+            errors.city && <ErrorMessage name="city" /> ||
+            errors.state && <ErrorMessage name="state" /> ||
+            errors.postalCode && <ErrorMessage name="postalCode" />}
+        </ErrorMessageWrapper>
       </div>
 
       <div className="form-item">
@@ -125,6 +141,9 @@ const ListingInfoForm = (props: FormikProps<ListingInput>): JSX.Element => {
             <Svg className="suffix" src="utils/carat-down" />
           </label>
         </SelectBoxWrapper>
+        <ErrorMessageWrapper>
+          <ErrorMessage name="country" />
+        </ErrorMessageWrapper>
       </div>
 
       <div className="form-item map-preview">
@@ -148,7 +167,13 @@ const ListingInfoForm = (props: FormikProps<ListingInput>): JSX.Element => {
         <PhotoUploader
           initialPhotos={values.listingPicUrl ? [{ url: values.listingPicUrl }] : []}
           maxFiles={1}
-          onPhotosUpdated={(photo: Photo[]) => setFieldValue('listingPicUrl', photo[0] ? photo[0].url : '')} />
+          onPhotosUpdated={(photo: Photo[]) => {
+            setFieldTouched('listingPicUrl', true);
+            setFieldValue('listingPicUrl', photo[0] ? photo[0].url : '');
+          }} />
+          <ErrorMessageWrapper>
+            <ErrorMessage name="listingPicUrl" />
+          </ErrorMessageWrapper>
       </div>
 
       <div className="form-item photo">
@@ -161,7 +186,13 @@ const ListingInfoForm = (props: FormikProps<ListingInput>): JSX.Element => {
             })
           }
           maxFiles={25}
-          onPhotosUpdated={(photo: Photo[]) => setFieldValue('photos', photo.map(photo => photo.url))} />
+          onPhotosUpdated={(photo: Photo[]) => {
+            setFieldTouched('photos', true);
+            setFieldValue('photos', photo.map(photo => photo.url));
+          }} />
+          <ErrorMessageWrapper>
+            <ErrorMessage name="photos" />
+          </ErrorMessageWrapper>
       </div>
     </>
   );

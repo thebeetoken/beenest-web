@@ -60,9 +60,9 @@ interface Props extends RouterProps {
 }
 
 const ListingFormSchema = Yup.object().shape({
-  addressLine1: Yup.string().min(1, 'Too Short!'),
+  addressLine1: Yup.string().required('Address Line 1 is a required field'),
   addressLine2: Yup.string(),
-  amenities: Yup.array().of(Yup.string()),
+  amenities: Yup.array().of(Yup.string()).required('Please provide a list of amenities.'),
   checkInTime: Yup.object()
     .shape({
       from: Yup.string().oneOf(timeOptions),
@@ -74,11 +74,11 @@ const ListingFormSchema = Yup.object().shape({
     }),
   checkOutTime: Yup.string().oneOf(timeOptions),
   city: Yup.string().max(60, 'Too Long!'),
-  country: Yup.string().max(60, 'Too Long!'),
-  description: Yup.string(),
-  homeType: Yup.string(),
-  houseRules: Yup.string(),
-  icalUrls: Yup.array().of(Yup.string()),
+  country: Yup.string().required('Please provide a valid country.').max(60, 'Too Long!'),
+  description: Yup.string().required('Please provide a description of your listing.'),
+  homeType: Yup.string().required('Please provide the home type.'),
+  houseRules: Yup.string().required('Please provide the house rules.'),
+  icalUrls: Yup.array().of(Yup.string().url('${value} is not a valid ical url. ')),
   isActive: Yup.bool(),
   lat: Yup.number()
     .moreThan(-90)
@@ -86,7 +86,7 @@ const ListingFormSchema = Yup.object().shape({
   lng: Yup.number()
     .moreThan(-180)
     .lessThan(180),
-  listingPicUrl: Yup.string().url(),
+  listingPicUrl: Yup.string().required('Please provide a cover photo.').url(),
   maxGuests: Yup.number()
     .moreThan(0, 'Max guests must be greater than 0.')
     .lessThan(51, 'Max guests must not exceed 50.')
@@ -100,8 +100,8 @@ const ListingFormSchema = Yup.object().shape({
   numberOfBedrooms: Yup.number()
     .min(0, 'Number of bedrooms must be greater than or equal to 0.')
     .required('Please provide the number of bedrooms.'),
-  photos: Yup.array().of(Yup.string().url()),
-  postalCode: Yup.string().max(45, 'Too Long!'),
+  photos: Yup.array().of(Yup.string().url()).required('Please provide at least one listing photo.'),
+  postalCode: Yup.string().required('Please fill out the postal code').max(45, 'Too Long!'),
   pricePerNightUsd: Yup.number()
     .moreThan(0, 'Price per night must be greater than 0.')
     .required('Please provide the price per night.'),
@@ -109,9 +109,10 @@ const ListingFormSchema = Yup.object().shape({
     .min(0, 'Security Deposit must be greater than or equal to 0.')
     .required('Please provide the security deposit amount.'),
   sharedBathroom: Yup.string(),
-  sleepingArrangement: Yup.string(),
+  sleepingArrangement: Yup.string().required('Please provide the sleeping arrangement.'),
   state: Yup.string(),
   title: Yup.string()
+    .required('Please provide a title.')
     .min(5, 'Too Short!')
     .max(50, 'Too Long!'),
 });
@@ -145,6 +146,8 @@ class ListingForm extends React.Component<Props, State> {
           isInitialValid
           validationSchema={ListingFormSchema}
           onSubmit={(values: ListingInput, actions: FormikActions<FormValues>) => {
+            console.log('values:', values);
+            return;
             actions.setSubmitting(true);
             const { updateListing } = props;
             const { id } = props.match.params;

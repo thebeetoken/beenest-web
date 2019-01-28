@@ -5,7 +5,6 @@ const ErrorMessageWrapperContainer = styled.div`
   ${typography('light', 7)}
   color: ${color('incorrect')};
   height: 32px;
-  width: 100%;
   transition: all 0.1s ease-in-out;
 `;
 
