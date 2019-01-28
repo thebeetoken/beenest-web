@@ -18,7 +18,7 @@ interface Props extends HostListingShort {
   deleteListing: (id: string) => Promise<any>;
 }
 
-const INCOMPLETE_LISTING = "This listing is incomplete. Use the Edit button to complete all required fields to publish this listing.";
+const INCOMPLETE_LISTING = "This listing is incomplete. Click Edit to complete all required fields to publish.";
 
 const HostListingCard = (props: Props): JSX.Element => {
   const {
