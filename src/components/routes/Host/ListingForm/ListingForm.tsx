@@ -146,8 +146,6 @@ class ListingForm extends React.Component<Props, State> {
           isInitialValid
           validationSchema={ListingFormSchema}
           onSubmit={(values: ListingInput, actions: FormikActions<FormValues>) => {
-            console.log('values:', values);
-            return;
             actions.setSubmitting(true);
             const { updateListing } = props;
             const { id } = props.match.params;
