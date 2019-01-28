@@ -64,11 +64,11 @@ const HostListingCard = (props: Props): JSX.Element => {
             Delete
           </Button>
           <div className='host-listing-publish'>
-          <label htmlFor={`publish-${id}`} title={canPublish ? '' : INCOMPLETE_LISTING}>
-            <span className={canPublish ? '' : 'host-listing-meta--disabled'}>Publish</span>
-            <Switch checked={isActive} disabled={!canPublish} onColor={hexColor('correct')} onChange={() => toggleListing(id)} id={`publish-${id}`} />
-          </label>
-          {!canPublish && <p className='host-listing-notice'>{INCOMPLETE_LISTING}</p>}
+            <label htmlFor={`publish-${id}`} title={canPublish ? '' : INCOMPLETE_LISTING}>
+              <span className={canPublish ? '' : 'host-listing-meta--disabled'}>Publish</span>
+              <Switch checked={isActive} disabled={!canPublish} onColor={hexColor('correct')} onChange={() => toggleListing(id)} id={`publish-${id}`} />
+            </label>
+            {!canPublish && <p className='host-listing-notice'>{INCOMPLETE_LISTING}</p>}
           </div>
         </div>
       </div>
