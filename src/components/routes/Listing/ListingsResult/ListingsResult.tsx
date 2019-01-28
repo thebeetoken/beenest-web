@@ -48,19 +48,18 @@ const ListingQuery = () => {
   const { bounds, checkInDate, checkOutDate, coordinates, numberOfGuests, locationQuery } = queryParams;
   const areBoundsValid = bounds && bounds.east && bounds.north && bounds.south && bounds.west;
   const areCoordinatesValid = coordinates && coordinates.lat && coordinates.lng;
+  const parsedBounds = areBoundsValid && !!bounds ? {
+    east: parseFloat(bounds.east),
+    north: parseFloat(bounds.north),
+    south: parseFloat(bounds.south),
+    west: parseFloat(bounds.west),
+  } : undefined;
   const input = {
     checkInDate: checkInDate && isValid(new Date(checkInDate)) ? checkInDate : '',
     checkOutDate: checkOutDate && isValid(new Date(checkOutDate)) ? checkOutDate : '',
     numberOfGuests: numberOfGuests ? parseInt(numberOfGuests) : 1,
     locationQuery: locationQuery || '',
-    ...(areBoundsValid && !!bounds && {
-      bounds: {
-        east: parseFloat(bounds.east),
-        north: parseFloat(bounds.north),
-        south: parseFloat(bounds.south),
-        west: parseFloat(bounds.west),
-      }
-    }),
+    ...(areBoundsValid && { bounds: parsedBounds }),
     ...(areCoordinatesValid && {
       coordinates: {
         lat: coordinates && coordinates.lat ? parseFloat(coordinates.lat) : 0,
@@ -92,7 +91,9 @@ const ListingQuery = () => {
             {({ show, toggle }: ToggleProviderRef ) => (
               <div className={`listing-query-body${show ? ' listing-query-body--map-showing' : ''}`}>
                 <aside className="listing-query-body--map">
-                  <ListingsResultMap listings={data.searchListings}
+                  <ListingsResultMap
+                    bounds={parsedBounds}
+                    listings={data.searchListings}
                     toggle={toggle}
                     show={show} />
                 </aside>

@@ -7,11 +7,12 @@ import { SETTINGS } from 'configs/settings';
 const { GOOGLE_MAPS_KEY } = SETTINGS;
 
 import { ListingCard } from 'shared/ListingCard';
-import { ListingShort } from 'networking/listings';
+import { LatLngBounds, ListingShort } from 'networking/listings';
 
 import GoogleMapsWithMarkersContainer from './GoogleMapsWithMarkers.container';
 
 interface Props extends RouterProps {
+  bounds?: LatLngBounds;
   children?: React.ReactNode;
   className?: string;
   height?: string;
@@ -26,11 +27,39 @@ interface State {
 class GoogleMapsWithMarkers extends React.Component<Props, State> {
   state: State = {}
 
+  handleMapMounted = (map: GoogleMap) => {
+    if (!map) {
+      return;
+    }
+    const { bounds, listings } = this.props;
+    if (bounds) {
+      map.fitBounds(bounds);
+      return;
+    }
+    if (listings && listings.length > 1) {
+      map.fitBounds(listings.reduce(({north, south, east, west}, {lat, lng}) => ({
+        north: Math.max(north, lat),
+        south: Math.min(south, lat),
+        east: Math.max(east, lng),
+        west: Math.min(west, lng)
+      }), {
+        north: -90,
+        south: 90,
+        east: -180,
+        west: 180
+      }));
+    }
+  }
+
   render() {
     const { listings } = this.props;
     const { selectedListing } = this.state;
     return (
-      <GoogleMap defaultZoom={10} defaultCenter={getCenterCoordinates(listings)}>
+      <GoogleMap
+        defaultZoom={10}
+        defaultCenter={getCenterCoordinates(listings)}
+        ref={this.handleMapMounted}
+      >
         {listings.map(listing => (
           <Marker key={listing.id}
             position={{ lat: listing.lat, lng: listing.lng }}

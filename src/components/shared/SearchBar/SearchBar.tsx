@@ -86,7 +86,12 @@ class SearchBar extends React.Component<RouterProps, State> {
         <form className="search-bar-form" onKeyPress={this.disableEnter} onSubmit={this.handleSubmit}>
           <div className="search-bar-form--location">
             <div className="search-bar-autocomplete-container">
-              <GoogleAutoComplete onPlaceChange={this.handlePlaceChange} inputRef={this.inputRef} defaultValue={locationQuery} />
+              <GoogleAutoComplete
+                onChange={this.handleChange}
+                onPlaceChange={this.handlePlaceChange}
+                inputRef={this.inputRef}
+                defaultValue={locationQuery}
+              />
             </div>
           </div>
           <AppConsumer>
@@ -160,7 +165,12 @@ class SearchBar extends React.Component<RouterProps, State> {
 
   handleOnFocusChange = (focusedInput: 'startDate' | 'endDate' | null) => this.setState({ focusedInput });
   handleGuests = (event: React.ChangeEvent<HTMLInputElement>) => this.setState({ numberOfGuests: event.target.value });
-  
+
+  handleChange = () => {
+    // handlePlaceChange will be called later, if the user selects from Autocomplete
+    return this.setState({ coordinates: null, bounds: null });
+  }
+
   handlePlaceChange = (place: google.maps.places.PlaceResult) => {
     if (!place.geometry) return;
     this.setState({

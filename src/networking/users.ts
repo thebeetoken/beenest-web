@@ -104,6 +104,7 @@ export const GET_USER_BY_ID = gql`
   query getUserById($id: ID!) {
     getUserById(id: $id) {
       about
+      btcWalletAddress
       email
       firstName
       id
@@ -120,6 +121,7 @@ export const GET_USER_BY_ID = gql`
 export const GET_ALL_USERS = gql`
   query allUsers {
     allUsers {
+      btcWalletAddress
       completedVerification
       email
       firstName
@@ -156,6 +158,7 @@ export const SEARCH_USERS = gql`
   query SearchUsers($input: SearchUsersInput) {
     searchUsers(input: $input) {
       users {
+        btcWalletAddress
         completedVerification
         email
         firstName
@@ -174,6 +177,7 @@ export const SEARCH_HOSTS = gql`
   query SearchHosts($input: SearchUsersInput) {
     searchHosts(input: $input) {
       users {
+        btcWalletAddress
         completedVerification
         email
         firstName
@@ -200,6 +204,7 @@ export const ADMIN_CREATE_HOST = gql`
   mutation AdminCreateHost($input: AdminCreateHostInput!) {
     adminCreateHost(input: $input) {
       about
+      btcWalletAddress
       email
       firstName
       id
@@ -216,6 +221,7 @@ export const CREATE_USER = gql`
   mutation createUser($input: CreateUserInput!) {
     createUser(input: $input) {
       about
+      btcWalletAddress
       email
       firstName
       lastName
@@ -228,6 +234,7 @@ export const CREATE_HOST = gql`
   mutation CreateHost($input: CreateHostInput!) {
     createHost(input: $input) {
       about
+      btcWalletAddress
       email
       firstName
       lastName
@@ -248,6 +255,7 @@ export const UPDATE_HOST = gql`
   mutation updateHost($input: UpdateHostInput!) {
     updateHost(input: $input) {
       about
+      btcWalletAddress
       email
       firstName
       id
