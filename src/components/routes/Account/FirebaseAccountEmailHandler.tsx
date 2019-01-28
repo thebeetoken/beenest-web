@@ -4,6 +4,7 @@ import { parseQueryString } from 'utils/queryParams';
 import AudioLoading from 'shared/loading/AudioLoading';
 import { auth } from 'utils/firebase';
 import Button from 'shared/Button';
+import InputWrapper from 'shared/InputWrapper';
 import BeeLink from 'shared/BeeLink';
 import GeneralWrapper from 'shared/GeneralWrapper';
 import styled from 'styled-components';
@@ -12,8 +13,9 @@ import { FirebaseConsumer, FirebaseUserProps } from 'HOCs/FirebaseProvider';
 interface State {
   isSubmitting: boolean;
   hasError: boolean;
-  showResetPasswordForm: boolean;
+  showPasswordResetForm: boolean;
   showPasswordResetSuccess: boolean;
+  showVerifyEmailSuccess: boolean;
   successMessage: string;
   errorMessage: string;
   password: string;
@@ -35,15 +37,23 @@ const DefaultContainer = styled.div`
     section {
       margin-top: 18px;
     }
+
+    .input-container {
+      display: flex;
+      flex-direction: column;
+      margin: 16px 0px 28px 0px;
+      width: 100%;
+    }
   }
 `;
 
 export default class FirebaseAccountEmailHandler extends React.Component<RouterProps> {
   readonly state: State = {
-    isSubmitting: true,
+    isSubmitting: false,
     hasError: false,
-    showResetPasswordForm: false,
+    showPasswordResetForm: true,
     showPasswordResetSuccess: false,
+    showVerifyEmailSuccess: false,
     errorMessage: '',
     successMessage: '',
     password: '',
@@ -52,29 +62,30 @@ export default class FirebaseAccountEmailHandler extends React.Component<RouterP
 
   componentDidMount() {
     const queryParams: QueryParams = parseQueryString(this.props.location.search);
-     const { mode, oobCode } = queryParams;
-     if (!mode) {
-       alert('Error, no mode defined.');
-       return;
-     }
+    const { mode, oobCode } = queryParams;
 
-     if (!oobCode) {
-       alert('Error, no oobCode defined.');
-       return;
-     }
-     this.setState({oobCode});
+    if (!mode) {
+      alert('Error, no mode defined.');
+      return;
+    }
 
-     // @see https://firebase.google.com/docs/auth/custom-email-handler
-     switch (mode) {
-      case 'resetPassword':
-         this.handleResetPassword(oobCode);
-         break;
-      case 'verifyEmail':
-         this.handleVerifyEmail(oobCode);
+    if (!oobCode) {
+      alert('Error, no oobCode defined.');
+      return;
+    }
+    this.setState({oobCode});
+
+    // @see https://firebase.google.com/docs/auth/custom-email-handler
+    switch (mode) {
+     case 'resetPassword':
+        this.handleResetPassword(oobCode);
         break;
-      default:
-        // Error: invalid mode.
-     }
+     case 'verifyEmail':
+        this.handleVerifyEmail(oobCode);
+       break;
+     default:
+       // Error: invalid mode.
+    }
   }
 
   handleFormChange = (event: React.ChangeEvent<HTMLInputElement>): void => {
@@ -84,7 +95,7 @@ export default class FirebaseAccountEmailHandler extends React.Component<RouterP
 
   handleVerifyEmail(oobCode:string) {
     auth.applyActionCode(oobCode).then(() => {
-      this.setState({ isSubmitting: false, successMessage: 'Thanks for verifying your email.' });
+      this.setState({ isSubmitting: false, showVerifyEmailSuccess: true, successMessage: 'Thanks for verifying your email.' });
     }).catch(err => {
       console.error(err);
       this.setState({ isSubmitting: false, hasError: true, errorMessage: 'There was an error verifying your email.' });
@@ -95,13 +106,13 @@ export default class FirebaseAccountEmailHandler extends React.Component<RouterP
   handleResetPassword(actionCode:string) {
     // Verify the password reset code is valid.
     auth.verifyPasswordResetCode(actionCode).then(() => {
-      this.setState({showResetPasswordForm: true});
+      this.setState({showPasswordResetForm: true});
     }).catch(() => {
       this.setState({hasError: true, errorMessage: 'Invalid or expired action code. Ask user to try to reset the password again.'});
     });
   }
 
-  handleResetPasswordSubmit(event: React.FormEvent) {
+  handlePasswordResetSubmit(event: React.FormEvent) {
     event.preventDefault();
 
     // Save the new password.
@@ -162,12 +173,19 @@ export default class FirebaseAccountEmailHandler extends React.Component<RouterP
           </>;
   }
 
-  renderResetPasswordForm() {
-      return <form onSubmit={this.handleResetPasswordSubmit}>
-               <label>New Password:</label>
-               <input type="password" value={this.state.password} onChange={this.handleFormChange} id="password" name="password" />
-               <input type="submit" value="Submit" />
-             </form>;
+  renderPasswordResetForm() {
+      return <>
+          <h2>Reset Password</h2>
+              <form onSubmit={this.handlePasswordResetSubmit}>
+                 <div className="input-container">
+                   <InputWrapper>
+                   <label>New Password:</label>
+                   <input type="password" value={this.state.password} onChange={this.handleFormChange} id="password" name="password" />
+                   </InputWrapper>
+                 </div>
+                 <Button type="submit">Save</Button>
+             </form>
+          </>;
   }
 
   renderPasswordResetSuccess() {
@@ -176,17 +194,19 @@ export default class FirebaseAccountEmailHandler extends React.Component<RouterP
 
   render() {
     if (this.state.isSubmitting) {
-      return <AudioLoading height={48} width={96} />;
+      return <GeneralWrapper width={976}>
+             <AudioLoading height={48} width={96} />
+           </GeneralWrapper>;
     }
-    const { hasError, showResetPasswordForm, showPasswordResetSuccess } = this.state;
 
     return (
         <GeneralWrapper width={976}>
           <DefaultContainer>
           <div className="complete">
-            {hasError ? this.renderError() : this.renderVerifyEmailSuccess()}
-            {!!showResetPasswordForm && this.renderResetPasswordForm()}
-            {!!showPasswordResetSuccess && this.renderPasswordResetSuccess()}
+            {this.state.hasError && this.renderError()}
+            {this.state.showVerifyEmailSuccess && this.renderVerifyEmailSuccess()}
+            {this.state.showPasswordResetForm && this.renderPasswordResetForm()}
+            {this.state.showPasswordResetSuccess && this.renderPasswordResetSuccess()}
           </div>
           </DefaultContainer>
         </GeneralWrapper>
