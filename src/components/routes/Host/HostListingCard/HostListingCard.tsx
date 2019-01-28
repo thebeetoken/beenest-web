@@ -18,7 +18,7 @@ interface Props extends HostListingShort {
   deleteListing: (id: string) => Promise<any>;
 }
 
-const INCOMPLETE_LISTING = "This listing is incomplete. Use the Edit button to complete all required fields to publish this listing.";
+const INCOMPLETE_LISTING = "This listing is incomplete. Click Edit to complete all required fields to publish.";
 
 const HostListingCard = (props: Props): JSX.Element => {
   const {
@@ -62,11 +62,14 @@ const HostListingCard = (props: Props): JSX.Element => {
           </BeeLink>
           <Button background="core" color="white" size="small" onClick={() => deleteListing(id)}>
             Delete
-          </Button>          
-          <label htmlFor={`publish-${id}`} title={canPublish ? '' : INCOMPLETE_LISTING}>
-            <span className={canPublish ? '' : 'host-listing-meta--disabled'}>Publish</span>
-            <Switch checked={isActive} disabled={!canPublish} onColor={hexColor('correct')} onChange={() => toggleListing(id)} id={`publish-${id}`} />
-          </label>
+          </Button>
+          <div className='host-listing-publish'>
+            <label htmlFor={`publish-${id}`} title={canPublish ? '' : INCOMPLETE_LISTING}>
+              <span className={canPublish ? '' : 'host-listing-meta--disabled'}>Publish</span>
+              <Switch checked={isActive} disabled={!canPublish} onColor={hexColor('correct')} onChange={() => toggleListing(id)} id={`publish-${id}`} />
+            </label>
+            {!canPublish && <p className='host-listing-notice'>{INCOMPLETE_LISTING}</p>}
+          </div>
         </div>
       </div>
       <div className="host-listing-image">
