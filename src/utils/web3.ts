@@ -16,19 +16,16 @@ import { Booking, Currency, CryptoParams } from 'networking/bookings';
 import { APP_ENV, SETTINGS, AppEnv } from 'configs/settings';
 import { BEE_TOKEN_ABI } from 'ABIs/beeToken';
 import { BEE_PAYMENT_ABI } from 'ABIs/beePayment';
-import { ETH_PAYMENT_ABI } from 'ABIs/ethPayment';
 import UNIPAY_ABI from 'ABIs/unipay.json';
 
 const {
   BEETOKEN_ADDRESS,
   BEETOKEN_PAYMENT_ADDRESS,
-  ETH_PAYMENT_ADDRESS,
   ERC20_ADDRESSES,
   UNIPAY_ADDRESS
 } = SETTINGS;
 const { utils } = Web3;
 
-const SEVEN_DAYS_IN_SEC = 7 * 24 * 60 * 60;
 const THIRTY_SIX_HOURS_IN_SEC = 36 * 60 * 60;
 
 export const UNITS = {
@@ -171,7 +168,7 @@ export async function payWithBee(ethProvider: Web3['eth'], paymentOptions: Payme
   }
 }
 
-export async function payWithEth(
+export async function payWithEther(
   ethProvider: Web3['eth'],
   paymentOptions: PaymentOptions,
   ethPrice: number
