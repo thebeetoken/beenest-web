@@ -8,6 +8,7 @@ const TabNavBarContainerMobile = styled.nav`
 
 const TabNavBarTablet = styled(TabNavBarContainerMobile)`
   @media (min-width: 768px) {
+    height: 48px;
     width: auto;
     display: block;
   }

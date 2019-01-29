@@ -8,8 +8,9 @@ type Props = Partial<{
 
 const TabNavContainerMobile = styled.div`
   display: inline-block;
-  height: ${({ height }: Props) => height ? `${height}px` : '100%'};
   flex-grow: 1;
+  height: ${({ height }: Props) => height ? `${height}px` : '100%'};
+  min-width: 80px;
   position: relative;
 
 
@@ -35,10 +36,10 @@ const TabNavContainerMobile = styled.div`
       opacity: 0.5;
     }
     &.active {
-      background-color: ${color('white')};
+      background-color: ${color('secondary')};
       box-shadow: 0 2px 10px ${color('black', 0.1)};
       border-radius: 2px;
-      color: ${color('secondary')};
+      color: ${color('white')};
       position: relative;
       z-index: 1;
     }
@@ -58,6 +59,9 @@ const TabNavContainerTablet = styled(TabNavContainerMobile)`
   @media (min-width: 768px) {
     a {
       padding: 0 16px;
+      &.active {
+        border-radius: 2px;
+      }
       span {
         ${typography('title', 7)}
         word-break: normal;

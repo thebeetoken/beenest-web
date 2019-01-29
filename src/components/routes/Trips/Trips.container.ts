@@ -129,6 +129,7 @@ const TripsContainerTablet = styled(TripsContainerMobile)`
         }
       }
       nav {
+        align-self: flex-start;
         margin-bottom: 40px;
       }
       .trips-book-now {
@@ -198,7 +199,6 @@ const TripsContainerDesktop = styled(TripsContainerTablet)`
         }
       }
       nav {
-        align-self: flex-start;
         margin-bottom: 60px;
       }
       .trips-book-now {
