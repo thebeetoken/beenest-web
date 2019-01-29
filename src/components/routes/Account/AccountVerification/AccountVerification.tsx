@@ -311,11 +311,13 @@ class AccountVerification extends React.Component<Props, State> {
           }
         });
       })
-      .catch(() => {
+      .catch((err) => {
         const { snackbar } = this.state;
         this.setState({ 
           snackbar: {
             ...snackbar,
+            autoHideDuration: 10000,
+            message: err.message,
             open: true,
           },
           verificationSnackbar: {
