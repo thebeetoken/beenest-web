@@ -285,7 +285,7 @@ class AdminUsersHostForm extends React.Component<HostProps, HostFormState> {
   render() {
     const { errors } = this.state;
     const { about, btcWalletAddress, email, firstName, lastName, phoneNumber, profilePicUrl, walletAddress } = errors;
-    const { id, listingCount } = this.props.host;
+    const { id, listingCount } = this.props.host || { id: undefined, listingCount: undefined };
     const nameError = firstName.error || lastName.error;
     const nameSuccess = firstName.success && lastName.success;
     const $formError = this.state.isSubmitClicked && !this.isFormValid() ? 'opacity--1' : '';
