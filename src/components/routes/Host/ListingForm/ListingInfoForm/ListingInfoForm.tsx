@@ -105,7 +105,7 @@ const ListingInfoForm = (props: FormikProps<ListingInput>): JSX.Element => {
             type: 'text',
           },
         ].map(input =>
-          <InputWrapper>
+          <InputWrapper key={input.name}>
             <Field {...input} />
           </InputWrapper>
         )}
