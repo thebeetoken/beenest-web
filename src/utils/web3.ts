@@ -241,6 +241,22 @@ export async function payWithToken(
   }
 }
 
+export async function priceWithEther(
+  ethProvider: Web3['eth'],
+  beePrice: number
+): Promise<number> {
+  const beeDust = UNITS.AMOUNT_PER_BEE.times(beePrice).toFixed(0);
+  try {
+    const { methods } = new ethProvider.Contract(UNIPAY_ABI, UNIPAY_ADDRESS);
+    const [ wei ] = await methods.price(beeDust).call();
+    const ethPrice = Big(wei).div(UNITS.WEI_PER_ETH); // TODO: Not all tokens have 18 digits...
+    return parseFloat(ethPrice.valueOf());
+  } catch (error) {
+    console.error(error);
+    throw error;
+  }
+}
+
 export async function priceWithToken(
   ethProvider: Web3['eth'],
   currency: Currency | string,
