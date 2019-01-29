@@ -178,7 +178,7 @@ export async function payWithEth(
 ): Promise<CryptoParams> {
   const { amount, guestWalletAddress } = paymentOptions;
   const beeDust = UNITS.AMOUNT_PER_BEE.times(amount).toFixed(0);
-  const wei = UNITS.WEI_PER_ETH.time(ethPrice).toFixed(0);
+  const wei = UNITS.WEI_PER_ETH.times(ethPrice).toFixed(0);
   try {
     const unipay = new ethProvider.Contract(UNIPAY_ABI, UNIPAY_ADDRESS);
     const deadline = (Date.now() / 1000 + 5 * 60).toFixed(0); // Five minutes from now.
