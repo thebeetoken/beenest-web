@@ -63,7 +63,7 @@ const ListingFormNav = ({ errors, history, id, isValid, onSubmit, setNextCrumb, 
       <GeneralWrapper width={976}>
         <Prompt
           when={showAlert}
-          message={`Listing has unsaved changes ${!isValid ? `due to the following errors: ${JSON.stringify(Object.values(errors), null, 4)}`: ''}. Are you sure you want to proceed?`}>
+          message={`Listing has unsaved changes ${!isValid ? `due to the following errors:\n\n${Object.values(errors).join('\n').toString()}\n\n`: ''} Are you sure you want to proceed?`}>
         </Prompt>
         <nav>
           {renderListingFormNavItems}
