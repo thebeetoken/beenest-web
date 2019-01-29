@@ -18,7 +18,7 @@ const TabNavContainerMobile = styled.div`
     ${typography('title', 3)}
     color: ${color('error')};
     position: absolute;
-    right: 16px;
+    right: 8px;
     top: -16px;
     z-index: 2;
   }
