@@ -249,7 +249,7 @@ export async function priceWithEther(
   try {
     const { methods } = new ethProvider.Contract(UNIPAY_ABI, UNIPAY_ADDRESS);
     const [ wei ] = await methods.price(beeDust).call();
-    const ethPrice = Big(wei).div(UNITS.WEI_PER_ETH); // TODO: Not all tokens have 18 digits...
+    const ethPrice = Big(wei).div(UNITS.WEI_PER_ETH);
     return parseFloat(ethPrice.valueOf());
   } catch (error) {
     console.error(error);
