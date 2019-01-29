@@ -3,36 +3,34 @@ import * as React from 'react';
 import TabNavContainer from './TabNav.container';
 
 import BeeLink from 'shared/BeeLink';
+import Svg from 'shared/Svg';
+import { AppConsumer, AppConsumerProps, ScreenType } from 'components/App.context';
 
 interface Props {
-  config: Config[],
+  badge?: string;
   height?: number;
+  src?: string;
+  title: string;
+  to: string;
   width?: number;
 }
 
-interface Config {
-  badge?: string;
-  title: string;
-  to: string;
-}
-
 const TabNav = (props: Props): JSX.Element => {
-  const renderTabNavItems = props.config.map(({ badge, title, to }: Config) => {
-    return (
-      <div className="bee-tab-nav-item--container" key={title}>
-        {!!badge && <span className="alert-badge">{badge}</span>}
-        <div className="bee-tab-nav--item" key={title}>
-          <BeeLink isNav to={to}>
-            {title}
-          </BeeLink>
-        </div>
-      </div>
-    );
-  });
-
+  const { badge, src, title, to } = props;
   return (
     <TabNavContainer {...props}>
-      {renderTabNavItems}
+      {!!badge && <span className="alert-badge">{badge}</span>}
+      <BeeLink to={to} isNav activeClassName="active">
+        <AppConsumer>
+          {({ screenType }: AppConsumerProps) => {
+            if (screenType < ScreenType.TABLET) {
+              return src ? <Svg src={src} /> : <span>{title}</span>;
+            }
+
+            return <span>{title}</span>;
+          }}
+        </AppConsumer>
+      </BeeLink>
     </TabNavContainer>
   );
 }
