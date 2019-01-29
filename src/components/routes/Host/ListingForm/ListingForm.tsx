@@ -61,7 +61,7 @@ interface Props extends RouterProps {
 }
 
 const ListingFormSchema = Yup.object().shape({
-  addressLine1: Yup.string(),
+  addressLine1: Yup.string().min(1, formatError('street address')),
   addressLine2: Yup.string(),
   amenities: Yup.array().of(Yup.string()),
   checkInTime: Yup.object()
@@ -75,7 +75,7 @@ const ListingFormSchema = Yup.object().shape({
     }),
   checkOutTime: Yup.string().oneOf(timeOptions),
   city: Yup.string().max(60, 'Too Long!'),
-  country: Yup.string().min(1, formatError('country')).max(60, 'Too Long!'),
+  country: Yup.string(),
   description: Yup.string().min(1, formatError('description of your listing')),
   homeType: Yup.string().min(1, formatError('home type')),
   houseRules: Yup.string().min(1, formatError('set of house rules')),
@@ -104,8 +104,10 @@ const ListingFormSchema = Yup.object().shape({
   securityDepositUsd: Yup.number()
     .min(0, 'Security Deposit must be greater than or equal to 0.'),
   sharedBathroom: Yup.string(),
-  sleepingArrangement: Yup.string(),
-  state: Yup.string(),
+  sleepingArrangement: Yup.string().min(1, formatError('sleeping arrangement')),
+  state: Yup.string()
+    .min(1, 'Too Short!')
+    .max(60, 'Too Long!'),
   title: Yup.string()
     .min(5, 'Too Short!')
     .max(50, 'Too Long!'),
