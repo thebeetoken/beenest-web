@@ -13,10 +13,17 @@ import BookingPaymentButton from './BookingPaymentButton';
 import BookingNavBar from '../BookingNavBar';
 import { AppConsumer, AppConsumerProps, ScreenType } from 'components/App.context';
 import { parseQueryString } from 'utils/queryParams';
-import { loadWeb3, priceWithToken } from 'utils/web3';
+import { loadWeb3, priceWithEther, priceWithToken } from 'utils/web3';
 
 interface QueryParams {
   currency?: string;
+}
+
+function getSwapPrice(currency: Currency, amount: number) {
+  const web3 = loadWeb3();
+  return currency === Currency.ETH ?
+    priceWithEther(web3.eth, amount) :
+    priceWithToken(web3.eth, currency, amount);
 }
 
 const BookingPayment = ({ history, match }: RouterProps) => (
@@ -41,9 +48,8 @@ const BookingPayment = ({ history, match }: RouterProps) => (
       }
       const queryParams: QueryParams = parseQueryString(location.search);
       const currency = Object.values(Currency).find(c => c === queryParams.currency);
-      const web3 = loadWeb3();
       const pricePromise = !!currency && currency !== booking.currency ?
-        priceWithToken(web3.eth, currency, booking.guestTotalAmount) :
+        getSwapPrice(currency, booking.guestTotalAmount) :
         Promise.resolve(booking.guestTotalAmount);
       return (
         <Async promise={pricePromise} then={price => {
