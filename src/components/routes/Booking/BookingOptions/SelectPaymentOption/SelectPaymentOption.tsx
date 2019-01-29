@@ -13,7 +13,7 @@ import InputLabel from 'shared/InputLabel';
 import SelectBoxWrapper from 'shared/SelectBoxWrapper';
 import Svg from 'shared/Svg';
 import { AppEnv, APP_ENV } from 'configs/settings';
-import { loadWeb3, priceWithToken } from 'utils/web3';
+import { loadWeb3, priceWithEther, priceWithToken } from 'utils/web3';
 
 interface Props {
   booking: Booking;
@@ -91,6 +91,15 @@ class SelectPaymentOption extends React.Component<Props> {
         const total = beeQuote.guestTotalAmount;
         priceWithToken(web3.eth, currency, total)
           .then(price => this.setState({ conversionRateFromBee: price / total }))
+          .catch(() => this.setState({ errorPricingToken: true }));
+      }
+    } else if (currency === Currency.ETH) {
+      const web3 = loadWeb3();
+      const beeQuote = this.props.booking.priceQuotes.find(q => q.currency === Currency.BEE);
+      if (beeQuote) {
+        const total = beeQuote.guestTotalAmount;
+        priceWithEther(web3.eth, total)
+          .then(price => (console.log(price), this.setState({ conversionRateFromBee: price / total })))
           .catch(() => this.setState({ errorPricingToken: true }));
       }
     }
