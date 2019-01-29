@@ -174,54 +174,25 @@ export async function payWithBee(ethProvider: Web3['eth'], paymentOptions: Payme
 export async function payWithEth(
   ethProvider: Web3['eth'],
   paymentOptions: PaymentOptions,
-  booking: Booking
+  ethPrice: number
 ): Promise<CryptoParams> {
-  const {
-    amount,
-    guestWalletAddress,
-    hostWalletAddress,
-    priceTotalNights,
-    securityDeposit,
-    transactionFee,
-  } = paymentOptions;
-  const { checkInDate, checkOutDate, id } = booking;
-
-  // Note on date conversions here:
-  // - checkInDate/checkOutDate are ISO date-strings
-  // - JS Dates are in milliseconds since 1970
-  // - EVM timestamps are in seconds since 1970
-  const cancelDeadline = Math.max(
-    Math.floor(new Date(checkInDate).valueOf() / 1000) - SEVEN_DAYS_IN_SEC,
-    Date.now() / 1000 + THIRTY_SIX_HOURS_IN_SEC
-  );
-  const dispatchDeadline = Math.floor(new Date(checkOutDate).valueOf() / 1000);
-  const amountWei = UNITS.WEI_PER_ETH.times(amount).toFixed(0);
-  const costWei = UNITS.WEI_PER_ETH.times(priceTotalNights).toFixed(0);
-  const cancelFeeWei = UNITS.WEI_PER_ETH.times(priceTotalNights * 0.1).toFixed(0);
-  const depositWei = UNITS.WEI_PER_ETH.times(securityDeposit).toFixed(0);
-  const transactionFeeWei = UNITS.WEI_PER_ETH.times(transactionFee).toFixed(0);
-  const paymentId = `0x${id.padStart(64, '0')}`;
-
+  const { amount, guestWalletAddress } = paymentOptions;
+  const beeDust = UNITS.AMOUNT_PER_BEE.times(amount).toFixed(0);
+  const wei = UNITS.WEI_PER_ETH.time(ethPrice).toFixed(0);
   try {
-    const { methods } = new ethProvider.Contract(ETH_PAYMENT_ABI, ETH_PAYMENT_ADDRESS);
-    const { transactionHash } = await methods
-      .initAndPayEthPayment(
-        paymentId, // bytes32 paymentId,
-        guestWalletAddress, // address demandEntityAddress,
-        hostWalletAddress, // address supplyEntityAddress,
-        costWei, // uint256 cost,
-        depositWei, // uint256 securityDeposit,
-        cancelFeeWei, // uint256 demandCancellationFee,
-        0, // uint256 supplyCancellationFee,
-        cancelDeadline, // uint64 cancelDeadlineInS,
-        dispatchDeadline, // uint64 paymentDispatchTimeInS,
-        transactionFeeWei // uint256 transactionFee
-      )
-      .send({ from: guestWalletAddress, value: amountWei });
+    const unipay = new ethProvider.Contract(UNIPAY_ABI, UNIPAY_ADDRESS);
+    const deadline = (Date.now() / 1000 + 5 * 60).toFixed(0); // Five minutes from now.
+    const transactionHash: string = await new Promise<string>(
+      (resolve, reject) => unipay.methods.pay(beeDust, deadline)
+        .send({ from: guestWalletAddress, value: wei })
+        .once('transactionHash', resolve)
+        .on('error', reject)
+    );
     return {
-      guestWalletAddress,
+      guestWalletAddress: UNIPAY_ADDRESS, // This will be the address to invoice
       transactionHash,
-      paymentProtocolAddress: ETH_PAYMENT_ADDRESS,
+      paymentProtocolAddress: BEETOKEN_PAYMENT_ADDRESS,
+      tokenContractAddress: BEETOKEN_ADDRESS,
     };
   } catch (error) {
     console.error(error);
