@@ -317,7 +317,7 @@ class AccountVerification extends React.Component<Props, State> {
           snackbar: {
             ...snackbar,
             autoHideDuration: 10000,
-            message: err.message,
+            message: err.message || getDisplayErrorMessage(ErrorMessage.GENERIC),
             open: true,
           },
           verificationSnackbar: {
