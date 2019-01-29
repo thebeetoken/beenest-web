@@ -78,40 +78,37 @@ const ListingInfoForm = (props: FormikProps<ListingInput>): JSX.Element => {
 
       <div className="form-item address">
         <InputLabel htmlFor="addressLine1">Full Address</InputLabel>
-        <InputWrapper>
-          <Field
-            name="addressLine1"
-            placeholder="Address Line 1"
-            type="text" />
-        </InputWrapper>
-
-        <InputWrapper>
-          <Field
-            name="addressLine2"
-            placeholder="Address Line 2"
-            type="text" />
-        </InputWrapper>
-
-        <div className="row-address">
+        {[
+          {
+            name: 'addressLine1',
+            placeholder: 'Address Line 1',
+            type: 'text',
+          },
+          {
+            name: 'addressLine2',
+            placeholder: 'Address Line 2',
+            type: 'text',
+          },
+          {
+            name: 'city',
+            placeholder: 'City',
+            type: 'text',
+          },
+          {
+            name: 'state',
+            placeholder: 'State',
+            type: 'text',
+          },
+          {
+            name: 'postalCode',
+            placeholder: '88888',
+            type: 'text',
+          },
+        ].map(input =>
           <InputWrapper>
-            <Field
-              name="city"
-              placeholder="City"
-              type="text" />
+            <Field {...input} />
           </InputWrapper>
-          <InputWrapper>
-            <Field
-              name="state"
-              placeholder="State"
-              type="text" />
-          </InputWrapper>
-          <InputWrapper>
-            <Field
-              name="postalCode"
-              placeholder="88888"
-              type="text" />
-          </InputWrapper>
-        </div>
+        )}
         <ErrorMessageWrapper>
           {errors.addressLine1 && <ErrorMessage name="addressLine1" /> ||
             errors.city && <ErrorMessage name="city" /> ||

@@ -37,21 +37,23 @@ const ListingFormContainer = styled.section`
           > * {
             margin-bottom: 16px;
           }
-          .row-address {
-            display: flex;
-            flex-direction: row;
-            justify-content: space-between;
-            margin-bottom: 0;
-            .bee-input-wrapper {
-              &:nth-of-type(1) {
-                width: 45%;
-              }
-              &:nth-of-type(2) {
+          >.bee-input-wrapper {
+            &:nth-of-type(3) {
+              display: inline-block;
+              margin-bottom: 0;
+              width: 45%;
+            }
+            &:nth-of-type(4) {
+              display: inline-block;
+              margin-bottom: 0;
+              margin-left: 53px;
               width: 15%;
-              }
-              &:nth-of-type(3) {
-                width: 20%;
-              }
+            }
+            &:nth-of-type(5) {
+              display: inline-block;
+              margin-bottom: 0;
+              margin-left: 53px;
+              width: 20%;
             }
           }
         }
