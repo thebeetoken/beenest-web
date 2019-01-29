@@ -99,7 +99,7 @@ class SelectPaymentOption extends React.Component<Props> {
       if (beeQuote) {
         const total = beeQuote.guestTotalAmount;
         priceWithEther(web3.eth, total)
-          .then(price => (console.log(price), this.setState({ conversionRateFromBee: price / total })))
+          .then(price => this.setState({ conversionRateFromBee: price / total }))
           .catch(() => this.setState({ errorPricingToken: true }));
       }
     }
