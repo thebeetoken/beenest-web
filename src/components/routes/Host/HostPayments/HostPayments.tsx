@@ -141,8 +141,7 @@ class EnhancedComponent extends React.Component<Props, HostPaymentsContentState>
                 }
               </Button>
             </BeeLink>
-            {!stripeAccountDashboardLink && <BeeLink
-              href={`https://connect.stripe.com/oauth/authorize?response_type=code&client_id=${STRIPE_CLIENT_ID}&scope=read_write`}>
+            {!stripeAccountDashboardLink && <BeeLink to="/account/stripe/connect" target="_blank">
               <Button background="secondary" color="white" size="small">
                 Connect Existing Stripe Account
               </Button>
