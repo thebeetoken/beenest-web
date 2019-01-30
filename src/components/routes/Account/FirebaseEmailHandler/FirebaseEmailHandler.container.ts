@@ -12,7 +12,7 @@ const FirebaseEmailHandlerContainer = styled.div`
     .input-container {
       display: flex;
       flex-direction: column;
-      margin: 16px 0px 28px 0px;
+      margin: 16px 0 28px;
       width: 100%;
     }
   }
