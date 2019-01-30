@@ -37,61 +37,82 @@ export default class EmailVerify extends React.Component<Props> {
     this.handleVerifyEmail(oobCode);
   }
 
-  handleVerifyEmail(oobCode:string) {
-    auth.applyActionCode(oobCode).then(() => {
-      this.setState({ isSubmitting: false, showVerifyEmailSuccess: true, successMessage: 'Thanks for verifying your email.' });
-    }).catch(err => {
-      console.error(err);
-      this.setState({ isSubmitting: false, hasError: true, errorMessage: 'There was an error verifying your email.' });
-    });
+  handleVerifyEmail(oobCode: string) {
+    auth
+      .applyActionCode(oobCode)
+      .then(() => {
+        this.setState({
+          isSubmitting: false,
+          showVerifyEmailSuccess: true,
+          successMessage: 'Thanks for verifying your email.',
+        });
+      })
+      .catch(err => {
+        console.error(err);
+        this.setState({
+          isSubmitting: false,
+          hasError: true,
+          errorMessage: 'There was an error verifying your email.',
+        });
+      });
   }
 
   renderError() {
-    return <>
-      <h2>Sorry, there was an error.</h2>
-      <p>{this.state.errorMessage}</p>
-      <p>
-        <BeeLink href="mailto:support@beenest.com">
-          <Button>Contact us for further help.</Button>
-        </BeeLink>
-      </p>
-    </>;
+    return (
+      <>
+        <h2>Sorry, there was an error.</h2>
+        <p>{this.state.errorMessage}</p>
+        <p>
+          <BeeLink href="mailto:support@beenest.com">
+            <Button>Contact us for further help.</Button>
+          </BeeLink>
+        </p>
+      </>
+    );
   }
 
   renderVerifyEmailSuccess() {
-     return <>
-            <h2>{this.state.successMessage}</h2>
+    return (
+      <>
+        <h2>{this.state.successMessage}</h2>
 
-            <FirebaseConsumer>
-            {({ loading, user, completedVerification }: FirebaseUserProps) => {
-              if (loading) {
-                return <AudioLoading />;
-              }
+        <FirebaseConsumer>
+          {({ loading, user, completedVerification }: FirebaseUserProps) => {
+            if (loading) {
+              return <AudioLoading />;
+            }
 
-              if (user && !completedVerification) {
-                return <section>
-                        <BeeLink href="/account/verification">
-                          <Button>Verify your phone number to book a rental</Button>
-                        </BeeLink>
-                      </section>;
-              }
+            if (user && !completedVerification) {
+              return (
+                <section>
+                  <BeeLink href="/account/verification">
+                    <Button>Verify your phone number to book a rental</Button>
+                  </BeeLink>
+                </section>
+              );
+            }
 
-              if (user && !!completedVerification) {
-                return <section>
+            if (user && !!completedVerification) {
+              return (
+                <section>
                   <BeeLink to="/host/listings">
                     <Button>List your home for rent</Button>
                   </BeeLink>
                   or
                   <BeeLink to="/">
-                    <Button border="black" background="white">Find a place to stay at</Button>
+                    <Button border="black" background="white">
+                      Find a place to stay at
+                    </Button>
                   </BeeLink>
-                </section>;
-              }
+                </section>
+              );
+            }
 
-              return <></>;
-            }}
-            </FirebaseConsumer>
-          </>;
+            return <></>;
+          }}
+        </FirebaseConsumer>
+      </>
+    );
   }
 
   render() {
@@ -100,10 +121,10 @@ export default class EmailVerify extends React.Component<Props> {
     }
 
     return (
-          <>
-            {this.state.hasError && this.renderError()}
-            {this.state.showVerifyEmailSuccess && this.renderVerifyEmailSuccess()}
-          </>
+      <>
+        {this.state.hasError && this.renderError()}
+        {this.state.showVerifyEmailSuccess && this.renderVerifyEmailSuccess()}
+      </>
     );
   }
-};
+}

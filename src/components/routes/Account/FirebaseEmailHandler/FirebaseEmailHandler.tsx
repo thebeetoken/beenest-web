@@ -41,27 +41,27 @@ export default class FirebaseEmailHandler extends React.Component<RouterProps> {
 
     // @see https://firebase.google.com/docs/auth/custom-email-handler
     switch (mode) {
-     case 'resetPassword':
-       this.setState({oobCode, renderPasswordReset: true});
-       break;
-     case 'verifyEmail':
-       this.setState({oobCode, renderEmailVerify: true});
-       break;
-     default:
-       // Error: invalid mode.
+      case 'resetPassword':
+        this.setState({ oobCode, renderPasswordReset: true });
+        break;
+      case 'verifyEmail':
+        this.setState({ oobCode, renderEmailVerify: true });
+        break;
+      default:
+      // Error: invalid mode.
     }
   }
 
   render() {
     return (
-        <GeneralWrapper width={976}>
-          <FirebaseEmailHandlerContainer>
+      <GeneralWrapper width={976}>
+        <FirebaseEmailHandlerContainer>
           <div className="complete">
             {this.state.renderEmailVerify && <EmailVerify oobCode={this.state.oobCode} />}
             {this.state.renderPasswordReset && <PasswordReset oobCode={this.state.oobCode} />}
           </div>
-          </FirebaseEmailHandlerContainer>
-        </GeneralWrapper>
+        </FirebaseEmailHandlerContainer>
+      </GeneralWrapper>
     );
   }
-};
+}
