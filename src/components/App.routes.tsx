@@ -25,7 +25,6 @@ import Login from './routes/authentication/Login';
 import Logout from './routes/authentication/Logout';
 import SignUp from './routes/authentication/SignUp';
 import { StripeConnect, StripeExpressComplete, StripeExpressNew } from './routes/Account/StripeExpress';
-import { StripeExpressComplete, StripeExpressNew } from './routes/Account/StripeExpress';
 import FirebaseEmailHandler from './routes/Account/FirebaseEmailHandler';
 import Trips from './routes/Trips';
 import TripsReceipt from './routes/Trips/TripsReceipt';
