@@ -76,7 +76,7 @@ const DefaultFooter = () => (
       <div className="bee-flex-div" />
       <Divider color="core" />
       <div className="footer--bottom-meta">
-        <h1>&copy;Beenest Inc 2017-2018. All Rights Reserved.</h1>
+        <h1>&copy;Beenest Inc 2017-2019. All Rights Reserved.</h1>
         <div className="bee-flex-div" />
         <BeeLink
           href="https://static.beenest.com/legal/Beenest+-+Platform+Terms+of+Service.pdf"
@@ -115,7 +115,7 @@ const MobileFooter = () => (
       <Divider color="middle" />
       <div className="bee-flex-div" />
       <div className="footer--bottom-mobile">
-        <h1>&copy;Beenest Inc 2017-2018. All Rights Reserved.</h1>
+        <h1>&copy;Beenest Inc 2017-2019. All Rights Reserved.</h1>
       </div>
     </div>
   </FooterContainer>
@@ -128,7 +128,7 @@ const NoopComponent = () => (
 const ShortFooter = () => (
   <FooterContainer className="footer short">
     <div className="footer-wrapper">
-      <h1>&copy;Beenest Inc 2017-2018. All Rights Reserved.</h1>
+      <h1>&copy;Beenest Inc 2017-2019. All Rights Reserved.</h1>
     </div>
   </FooterContainer>
 );
