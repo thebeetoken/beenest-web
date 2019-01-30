@@ -132,7 +132,7 @@ class EnhancedComponent extends React.Component<Props, HostPaymentsContentState>
           </div>
           <div className="host-payments-section-container host-payments-section-container--links">
             <BeeLink
-              href={(stripeAccountDashboardLink && stripeLoginLink) ? stripeLoginLink : `${BEENEST_HOST}/account/stripe_express/new`}
+              href={stripeLoginLink || stripeAccountDashboardLink || `${BEENEST_HOST}/account/stripe_express/new`}
               target="_blank">
               <Button background="secondary" color="white" size="small">
                 {stripeAccountDashboardLink
