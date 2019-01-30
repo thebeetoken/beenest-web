@@ -76,16 +76,7 @@ export default class PasswordReset extends React.Component<Props> {
     auth
       .confirmPasswordReset(this.props.oobCode, this.state.password)
       .then(() => {
-        // Password reset has been
-        // confirmed and new
-        // password updated.
-        // Redirect user back
-        // to /login to
-        // confirm their
-        // password worked
-        this.setState({
-          showPasswordResetSuccess: true,
-        });
+        this.setState({ showPasswordResetSuccess: true });
       })
       .catch(() => {
         this.setState({
