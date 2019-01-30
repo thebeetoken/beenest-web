@@ -62,7 +62,7 @@ interface Props extends RouterProps {
 }
 
 const ListingFormSchema = Yup.object().shape({
-  addressLine1: Yup.string().min(1, formatYupError('street address')),
+  addressLine1: Yup.string().min(4, minStringError('Address Line 1')),
   addressLine2: Yup.string(),
   amenities: Yup.array().of(Yup.string()),
   checkInTime: Yup.object()
@@ -75,11 +75,11 @@ const ListingFormSchema = Yup.object().shape({
       return from !== to;
     }),
   checkOutTime: Yup.string().oneOf(timeOptions),
-  city: Yup.string().max(60, 'Too Long!'),
+  city: Yup.string().max(60, maxStringError('City')),
   country: Yup.string(),
-  description: Yup.string().min(1, formatYupError('description of your listing')),
-  homeType: Yup.string().min(1, formatYupError('home type')),
-  houseRules: Yup.string().min(1, formatYupError('set of house rules')),
+  description: Yup.string().min(1, minStringError('Description')),
+  homeType: Yup.string().min(1, minStringError('Home Type')),
+  houseRules: Yup.string().min(1, minStringError('House Rules')),
   icalUrls: Yup.array().of(Yup.string().url('${value} is not a valid ical url. ')),
   isActive: Yup.bool(),
   lat: Yup.number()
@@ -88,30 +88,32 @@ const ListingFormSchema = Yup.object().shape({
   lng: Yup.number()
     .moreThan(-180)
     .lessThan(180),
-  listingPicUrl: Yup.string().url(formatYupError('cover photo')),
+  listingPicUrl: Yup.string().url(),
   maxGuests: Yup.number()
-    .moreThan(0, 'Max guests must be greater than 0.')
-    .lessThan(51, 'Max guests must not exceed 50.'),
+    .min(1, minNumberError('Max Guests'))
+    .max(50, maxNumberError('Max Guests')),
   minimumNights: Yup.number()
-    .moreThan(0, 'Minimum Nights must be greater than 0.'),
+    .min(1, minNumberError('Minimum Nights')),
   numberOfBathrooms: Yup.number()
-    .min(0, 'Number of bathrooms must be greater than or equal to 0.'),
+    .min(0, minNumberError('Number of Bathrooms')),
   numberOfBedrooms: Yup.number()
-    .min(0, 'Number of bedrooms must be greater than or equal to 0.'),
-  photos: Yup.array().of(Yup.string().url(formatYupError('set of photos'))),
-  postalCode: Yup.string().min(1, formatYupError('postal code')).max(45, 'Too Long!'),
+    .min(0, minNumberError('Number of Bedrooms')),
+  photos: Yup.array().of(Yup.string().url()),
+  postalCode: Yup.string()
+    .min(1, minStringError('Postal Code'))
+    .max(45, maxStringError('Postal Code')),
   pricePerNightUsd: Yup.number()
-    .moreThan(0, 'Price per night must be greater than 0.'),
+    .min(1, minNumberError('Price Per Night USD')),
   securityDepositUsd: Yup.number()
-    .min(0, 'Security Deposit must be greater than or equal to 0.'),
+    .min(0, minNumberError('Security Deposit')),
   sharedBathroom: Yup.string(),
-  sleepingArrangement: Yup.string().min(1, formatYupError('sleeping arrangement')),
+  sleepingArrangement: Yup.string().min(1, minStringError('Sleeping Arrangement')),
   state: Yup.string()
-    .min(1, 'Too Short!')
-    .max(60, 'Too Long!'),
+    .min(1, minStringError('State'))
+    .max(60, maxStringError('State')),
   title: Yup.string()
-    .min(5, 'Too Short!')
-    .max(50, 'Too Long!'),
+    .min(5, minStringError('Title'))
+    .max(50, maxStringError('Title')),
 });
 
 const formCrumbs = ['listing_info', 'accommodations', 'pricing_availability', 'checkin_details'];
@@ -266,4 +268,20 @@ function populateListingForm(fields: FormValues, listing: ListingInput): FormVal
 
 function omitFields(key: string, value: any) {
   return ['id', '__typename', 'createdAt'].includes(key) ? undefined : value;
+}
+
+function minStringError(readableName: string) {
+  return `${readableName}` + ' must be at least ${min} characters long.';
+}
+
+function maxStringError(readableName: string) {
+  return `${readableName}` + ' must not exceed ${max} characters.';
+}
+
+function minNumberError(readableName: string) {
+  return `${readableName}` + ' must be greater than or equal to ${min}.';
+}
+
+function maxNumberError(readableName: string) {
+  return `${readableName}` + ' must be less than or equal to ${min}.';
 }
