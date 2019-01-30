@@ -141,10 +141,9 @@ async function getCryptoParams(
     transactionFee: priceQuote.transactionFee,
   };
   if (fromBee && currency) {
-    return payWithToken(web3.eth, paymentOptions, currency, fromBee);
-  }
-  if (fromBee && booking.currency === Currency.ETH) {
-    return payWithEther(web3.eth, paymentOptions, fromBee(booking.guestTotalAmount));
+    return currency === Currency.ETH ?
+      payWithEther(web3.eth, paymentOptions, fromBee(booking.guestTotalAmount)) :
+      payWithToken(web3.eth, paymentOptions, currency, fromBee);
   }
   switch (booking.currency) {
     case Currency.BEE:
