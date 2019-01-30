@@ -3,11 +3,12 @@ import * as React from 'react';
 import ErrorBoundaryWrapper from 'HOCs/ErrorBoundaryWrapper';
 import Checkbox from 'shared/Checkbox';
 import GoogleMapsWithMarkers from 'components/shared/GoogleMapsWithMarkers';
-import { ListingShort } from 'networking/listings';
+import { LatLngBounds, ListingShort } from 'networking/listings';
 
 interface Props {
   toggle: () => void;
   show: boolean;
+  bounds?: LatLngBounds;
   listings: ListingShort[];
 }
 
@@ -26,7 +27,7 @@ export default class ListingsResultMap extends React.Component<Props, State> {
   }
 
   render() {
-    const { show, toggle, listings } = this.props;
+    const { show, toggle, listings, bounds } = this.props;
     if (this.state.error) {
       return <></>;
     }
@@ -38,7 +39,7 @@ export default class ListingsResultMap extends React.Component<Props, State> {
           </Checkbox>
         </form>
         <ErrorBoundaryWrapper onError={this.handleError}>
-          {show && <GoogleMapsWithMarkers listings={listings} />}
+          {show && <GoogleMapsWithMarkers listings={listings} bounds={bounds} />}
         </ErrorBoundaryWrapper>
       </>
     );

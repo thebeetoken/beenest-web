@@ -12,6 +12,7 @@ const { GOOGLE_MAPS_KEY } = SETTINGS;
 interface Props {
   defaultValue?: string;
   inputRef: React.RefObject<HTMLInputElement>;
+  onChange(): void;
   onPlaceChange(place: google.maps.places.PlaceResult): void;
 }
 
@@ -44,6 +45,7 @@ class GoogleAutoComplete extends React.Component<Props, any> {
       <GoogleAutoCompleteContainer>
         <InputWrapper box>
           <input
+            onChange={() => this.props.onChange()}
             ref={this.props.inputRef}
             id="locationQuery"
             name="locationQuery"

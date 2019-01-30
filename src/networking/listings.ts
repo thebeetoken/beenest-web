@@ -120,6 +120,13 @@ export interface HostListingReservations {
   title: string;
 }
 
+export interface LatLngBounds {
+  east: number;
+  north: number;
+  south: number;
+  west: number;
+}
+
 export interface Price {
   currency: Currency;
   pricePerNight: number;
