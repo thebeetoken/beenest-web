@@ -1,11 +1,7 @@
 import styled from 'styled-components';
 
 const FirebaseEmailHandlerContainer = styled.div`
-    h2 {
-      margin-top: 18px;
-    }
-
-    section {
+    h2, section {
       margin-top: 18px;
     }
 
