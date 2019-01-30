@@ -19,7 +19,7 @@ import {
   SuccessMessage
 } from 'utils/validators';
 
-const { BEENEST_HOST, STRIPE_CLIENT_ID } = SETTINGS;
+const { BEENEST_HOST } = SETTINGS;
 const SNACKBAR_DURATION_MS = 5000;
 
 const HostPayments = (): JSX.Element => {
