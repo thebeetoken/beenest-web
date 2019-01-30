@@ -37,24 +37,22 @@ const ListingFormContainer = styled.section`
           > * {
             margin-bottom: 16px;
           }
-          >.bee-input-wrapper {
-            &:nth-of-type(3) {
-              display: inline-block;
-              margin-bottom: 0;
-              width: 45%;
-            }
-            &:nth-of-type(4) {
-              display: inline-block;
-              margin-bottom: 0;
-              margin-left: 53px;
-              width: 15%;
-            }
-            &:nth-of-type(5) {
-              display: inline-block;
-              margin-bottom: 0;
-              margin-left: 53px;
-              width: 20%;
-            }
+          .city {
+            display: inline-block;
+            margin-bottom: 0;
+            width: 45%;
+          }
+          .state {
+            display: inline-block;
+            margin-bottom: 0;
+            margin-left: 53px;
+            width: 15%;
+          }
+          .postal-code {
+            display: inline-block;
+            margin-bottom: 0;
+            margin-left: 53px;
+            width: 20%;
           }
         }
         &.photo {

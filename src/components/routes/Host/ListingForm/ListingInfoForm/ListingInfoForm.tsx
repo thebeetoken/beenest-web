@@ -87,23 +87,29 @@ const ListingInfoForm = (props: FormikProps<ListingInput>): JSX.Element => {
             type: 'text',
           },
           {
+            className: 'city',
             name: 'city',
             placeholder: 'City',
             type: 'text',
           },
           {
+            className: 'state',
             name: 'state',
             placeholder: 'State',
             type: 'text',
           },
           {
+            className: 'postal-code',
             name: 'postalCode',
             placeholder: '88888',
             type: 'text',
           },
-        ].map(input =>
-          <InputWrapper key={input.name}>
-            <Field {...input} />
+        ].map(({ className, name, placeholder, type }) =>
+          <InputWrapper key={name} className={className}>
+            <Field
+              name={name}
+              placeholder={placeholder}
+              type={type} />
           </InputWrapper>
         )}
         <ErrorMessageWrapper>
