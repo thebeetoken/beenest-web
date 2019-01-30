@@ -23,7 +23,3 @@ export function getGoogleMapURI(listing: Listing): string {
   const { lat, lng } = listing;
   return `https://www.google.com/maps/search/?api=1&query=${lat},${lng}`;
 }
-
-export function formatYupError(input: string): string {
-  return `Please provide a valid ${input}.`;
-}

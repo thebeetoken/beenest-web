@@ -15,7 +15,6 @@ import GeneralWrapper from 'shared/GeneralWrapper';
 import NotFound from 'routes/NotFound';
 import Button from 'components/shared/Button';
 import timeOptions from 'utils/timeOptions';
-import { formatYupError } from 'utils/formatter';
 import { ApolloError } from 'apollo-client';
 
 interface FormValues {
