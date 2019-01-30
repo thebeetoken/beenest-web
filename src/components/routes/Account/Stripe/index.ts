@@ -1,3 +1,3 @@
-export { StripeExpressComplete } from './StripeExpressComplete';
-export { StripeExpressNew } from './StripeExpressNew';
-export { StripeConnect } from './StripeConnect';
+export { StripeComplete } from './StripeComplete';
+export { StripeNew } from './StripeNew';
+export { StripeLink } from './StripeLink';

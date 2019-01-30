@@ -20,7 +20,7 @@ export const getStripeRedirectUrl = () => {
  * Ie, via emails.
  * see https://stripe.com/docs/connect/express-accounts for workflow
  **/
-export const StripeExpressNew = () => {
+export const StripeNew = () => {
   window.location.assign(getStripeRedirectUrl());
   return <AudioLoading height={150} width={150} />;
 };

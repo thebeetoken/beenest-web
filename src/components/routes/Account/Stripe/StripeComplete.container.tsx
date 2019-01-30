@@ -1,6 +1,6 @@
 import styled from 'styled-components';
 
-const StripeExpressCompleteContainer = styled.div`
+const StripeCompleteContainer = styled.div`
   .bee-general-wrapper {
     margin: 0 auto;
     padding: 40px 0;
@@ -13,4 +13,4 @@ const StripeExpressCompleteContainer = styled.div`
   }
 `;
 
-export default StripeExpressCompleteContainer;
+export default StripeCompleteContainer;

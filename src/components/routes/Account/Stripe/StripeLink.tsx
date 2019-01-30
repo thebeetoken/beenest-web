@@ -13,7 +13,7 @@ const STRIPE_REDIRECT = `https://connect.stripe.com/oauth/authorize?redirect_uri
  * Ie, via emails.
  * see https://stripe.com/docs/connect/standard-accounts#integrating-oauth for workflow
  **/
-export const StripeConnect = () => {
+export const StripeLink = () => {
   window.location.assign(STRIPE_REDIRECT);
   return <AudioLoading height={150} width={150} />;
 };
