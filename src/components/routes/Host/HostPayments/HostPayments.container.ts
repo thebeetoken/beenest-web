@@ -36,8 +36,12 @@ const HostPaymentsContainer = styled.section`
   .host-payments-section-container--links {
     margin-bottom: 32px;
     button {
-      margin-bottom: 12px;
       width: auto;
+    }
+    p {
+      ${typography('read', 3)};
+      color: ${color('top')};
+      margin-bottom: 18px;
     }
   }
 `
