@@ -19,7 +19,7 @@ import {
   SuccessMessage
 } from 'utils/validators';
 
-const { BEENEST_HOST } = SETTINGS;
+const { BEENEST_HOST, STRIPE_CLIENT_ID } = SETTINGS;
 const SNACKBAR_DURATION_MS = 5000;
 
 const HostPayments = (): JSX.Element => {
@@ -141,11 +141,12 @@ class EnhancedComponent extends React.Component<Props, HostPaymentsContentState>
                 }
               </Button>
             </BeeLink>
-            {!stripeAccountDashboardLink && <>
+            {!stripeAccountDashboardLink && <BeeLink
+              href={`https://connect.stripe.com/oauth/authorize?response_type=code&client_id=${STRIPE_CLIENT_ID}&scope=read_write`}>
               <Button background="secondary" color="white" size="small">
                 Connect Existing Stripe Account
               </Button>
-            </>}
+            </BeeLink>}
           </div>
           <Formik
             initialValues={{ btcWalletAddress: btcWalletAddress || '', ethWalletAddress: walletAddress || '' }}
