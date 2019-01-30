@@ -130,7 +130,7 @@ class EnhancedComponent extends React.Component<Props, HostPaymentsContentState>
               </p>
             </div>
           </div>
-          <div className="host-payments-section-container">
+          <div className="host-payments-section-container host-payments-section-container--links">
             <BeeLink
               href={(stripeAccountDashboardLink && stripeLoginLink) ? stripeLoginLink : `${BEENEST_HOST}/account/stripe_express/new`}
               target="_blank">
@@ -184,7 +184,7 @@ class EnhancedComponent extends React.Component<Props, HostPaymentsContentState>
                   </ErrorMessageWrapper>
                 </div>
               </div>
-              <div className="host-payments-section-container">
+              <div className="host-payments-section-container host-payments-section-container--submit">
                 <Button
                   type="submit"
                   background="secondary"
