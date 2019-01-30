@@ -15,7 +15,8 @@ import GeneralWrapper from 'shared/GeneralWrapper';
 import NotFound from 'routes/NotFound';
 import Button from 'components/shared/Button';
 import timeOptions from 'utils/timeOptions';
-import { formatError } from 'utils/formatter';
+import { formatYupError } from 'utils/formatter';
+import { ApolloError } from 'apollo-client';
 
 interface FormValues {
   [name: string]: boolean | string | string[] | number | object | undefined;
@@ -61,7 +62,7 @@ interface Props extends RouterProps {
 }
 
 const ListingFormSchema = Yup.object().shape({
-  addressLine1: Yup.string().min(1, formatError('street address')),
+  addressLine1: Yup.string().min(1, formatYupError('street address')),
   addressLine2: Yup.string(),
   amenities: Yup.array().of(Yup.string()),
   checkInTime: Yup.object()
@@ -76,9 +77,9 @@ const ListingFormSchema = Yup.object().shape({
   checkOutTime: Yup.string().oneOf(timeOptions),
   city: Yup.string().max(60, 'Too Long!'),
   country: Yup.string(),
-  description: Yup.string().min(1, formatError('description of your listing')),
-  homeType: Yup.string().min(1, formatError('home type')),
-  houseRules: Yup.string().min(1, formatError('set of house rules')),
+  description: Yup.string().min(1, formatYupError('description of your listing')),
+  homeType: Yup.string().min(1, formatYupError('home type')),
+  houseRules: Yup.string().min(1, formatYupError('set of house rules')),
   icalUrls: Yup.array().of(Yup.string().url('${value} is not a valid ical url. ')),
   isActive: Yup.bool(),
   lat: Yup.number()
@@ -87,7 +88,7 @@ const ListingFormSchema = Yup.object().shape({
   lng: Yup.number()
     .moreThan(-180)
     .lessThan(180),
-  listingPicUrl: Yup.string().url(formatError('cover photo')),
+  listingPicUrl: Yup.string().url(formatYupError('cover photo')),
   maxGuests: Yup.number()
     .moreThan(0, 'Max guests must be greater than 0.')
     .lessThan(51, 'Max guests must not exceed 50.'),
@@ -97,14 +98,14 @@ const ListingFormSchema = Yup.object().shape({
     .min(0, 'Number of bathrooms must be greater than or equal to 0.'),
   numberOfBedrooms: Yup.number()
     .min(0, 'Number of bedrooms must be greater than or equal to 0.'),
-  photos: Yup.array().of(Yup.string().url(formatError('set of photos'))),
-  postalCode: Yup.string().min(1, formatError('postal code')).max(45, 'Too Long!'),
+  photos: Yup.array().of(Yup.string().url(formatYupError('set of photos'))),
+  postalCode: Yup.string().min(1, formatYupError('postal code')).max(45, 'Too Long!'),
   pricePerNightUsd: Yup.number()
     .moreThan(0, 'Price per night must be greater than 0.'),
   securityDepositUsd: Yup.number()
     .min(0, 'Security Deposit must be greater than or equal to 0.'),
   sharedBathroom: Yup.string(),
-  sleepingArrangement: Yup.string().min(1, formatError('sleeping arrangement')),
+  sleepingArrangement: Yup.string().min(1, formatYupError('sleeping arrangement')),
   state: Yup.string()
     .min(1, 'Too Short!')
     .max(60, 'Too Long!'),
@@ -149,8 +150,9 @@ class ListingForm extends React.Component<Props, State> {
               .then(() => {
                 props.history.push(`/host/listings/${this.state.nextCrumb}`);
               })
-              .catch((error: Error) => {
-                alert(`${error}. If this continues to occur, please contact us at support@beetoken.com`);
+              .catch((error: ApolloError) => {
+                const formattedError = error.graphQLErrors ? error.graphQLErrors.map(e => e.message).join('\n').toString() : error;
+                alert(`${formattedError}\n\nIf this continues to occur, please contact us at support@beetoken.com`);
                 console.error(error);
                 return actions.setSubmitting(false);
               });

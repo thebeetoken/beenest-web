@@ -24,6 +24,6 @@ export function getGoogleMapURI(listing: Listing): string {
   return `https://www.google.com/maps/search/?api=1&query=${lat},${lng}`;
 }
 
-export function formatError(input: string): string {
+export function formatYupError(input: string): string {
   return `Please provide a valid ${input}.`;
 }
