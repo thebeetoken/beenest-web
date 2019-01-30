@@ -169,16 +169,13 @@ class BookingRequestCard extends React.Component<Props, State> {
   }
 
   handleIsOutsideRange = (day: moment.Moment) => {
-    const utcDay = day
-      .clone()
-      .utc()
-      .set('hours', 0);
+    const utcDay = day.clone().utc().set('hours', 0);
     const firstDay = this.props.checkInDate ?
       moment.utc(this.props.checkInDate) :
-      moment.utc().startOf('day').add(2, 'days');
+      moment().startOf('day').utc().set('hours', 0);
     const lastDay = this.props.checkOutDate ?
       moment.utc(this.props.checkOutDate) :
-      moment.utc().startOf('day').add(6, 'months');
+      moment().startOf('day').utc().add(6, 'months');
     return utcDay.isBefore(firstDay) || utcDay.isAfter(lastDay);
   };
 
