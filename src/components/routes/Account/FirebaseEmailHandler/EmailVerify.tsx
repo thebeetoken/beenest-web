@@ -19,7 +19,7 @@ interface Props {
 
 export default class EmailVerify extends React.Component<Props> {
   readonly state: State = {
-    isSubmitting: false,
+    isSubmitting: true,
     hasError: false,
     showVerifyEmailSuccess: false,
     errorMessage: '',
