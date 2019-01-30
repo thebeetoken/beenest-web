@@ -137,12 +137,12 @@ class EnhancedComponent extends React.Component<Props, HostPaymentsContentState>
               <Button background="secondary" color="white" size="small">
                 {stripeAccountDashboardLink
                   ? 'Go To Stripe Dashboard'
-                  : 'Setup Stripe Account'
+                  : 'Create Stripe Express Account'
                 }
               </Button>
             </BeeLink>
             {!stripeAccountDashboardLink && <p>
-              This is only available to hosts in the United States and Canada.<br/>This account will be limited to receiving payouts from Beenest.
+              Stripe Express is only available to hosts in the United States and Canada.<br/>This account will be limited to receiving payouts from Beenest.
             </p>}
             {!stripeAccountDashboardLink && <BeeLink to="/account/stripe/connect" target="_blank">
               <Button background="secondary" color="white" size="small">
