@@ -141,11 +141,17 @@ class EnhancedComponent extends React.Component<Props, HostPaymentsContentState>
                 }
               </Button>
             </BeeLink>
+            {!stripeAccountDashboardLink && <p>
+              This is only available to hosts in the United States and Canada. This account will be limited to receiving payouts from Beenest.
+            </p>}
             {!stripeAccountDashboardLink && <BeeLink to="/account/stripe/connect" target="_blank">
               <Button background="secondary" color="white" size="small">
                 Connect Existing Stripe Account
               </Button>
             </BeeLink>}
+            {!stripeAccountDashboardLink && <p>
+              Available in the United States and other countries. Select this if you have an existing Stripe account.
+            </p>}
           </div>
           <Formik
             initialValues={{ btcWalletAddress: btcWalletAddress || '', ethWalletAddress: walletAddress || '' }}
