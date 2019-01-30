@@ -24,6 +24,7 @@ import ListingsResult from './routes/Listing/ListingsResult';
 import Login from './routes/authentication/Login';
 import Logout from './routes/authentication/Logout';
 import SignUp from './routes/authentication/SignUp';
+import { StripeConnect, StripeExpressComplete, StripeExpressNew } from './routes/Account/StripeExpress';
 import { StripeExpressComplete, StripeExpressNew } from './routes/Account/StripeExpress';
 import FirebaseEmailHandler from './routes/Account/FirebaseEmailHandler';
 import Trips from './routes/Trips';
@@ -47,6 +48,7 @@ const AppRoutes = () => (
         <AppContainer className="bee-app" {...bannerState}>
           <Switch>
             <Route exact path="/account/action" component={FirebaseEmailHandler} />
+            <Route exact path="/account/stripe/connect" component={StripeConnect} />
             <Route exact path="/account/stripe_express/new" component={StripeExpressNew} />
             <Route exact path="/account/stripe_express/complete" component={StripeExpressComplete} />
             <AuthenticatedRoute path="/account" component={Account} />

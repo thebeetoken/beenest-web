@@ -130,17 +130,28 @@ class EnhancedComponent extends React.Component<Props, HostPaymentsContentState>
               </p>
             </div>
           </div>
-          <div className="host-payments-section-container">
+          <div className="host-payments-section-container host-payments-section-container--links">
             <BeeLink
-              href={(stripeAccountDashboardLink && stripeLoginLink) ? stripeLoginLink : `${BEENEST_HOST}/account/stripe_express/new`}
+              href={stripeLoginLink || stripeAccountDashboardLink || `${BEENEST_HOST}/account/stripe_express/new`}
               target="_blank">
               <Button background="secondary" color="white" size="small">
                 {stripeAccountDashboardLink
                   ? 'Go To Stripe Dashboard'
-                  : 'Setup Stripe Account'
+                  : 'Create Stripe Express Account'
                 }
               </Button>
             </BeeLink>
+            {!stripeAccountDashboardLink && <p>
+              Stripe Express is only available to hosts in the United States and Canada.<br/>This account will be limited to receiving payouts from Beenest.
+            </p>}
+            {!stripeAccountDashboardLink && <BeeLink to="/account/stripe/connect" target="_blank">
+              <Button background="secondary" color="white" size="small">
+                Connect Existing Stripe Account
+              </Button>
+            </BeeLink>}
+            {!stripeAccountDashboardLink && <p>
+              Available in the United States and other countries.<br/>Select this if you have an existing Stripe account.
+            </p>}
           </div>
           <Formik
             initialValues={{ btcWalletAddress: btcWalletAddress || '', ethWalletAddress: walletAddress || '' }}
@@ -179,7 +190,7 @@ class EnhancedComponent extends React.Component<Props, HostPaymentsContentState>
                   </ErrorMessageWrapper>
                 </div>
               </div>
-              <div className="host-payments-section-container">
+              <div className="host-payments-section-container host-payments-section-container--submit">
                 <Button
                   type="submit"
                   background="secondary"
