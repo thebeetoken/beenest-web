@@ -149,7 +149,6 @@ export default class PasswordReset extends React.Component<Props> {
 
     return (
       <>
-        {' '}
         {this.state.hasError && this.renderError()}
         {this.state.showPasswordResetForm && this.renderPasswordResetForm()}
         {this.state.showPasswordResetSuccess && this.renderPasswordResetSuccess()}
