@@ -101,11 +101,10 @@ export default class PasswordReset extends React.Component<Props> {
         <h2> Sorry, there was an error.</h2>
         <p>{this.state.errorMessage}</p>
         <p>
-          {' '}
           <BeeLink href="mailto:support@beenest.com">
             <Button>Contact us for further help.</Button>
-          </BeeLink>{' '}
-        </p>{' '}
+          </BeeLink>
+        </p>
       </>
     );
   }
@@ -113,35 +112,32 @@ export default class PasswordReset extends React.Component<Props> {
   renderPasswordResetForm() {
     return;
     <>
-      {' '}
       <h2> Reset Password</h2>
       <form onSubmit={this.handlePasswordResetSubmit}>
         <div className="input-container">
           <InputWrapper>
-            {' '}
-            <label>New Password:</label>{' '}
+            <label>New Password:</label>
             <input
               type="password"
               value={this.state.password}
               onChange={this.handleFormChange}
               id="password"
               name="password"
-            />{' '}
-          </InputWrapper>{' '}
+            />
+          </InputWrapper>
         </div>
         <Button type="submit">Save</Button>
-      </form>{' '}
+      </form>
     </>;
   }
 
   renderPasswordResetSuccess() {
     return (
       <section>
-        {' '}
-        <p>You changed your password.</p>{' '}
+        <p>You changed your password.</p>
         <BeeLink href="/login">
           <Button>Login</Button>
-        </BeeLink>{' '}
+        </BeeLink>
       </section>
     );
   }
