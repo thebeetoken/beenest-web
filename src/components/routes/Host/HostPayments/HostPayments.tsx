@@ -141,6 +141,11 @@ class EnhancedComponent extends React.Component<Props, HostPaymentsContentState>
                 }
               </Button>
             </BeeLink>
+            {!stripeAccountDashboardLink && <>
+              <Button background="secondary" color="white" size="small">
+                Connect Existing Stripe Account
+              </Button>
+            </>}
           </div>
           <Formik
             initialValues={{ btcWalletAddress: btcWalletAddress || '', ethWalletAddress: walletAddress || '' }}
