@@ -7,8 +7,6 @@ const HostPaymentsContainer = styled.section`
   width: 624px;
 
   .host-payments-section-container {
-    align-items: flex-end;
-    display: flex;
     justify-content: space-between;
     width: inherit;
     margin-bottom: 8px;
@@ -26,9 +24,28 @@ const HostPaymentsContainer = styled.section`
     .bee-error-message {
       height: 32px;
     }
+  }
+
+  .host-payments-section-container--submit {
     button {
       margin-bottom: 32px;
       width: 182px;
+    }
+  }
+
+  .host-payments-section-container--links {
+    margin-bottom: 32px;
+    button {
+      width: auto;
+    }
+    p {
+      ${typography('read', 3)};
+      color: ${color('top')};
+      display: block;
+      margin-bottom: 18px;
+      a {
+        color: ${color('secondary')};
+      }
     }
   }
 `
