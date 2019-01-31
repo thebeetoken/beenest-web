@@ -13,8 +13,6 @@ import { GET_PUBLIC_LISTING } from 'networking/listings';
 import AudioLoading from 'shared/loading/AudioLoading';
 import PopUpCard from 'shared/PopUpCard';
 
-const PROFILE_IMAGE_PARAMETERS = { width: 300, height: 300 };
-
 class Listing extends React.Component<RouterProps> {
   readonly state = {
     showCard: false,
@@ -23,10 +21,9 @@ class Listing extends React.Component<RouterProps> {
   toggleCard = () => this.setState({ showCard: !this.state.showCard });
 
   render() {
-    const { id } = this.props.match.params;
     return (
       <ListingContainer>
-        <Query query={GET_PUBLIC_LISTING} variables={{ id, ...PROFILE_IMAGE_PARAMETERS }}>
+        <Query query={GET_PUBLIC_LISTING} variables={{ id: this.props.match.params.id }}>
           {({ loading, error, data }) => {
             if (loading) {
               return <AudioLoading height={48} width={96} />;
