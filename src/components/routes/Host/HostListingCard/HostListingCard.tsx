@@ -8,7 +8,6 @@ import HostListingCardContainer from './HostListingCard.container';
 import BeeLink from 'shared/BeeLink';
 import Button from 'shared/Button';
 import LazyImage from 'shared/LazyImage';
-import Svg from 'shared/Svg';
 import { ACTIVATE_LISTING, DEACTIVATE_LISTING, DELETE_LISTING, GET_HOST_LISTINGS, HostListingShort, Listing } from 'networking/listings';
 import { formatAddress } from 'utils/formatter';
 import { hexColor } from 'styled/utils';
