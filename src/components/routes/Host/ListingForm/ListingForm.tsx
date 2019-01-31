@@ -207,7 +207,6 @@ class ListingForm extends React.Component<Props, State> {
                     onClick={() => {
                       this.handleSubmit(FormikProps.values, FormikProps);
                     }}
-                    textStyle="title-8"
                     type="button"
                   >
                     Save &amp; Continue
@@ -234,8 +233,8 @@ class ListingForm extends React.Component<Props, State> {
         props.history.push(`/host/listings/${this.state.nextCrumb}`);
       })
       .catch((error: ApolloError) => {
-        const formattedError = error.graphQLErrors ? error.graphQLErrors.map(e => e.message).join('\n').toString() : error;
-        alert(`${formattedError}\n\nIf this continues to occur, please contact us at support@beetoken.com`);
+        const formattedError = error.graphQLErrors ? error.graphQLErrors.map(e => e.message).join('\r\n').toString() : error;
+        alert(`${formattedError}\r\n\r\nIf this continues to occur, please contact us at support@beetoken.com`);
         console.error(error);
         return actions.setSubmitting(false);
       });

@@ -8,12 +8,12 @@ import { COUNTRY_CODES } from 'utils/countryCodes';
 import Textarea from 'shared/Textarea';
 import { formatAddress } from 'utils/formatter';
 import { HomeTypeHostForm } from 'utils/validators';
-import { PhotoUploader, Photo } from 'components/shared/PhotoUploader';
-import GoogleMaps from 'components/shared/GoogleMaps';
+import { PhotoUploader, Photo } from 'shared/PhotoUploader';
+import GoogleMaps from 'shared/GoogleMaps';
 import { Field, FormikProps, ErrorMessage } from 'formik';
-import { TextareaEvent } from 'components/shared/Textarea/Textarea';
+import { TextareaEvent } from 'shared/Textarea/Textarea';
 import { ListingInput } from 'networking/listings';
-import ErrorMessageWrapper from 'components/shared/ErrorMessageWrapper';
+import ErrorMessageWrapper from 'shared/ErrorMessageWrapper';
 
 const LAT_LNG_EPSILON = Math.pow(10, -6); // decimal places stored in db
 

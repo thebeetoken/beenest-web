@@ -8,7 +8,7 @@ import { TextareaEvent } from 'shared/Textarea/Textarea';
 import { stringToArray, arrayToString } from 'utils/formatter';
 import Checkbox from 'shared/Checkbox';
 import { Field, ErrorMessage } from 'formik';
-import ErrorMessageWrapper from 'components/shared/ErrorMessageWrapper';
+import ErrorMessageWrapper from 'shared/ErrorMessageWrapper';
 
 const AccommodationsForm = (props: any): JSX.Element => {
   const { setFieldTouched, setFieldValue, values } = props;

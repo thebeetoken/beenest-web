@@ -4,9 +4,9 @@ import InputLabel from 'shared/InputLabel';
 import SelectBoxWrapper from 'shared/SelectBoxWrapper';
 import Svg from 'shared/Svg';
 import Textarea from 'shared/Textarea';
-import { TextareaEvent } from 'components/shared/Textarea/Textarea';
+import { TextareaEvent } from 'shared/Textarea/Textarea';
 import timeOptions from 'utils/timeOptions';
-import ErrorMessageWrapper from 'components/shared/ErrorMessageWrapper';
+import ErrorMessageWrapper from 'shared/ErrorMessageWrapper';
 import { ErrorMessage } from 'formik';
 
 const CheckinDetailsForm = (props: any): JSX.Element => {

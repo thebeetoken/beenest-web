@@ -37,21 +37,23 @@ const ListingFormContainer = styled.section`
           > * {
             margin-bottom: 16px;
           }
-          .city {
-            display: inline-block;
-            margin-bottom: 0;
-            width: 45%;
-          }
-          .state {
-            display: inline-block;
-            margin-bottom: 0;
-            margin-left: 53px;
-            width: 15%;
-          }
+          .city,
+          .state,
           .postal-code {
             display: inline-block;
             margin-bottom: 0;
-            margin-left: 53px;
+          }
+          .state,
+          .postal-code {
+            margin-left: 10%
+          }
+          .city {
+            width: 45%;
+          }
+          .state {
+            width: 15%;
+          }
+          .postal-code {
             width: 20%;
           }
         }
