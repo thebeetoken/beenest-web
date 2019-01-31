@@ -148,8 +148,6 @@ class ListingForm extends React.Component<Props, State> {
           validationSchema={ListingFormSchema}
           onSubmit={(values: ListingInput, actions: FormikActions<FormValues>, ) => {
             actions.setSubmitting(true);
-            console.log('values:', values);
-            console.log()
             const { updateListing } = props;
             const { id } = props.match.params;
             return updateListing(id, values)
@@ -157,7 +155,6 @@ class ListingForm extends React.Component<Props, State> {
                 props.history.push(`/host/listings/${this.state.nextCrumb}`);
               })
               .catch((error: ApolloError) => {
-                console.log('error:', error);
                 const formattedError = error.graphQLErrors ? error.graphQLErrors.map(e => e.message).join('\n').toString() : error;
                 alert(`${formattedError}\n\nIf this continues to occur, please contact us at support@beetoken.com`);
                 console.error(error);
