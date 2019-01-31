@@ -142,7 +142,8 @@ class EnhancedComponent extends React.Component<Props, HostPaymentsContentState>
               </Button>
             </BeeLink>
             {!stripeAccountDashboardLink && <p>
-              Stripe Express is only available to hosts in the United States and Canada.<br/>This account will be limited to receiving payouts from Beenest.
+              Stripe Express is only available to hosts in the United States and Canada.<br/>
+              This account will be limited to receiving payouts from Beenest.
             </p>}
             {!stripeAccountDashboardLink && <BeeLink to="/account/stripe/link" target="_blank">
               <Button background="secondary" color="white" size="small">
@@ -150,7 +151,8 @@ class EnhancedComponent extends React.Component<Props, HostPaymentsContentState>
               </Button>
             </BeeLink>}
             {!stripeAccountDashboardLink && <p>
-              Available in the United States and other countries.<br/>Select this if you have an existing Stripe account.
+              Available in the United States and <BeeLink href="https://stripe.com/global">other countries</BeeLink>.<br/>
+              Select this if you have an existing Stripe account.
             </p>}
           </div>
           <Formik
