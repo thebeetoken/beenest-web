@@ -29,7 +29,7 @@ module.exports = {
     ERC20_ADDRESSES: {
       DAI: '0x909E4dbdef114c9B39078Df314177780b89d8062'
     },
-    UNIPAY_ADDRESS: '0xf6615278bd3EC063C173821cb14A5BD318D5A3bF'
+    UNIPAY_ADDRESS: '0xd660c8a75cf57d8314857ee5e92df58e28b2a3e0'
   },
   testnet: {
     BEENEST_HOST: 'https://testnet.beenest.io',
@@ -52,7 +52,7 @@ module.exports = {
     ERC20_ADDRESSES: {
       DAI: '0x909E4dbdef114c9B39078Df314177780b89d8062'
     },
-    UNIPAY_ADDRESS: '0xf6615278bd3EC063C173821cb14A5BD318D5A3bF'
+    UNIPAY_ADDRESS: '0xd660c8a75cf57d8314857ee5e92df58e28b2a3e0'
   },
   staging: {
     BEENEST_HOST: 'https://staging.beenest.io',

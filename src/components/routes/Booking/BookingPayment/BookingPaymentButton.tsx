@@ -9,7 +9,7 @@ import Button from 'shared/Button';
 import Portal from 'shared/Portal';
 import GridLoading from 'shared/loading/GridLoading';
 import CryptoPortal from 'shared/CryptoPortal';
-import { Web3Data, isNetworkValid, payWithBee, payWithEth, payWithToken, getValidNetworkName, loadWeb3 } from 'utils/web3';
+import { Web3Data, isNetworkValid, payWithBee, payWithEther, payWithToken, getValidNetworkName, loadWeb3 } from 'utils/web3';
 
 interface Props {
   booking: Booking;
@@ -141,13 +141,13 @@ async function getCryptoParams(
     transactionFee: priceQuote.transactionFee,
   };
   if (fromBee && currency) {
-    return payWithToken(web3.eth, paymentOptions, currency, fromBee);
+    return currency === Currency.ETH ?
+      payWithEther(web3.eth, paymentOptions, fromBee(booking.guestTotalAmount)) :
+      payWithToken(web3.eth, paymentOptions, currency, fromBee);
   }
   switch (booking.currency) {
     case Currency.BEE:
       return payWithBee(web3.eth, paymentOptions);
-    case Currency.ETH:
-      return payWithEth(web3.eth, paymentOptions, booking);
     default:
       alert('There was an error in submitting your payment. Please contact us at support@beetoken.com');
       throw new Error('INVALID_CRYPTO_CURRENCY_AT_BOOKING_PAYMENT');
