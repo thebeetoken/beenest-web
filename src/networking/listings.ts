@@ -315,14 +315,14 @@ export const GET_LISTING_FORM = gql`
 
 export const GET_PUBLIC_LISTING = gql`
   ${LISTING_DETAILS_FRAGMENT}
-  query PublicListing($id: ID!) {
+  query PublicListing($id: ID!, $width: Int, $height: Int) {
     listing(id: $id) {
       host {
         id
         createdAt
         about
         firstName
-        profilePicUrl        
+        profilePicUrl(width: $width, height: $height)
       }
       ...ListingDetails
     }
