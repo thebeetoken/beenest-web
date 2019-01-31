@@ -64,7 +64,7 @@ export default class PasswordReset extends React.Component<Props> {
       .catch(() => {
         this.setState({
           hasError: true,
-          errorMessage: 'Invalid or expired action code.Ask user to try to reset the password again.',
+          errorMessage: 'Invalid or expired action code. Please reset the password again.',
         });
       });
   }

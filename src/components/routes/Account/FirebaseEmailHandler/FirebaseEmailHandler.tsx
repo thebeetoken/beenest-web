@@ -49,6 +49,7 @@ export default class FirebaseEmailHandler extends React.Component<RouterProps> {
         break;
       default:
       // Error: invalid mode.
+        alert('Error, invalid mode defined.');
     }
   }
 

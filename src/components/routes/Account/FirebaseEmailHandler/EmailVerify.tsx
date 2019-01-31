@@ -79,7 +79,7 @@ export default class EmailVerify extends React.Component<Props> {
         <FirebaseConsumer>
           {({ loading, user, completedVerification }: FirebaseUserProps) => {
             if (loading) {
-              return <AudioLoading />;
+              return <AudioLoading height={48} width={96} />;
             }
 
             if (user && !completedVerification) {
