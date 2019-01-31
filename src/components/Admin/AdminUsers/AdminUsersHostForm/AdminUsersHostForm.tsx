@@ -110,7 +110,7 @@ class AdminUsersHostForm extends React.Component<HostProps, HostFormState> {
   state: any = {
     ...formHelper.generateDefaultState(),
     userForm: this.props.host
-      ? this.props.host
+      ? formHelper.generateInitialState(this.props.host).userForm
       : formHelper.generateDefaultState().userForm,
   };
 
@@ -120,7 +120,7 @@ class AdminUsersHostForm extends React.Component<HostProps, HostFormState> {
         id: this.props.host.id,
         isSubmitClicked: this.state.isSubmitClicked,
         errors: this.state.errors,
-        userForm: this.props.host,
+        userForm: formHelper.generateInitialState(this.props.host).userForm,
       });
     }
   }

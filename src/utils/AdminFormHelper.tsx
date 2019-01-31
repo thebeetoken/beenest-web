@@ -41,20 +41,17 @@ export const generateDefaultState = () => {
   };
 };
 
-export const generateDefaultFormState = (initialFormEntries: initialFormEntries) => {
+export const generateInitialState = (initialFormEntries: initialFormEntries) => {
+  const defaultState = generateDefaultState();
+  const filteredInitialState = Object.keys(initialFormEntries)
+    .filter(key => initialFormEntries[key] !== null && initialFormEntries[key] !== undefined)
+    .reduce((obj, key) => ({ ...obj, [key]: initialFormEntries[key] }), {});
   return {
-    message: 'Missing or invalid fields.',
-    isSubmitClicked: false,
-    status: {
-      ...Object.keys(initialFormEntries).map((field) => { 
-        return { [field]: generateErrorBoundary() }
-      })
-    },
-    form: {
-      ...initialFormEntries
-    },
-    isValid: false,
-    redirect: false
+    ...defaultState,
+    userForm: {
+      ...defaultState.userForm,
+      ...filteredInitialState
+    }
   };
 };
 
