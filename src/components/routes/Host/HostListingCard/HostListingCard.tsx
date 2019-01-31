@@ -8,6 +8,7 @@ import HostListingCardContainer from './HostListingCard.container';
 import BeeLink from 'shared/BeeLink';
 import Button from 'shared/Button';
 import LazyImage from 'shared/LazyImage';
+import Svg from 'shared/Svg';
 import { ACTIVATE_LISTING, DEACTIVATE_LISTING, DELETE_LISTING, GET_HOST_LISTINGS, HostListingShort, Listing } from 'networking/listings';
 import { formatAddress } from 'utils/formatter';
 import { hexColor } from 'styled/utils';
@@ -41,18 +42,18 @@ const HostListingCard = (props: Props): JSX.Element => {
     <HostListingCardContainer className="host-listing-card">
       <div className="host-listing-meta">
         <h1>{title}</h1>
-        {(city || state || country) && <h2>{formatAddress(city, state, country)}</h2>}
+        <h2>{(city || state || country) ? formatAddress(city, state, country) : ''}</h2>
         <div className="bee-flex-div" />
         <h3>Last edited: {format(updatedAt, 'MM/DD/YY [at] hh:mmA')}</h3>
+        <h4>
+          <BeeLink to={`/host/listings/${id}/calendar`}>
+            View Calendar <Svg src="utils/carat-right" height="1em" />
+          </BeeLink>
+        </h4>
         <div className="host-listing-meta--button-container">
           <BeeLink to={`/host/listings/${id}/edit`}>
             <Button background="core" color="white" size="small">
               Edit
-            </Button>
-          </BeeLink>
-          <BeeLink to={`/host/listings/${id}/calendar`}>
-            <Button background="core" color="white" size="small">
-              Calendar
             </Button>
           </BeeLink>
           <BeeLink target="_blank" to={`/listings/${idSlug}`}>

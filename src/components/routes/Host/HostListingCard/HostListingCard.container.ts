@@ -25,7 +25,18 @@ const HostListingCardContainer = styled.article`
     h3 {
       ${typography('caption', 1)};
       font-style: italic;
-      margin-bottom: 14px;
+    }
+    h4 {
+      ${typography('read', 1)};
+      color: ${color('upper')};
+      display: block;
+      margin: 14px 0;
+      .bee-svg {
+        display: inline-block;
+        height: 32px;
+        margin-bottom: -10px;
+        width: 32px;
+      }
     }
     &--button-container {
       display: flex;
