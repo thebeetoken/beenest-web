@@ -151,7 +151,7 @@ class EnhancedComponent extends React.Component<Props, HostPaymentsContentState>
               </Button>
             </BeeLink>}
             {!stripeAccountDashboardLink && <p>
-              Available in the United States and other <BeeLink href="https://stripe.com/global">supported countries</BeeLink>.<br/>
+              Available in the United States and other <BeeLink href="https://stripe.com/global" target="_blank">supported countries</BeeLink>.<br/>
               Select this if you have an existing Stripe account.
             </p>}
           </div>

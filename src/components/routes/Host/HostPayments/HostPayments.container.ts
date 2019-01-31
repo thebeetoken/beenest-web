@@ -41,7 +41,11 @@ const HostPaymentsContainer = styled.section`
     p {
       ${typography('read', 3)};
       color: ${color('top')};
+      display: block;
       margin-bottom: 18px;
+      a {
+        color: ${color('secondary')};
+      }
     }
   }
 `
