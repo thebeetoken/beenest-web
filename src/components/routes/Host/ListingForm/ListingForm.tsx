@@ -92,6 +92,7 @@ const ListingFormSchema = Yup.object().shape({
     .min(1, minNumberError('Max Guests'))
     .max(50, maxNumberError('Max Guests')),
   minimumNights: Yup.number()
+    .required('Minimum Nights is a required field.')
     .min(1, minNumberError('Minimum Nights')),
   numberOfBathrooms: Yup.number()
     .min(0, minNumberError('Number of Bathrooms')),
@@ -102,8 +103,10 @@ const ListingFormSchema = Yup.object().shape({
     .min(1, minStringError('Postal Code'))
     .max(45, maxStringError('Postal Code')),
   pricePerNightUsd: Yup.number()
-    .min(1, minNumberError('Price Per Night USD')),
+    .required('Price Per Night is a required field.')
+    .min(1, minNumberError('Price Per Night')),
   securityDepositUsd: Yup.number()
+    .required('Security Deposit is a required field.')
     .min(0, minNumberError('Security Deposit')),
   sharedBathroom: Yup.string(),
   sleepingArrangement: Yup.string().min(1, minStringError('Sleeping Arrangement')),
@@ -143,8 +146,10 @@ class ListingForm extends React.Component<Props, State> {
           initialValues={populateListingForm(defaultValues, props.listing)}
           isInitialValid
           validationSchema={ListingFormSchema}
-          onSubmit={(values: ListingInput, actions: FormikActions<FormValues>) => {
+          onSubmit={(values: ListingInput, actions: FormikActions<FormValues>, ) => {
             actions.setSubmitting(true);
+            console.log('values:', values);
+            console.log()
             const { updateListing } = props;
             const { id } = props.match.params;
             return updateListing(id, values)
@@ -152,6 +157,7 @@ class ListingForm extends React.Component<Props, State> {
                 props.history.push(`/host/listings/${this.state.nextCrumb}`);
               })
               .catch((error: ApolloError) => {
+                console.log('error:', error);
                 const formattedError = error.graphQLErrors ? error.graphQLErrors.map(e => e.message).join('\n').toString() : error;
                 alert(`${formattedError}\n\nIf this continues to occur, please contact us at support@beetoken.com`);
                 console.error(error);
@@ -200,7 +206,7 @@ class ListingForm extends React.Component<Props, State> {
                   <Button
                     onClick={() => {
                       if (!FormikProps.isValid) {
-                        alert(`Cannot save changes due to errors: ${JSON.stringify(Object.values(FormikProps.errors), null, 4)}`);
+                        alert(`Cannot save changes due to errors:\n\n${Object.values(FormikProps.errors).join('\n').toString()}`);
                       }
                       FormikProps.submitForm();
                     }}
