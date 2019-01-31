@@ -33,7 +33,7 @@ const PricingAvailabilityForm = (props: any): JSX.Element => {
 
       <div className="form-item short">
         <div className="input-container">
-          <InputLabel htmlFor="minimumNights">Min Nights</InputLabel>
+          <InputLabel htmlFor="minimumNights" subLabel="(required)">Min Nights</InputLabel>
           <InputWrapper>
             <Field
               name="minimumNights"
@@ -48,7 +48,7 @@ const PricingAvailabilityForm = (props: any): JSX.Element => {
 
       <div className="form-item short">
         <div className="input-container">
-          <InputLabel htmlFor="pricePerNightUsd" subLabel="(USD)">Price Per Night</InputLabel>
+          <InputLabel htmlFor="pricePerNightUsd" subLabel="(required)">Price Per Night USD</InputLabel>
           <InputWrapper>
             <Field
               name="pricePerNightUsd"
@@ -63,7 +63,7 @@ const PricingAvailabilityForm = (props: any): JSX.Element => {
       
       <div className="form-item short">
         <div className="input-container security-deposit">
-          <InputLabel htmlFor="securityDepositUsd" subLabel="(USD)">Security Deposit</InputLabel>
+          <InputLabel htmlFor="securityDepositUsd" subLabel="(required)">Security Deposit USD</InputLabel>
           <InputWrapper>
             <Field
               name="securityDepositUsd"

@@ -78,7 +78,7 @@ const CheckinDetailsForm = (props: any): JSX.Element => {
       </div>
 
       <div className="form-item check-in-details">
-        <InputLabel htmlFor="houseRules">House Rules</InputLabel>
+        <InputLabel htmlFor="houseRules" subLabel="(required)">House Rules</InputLabel>
         <Textarea
           html
           name="houseRules"

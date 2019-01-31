@@ -34,7 +34,7 @@ const AccommodationsForm = (props: any): JSX.Element => {
       </div> */}
 
       <div className="form-item">
-        <InputLabel htmlFor="sleepingArrangement">Sleeping Arrangement</InputLabel>
+        <InputLabel htmlFor="sleepingArrangement" subLabel="(required)">Sleeping Arrangement</InputLabel>
         <InputWrapper>
           <Field
             name="sleepingArrangement"
@@ -90,7 +90,7 @@ const AccommodationsForm = (props: any): JSX.Element => {
       </div>
 
       <div className="form-item">
-        <InputLabel htmlFor="amenities" subLabel="(separate by comma)">Amenities</InputLabel>
+        <InputLabel htmlFor="amenities" subLabel="(required, separate by comma)">Amenities</InputLabel>
         <Textarea
           name="amenities"
           onBlur={() => setFieldTouched('amenities', true)}

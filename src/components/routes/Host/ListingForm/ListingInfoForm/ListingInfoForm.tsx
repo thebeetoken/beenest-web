@@ -26,12 +26,13 @@ const ListingInfoForm = (props: FormikProps<ListingInput>): JSX.Element => {
       <div className="form-item">
         <InputLabel>Type of Home</InputLabel>
         <SelectBoxWrapper suffixSize="tiny">
-          <select 
+          <select
             id="homeType"
             name="homeType"
             onBlur={() => setFieldTouched('homeType', true)}
             onChange={(event: React.ChangeEvent<HTMLSelectElement>) => setFieldValue('homeType', event.target.value)}
-            value={values.homeType}>
+            value={values.homeType}
+          >
             {Object.values(HomeTypeHostForm).map((value: HomeTypeHostForm) => (
               <option value={value} key={value}>
                 {value}
@@ -48,12 +49,11 @@ const ListingInfoForm = (props: FormikProps<ListingInput>): JSX.Element => {
       </div>
 
       <div className="form-item">
-        <InputLabel htmlFor="title">Listing Name</InputLabel>
+        <InputLabel htmlFor="title" subLabel="(required)">
+          Listing Name
+        </InputLabel>
         <InputWrapper>
-          <Field
-            name="title"
-            placeholder="Title"
-            type="text" />
+          <Field name="title" placeholder="Title" type="text" />
         </InputWrapper>
         <ErrorMessageWrapper>
           <ErrorMessage name="title" />
@@ -61,7 +61,7 @@ const ListingInfoForm = (props: FormikProps<ListingInput>): JSX.Element => {
       </div>
 
       <div className="form-item">
-        <InputLabel htmlFor="description">Listing Description</InputLabel>
+        <InputLabel htmlFor="description" subLabel="(required)">Listing Description</InputLabel>
         <Textarea
           html
           name="description"
@@ -70,14 +70,15 @@ const ListingInfoForm = (props: FormikProps<ListingInput>): JSX.Element => {
             setFieldValue('description', event.target.value);
           }}
           value={values.description}
-          placeholder="Tell us about your home" />
-          <ErrorMessageWrapper>
-            <ErrorMessage name="description" />
-          </ErrorMessageWrapper>
+          placeholder="Tell us about your home"
+        />
+        <ErrorMessageWrapper>
+          <ErrorMessage name="description" />
+        </ErrorMessageWrapper>
       </div>
 
       <div className="form-item address">
-        <InputLabel htmlFor="addressLine1">Full Address</InputLabel>
+        <InputLabel htmlFor="addressLine1" subLabel="(required)">Full Address</InputLabel>
         {[
           {
             name: 'addressLine1',
@@ -107,35 +108,31 @@ const ListingInfoForm = (props: FormikProps<ListingInput>): JSX.Element => {
             placeholder: '88888',
             type: 'text',
           },
-        ].map(({ className, name, placeholder, type }) =>
+        ].map(({ className, name, placeholder, type }) => (
           <InputWrapper key={name} className={className}>
-            <Field
-              name={name}
-              placeholder={placeholder}
-              type={type} />
+            <Field name={name} placeholder={placeholder} type={type} />
           </InputWrapper>
-        )}
+        ))}
         <ErrorMessageWrapper>
-          {errors.addressLine1 && <ErrorMessage name="addressLine1" /> ||
-            errors.city && <ErrorMessage name="city" /> ||
-            errors.state && <ErrorMessage name="state" /> ||
-            errors.postalCode && <ErrorMessage name="postalCode" />}
+          {(errors.addressLine1 && <ErrorMessage name="addressLine1" />) ||
+            (errors.city && <ErrorMessage name="city" />) ||
+            (errors.state && <ErrorMessage name="state" />) ||
+            (errors.postalCode && <ErrorMessage name="postalCode" />)}
         </ErrorMessageWrapper>
       </div>
 
       <div className="form-item">
         <InputLabel>Country</InputLabel>
         <SelectBoxWrapper suffixSize="tiny">
-          <select 
+          <select
             id="country"
             name="country"
             onBlur={() => setFieldTouched('country', true)}
             onChange={(event: React.ChangeEvent<HTMLSelectElement>) => setFieldValue('country', event.target.value)}
-            value={values.country}>
+            value={values.country}
+          >
             {COUNTRY_CODES.map(country => (
-              <option
-                key={country.code}
-                value={country.code}>
+              <option key={country.code} value={country.code}>
                 {country.name}
               </option>
             ))}
@@ -154,55 +151,64 @@ const ListingInfoForm = (props: FormikProps<ListingInput>): JSX.Element => {
         <GoogleMaps
           address={address}
           getCoordinates={({ lat, lng }) => {
-            if ((lat || lat === 0) && (values.lat || values.lat === 0) && Math.abs(lat - values.lat) > LAT_LNG_EPSILON) {
+            if (
+              (lat || lat === 0) &&
+              (values.lat || values.lat === 0) &&
+              Math.abs(lat - values.lat) > LAT_LNG_EPSILON
+            ) {
               setFieldValue('lat', lat);
             }
-            if ((lng || lng === 0) && (values.lng || values.lng === 0) && Math.abs(lng - values.lng) > LAT_LNG_EPSILON) {
+            if (
+              (lng || lng === 0) &&
+              (values.lng || values.lng === 0) &&
+              Math.abs(lng - values.lng) > LAT_LNG_EPSILON
+            ) {
               setFieldValue('lng', lng);
             }
             return { lat, lng };
           }}
-          showMarker />
-          <ErrorMessageWrapper>
-            {errors.lat && <ErrorMessage name="lat" /> ||
-              errors.lng && <ErrorMessage name="lng" />}
-          </ErrorMessageWrapper>
+          showMarker
+        />
+        <ErrorMessageWrapper>
+          {(errors.lat && <ErrorMessage name="lat" />) || (errors.lng && <ErrorMessage name="lng" />)}
+        </ErrorMessageWrapper>
       </div>
 
       <div className="form-item photo">
-        <InputLabel htmlFor="listingPicUrl">Cover Photo:</InputLabel>
+        <InputLabel htmlFor="listingPicUrl" subLabel="(required)">Cover Photo</InputLabel>
         <PhotoUploader
           initialPhotos={values.listingPicUrl ? [{ url: values.listingPicUrl }] : []}
           maxFiles={1}
           onPhotosUpdated={(photo: Photo[]) => {
             setFieldTouched('listingPicUrl', true);
             setFieldValue('listingPicUrl', photo[0] ? photo[0].url : '');
-          }} />
-          <ErrorMessageWrapper>
-            <ErrorMessage name="listingPicUrl" />
-          </ErrorMessageWrapper>
+          }}
+        />
+        <ErrorMessageWrapper>
+          <ErrorMessage name="listingPicUrl" />
+        </ErrorMessageWrapper>
       </div>
 
       <div className="form-item photo">
-        <InputLabel htmlFor="photos" subLabel="(limit 25)">
-          Listing Photos:
+        <InputLabel htmlFor="photos" subLabel="(required, limit 25)">
+          Listing Photos
         </InputLabel>
         <PhotoUploader
           initialPhotos={(values.photos || []).map((url: string) => {
-              return { url };
-            })
-          }
+            return { url };
+          })}
           maxFiles={25}
           onPhotosUpdated={(photo: Photo[]) => {
             setFieldTouched('photos', true);
             setFieldValue('photos', photo.map(photo => photo.url));
-          }} />
-          <ErrorMessageWrapper>
-            <ErrorMessage name="photos" />
-          </ErrorMessageWrapper>
+          }}
+        />
+        <ErrorMessageWrapper>
+          <ErrorMessage name="photos" />
+        </ErrorMessageWrapper>
       </div>
     </>
   );
-}
+};
 
 export default ListingInfoForm;

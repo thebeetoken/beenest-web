@@ -62,12 +62,10 @@ interface Props extends RouterProps {
 
 const ListingFormSchema = Yup.object().shape({
   addressLine1: Yup.string()
-    .required(requiredError('Address Line 1'))
-    .min(4, minStringError('Address Line 1')),
+    .min(1, minStringError('Address Line 1')),
   addressLine2: Yup.string(),
   amenities: Yup.array()
-    .of(Yup.string())
-    .required(requiredError('Amenities')),
+    .of(Yup.string()),
   checkInTime: Yup.object()
     .shape({
       from: Yup.string().oneOf(timeOptions),
@@ -79,14 +77,11 @@ const ListingFormSchema = Yup.object().shape({
     }),
   checkOutTime: Yup.string().oneOf(timeOptions),
   city: Yup.string().max(60, maxStringError('City')),
-  country: Yup.string()
-    .required(requiredError('Country')),
+  country: Yup.string(),
   description: Yup.string()
-    .required(requiredError('Description'))
     .min(1, minStringError('Description')),
   homeType: Yup.string().min(1, minStringError('Home Type')),
   houseRules: Yup.string()
-    .required(requiredError('House Rules'))
     .min(1, minStringError('House Rules')),
   icalUrls: Yup.array().of(Yup.string().url('${value} is not a valid ical url. ')),
   isActive: Yup.bool(),
@@ -97,42 +92,32 @@ const ListingFormSchema = Yup.object().shape({
     .moreThan(-180)
     .lessThan(180),
   listingPicUrl: Yup.string()
-    .required(requiredError('Cover Photo'))
     .url(),
   maxGuests: Yup.number()
-    .required(requiredError('Max Guests'))
     .min(1, minNumberError('Max Guests'))
     .max(50, maxNumberError('Max Guests')),
   minimumNights: Yup.number()
-    .required(requiredError('Minimum Nights'))
     .min(1, minNumberError('Minimum Nights')),
   numberOfBathrooms: Yup.number()
     .min(0, minNumberError('Number of Bathrooms')),
   numberOfBedrooms: Yup.number()
     .min(0, minNumberError('Number of Bedrooms')),
   photos: Yup.array()
-    .of(Yup.string().url())
-    .required(requiredError('Listing Photos')),
+    .of(Yup.string().url()),
   postalCode: Yup.string()
-    .required(requiredError('Postal Code'))
     .min(1, minStringError('Postal Code'))
     .max(45, maxStringError('Postal Code')),
   pricePerNightUsd: Yup.number()
-    .required(requiredError('Price Per Night'))
     .min(1, minNumberError('Price Per Night')),
   securityDepositUsd: Yup.number()
-    .required(requiredError('Security Deposit'))
     .min(0, minNumberError('Security Deposit')),
-  sharedBathroom: Yup.string()
-    .required(requiredError('Shared Bathroom')),
+  sharedBathroom: Yup.string(),
   sleepingArrangement: Yup.string()
-    .required(requiredError('Sleeping Arrangement'))
     .min(1, minStringError('Sleeping Arrangement')),
   state: Yup.string()
     .min(1, minStringError('State'))
     .max(60, maxStringError('State')),
   title: Yup.string()
-    .required(requiredError('Title'))
     .min(5, minStringError('Title'))
     .max(50, maxStringError('Title')),
 });
@@ -205,7 +190,11 @@ class ListingForm extends React.Component<Props, State> {
 
                   <Button
                     onClick={() => {
-                      this.handleSubmit(FormikProps.values, FormikProps);
+                      if (!FormikProps.isValid) {
+                        alert(`Cannot save changes due to errors:\n\n${Object.values(FormikProps.errors).join('\n').toString()}`);
+                        // alert(`Cannot save changes due to errors: ${JSON.stringify(Object.values(FormikProps.errors), null, 4)}`);
+                      }
+                      FormikProps.submitForm();
                     }}
                     type="button"
                   >
@@ -302,8 +291,4 @@ function minNumberError(readableName: string) {
 
 function maxNumberError(readableName: string) {
   return `${readableName}` + ' must be less than or equal to ${min}.';
-}
-
-function requiredError(readableName: string) {
-  return `${readableName} is a required to publish.`;
 }

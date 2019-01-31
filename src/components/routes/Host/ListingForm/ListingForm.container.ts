@@ -74,7 +74,7 @@ const ListingFormContainer = styled.section`
           }
         }
         &.short {
-          width: 180px;
+          width: 240px;
         }
         &.map-preview {
           width: 100%;
