@@ -26,6 +26,9 @@ const PricingAvailabilityForm = (props: any): JSX.Element => {
             }}
           />
         </div>
+        <ErrorMessageWrapper>
+          <ErrorMessage name="maxGuests" />
+        </ErrorMessageWrapper>
       </div>
 
       <div className="form-item short">

@@ -61,9 +61,13 @@ interface Props extends RouterProps {
 }
 
 const ListingFormSchema = Yup.object().shape({
-  addressLine1: Yup.string().min(4, minStringError('Address Line 1')),
+  addressLine1: Yup.string()
+    .required(requiredError('Address Line 1'))
+    .min(4, minStringError('Address Line 1')),
   addressLine2: Yup.string(),
-  amenities: Yup.array().of(Yup.string()),
+  amenities: Yup.array()
+    .of(Yup.string())
+    .required(requiredError('Amenities')),
   checkInTime: Yup.object()
     .shape({
       from: Yup.string().oneOf(timeOptions),
@@ -75,10 +79,15 @@ const ListingFormSchema = Yup.object().shape({
     }),
   checkOutTime: Yup.string().oneOf(timeOptions),
   city: Yup.string().max(60, maxStringError('City')),
-  country: Yup.string(),
-  description: Yup.string().min(1, minStringError('Description')),
+  country: Yup.string()
+    .required(requiredError('Country')),
+  description: Yup.string()
+    .required(requiredError('Description'))
+    .min(1, minStringError('Description')),
   homeType: Yup.string().min(1, minStringError('Home Type')),
-  houseRules: Yup.string().min(1, minStringError('House Rules')),
+  houseRules: Yup.string()
+    .required(requiredError('House Rules'))
+    .min(1, minStringError('House Rules')),
   icalUrls: Yup.array().of(Yup.string().url('${value} is not a valid ical url. ')),
   isActive: Yup.bool(),
   lat: Yup.number()
@@ -87,33 +96,43 @@ const ListingFormSchema = Yup.object().shape({
   lng: Yup.number()
     .moreThan(-180)
     .lessThan(180),
-  listingPicUrl: Yup.string().url(),
+  listingPicUrl: Yup.string()
+    .required(requiredError('Cover Photo'))
+    .url(),
   maxGuests: Yup.number()
+    .required(requiredError('Max Guests'))
     .min(1, minNumberError('Max Guests'))
     .max(50, maxNumberError('Max Guests')),
   minimumNights: Yup.number()
-    .required('Minimum Nights is a required field.')
+    .required(requiredError('Minimum Nights'))
     .min(1, minNumberError('Minimum Nights')),
   numberOfBathrooms: Yup.number()
     .min(0, minNumberError('Number of Bathrooms')),
   numberOfBedrooms: Yup.number()
     .min(0, minNumberError('Number of Bedrooms')),
-  photos: Yup.array().of(Yup.string().url()),
+  photos: Yup.array()
+    .of(Yup.string().url())
+    .required(requiredError('Listing Photos')),
   postalCode: Yup.string()
+    .required(requiredError('Postal Code'))
     .min(1, minStringError('Postal Code'))
     .max(45, maxStringError('Postal Code')),
   pricePerNightUsd: Yup.number()
-    .required('Price Per Night is a required field.')
+    .required(requiredError('Price Per Night'))
     .min(1, minNumberError('Price Per Night')),
   securityDepositUsd: Yup.number()
-    .required('Security Deposit is a required field.')
+    .required(requiredError('Security Deposit'))
     .min(0, minNumberError('Security Deposit')),
-  sharedBathroom: Yup.string(),
-  sleepingArrangement: Yup.string().min(1, minStringError('Sleeping Arrangement')),
+  sharedBathroom: Yup.string()
+    .required(requiredError('Shared Bathroom')),
+  sleepingArrangement: Yup.string()
+    .required(requiredError('Sleeping Arrangement'))
+    .min(1, minStringError('Sleeping Arrangement')),
   state: Yup.string()
     .min(1, minStringError('State'))
     .max(60, maxStringError('State')),
   title: Yup.string()
+    .required(requiredError('Title'))
     .min(5, minStringError('Title'))
     .max(50, maxStringError('Title')),
 });
@@ -146,32 +165,16 @@ class ListingForm extends React.Component<Props, State> {
           initialValues={populateListingForm(defaultValues, props.listing)}
           isInitialValid
           validationSchema={ListingFormSchema}
-          onSubmit={(values: ListingInput, actions: FormikActions<FormValues>, ) => {
-            actions.setSubmitting(true);
-            const { updateListing } = props;
-            const { id } = props.match.params;
-            return updateListing(id, values)
-              .then(() => {
-                props.history.push(`/host/listings/${this.state.nextCrumb}`);
-              })
-              .catch((error: ApolloError) => {
-                const formattedError = error.graphQLErrors ? error.graphQLErrors.map(e => e.message).join('\n').toString() : error;
-                alert(`${formattedError}\n\nIf this continues to occur, please contact us at support@beetoken.com`);
-                console.error(error);
-                return actions.setSubmitting(false);
-              });
-          }}
-        >
+          onSubmit={this.handleSubmit}>
           {(FormikProps: FormikProps<ListingInput>) => (
             <>
               <ListingFormNav
-                errors={FormikProps.errors}
+                formikProps={FormikProps}
                 history={props.history}
                 id={props.match.params.id}
-                isValid={FormikProps.isValid}
                 showAlert={!FormikProps.isSubmitting && FormikProps.dirty}
                 setNextCrumb={this.setNextCrumb}
-                onSubmit={FormikProps.submitForm}
+                onSubmit={this.handleSubmit}
               />
               <GeneralWrapper align="flex-start" direction="row" justify="flex-start" width={976}>
                 <Form>
@@ -202,10 +205,7 @@ class ListingForm extends React.Component<Props, State> {
 
                   <Button
                     onClick={() => {
-                      if (!FormikProps.isValid) {
-                        alert(`Cannot save changes due to errors:\n\n${Object.values(FormikProps.errors).join('\n').toString()}`);
-                      }
-                      FormikProps.submitForm();
+                      this.handleSubmit(FormikProps.values, FormikProps);
                     }}
                     textStyle="title-8"
                     type="button"
@@ -223,6 +223,23 @@ class ListingForm extends React.Component<Props, State> {
   }
 
   setNextCrumb = (nextCrumb: string) => this.setState({ nextCrumb });
+
+  handleSubmit = (values: ListingInput, actions: FormikActions<FormValues>) => {
+    const { props } = this;
+    actions.setSubmitting(true);
+    const { updateListing } = props;
+    const { id } = props.match.params;
+    return updateListing(id, values)
+      .then(() => {
+        props.history.push(`/host/listings/${this.state.nextCrumb}`);
+      })
+      .catch((error: ApolloError) => {
+        const formattedError = error.graphQLErrors ? error.graphQLErrors.map(e => e.message).join('\n').toString() : error;
+        alert(`${formattedError}\n\nIf this continues to occur, please contact us at support@beetoken.com`);
+        console.error(error);
+        return actions.setSubmitting(false);
+      });
+  }
 }
 
 export default compose(
@@ -286,4 +303,8 @@ function minNumberError(readableName: string) {
 
 function maxNumberError(readableName: string) {
   return `${readableName}` + ' must be less than or equal to ${min}.';
+}
+
+function requiredError(readableName: string) {
+  return `${readableName} is a required to publish.`;
 }

@@ -42,6 +42,9 @@ const ListingInfoForm = (props: FormikProps<ListingInput>): JSX.Element => {
             <Svg className="suffix" src="utils/carat-down" />
           </label>
         </SelectBoxWrapper>
+        <ErrorMessageWrapper>
+          <ErrorMessage name="homeType" />
+        </ErrorMessageWrapper>
       </div>
 
       <div className="form-item">
@@ -141,6 +144,9 @@ const ListingInfoForm = (props: FormikProps<ListingInput>): JSX.Element => {
             <Svg className="suffix" src="utils/carat-down" />
           </label>
         </SelectBoxWrapper>
+        <ErrorMessageWrapper>
+          <ErrorMessage name="country" />
+        </ErrorMessageWrapper>
       </div>
 
       <div className="form-item map-preview">
@@ -157,6 +163,10 @@ const ListingInfoForm = (props: FormikProps<ListingInput>): JSX.Element => {
             return { lat, lng };
           }}
           showMarker />
+          <ErrorMessageWrapper>
+            {errors.lat && <ErrorMessage name="lat" /> ||
+              errors.lng && <ErrorMessage name="lng" />}
+          </ErrorMessageWrapper>
       </div>
 
       <div className="form-item photo">
