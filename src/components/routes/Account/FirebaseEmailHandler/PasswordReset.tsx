@@ -81,7 +81,7 @@ export default class PasswordReset extends React.Component<Props> {
       .catch(() => {
         this.setState({
           hasError: true,
-          errorMessage: 'Password is too weak or the password reset link has expired.',
+          errorMessage: 'Password is too weak(at least 8 characters) or the password reset link has expired.',
         });
       });
   }
