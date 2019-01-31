@@ -27,15 +27,15 @@ const HostListingCardContainer = styled.article`
       font-style: italic;
     }
     h4 {
-      ${typography('read', 1)};
-      color: ${color('upper')};
+      ${typography('read', 2)};
+      color: ${color('link')};
       display: block;
-      margin: 14px 0;
+      margin: 14px 0 18px;
       .bee-svg {
         display: inline-block;
-        height: 32px;
-        margin-bottom: -10px;
-        width: 32px;
+        height: 24px;
+        margin-bottom: -7px;
+        width: 24px;
       }
     }
     &--button-container {
