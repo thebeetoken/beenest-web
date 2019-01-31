@@ -5,7 +5,7 @@ import { SETTINGS } from 'configs/settings';
 
 const { BEENEST_HOST, STRIPE_CLIENT_ID } = SETTINGS;
 
-const REDIRECT_URL = `${BEENEST_HOST}/account/stripe_express/complete`;
+const REDIRECT_URL = `${BEENEST_HOST}/account/stripe/complete`;
 const STRIPE_REDIRECT = `https://connect.stripe.com/oauth/authorize?redirect_uri=${REDIRECT_URL}&response_type=code&client_id=${STRIPE_CLIENT_ID}&scope=read_write`;
 
 /**
@@ -13,7 +13,7 @@ const STRIPE_REDIRECT = `https://connect.stripe.com/oauth/authorize?redirect_uri
  * Ie, via emails.
  * see https://stripe.com/docs/connect/standard-accounts#integrating-oauth for workflow
  **/
-export const StripeConnect = () => {
+export const StripeLink = () => {
   window.location.assign(STRIPE_REDIRECT);
   return <AudioLoading height={150} width={150} />;
 };

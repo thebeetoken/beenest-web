@@ -4,7 +4,7 @@ import { parseQueryString } from 'utils/queryParams';
 import { SETTINGS } from 'configs/settings';
 const { BEENEST_HOST_API } = SETTINGS;
 
-import StripeExpressCompleteContainer from './StripeExpressComplete.container';
+import StripeCompleteContainer from './StripeComplete.container';
 
 import BeeLink from 'shared/BeeLink';
 import Button from 'shared/Button';
@@ -25,7 +25,7 @@ interface QueryParams {
  * The user would come to this page via StripeExpressNew which sends the redirect to setup stripe account.
  * see https://stripe.com/docs/connect/express-accounts for workflow
  **/
-export class StripeExpressComplete extends React.Component<RouterProps> {
+export class StripeComplete extends React.Component<RouterProps> {
   readonly state: State = {
     isSubmitting: true,
     completed: false,
@@ -93,13 +93,13 @@ export class StripeExpressComplete extends React.Component<RouterProps> {
           </>;
 
     return (
-      <StripeExpressCompleteContainer>
+      <StripeCompleteContainer>
         <GeneralWrapper width={976}>
           <div className="complete">
             {renderBody}
           </div>
         </GeneralWrapper>
-      </StripeExpressCompleteContainer>
+      </StripeCompleteContainer>
     );
   }
 };
