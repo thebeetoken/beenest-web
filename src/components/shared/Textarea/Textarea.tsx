@@ -22,6 +22,7 @@ interface Props {
   noBoxShadow?: boolean;
   onBlur?: () => void;
   onChange: (event: TextareaEvent) => void;
+  onFocus?: () => void;
   placeholder?: string;
   placeholderColor?: string;
   placeholderOpacity?: number;

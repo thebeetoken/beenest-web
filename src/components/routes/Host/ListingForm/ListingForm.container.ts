@@ -1,5 +1,5 @@
 import styled from 'styled-components';
-import { color } from 'styled/utils';
+import { color, typography } from 'styled/utils';
 
 const ListingFormContainer = styled.section`
   width: 100%;
@@ -84,11 +84,23 @@ const ListingFormContainer = styled.section`
     }
 
     aside {
-      background-color: ${color('white')};
-      min-height: calc(100% - 128px);
-      position: absolute;
+      background-color: ${color('light')};
       left: calc(586px + (100% - 976px) / 2);
+      min-height: calc(100% - 128px);
       width: calc((100% - 586px) - ((100% - 976px) / 2));
+      padding: 56px 56px 72px;
+      position: absolute;
+      header {
+        ${typography('title', 6)}
+        color: ${color('dark')};
+        margin-bottom: 32px;
+      }
+      h2 {
+        ${typography('read', 2)}
+        color: ${color('dark')};
+        margin-bottom: 32px;
+      }
+
     }
   }
 `;

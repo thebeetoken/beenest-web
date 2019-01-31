@@ -16,8 +16,8 @@ import { ListingInput } from 'networking/listings';
 
 const LAT_LNG_EPSILON = Math.pow(10, -6); // decimal places stored in db
 
-const ListingInfoForm = (props: FormikProps<ListingInput>): JSX.Element => {
-  const { setFieldValue, setFieldTouched, values } = props;
+const ListingInfoForm = (props: any): JSX.Element => {
+  const { setFocus, setFieldValue, setFieldTouched, values } = props;
   const { addressLine1, city, postalCode, state } = values;
   const address = formatAddress(addressLine1, city, state, postalCode);
   return (
@@ -29,7 +29,10 @@ const ListingInfoForm = (props: FormikProps<ListingInput>): JSX.Element => {
             id="homeType"
             name="homeType"
             onBlur={() => setFieldTouched('homeType', true)}
-            onChange={(event: React.ChangeEvent<HTMLSelectElement>) => setFieldValue('homeType', event.target.value)}
+            onFocus={() => setFocus('homeType')}
+            onChange={(event: React.ChangeEvent<HTMLSelectElement>) => {
+              setFieldValue('homeType', event.target.value);
+            }}
             value={values.homeType}>
             {Object.values(HomeTypeHostForm).map((value: HomeTypeHostForm) => (
               <option value={value} key={value}>
@@ -47,6 +50,7 @@ const ListingInfoForm = (props: FormikProps<ListingInput>): JSX.Element => {
         <InputLabel htmlFor="title">Listing Name</InputLabel>
         <InputWrapper>
           <Field
+            onFocus={() => setFocus('title')}
             name="title"
             placeholder="Title"
             type="text" />
@@ -62,6 +66,7 @@ const ListingInfoForm = (props: FormikProps<ListingInput>): JSX.Element => {
           onChange={(event: TextareaEvent) => {
             setFieldValue('description', event.target.value);
           }}
+          onFocus={() => setFocus('description')}
           value={values.description}
           placeholder="Tell us about your home" />
       </div>
