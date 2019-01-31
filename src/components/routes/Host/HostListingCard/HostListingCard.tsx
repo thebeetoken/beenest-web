@@ -47,7 +47,7 @@ const HostListingCard = (props: Props): JSX.Element => {
         <h3>Last edited: {format(updatedAt, 'MM/DD/YY [at] hh:mmA')}</h3>
         <h4>
           <BeeLink to={`/host/listings/${id}/calendar`}>
-            View Calendar <Svg src="utils/carat-right" height="1em" />
+            View Calendar <Svg src="utils/carat-right" />
           </BeeLink>
         </h4>
         <div className="host-listing-meta--button-container">
