@@ -77,7 +77,7 @@ class SelectPaymentOption extends React.Component<Props> {
         </div>
         <AppConsumer>
           {({ screenType }: AppConsumerProps) =>
-            screenType > ScreenType.TABLET && (
+            screenType >= ScreenType.TABLET && (
               <div className="select-payment-quote-desktop">
                 <BookingQuote booking={booking} currency={currency || Currency.BEE} fromBee={fromBee} />
               </div>
