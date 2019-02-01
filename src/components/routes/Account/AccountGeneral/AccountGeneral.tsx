@@ -14,6 +14,7 @@ import {
   getInputErrorClass,
   isNotEmpty,
 } from 'utils/validators';
+import Textarea from 'shared/Textarea';
 
 interface Props {
   user: User;
@@ -111,13 +112,12 @@ class AccountGeneral extends React.Component<Props, State> {
             </div> */}
             <div className="textarea-container">
               <InputLabel htmlFor="about">About</InputLabel>
-              <textarea
-                id="about"
+              <Textarea
+                html
                 name="about"
                 onChange={this.handleChange}
-                placeholder="Tell us about yourself"
-                value={form.about}>
-              </textarea>
+                value={form.about}
+                placeholder="Tell us about yourself" />
               <span
                 className={`bee-error-message ${getInputErrorClass(validation.about)}`.trim()}>
                 {errorMessages.isEmpty}
