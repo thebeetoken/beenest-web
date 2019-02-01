@@ -39,27 +39,15 @@ const AccommodationsForm = (props: any): JSX.Element => {
       </div> */}
 
       <div className="form-item">
-<<<<<<< HEAD
-        <div className="input-container">
-          <InputLabel htmlFor="sleepingArrangement">Sleeping Arrangement</InputLabel>
-          <InputWrapper>
-            <Field
-              onFocus={() => setFocus('sleepingArrangement')}
-              name="sleepingArrangement"
-              placeholder="1 King, 2 Queens"
-              type="text" />
-          </InputWrapper>
-        </div>
-=======
         <InputLabel htmlFor="sleepingArrangement" subLabel="(required)">Sleeping Arrangement</InputLabel>
         <InputWrapper>
           <Field
             name="sleepingArrangement"
+            onFocus={() => setFocus('sleepingArrangement')}
             placeholder="1 King, 2 Queens"
             type="text" />
         </InputWrapper>
         <StyledErrorMessage name="sleepingArrangement" />
->>>>>>> master
       </div>
 
       <div className="form-item">
