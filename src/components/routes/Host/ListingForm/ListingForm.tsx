@@ -15,6 +15,8 @@ import GeneralWrapper from 'shared/GeneralWrapper';
 import NotFound from 'routes/NotFound';
 import Button from 'components/shared/Button';
 import timeOptions from 'utils/timeOptions';
+import { History } from 'history';
+import AsideContent from './AsideContent';
 
 interface FormValues {
   [name: string]: boolean | string | string[] | number | object | undefined;
@@ -118,6 +120,24 @@ const ListingFormSchema = Yup.object().shape({
 
 const formCrumbs = ['listing_info', 'accommodations', 'pricing_availability', 'checkin_details'];
 
+const defaultFocus: { [name: string]: string } = {
+  listing_info: 'homeType',
+  accommodations: 'sleepingArrangement',
+  pricing_availability: 'maxGuests',
+  checkin_details: 'checkInTime',
+};
+
+interface AsideHeadersInterface {
+  [name: string]: string;
+}
+
+const AsideHeaders: AsideHeadersInterface = {
+  listing_info: 'Let’s get started! This section will inform guests about where they’ll be staying and what to expect. The more descriptive, the better.',
+  accommodations: 'accommodations header',
+  pricing_availability: 'pricing availability header',
+  checkin_details: 'checkin details header',
+}
+
 interface State {
   nextCrumb: string;
   focus: string;
@@ -126,12 +146,11 @@ interface State {
 class ListingForm extends React.Component<Props, State> {
   readonly state: State = {
     nextCrumb: '',
-    focus: 'homeType',
+    focus: defaultFocus[getCurrentCrumb(this.props.history)],
   };
 
   componentDidMount = () => {
-    const path = this.props.history.location.pathname;
-    const currentCrumb = path.substr(path.lastIndexOf('/') + 1);
+    const currentCrumb = getCurrentCrumb(this.props.history);
     const nextCrumb = formCrumbs[formCrumbs.indexOf(currentCrumb) + 1];
     this.setState({
       nextCrumb: nextCrumb ? `${this.props.match.params.id}/${nextCrumb}` : '',
@@ -213,10 +232,8 @@ class ListingForm extends React.Component<Props, State> {
                   </Button>
                 </Form>
                 <aside>
-                  <AsideContent
-                    currentCrumb={this.props.history.location.pathname.substr(this.props.history.location.pathname.lastIndexOf('/') + 1)}
-                    field={this.state.focus}
-                    />
+                  <header>{AsideHeaders[getCurrentCrumb(this.props.history)]}</header>
+                  {AsideContent[this.state.focus]}
                 </aside>
               </GeneralWrapper>
             </>
@@ -227,7 +244,12 @@ class ListingForm extends React.Component<Props, State> {
   }
 
   handleFocus = (focus: string) => this.setState({ focus });
-  setNextCrumb = (nextCrumb: string) => this.setState({ nextCrumb });
+  setNextCrumb = (nextCrumb: string) => {
+    this.setState({ 
+      nextCrumb,
+      focus: defaultFocus[nextCrumb],
+    });
+  }
 }
 
 export default compose(
@@ -277,38 +299,7 @@ function omitFields(key: string, value: any) {
   return ['id', '__typename', 'createdAt'].includes(key) ? undefined : value;
 }
 
-
-
-interface AsideHeadersInterface {
-  [name: string]: string;
+function getCurrentCrumb(history: History): string {
+  const path = history.location.pathname;
+  return path.substr(path.lastIndexOf('/') + 1);
 }
-const AsideHeaders: AsideHeadersInterface = {
-  listing_info: 'Let’s get started! This section will inform guests about where they’ll be staying and what to expect. The more descriptive, the better.',
-  accommodations: 'accommodations header',
-  pricing_availability: 'pricing availability header',
-  checkin_details: 'checkin details header',
-}
-
-const AsideContent = (props: any) => {
-  const { currentCrumb, field } = props;
-  const header = AsideHeaders[currentCrumb];
-  return (
-    <>
-      {header && <header>{header}</header>}
-      {field && <h2>{field}</h2>}
-      {/* <div className="help-text-container">
-        <h2>Type of Home</h2>
-        <p>
-        Entire place
-    The whole space is dedicated to guests. This may be a house, apartment, condo, loft, etc. 
-
-    Private room
-    A single room within a place is dedicated to guests. While other areas could be shared, guests have their own private room for sleeping. 
-
-    Shared room
-    Bedrooms or a common area that could be shared with others are dedicated to guests. 
-        </p>
-      </div> */}
-  </>
-  )
-};

@@ -10,9 +10,8 @@ import { formatAddress } from 'utils/formatter';
 import { HomeTypeHostForm } from 'utils/validators';
 import { PhotoUploader, Photo } from 'components/shared/PhotoUploader';
 import GoogleMaps from 'components/shared/GoogleMaps';
-import { Field, FormikProps } from 'formik';
+import { Field } from 'formik';
 import { TextareaEvent } from 'components/shared/Textarea/Textarea';
-import { ListingInput } from 'networking/listings';
 
 const LAT_LNG_EPSILON = Math.pow(10, -6); // decimal places stored in db
 
@@ -75,6 +74,7 @@ const ListingInfoForm = (props: any): JSX.Element => {
         <InputLabel htmlFor="addressLine1">Full Address</InputLabel>
         <InputWrapper>
           <Field
+            onFocus={() => setFocus('addressLine1')}
             name="addressLine1"
             placeholder="Address Line 1"
             type="text" />
