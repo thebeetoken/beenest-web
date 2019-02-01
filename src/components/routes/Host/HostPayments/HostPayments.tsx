@@ -125,7 +125,7 @@ class EnhancedComponent extends React.Component<Props, HostPaymentsContentState>
               <p>
                 {stripeAccountDashboardLink
                   ? 'Congrats! Your bank information has been set up and you are able to get paid.'
-                  : 'Add your bank information to our payment processing partner, Stripe, so you can get paid.'
+                  : 'Add your bank information to our payment processing partner, Stripe to accept fiat credit card payments. We offer the following options:'
                 }
               </p>
             </div>
