@@ -95,12 +95,6 @@ const ListingFormContainer = styled.section`
         color: ${color('dark')};
         margin-bottom: 32px;
       }
-      h2 {
-        ${typography('read', 2)}
-        color: ${color('dark')};
-        margin-bottom: 32px;
-      }
-
     }
   }
 `;
