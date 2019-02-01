@@ -336,7 +336,7 @@ const PhotoUploaderContainer = styled.div`
     opacity: 1;
   }
   .dropzone .dz-preview.dz-image-preview {
-    background: white;
+    /* background: white; */
   }
   .dropzone .dz-preview.dz-image-preview .dz-details {
     -webkit-transition: opacity 0.2s linear;
