@@ -14,7 +14,7 @@ import InputLabel from 'shared/InputLabel';
 import SelectBoxWrapper from 'shared/SelectBoxWrapper';
 import Svg from 'shared/Svg';
 import { AppEnv, APP_ENV } from 'configs/settings';
-import { loadWeb3, priceWithToken } from 'utils/web3';
+import { loadWeb3, priceWithEther, priceWithToken } from 'utils/web3';
 
 const TWO_DAYS_MS = 2 * 24 * 60 * 60 * 1000;
 
@@ -77,7 +77,7 @@ class SelectPaymentOption extends React.Component<Props> {
         </div>
         <AppConsumer>
           {({ screenType }: AppConsumerProps) =>
-            screenType > ScreenType.TABLET && (
+            screenType >= ScreenType.TABLET && (
               <div className="select-payment-quote-desktop">
                 <BookingQuote booking={booking} currency={currency || Currency.BEE} fromBee={fromBee} />
               </div>
@@ -97,6 +97,15 @@ class SelectPaymentOption extends React.Component<Props> {
       if (beeQuote) {
         const total = beeQuote.guestTotalAmount;
         priceWithToken(web3.eth, currency, total)
+          .then(price => this.setState({ conversionRateFromBee: price / total }))
+          .catch(() => this.setState({ errorPricingToken: true }));
+      }
+    } else if (currency === Currency.ETH) {
+      const web3 = loadWeb3();
+      const beeQuote = this.props.booking.priceQuotes.find(q => q.currency === Currency.BEE);
+      if (beeQuote) {
+        const total = beeQuote.guestTotalAmount;
+        priceWithEther(web3.eth, total)
           .then(price => this.setState({ conversionRateFromBee: price / total }))
           .catch(() => this.setState({ errorPricingToken: true }));
       }

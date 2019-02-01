@@ -17,6 +17,7 @@ import Button from 'components/shared/Button';
 import timeOptions from 'utils/timeOptions';
 import { History } from 'history';
 import AsideContent from './AsideContent';
+import { ApolloError } from 'apollo-client';
 
 interface FormValues {
   [name: string]: boolean | string | string[] | number | object | undefined;
@@ -62,9 +63,11 @@ interface Props extends RouterProps {
 }
 
 const ListingFormSchema = Yup.object().shape({
-  addressLine1: Yup.string().min(1, 'Too Short!'),
+  addressLine1: Yup.string()
+    .min(1, minStringError('Address Line 1')),
   addressLine2: Yup.string(),
-  amenities: Yup.array().of(Yup.string()),
+  amenities: Yup.array()
+    .of(Yup.string()),
   checkInTime: Yup.object()
     .shape({
       from: Yup.string().oneOf(timeOptions),
@@ -75,12 +78,14 @@ const ListingFormSchema = Yup.object().shape({
       return from !== to;
     }),
   checkOutTime: Yup.string().oneOf(timeOptions),
-  city: Yup.string().max(60, 'Too Long!'),
-  country: Yup.string().max(60, 'Too Long!'),
-  description: Yup.string(),
-  homeType: Yup.string(),
-  houseRules: Yup.string(),
-  icalUrls: Yup.array().of(Yup.string()),
+  city: Yup.string().max(60, maxStringError('City')),
+  country: Yup.string(),
+  description: Yup.string()
+    .min(1, minStringError('Description')),
+  homeType: Yup.string().min(1, minStringError('Home Type')),
+  houseRules: Yup.string()
+    .min(1, minStringError('House Rules')),
+  icalUrls: Yup.array().of(Yup.string().url('${value} is not a valid ical url. ')),
   isActive: Yup.bool(),
   lat: Yup.number()
     .moreThan(-90)
@@ -88,34 +93,35 @@ const ListingFormSchema = Yup.object().shape({
   lng: Yup.number()
     .moreThan(-180)
     .lessThan(180),
-  listingPicUrl: Yup.string().url(),
+  listingPicUrl: Yup.string()
+    .url(),
   maxGuests: Yup.number()
-    .moreThan(0, 'Max guests must be greater than 0.')
-    .lessThan(51, 'Max guests must not exceed 50.')
-    .required('Please provide the maximum number of guests.'),
+    .min(1, minNumberError('Max Guests'))
+    .max(50, maxNumberError('Max Guests')),
   minimumNights: Yup.number()
-    .moreThan(0, 'Minimum Nights must be greater than 0.')
-    .required('Please provide the minimum number of nights.'),
+    .min(1, minNumberError('Minimum Nights')),
   numberOfBathrooms: Yup.number()
-    .min(0, 'Number of bathrooms must be greater than or equal to 0.')
-    .required('Please provide the number of bathrooms.'),
+    .min(0, minNumberError('Number of Bathrooms')),
   numberOfBedrooms: Yup.number()
-    .min(0, 'Number of bedrooms must be greater than or equal to 0.')
-    .required('Please provide the number of bedrooms.'),
-  photos: Yup.array().of(Yup.string().url()),
-  postalCode: Yup.string().max(45, 'Too Long!'),
+    .min(0, minNumberError('Number of Bedrooms')),
+  photos: Yup.array()
+    .of(Yup.string().url()),
+  postalCode: Yup.string()
+    .min(1, minStringError('Postal Code'))
+    .max(45, maxStringError('Postal Code')),
   pricePerNightUsd: Yup.number()
-    .moreThan(0, 'Price per night must be greater than 0.')
-    .required('Please provide the price per night.'),
+    .min(1, minNumberError('Price Per Night')),
   securityDepositUsd: Yup.number()
-    .min(0, 'Security Deposit must be greater than or equal to 0.')
-    .required('Please provide the security deposit amount.'),
+    .min(0, minNumberError('Security Deposit')),
   sharedBathroom: Yup.string(),
-  sleepingArrangement: Yup.string(),
-  state: Yup.string(),
+  sleepingArrangement: Yup.string()
+    .min(1, minStringError('Sleeping Arrangement')),
+  state: Yup.string()
+    .min(1, minStringError('State'))
+    .max(60, maxStringError('State')),
   title: Yup.string()
-    .min(5, 'Too Short!')
-    .max(50, 'Too Long!'),
+    .min(5, minStringError('Title'))
+    .max(50, maxStringError('Title')),
 });
 
 const formCrumbs = ['listing_info', 'accommodations', 'pricing_availability', 'checkin_details'];
@@ -165,31 +171,16 @@ class ListingForm extends React.Component<Props, State> {
           initialValues={populateListingForm(defaultValues, props.listing)}
           isInitialValid
           validationSchema={ListingFormSchema}
-          onSubmit={(values: ListingInput, actions: FormikActions<FormValues>) => {
-            actions.setSubmitting(true);
-            const { updateListing } = props;
-            const { id } = props.match.params;
-            return updateListing(id, values)
-              .then(() => {
-                props.history.push(`/host/listings/${this.state.nextCrumb}`);
-              })
-              .catch((error: Error) => {
-                alert(`${error}. If this continues to occur, please contact us at support@beetoken.com`);
-                console.error(error);
-                return actions.setSubmitting(false);
-              });
-          }}
-        >
+          onSubmit={this.handleSubmit}>
           {(FormikProps: FormikProps<ListingInput>) => (
             <>
               <ListingFormNav
-                errors={FormikProps.errors}
+                formikProps={FormikProps}
                 history={props.history}
                 id={props.match.params.id}
-                isValid={FormikProps.isValid}
                 showAlert={!FormikProps.isSubmitting && FormikProps.dirty}
                 setNextCrumb={this.setNextCrumb}
-                onSubmit={FormikProps.submitForm}
+                onSubmit={this.handleSubmit}
               />
               <GeneralWrapper align="flex-start" direction="row" justify="flex-start" width={976}>
                 <Form>
@@ -221,11 +212,11 @@ class ListingForm extends React.Component<Props, State> {
                   <Button
                     onClick={() => {
                       if (!FormikProps.isValid) {
-                        alert(`Cannot save changes due to errors: ${JSON.stringify(Object.values(FormikProps.errors), null, 4)}`);
+                        alert(`Cannot save changes due to errors:\n\n${Object.values(FormikProps.errors).join('\n').toString()}`);
+                        // alert(`Cannot save changes due to errors: ${JSON.stringify(Object.values(FormikProps.errors), null, 4)}`);
                       }
                       FormikProps.submitForm();
                     }}
-                    textStyle="title-8"
                     type="button"
                   >
                     Save &amp; Continue
@@ -249,6 +240,23 @@ class ListingForm extends React.Component<Props, State> {
       nextCrumb,
       focus: defaultFocus[nextCrumb],
     });
+  }
+
+  handleSubmit = (values: ListingInput, actions: FormikActions<FormValues>) => {
+    const { props } = this;
+    actions.setSubmitting(true);
+    const { updateListing } = props;
+    const { id } = props.match.params;
+    return updateListing(id, values)
+      .then(() => {
+        props.history.push(`/host/listings/${this.state.nextCrumb}`);
+      })
+      .catch((error: ApolloError) => {
+        const formattedError = error.graphQLErrors ? error.graphQLErrors.map(e => e.message).join('\r\n').toString() : error;
+        alert(`${formattedError}\r\n\r\nIf this continues to occur, please contact us at support@beenest.com`);
+        console.error(error);
+        return actions.setSubmitting(false);
+      });
   }
 }
 
@@ -302,4 +310,20 @@ function omitFields(key: string, value: any) {
 function getCurrentCrumb(history: History): string {
   const path = history.location.pathname;
   return path.substr(path.lastIndexOf('/') + 1);
+}
+
+function minStringError(readableName: string) {
+  return `${readableName}` + ' must be at least ${min} characters long.';
+}
+
+function maxStringError(readableName: string) {
+  return `${readableName}` + ' must not exceed ${max} characters.';
+}
+
+function minNumberError(readableName: string) {
+  return `${readableName}` + ' must be greater than or equal to ${min}.';
+}
+
+function maxNumberError(readableName: string) {
+  return `${readableName}` + ' must be less than or equal to ${min}.';
 }

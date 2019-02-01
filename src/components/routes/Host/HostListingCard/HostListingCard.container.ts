@@ -25,7 +25,9 @@ const HostListingCardContainer = styled.article`
     h3 {
       ${typography('caption', 1)};
       font-style: italic;
-      margin-bottom: 14px;
+    }
+    button {
+      width: 130px;
     }
     &--button-container {
       display: flex;
@@ -33,7 +35,7 @@ const HostListingCardContainer = styled.article`
       width: 555px;
       a,
       button {
-        min-width: 105px;
+        min-width: 125px;
       }
       label {
         display: inline-flex;

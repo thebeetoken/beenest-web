@@ -18,7 +18,7 @@ const ListingFormContainer = styled.section`
         margin-bottom: 8px;
       }
       .form-item {
-        margin-bottom: 40px;
+        margin-bottom: 24px;
         width: 100%;
         .bee-textarea {
           width: 100%;
@@ -37,21 +37,24 @@ const ListingFormContainer = styled.section`
           > * {
             margin-bottom: 16px;
           }
-          .row-address {
-            display: flex;
-            flex-direction: row;
-            justify-content: space-between;
-            .bee-input-wrapper {
-              &:nth-of-type(1) {
-                width: 45%;
-              }
-              &:nth-of-type(2) {
-              width: 15%;
-              }
-              &:nth-of-type(3) {
-                width: 20%;
-              }
-            }
+          .city,
+          .state,
+          .postal-code {
+            display: inline-block;
+            margin-bottom: 0;
+          }
+          .state,
+          .postal-code {
+            margin-left: 10%
+          }
+          .city {
+            width: 45%;
+          }
+          .state {
+            width: 15%;
+          }
+          .postal-code {
+            width: 20%;
           }
         }
         &.photo {
@@ -71,7 +74,7 @@ const ListingFormContainer = styled.section`
           }
         }
         &.short {
-          width: 180px;
+          width: 240px;
         }
         &.map-preview {
           width: 100%;

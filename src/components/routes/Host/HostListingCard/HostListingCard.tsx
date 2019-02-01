@@ -41,18 +41,18 @@ const HostListingCard = (props: Props): JSX.Element => {
     <HostListingCardContainer className="host-listing-card">
       <div className="host-listing-meta">
         <h1>{title}</h1>
-        {(city || state || country) && <h2>{formatAddress(city, state, country)}</h2>}
+        <h2>{(city || state || country) ? formatAddress(city, state, country) : ''}</h2>
         <div className="bee-flex-div" />
         <h3>Last edited: {format(updatedAt, 'MM/DD/YY [at] hh:mmA')}</h3>
+        <Button clear color="link" suffix="utils/carat-right">
+          <BeeLink to={`/host/listings/${id}/calendar`}>
+            View Calendar
+          </BeeLink>
+        </Button>
         <div className="host-listing-meta--button-container">
           <BeeLink to={`/host/listings/${id}/edit`}>
             <Button background="core" color="white" size="small">
               Edit
-            </Button>
-          </BeeLink>
-          <BeeLink to={`/host/listings/${id}/calendar`}>
-            <Button background="core" color="white" size="small">
-              Calendar
             </Button>
           </BeeLink>
           <BeeLink target="_blank" to={`/listings/${idSlug}`}>

@@ -3,16 +3,15 @@ import { Prompt } from "react-router";
 import ListingFormNavContainer from './ListingFormNav.container';
 import BeeLink from 'shared/BeeLink';
 import GeneralWrapper from 'shared/GeneralWrapper';
-import { FormikErrors } from 'formik';
+import { FormikActions, FormikProps, FormikErrors } from 'formik';
 import { History } from 'history';
 import { ListingInput } from 'networking/listings';
 
 interface Props {
   history: History;
   id: string;
-  isValid: boolean;
-  errors: FormikErrors<ListingInput>;
-  onSubmit: () => void;
+  formikProps: FormikProps<ListingInput>;
+  onSubmit: (values: ListingInput, actions: FormikActions<Object>) => void;
   setNextCrumb: (route?: string) => void;
   showAlert?: boolean;
 }
@@ -25,7 +24,7 @@ interface itemProps {
   to?: string;
 }
 
-const ListingFormNav = ({ errors, history, id, isValid, onSubmit, setNextCrumb, showAlert }: Props): JSX.Element => {
+const ListingFormNav = ({ formikProps, history, id, onSubmit, setNextCrumb, showAlert }: Props): JSX.Element => {
   const listingFormNavConfig = [
     {
       isNav: true,
@@ -63,18 +62,20 @@ const ListingFormNav = ({ errors, history, id, isValid, onSubmit, setNextCrumb, 
       <GeneralWrapper width={976}>
         <Prompt
           when={showAlert}
-          message={`Listing has unsaved changes ${!isValid ? `due to the following errors: ${JSON.stringify(Object.values(errors), null, 4)}`: ''}. Are you sure you want to proceed?`}>
+          message={!formikProps.isValid
+            ? formatListingErrorsAlert(formikProps.errors)
+            : 'Listing has unsaved changes. Are you sure you want to proceed?'}>
         </Prompt>
         <nav>
           {renderListingFormNavItems}
         </nav>
         <a onClick={() => {
-          if (!isValid) {
+          if (!formikProps.isValid) {
             history.push('/host/listings');
           }
           else {
             setNextCrumb('');
-            onSubmit();
+            onSubmit(formikProps.values, formikProps);
           }
         }}>
           Save &amp; Exit
@@ -85,3 +86,9 @@ const ListingFormNav = ({ errors, history, id, isValid, onSubmit, setNextCrumb, 
 }
 
 export default ListingFormNav;
+
+function formatListingErrorsAlert(errors: FormikErrors<ListingInput>): string {
+  return `Listing has unsaved changes due to the following errors:\n\n
+    ${Object.values(errors).join('\n').toString()}\r\n\r\n
+    Are you sure you want to proceed?`;
+};
