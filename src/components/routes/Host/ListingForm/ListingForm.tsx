@@ -128,14 +128,14 @@ const defaultFocus: { [name: string]: string } = {
 };
 
 interface AsideHeadersInterface {
-  [name: string]: string;
+  [name: string]: React.ReactNode;
 }
 
 const AsideHeaders: AsideHeadersInterface = {
-  listing_info: 'Let’s get started! This section will inform guests about where they’ll be staying and what to expect. The more descriptive, the better.',
-  accommodations: 'accommodations header',
-  pricing_availability: 'pricing availability header',
-  checkin_details: 'checkin details header',
+  listing_info: <header>Let's get started! This section will inform guests about where they'll be staying and what to expect. The more descriptive, the better.</header>,
+  accommodations: <header>This section allows guests to determine if your space meets their needs. The <strong>type</strong> of bed is very important especially for larger groups.</header>,
+  pricing_availability: <header>Let guests know how many people can stay at your place and how much it will cost right away.</header>,
+  checkin_details: <header>You're almost finished! Let guests know the times they're able to check in and out as well as the rules they must abide by.</header>,
 }
 
 interface State {
@@ -232,7 +232,7 @@ class ListingForm extends React.Component<Props, State> {
                   </Button>
                 </Form>
                 <aside>
-                  <header>{AsideHeaders[getCurrentCrumb(this.props.history)]}</header>
+                  {AsideHeaders[getCurrentCrumb(this.props.history)]}
                   {AsideContent[this.state.focus]}
                 </aside>
               </GeneralWrapper>

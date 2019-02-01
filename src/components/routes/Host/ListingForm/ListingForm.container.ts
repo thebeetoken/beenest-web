@@ -91,7 +91,7 @@ const ListingFormContainer = styled.section`
       padding: 56px 56px 72px;
       position: absolute;
       header {
-        ${typography('title', 6)}
+        ${typography('title', 7)}
         color: ${color('dark')};
         margin-bottom: 32px;
       }
