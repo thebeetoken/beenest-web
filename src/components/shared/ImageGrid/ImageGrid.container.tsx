@@ -15,6 +15,7 @@ const ImageGridContainerMobile = styled.div`
   }
   img:nth-of-type(1) {
     display: block;
+    left: 0;
     width: 100%;
   }
 `;
@@ -22,13 +23,12 @@ const ImageGridContainerMobile = styled.div`
 const ImageGridContainerTablet = styled(ImageGridContainerMobile)`
   @media (min-width: 768px) {
     img:nth-of-type(1) {
-      display: block;
-      left: 0
-      width: 50%;
+      left: 0;
+      width: ${({ count }: Props) => (!count || count < 2) ? '100%' : '50%'};;
     }
     img:nth-of-type(2) {
       display: block;
-      height: 50%;
+      height: ${({ count }: Props) => (!count || count < 3) ? '100%' : '50%'};
       left: 50%;
       top: 0;
       width: 50%;
