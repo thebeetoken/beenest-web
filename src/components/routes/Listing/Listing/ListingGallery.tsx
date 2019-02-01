@@ -1,6 +1,6 @@
 import * as React from 'react';
 
-import LazyImage from 'shared/LazyImage';
+import ImageGrid from 'shared/ImageGrid';
 import Button from 'components/shared/Button';
 import { ToggleProvider, ToggleProviderRef } from 'components/shared/ToggleProvider';
 import CloseButton from 'components/shared/CloseButton';
@@ -15,12 +15,13 @@ interface Props {
 }
 
 const ListingGallery = ({ listingPicUrl, photos }: Props) => {
+  const images = [listingPicUrl].concat(photos);
   return (
     <div className="listing-gallery-container">
       <ToggleProvider>
         {({ show, toggle }: ToggleProviderRef) => (
           <>
-            <LazyImage src={listingPicUrl} onClick={toggle} transition />
+            <ImageGrid images={images} onClick={toggle} />
             <div className="listing-gallery-container--btn-wrapper">
               <Button
                 background="secondary"
