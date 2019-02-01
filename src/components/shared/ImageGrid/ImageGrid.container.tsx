@@ -1,5 +1,9 @@
 import styled from 'styled-components';
 
+interface Props {
+  count?: number;
+}
+
 const ImageGridContainerMobile = styled.div`
   height: 100%;
   position: relative;
@@ -41,12 +45,16 @@ const ImageGridContainerTablet = styled(ImageGridContainerMobile)`
 
 const ImageGridContainer = styled(ImageGridContainerTablet)`
   @media (min-width: 1025px) {
-    img:nth-of-type(2) {
-      width: 25%;
-    }
-    img:nth-of-type(3) {
-      width: 25%;
-    }
+    ${({ count }: Props) => (!count || count < 4) ? '' : `
+      img:nth-of-type(2) {
+        width: 25%;
+      }
+    `}
+    ${({ count }: Props) => (!count || count < 5) ? '' : `
+      img:nth-of-type(3) {
+        width: 25%;
+      }
+    `}
     img:nth-of-type(4) {
       display: block;
       height: 50%;

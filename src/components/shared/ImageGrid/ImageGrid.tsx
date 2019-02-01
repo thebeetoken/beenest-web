@@ -7,13 +7,15 @@ interface Props {
   onClick?: (url: string) => void;
 }
 
-const ImageGrid = ({ images, onClick }: Props) => (<ImageGridContainer>
-  {images.map((url, index) => (<LazyImage
-    src={url}
-    key={index}
-    onClick={() => onClick && onClick(url)}
-    transition
-  />))}
-</ImageGridContainer>);
+const ImageGrid = ({ images, onClick }: Props) => (
+  <ImageGridContainer count={images.length}>
+    {images.map((url, index) => (<LazyImage
+      src={url}
+      key={index}
+      onClick={() => onClick && onClick(url)}
+      transition
+    />))}
+  </ImageGridContainer>
+);
 
 export default ImageGrid;
