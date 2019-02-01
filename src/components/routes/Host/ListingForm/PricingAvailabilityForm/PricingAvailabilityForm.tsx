@@ -10,7 +10,7 @@ import ErrorMessageWrapper from 'shared/ErrorMessageWrapper/ErrorMessageWrapper'
 import NumberInput from 'shared/NumberInput';
 
 const PricingAvailabilityForm = (props: any): JSX.Element => {
-  const { setFieldTouched, setFieldValue, values } = props;
+  const { setFocus, setFieldTouched, setFieldValue, values } = props;
   return (
     <>
       <div className="form-item">
@@ -23,6 +23,7 @@ const PricingAvailabilityForm = (props: any): JSX.Element => {
             onChange={(value: number) => {
               setFieldValue('maxGuests', value);
               setFieldTouched('maxGuests');
+              setFocus('maxGuests');
             }}
           />
         </div>
@@ -33,6 +34,7 @@ const PricingAvailabilityForm = (props: any): JSX.Element => {
           <InputLabel htmlFor="minimumNights">Min Nights</InputLabel>
           <InputWrapper>
             <Field
+              onFocus={() => setFocus('minimumNights')}
               name="minimumNights"
               placeholder="# of nights"
               type="number" />
@@ -48,6 +50,7 @@ const PricingAvailabilityForm = (props: any): JSX.Element => {
           <InputLabel htmlFor="pricePerNightUsd" subLabel="(USD)">Price Per Night</InputLabel>
           <InputWrapper>
             <Field
+              onFocus={() => setFocus('pricePerNightUsd')}
               name="pricePerNightUsd"
               placeholder="$"
               type="number" />
@@ -63,6 +66,7 @@ const PricingAvailabilityForm = (props: any): JSX.Element => {
           <InputLabel htmlFor="securityDepositUsd" subLabel="(USD)">Security Deposit</InputLabel>
           <InputWrapper>
             <Field
+              onFocus={() => setFocus('securityDepositUsd')}
               name="securityDepositUsd"
               placeholder="$"
               type="number" />
@@ -79,6 +83,7 @@ const PricingAvailabilityForm = (props: any): JSX.Element => {
           textareaHeight="80px"
           name="icalUrls"
           onBlur={() => setFieldTouched('icalUrls', true)}
+          onFocus={() => setFocus('icalUrls')}
           onChange={(event: TextareaEvent) => {
             setFieldValue('icalUrls', stringToArray(event.target.value));
           }}

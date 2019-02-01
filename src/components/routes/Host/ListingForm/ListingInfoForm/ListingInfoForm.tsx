@@ -82,6 +82,7 @@ const ListingInfoForm = (props: any): JSX.Element => {
 
         <InputWrapper>
           <Field
+            onFocus={() => setFocus('addressLine2')}
             name="addressLine2"
             placeholder="Address Line 2"
             type="text" />
@@ -90,18 +91,21 @@ const ListingInfoForm = (props: any): JSX.Element => {
         <div className="row-address">
           <InputWrapper>
             <Field
+              onFocus={() => setFocus('city')}
               name="city"
               placeholder="City"
               type="text" />
           </InputWrapper>
           <InputWrapper>
             <Field
+              onFocus={() => setFocus('state')}
               name="state"
               placeholder="State"
               type="text" />
           </InputWrapper>
           <InputWrapper>
             <Field
+              onFocus={() => setFocus('postalCode')}
               name="postalCode"
               placeholder="88888"
               type="text" />
@@ -115,6 +119,7 @@ const ListingInfoForm = (props: any): JSX.Element => {
           <select 
             id="country"
             name="country"
+            onFocus={() => setFocus('country')}
             onBlur={() => setFieldTouched('country', true)}
             onChange={(event: React.ChangeEvent<HTMLSelectElement>) => setFieldValue('country', event.target.value)}
             value={values.country}>
@@ -153,6 +158,7 @@ const ListingInfoForm = (props: any): JSX.Element => {
         <PhotoUploader
           initialPhotos={values.listingPicUrl ? [{ url: values.listingPicUrl }] : []}
           maxFiles={1}
+          onClick={() => setFocus('listingPicUrl')}
           onPhotosUpdated={(photo: Photo[]) => setFieldValue('listingPicUrl', photo[0] ? photo[0].url : '')} />
       </div>
 
@@ -166,6 +172,7 @@ const ListingInfoForm = (props: any): JSX.Element => {
             })
           }
           maxFiles={25}
+          onClick={() => setFocus('photos')}
           onPhotosUpdated={(photo: Photo[]) => setFieldValue('photos', photo.map(photo => photo.url))} />
       </div>
     </>

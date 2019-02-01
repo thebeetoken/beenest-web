@@ -10,7 +10,7 @@ import Checkbox from 'shared/Checkbox';
 import { Field } from 'formik';
 
 const AccommodationsForm = (props: any): JSX.Element => {
-  const { setFieldTouched, setFieldValue, values } = props;
+  const { setFocus, setFieldTouched, setFieldValue, values } = props;
   return (
     <>
       {/* <div className="form-item">
@@ -37,6 +37,7 @@ const AccommodationsForm = (props: any): JSX.Element => {
           <InputLabel htmlFor="sleepingArrangement">Sleeping Arrangement</InputLabel>
           <InputWrapper>
             <Field
+              onFocus={() => setFocus('sleepingArrangement')}
               name="sleepingArrangement"
               placeholder="1 King, 2 Queens"
               type="text" />
@@ -54,6 +55,7 @@ const AccommodationsForm = (props: any): JSX.Element => {
             onChange={(value: number) => {
               setFieldValue('numberOfBedrooms', value);
               setFieldTouched('numberOfBedrooms');
+              setFocus('numberOfBedrooms');
             }}
           />
         </div>
@@ -69,6 +71,7 @@ const AccommodationsForm = (props: any): JSX.Element => {
             onChange={(value: number) => {
               setFieldValue('numberOfBathrooms', value);
               setFieldTouched('numberOfBathrooms');
+              setFocus('numberOfBathrooms');
             }}
             step={0.5}
           />
@@ -82,6 +85,7 @@ const AccommodationsForm = (props: any): JSX.Element => {
             const value = isSharedBathroom(values.sharedBathroom) ? 'No' : 'Yes';
             setFieldValue('sharedBathroom', value);
             setFieldTouched('sharedBathroom', true);
+            setFocus('sharedBathroom');
           }}>
           Shared Bathroom
         </Checkbox>
@@ -92,6 +96,7 @@ const AccommodationsForm = (props: any): JSX.Element => {
         <Textarea
           name="amenities"
           onBlur={() => setFieldTouched('amenities', true)}
+          onFocus={() => setFocus('amenities')}
           onChange={(event: TextareaEvent) => {
             setFieldValue('amenities', stringToArray(event.target.value));
           }}

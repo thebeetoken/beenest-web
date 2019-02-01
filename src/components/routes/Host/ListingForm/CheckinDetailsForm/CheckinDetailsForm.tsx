@@ -8,7 +8,7 @@ import { TextareaEvent } from 'components/shared/Textarea/Textarea';
 import timeOptions from 'utils/timeOptions';
 
 const CheckinDetailsForm = (props: any): JSX.Element => {
-  const { setFieldTouched, setFieldValue, values } = props;
+  const { setFocus, setFieldTouched, setFieldValue, values } = props;
   return (
 
     <>
@@ -20,7 +20,8 @@ const CheckinDetailsForm = (props: any): JSX.Element => {
             name="from"
             value={values.checkInTime.from}
             onChange={(event: React.ChangeEvent<HTMLSelectElement>) =>
-              setFieldValue('checkInTime', { ...values.checkInTime, from: event.target.value })}>
+              setFieldValue('checkInTime', { ...values.checkInTime, from: event.target.value })}
+            onFocus={() => setFocus('checkInTime')}>
             {timeOptions.map(
               time => <option key={time} value={time}>{time}</option>
             )}
@@ -39,7 +40,8 @@ const CheckinDetailsForm = (props: any): JSX.Element => {
             name="to"
             value={values.checkInTime.to}
             onChange={(event: React.ChangeEvent<HTMLSelectElement>) =>
-              setFieldValue('checkInTime', { ...values.checkInTime, to: event.target.value })}>
+              setFieldValue('checkInTime', { ...values.checkInTime, to: event.target.value })}
+            onFocus={() => setFocus('checkInTime')}>
             {timeOptions.map(
               time => <option key={time} value={time}>{time}</option>
             )}
@@ -57,7 +59,8 @@ const CheckinDetailsForm = (props: any): JSX.Element => {
             id="checkOutTime"
             name="checkOutTime"
             value={values.checkOutTime}
-            onChange={(event: React.ChangeEvent<HTMLSelectElement>) => setFieldValue('checkOutTime', event.target.value)}>
+            onChange={(event: React.ChangeEvent<HTMLSelectElement>) => setFieldValue('checkOutTime', event.target.value)}
+            onFocus={() => setFocus('checkOutTime')}>
             {timeOptions.map(
               time => <option key={time} value={time}>{time}</option>
             )}
@@ -74,6 +77,7 @@ const CheckinDetailsForm = (props: any): JSX.Element => {
           html
           name="houseRules"
           onBlur={() => setFieldTouched('houseRules', true)}
+          onFocus={() => setFocus('houseRules')}
           onChange={(event: TextareaEvent) => {
             setFieldValue('houseRules', event.target.value);
           }}

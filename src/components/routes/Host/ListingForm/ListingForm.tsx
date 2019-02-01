@@ -197,12 +197,12 @@ class ListingForm extends React.Component<Props, State> {
                     <Route
                       exact
                       path="/host/listings/:id/accommodations"
-                      render={() => <AccommodationsForm {...FormikProps} />}
+                      render={() => <AccommodationsForm {...FormikProps} setFocus={this.handleFocus} />}
                     />
                     <Route
                       exact
                       path="/host/listings/:id/checkin_details"
-                      render={() => <CheckinDetailsForm {...FormikProps} />}
+                      render={() => <CheckinDetailsForm {...FormikProps}  setFocus={this.handleFocus} />}
                     />
                     <Route
                       exact
@@ -212,7 +212,7 @@ class ListingForm extends React.Component<Props, State> {
                     <Route
                       exact
                       path="/host/listings/:id/pricing_availability"
-                      render={() => <PricingAvailabilityForm {...FormikProps} />}
+                      render={() => <PricingAvailabilityForm {...FormikProps} setFocus={this.handleFocus} />}
                     />
                     <Redirect exact from="/host/listings/:id/edit" to="/host/listings/:id/listing_info" />
                     <Route component={NotFound} />
