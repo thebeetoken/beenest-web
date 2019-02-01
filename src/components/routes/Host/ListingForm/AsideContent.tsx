@@ -73,7 +73,7 @@ const SecurityDepositUsd = () => (
 
 const IcalUrls = () => (
   <div>
-    <p>To avoid double bookings and prevent multiple guests from booking the same dates sync your Beenest calendar with your other calendars, input your iCal URL from other bookings platforms.</p>
+    <p>To avoid double bookings and to prevent multiple guests from booking the same dates, sync your Beenest calendar with your other calendars and input your iCal URL from other booking platforms.</p>
     <br />
     <p>Instructions to export calendars on other platforms are generally:</p>
     <ol>
@@ -82,8 +82,7 @@ const IcalUrls = () => (
       <li>Under Sync calendars, select <strong>Export Calendar</strong></li>
       <li>Copy and paste the calendar link into Beenest</li>
     </ol>
-    <br />
-    <p><strong>Note:</strong> When you edit an external calendar that syncs with your calendar on Beenest, it will take a few hours for those changes to be visible to guests viewing your listing.</p>
+    <p><strong>Note:</strong> When you edit an external calendar that syncs with your calendar on Beenest, it will take a few hours for those changes to be visible to guests who view your listing.</p>
   </div>
 );
 
