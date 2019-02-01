@@ -6,11 +6,12 @@ interface Props {
   onClick?: (url: string) => void;
 }
 
-const ImageGrid = (({ images, onClick }): Props) => (<>
+const ImageGrid = ({ images, onClick }: Props) => (<>
   {images.map((url, index) => (<LazyImage
     src={url}
     key={index}
-    onClick={() => onClick(url)}
+    onClick={() => onClick && onClick(url)}
+    transition
   />))}
 </>);
 
