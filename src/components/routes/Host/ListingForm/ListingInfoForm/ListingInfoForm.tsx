@@ -21,6 +21,11 @@ const ListingInfoForm = (props: FormikProps<ListingInput>): JSX.Element => {
   const { errors, setFieldValue, setFieldTouched, values } = props;
   const { addressLine1, city, postalCode, state } = values;
   const address = formatAddress(addressLine1, city, state, postalCode);
+  const StyledErrorMessage = (props: { name: string }) => (
+    <ErrorMessageWrapper>
+      {props.name && <ErrorMessage {...props} />}
+    </ErrorMessageWrapper>
+  );
   return (
     <>
       <div className="form-item">
@@ -43,9 +48,7 @@ const ListingInfoForm = (props: FormikProps<ListingInput>): JSX.Element => {
             <Svg className="suffix" src="utils/carat-down" />
           </label>
         </SelectBoxWrapper>
-        <ErrorMessageWrapper>
-          <ErrorMessage name="homeType" />
-        </ErrorMessageWrapper>
+        <StyledErrorMessage name="homeType" />
       </div>
 
       <div className="form-item">
@@ -55,9 +58,7 @@ const ListingInfoForm = (props: FormikProps<ListingInput>): JSX.Element => {
         <InputWrapper>
           <Field name="title" placeholder="Title" type="text" />
         </InputWrapper>
-        <ErrorMessageWrapper>
-          <ErrorMessage name="title" />
-        </ErrorMessageWrapper>
+        <StyledErrorMessage name="title" />
       </div>
 
       <div className="form-item">
@@ -72,9 +73,7 @@ const ListingInfoForm = (props: FormikProps<ListingInput>): JSX.Element => {
           value={values.description}
           placeholder="Tell us about your home"
         />
-        <ErrorMessageWrapper>
-          <ErrorMessage name="description" />
-        </ErrorMessageWrapper>
+        <StyledErrorMessage name="description" />
       </div>
 
       <div className="form-item address">
@@ -113,12 +112,11 @@ const ListingInfoForm = (props: FormikProps<ListingInput>): JSX.Element => {
             <Field name={name} placeholder={placeholder} type={type} />
           </InputWrapper>
         ))}
-        <ErrorMessageWrapper>
-          {(errors.addressLine1 && <ErrorMessage name="addressLine1" />) ||
-            (errors.city && <ErrorMessage name="city" />) ||
-            (errors.state && <ErrorMessage name="state" />) ||
-            (errors.postalCode && <ErrorMessage name="postalCode" />)}
-        </ErrorMessageWrapper>
+          {<StyledErrorMessage name={
+            errors.addressLine1 ? 'addressLine1' :
+            errors.city ? 'city' :
+            errors.state ? 'state' :
+            errors.postalCode ? 'postalCode' : ''} />}
       </div>
 
       <div className="form-item">
@@ -141,9 +139,7 @@ const ListingInfoForm = (props: FormikProps<ListingInput>): JSX.Element => {
             <Svg className="suffix" src="utils/carat-down" />
           </label>
         </SelectBoxWrapper>
-        <ErrorMessageWrapper>
-          <ErrorMessage name="country" />
-        </ErrorMessageWrapper>
+        <StyledErrorMessage name="country" />
       </div>
 
       <div className="form-item map-preview">
@@ -161,9 +157,9 @@ const ListingInfoForm = (props: FormikProps<ListingInput>): JSX.Element => {
           }}
           showMarker
         />
-        <ErrorMessageWrapper>
-          {(errors.lat && <ErrorMessage name="lat" />) || (errors.lng && <ErrorMessage name="lng" />)}
-        </ErrorMessageWrapper>
+        {<StyledErrorMessage name={
+          errors.lat ? 'lat' :
+          errors.lng ? 'lng' : ''} />}
       </div>
 
       <div className="form-item photo">
@@ -176,9 +172,7 @@ const ListingInfoForm = (props: FormikProps<ListingInput>): JSX.Element => {
             setFieldValue('listingPicUrl', photo[0] ? photo[0].url : '');
           }}
         />
-        <ErrorMessageWrapper>
-          <ErrorMessage name="listingPicUrl" />
-        </ErrorMessageWrapper>
+        <StyledErrorMessage name="listingPicUrl" />
       </div>
 
       <div className="form-item photo">
@@ -195,9 +189,7 @@ const ListingInfoForm = (props: FormikProps<ListingInput>): JSX.Element => {
             setFieldValue('photos', photo.map(photo => photo.url));
           }}
         />
-        <ErrorMessageWrapper>
-          <ErrorMessage name="photos" />
-        </ErrorMessageWrapper>
+        <StyledErrorMessage name="photos" />
       </div>
     </>
   );
@@ -205,7 +197,7 @@ const ListingInfoForm = (props: FormikProps<ListingInput>): JSX.Element => {
 
 export default ListingInfoForm;
 
-function isCoordinateValid(coordinate: number, previousCoordinate: number): boolean  {
+function isCoordinateValid(coordinate: number | undefined, previousCoordinate: number | undefined): boolean  {
   return !!(coordinate || coordinate === 0) &&
     !!(previousCoordinate || previousCoordinate === 0) &&
     Math.abs(coordinate - previousCoordinate) > LAT_LNG_EPSILON;

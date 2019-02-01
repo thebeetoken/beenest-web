@@ -11,6 +11,11 @@ import { ErrorMessage } from 'formik';
 
 const CheckinDetailsForm = (props: any): JSX.Element => {
   const { setFieldTouched, setFieldValue, values } = props;
+  const StyledErrorMessage = (props: { name: string }) => (
+    <ErrorMessageWrapper>
+      {props.name && <ErrorMessage {...props} />}
+    </ErrorMessageWrapper>
+  );
   return (
 
     <>
@@ -54,9 +59,7 @@ const CheckinDetailsForm = (props: any): JSX.Element => {
             <Svg className="suffix" src="utils/carat-down" />
           </label>
         </SelectBoxWrapper>
-        <ErrorMessageWrapper>
-          <ErrorMessage name="checkInTime" />
-        </ErrorMessageWrapper>
+        <StyledErrorMessage name="checkInTime" />
       </div>
 
       <div className="form-item">
@@ -88,9 +91,7 @@ const CheckinDetailsForm = (props: any): JSX.Element => {
           }}
           value={values.houseRules}
           placeholder="Let your guests know about quiet hours, pets, etc." />
-          <ErrorMessageWrapper>
-            <ErrorMessage name="houseRules" />
-          </ErrorMessageWrapper>
+        <StyledErrorMessage name="houseRules" />
       </div>
     </>
   );

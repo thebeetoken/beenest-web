@@ -11,6 +11,11 @@ import NumberInput from 'shared/NumberInput';
 
 const PricingAvailabilityForm = (props: any): JSX.Element => {
   const { setFieldTouched, setFieldValue, values } = props;
+  const StyledErrorMessage = (props: { name: string }) => (
+    <ErrorMessageWrapper>
+      {props.name && <ErrorMessage {...props} />}
+    </ErrorMessageWrapper>
+  );
   return (
     <>
       <div className="form-item">
@@ -26,9 +31,7 @@ const PricingAvailabilityForm = (props: any): JSX.Element => {
             }}
           />
         </div>
-        <ErrorMessageWrapper>
-          <ErrorMessage name="maxGuests" />
-        </ErrorMessageWrapper>
+        <StyledErrorMessage name="maxGuests" />
       </div>
 
       <div className="form-item short">
@@ -40,9 +43,7 @@ const PricingAvailabilityForm = (props: any): JSX.Element => {
               placeholder="# of nights"
               type="number" />
           </InputWrapper>
-          <ErrorMessageWrapper>
-            <ErrorMessage name="minimumNights" />
-          </ErrorMessageWrapper>
+          <StyledErrorMessage name="minimumNights" />
         </div>
       </div>
 
@@ -55,9 +56,7 @@ const PricingAvailabilityForm = (props: any): JSX.Element => {
               placeholder="$"
               type="number" />
           </InputWrapper>
-          <ErrorMessageWrapper>
-            <ErrorMessage name="pricePerNightUsd" />
-          </ErrorMessageWrapper>
+          <StyledErrorMessage name="pricePerNightUsd" />
         </div>
       </div>
       
@@ -70,9 +69,7 @@ const PricingAvailabilityForm = (props: any): JSX.Element => {
               placeholder="$"
               type="number" />
           </InputWrapper>
-          <ErrorMessageWrapper>
-            <ErrorMessage name="securityDepositUsd" />
-          </ErrorMessageWrapper>
+          <StyledErrorMessage name="securityDepositUsd" />
         </div>
       </div>
 
@@ -87,9 +84,7 @@ const PricingAvailabilityForm = (props: any): JSX.Element => {
           }}
           value={arrayToString(values.icalUrls)}
           placeholder="https://www.airbnb.com/calendar/ical/XXX" />
-          <ErrorMessageWrapper>
-            <ErrorMessage name="icalUrls" />
-          </ErrorMessageWrapper>
+        <StyledErrorMessage name="icalUrls" />
       </div>
     </>
   );

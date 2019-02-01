@@ -12,6 +12,11 @@ import ErrorMessageWrapper from 'shared/ErrorMessageWrapper';
 
 const AccommodationsForm = (props: any): JSX.Element => {
   const { setFieldTouched, setFieldValue, values } = props;
+  const StyledErrorMessage = (props: { name: string }) => (
+    <ErrorMessageWrapper>
+      {props.name && <ErrorMessage {...props} />}
+    </ErrorMessageWrapper>
+  );
   return (
     <>
       {/* <div className="form-item">
@@ -41,9 +46,7 @@ const AccommodationsForm = (props: any): JSX.Element => {
             placeholder="1 King, 2 Queens"
             type="text" />
         </InputWrapper>
-        <ErrorMessageWrapper>
-          <ErrorMessage name="sleepingArrangement" />
-        </ErrorMessageWrapper>
+        <StyledErrorMessage name="sleepingArrangement" />
       </div>
 
       <div className="form-item">
@@ -99,9 +102,7 @@ const AccommodationsForm = (props: any): JSX.Element => {
           }}
           value={arrayToString(values.amenities)}
           placeholder="Towels, Soap, Detergent" />
-          <ErrorMessageWrapper>
-            <ErrorMessage name="amenities" />
-          </ErrorMessageWrapper>
+          <StyledErrorMessage name="amenities" />
       </div>
     </>
   );
