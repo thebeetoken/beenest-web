@@ -7,10 +7,16 @@ import Textarea from 'shared/Textarea';
 import { TextareaEvent } from 'shared/Textarea/Textarea';
 import { stringToArray, arrayToString } from 'utils/formatter';
 import Checkbox from 'shared/Checkbox';
-import { Field } from 'formik';
+import { Field, ErrorMessage } from 'formik';
+import ErrorMessageWrapper from 'shared/ErrorMessageWrapper';
 
 const AccommodationsForm = (props: any): JSX.Element => {
   const { setFieldTouched, setFieldValue, values } = props;
+  const StyledErrorMessage = (props: { name: string }) => (
+    <ErrorMessageWrapper>
+      {props.name && <ErrorMessage {...props} />}
+    </ErrorMessageWrapper>
+  );
   return (
     <>
       {/* <div className="form-item">
@@ -33,15 +39,14 @@ const AccommodationsForm = (props: any): JSX.Element => {
       </div> */}
 
       <div className="form-item">
-        <div className="input-container">
-          <InputLabel htmlFor="sleepingArrangement">Sleeping Arrangement</InputLabel>
-          <InputWrapper>
-            <Field
-              name="sleepingArrangement"
-              placeholder="1 King, 2 Queens"
-              type="text" />
-          </InputWrapper>
-        </div>
+        <InputLabel htmlFor="sleepingArrangement" subLabel="(required)">Sleeping Arrangement</InputLabel>
+        <InputWrapper>
+          <Field
+            name="sleepingArrangement"
+            placeholder="1 King, 2 Queens"
+            type="text" />
+        </InputWrapper>
+        <StyledErrorMessage name="sleepingArrangement" />
       </div>
 
       <div className="form-item">
@@ -88,7 +93,7 @@ const AccommodationsForm = (props: any): JSX.Element => {
       </div>
 
       <div className="form-item">
-        <InputLabel htmlFor="amenities" subLabel="(separate by comma)">Amenities</InputLabel>
+        <InputLabel htmlFor="amenities" subLabel="(required, separate by comma)">Amenities</InputLabel>
         <Textarea
           name="amenities"
           onBlur={() => setFieldTouched('amenities', true)}
@@ -97,6 +102,7 @@ const AccommodationsForm = (props: any): JSX.Element => {
           }}
           value={arrayToString(values.amenities)}
           placeholder="Towels, Soap, Detergent" />
+          <StyledErrorMessage name="amenities" />
       </div>
     </>
   );
