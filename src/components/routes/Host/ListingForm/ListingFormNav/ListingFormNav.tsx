@@ -63,7 +63,7 @@ const ListingFormNav = ({ formikProps, history, id, onSubmit, setNextCrumb, show
         <Prompt
           when={showAlert}
           message={!formikProps.isValid
-            ? formatListingErrorsAlert(formikProps.error)
+            ? formatListingErrorsAlert(formikProps.errors)
             : 'Listing has unsaved changes. Are you sure you want to proceed?'}>
         </Prompt>
         <nav>
