@@ -45,16 +45,12 @@ const ImageGridContainerTablet = styled(ImageGridContainerMobile)`
 
 const ImageGridContainer = styled(ImageGridContainerTablet)`
   @media (min-width: 1025px) {
-    ${({ count }: Props) => (!count || count < 4) ? '' : `
-      img:nth-of-type(2) {
-        width: 25%;
-      }
-    `}
-    ${({ count }: Props) => (!count || count < 5) ? '' : `
-      img:nth-of-type(3) {
-        width: 25%;
-      }
-    `}
+    img:nth-of-type(2) {
+      width: ${({ count }: Props) => (!count || count < 4) ? '50%' : '25%'};
+    }
+    img:nth-of-type(3) {
+      width: ${({ count }: Props) => (!count || count < 5) ? '50%' : '25%'};
+    }
     img:nth-of-type(4) {
       display: block;
       height: 50%;
