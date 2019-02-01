@@ -23,141 +23,109 @@ const FullAddress = () => (
   </div>
 );
 
-const Title = () => (
-  <div>
-    <p>This is ListingName Info</p>
-  </div>
-);
-
-const Description = () => (
-  <div>
-    <p>This is Description Info</p>
-  </div>
-);
-
-const Country = () => (
-  <div>
-    <p>This is Country Info</p>
-  </div>
-);
-
 const ListingPicUrl = () => (
   <div>
-    <p>This is Cover Photo Info</p>
+    <p>High-quality photos are a must as our guests are typically business travelers. Ideal image dimensions are 1440x960. The maximum file size is 5 MB and the file types we accept are .jpg &amp; .png.</p>
   </div>
 );
 
 const Photos = () => (
   <div>
-    <p>This is Listing Photos Info</p>
+    <p>Beenest recommends listings have at least 5 high definition photos available. Pro tip: provide multiple photos with different angles of bedrooms, bathrooms, and public spaces so guests know exactly what to expect.</p>
   </div>
 );
 
 const SleepingArrangement = () => (
   <div>
-    <p>This is Sleeping Arrangement Info</p>
-  </div>
-);
-
-const NumberOfBedrooms = () => (
-  <div>
-    <p>This is Number of Bedrooms Info</p>
+    <p>The number and type of beds you have determine how many guests can stay comfortably.</p>
+    <br />
+    <p>Sleeping arrangements help guests decide whether your space is a right fit and know what to expect once they’re there.</p>
   </div>
 );
 
 const NumberOfBathrooms = () => (
   <div>
-    <p>This is Number of Bathrooms Info</p>
-  </div>
-);
-
-const SharedBathroom = () => (
-  <div>
-    <p>This is Shared Bathroom Info</p>
+    <p>If you have a toilet separate from the shower, count it as a 0.5 bathroom. Count only the bathrooms guests can use.</p>
   </div>
 );
 
 const Amenities = () => (
   <div>
-    <p>This is Amenities Info</p>
-  </div>
-);
-
-const MaxGuests = () => (
-  <div>
-    <p>This is Max Guests Info</p>
-  </div>
-);
-
-const MinimumNights = () => (
-  <div>
-    <p>This is Min Nights Info</p>
+    <p>Please make sure to include Wifi capabilities for business travelers. Providing the essentials helps guests feel at home in your place. Other common amenities include: TV, Heat, Air Conditioning, Iron, Hair dryer, First Aid Kit, Parking on premises, etc.</p>
+    <br />
+    <p>There’s no maximum to the number of amenities you can include so add as many as you’d like! </p>
   </div>
 );
 
 const PricePerNightUsd = () => (
   <div>
-    <p>This is Price Per Night USD Info</p>
+    <p>The price per night should include any associated fees typically charged to guests. This includes cleaning fees, occupancy taxes, etc.</p>
+    <br />
+    <p>Why do we do this? We’re not like everyone else. Rather than tack on a laundry list of fees to guests’ bills only at the time of booking (or even after!), Beenest aims to increase transparency in travel and provide all costs up front immediately.</p>
   </div>
 );
 
 const SecurityDepositUsd = () => (
   <div>
-    <p>This is Security Deposit USD Info</p>
+    <p><strong>Note:</strong> Security deposit is not charged at the time of booking. It will only be charged if a guest damages your property.</p>
   </div>
 );
 
 const IcalUrls = () => (
   <div>
-    <p>This is iCal Urls Info</p>
-  </div>
-);
-
-const CheckInTime = () => (
-  <div>
-    <p>This is Check In Time Info</p>
-  </div>
-);
-
-const CheckOutTime = () => (
-  <div>
-    <p>This is Check Out Time Info</p>
+    <p>To avoid double bookings and prevent multiple guests from booking the same dates sync your Beenest calendar with your other calendars, input your iCal URL from other bookings platforms.</p>
+    <br />
+    <p>Instructions to export calendars on other platforms are generally:</p>
+    <ol>
+      <li>Go to <strong>Host</strong> and select <strong>Calendar</strong></li>
+      <li>Click <strong>Availability</strong> settings in your calendar view</li>
+      <li>Under Sync calendars, select <strong>Export Calendar</strong></li>
+      <li>Copy and paste the calendar link into Beenest</li>
+    </ol>
+    <br />
+    <p><strong>Note:</strong> When you edit an external calendar that syncs with your calendar on Beenest, it will take a few hours for those changes to be visible to guests viewing your listing.</p>
   </div>
 );
 
 const HouseRules = () => (
   <div>
-    <p>This is House Rules Info</p>
+    <p>Common house rules include:</p>
+    <ul>
+      <li>No smoking, parties, or events</li>
+      <li>Self check-in with keypad</li>
+      <li>No pets</li>
+      <li>Additional cancellation policies</li>
+    </ul>
   </div>
 );
 
 const AsideContent: AsideContentInterface = {
   homeType: <HomeType />,
-  title: <Title />,
-  description: <Description />,
+  title: <></>,
+  description: <></>,
   addressLine1: <FullAddress/>,
   addressLine2: <FullAddress/>,
   city: <FullAddress/>,
   state: <FullAddress/>,
   postalCode: <FullAddress/>,
-  country: <Country />,
+  country: <></>,
   listingPicUrl: <ListingPicUrl />,
   photos: <Photos />,
   
   sleepingArrangement: <SleepingArrangement />,
-  numberOfBedrooms: <NumberOfBedrooms />,
+  numberOfBedrooms: <></>,
   numberOfBathrooms: <NumberOfBathrooms />,
-  sharedBathroom: <SharedBathroom />,
+  sharedBathroom: <></>,
   amenities: <Amenities />,
 
-  maxGuests: <MaxGuests />,
-  minimumNights: <MinimumNights />,
+  maxGuests: <></>,
+  minimumNights: <></>,
   pricePerNightUsd: <PricePerNightUsd />,
   securityDepositUsd: <SecurityDepositUsd />,
   icalUrls: <IcalUrls />,
   
-  checkInTime: <CheckInTime />,
-  checkOutTime: <CheckOutTime />,
+  checkInTime: <></>,
+  checkOutTime: <></>,
   houseRules: <HouseRules />,
 }
 
