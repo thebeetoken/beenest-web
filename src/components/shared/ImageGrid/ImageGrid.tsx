@@ -8,8 +8,8 @@ interface Props {
 }
 
 const ImageGrid = ({ images, onClick }: Props) => (
-  <ImageGridContainer count={images.length}>
-    {images.map((url, index) => (<LazyImage
+  <ImageGridContainer count={Math.min(images.length, 5)}>
+    {images.slice(0, Math.min(images.length, 5)).map((url, index) => (<LazyImage
       src={url}
       key={index}
       onClick={() => onClick && onClick(url)}
