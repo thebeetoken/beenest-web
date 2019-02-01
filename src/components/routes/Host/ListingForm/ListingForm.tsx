@@ -223,7 +223,7 @@ class ListingForm extends React.Component<Props, State> {
       })
       .catch((error: ApolloError) => {
         const formattedError = error.graphQLErrors ? error.graphQLErrors.map(e => e.message).join('\r\n').toString() : error;
-        alert(`${formattedError}\r\n\r\nIf this continues to occur, please contact us at support@beetoken.com`);
+        alert(`${formattedError}\r\n\r\nIf this continues to occur, please contact us at support@beenest.com`);
         console.error(error);
         return actions.setSubmitting(false);
       });

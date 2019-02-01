@@ -151,18 +151,10 @@ const ListingInfoForm = (props: FormikProps<ListingInput>): JSX.Element => {
         <GoogleMaps
           address={address}
           getCoordinates={({ lat, lng }) => {
-            if (
-              (lat || lat === 0) &&
-              (values.lat || values.lat === 0) &&
-              Math.abs(lat - values.lat) > LAT_LNG_EPSILON
-            ) {
+            if (isCoordinateValid(lat, values.lat)) {
               setFieldValue('lat', lat);
             }
-            if (
-              (lng || lng === 0) &&
-              (values.lng || values.lng === 0) &&
-              Math.abs(lng - values.lng) > LAT_LNG_EPSILON
-            ) {
+            if (isCoordinateValid(lng, values.lng)) {
               setFieldValue('lng', lng);
             }
             return { lat, lng };
@@ -212,3 +204,9 @@ const ListingInfoForm = (props: FormikProps<ListingInput>): JSX.Element => {
 };
 
 export default ListingInfoForm;
+
+function isCoordinateValid(coordinate: number, previousCoordinate: number): boolean  {
+  return !!(coordinate || coordinate === 0) &&
+    !!(previousCoordinate || previousCoordinate === 0) &&
+    Math.abs(coordinate - previousCoordinate) > LAT_LNG_EPSILON;
+}

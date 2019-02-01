@@ -3,7 +3,7 @@ import { Prompt } from "react-router";
 import ListingFormNavContainer from './ListingFormNav.container';
 import BeeLink from 'shared/BeeLink';
 import GeneralWrapper from 'shared/GeneralWrapper';
-import { FormikActions, FormikProps } from 'formik';
+import { FormikActions, FormikProps, FormikErrors } from 'formik';
 import { History } from 'history';
 import { ListingInput } from 'networking/listings';
 
@@ -62,7 +62,9 @@ const ListingFormNav = ({ formikProps, history, id, onSubmit, setNextCrumb, show
       <GeneralWrapper width={976}>
         <Prompt
           when={showAlert}
-          message={`Listing has unsaved changes ${!formikProps.isValid ? `due to the following errors:\n\n${Object.values(formikProps.errors).join('\n').toString()}\n\n`: ''} Are you sure you want to proceed?`}>
+          message={!formikProps.isValid
+            ? formatListingErrorsAlert(formikProps.error)
+            : 'Listing has unsaved changes. Are you sure you want to proceed?'}>
         </Prompt>
         <nav>
           {renderListingFormNavItems}
@@ -84,3 +86,9 @@ const ListingFormNav = ({ formikProps, history, id, onSubmit, setNextCrumb, show
 }
 
 export default ListingFormNav;
+
+function formatListingErrorsAlert(errors: FormikErrors<ListingInput>): string {
+  return `Listing has unsaved changes due to the following errors:\n\n
+    ${Object.values(errors).join('\n').toString()}\r\n\r\n
+    Are you sure you want to proceed?`;
+};
