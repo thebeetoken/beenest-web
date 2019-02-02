@@ -193,7 +193,6 @@ class ListingForm extends React.Component<Props, State> {
                     onClick={() => {
                       if (!FormikProps.isValid) {
                         alert(`Cannot save changes due to errors:\n\n${Object.values(FormikProps.errors).join('\n').toString()}`);
-                        // alert(`Cannot save changes due to errors: ${JSON.stringify(Object.values(FormikProps.errors), null, 4)}`);
                       }
                       FormikProps.submitForm();
                     }}
