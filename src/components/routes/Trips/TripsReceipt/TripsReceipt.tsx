@@ -179,7 +179,7 @@ const TripsReceiptPriceQuote = (props: Booking): JSX.Element => {
                 start="tiniest"
                 textColor="body">
                 <Svg className="prefix" src="decorative/wallet" />
-                <span>Total Paid: {currency === 'USD' ? guestTotalAmount.toFixed(2) : guestTotalAmount} {currency}</span>
+                <span>Total Paid: {currency === 'USD' ? roundToUsdPrice(guestTotalAmount) : guestTotalAmount} {currency}</span>
               </ListItem>
             </div>
           )
@@ -202,7 +202,7 @@ const TripsReceiptPriceQuote = (props: Booking): JSX.Element => {
                 start="tiniest"
                 textColor="body">
                 <Svg className="prefix" src="decorative/wallet" />
-                <span>Total Paid: {currency === 'USD' ? guestTotalAmount.toFixed(2) : guestTotalAmount} {currency}</span>
+                <span>Total Paid: {currency === 'USD' ? roundToUsdPrice(guestTotalAmount) : guestTotalAmount} {currency}</span>
               </ListItem>
               {(screenType !== ScreenType.MOBILE) &&
                 <ListItem
@@ -228,7 +228,7 @@ const TripsReceiptPriceQuote = (props: Booking): JSX.Element => {
                   start="medium-large"
                   textColor="body"
                   textAlign="right">
-                  <span>{currency === 'USD' ? priceTotalNights.toFixed(2) : priceTotalNights} {currency}</span>
+                  <span>{currency === 'USD' ? roundToUsdPrice(priceTotalNights) : priceTotalNights} {currency}</span>
                 </ListItem>
               </div>
               <div className="trips-receipt-paid--line-items">
@@ -290,5 +290,7 @@ const TripsReceiptPriceQuote = (props: Booking): JSX.Element => {
     </AppConsumer>
   );
 }
+
+const roundToUsdPrice = (price: Number) => price.toFixed(2);
 
 export default TripsReceipt;
