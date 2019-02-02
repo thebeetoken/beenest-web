@@ -18,7 +18,6 @@ type Props = Partial<{
 
 const ErrorMessageWrapper = (props: Props) => {
   const { className, children} = props;
-
   return (
     <ErrorMessageWrapperContainer
       className={`bee-error-message-wrapper ${className || ''}`.trim()} 

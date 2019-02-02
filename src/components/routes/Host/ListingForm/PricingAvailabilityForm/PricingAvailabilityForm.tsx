@@ -11,6 +11,11 @@ import NumberInput from 'shared/NumberInput';
 
 const PricingAvailabilityForm = (props: any): JSX.Element => {
   const { setFieldTouched, setFieldValue, values } = props;
+  const StyledErrorMessage = (props: { name: string }) => (
+    <ErrorMessageWrapper>
+      {props.name && <ErrorMessage {...props} />}
+    </ErrorMessageWrapper>
+  );
   return (
     <>
       <div className="form-item">
@@ -26,50 +31,45 @@ const PricingAvailabilityForm = (props: any): JSX.Element => {
             }}
           />
         </div>
+        <StyledErrorMessage name="maxGuests" />
       </div>
 
       <div className="form-item short">
         <div className="input-container">
-          <InputLabel htmlFor="minimumNights">Min Nights</InputLabel>
+          <InputLabel htmlFor="minimumNights" subLabel="(required)">Min Nights</InputLabel>
           <InputWrapper>
             <Field
               name="minimumNights"
               placeholder="# of nights"
               type="number" />
           </InputWrapper>
-          <ErrorMessageWrapper>
-            <ErrorMessage name="minimumNights" />
-          </ErrorMessageWrapper>
+          <StyledErrorMessage name="minimumNights" />
         </div>
       </div>
 
       <div className="form-item short">
         <div className="input-container">
-          <InputLabel htmlFor="pricePerNightUsd" subLabel="(USD)">Price Per Night</InputLabel>
+          <InputLabel htmlFor="pricePerNightUsd" subLabel="(required)">Price Per Night USD</InputLabel>
           <InputWrapper>
             <Field
               name="pricePerNightUsd"
               placeholder="$"
               type="number" />
           </InputWrapper>
-          <ErrorMessageWrapper>
-            <ErrorMessage name="pricePerNightUsd" />
-          </ErrorMessageWrapper>
+          <StyledErrorMessage name="pricePerNightUsd" />
         </div>
       </div>
       
       <div className="form-item short">
         <div className="input-container security-deposit">
-          <InputLabel htmlFor="securityDepositUsd" subLabel="(USD)">Security Deposit</InputLabel>
+          <InputLabel htmlFor="securityDepositUsd" subLabel="(required)">Security Deposit USD</InputLabel>
           <InputWrapper>
             <Field
               name="securityDepositUsd"
               placeholder="$"
               type="number" />
           </InputWrapper>
-          <ErrorMessageWrapper>
-            <ErrorMessage name="securityDepositUsd" />
-          </ErrorMessageWrapper>
+          <StyledErrorMessage name="securityDepositUsd" />
         </div>
       </div>
 
@@ -84,6 +84,7 @@ const PricingAvailabilityForm = (props: any): JSX.Element => {
           }}
           value={arrayToString(values.icalUrls)}
           placeholder="https://www.airbnb.com/calendar/ical/XXX" />
+        <StyledErrorMessage name="icalUrls" />
       </div>
     </>
   );
