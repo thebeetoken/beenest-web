@@ -13,9 +13,10 @@ import ListingFormNav from './ListingFormNav';
 import ListingFormContainer from './ListingForm.container';
 import GeneralWrapper from 'shared/GeneralWrapper';
 import NotFound from 'routes/NotFound';
-import Button from 'components/shared/Button';
+import Button from 'shared/Button';
 import timeOptions from 'utils/timeOptions';
 import { ApolloError } from 'apollo-client';
+import { AppConsumer, AppConsumerProps, ScreenType } from 'components/App.context';
 
 interface FormValues {
   [name: string]: boolean | string | string[] | number | object | undefined;
@@ -161,7 +162,7 @@ class ListingForm extends React.Component<Props, State> {
                 setNextCrumb={this.setNextCrumb}
                 onSubmit={this.handleSubmit}
               />
-              <GeneralWrapper align="flex-start" direction="row" justify="flex-start" width={976}>
+              <GeneralWrapper align="flex-start" direction="row" justify="flex-start" width="100%">
                 <Form>
                   <Switch>
                     <Route
@@ -201,7 +202,12 @@ class ListingForm extends React.Component<Props, State> {
                     Save &amp; Continue
                   </Button>
                 </Form>
-                <aside />
+                <AppConsumer>
+                  {({ screenType }: AppConsumerProps) => {
+                    if (screenType < ScreenType.TABLET) return null;
+                    return <aside />;
+                  }}
+                </AppConsumer>
               </GeneralWrapper>
             </>
           )}

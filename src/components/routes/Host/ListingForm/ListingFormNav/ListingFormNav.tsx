@@ -1,11 +1,11 @@
 import * as React from 'react';
 import { Prompt } from "react-router";
 import ListingFormNavContainer from './ListingFormNav.container';
-import BeeLink from 'shared/BeeLink';
 import GeneralWrapper from 'shared/GeneralWrapper';
 import { FormikActions, FormikProps, FormikErrors } from 'formik';
 import { History } from 'history';
 import { ListingInput } from 'networking/listings';
+import TabNavBar from 'shared/TabNavBar';
 
 interface Props {
   history: History;
@@ -16,59 +16,36 @@ interface Props {
   showAlert?: boolean;
 }
 
-interface itemProps {
-  href?: string;
-  isNav: boolean;
-  target?: string;
-  title: string;
-  to?: string;
-}
-
 const ListingFormNav = ({ formikProps, history, id, onSubmit, setNextCrumb, showAlert }: Props): JSX.Element => {
   const listingFormNavConfig = [
     {
-      isNav: true,
       title: 'Listing Info',
       to: `/host/listings/${id}/listing_info`,
     },
     {
-      isNav: true,
       title: 'Accommodations',
       to: `/host/listings/${id}/accommodations`,
     },
     {
-      isNav: true,
       title: 'Pricing & Availability',
       to: `/host/listings/${id}/pricing_availability`,
     },
     {
-      isNav: true,
       title: 'Checkin Details',
       to: `/host/listings/${id}/checkin_details`,
     },
   ];
-  const renderListingFormNavItems = listingFormNavConfig.map((item: itemProps) => {
-    return (
-      <div className="host-listings-navigation--items" key={item.title}>
-        <BeeLink isNav={item.isNav} to={item.to}>
-          {item.title}
-        </BeeLink>
-      </div>
-    );
-  });
 
   return (
     <ListingFormNavContainer>
-      <GeneralWrapper width={976}>
+      <GeneralWrapper width="100%">
         <Prompt
           when={showAlert}
           message={!formikProps.isValid
             ? formatListingErrorsAlert(formikProps.errors)
             : 'Listing has unsaved changes. Are you sure you want to proceed?'}>
         </Prompt>
-        <nav>
-          {renderListingFormNavItems}
-        </nav>
+        <TabNavBar config={listingFormNavConfig} />
         <a onClick={() => {
           if (!formikProps.isValid) {
             history.push('/host/listings');

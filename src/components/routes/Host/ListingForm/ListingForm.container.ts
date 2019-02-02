@@ -1,7 +1,7 @@
 import styled from 'styled-components';
 import { color } from 'styled/utils';
 
-const ListingFormContainer = styled.section`
+const ListingFormMobileContainer = styled.section`
   width: 100%;
 
 
@@ -10,10 +10,9 @@ const ListingFormContainer = styled.section`
     margin: 0 auto;
     form {
       min-height: calc(100% - 128px);
-      min-width: 586px;
       padding: 40px 0 96px;
       padding-right: 56px;
-      width: 586px;
+      width: 100%;
       label {
         margin-bottom: 8px;
       }
@@ -58,7 +57,7 @@ const ListingFormContainer = styled.section`
           }
         }
         &.photo {
-          width: 488px;
+          width: 100%;
         }
         &.row {
           display: flex;
@@ -96,4 +95,16 @@ const ListingFormContainer = styled.section`
   }
 `;
 
-export default ListingFormContainer;
+const ListingFormTabletContainer = styled(ListingFormMobileContainer)`
+  @media (min-width: 768px) {
+    & > .bee-general-wrapper {
+      form {
+        width: 586px;
+      }
+
+      aside {
+      }
+    }
+  }
+`;
+export default ListingFormTabletContainer;
