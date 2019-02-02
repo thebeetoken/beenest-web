@@ -36,7 +36,7 @@ class AdminListingTableRow extends React.Component<Props> {
         </td>
         <td className="admin-table-row--item">
           <BeeLink to={host ? `/admin/users/${host.id}` : ''}>
-            <span>{host ? `${host.displayName}` : ''}</span>
+            <span>{host ? `${host.fullName}` : ''}</span>
           </BeeLink>
           <CopyToClipboard text={host ? host.email : 'email does not exist'}>
             <span>{host && host.email ? host.email : 'email does not exist'}</span>

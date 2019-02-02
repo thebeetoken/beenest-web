@@ -143,6 +143,7 @@ export interface Host {
   about: string;
   displayName: string;
   email: string;
+  fullName?: string;
   id: string;
   profilePicUrl: string;
 }
@@ -378,6 +379,7 @@ export const GET_ALL_LISTINGS = gql`
       host {
         email
         displayName
+        fullName
         id
       }
       updatedAt
