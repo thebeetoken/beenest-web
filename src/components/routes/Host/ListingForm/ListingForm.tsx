@@ -202,12 +202,6 @@ class ListingForm extends React.Component<Props, State> {
                     Save &amp; Continue
                   </Button>
                 </Form>
-                <AppConsumer>
-                  {({ screenType }: AppConsumerProps) => {
-                    if (screenType < ScreenType.TABLET) return null;
-                    return <aside />;
-                  }}
-                </AppConsumer>
               </GeneralWrapper>
             </>
           )}

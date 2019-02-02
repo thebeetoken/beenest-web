@@ -4,14 +4,14 @@ import { color } from 'styled/utils';
 const ListingFormMobileContainer = styled.section`
   width: 100%;
 
-
   & > .bee-general-wrapper {
-    min-height: calc(100% - 64px);
     margin: 0 auto;
+    margin-bottom: 56px;
+    min-height: calc(100% - 64px);
+    min-width: auto;
     form {
       min-height: calc(100% - 128px);
-      padding: 40px 0 96px;
-      padding-right: 56px;
+      padding: 16px;
       width: 100%;
       label {
         margin-bottom: 8px;
@@ -99,12 +99,22 @@ const ListingFormTabletContainer = styled(ListingFormMobileContainer)`
   @media (min-width: 768px) {
     & > .bee-general-wrapper {
       form {
-        width: 586px;
-      }
-
-      aside {
+        padding: 40px 56px 96px 24px;
       }
     }
   }
 `;
-export default ListingFormTabletContainer;
+
+const ListingFormDesktopContainer = styled(ListingFormTabletContainer)`
+  @media (min-width: 1025px) {
+    & > .bee-general-wrapper {
+      width: 976px;
+      form {
+        padding-left: 0;
+        width: 586px;
+      }
+    }
+  }
+`;
+
+export default ListingFormDesktopContainer;
