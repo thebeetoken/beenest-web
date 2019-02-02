@@ -51,7 +51,7 @@ const NumberOfBathrooms = () => (
 
 const Amenities = () => (
   <div>
-    <p>Please make sure to include Wifi capabilities for business travelers. Providing the essentials helps guests feel at home in your place. Other common amenities include: TV, Heat, Air Conditioning, Iron, Hair dryer, First Aid Kit, Parking on premises, etc.</p>
+    <p>Please make sure to include Wifi capabilities for business travelers. Providing the essentials helps guests feel at home in your place. Other common amenities include: TV, Heat, Air conditioning, Iron, Hair dryer, First aid kit, Parking on premises, etc.</p>
     <br />
     <p>There’s no maximum to the number of amenities you can include so add as many as you’d like! </p>
   </div>
@@ -59,7 +59,7 @@ const Amenities = () => (
 
 const PricePerNightUsd = () => (
   <div>
-    <p>The price per night should include any associated fees typically charged to guests. This includes cleaning fees, occupancy taxes, etc.</p>
+    <p>The Price Per Night should include any associated fees typically charged to guests. This includes cleaning fees, occupancy taxes, etc.</p>
     <br />
     <p>Why do we do this? We’re not like everyone else. Rather than tack on a laundry list of fees to guests’ bills only at the time of booking (or even after!), Beenest aims to increase transparency in travel and provide all costs up front immediately.</p>
   </div>

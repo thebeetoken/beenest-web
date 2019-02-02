@@ -213,7 +213,6 @@ class ListingForm extends React.Component<Props, State> {
                     onClick={() => {
                       if (!FormikProps.isValid) {
                         alert(`Cannot save changes due to errors:\n\n${Object.values(FormikProps.errors).join('\n').toString()}`);
-                        // alert(`Cannot save changes due to errors: ${JSON.stringify(Object.values(FormikProps.errors), null, 4)}`);
                       }
                       FormikProps.submitForm();
                     }}
@@ -223,7 +222,7 @@ class ListingForm extends React.Component<Props, State> {
                   </Button>
                 </Form>
                 <aside>
-                  {AsideHeaders[getCurrentCrumb(this.props.history)]}
+                  {isFirstFocused(this.state.focus) && AsideHeaders[getCurrentCrumb(this.props.history)]}
                   {AsideContent[this.state.focus]}
                 </aside>
               </GeneralWrapper>
@@ -326,4 +325,8 @@ function minNumberError(readableName: string) {
 
 function maxNumberError(readableName: string) {
   return `${readableName}` + ' must be less than or equal to ${min}.';
+}
+
+function isFirstFocused(focus: string): boolean {
+  return Object.values(defaultFocus).includes(focus);
 }

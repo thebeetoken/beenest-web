@@ -88,11 +88,14 @@ const ListingFormContainer = styled.section`
 
     aside {
       background-color: ${color('light')};
+      height: 100%;
       left: calc(586px + (100% - 976px) / 2);
       min-height: calc(100% - 128px);
+      padding: 120px 56px 72px;
+      position: fixed;
+      top: 64px;
       width: calc((100% - 586px) - ((100% - 976px) / 2));
-      padding: 56px 56px 72px;
-      position: absolute;
+      z-index: -1;
       header {
         ${typography('title', 7)}
         color: ${color('dark')};

@@ -106,7 +106,7 @@ const AccommodationsForm = (props: any): JSX.Element => {
             setFieldValue('amenities', stringToArray(event.target.value));
           }}
           value={arrayToString(values.amenities)}
-          placeholder="Towels, Soap, Detergent" />
+          placeholder="Wifi, Towels, Soap, TV, Coffee..." />
           <StyledErrorMessage name="amenities" />
       </div>
     </>
