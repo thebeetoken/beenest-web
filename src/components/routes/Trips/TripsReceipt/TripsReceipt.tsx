@@ -146,10 +146,11 @@ const TripsReceiptsMeta = (props: Booking): JSX.Element => {
                   <span>
                     {addressLine1 && `${addressLine1}, `}
                     {addressLine2 && `${addressLine2}, `}
+                    {!addressLine1 && `Latitude & Longitude: ${lat}, ${lng} `}
                     {city && `${city}, `}
                     {state && `${state.toUpperCase()}, `}
                     {`${country.toUpperCase()}, `}
-                    {postalCode}
+                    {postalCode && postalCode}
                   </span>
               </ListItem>
               <GoogleMaps lat={lat} lng={lng} showCircle />
@@ -178,7 +179,7 @@ const TripsReceiptPriceQuote = (props: Booking): JSX.Element => {
                 start="tiniest"
                 textColor="body">
                 <Svg className="prefix" src="decorative/wallet" />
-                <span>Total Paid: {guestTotalAmount} {currency}</span>
+                <span>Total Paid: {currency === 'USD' ? guestTotalAmount.toFixed(2) : guestTotalAmount} {currency}</span>
               </ListItem>
             </div>
           )
@@ -201,7 +202,7 @@ const TripsReceiptPriceQuote = (props: Booking): JSX.Element => {
                 start="tiniest"
                 textColor="body">
                 <Svg className="prefix" src="decorative/wallet" />
-                <span>Total Paid: {guestTotalAmount} {currency}</span>
+                <span>Total Paid: {currency === 'USD' ? guestTotalAmount.toFixed(2) : guestTotalAmount} {currency}</span>
               </ListItem>
               {(screenType !== ScreenType.MOBILE) &&
                 <ListItem
@@ -227,7 +228,7 @@ const TripsReceiptPriceQuote = (props: Booking): JSX.Element => {
                   start="medium-large"
                   textColor="body"
                   textAlign="right">
-                  <span>{priceTotalNights} {currency}</span>
+                  <span>{currency === 'USD' ? priceTotalNights.toFixed(2) : priceTotalNights} {currency}</span>
                 </ListItem>
               </div>
               <div className="trips-receipt-paid--line-items">
@@ -244,7 +245,7 @@ const TripsReceiptPriceQuote = (props: Booking): JSX.Element => {
                   start="medium-large"
                   textColor="body"
                   textAlign="right">
-                  <span>{securityDeposit} {currency}</span>
+                  <span>{securityDeposit || 0} {currency}</span>
                 </ListItem>
               </div>
               <div className="trips-receipt-paid--line-items">
