@@ -1,5 +1,5 @@
 import styled from 'styled-components';
-import { color, cover, typography } from 'styled/utils';
+import { color, typography } from 'styled/utils';
 
 const ListingFormNavMobileContainer = styled.div`
   background-color: ${color('lighter')};

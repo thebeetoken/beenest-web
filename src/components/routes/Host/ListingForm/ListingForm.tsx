@@ -16,7 +16,6 @@ import NotFound from 'routes/NotFound';
 import Button from 'shared/Button';
 import timeOptions from 'utils/timeOptions';
 import { ApolloError } from 'apollo-client';
-import { AppConsumer, AppConsumerProps, ScreenType } from 'components/App.context';
 
 interface FormValues {
   [name: string]: boolean | string | string[] | number | object | undefined;
