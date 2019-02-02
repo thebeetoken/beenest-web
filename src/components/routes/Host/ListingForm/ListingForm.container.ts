@@ -23,6 +23,11 @@ const ListingFormContainer = styled.section`
         .bee-textarea {
           width: 100%;
         }
+        .bee-checkbox {
+          label {
+            margin-bottom: 0;
+          }
+        }
         .input-number-container {
           align-items: center;
           display: flex;
