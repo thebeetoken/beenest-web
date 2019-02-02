@@ -106,6 +106,16 @@ const ListingFormContainer = styled.section`
         color: ${color('dark')};
         margin-bottom: 32px;
       }
+      ol {
+        li {
+          list-style-type: decimal;
+        }
+      }
+      ul {
+        li {
+          list-style-type: disc;
+        }
+      }
     }
   }
 `;
