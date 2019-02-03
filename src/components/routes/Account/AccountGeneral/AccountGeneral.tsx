@@ -3,7 +3,7 @@ import * as React from 'react';
 
 import AccountGeneralContainer from './AccountGeneral.container';
 
-import { UPDATE_USER, User } from 'networking/users';
+import { UPDATE_USER, User, GET_ACCOUNT_PAGE } from 'networking/users';
 import Button from 'shared/Button';
 import Divider from 'shared/Divider';
 import InputLabel from 'shared/InputLabel';
@@ -209,7 +209,9 @@ export default compose(
   graphql(UPDATE_USER, {
     props: ({ mutate }: any) => ({
       updateUser: (input: State): Promise<User> => {
-        return mutate({ variables: { input } });
+        return mutate({ variables: { input },
+          refetchQueries: [{ query: GET_ACCOUNT_PAGE }],
+        });
       },
     })
   })
