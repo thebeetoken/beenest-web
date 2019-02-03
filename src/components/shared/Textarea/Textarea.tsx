@@ -1,7 +1,7 @@
 import * as React from 'react';
 
 import TextareaContainer from './Textarea.container';
-import { Editor, EditorState, convertFromHTML, ContentState, ContentBlock } from 'draft-js';
+import { Editor, EditorState, convertFromHTML, ContentState } from 'draft-js';
 import { stateToHTML } from 'draft-js-export-html';
 
 /**
