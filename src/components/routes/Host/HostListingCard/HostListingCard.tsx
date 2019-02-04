@@ -24,6 +24,7 @@ interface Props extends HostListingShort {
   activateListing: (id: string) => Promise<Listing>;
   deactivateListing: (id: string) => Promise<Listing>;
   deleteListing: (id: string) => Promise<any>;
+  duplicateListing: (ud: string) => Promise<Listing>;
 }
 
 const INCOMPLETE_LISTING = "This listing is incomplete. Click Edit to complete all required fields to publish.";
