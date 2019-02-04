@@ -13,6 +13,7 @@ import LazyImage from 'shared/LazyImage';
 import ListItem from 'shared/ListItem';
 import Svg from 'shared/Svg';
 import { dateToYear, formatDateRange } from 'utils/formatDate';
+import { formatAddress, formatGeolocationAddress } from 'utils/formatter';
 
 const TripsReceipt = ({ match }: RouterProps): JSX.Element => {
   return (
@@ -144,13 +145,8 @@ const TripsReceiptsMeta = (props: Booking): JSX.Element => {
                 textTransform="capitalize">
                 <Svg className="prefix" src="decorative/location" />
                   <span>
-                    {addressLine1 && `${addressLine1}, `}
-                    {addressLine2 && `${addressLine2}, `}
-                    {!addressLine1 && `Latitude & Longitude: ${lat}, ${lng} `}
-                    {city && `${city}, `}
-                    {state && `${state.toUpperCase()}, `}
-                    {`${country.toUpperCase()}, `}
-                    {postalCode && postalCode}
+                    {addressLine1 && formatAddress(addressLine1, addressLine2, city, state, country, postalCode)}
+                    {!addressLine1 && formatGeolocationAddress({ lat, lng, city, country })}
                   </span>
               </ListItem>
               <GoogleMaps lat={lat} lng={lng} showCircle />
