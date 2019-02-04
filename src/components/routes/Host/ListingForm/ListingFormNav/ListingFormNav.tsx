@@ -31,7 +31,7 @@ const ListingFormNav = ({ formikProps, history, id, onSubmit, setNextCrumb, show
       to: `/host/listings/${id}/pricing_availability`,
     },
     {
-      title: 'Checkin Details',
+      title: 'Check-in Details',
       to: `/host/listings/${id}/checkin_details`,
     },
   ];
