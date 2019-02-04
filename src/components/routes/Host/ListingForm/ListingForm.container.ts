@@ -6,13 +6,12 @@ const ListingFormMobileContainer = styled.section`
 
   & > .bee-general-wrapper {
     margin: 0 auto;
-    margin-bottom: 56px;
     min-height: calc(100% - 64px);
     width: 100%;
     min-width: 100%;
     form {
       min-height: calc(100% - 128px);
-      padding: 16px;
+      padding: 48px 24px 56px;
       width: 100%;
       label {
         margin-bottom: 8px;
