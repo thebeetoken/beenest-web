@@ -82,6 +82,8 @@ const HeaderContainerMobile = styled.header`
       }
       .bee-svg {
         color: ${color('core')};
+        height: 24px;
+        width: 24px;
       }
     }
     .header-menu-mobile {
@@ -180,6 +182,8 @@ const HeaderContainerTablet = styled(HeaderContainerMobile)`
               padding: 0;
               .bee-lazy-image {
                 border-radius: 50%;
+                height: 48px;
+                width: 48px;
               }
             }
             a:first-of-type{
