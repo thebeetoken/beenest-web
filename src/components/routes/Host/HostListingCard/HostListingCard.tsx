@@ -66,14 +66,14 @@ const HostListingCard = (props: Props): JSX.Element => {
             </Button>
           </BeeLink>
           <BeeLink target="_blank" to={`/listings/${idSlug}`}>
-            <Button background="core" color="white" size="small">
+            <Button background="white" border="core" color="core" size="small">
               Preview
             </Button>
           </BeeLink>
-          <Button background="core" color="white" size="small" onClick={() => duplicateListing(id)}>
+          <Button background="white" border="core" color="core" size="small" onClick={() => duplicateListing(id)}>
             Duplicate
           </Button>
-          <Button background="core" color="white" size="small" onClick={() => deleteListing(id)}>
+          <Button background="white" border="core" color="core" size="small" onClick={() => deleteListing(id)}>
             Delete
           </Button>
           <div className='host-listing-publish'>
