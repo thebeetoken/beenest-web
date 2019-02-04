@@ -13,6 +13,7 @@ import LazyImage from 'shared/LazyImage';
 import ListItem from 'shared/ListItem';
 import Svg from 'shared/Svg';
 import { dateToYear, formatDateRange } from 'utils/formatDate';
+import { formatAddress, formatGeolocationAddress } from 'utils/formatter';
 
 const TripsReceipt = ({ match }: RouterProps): JSX.Element => {
   return (
@@ -144,12 +145,8 @@ const TripsReceiptsMeta = (props: Booking): JSX.Element => {
                 textTransform="capitalize">
                 <Svg className="prefix" src="decorative/location" />
                   <span>
-                    {addressLine1 && `${addressLine1}, `}
-                    {addressLine2 && `${addressLine2}, `}
-                    {city && `${city}, `}
-                    {state && `${state.toUpperCase()}, `}
-                    {`${country.toUpperCase()}, `}
-                    {postalCode}
+                    {addressLine1 && formatAddress(addressLine1, addressLine2, city, state, country, postalCode)}
+                    {!addressLine1 && formatGeolocationAddress({ lat, lng, city, country })}
                   </span>
               </ListItem>
               <GoogleMaps lat={lat} lng={lng} showCircle />
@@ -178,7 +175,7 @@ const TripsReceiptPriceQuote = (props: Booking): JSX.Element => {
                 start="tiniest"
                 textColor="body">
                 <Svg className="prefix" src="decorative/wallet" />
-                <span>Total Paid: {guestTotalAmount} {currency}</span>
+                <span>Total Paid: {currency === 'USD' ? roundToUsdPrice(guestTotalAmount) : guestTotalAmount} {currency}</span>
               </ListItem>
             </div>
           )
@@ -201,7 +198,7 @@ const TripsReceiptPriceQuote = (props: Booking): JSX.Element => {
                 start="tiniest"
                 textColor="body">
                 <Svg className="prefix" src="decorative/wallet" />
-                <span>Total Paid: {guestTotalAmount} {currency}</span>
+                <span>Total Paid: {currency === 'USD' ? roundToUsdPrice(guestTotalAmount) : guestTotalAmount} {currency}</span>
               </ListItem>
               {(screenType !== ScreenType.MOBILE) &&
                 <ListItem
@@ -227,7 +224,7 @@ const TripsReceiptPriceQuote = (props: Booking): JSX.Element => {
                   start="medium-large"
                   textColor="body"
                   textAlign="right">
-                  <span>{priceTotalNights} {currency}</span>
+                  <span>{currency === 'USD' ? roundToUsdPrice(priceTotalNights) : priceTotalNights} {currency}</span>
                 </ListItem>
               </div>
               <div className="trips-receipt-paid--line-items">
@@ -244,7 +241,7 @@ const TripsReceiptPriceQuote = (props: Booking): JSX.Element => {
                   start="medium-large"
                   textColor="body"
                   textAlign="right">
-                  <span>{securityDeposit} {currency}</span>
+                  <span>{securityDeposit || 0} {currency}</span>
                 </ListItem>
               </div>
               <div className="trips-receipt-paid--line-items">
@@ -289,5 +286,7 @@ const TripsReceiptPriceQuote = (props: Booking): JSX.Element => {
     </AppConsumer>
   );
 }
+
+const roundToUsdPrice = (price: Number) => price.toFixed(2);
 
 export default TripsReceipt;

@@ -3,7 +3,18 @@ import { Listing } from "networking/listings";
 // comma-separates terms and leaves no trailing commas
 export function formatAddress(...args: Array<string | undefined>): string {
   const clean = args.filter(str => !!str && !(str.toUpperCase() === 'US' || str.toUpperCase() === 'USA'));
-  return Array.prototype.join.call(clean, ', ');
+  return clean.slice(0, -1).join(', ') + ' ' + clean.slice(-1);
+}
+
+interface FormatGeolocationAddress {
+  lat: number;
+  lng: number;
+  city: string;
+  country: string;
+}
+
+export function formatGeolocationAddress({ lat, lng, city, country }: FormatGeolocationAddress) {
+  return `Lattitude & Longitude: ${lat}, ${lng}, ${city}, ${country} `
 }
 
 export function arrayToString(input: string[]): string {
