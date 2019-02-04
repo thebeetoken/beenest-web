@@ -12,12 +12,14 @@ import LazyImageContainer from './LazyImage.container';
 interface LazyImageProps {
   alt?: string;
   className?: string;
+  height?: string;
   position?: string;
   transition?: boolean;
   /** Takes a function, native onClick */
   onClick?: () => void;
   placeholder?: string;
   src: string;
+  width?: string;
 }
 
 interface LazyImageStateType {
@@ -51,7 +53,7 @@ class LazyImage extends React.Component<LazyImageProps, LazyImageStateType> {
   }
 
   render() {
-    const { alt, placeholder, className, onClick } = this.props;
+    const { alt, height, placeholder, className, onClick, width } = this.props;
     const src = (this.state.error || !this.state.loaded) && !!placeholder ? placeholder : this.props.src;
     if (!src) {
       return <></>;
@@ -63,6 +65,8 @@ class LazyImage extends React.Component<LazyImageProps, LazyImageStateType> {
         onClick={onClick}
         src={src.startsWith('https') ? src : require(`../../../assets/images/${src}`)}
         alt={alt}
+        height={height}
+        width={width}
         {...this.props} />
     );
   }
