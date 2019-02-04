@@ -237,27 +237,35 @@ export const DELETE_LISTING = gql`
   }
 `;
 
+const HOST_LISTING_FRAGMENT = gql`
+  fragment HostListing on Listing {
+    canPublish
+    city
+    country
+    id
+    idSlug
+    isActive
+    listingPicUrl
+    state
+    title
+    updatedAt
+  }
+`;
+
 export const DUPLICATE_LISTING = gql`
+  ${HOST_LISTING_FRAGMENT}
   mutation DuplicateListing($id: ID!) {
     duplicateListing(id: $id) {
-      id
+      ...HostListing
     }
   }
 `;
 
 export const GET_HOST_LISTINGS = gql`
+  ${HOST_LISTING_FRAGMENT}
   query GetHostListings {
     hostListings {
-      canPublish
-      city
-      country
-      id
-      idSlug
-      isActive
-      listingPicUrl
-      state
-      title
-      updatedAt
+      ...HostListing
     }
   }
 `;
