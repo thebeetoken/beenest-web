@@ -194,9 +194,27 @@ class DefaultMobileHeader extends React.Component<MobileHeaderProps> {
                 return (
                   <>
                     <div className="header-menu-container image" onClick={this.toggleMenu}>
-                      <LazyImage
-                        className={`${!showMenu ? 'show' : 'bee-lazy-image'}`}
-                        src={user.photoURL ? user.photoURL : "https://static.beenest.com/images/app/misc/profile.png"} />
+                      <AppConsumer>
+                        {({ screenType }: AppConsumerProps) => {
+                          if (screenType < ScreenType.TABLET) {
+                            return (
+                              <LazyImage
+                                className={`${!showMenu ? 'show' : 'bee-lazy-image'}`}
+                                height="24"
+                                width="24"
+                                src={user.photoURL ? user.photoURL : "https://d9lhrxmc0upxv.cloudfront.net/fit-in/24x24/images/app/misc/profile.png"} />
+                            );
+                          }
+
+                          return (
+                            <LazyImage
+                              className={`${!showMenu ? 'show' : 'bee-lazy-image'}`}
+                              height="48"
+                              width="48"
+                              src={user.photoURL ? user.photoURL : "https://d9lhrxmc0upxv.cloudfront.net/fit-in/48x48/images/app/misc/profile.png"} />
+                          );
+                        }}
+                      </AppConsumer>
                       <Svg className={`${showMenu ? 'show' : 'bee-svg'}`} src="utils/x" />
                     </div>
                     <MobileAuthenticatedHamburger closeMenu={this.closeMenu} showMenu={this.state.showMenu} />
@@ -344,7 +362,15 @@ const AuthenticatedNavLinks = ({ photoURL }: any) => (
     </BeeLink>
     <div className="header-authenticated--profile">
       <BeeLink to="/account/general">
-        <LazyImage src={photoURL ? photoURL : "https://static.beenest.com/images/app/misc/profile.png"} />
+        <AppConsumer>
+          {({ screenType }: AppConsumerProps) => {
+            if (screenType < ScreenType.TABLET) {
+              return <LazyImage src={photoURL ? photoURL : "https://d9lhrxmc0upxv.cloudfront.net/fit-in/24x24/images/app/misc/profile.png"} height="24" width="24" />;
+            }
+
+            return <LazyImage src={photoURL ? photoURL : "https://d9lhrxmc0upxv.cloudfront.net/fit-in/48x48/images/app/misc/profile.png"} height="48" width="48" />;
+          }}
+        </AppConsumer>
       </BeeLink>
       <BeeLink to="/logout">
         <span>Log Out</span>
