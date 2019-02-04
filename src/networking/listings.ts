@@ -237,6 +237,14 @@ export const DELETE_LISTING = gql`
   }
 `;
 
+export const DUPLICATE_LISTING = gql`
+  mutation DuplicateListing($id: ID!) {
+    duplicateListing(id: $id) {
+      id
+    }
+  }
+`;
+
 export const GET_HOST_LISTINGS = gql`
   query GetHostListings {
     hostListings {
