@@ -5,14 +5,15 @@ const ListingFormNavMobileContainer = styled.div`
   background-color: ${color('lighter')};
   height: 90px;
   width: 100%;
-
+  
   .bee-general-wrapper {
     display: flex;
     flex-direction: column;
     justify-content: space-between;
     height: 100%;
     margin: 0 auto;
-    min-width: auto;
+    width: 100%;
+    min-width: 100%;
     nav {
       display: flex;
       height: inherit;
@@ -65,6 +66,7 @@ const ListingFormNavDesktopContainer = styled(ListingFormNavTabletContainer)`
   @media (min-width: 1025px) {
     .bee-general-wrapper {
       width: 976px;
+      min-width: 976px;
       nav {
         > div {
           width: 204px;

@@ -38,7 +38,7 @@ const ListingFormNav = ({ formikProps, history, id, onSubmit, setNextCrumb, show
 
   return (
     <ListingFormNavContainer>
-      <GeneralWrapper width="100%">
+      <GeneralWrapper>
         <Prompt
           when={showAlert}
           message={!formikProps.isValid
