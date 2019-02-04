@@ -134,7 +134,6 @@
         "BEENEST_HOST_API": "http://localhost:3000",
         "BEETOKEN_ADDRESS": "0x7fffac23d59d287560dfeca7680b5393426cf503",
         "BEETOKEN_PAYMENT_ADDRESS": "0x3941be29a3ddfd26279d9172f288e1dd6a80a964",
-        "ETH_PAYMENT_ADDRESS": "0x8a436f1b5f6d30ddd9c05d1fd47fdb937366ee1a",
         "FACEBOOK_APP_ID": "",
         "FIREBASE_CONFIG": {
           "apiKey": "AIzaSyBVVBElrARlNDNLeTAHYuD6dvvAIXdU93E",
