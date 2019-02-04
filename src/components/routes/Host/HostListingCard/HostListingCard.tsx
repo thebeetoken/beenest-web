@@ -36,6 +36,7 @@ const HostListingCard = (props: Props): JSX.Element => {
     country,
     deactivateListing,
     deleteListing,
+    duplicateListing,
     id,
     idSlug,
     isActive,
@@ -68,6 +69,9 @@ const HostListingCard = (props: Props): JSX.Element => {
               Preview
             </Button>
           </BeeLink>
+          <Button background="core" color="white" size="small" onClick={() => duplicateListing(id)}>
+            Duplicate
+          </Button>
           <Button background="core" color="white" size="small" onClick={() => deleteListing(id)}>
             Delete
           </Button>
