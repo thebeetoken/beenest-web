@@ -222,8 +222,11 @@ class ListingForm extends React.Component<Props, State> {
                   </Button>
                 </Form>
                 <aside>
-                  {isFirstFocused(this.state.focus) && AsideHeaders[getCurrentCrumb(this.props.history)]}
-                  {AsideContent[this.state.focus]}
+                  <div className="background-extender" />
+                  <div className="aside-container">
+                    {isFirstFocused(this.state.focus) && AsideHeaders[getCurrentCrumb(this.props.history)]}
+                    {AsideContent[this.state.focus]}
+                  </div>
                 </aside>
               </GeneralWrapper>
             </>

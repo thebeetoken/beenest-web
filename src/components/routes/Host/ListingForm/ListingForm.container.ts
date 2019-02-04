@@ -95,25 +95,32 @@ const ListingFormContainer = styled.section`
       background-color: ${color('light')};
       height: 100%;
       left: calc(586px + (100% - 976px) / 2);
-      min-height: calc(100% - 128px);
-      padding: 120px 56px 72px;
       position: fixed;
-      top: 64px;
       width: calc((100% - 586px) - ((100% - 976px) / 2));
       z-index: -1;
-      header {
-        ${typography('title', 7)}
-        color: ${color('dark')};
-        margin-bottom: 32px;
+      .background-extender {
+        background-color: ${color('light')};
+        position: absolute;
+        top: -64px;
+        width: 100%;
+        height: 64px;
       }
-      ol {
-        li {
-          list-style-type: decimal;
+      .aside-container {
+        padding: 40px 56px 72px;
+        header {
+          ${typography('title', 7)}
+          color: ${color('dark')};
+          margin-bottom: 32px;
         }
-      }
-      ul {
-        li {
-          list-style-type: disc;
+        ol {
+          li {
+            list-style-type: decimal;
+          }
+        }
+        ul {
+          li {
+            list-style-type: disc;
+          }
         }
       }
     }
