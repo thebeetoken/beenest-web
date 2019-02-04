@@ -8,7 +8,15 @@ import HostListingCardContainer from './HostListingCard.container';
 import BeeLink from 'shared/BeeLink';
 import Button from 'shared/Button';
 import LazyImage from 'shared/LazyImage';
-import { ACTIVATE_LISTING, DEACTIVATE_LISTING, DELETE_LISTING, GET_HOST_LISTINGS, HostListingShort, Listing } from 'networking/listings';
+import {
+  ACTIVATE_LISTING,
+  DEACTIVATE_LISTING,
+  DELETE_LISTING,
+  DUPLICATE_LISTING,
+  GET_HOST_LISTINGS,
+  HostListingShort,
+  Listing
+} from 'networking/listings';
 import { formatAddress } from 'utils/formatter';
 import { hexColor } from 'styled/utils';
 
@@ -169,5 +177,25 @@ export default compose(
         });
       },
     }),
+  }),
+  graphql(DUPLICATE_LISTING, {
+    props: ({ mutate }: any) => ({
+      duplicateListing: (id: string) => mutate({
+        variables: { id },
+        refetchQueries: [{ query: GET_HOST_LISTINGS }],
+        update: (store: any, { data }: any) => {
+          if (!store.data.data.ROOT_QUERY || !store.data.data.ROOT_QUERY.hostListings) {
+            return;
+          }
+
+          const { duplicateListing } = data;
+          const { hostListings } = store.readQuery({ query: GET_HOST_LISTINGS });
+          store.writeQuery({
+            query: GET_HOST_LISTINGS,
+            data: { hostListings: [ duplicateListing, ...hostListings ] }
+          });
+        },
+      })
+    })
   })
 )(HostListingCard);
