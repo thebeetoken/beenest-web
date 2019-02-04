@@ -113,7 +113,7 @@ const ListingFormDesktopContainer = styled(ListingFormTabletContainer)`
       width: 976px;
       min-width: 976px;
       form {
-        padding-left: 0;
+        padding: 40px 56px 96px 0;
       }
     }
   }
