@@ -8,7 +8,8 @@ const ListingFormMobileContainer = styled.section`
     margin: 0 auto;
     margin-bottom: 56px;
     min-height: calc(100% - 64px);
-    min-width: auto;
+    width: 100%;
+    min-width: 100%;
     form {
       min-height: calc(100% - 128px);
       padding: 16px;
@@ -100,6 +101,7 @@ const ListingFormTabletContainer = styled(ListingFormMobileContainer)`
     & > .bee-general-wrapper {
       form {
         padding: 40px 56px 96px 24px;
+        width: 586px;
       }
     }
   }
@@ -109,9 +111,9 @@ const ListingFormDesktopContainer = styled(ListingFormTabletContainer)`
   @media (min-width: 1025px) {
     & > .bee-general-wrapper {
       width: 976px;
+      min-width: 976px;
       form {
         padding-left: 0;
-        width: 586px;
       }
     }
   }

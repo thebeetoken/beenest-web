@@ -161,7 +161,7 @@ class ListingForm extends React.Component<Props, State> {
                 setNextCrumb={this.setNextCrumb}
                 onSubmit={this.handleSubmit}
               />
-              <GeneralWrapper align="flex-start" direction="row" justify="flex-start" width="100%">
+              <GeneralWrapper align="flex-start" direction="row" justify="flex-start">
                 <Form>
                   <Switch>
                     <Route
