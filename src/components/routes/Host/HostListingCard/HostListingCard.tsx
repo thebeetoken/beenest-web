@@ -54,11 +54,11 @@ const HostListingCard = (props: Props): JSX.Element => {
         <h2>{(city || state || country) ? formatAddress(city, state, country) : ''}</h2>
         <div className="bee-flex-div" />
         <h3>Last edited: {format(updatedAt, 'MM/DD/YY [at] hh:mmA')}</h3>
-        <Button clear color="link" suffix="utils/carat-right">
-          <BeeLink to={`/host/listings/${id}/calendar`}>
+        <BeeLink to={`/host/listings/${id}/calendar`}>
+          <Button clear color="link" suffix="utils/carat-right">
             View Calendar
-          </BeeLink>
-        </Button>
+          </Button>
+        </BeeLink>
         <div className="host-listing-meta--button-container">
           <BeeLink to={`/host/listings/${id}/edit`}>
             <Button background="core" color="white" size="small">
