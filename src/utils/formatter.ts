@@ -14,7 +14,7 @@ interface FormatGeolocationAddress {
 }
 
 export function formatGeolocationAddress({ lat, lng, city, country }: FormatGeolocationAddress) {
-  return `Lattitude & Longitude: ${lat}, ${lng}, ${city}, ${country} `
+  return `Latitude & Longitude: ${lat}, ${lng}, ${city}, ${country} `
 }
 
 export function arrayToString(input: string[]): string {
