@@ -48,7 +48,7 @@ export interface Listing {
   title: string;
   totalQuantity: number;
   updatedAt: string;
-  host: User | null;
+  host: Host | null;
 }
 
 export interface ListingShort {
@@ -138,13 +138,13 @@ export interface Reservation {
   endDate: Date;
 }
 
-export interface User {
+export interface Host {
   createdAt: Date;
   about: string;
+  displayName: string;
   email: string;
-  firstName: string;
+  fullName?: string;
   id: string;
-  lastName: string;
   profilePicUrl: string;
 }
 
@@ -219,8 +219,8 @@ export const GET_LISTING = gql`
         createdAt
         about
         id
+        displayName
         email
-        firstName
         profilePicUrl
       }
       ...ListingDetails
@@ -321,7 +321,7 @@ export const GET_PUBLIC_LISTING = gql`
         id
         createdAt
         about
-        firstName
+        displayName
         profilePicUrl(width: $width, height: $height)
       }
       ...ListingDetails
@@ -378,9 +378,9 @@ export const GET_ALL_LISTINGS = gql`
       title
       host {
         email
-        firstName
+        displayName
+        fullName
         id
-        lastName
       }
       updatedAt
     }
@@ -398,10 +398,9 @@ export const CREATE_LISTING = gql`
       currency
       host {
         createdAt
+        displayName
         email
-        firstName
         id
-        lastName
       }
       hostNameSlug
       hostId
@@ -424,9 +423,8 @@ export const UPDATE_LISTING = gql`
       host {
         createdAt
         id
+        displayName
         email
-        firstName
-        lastName
       }
       hostNameSlug
       houseRules
