@@ -22,7 +22,6 @@ interface Setting {
   BEENEST_HOST_API: string;
   BEETOKEN_ADDRESS: string;
   BEETOKEN_PAYMENT_ADDRESS: string;
-  ETH_PAYMENT_ADDRESS: string;
   FACEBOOK_APP_ID: string;
   FIREBASE_CONFIG: {
     apiKey: string;

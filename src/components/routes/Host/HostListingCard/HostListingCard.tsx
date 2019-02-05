@@ -8,7 +8,15 @@ import HostListingCardContainer from './HostListingCard.container';
 import BeeLink from 'shared/BeeLink';
 import Button from 'shared/Button';
 import LazyImage from 'shared/LazyImage';
-import { ACTIVATE_LISTING, DEACTIVATE_LISTING, DELETE_LISTING, GET_HOST_LISTINGS, HostListingShort, Listing } from 'networking/listings';
+import {
+  ACTIVATE_LISTING,
+  DEACTIVATE_LISTING,
+  DELETE_LISTING,
+  DUPLICATE_LISTING,
+  GET_HOST_LISTINGS,
+  HostListingShort,
+  Listing
+} from 'networking/listings';
 import { formatAddress } from 'utils/formatter';
 import { hexColor } from 'styled/utils';
 
@@ -16,6 +24,7 @@ interface Props extends HostListingShort {
   activateListing: (id: string) => Promise<Listing>;
   deactivateListing: (id: string) => Promise<Listing>;
   deleteListing: (id: string) => Promise<any>;
+  duplicateListing: (ud: string) => Promise<Listing>;
 }
 
 const INCOMPLETE_LISTING = "This listing is incomplete. Click Edit to complete all required fields to publish.";
@@ -28,6 +37,7 @@ const HostListingCard = (props: Props): JSX.Element => {
     country,
     deactivateListing,
     deleteListing,
+    duplicateListing,
     id,
     idSlug,
     isActive,
@@ -44,11 +54,11 @@ const HostListingCard = (props: Props): JSX.Element => {
         <h2>{(city || state || country) ? formatAddress(city, state, country) : ''}</h2>
         <div className="bee-flex-div" />
         <h3>Last edited: {format(updatedAt, 'MM/DD/YY [at] hh:mmA')}</h3>
-        <Button clear color="link" suffix="utils/carat-right">
-          <BeeLink to={`/host/listings/${id}/calendar`}>
+        <BeeLink to={`/host/listings/${id}/calendar`}>
+          <Button clear color="link" suffix="utils/carat-right">
             View Calendar
-          </BeeLink>
-        </Button>
+          </Button>
+        </BeeLink>
         <div className="host-listing-meta--button-container">
           <BeeLink to={`/host/listings/${id}/edit`}>
             <Button background="core" color="white" size="small">
@@ -56,11 +66,14 @@ const HostListingCard = (props: Props): JSX.Element => {
             </Button>
           </BeeLink>
           <BeeLink target="_blank" to={`/listings/${idSlug}`}>
-            <Button background="core" color="white" size="small">
+            <Button background="white" border="core" color="core" size="small">
               Preview
             </Button>
           </BeeLink>
-          <Button background="core" color="white" size="small" onClick={() => deleteListing(id)}>
+          <Button background="white" border="core" color="core" size="small" onClick={() => duplicateListing(id)}>
+            Duplicate
+          </Button>
+          <Button background="white" border="core" color="core" size="small" onClick={() => deleteListing(id)}>
             Delete
           </Button>
           <div className='host-listing-publish'>
@@ -169,5 +182,25 @@ export default compose(
         });
       },
     }),
+  }),
+  graphql(DUPLICATE_LISTING, {
+    props: ({ mutate }: any) => ({
+      duplicateListing: (id: string) => mutate({
+        variables: { id },
+        refetchQueries: [{ query: GET_HOST_LISTINGS }],
+        update: (store: any, { data }: any) => {
+          if (!store.data.data.ROOT_QUERY || !store.data.data.ROOT_QUERY.hostListings) {
+            return;
+          }
+
+          const { duplicateListing } = data;
+          const { hostListings } = store.readQuery({ query: GET_HOST_LISTINGS });
+          store.writeQuery({
+            query: GET_HOST_LISTINGS,
+            data: { hostListings: [ duplicateListing, ...hostListings ] }
+          });
+        },
+      })
+    })
   })
 )(HostListingCard);

@@ -35,7 +35,8 @@ const HostListingCardContainer = styled.article`
       width: 555px;
       a,
       button {
-        min-width: 125px;
+        min-width: 100px;
+        width: 100px;
       }
       label {
         display: inline-flex;

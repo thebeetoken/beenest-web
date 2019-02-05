@@ -57,7 +57,7 @@ const AccountVerificationPhoneCardContainerMobile = styled.section`
   .verification-code-container {
     cursor: not-allowed;
     height: 96px;
-    opacity: 0.5;
+    opacity: 0;
     pointer-events: none;
     &.show {
       cursor: default;
