@@ -10,7 +10,7 @@ import ErrorMessageWrapper from 'shared/ErrorMessageWrapper';
 import { ErrorMessage } from 'formik';
 
 const CheckinDetailsForm = (props: any): JSX.Element => {
-  const { setFocus, setFieldTouched, setFieldValue, values } = props;
+  const { LISTING_FIELDS, setFocus, setFieldTouched, setFieldValue, values } = props;
   const StyledErrorMessage = (props: { name: string }) => (
     <ErrorMessageWrapper>
       {props.name && <ErrorMessage {...props} />}
@@ -27,10 +27,10 @@ const CheckinDetailsForm = (props: any): JSX.Element => {
             name="from"
             value={values.checkInTime.from}
             onChange={(event: React.ChangeEvent<HTMLSelectElement>) => {
-              setFieldTouched('checkInTime', true);
-              setFieldValue('checkInTime', { ...values.checkInTime, from: event.target.value });
+              setFieldTouched(LISTING_FIELDS.checkInTime, true);
+              setFieldValue(LISTING_FIELDS.checkInTime, { ...values.checkInTime, from: event.target.value });
             }}
-            onFocus={() => setFocus('checkInTime')}>
+            onFocus={() => setFocus(LISTING_FIELDS.checkInTime)}>
             {timeOptions.map(
               time => <option key={time} value={time}>{time}</option>
             )}
@@ -49,10 +49,10 @@ const CheckinDetailsForm = (props: any): JSX.Element => {
             name="to"
             value={values.checkInTime.to}
             onChange={(event: React.ChangeEvent<HTMLSelectElement>) => {
-              setFieldTouched('checkInTime', true);
-              setFieldValue('checkInTime', { ...values.checkInTime, to: event.target.value })
+              setFieldTouched(LISTING_FIELDS.checkInTime, true);
+              setFieldValue(LISTING_FIELDS.checkInTime, { ...values.checkInTime, to: event.target.value })
             }}
-            onFocus={() => setFocus('checkInTime')}>
+            onFocus={() => setFocus(LISTING_FIELDS.checkInTime)}>
             {timeOptions.map(
               time => <option key={time} value={time}>{time}</option>
             )}
@@ -65,37 +65,37 @@ const CheckinDetailsForm = (props: any): JSX.Element => {
       </div>
 
       <div className="form-item">
-        <InputLabel htmlFor="checkOutTime" subLabel="(Before)">Check-out</InputLabel>
+        <InputLabel htmlFor={LISTING_FIELDS.checkOutTime} subLabel="(Before)">Check-out</InputLabel>
         <SelectBoxWrapper suffixSize="tiny">
           <select
-            id="checkOutTime"
-            name="checkOutTime"
+            id={LISTING_FIELDS.checkOutTime}
+            name={LISTING_FIELDS.checkOutTime}
             value={values.checkOutTime}
-            onChange={(event: React.ChangeEvent<HTMLSelectElement>) => setFieldValue('checkOutTime', event.target.value)}
-            onFocus={() => setFocus('checkOutTime')}>
+            onChange={(event: React.ChangeEvent<HTMLSelectElement>) => setFieldValue(LISTING_FIELDS.checkOutTime, event.target.value)}
+            onFocus={() => setFocus(LISTING_FIELDS.checkOutTime)}>
             {timeOptions.map(
               time => <option key={time} value={time}>{time}</option>
             )}
           </select>
-          <label htmlFor="checkOutTime">
+          <label htmlFor={LISTING_FIELDS.checkOutTime}>
             <Svg className="suffix" src="utils/carat-down" />
           </label>
         </SelectBoxWrapper>
       </div>
 
       <div className="form-item check-in-details">
-        <InputLabel htmlFor="houseRules" subLabel="(required)">House Rules</InputLabel>
+        <InputLabel htmlFor={LISTING_FIELDS.checkOutTime} subLabel="(required)">House Rules</InputLabel>
         <Textarea
           html
-          name="houseRules"
-          onBlur={() => setFieldTouched('houseRules', true)}
-          onFocus={() => setFocus('houseRules')}
+          name={LISTING_FIELDS.checkOutTime}
+          onBlur={() => setFieldTouched(LISTING_FIELDS.checkOutTime, true)}
+          onFocus={() => setFocus(LISTING_FIELDS.checkOutTime)}
           onChange={(event: TextareaEvent) => {
-            setFieldValue('houseRules', event.target.value);
+            setFieldValue(LISTING_FIELDS.checkOutTime, event.target.value);
           }}
           value={values.houseRules}
           placeholder="Let your guests know about quiet hours, pets, etc." />
-        <StyledErrorMessage name="houseRules" />
+        <StyledErrorMessage name={LISTING_FIELDS.checkOutTime} />
       </div>
     </>
   );

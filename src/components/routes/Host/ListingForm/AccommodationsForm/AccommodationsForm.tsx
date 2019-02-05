@@ -11,7 +11,7 @@ import { Field, ErrorMessage } from 'formik';
 import ErrorMessageWrapper from 'shared/ErrorMessageWrapper';
 
 const AccommodationsForm = (props: any): JSX.Element => {
-  const { setFocus, setFieldTouched, setFieldValue, values } = props;
+  const { LISTING_FIELDS, setFocus, setFieldTouched, setFieldValue, values } = props;
   const StyledErrorMessage = (props: { name: string }) => (
     <ErrorMessageWrapper>
       {props.name && <ErrorMessage {...props} />}
@@ -39,15 +39,15 @@ const AccommodationsForm = (props: any): JSX.Element => {
       </div> */}
 
       <div className="form-item">
-        <InputLabel htmlFor="sleepingArrangement" subLabel="(required)">Sleeping Arrangement</InputLabel>
+        <InputLabel htmlFor={LISTING_FIELDS.sleepingArrangement} subLabel="(required)">Sleeping Arrangement</InputLabel>
         <InputWrapper>
           <Field
-            name="sleepingArrangement"
-            onFocus={() => setFocus('sleepingArrangement')}
+            name={LISTING_FIELDS.sleepingArrangement}
+            onFocus={() => setFocus(LISTING_FIELDS.sleepingArrangement)}
             placeholder="1 King, 2 Queens"
             type="text" />
         </InputWrapper>
-        <StyledErrorMessage name="sleepingArrangement" />
+        <StyledErrorMessage name={LISTING_FIELDS.sleepingArrangement} />
       </div>
 
       <div className="form-item">
@@ -58,9 +58,9 @@ const AccommodationsForm = (props: any): JSX.Element => {
             max={50}
             min={1}
             onChange={(value: number) => {
-              setFieldValue('numberOfBedrooms', value);
-              setFieldTouched('numberOfBedrooms');
-              setFocus('numberOfBedrooms');
+              setFieldValue(LISTING_FIELDS.numberOfBedrooms, value);
+              setFieldTouched(LISTING_FIELDS.numberOfBedrooms);
+              setFocus(LISTING_FIELDS.numberOfBedrooms);
             }}
           />
         </div>
@@ -74,9 +74,9 @@ const AccommodationsForm = (props: any): JSX.Element => {
             max={50}
             min={0}
             onChange={(value: number) => {
-              setFieldValue('numberOfBathrooms', value);
-              setFieldTouched('numberOfBathrooms');
-              setFocus('numberOfBathrooms');
+              setFieldValue(LISTING_FIELDS.numberOfBathrooms, value);
+              setFieldTouched(LISTING_FIELDS.numberOfBathrooms);
+              setFocus(LISTING_FIELDS.numberOfBathrooms);
             }}
             step={0.5}
           />
@@ -88,9 +88,9 @@ const AccommodationsForm = (props: any): JSX.Element => {
           checked={isSharedBathroom(values.sharedBathroom)}
           onChange={() => {
             const value = isSharedBathroom(values.sharedBathroom) ? 'No' : 'Yes';
-            setFieldValue('sharedBathroom', value);
-            setFieldTouched('sharedBathroom', true);
-            setFocus('sharedBathroom');
+            setFieldValue(LISTING_FIELDS.sharedBathroom, value);
+            setFieldTouched(LISTING_FIELDS.sharedBathroom, true);
+            setFocus(LISTING_FIELDS.sharedBathroom);
           }}>
           <InputLabel subLabel="(click box to confirm bathroom is shared)">
             Shared Bathroom
@@ -99,17 +99,17 @@ const AccommodationsForm = (props: any): JSX.Element => {
       </div>
 
       <div className="form-item">
-        <InputLabel htmlFor="amenities" subLabel="(required, separate by comma)">Amenities</InputLabel>
+        <InputLabel htmlFor={LISTING_FIELDS.amenities} subLabel="(required, separate by comma)">Amenities</InputLabel>
         <Textarea
-          name="amenities"
-          onBlur={() => setFieldTouched('amenities', true)}
-          onFocus={() => setFocus('amenities')}
+          name={LISTING_FIELDS.amenities}
+          onBlur={() => setFieldTouched(LISTING_FIELDS.amenities, true)}
+          onFocus={() => setFocus(LISTING_FIELDS.amenities)}
           onChange={(event: TextareaEvent) => {
-            setFieldValue('amenities', stringToArray(event.target.value));
+            setFieldValue(LISTING_FIELDS.amenities, stringToArray(event.target.value));
           }}
           value={arrayToString(values.amenities)}
           placeholder="Wifi, Towels, Soap, TV, Coffee..." />
-          <StyledErrorMessage name="amenities" />
+          <StyledErrorMessage name={LISTING_FIELDS.amenities} />
       </div>
     </>
   );

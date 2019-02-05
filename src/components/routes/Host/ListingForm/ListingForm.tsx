@@ -24,6 +24,38 @@ interface FormValues {
   [name: string]: boolean | string | string[] | number | object | undefined;
 }
 
+const LISTING_FIELDS: ListingInput = [
+  'addressLine1',
+  'addressLine2',
+  'amenities',
+  'checkInTime',
+  'checkOutTime',
+  'city',
+  'country',
+  'description',
+  'homeType',
+  'houseRules',
+  'icalUrls',
+  'isActive',
+  'lat',
+  'lng',
+  'listingPicUrl',
+  'maxGuests',
+  'minimumNights',
+  'numberOfBathrooms',
+  'numberOfBedrooms',
+  'photos',
+  'postalCode',
+  'pricePerNightUsd',
+  'securityDepositUsd',
+  'sharedBathroom',
+  'sleepingArrangement',
+  'state',
+  'title',
+].reduce((obj, name) => {
+  return { ...obj, [name]: name };
+}, {});
+
 const defaultValues: FormValues = {
   addressLine1: '',
   addressLine2: '',
@@ -189,22 +221,22 @@ class ListingForm extends React.Component<Props, State> {
                     <Route
                       exact
                       path="/host/listings/:id/accommodations"
-                      render={() => <AccommodationsForm {...FormikProps} setFocus={this.handleFocus} />}
+                      render={() => <AccommodationsForm {...FormikProps} LISTING_FIELDS={LISTING_FIELDS} setFocus={this.handleFocus} />}
                     />
                     <Route
                       exact
                       path="/host/listings/:id/checkin_details"
-                      render={() => <CheckinDetailsForm {...FormikProps}  setFocus={this.handleFocus} />}
+                      render={() => <CheckinDetailsForm {...FormikProps} LISTING_FIELDS={LISTING_FIELDS} setFocus={this.handleFocus} />}
                     />
                     <Route
                       exact
                       path="/host/listings/:id/listing_info"
-                      render={() => <ListingInfoForm {...FormikProps} setFocus={this.handleFocus} />}
+                      render={() => <ListingInfoForm {...FormikProps} LISTING_FIELDS={LISTING_FIELDS} setFocus={this.handleFocus} />}
                     />
                     <Route
                       exact
                       path="/host/listings/:id/pricing_availability"
-                      render={() => <PricingAvailabilityForm {...FormikProps} setFocus={this.handleFocus} />}
+                      render={() => <PricingAvailabilityForm {...FormikProps} LISTING_FIELDS={LISTING_FIELDS} setFocus={this.handleFocus} />}
                     />
                     <Redirect exact from="/host/listings/:id/edit" to="/host/listings/:id/listing_info" />
                     <Route component={NotFound} />
