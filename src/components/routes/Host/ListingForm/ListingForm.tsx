@@ -22,7 +22,7 @@ import { AppConsumer, AppConsumerProps, ScreenType } from 'components/App.contex
 
 enum ListingField {
   ADDRESS_LINE_1 = 'addressLine1',
-  ADDRESS_LINE_3 = 'addressLine2',
+  ADDRESS_LINE_2 = 'addressLine2',
   AMENITIES = 'amenities',
   CHECK_IN_TIME = 'checkInTime',
   CHECK_OUT_TIME = 'checkOutTime',
@@ -43,7 +43,7 @@ enum ListingField {
   PHOTOS = 'photos',
   POSTAL_CODE = 'postalCode',
   PRICE_PER_NIGHT_USD = 'pricePerNightUsd',
-  SECURITY_DEPOSIT = 'securityDepositUsd',
+  SECURITY_DEPOSIT_USD = 'securityDepositUsd',
   SHARED_BATHROOM = 'sharedBathroom',
   SLEEPING_ARRANGEMENT = 'sleepingArrangement',
   STATE = 'state',
@@ -55,37 +55,36 @@ interface FormValues {
 }
 
 const defaultValues: FormValues = {
-  addressLine1: '',
-  addressLine2: '',
-  amenities: [],
-  checkInTime: {
+  [ListingField.ADDRESS_LINE_1]: '',
+  [ListingField.ADDRESS_LINE_2]: '',
+  [ListingField.AMENITIES]: [],
+  [ListingField.CHECK_IN_TIME]: {
     from: '3:00 p.m.',
     to: '10:00 p.m.',
   },
-  checkOutTime: '11:00 a.m.',
-  city: '',
-  country: 'USA',
-  description: '',
-  homeType: 'Entire Place',
-  // housing: '',
-  houseRules: '',
-  icalUrls: [],
-  isActive: false,
-  lat: 0,
-  lng: 0,
-  listingPicUrl: '',
-  maxGuests: 1,
-  minimumNights: 1,
-  numberOfBathrooms: 0,
-  numberOfBedrooms: 1,
-  photos: [],
-  postalCode: '',
-  pricePerNightUsd: 100,
-  securityDepositUsd: 50,
-  sharedBathroom: 'No',
-  sleepingArrangement: '',
-  state: '',
-  title: '',
+  [ListingField.CHECK_OUT_TIME]: '11:00 a.m.',
+  [ListingField.CITY]: '',
+  [ListingField.COUNTRY]: 'USA',
+  [ListingField.DESCRIPTION]: '',
+  [ListingField.HOME_TYPE]: 'Entire Place',
+  [ListingField.HOUSE_RULES]: '',
+  [ListingField.ICAL_URLS]: [],
+  [ListingField.IS_ACTIVE]: false,
+  [ListingField.LAT]: 0,
+  [ListingField.LNG]: 0,
+  [ListingField.LISTING_PIC_URL]: '',
+  [ListingField.MAX_GUESTS]: 1,
+  [ListingField.MINIMUM_NIGHTS]: 1,
+  [ListingField.NUMBER_OF_BATHROOMS]: 0,
+  [ListingField.NUMBER_OF_BEDROOMS]: 1,
+  [ListingField.PHOTOS]: [],
+  [ListingField.POSTAL_CODE]: '',
+  [ListingField.PRICE_PER_NIGHT_USD]: 100,
+  [ListingField.SECURITY_DEPOSIT_USD]: 50,
+  [ListingField.SHARED_BATHROOM]: 'No',
+  [ListingField.SLEEPING_ARRANGEMENT]: '',
+  [ListingField.STATE]: '',
+  [ListingField.TITLE]: '',
 };
 
 interface Props extends RouterProps {
@@ -94,12 +93,12 @@ interface Props extends RouterProps {
 }
 
 const ListingFormSchema = Yup.object().shape({
-  addressLine1: Yup.string()
+  [ListingField.ADDRESS_LINE_1]: Yup.string()
     .min(1, minStringError('Address Line 1')),
-  addressLine2: Yup.string(),
-  amenities: Yup.array()
+  [ListingField.ADDRESS_LINE_2]: Yup.string(),
+  [ListingField.AMENITIES]: Yup.array()
     .of(Yup.string()),
-  checkInTime: Yup.object()
+  [ListingField.CHECK_IN_TIME]: Yup.object()
     .shape({
       from: Yup.string().oneOf(timeOptions),
       to: Yup.string().oneOf(timeOptions),
@@ -108,49 +107,49 @@ const ListingFormSchema = Yup.object().shape({
       const { from, to } = this.parent.checkInTime;
       return from !== to;
     }),
-  checkOutTime: Yup.string().oneOf(timeOptions),
-  city: Yup.string().max(60, maxStringError('City')),
-  country: Yup.string(),
-  description: Yup.string()
+  [ListingField.CHECK_OUT_TIME]: Yup.string().oneOf(timeOptions),
+  [ListingField.CITY]: Yup.string().max(60, maxStringError('City')),
+  [ListingField.COUNTRY]: Yup.string(),
+  [ListingField.DESCRIPTION]: Yup.string()
     .min(1, minStringError('Description')),
-  homeType: Yup.string().min(1, minStringError('Home Type')),
-  houseRules: Yup.string()
+  [ListingField.HOME_TYPE]: Yup.string().min(1, minStringError('Home Type')),
+  [ListingField.HOUSE_RULES]: Yup.string()
     .min(1, minStringError('House Rules')),
-  icalUrls: Yup.array().of(Yup.string().url('${value} is not a valid ical url. ')),
-  isActive: Yup.bool(),
-  lat: Yup.number()
+  [ListingField.ICAL_URLS]: Yup.array().of(Yup.string().url('${value} is not a valid ical url. ')),
+  [ListingField.IS_ACTIVE]: Yup.bool(),
+  [ListingField.LAT]: Yup.number()
     .moreThan(-90)
     .lessThan(90),
-  lng: Yup.number()
+  [ListingField.LNG]: Yup.number()
     .moreThan(-180)
     .lessThan(180),
-  listingPicUrl: Yup.string()
+  [ListingField.LISTING_PIC_URL]: Yup.string()
     .url(),
-  maxGuests: Yup.number()
+  [ListingField.MAX_GUESTS]: Yup.number()
     .min(1, minNumberError('Max Guests'))
     .max(50, maxNumberError('Max Guests')),
-  minimumNights: Yup.number()
+  [ListingField.MINIMUM_NIGHTS]: Yup.number()
     .min(1, minNumberError('Minimum Nights')),
-  numberOfBathrooms: Yup.number()
+  [ListingField.NUMBER_OF_BATHROOMS]: Yup.number()
     .min(0, minNumberError('Number of Bathrooms')),
-  numberOfBedrooms: Yup.number()
+  [ListingField.NUMBER_OF_BEDROOMS]: Yup.number()
     .min(0, minNumberError('Number of Bedrooms')),
-  photos: Yup.array()
+  [ListingField.PHOTOS]: Yup.array()
     .of(Yup.string().url()),
-  postalCode: Yup.string()
+  [ListingField.POSTAL_CODE]: Yup.string()
     .min(1, minStringError('Postal Code'))
     .max(45, maxStringError('Postal Code')),
-  pricePerNightUsd: Yup.number()
+  [ListingField.PRICE_PER_NIGHT_USD]: Yup.number()
     .min(1, minNumberError('Price Per Night')),
-  securityDepositUsd: Yup.number()
+  [ListingField.SECURITY_DEPOSIT_USD]: Yup.number()
     .min(0, minNumberError('Security Deposit')),
-  sharedBathroom: Yup.string(),
-  sleepingArrangement: Yup.string()
+  [ListingField.SHARED_BATHROOM]: Yup.string(),
+  [ListingField.SLEEPING_ARRANGEMENT]: Yup.string()
     .min(1, minStringError('Sleeping Arrangement')),
-  state: Yup.string()
+  [ListingField.STATE]: Yup.string()
     .min(1, minStringError('State'))
     .max(60, maxStringError('State')),
-  title: Yup.string()
+  [ListingField.TITLE]: Yup.string()
     .min(5, minStringError('Title'))
     .max(50, maxStringError('Title')),
 });

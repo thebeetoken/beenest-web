@@ -19,25 +19,6 @@ const AccommodationsForm = (props: any): JSX.Element => {
   );
   return (
     <>
-      {/* <div className="form-item">
-        <InputLabel>Housing Accommodation</InputLabel>
-        <SelectBoxWrapper suffixSize="tiny">
-          <select id="homeType" name="homeType" value={props.inputForm.homeType} onChange={onInput}>
-            <option value={undefined}>
-              Choose the Accommodation
-            </option>
-            {Object.values(HomeTypeHostForm).map((value: HomeTypeHostForm) => (
-              <option value={value} key={value}>
-                {value}
-              </option>
-            ))}
-          </select>
-          <label htmlFor="homeType">
-            <Svg className="suffix" src="utils/carat-down" />
-          </label>
-        </SelectBoxWrapper>
-      </div> */}
-
       <div className="form-item">
         <InputLabel htmlFor={ListingField.SLEEPING_ARRANGEMENT} subLabel="(required)">Sleeping Arrangement</InputLabel>
         <InputWrapper>
