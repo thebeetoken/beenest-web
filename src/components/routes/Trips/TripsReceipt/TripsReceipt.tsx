@@ -216,7 +216,7 @@ const TripsReceiptPriceQuote = (props: Booking): JSX.Element => {
                   noHover
                   start="medium-large"
                   textColor="body">
-                  <span>{pricePerNight} {currency} x {(priceTotalNights / pricePerNight)} {(priceTotalNights / pricePerNight) > 1 ? 'nights' : 'night'}</span>
+                  <span>{pricePerNight} {currency} x {Math.floor((priceTotalNights / pricePerNight))} {(priceTotalNights / pricePerNight) > 1 ? 'nights' : 'night'}</span>
                 </ListItem>
                 <ListItem
                   font="small-e"
