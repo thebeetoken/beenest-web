@@ -192,11 +192,25 @@ const IcalUrls = () => (
   </div>
 );
 
+const CheckInTime = () => (
+  <div>
+    <p>Check-in (From) and (To) provides a window of time in which guests are able to check into your place. Typical times guests check in are between 11 AM - 2PM.</p>
+    <br />
+    <p>Allowing guests to check in later, for instance up until 11:30PM, is preferred.</p>
+  </div>
+);
+
+const CheckOutTime = () => (
+  <div>
+    <p>Inform guests the time in which they are required to exit the premises. Typical Check-out time is 3 PM.</p>
+  </div>
+);
+
 const HouseRules = () => (
   <div>
     <h3>House Rules</h3>
     <br />
-    <h4>Keep your guests informed.</h4>
+    <h4>Keep your guests as informed as possible and set ground rules.</h4>
     <br />
     <p>Common house rules include:</p>
     <ul>
@@ -234,8 +248,8 @@ const AsideContent: AsideContentInterface = {
   securityDepositUsd: <SecurityDepositUsd />,
   icalUrls: <IcalUrls />,
   
-  checkInTime: <></>,
-  checkOutTime: <></>,
+  checkInTime: <CheckInTime />,
+  checkOutTime: <CheckOutTime />,
   houseRules: <HouseRules />,
 }
 
