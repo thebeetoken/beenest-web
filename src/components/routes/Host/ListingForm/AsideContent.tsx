@@ -66,7 +66,7 @@ const Photos = () => (
   <div>
     <h3>Listing Photos</h3>
     <br />
-    <p>Beenest recommends listings have at least 5 high definition photos available. <strong>Pro tip:</strong> provide multiple photos with different angles of bedrooms, bathrooms, and public spaces so guests know exactly what to expect.</p>
+    <p>Beenest recommends listings have at least 5 high-definition photos available. Photos are the best way to show off your place to potential guests. <strong>Pro tip:</strong> provide multiple well-lit photos with different angles of bedrooms, bathrooms, and public spaces so guests know exactly what to expect.</p>
     <br />
     <h4><strong>Do:</strong></h4>
     <br />
@@ -76,11 +76,11 @@ const Photos = () => (
     </ListItem>
     <ListItem noHover prefixColor="correct" start="tiny">
       <Svg className="prefix" src="utils/check-circle" />
-      <span>Take photos when natural light is brightest </span>
+      <span>Take photos when natural light is brightest</span>
     </ListItem>
     <ListItem noHover prefixColor="correct" start="tiny">
       <Svg className="prefix" src="utils/check-circle" />
-      <span>Provide multiple angles</span>
+      <span>Do provide multiple angles</span>
     </ListItem>
     <br />
     <h4><strong>Don't:</strong></h4>
@@ -103,8 +103,6 @@ const Photos = () => (
 const SleepingArrangement = () => (
   <div>
     <h3>Sleeping Arrangement</h3>
-    <br />
-    <p>The number and type of beds you have determine how many guests can stay comfortably.</p>
     <br />
     <p>Sleeping Arrangement must include the quantity and size of beds.</p>
   </div>
@@ -130,7 +128,7 @@ const Amenities = () => (
   <div>
     <h3>Amenities</h3>
     <br />
-    <p>Please make sure to include Wifi capabilities for business travelers. Providing the essentials helps guests feel at home in your place. Other common amenities include: TV, Heat, Air conditioning, Iron, Hair dryer, First aid kit, Parking on premises, etc.</p>
+    <p>Please make sure to include Wifi capabilities for business travelers. Providing the essentials helps guests feel at home in your place. Other common amenities include: TV, Heat, Air Conditioning, Iron, Hair dryer, First Aid Kit, Parking on premises, etc.</p>
     <br />
     <p>There’s no maximum to the number of amenities you can include so add as many as you’d like! </p>
   </div>
@@ -138,9 +136,9 @@ const Amenities = () => (
 
 const PricePerNightUsd = () => (
   <div>
-    <p>The Price Per Night should include any associated fees typically charged to guests. This includes cleaning fees, occupancy taxes, etc.</p>
+    <p>The price per night should include any associated fees typically charged to guests. This includes cleaning fees, occupancy taxes, etc.</p>
     <br />
-    <p>Why do we do this? We’re not like everyone else. Rather than tack on a laundry list of fees to guests’ bills only at the time of booking (or even after!), Beenest aims to increase transparency in travel and provide all costs up front immediately.</p>
+    <p>Why do we do this? We’re not like everyone else. Beenest is unique in that, rather than tack on a laundry list of fees to guests’ bills only at the time of booking (or even after), Beenest aims to increase transparency in travel and provide all costs up front.</p>
   </div>
 );
 
@@ -167,11 +165,16 @@ const IcalUrls = () => (
 
 const HouseRules = () => (
   <div>
+    <h3>House Rules</h3>
+    <br />
+    <h4>Keep your guests informed.</h4>
+    <br />
     <p>Common house rules include:</p>
     <ul>
-      <li>No smoking, parties, or events</li>
-      <li>Self check-in with keypad</li>
       <li>No pets</li>
+      <li>No smoking</li>
+      <li>No parties or events</li>
+      <li>Self check-in with keypad</li>
       <li>Additional cancellation policies</li>
     </ul>
   </div>

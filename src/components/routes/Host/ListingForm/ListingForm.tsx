@@ -139,7 +139,7 @@ interface AsideHeadersInterface {
 
 const AsideHeaders: AsideHeadersInterface = {
   listing_info: <header>Let's get started! This section will inform guests about where they'll be staying and what to expect. The more descriptive, the better.</header>,
-  accommodations: <header>This section allows guests to determine if your space meets their needs. The <strong>type</strong> of bed is very important especially for larger groups.</header>,
+  accommodations: <header>This section allows guests to determine if your space meets their needs. <strong>Note:</strong> Type of bed is important, especially for larger groups. e.g. 1 Queen, 2 Double, 3 Kings.</header>,
   pricing_availability: <header>Let guests know how many people can stay at your place and how much it will cost right away.</header>,
   checkin_details: <header>You're almost finished! Let guests know the times they're able to check in and out as well as the rules they must abide by.</header>,
 }
