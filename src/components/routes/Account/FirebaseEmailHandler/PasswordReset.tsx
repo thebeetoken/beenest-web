@@ -23,7 +23,7 @@ export default class PasswordReset extends React.Component<Props> {
   readonly state: State = {
     isSubmitting: false,
     hasError: false,
-    showPasswordResetForm: true,
+    showPasswordResetForm: false,
     showPasswordResetSuccess: false,
     errorMessage: '',
     successMessage: '',
@@ -45,7 +45,6 @@ export default class PasswordReset extends React.Component<Props> {
 
   handleFormChange = (event: React.ChangeEvent<HTMLInputElement>): void => {
     const { name, value } = event.target;
-    return;
     this.setState({
       [name]: value,
     });
@@ -53,7 +52,7 @@ export default class PasswordReset extends React.Component<Props> {
 
   // @see
   // https://firebase.google.com/docs/auth/custom-email-handler
-  handleResetPassword(actionCode: string) {
+  handleResetPassword = (actionCode: string) => {
     // Verify the password reset code
     // is valid.
     auth
@@ -69,16 +68,27 @@ export default class PasswordReset extends React.Component<Props> {
       });
   }
 
-  handlePasswordResetSubmit(event: React.FormEvent) {
+  handlePasswordResetSubmit = (event: React.FormEvent) => {
     event.preventDefault();
+
+    if (!this.props.oobCode) {
+      return this.setState({
+        hasError: true,
+        errorMessage: 'Invalid or expired action code. Please reset the password again.',
+      });
+    }
+
+    if (!this.state.password) {
+      return alert('Invalid password.');
+    }
 
     // Save the new password.
     auth
       .confirmPasswordReset(this.props.oobCode, this.state.password)
       .then(() => {
-        this.setState({ showPasswordResetSuccess: true });
-      })
-      .catch(() => {
+        this.setState({ showPasswordResetForm: false, showPasswordResetSuccess: true });
+      }).catch((err:Error) => {
+        console.error(err);
         this.setState({
           hasError: true,
           errorMessage: 'Password is too weak(at least 8 characters) or the password reset link has expired.',
@@ -86,7 +96,7 @@ export default class PasswordReset extends React.Component<Props> {
       });
   }
 
-  renderError() {
+  renderError():React.ReactNode {
     return (
       <>
         <h2> Sorry, there was an error.</h2>
@@ -100,9 +110,8 @@ export default class PasswordReset extends React.Component<Props> {
     );
   }
 
-  renderPasswordResetForm() {
-    return;
-    <>
+  renderPasswordResetForm():React.ReactNode {
+    return (<>
       <h2> Reset Password</h2>
       <form onSubmit={this.handlePasswordResetSubmit}>
         <div className="input-container">
@@ -119,7 +128,7 @@ export default class PasswordReset extends React.Component<Props> {
         </div>
         <Button type="submit">Save</Button>
       </form>
-    </>;
+    </>);
   }
 
   renderPasswordResetSuccess() {
