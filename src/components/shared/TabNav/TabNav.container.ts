@@ -29,6 +29,7 @@ const TabNavContainerMobile = styled.div`
     color: ${color('upper')};
     display: flex;
     height: inherit;
+    hyphens: auto;
     justify-content: center;
     transition: all 0.2s ease-in-out;
     width: inherit;

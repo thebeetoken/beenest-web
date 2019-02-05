@@ -1,19 +1,18 @@
 import styled from 'styled-components';
 import { color } from 'styled/utils';
 
-const ListingFormContainer = styled.section`
+const ListingFormMobileContainer = styled.section`
   width: 100%;
 
-
   & > .bee-general-wrapper {
-    min-height: calc(100% - 64px);
     margin: 0 auto;
+    min-height: calc(100% - 64px);
+    width: 100%;
+    min-width: 100%;
     form {
       min-height: calc(100% - 128px);
-      min-width: 586px;
-      padding: 40px 0 96px;
-      padding-right: 56px;
-      width: 586px;
+      padding: 48px 24px 56px;
+      width: 100%;
       label {
         margin-bottom: 8px;
       }
@@ -58,7 +57,7 @@ const ListingFormContainer = styled.section`
           }
         }
         &.photo {
-          width: 488px;
+          width: 100%;
         }
         &.row {
           display: flex;
@@ -96,4 +95,27 @@ const ListingFormContainer = styled.section`
   }
 `;
 
-export default ListingFormContainer;
+const ListingFormTabletContainer = styled(ListingFormMobileContainer)`
+  @media (min-width: 768px) {
+    & > .bee-general-wrapper {
+      form {
+        padding: 40px 56px 96px 24px;
+        width: 586px;
+      }
+    }
+  }
+`;
+
+const ListingFormDesktopContainer = styled(ListingFormTabletContainer)`
+  @media (min-width: 1025px) {
+    & > .bee-general-wrapper {
+      width: 976px;
+      min-width: 976px;
+      form {
+        padding: 40px 56px 96px 0;
+      }
+    }
+  }
+`;
+
+export default ListingFormDesktopContainer;
