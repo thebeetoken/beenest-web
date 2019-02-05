@@ -57,31 +57,35 @@ const Photos = () => (
     <h3>Listing Photos</h3>
     <p>Beenest recommends listings have at least 5 high-definition photos available. Photos are the best way to show off your place to potential guests. <strong>Pro tip:</strong> provide multiple well-lit photos with different angles of bedrooms, bathrooms, and public spaces so guests know exactly what to expect.</p>
     <h4><strong>Do:</strong></h4>
-    <ListItem noHover prefixColor="correct" start="tiny">
-      <Svg className="prefix" src="utils/check-circle" />
-      <span>Take horizontal photos</span>
-    </ListItem>
-    <ListItem noHover prefixColor="correct" start="tiny">
-      <Svg className="prefix" src="utils/check-circle" />
-      <span>Take photos when natural light is brightest</span>
-    </ListItem>
-    <ListItem noHover prefixColor="correct" start="tiny">
-      <Svg className="prefix" src="utils/check-circle" />
-      <span>Do provide multiple angles</span>
-    </ListItem>
+    <ul>
+      <ListItem noHover prefixColor="correct" start="tiny">
+        <Svg className="prefix" src="utils/check-circle" />
+        <span>Take horizontal photos</span>
+      </ListItem>
+      <ListItem noHover prefixColor="correct" start="tiny">
+        <Svg className="prefix" src="utils/check-circle" />
+        <span>Take photos when natural light is brightest</span>
+      </ListItem>
+      <ListItem noHover prefixColor="correct" start="tiny">
+        <Svg className="prefix" src="utils/check-circle" />
+        <span>Do provide multiple angles</span>
+      </ListItem>
+    </ul>
     <h4><strong>Don't:</strong></h4>
-    <ListItem noHover prefixColor="incorrect" start="tiny">
-      <Svg className="prefix" src="utils/x-circle" />
-      <span>Take vertical photos</span>
-    </ListItem>
-    <ListItem noHover prefixColor="incorrect" start="tiny">
-      <Svg className="prefix" src="utils/x-circle" />
-      <span>Take photos when there is no natural light</span>
-    </ListItem>
-    <ListItem noHover prefixColor="incorrect" start="tiny">
-      <Svg className="prefix" src="utils/x-circle" />
-      <span>Upload blurry photos</span>
-    </ListItem>
+    <ul>
+      <ListItem noHover prefixColor="incorrect" start="tiny">
+        <Svg className="prefix" src="utils/x-circle" />
+        <span>Take vertical photos</span>
+      </ListItem>
+      <ListItem noHover prefixColor="incorrect" start="tiny">
+        <Svg className="prefix" src="utils/x-circle" />
+        <span>Take photos when there is no natural light</span>
+      </ListItem>
+      <ListItem noHover prefixColor="incorrect" start="tiny">
+        <Svg className="prefix" src="utils/x-circle" />
+        <span>Upload blurry photos</span>
+      </ListItem>
+    </ul>
   </div>
 );
 

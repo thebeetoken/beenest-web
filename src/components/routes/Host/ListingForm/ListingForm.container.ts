@@ -120,7 +120,7 @@ const ListingFormMobileContainer = styled.section`
           }
           h4 {
             ${typography('emp', 5)}
-            margin-bottom: 4px;
+            margin-bottom: 8px;
           }
           p {
             ${typography('read', 2)}
@@ -132,6 +132,10 @@ const ListingFormMobileContainer = styled.section`
             }
           }
           ul {
+            margin-top: 0;
+            margin-bottom: 24px;
+            padding-left: 12px;
+            list-style-position: inside;
             li {
               list-style-type: disc;
             }
