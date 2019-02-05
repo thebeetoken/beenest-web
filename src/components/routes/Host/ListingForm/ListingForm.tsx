@@ -48,7 +48,7 @@ enum ListingField {
   SLEEPING_ARRANGEMENT = 'sleepingArrangement',
   STATE = 'state',
   TITLE = 'title',
-};
+}
 
 interface FormValues {
   [name: string]: boolean | string | string[] | number | object | undefined;
@@ -93,11 +93,9 @@ interface Props extends RouterProps {
 }
 
 const ListingFormSchema = Yup.object().shape({
-  [ListingField.ADDRESS_LINE_1]: Yup.string()
-    .min(1, minStringError('Address Line 1')),
+  [ListingField.ADDRESS_LINE_1]: Yup.string().min(1, minStringError('Address Line 1')),
   [ListingField.ADDRESS_LINE_2]: Yup.string(),
-  [ListingField.AMENITIES]: Yup.array()
-    .of(Yup.string()),
+  [ListingField.AMENITIES]: Yup.array().of(Yup.string()),
   [ListingField.CHECK_IN_TIME]: Yup.object()
     .shape({
       from: Yup.string().oneOf(timeOptions),
@@ -110,11 +108,9 @@ const ListingFormSchema = Yup.object().shape({
   [ListingField.CHECK_OUT_TIME]: Yup.string().oneOf(timeOptions),
   [ListingField.CITY]: Yup.string().max(60, maxStringError('City')),
   [ListingField.COUNTRY]: Yup.string(),
-  [ListingField.DESCRIPTION]: Yup.string()
-    .min(1, minStringError('Description')),
+  [ListingField.DESCRIPTION]: Yup.string().min(1, minStringError('Description')),
   [ListingField.HOME_TYPE]: Yup.string().min(1, minStringError('Home Type')),
-  [ListingField.HOUSE_RULES]: Yup.string()
-    .min(1, minStringError('House Rules')),
+  [ListingField.HOUSE_RULES]: Yup.string().min(1, minStringError('House Rules')),
   [ListingField.ICAL_URLS]: Yup.array().of(Yup.string().url('${value} is not a valid ical url. ')),
   [ListingField.IS_ACTIVE]: Yup.bool(),
   [ListingField.LAT]: Yup.number()
@@ -123,29 +119,21 @@ const ListingFormSchema = Yup.object().shape({
   [ListingField.LNG]: Yup.number()
     .moreThan(-180)
     .lessThan(180),
-  [ListingField.LISTING_PIC_URL]: Yup.string()
-    .url(),
+  [ListingField.LISTING_PIC_URL]: Yup.string().url(),
   [ListingField.MAX_GUESTS]: Yup.number()
     .min(1, minNumberError('Max Guests'))
     .max(50, maxNumberError('Max Guests')),
-  [ListingField.MINIMUM_NIGHTS]: Yup.number()
-    .min(1, minNumberError('Minimum Nights')),
-  [ListingField.NUMBER_OF_BATHROOMS]: Yup.number()
-    .min(0, minNumberError('Number of Bathrooms')),
-  [ListingField.NUMBER_OF_BEDROOMS]: Yup.number()
-    .min(0, minNumberError('Number of Bedrooms')),
-  [ListingField.PHOTOS]: Yup.array()
-    .of(Yup.string().url()),
+  [ListingField.MINIMUM_NIGHTS]: Yup.number().min(1, minNumberError('Minimum Nights')),
+  [ListingField.NUMBER_OF_BATHROOMS]: Yup.number().min(0, minNumberError('Number of Bathrooms')),
+  [ListingField.NUMBER_OF_BEDROOMS]: Yup.number().min(0, minNumberError('Number of Bedrooms')),
+  [ListingField.PHOTOS]: Yup.array().of(Yup.string().url()),
   [ListingField.POSTAL_CODE]: Yup.string()
     .min(1, minStringError('Postal Code'))
     .max(45, maxStringError('Postal Code')),
-  [ListingField.PRICE_PER_NIGHT_USD]: Yup.number()
-    .min(1, minNumberError('Price Per Night')),
-  [ListingField.SECURITY_DEPOSIT_USD]: Yup.number()
-    .min(0, minNumberError('Security Deposit')),
+  [ListingField.PRICE_PER_NIGHT_USD]: Yup.number().min(1, minNumberError('Price Per Night')),
+  [ListingField.SECURITY_DEPOSIT_USD]: Yup.number().min(0, minNumberError('Security Deposit')),
   [ListingField.SHARED_BATHROOM]: Yup.string(),
-  [ListingField.SLEEPING_ARRANGEMENT]: Yup.string()
-    .min(1, minStringError('Sleeping Arrangement')),
+  [ListingField.SLEEPING_ARRANGEMENT]: Yup.string().min(1, minStringError('Sleeping Arrangement')),
   [ListingField.STATE]: Yup.string()
     .min(1, minStringError('State'))
     .max(60, maxStringError('State')),
@@ -168,11 +156,28 @@ interface AsideHeadersInterface {
 }
 
 const AsideHeaders: AsideHeadersInterface = {
-  listing_info: <header>Let's get started! This section will inform guests about where they'll be staying and what to expect. The more descriptive, the better.</header>,
-  accommodations: <header>This section allows guests to determine if your space meets their needs. <strong>Note:</strong> Type of bed is important, especially for larger groups. e.g. 1 Queen, 2 Double, 3 Kings.</header>,
-  pricing_availability: <header>Let guests know how many people can stay at your place and how much it will cost right away.</header>,
-  checkin_details: <header>You're almost finished! Let guests know the times they're able to check in and out as well as the rules they must abide by.</header>,
-}
+  listing_info: (
+    <header>
+      Let's get started! This section will inform guests about where they'll be staying and what to expect. The more
+      descriptive, the better.
+    </header>
+  ),
+  accommodations: (
+    <header>
+      This section allows guests to determine if your space meets their needs. <strong>Note:</strong> Type of bed is
+      important, especially for larger groups. e.g. 1 Queen, 2 Double, 3 Kings.
+    </header>
+  ),
+  pricing_availability: (
+    <header>Let guests know how many people can stay at your place and how much it will cost right away.</header>
+  ),
+  checkin_details: (
+    <header>
+      You're almost finished! Let guests know the times they're able to check in and out as well as the rules they must
+      abide by.
+    </header>
+  ),
+};
 
 interface State {
   nextCrumb: string;
@@ -201,7 +206,8 @@ class ListingForm extends React.Component<Props, State> {
           initialValues={populateListingForm(defaultValues, props.listing)}
           isInitialValid
           validationSchema={ListingFormSchema}
-          onSubmit={this.handleSubmit}>
+          onSubmit={this.handleSubmit}
+        >
           {(FormikProps: FormikProps<ListingInput>) => (
             <>
               <ListingFormNav
@@ -218,22 +224,34 @@ class ListingForm extends React.Component<Props, State> {
                     <Route
                       exact
                       path="/host/listings/:id/accommodations"
-                      render={() => <AccommodationsForm {...FormikProps} ListingField={ListingField} setFocus={this.handleFocus} />}
+                      render={() => (
+                        <AccommodationsForm {...FormikProps} ListingField={ListingField} setFocus={this.handleFocus} />
+                      )}
                     />
                     <Route
                       exact
                       path="/host/listings/:id/checkin_details"
-                      render={() => <CheckinDetailsForm {...FormikProps} ListingField={ListingField} setFocus={this.handleFocus} />}
+                      render={() => (
+                        <CheckinDetailsForm {...FormikProps} ListingField={ListingField} setFocus={this.handleFocus} />
+                      )}
                     />
                     <Route
                       exact
                       path="/host/listings/:id/listing_info"
-                      render={() => <ListingInfoForm {...FormikProps} ListingField={ListingField} setFocus={this.handleFocus} />}
+                      render={() => (
+                        <ListingInfoForm {...FormikProps} ListingField={ListingField} setFocus={this.handleFocus} />
+                      )}
                     />
                     <Route
                       exact
                       path="/host/listings/:id/pricing_availability"
-                      render={() => <PricingAvailabilityForm {...FormikProps} ListingField={ListingField} setFocus={this.handleFocus} />}
+                      render={() => (
+                        <PricingAvailabilityForm
+                          {...FormikProps}
+                          ListingField={ListingField}
+                          setFocus={this.handleFocus}
+                        />
+                      )}
                     />
                     <Redirect exact from="/host/listings/:id/edit" to="/host/listings/:id/listing_info" />
                     <Route component={NotFound} />
@@ -242,7 +260,11 @@ class ListingForm extends React.Component<Props, State> {
                   <Button
                     onClick={() => {
                       if (!FormikProps.isValid) {
-                        alert(`Cannot save changes due to errors:\n\n${Object.values(FormikProps.errors).join('\n').toString()}`);
+                        alert(
+                          `Cannot save changes due to errors:\n\n${Object.values(FormikProps.errors)
+                            .join('\n')
+                            .toString()}`
+                        );
                       }
                       FormikProps.submitForm();
                     }}
@@ -261,7 +283,8 @@ class ListingForm extends React.Component<Props, State> {
                           {AsideContent[this.state.focus]}
                         </div>
                       </aside>
-                  )}
+                    )
+                  }
                 </AppConsumer>
               </GeneralWrapper>
             </>
@@ -273,11 +296,11 @@ class ListingForm extends React.Component<Props, State> {
 
   handleFocus = (focus: string) => this.setState({ focus });
   setNextCrumb = (nextCrumb: string) => {
-    this.setState({ 
+    this.setState({
       nextCrumb,
       focus: defaultFocus[nextCrumb],
     });
-  }
+  };
 
   handleSubmit = (values: ListingInput, actions: FormikActions<FormValues>) => {
     const { props } = this;
@@ -289,12 +312,17 @@ class ListingForm extends React.Component<Props, State> {
         props.history.push(`/host/listings/${this.state.nextCrumb}`);
       })
       .catch((error: ApolloError) => {
-        const formattedError = error.graphQLErrors ? error.graphQLErrors.map(e => e.message).join('\r\n').toString() : error;
+        const formattedError = error.graphQLErrors
+          ? error.graphQLErrors
+              .map(e => e.message)
+              .join('\r\n')
+              .toString()
+          : error;
         alert(`${formattedError}\r\n\r\nIf this continues to occur, please contact us at support@beenest.com`);
         console.error(error);
         return actions.setSubmitting(false);
       });
-  }
+  };
 }
 
 export default compose(
