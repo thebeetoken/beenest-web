@@ -20,41 +20,39 @@ import AsideContent from './AsideContent';
 import { ApolloError } from 'apollo-client';
 import { AppConsumer, AppConsumerProps, ScreenType } from 'components/App.context';
 
+enum ListingField {
+  ADDRESS_LINE_1 = 'addressLine1',
+  ADDRESS_LINE_3 = 'addressLine2',
+  AMENITIES = 'amenities',
+  CHECK_IN_TIME = 'checkInTime',
+  CHECK_OUT_TIME = 'checkOutTime',
+  CITY = 'city',
+  COUNTRY = 'country',
+  DESCRIPTION = 'description',
+  HOME_TYPE = 'homeType',
+  HOUSE_RULES = 'houseRules',
+  ICAL_URLS = 'icalUrls',
+  IS_ACTIVE = 'isActive',
+  LAT = 'lat',
+  LNG = 'lng',
+  LISTING_PIC_URL = 'listingPicUrl',
+  MAX_GUESTS = 'maxGuests',
+  MINIMUM_NIGHTS = 'minimumNights',
+  NUMBER_OF_BATHROOMS = 'numberOfBathrooms',
+  NUMBER_OF_BEDROOMS = 'numberOfBedrooms',
+  PHOTOS = 'photos',
+  POSTAL_CODE = 'postalCode',
+  PRICE_PER_NIGHT_USD = 'pricePerNightUsd',
+  SECURITY_DEPOSIT = 'securityDepositUsd',
+  SHARED_BATHROOM = 'sharedBathroom',
+  SLEEPING_ARRANGEMENT = 'sleepingArrangement',
+  STATE = 'state',
+  TITLE = 'title',
+};
+
 interface FormValues {
   [name: string]: boolean | string | string[] | number | object | undefined;
 }
-
-const LISTING_FIELDS: ListingInput = [
-  'addressLine1',
-  'addressLine2',
-  'amenities',
-  'checkInTime',
-  'checkOutTime',
-  'city',
-  'country',
-  'description',
-  'homeType',
-  'houseRules',
-  'icalUrls',
-  'isActive',
-  'lat',
-  'lng',
-  'listingPicUrl',
-  'maxGuests',
-  'minimumNights',
-  'numberOfBathrooms',
-  'numberOfBedrooms',
-  'photos',
-  'postalCode',
-  'pricePerNightUsd',
-  'securityDepositUsd',
-  'sharedBathroom',
-  'sleepingArrangement',
-  'state',
-  'title',
-].reduce((obj, name) => {
-  return { ...obj, [name]: name };
-}, {});
 
 const defaultValues: FormValues = {
   addressLine1: '',
@@ -221,22 +219,22 @@ class ListingForm extends React.Component<Props, State> {
                     <Route
                       exact
                       path="/host/listings/:id/accommodations"
-                      render={() => <AccommodationsForm {...FormikProps} LISTING_FIELDS={LISTING_FIELDS} setFocus={this.handleFocus} />}
+                      render={() => <AccommodationsForm {...FormikProps} ListingField={ListingField} setFocus={this.handleFocus} />}
                     />
                     <Route
                       exact
                       path="/host/listings/:id/checkin_details"
-                      render={() => <CheckinDetailsForm {...FormikProps} LISTING_FIELDS={LISTING_FIELDS} setFocus={this.handleFocus} />}
+                      render={() => <CheckinDetailsForm {...FormikProps} ListingField={ListingField} setFocus={this.handleFocus} />}
                     />
                     <Route
                       exact
                       path="/host/listings/:id/listing_info"
-                      render={() => <ListingInfoForm {...FormikProps} LISTING_FIELDS={LISTING_FIELDS} setFocus={this.handleFocus} />}
+                      render={() => <ListingInfoForm {...FormikProps} ListingField={ListingField} setFocus={this.handleFocus} />}
                     />
                     <Route
                       exact
                       path="/host/listings/:id/pricing_availability"
-                      render={() => <PricingAvailabilityForm {...FormikProps} LISTING_FIELDS={LISTING_FIELDS} setFocus={this.handleFocus} />}
+                      render={() => <PricingAvailabilityForm {...FormikProps} ListingField={ListingField} setFocus={this.handleFocus} />}
                     />
                     <Redirect exact from="/host/listings/:id/edit" to="/host/listings/:id/listing_info" />
                     <Route component={NotFound} />

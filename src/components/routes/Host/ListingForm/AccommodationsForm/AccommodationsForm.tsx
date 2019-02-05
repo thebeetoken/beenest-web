@@ -11,7 +11,7 @@ import { Field, ErrorMessage } from 'formik';
 import ErrorMessageWrapper from 'shared/ErrorMessageWrapper';
 
 const AccommodationsForm = (props: any): JSX.Element => {
-  const { LISTING_FIELDS, setFocus, setFieldTouched, setFieldValue, values } = props;
+  const { ListingField, setFocus, setFieldTouched, setFieldValue, values } = props;
   const StyledErrorMessage = (props: { name: string }) => (
     <ErrorMessageWrapper>
       {props.name && <ErrorMessage {...props} />}
@@ -39,15 +39,15 @@ const AccommodationsForm = (props: any): JSX.Element => {
       </div> */}
 
       <div className="form-item">
-        <InputLabel htmlFor={LISTING_FIELDS.sleepingArrangement} subLabel="(required)">Sleeping Arrangement</InputLabel>
+        <InputLabel htmlFor={ListingField.SLEEPING_ARRANGEMENT} subLabel="(required)">Sleeping Arrangement</InputLabel>
         <InputWrapper>
           <Field
-            name={LISTING_FIELDS.sleepingArrangement}
-            onFocus={() => setFocus(LISTING_FIELDS.sleepingArrangement)}
+            name={ListingField.SLEEPING_ARRANGEMENT}
+            onFocus={() => setFocus(ListingField.SLEEPING_ARRANGEMENT)}
             placeholder="1 King, 2 Queens"
             type="text" />
         </InputWrapper>
-        <StyledErrorMessage name={LISTING_FIELDS.sleepingArrangement} />
+        <StyledErrorMessage name={ListingField.SLEEPING_ARRANGEMENT} />
       </div>
 
       <div className="form-item">
@@ -58,9 +58,9 @@ const AccommodationsForm = (props: any): JSX.Element => {
             max={50}
             min={1}
             onChange={(value: number) => {
-              setFieldValue(LISTING_FIELDS.numberOfBedrooms, value);
-              setFieldTouched(LISTING_FIELDS.numberOfBedrooms);
-              setFocus(LISTING_FIELDS.numberOfBedrooms);
+              setFieldValue(ListingField.NUMBER_OF_BEDROOMS, value);
+              setFieldTouched(ListingField.NUMBER_OF_BEDROOMS);
+              setFocus(ListingField.NUMBER_OF_BEDROOMS);
             }}
           />
         </div>
@@ -74,9 +74,9 @@ const AccommodationsForm = (props: any): JSX.Element => {
             max={50}
             min={0}
             onChange={(value: number) => {
-              setFieldValue(LISTING_FIELDS.numberOfBathrooms, value);
-              setFieldTouched(LISTING_FIELDS.numberOfBathrooms);
-              setFocus(LISTING_FIELDS.numberOfBathrooms);
+              setFieldValue(ListingField.NUMBER_OF_BATHROOMS, value);
+              setFieldTouched(ListingField.NUMBER_OF_BATHROOMS);
+              setFocus(ListingField.NUMBER_OF_BATHROOMS);
             }}
             step={0.5}
           />
@@ -88,9 +88,9 @@ const AccommodationsForm = (props: any): JSX.Element => {
           checked={isSharedBathroom(values.sharedBathroom)}
           onChange={() => {
             const value = isSharedBathroom(values.sharedBathroom) ? 'No' : 'Yes';
-            setFieldValue(LISTING_FIELDS.sharedBathroom, value);
-            setFieldTouched(LISTING_FIELDS.sharedBathroom, true);
-            setFocus(LISTING_FIELDS.sharedBathroom);
+            setFieldValue(ListingField.SHARED_BATHROOM, value);
+            setFieldTouched(ListingField.SHARED_BATHROOM, true);
+            setFocus(ListingField.SHARED_BATHROOM);
           }}>
           <InputLabel>
             Shared Bathroom
@@ -99,17 +99,17 @@ const AccommodationsForm = (props: any): JSX.Element => {
       </div>
 
       <div className="form-item">
-        <InputLabel htmlFor={LISTING_FIELDS.amenities} subLabel="(required, separate by comma)">Amenities</InputLabel>
+        <InputLabel htmlFor={ListingField.AMENITIES} subLabel="(required, separate by comma)">Amenities</InputLabel>
         <Textarea
-          name={LISTING_FIELDS.amenities}
-          onBlur={() => setFieldTouched(LISTING_FIELDS.amenities, true)}
-          onFocus={() => setFocus(LISTING_FIELDS.amenities)}
+          name={ListingField.AMENITIES}
+          onBlur={() => setFieldTouched(ListingField.AMENITIES, true)}
+          onFocus={() => setFocus(ListingField.AMENITIES)}
           onChange={(event: TextareaEvent) => {
-            setFieldValue(LISTING_FIELDS.amenities, stringToArray(event.target.value));
+            setFieldValue(ListingField.AMENITIES, stringToArray(event.target.value));
           }}
           value={arrayToString(values.amenities)}
           placeholder="Wifi, Towels, Soap, TV, Coffee..." />
-          <StyledErrorMessage name={LISTING_FIELDS.amenities} />
+          <StyledErrorMessage name={ListingField.AMENITIES} />
       </div>
     </>
   );

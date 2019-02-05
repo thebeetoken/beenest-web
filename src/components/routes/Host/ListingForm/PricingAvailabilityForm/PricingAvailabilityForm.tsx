@@ -10,7 +10,7 @@ import ErrorMessageWrapper from 'shared/ErrorMessageWrapper/ErrorMessageWrapper'
 import NumberInput from 'shared/NumberInput';
 
 const PricingAvailabilityForm = (props: any): JSX.Element => {
-  const { LISTING_FIELDS, setFocus, setFieldTouched, setFieldValue, values } = props;
+  const { ListingField, setFocus, setFieldTouched, setFieldValue, values } = props;
   const StyledErrorMessage = (props: { name: string }) => (
     <ErrorMessageWrapper>
       {props.name && <ErrorMessage {...props} />}
@@ -20,76 +20,76 @@ const PricingAvailabilityForm = (props: any): JSX.Element => {
     <>
       <div className="form-item">
         <div className="input-container max-guests">
-          <InputLabel htmlFor={LISTING_FIELDS.maxGuests}>Max Guests</InputLabel>
+          <InputLabel htmlFor={ListingField.MAX_GUESTS}>Max Guests</InputLabel>
           <NumberInput
             value={values.maxGuests}
             max={16}
             min={1}
             onChange={(value: number) => {
-              setFieldValue(LISTING_FIELDS.maxGuests, value);
-              setFieldTouched(LISTING_FIELDS.maxGuests);
-              setFocus(LISTING_FIELDS.maxGuests);
+              setFieldValue(ListingField.MAX_GUESTS, value);
+              setFieldTouched(ListingField.MAX_GUESTS);
+              setFocus(ListingField.MAX_GUESTS);
             }}
           />
         </div>
-        <StyledErrorMessage name={LISTING_FIELDS.maxGuests} />
+        <StyledErrorMessage name={ListingField.MAX_GUESTS} />
       </div>
 
       <div className="form-item short">
         <div className="input-container">
-          <InputLabel htmlFor={LISTING_FIELDS.minimumNights} subLabel="(required)">Min Nights</InputLabel>
+          <InputLabel htmlFor={ListingField.MINIMUM_NIGHTS} subLabel="(required)">Min Nights</InputLabel>
           <InputWrapper>
             <Field
-              onFocus={() => setFocus(LISTING_FIELDS.minimumNights)}
-              name={LISTING_FIELDS.minimumNights}
+              onFocus={() => setFocus(ListingField.MINIMUM_NIGHTS)}
+              name={ListingField.MINIMUM_NIGHTS}
               placeholder="# of nights"
               type="number" />
           </InputWrapper>
-          <StyledErrorMessage name={LISTING_FIELDS.minimumNights} />
+          <StyledErrorMessage name={ListingField.MINIMUM_NIGHTS} />
         </div>
       </div>
 
       <div className="form-item short">
         <div className="input-container">
-          <InputLabel htmlFor={LISTING_FIELDS.pricePerNightUsd} subLabel="(required)">Price Per Night USD</InputLabel>
+          <InputLabel htmlFor={ListingField.PRICE_PER_NIGHT_USD} subLabel="(required)">Price Per Night USD</InputLabel>
           <InputWrapper>
             <Field
-              onFocus={() => setFocus(LISTING_FIELDS.pricePerNightUsd)}
-              name={LISTING_FIELDS.pricePerNightUsd}
+              onFocus={() => setFocus(ListingField.PRICE_PER_NIGHT_USD)}
+              name={ListingField.PRICE_PER_NIGHT_USD}
               placeholder="$"
               type="number" />
           </InputWrapper>
-          <StyledErrorMessage name={LISTING_FIELDS.pricePerNightUsd} />
+          <StyledErrorMessage name={ListingField.PRICE_PER_NIGHT_USD} />
         </div>
       </div>
       
       <div className="form-item short">
         <div className="input-container">
-          <InputLabel htmlFor={LISTING_FIELDS.securityDepositUsd} subLabel="(required)">Security Deposit USD</InputLabel>
+          <InputLabel htmlFor={ListingField.SECURITY_DEPOSIT_USD} subLabel="(required)">Security Deposit USD</InputLabel>
           <InputWrapper>
             <Field
-              onFocus={() => setFocus(LISTING_FIELDS.securityDepositUsd)}
-              name={LISTING_FIELDS.securityDepositUsd}
+              onFocus={() => setFocus(ListingField.SECURITY_DEPOSIT_USD)}
+              name={ListingField.SECURITY_DEPOSIT_USD}
               placeholder="$"
               type="number" />
           </InputWrapper>
-          <StyledErrorMessage name={LISTING_FIELDS.securityDepositUsd} />
+          <StyledErrorMessage name={ListingField.SECURITY_DEPOSIT_USD} />
         </div>
       </div>
 
       <div className="form-item">
-        <InputLabel htmlFor={LISTING_FIELDS.icalUrls} subLabel="(separate by comma)">iCal URLs:</InputLabel>
+        <InputLabel htmlFor={ListingField.ICAL_URLS} subLabel="(separate by comma)">iCal URLs:</InputLabel>
         <Textarea
           textareaHeight="80px"
-          name={LISTING_FIELDS.icalUrls}
-          onBlur={() => setFieldTouched(LISTING_FIELDS.icalURls, true)}
-          onFocus={() => setFocus(LISTING_FIELDS.icalURls)}
+          name={ListingField.ICAL_URLS}
+          onBlur={() => setFieldTouched(ListingField.ICAL_URLS, true)}
+          onFocus={() => setFocus(ListingField.ICAL_URLS)}
           onChange={(event: TextareaEvent) => {
-            setFieldValue(LISTING_FIELDS.icalURls, stringToArray(event.target.value));
+            setFieldValue(ListingField.ICAL_URLS, stringToArray(event.target.value));
           }}
           value={arrayToString(values.icalUrls)}
           placeholder="https://www.airbnb.com/calendar/ical/XXX" />
-        <StyledErrorMessage name={LISTING_FIELDS.icalUrls} />
+        <StyledErrorMessage name={ListingField.ICAL_URLS} />
       </div>
     </>
   );

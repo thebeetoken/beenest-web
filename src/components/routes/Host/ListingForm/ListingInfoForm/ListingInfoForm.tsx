@@ -17,7 +17,7 @@ import ErrorMessageWrapper from 'components/shared/ErrorMessageWrapper';
 const LAT_LNG_EPSILON = Math.pow(10, -6); // decimal places stored in db
 
 const ListingInfoForm = (props: any): JSX.Element => {
-  const { errors, LISTING_FIELDS, setFieldValue, setFieldTouched, setFocus, values } = props;
+  const { errors, ListingField, setFieldValue, setFieldTouched, setFocus, values } = props;
   const { addressLine1, city, postalCode, state } = values;
   const address = formatAddress(addressLine1, city, state, postalCode);
   const StyledErrorMessage = (props: { name: string }) => (
@@ -31,12 +31,12 @@ const ListingInfoForm = (props: any): JSX.Element => {
         <InputLabel>Type of Home</InputLabel>
         <SelectBoxWrapper suffixSize="tiny">
           <select
-            id={LISTING_FIELDS.homeType}
-            name={LISTING_FIELDS.homeType}
-            onBlur={() => setFieldTouched(LISTING_FIELDS.homeType, true)}
-            onFocus={() => setFocus(LISTING_FIELDS.homeType)}
+            id={ListingField.HOME_TYPE}
+            name={ListingField.HOME_TYPE}
+            onBlur={() => setFieldTouched(ListingField.HOME_TYPE, true)}
+            onFocus={() => setFocus(ListingField.HOME_TYPE)}
             onChange={(event: React.ChangeEvent<HTMLSelectElement>) => {
-              setFieldValue(LISTING_FIELDS.homeType, event.target.value);
+              setFieldValue(ListingField.HOME_TYPE, event.target.value);
             }}
             value={values.homeType}>
             {Object.values(HomeTypeHostForm).map((value: HomeTypeHostForm) => (
@@ -45,76 +45,76 @@ const ListingInfoForm = (props: any): JSX.Element => {
               </option>
             ))}
           </select>
-          <label htmlFor={LISTING_FIELDS.homeType}>
+          <label htmlFor={ListingField.HOME_TYPE}>
             <Svg className="suffix" src="utils/carat-down" />
           </label>
         </SelectBoxWrapper>
-        <StyledErrorMessage name={LISTING_FIELDS.homeType} />
+        <StyledErrorMessage name={ListingField.HOME_TYPE} />
       </div>
 
       <div className="form-item">
-        <InputLabel htmlFor={LISTING_FIELDS.title} subLabel="(required)">
+        <InputLabel htmlFor={ListingField.TITLE} subLabel="(required)">
           Listing Name
         </InputLabel>
         <InputWrapper>
           <Field
-            onFocus={() => setFocus(LISTING_FIELDS.title)}
-            name={LISTING_FIELDS.title}
-            placeholder={LISTING_FIELDS.title}
+            onFocus={() => setFocus(ListingField.TITLE)}
+            name={ListingField.TITLE}
+            placeholder={ListingField.TITLE}
             type="text" />
         </InputWrapper>
-        <StyledErrorMessage name={LISTING_FIELDS.title} />
+        <StyledErrorMessage name={ListingField.TITLE} />
       </div>
 
       <div className="form-item">
-        <InputLabel htmlFor={LISTING_FIELDS.description} subLabel="(required)">Listing Description</InputLabel>
+        <InputLabel htmlFor={ListingField.DESCRIPTION} subLabel="(required)">Listing Description</InputLabel>
         <Textarea
           html
-          name={LISTING_FIELDS.description}
-          onBlur={() => setFieldTouched(LISTING_FIELDS.description, true)}
+          name={ListingField.DESCRIPTION}
+          onBlur={() => setFieldTouched(ListingField.DESCRIPTION, true)}
           onChange={(event: TextareaEvent) => {
-            setFieldValue(LISTING_FIELDS.description, event.target.value);
+            setFieldValue(ListingField.DESCRIPTION, event.target.value);
           }}
-          onFocus={() => setFocus(LISTING_FIELDS.description)}
+          onFocus={() => setFocus(ListingField.DESCRIPTION)}
           value={values.description}
           placeholder="Tell us about your home"
         />
-        <StyledErrorMessage name={LISTING_FIELDS.description} />
+        <StyledErrorMessage name={ListingField.DESCRIPTION} />
       </div>
 
       <div className="form-item address">
-        <InputLabel htmlFor={LISTING_FIELDS.addressLine1} subLabel="(required)">Full Address</InputLabel>
+        <InputLabel htmlFor={ListingField.ADDRESS_LINE_1} subLabel="(required)">Full Address</InputLabel>
         {[
           {
-            name: LISTING_FIELDS.addressLine1,
-            onFocus: () => setFocus(LISTING_FIELDS.addressLine1),
+            name: ListingField.ADDRESS_LINE_1,
+            onFocus: () => setFocus(ListingField.ADDRESS_LINE_1),
             placeholder: 'Address Line 1',
             type: 'text',
           },
           {
-            name: LISTING_FIELDS.addressLine2,
-            onFocus: () => setFocus(LISTING_FIELDS.addressLine2),
+            name: ListingField.ADDRESS_LINE_2,
+            onFocus: () => setFocus(ListingField.ADDRESS_LINE_2),
             placeholder: 'Address Line 2',
             type: 'text',
           },
           {
             className: 'city',
-            name: LISTING_FIELDS.city,
-            onFocus: () => setFocus(LISTING_FIELDS.city),
+            name: ListingField.CITY,
+            onFocus: () => setFocus(ListingField.CITY),
             placeholder: 'City',
             type: 'text',
           },
           {
             className: 'state',
-            name: LISTING_FIELDS.state,
-            onFocus: () => setFocus(LISTING_FIELDS.state),
-            placeholder: LISTING_FIELDS.state,
+            name: ListingField.STATE,
+            onFocus: () => setFocus(ListingField.STATE),
+            placeholder: 'State',
             type: 'text',
           },
           {
             className: 'postal-code',
-            name: LISTING_FIELDS.postalCode,
-            onFocus: () => setFocus(LISTING_FIELDS.postalCode),
+            name: ListingField.POSTAL_CODE,
+            onFocus: () => setFocus(ListingField.POSTAL_CODE),
             placeholder: '88888',
             type: 'text',
           },
@@ -124,21 +124,21 @@ const ListingInfoForm = (props: any): JSX.Element => {
           </InputWrapper>
         ))}
           {<StyledErrorMessage name={
-            errors.addressLine1 ? LISTING_FIELDS.addressLine1 :
-            errors.city ? LISTING_FIELDS.city :
-            errors.state ? LISTING_FIELDS.state :
-            errors.postalCode ? LISTING_FIELDS.postalCode : ''} />}
+            errors.addressLine1 ? ListingField.ADDRESS_LINE_1 :
+            errors.city ? ListingField.CITY :
+            errors.state ? ListingField.STATE :
+            errors.postalCode ? ListingField.POSTAL_CODE : ''} />}
       </div>
 
       <div className="form-item">
         <InputLabel>Country</InputLabel>
         <SelectBoxWrapper suffixSize="tiny">
           <select
-            id={LISTING_FIELDS.country}
-            name={LISTING_FIELDS.country}
-            onFocus={() => setFocus(LISTING_FIELDS.country)}
-            onBlur={() => setFieldTouched(LISTING_FIELDS.country, true)}
-            onChange={(event: React.ChangeEvent<HTMLSelectElement>) => setFieldValue(LISTING_FIELDS.country, event.target.value)}
+            id={ListingField.COUNTRY}
+            name={ListingField.COUNTRY}
+            onFocus={() => setFocus(ListingField.COUNTRY)}
+            onBlur={() => setFieldTouched(ListingField.COUNTRY, true)}
+            onChange={(event: React.ChangeEvent<HTMLSelectElement>) => setFieldValue(ListingField.COUNTRY, event.target.value)}
             value={values.country}
           >
             {COUNTRY_CODES.map(country => (
@@ -147,11 +147,11 @@ const ListingInfoForm = (props: any): JSX.Element => {
               </option>
             ))}
           </select>
-          <label htmlFor={LISTING_FIELDS.country}>
+          <label htmlFor={ListingField.COUNTRY}>
             <Svg className="suffix" src="utils/carat-down" />
           </label>
         </SelectBoxWrapper>
-        <StyledErrorMessage name={LISTING_FIELDS.country} />
+        <StyledErrorMessage name={ListingField.COUNTRY} />
       </div>
 
       <div className="form-item map-preview">
@@ -160,35 +160,35 @@ const ListingInfoForm = (props: any): JSX.Element => {
           address={address}
           getCoordinates={({ lat, lng }) => {
             if (isCoordinateValid(lat, values.lat)) {
-              setFieldValue(LISTING_FIELDS.lat, lat);
+              setFieldValue(ListingField.LAT, lat);
             }
             if (isCoordinateValid(lng, values.lng)) {
-              setFieldValue(LISTING_FIELDS.lng, lng);
+              setFieldValue(ListingField.LNG, lng);
             }
             return { lat, lng };
           }}
           showMarker
         />
         {<StyledErrorMessage name={
-          errors.lat ? LISTING_FIELDS.lat :
-          errors.lng ? LISTING_FIELDS.lng : ''} />}
+          errors.lat ? ListingField.LAT :
+          errors.lng ? ListingField.LNG : ''} />}
       </div>
 
-      <div className="form-item photo" onMouseEnter={() => setFocus(LISTING_FIELDS.listingPicUrl)}>
-        <InputLabel htmlFor={LISTING_FIELDS.listingPicUrl} subLabel="(required)">Cover Photo</InputLabel>
+      <div className="form-item photo" onMouseEnter={() => setFocus(ListingField.LISTING_PIC_URL)}>
+        <InputLabel htmlFor={ListingField.LISTING_PIC_URL} subLabel="(required)">Cover Photo</InputLabel>
         <PhotoUploader
           initialPhotos={values.listingPicUrl ? [{ url: values.listingPicUrl }] : []}
           maxFiles={1}
-          onClick={() => setFocus(LISTING_FIELDS.listingPicUrl)}
+          onClick={() => setFocus(ListingField.LISTING_PIC_URL)}
           onPhotosUpdated={(photo: Photo[]) => {
-            setFieldTouched(LISTING_FIELDS.listingPicUrl, true);
-            setFieldValue(LISTING_FIELDS.listingPicUrl, photo[0] ? photo[0].url : '');
+            setFieldTouched(ListingField.LISTING_PIC_URL, true);
+            setFieldValue(ListingField.LISTING_PIC_URL, photo[0] ? photo[0].url : '');
           }} />
-        <StyledErrorMessage name={LISTING_FIELDS.listingPicUrl} />
+        <StyledErrorMessage name={ListingField.LISTING_PIC_URL} />
       </div>
 
-      <div className="form-item photo" onMouseEnter={() => setFocus(LISTING_FIELDS.photos)}>
-        <InputLabel htmlFor={LISTING_FIELDS.photos} subLabel="(required, limit 25)">
+      <div className="form-item photo" onMouseEnter={() => setFocus(ListingField.PHOTOS)}>
+        <InputLabel htmlFor={ListingField.PHOTOS} subLabel="(required, limit 25)">
           Listing Photos
         </InputLabel>
         <PhotoUploader
@@ -196,12 +196,12 @@ const ListingInfoForm = (props: any): JSX.Element => {
             return { url };
           })}
           maxFiles={25}
-          onClick={() => setFocus(LISTING_FIELDS.photos)}
+          onClick={() => setFocus(ListingField.PHOTOS)}
           onPhotosUpdated={(photo: Photo[]) => {
-            setFieldTouched(LISTING_FIELDS.photos, true);
-            setFieldValue(LISTING_FIELDS.photos, photo.map(photo => photo.url));
+            setFieldTouched(ListingField.PHOTOS, true);
+            setFieldValue(ListingField.PHOTOS, photo.map(photo => photo.url));
           }} />
-        <StyledErrorMessage name={LISTING_FIELDS.photos} />
+        <StyledErrorMessage name={ListingField.PHOTOS} />
       </div>
     </>
   );
