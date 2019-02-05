@@ -13,7 +13,7 @@ import ListingFormNav from './ListingFormNav';
 import ListingFormContainer from './ListingForm.container';
 import GeneralWrapper from 'shared/GeneralWrapper';
 import NotFound from 'routes/NotFound';
-import Button from 'components/shared/Button';
+import Button from 'shared/Button';
 import timeOptions from 'utils/timeOptions';
 import { ApolloError } from 'apollo-client';
 
@@ -161,7 +161,7 @@ class ListingForm extends React.Component<Props, State> {
                 setNextCrumb={this.setNextCrumb}
                 onSubmit={this.handleSubmit}
               />
-              <GeneralWrapper align="flex-start" direction="row" justify="flex-start" width={976}>
+              <GeneralWrapper align="flex-start" direction="row" justify="flex-start">
                 <Form>
                   <Switch>
                     <Route
@@ -192,7 +192,6 @@ class ListingForm extends React.Component<Props, State> {
                     onClick={() => {
                       if (!FormikProps.isValid) {
                         alert(`Cannot save changes due to errors:\n\n${Object.values(FormikProps.errors).join('\n').toString()}`);
-                        // alert(`Cannot save changes due to errors: ${JSON.stringify(Object.values(FormikProps.errors), null, 4)}`);
                       }
                       FormikProps.submitForm();
                     }}
@@ -201,7 +200,6 @@ class ListingForm extends React.Component<Props, State> {
                     Save &amp; Continue
                   </Button>
                 </Form>
-                <aside />
               </GeneralWrapper>
             </>
           )}
