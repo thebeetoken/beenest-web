@@ -7,6 +7,8 @@ import AdminListingTableRow from './AdminListingTableRow';
 import { Listing, DELETE_LISTING, GET_ALL_LISTINGS } from 'networking/listings';
 import AdminLoading from '../../adminShared/components/AdminLoading';
 
+import Button from 'shared/Button';
+import { Paginator, PaginatorRef } from 'shared/Paginator';
 import { parseQueryString } from 'utils/queryParams';
 
 interface QueryParams {
@@ -21,29 +23,57 @@ interface Props {
 const AdminListingsTable = ({ deleteListing }: Props): JSX.Element => {
   const queryParams: QueryParams = parseQueryString(location.search);
   const { userId, userEmail } = queryParams;
+  const limit = 20;
   return (<AdminListingsTableContainer>
-    <Query query={GET_ALL_LISTINGS} variables={{ input: { userId, userEmail } }}>
-      {({ loading, error, data }): JSX.Element => {
-        if (loading) {
-          return <AdminLoading />;
-        }
-        if (error || !data) {
-          return <h1>{error ? error.message : 'Error / No Data'}</h1>;
-        }
-        const { allListings } = data;
-        const renderAdminListingTableRow = allListings.map((listing: Listing) => (
-          <AdminListingTableRow key={listing.id} {...listing} deleteListing={deleteListing} />
-        ));
-        return (
-          <table>
-            <thead>
-              <AdminListingsTableHeader />
-            </thead>
-            <tbody>{renderAdminListingTableRow}</tbody>
-          </table>
-        );
-      }}
-    </Query>
+    <Paginator limit={20}>{({ offset, next, previous }: PaginatorRef) => (
+      <Query query={GET_ALL_LISTINGS} variables={{ input: { offset, limit, userId, userEmail } }}>
+        {({ loading, error, data }): JSX.Element => {
+          if (loading) {
+            return <AdminLoading />;
+          }
+          if (error || !data) {
+            return <h1>{error ? error.message : 'Error / No Data'}</h1>;
+          }
+          const { listings, count } = data.allListings;
+          const renderAdminListingTableRow = listings.map((listing: Listing) => (
+            <AdminListingTableRow key={listing.id} {...listing} deleteListing={deleteListing} />
+          ));
+          return (
+            <table>
+              <thead>
+                <AdminListingsTableHeader />
+              </thead>
+              <tbody>{renderAdminListingTableRow}</tbody>
+              {(count > limit) &&
+                <tfoot>
+                    <tr className="admin-table-row-container paginator">
+                      <td>
+                        <Button
+                          disabled={offset === 0}
+                          onClick={() => previous(count)}>
+                          Previous
+                        </Button>
+                      </td>
+                      <td>
+                        <h6 className="admin-table-count">
+                          {offset + 1} to {offset + limit} of {count}
+                        </h6>
+                      </td>
+                      <td>
+                        <Button
+                          disabled={offset >= count - limit}
+                          onClick={() => next(count)}>
+                          Next
+                        </Button>
+                      </td>
+                    </tr>
+                </tfoot>
+              }
+            </table>
+          );
+        }}
+      </Query>
+    )}</Paginator>
   </AdminListingsTableContainer>);
 };
 
