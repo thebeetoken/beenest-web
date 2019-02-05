@@ -107,19 +107,47 @@ const ListingFormContainer = styled.section`
       }
       .aside-container {
         padding: 40px 56px 72px;
+        height: 608px;
         header {
           ${typography('title', 7)}
           color: ${color('dark')};
           margin-bottom: 32px;
         }
-        ol {
-          li {
-            list-style-type: decimal;
+        > div {
+          h3 {
+            ${typography('read', 1)}
           }
-        }
-        ul {
-          li {
-            list-style-type: disc;
+          h4 {
+            ${typography('emp', 5)}
+          }
+          p {
+            ${typography('read', 2)}
+          }
+          ol {
+            li {
+              list-style-type: decimal;
+            }
+          }
+          ul {
+            li {
+              list-style-type: disc;
+            }
+          }
+          .images-container {
+            display: flex;
+            flex-direction: row;
+            flex-wrap: wrap;
+            justify-content: space-around;
+            .image-container--horizontal {
+              height: 120px;
+              margin-bottom: 32px;
+              width: 180px;
+            }
+            .image-container--vertical {
+              height: 180px;
+              margin-bottom: 32px;
+              width: 120px;
+            }
           }
         }
       }

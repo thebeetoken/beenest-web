@@ -174,7 +174,7 @@ const ListingInfoForm = (props: any): JSX.Element => {
           errors.lng ? 'lng' : ''} />}
       </div>
 
-      <div className="form-item photo">
+      <div className="form-item photo" onMouseEnter={() => setFocus('listingPicUrl')}>
         <InputLabel htmlFor="listingPicUrl" subLabel="(required)">Cover Photo</InputLabel>
         <PhotoUploader
           initialPhotos={values.listingPicUrl ? [{ url: values.listingPicUrl }] : []}
@@ -187,7 +187,7 @@ const ListingInfoForm = (props: any): JSX.Element => {
         <StyledErrorMessage name="listingPicUrl" />
       </div>
 
-      <div className="form-item photo">
+      <div className="form-item photo" onMouseEnter={() => setFocus('photos')}>
         <InputLabel htmlFor="photos" subLabel="(required, limit 25)">
           Listing Photos
         </InputLabel>

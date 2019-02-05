@@ -1,4 +1,7 @@
 import * as React from 'react';
+import ListItem from 'shared/ListItem';
+import Svg from 'shared/Svg';
+import LazyImage from 'shared/LazyImage';
 
 interface AsideContentInterface {
   [name: string]: React.ReactNode;
@@ -6,15 +9,15 @@ interface AsideContentInterface {
 
 const HomeType = () => (
   <div>
-    <h3>Home Type</h3>
+    <h3>Type of Home</h3>
     <br />
-    <strong>Entire place</strong>
+    <h4><strong>Entire place</strong></h4>
     <p>The whole space is dedicated to guests. This may be a house, apartment, condo, loft, etc.</p>
     <br />
-    <strong>Private room</strong>
+    <h4><strong>Private room</strong></h4>
     <p>A single room within a place is dedicated to guests. While other areas could be shared, guests have their own private room for sleeping.</p>
     <br />
-    <strong>Shared room</strong>
+    <h4><strong>Shared room</strong></h4>
     <p>Bedrooms or a common area that could be shared with others are dedicated to guests.</p>
   </div>
 );
@@ -48,6 +51,14 @@ const ListingPicUrl = () => (
     <h3>Cover Photo</h3>
     <br />
     <p>High-quality photos are a must as our guests are typically business travelers. Ideal image dimensions are 1440x960. The maximum file size is 5 MB and the file types we accept are .jpg &amp; .png.</p>
+    <br />
+    <h4>Examples:</h4>
+    <br />
+    <div className="images-container">
+      <LazyImage className="image-container--horizontal" src="https://s3-us-west-2.amazonaws.com/beenest-public/images/photo-examples/Do_LA_Bedroom.jpg" />
+      <LazyImage className="image-container--horizontal" src="https://s3-us-west-2.amazonaws.com/beenest-public/images/photo-examples/Do_LA_Bedroom_2.jpg" />
+      <LazyImage className="image-container--vertical" src="https://s3-us-west-2.amazonaws.com/beenest-public/images/photo-examples/bad_cover_example.png" />
+    </div>
   </div>
 );
 
@@ -55,7 +66,37 @@ const Photos = () => (
   <div>
     <h3>Listing Photos</h3>
     <br />
-    <p>Beenest recommends listings have at least 5 high definition photos available. Pro tip: provide multiple photos with different angles of bedrooms, bathrooms, and public spaces so guests know exactly what to expect.</p>
+    <p>Beenest recommends listings have at least 5 high definition photos available. <strong>Pro tip:</strong> provide multiple photos with different angles of bedrooms, bathrooms, and public spaces so guests know exactly what to expect.</p>
+    <br />
+    <h4><strong>Do:</strong></h4>
+    <br />
+    <ListItem noHover prefixColor="correct" start="tiny">
+      <Svg className="prefix" src="utils/check-circle" />
+      <span>Take horizontal photos</span>
+    </ListItem>
+    <ListItem noHover prefixColor="correct" start="tiny">
+      <Svg className="prefix" src="utils/check-circle" />
+      <span>Take photos when natural light is brightest </span>
+    </ListItem>
+    <ListItem noHover prefixColor="correct" start="tiny">
+      <Svg className="prefix" src="utils/check-circle" />
+      <span>Provide multiple angles</span>
+    </ListItem>
+    <br />
+    <h4><strong>Don't:</strong></h4>
+    <br />
+    <ListItem noHover prefixColor="incorrect" start="tiny">
+      <Svg className="prefix" src="utils/x-circle" />
+      <span>Take vertical photos</span>
+    </ListItem>
+    <ListItem noHover prefixColor="incorrect" start="tiny">
+      <Svg className="prefix" src="utils/x-circle" />
+      <span>Take photos when there is no natural light</span>
+    </ListItem>
+    <ListItem noHover prefixColor="incorrect" start="tiny">
+      <Svg className="prefix" src="utils/x-circle" />
+      <span>Upload blurry photos</span>
+    </ListItem>
   </div>
 );
 
