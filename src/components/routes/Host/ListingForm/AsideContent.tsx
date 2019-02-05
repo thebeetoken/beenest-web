@@ -55,8 +55,8 @@ const ListingPicUrl = () => (
     <h4>Examples:</h4>
     <br />
     <div className="images-container">
-      <LazyImage className="image-container--horizontal" src="https://s3-us-west-2.amazonaws.com/beenest-public/images/photo-examples/Do_LA_Bedroom.jpg" />
-      <LazyImage className="image-container--horizontal" src="https://s3-us-west-2.amazonaws.com/beenest-public/images/photo-examples/Do_LA_Bedroom_2.jpg" />
+      <LazyImage className="image-container--horizontal" src="https://static.beenest.com/images/photo-examples/Do_LA_Bedroom.jpg" />
+      <LazyImage className="image-container--horizontal" src="https://static.beenest.com/images/photo-examples/Do_LA_Bedroom_2.jpg" />
     </div>
   </div>
 );
@@ -153,7 +153,7 @@ const MinimumNights = () => (
   <div>
     <h3>Min Nights</h3>
     <br />
-    <p>Indicate the minimum number of nights guests must book.</p>
+    <p>Indicate the minimum number of nights guests must book to stay at your place.</p>
   </div>
 );
 
