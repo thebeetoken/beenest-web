@@ -105,8 +105,9 @@ const ListingFormMobileContainer = styled.section`
         height: 64px;
       }
       .aside-container {
-        padding: 40px 56px 72px;
         height: 608px;
+        max-width: 632px;
+        padding: 40px 56px 72px;
         header {
           ${typography('title', 7)}
           color: ${color('dark')};
@@ -115,12 +116,15 @@ const ListingFormMobileContainer = styled.section`
         > div {
           h3 {
             ${typography('read', 1)}
+            margin-bottom: 24px;
           }
           h4 {
             ${typography('emp', 5)}
+            margin-bottom: 4px;
           }
           p {
             ${typography('read', 2)}
+            margin-bottom: 24px;
           }
           ol {
             li {
@@ -136,10 +140,9 @@ const ListingFormMobileContainer = styled.section`
             display: flex;
             flex-direction: row;
             flex-wrap: wrap;
-            justify-content: space-around;
+            justify-content: space-between;
             .image-container--horizontal {
               height: 180px;
-              margin-bottom: 32px;
               width: 240px;
             }
           }

@@ -20,7 +20,7 @@ const CheckinDetailsForm = (props: any): JSX.Element => {
 
     <>
       <div className="form-item">
-        <InputLabel htmlFor="from" subLabel="(From)">Check-in</InputLabel>
+        <InputLabel htmlFor="from" subLabel="(from)">Check-in</InputLabel>
         <SelectBoxWrapper suffixSize="tiny">
           <select
             id="from"
@@ -42,7 +42,7 @@ const CheckinDetailsForm = (props: any): JSX.Element => {
       </div>
 
       <div className="form-item">
-        <InputLabel htmlFor="to" subLabel="(To)">Check-in</InputLabel>
+        <InputLabel htmlFor="to" subLabel="(to)">Check-in</InputLabel>
         <SelectBoxWrapper suffixSize="tiny">
           <select
             id="to"
@@ -65,7 +65,7 @@ const CheckinDetailsForm = (props: any): JSX.Element => {
       </div>
 
       <div className="form-item">
-        <InputLabel htmlFor={ListingField.CHECK_OUT_TIME} subLabel="(Before)">Check-out</InputLabel>
+        <InputLabel htmlFor={ListingField.CHECK_OUT_TIME} subLabel="(before)">Check-out</InputLabel>
         <SelectBoxWrapper suffixSize="tiny">
           <select
             id={ListingField.CHECK_OUT_TIME}
