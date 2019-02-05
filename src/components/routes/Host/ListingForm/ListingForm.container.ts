@@ -138,14 +138,9 @@ const ListingFormMobileContainer = styled.section`
             flex-wrap: wrap;
             justify-content: space-around;
             .image-container--horizontal {
-              height: 120px;
-              margin-bottom: 32px;
-              width: 180px;
-            }
-            .image-container--vertical {
               height: 180px;
               margin-bottom: 32px;
-              width: 120px;
+              width: 240px;
             }
           }
         }

@@ -18,6 +18,7 @@ import timeOptions from 'utils/timeOptions';
 import { History } from 'history';
 import AsideContent from './AsideContent';
 import { ApolloError } from 'apollo-client';
+import { AppConsumer, AppConsumerProps, ScreenType } from 'components/App.context';
 
 interface FormValues {
   [name: string]: boolean | string | string[] | number | object | undefined;
@@ -221,13 +222,18 @@ class ListingForm extends React.Component<Props, State> {
                     Save &amp; Continue
                   </Button>
                 </Form>
-                <aside>
-                  <div className="background-extender" />
-                  <div className="aside-container">
-                    {isFirstFocused(this.state.focus) && AsideHeaders[getCurrentCrumb(this.props.history)]}
-                    {AsideContent[this.state.focus]}
-                  </div>
-                </aside>
+                <AppConsumer>
+                  {({ screenType }: AppConsumerProps) =>
+                    screenType >= ScreenType.DESKTOP && (
+                      <aside>
+                        <div className="background-extender" />
+                        <div className="aside-container">
+                          {isFirstFocused(this.state.focus) && AsideHeaders[getCurrentCrumb(this.props.history)]}
+                          {AsideContent[this.state.focus]}
+                        </div>
+                      </aside>
+                  )}
+                </AppConsumer>
               </GeneralWrapper>
             </>
           )}

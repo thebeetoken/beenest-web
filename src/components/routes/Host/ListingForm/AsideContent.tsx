@@ -57,7 +57,6 @@ const ListingPicUrl = () => (
     <div className="images-container">
       <LazyImage className="image-container--horizontal" src="https://s3-us-west-2.amazonaws.com/beenest-public/images/photo-examples/Do_LA_Bedroom.jpg" />
       <LazyImage className="image-container--horizontal" src="https://s3-us-west-2.amazonaws.com/beenest-public/images/photo-examples/Do_LA_Bedroom_2.jpg" />
-      <LazyImage className="image-container--vertical" src="https://s3-us-west-2.amazonaws.com/beenest-public/images/photo-examples/bad_cover_example.png" />
     </div>
   </div>
 );
@@ -124,6 +123,14 @@ const NumberOfBathrooms = () => (
   </div>
 );
 
+const SharedBathroom = () => (
+  <div>
+    <h3>Shared Bathroom</h3>
+    <br />
+    <p>Clicking this box confirms that the bathroom is shared.</p>
+  </div>
+);
+
 const Amenities = () => (
   <div>
     <h3>Amenities</h3>
@@ -134,8 +141,26 @@ const Amenities = () => (
   </div>
 );
 
+const MaxGuests = () => (
+  <div>
+    <h3>Max Guests</h3>
+    <br />
+    <p>Is your place made for a single traveler or a group? Indicate the maximum number of guests your place allows.</p>
+  </div>
+);
+
+const MinimumNights = () => (
+  <div>
+    <h3>Min Nights</h3>
+    <br />
+    <p>Indicate the minimum number of nights guests must book.</p>
+  </div>
+);
+
 const PricePerNightUsd = () => (
   <div>
+    <h3>Price Per Night</h3>
+    <br />
     <p>The price per night should include any associated fees typically charged to guests. This includes cleaning fees, occupancy taxes, etc.</p>
     <br />
     <p>Why do we do this? We’re not like everyone else. Beenest is unique in that, rather than tack on a laundry list of fees to guests’ bills only at the time of booking (or even after), Beenest aims to increase transparency in travel and provide all costs up front.</p>
@@ -144,12 +169,16 @@ const PricePerNightUsd = () => (
 
 const SecurityDepositUsd = () => (
   <div>
+    <h3>Security Deposit</h3>
+    <br />
     <p><strong>Note:</strong> Security deposit is not charged at the time of booking. It will only be charged if a guest damages your property.</p>
   </div>
 );
 
 const IcalUrls = () => (
   <div>
+    <h3>iCal Urls</h3>
+    <br />
     <p>To avoid double bookings and to prevent multiple guests from booking the same dates, sync your Beenest calendar with your other calendars and input your iCal URL from other booking platforms.</p>
     <br />
     <p>Instructions to export calendars on other platforms are generally:</p>
@@ -196,11 +225,11 @@ const AsideContent: AsideContentInterface = {
   sleepingArrangement: <SleepingArrangement />,
   numberOfBedrooms: <NumberOfBedrooms />,
   numberOfBathrooms: <NumberOfBathrooms />,
-  sharedBathroom: <NumberOfBathrooms />,
+  sharedBathroom: <SharedBathroom />,
   amenities: <Amenities />,
 
-  maxGuests: <></>,
-  minimumNights: <></>,
+  maxGuests: <MaxGuests />,
+  minimumNights: <MinimumNights />,
   pricePerNightUsd: <PricePerNightUsd />,
   securityDepositUsd: <SecurityDepositUsd />,
   icalUrls: <IcalUrls />,
