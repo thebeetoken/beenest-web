@@ -13,7 +13,7 @@ import ListingFormNav from './ListingFormNav';
 import ListingFormContainer from './ListingForm.container';
 import GeneralWrapper from 'shared/GeneralWrapper';
 import NotFound from 'routes/NotFound';
-import Button from 'components/shared/Button';
+import Button from 'shared/Button';
 import timeOptions from 'utils/timeOptions';
 import { History } from 'history';
 import AsideContent from './AsideContent';
@@ -182,7 +182,7 @@ class ListingForm extends React.Component<Props, State> {
                 setNextCrumb={this.setNextCrumb}
                 onSubmit={this.handleSubmit}
               />
-              <GeneralWrapper align="flex-start" direction="row" justify="flex-start" width={976}>
+              <GeneralWrapper align="flex-start" direction="row" justify="flex-start">
                 <Form>
                   <Switch>
                     <Route

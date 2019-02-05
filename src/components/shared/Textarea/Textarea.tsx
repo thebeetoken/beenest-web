@@ -50,6 +50,10 @@ interface TextareaState {
 function createEditorState(string: string): EditorState {
   if (/<[a-z][\s\S]*>/i.test(string)) { // tests if there is html: https://stackoverflow.com/questions/15458876/check-if-a-string-is-html-or-not
     const blocksFromHTML = convertFromHTML(string);
+    if (!blocksFromHTML.contentBlocks) {
+      const contentState = ContentState.createFromText('');
+      return EditorState.createWithContent(contentState);
+    }
     const contentState = ContentState.createFromBlockArray(
       blocksFromHTML.contentBlocks,
       blocksFromHTML.entityMap

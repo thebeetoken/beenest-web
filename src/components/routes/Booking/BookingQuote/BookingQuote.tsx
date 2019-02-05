@@ -79,7 +79,7 @@ const BookingQuote = ({ booking, currency, fromBee }: Props) => {
         <div className="fee-row">
           <div className="fee-text">Security Deposit</div>
           <div className="fee-currency">
-            <span className="fee-currency-price">{numberToLocaleString(currentQuote.securityDeposit, currency)}</span>
+            <span className="fee-currency-price">{numberToLocaleString(currentQuote.securityDeposit, currency) || '0'}</span>
             <span className="fee-currency-type">{currency}{currentQuote.currency === Currency.USD && '*'}</span>
           </div>
         </div>

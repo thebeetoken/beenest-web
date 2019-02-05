@@ -2,7 +2,7 @@ import * as React from 'react';
 import sanitizeHtml from 'sanitize-html';
 
 import { FirebaseConsumer, FirebaseUserProps } from 'HOCs/FirebaseProvider';
-import { Listing, User } from 'networking/listings';
+import { Listing, Host } from 'networking/listings';
 import Button from 'shared/Button';
 import Divider from 'shared/Divider';
 import GoogleMaps from 'shared/GoogleMaps';
@@ -17,7 +17,7 @@ import { ToggleProviderRef, ToggleProvider } from 'components/shared/ToggleProvi
 
 interface Props {
   listing: Listing;
-  host: User;
+  host: Host;
 }
 
 const DEFAULT_PROFILE_URL = 'https://static.beenest.com/images/app/misc/profile.png';
@@ -43,7 +43,7 @@ const ListingInformation = ({ listing, host }: Props) => {
     state,
     title,
   } = listing;
-  const { about, createdAt, firstName, profilePicUrl } = host;
+  const { about, createdAt, displayName, profilePicUrl } = host;
   const renderAmenities = (amenities || []).map(amenity=> {
     const noFlex = amenity && amenity.length > 25;
     return (
@@ -64,7 +64,7 @@ const ListingInformation = ({ listing, host }: Props) => {
       </div>
 
       <div className="host-welcome-container">
-        <h3>Host: {firstName}</h3>
+        <h3>Host: {displayName}</h3>
         <div className="host-welcome-container--img">
           <LazyImage src={profilePicUrl || DEFAULT_PROFILE_URL} />
         </div>
@@ -109,7 +109,7 @@ const ListingInformation = ({ listing, host }: Props) => {
 
       <div className="about-host-container">
         <div className="about-host-heading-container">
-          <h2>About {firstName}</h2>
+          <h2>About {displayName}</h2>
           {createdAt && <h3>Joined since {dateToYear(createdAt)}</h3>}
           <div className="about-host-container--img">
             <LazyImage src={profilePicUrl || DEFAULT_PROFILE_URL} />

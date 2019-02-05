@@ -10,13 +10,13 @@ import ErrorMessageWrapper from 'shared/ErrorMessageWrapper';
 import { TextareaEvent } from 'shared/Textarea/Textarea';
 import { compose, graphql } from 'react-apollo';
 import { CONTACT_USER } from 'networking/users';
-import { User } from 'networking/listings';
+import { Host } from 'networking/listings';
 import AlertCard from 'shared/AlertCard';
 import Card from 'shared/Card';
 
 interface Props {
   contactUser: (input: ContactHostInput) => Promise<EmailResponse>;
-  host: User;
+  host: Host;
   listingId?: string;
   onClose: () => void;
   bookingId?: string;
@@ -38,7 +38,7 @@ interface EmailResponse {
   bookingId: string;
   listingId: string;
   message: string;
-  recipient: User;
+  recipient: Host;
   subject: string;
 }
 
@@ -105,7 +105,7 @@ class ContactHostForm extends React.Component<Props, State> {
               values,
             }) => (
               <Form>
-                <h2>Contact {host.firstName || 'Host'}</h2>
+                <h2>Contact {host.displayName || 'Host'}</h2>
                 
                 <div className="form-item">
                   <InputLabel htmlFor="subject">Subject</InputLabel>

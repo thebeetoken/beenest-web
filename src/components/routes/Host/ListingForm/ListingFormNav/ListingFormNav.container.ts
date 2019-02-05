@@ -1,72 +1,39 @@
 import styled from 'styled-components';
-import { color, cover, typography } from 'styled/utils';
+import { color, typography } from 'styled/utils';
 
-const ListingFormNavContainer = styled.div`
+const ListingFormNavMobileContainer = styled.div`
   background-color: ${color('lighter')};
-  height: 64px;
-
-
+  height: 116px;
+  width: 100%;
+  
   .bee-general-wrapper {
     display: flex;
+    flex-direction: column;
     justify-content: space-between;
     height: 100%;
     margin: 0 auto;
-
+    width: 100%;
+    min-width: 100%;
     nav {
       display: flex;
       height: inherit;
-      width: 180px;
-      .host-listings-navigation--items {
-        align-items: center;
-        cursor: pointer;
-        display: flex;
-        height: inherit;
-        justify-content: center;
-        width: inherit;
+      > div {
         a {
-          ${typography('title', 7)}
-          display: flex;
-          height: inherit;
-          justify-content: center;
-          position: relative;
-          width: inherit;
-          align-items: center;
-          transition: all 0.2s ease-in-out;
-          &:hover:not(.active) {
-            opacity: 0.5;
-          }
+          color: ${color('black')};
           &.active {
-            background-color: transparent;
             color: ${color('white')};
-            justify-content: center;
-            position: relative;
-            z-index: 1;
-            &::before {
-              ${cover(true)}
-              background-color: ${color('secondary')};
-              border-radius: 2px;
-              box-shadow: 0 0 10px ${color('black', 0.2)};
-              z-index: -1;
-            }
           }
         }
       }
     }
 
-
-    nav + a {
-      ${typography('read', 2)}
-      transition: opacity 0.2s ease-in-out;
-      text-decoration: underline;
-      &:hover {
-        opacity: 0.5;
-      }
-    }
-
     
     > a {
-      ${typography('title', 8)}
+      ${typography('read', 2)}
+      align-self: flex-end;
       cursor: pointer;
+      margin: 16px;
+      text-align: center;
       text-decoration: underline;
       transition: opacity 0.2s ease-in-out;
       &:hover {
@@ -76,4 +43,37 @@ const ListingFormNavContainer = styled.div`
   }
 `;
 
-export default ListingFormNavContainer;
+
+const ListingFormNavTabletContainer = styled(ListingFormNavMobileContainer)`
+  @media (min-width: 768px) {
+    height: 64px;
+    .bee-general-wrapper {
+      width: 100%;
+      flex-direction: row;
+      nav {
+        > div {
+          width: 180px;
+        }
+      }
+      > a {
+        align-self: auto;
+      }
+    }
+  }
+`;
+
+const ListingFormNavDesktopContainer = styled(ListingFormNavTabletContainer)`
+  @media (min-width: 1025px) {
+    .bee-general-wrapper {
+      width: 976px;
+      min-width: 976px;
+      nav {
+        > div {
+          width: 204px;
+        }
+      }
+    }
+  }
+`;
+
+export default ListingFormNavDesktopContainer;

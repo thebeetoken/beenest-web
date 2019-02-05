@@ -61,7 +61,7 @@ class Trips extends React.Component<Props, State> {
                 return <h1>{error ? error.message : 'Error / No Data'}</h1>;
               }
               const { cancelled, current, past, started, upcoming } = data;
-              const isCurrentEmpty = !(current || []).length;
+              const isCurrentEmpty = !(current || []).length && !(started || []).length;
               const isUpcomingEmpty = !(upcoming || []).length;
               return (
                 <>
