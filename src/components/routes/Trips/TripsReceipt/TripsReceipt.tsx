@@ -241,7 +241,7 @@ const TripsReceiptPriceQuote = (props: Booking): JSX.Element => {
                   start="medium-large"
                   textColor="body"
                   textAlign="right">
-                  <span>{securityDeposit || 0} {currency}</span>
+                  <span>{currency === 'USD' ? roundToUsdPrice(securityDeposit) : 0} {currency}</span>
                 </ListItem>
               </div>
               <div className="trips-receipt-paid--line-items">
