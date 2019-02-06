@@ -93,20 +93,24 @@ const ListingFormSchema = Yup.object().shape({
   [ListingField.MAX_GUESTS]: Yup.number()
     .min(1, minNumberError('Max Guests'))
     .max(50, maxNumberError('Max Guests')),
-  [ListingField.MINIMUM_NIGHTS]: Yup.number().min(1, minNumberError('Minimum Nights')),
+  [ListingField.MINIMUM_NIGHTS]: Yup.number()
+    .required('Minimum Nights is a required field.')
+    .min(1, minNumberError('Minimum Nights')),
   [ListingField.NUMBER_OF_BATHROOMS]: Yup.number().min(0, minNumberError('Number of Bathrooms')),
   [ListingField.NUMBER_OF_BEDROOMS]: Yup.number().min(0, minNumberError('Number of Bedrooms')),
   [ListingField.PHOTOS]: Yup.array().of(Yup.string().url()),
   [ListingField.POSTAL_CODE]: Yup.string()
     .min(1, minStringError('Postal Code'))
     .max(45, maxStringError('Postal Code')),
-  [ListingField.PRICE_PER_NIGHT_USD]: Yup.number().min(1, minNumberError('Price Per Night')),
-  [ListingField.SECURITY_DEPOSIT_USD]: Yup.number().min(0, minNumberError('Security Deposit')),
+  [ListingField.PRICE_PER_NIGHT_USD]: Yup.number()
+    .required('Price Per Night USD is a required field.')
+    .min(1, minNumberError('Price Per Night')),
+  [ListingField.SECURITY_DEPOSIT_USD]: Yup.number()
+    .required('Security Deposit USD is a required field.')
+    .min(0, minNumberError('Security Deposit')),
   [ListingField.SHARED_BATHROOM]: Yup.string(),
   [ListingField.SLEEPING_ARRANGEMENT]: Yup.string().min(1, minStringError('Sleeping Arrangement')),
-  [ListingField.STATE]: Yup.string()
-    .min(1, minStringError('State'))
-    .max(60, maxStringError('State')),
+  [ListingField.STATE]: Yup.string(),
   [ListingField.TITLE]: Yup.string()
     .min(5, minStringError('Title'))
     .max(50, maxStringError('Title')),

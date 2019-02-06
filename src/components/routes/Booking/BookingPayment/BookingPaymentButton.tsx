@@ -4,7 +4,14 @@ import { compose, graphql } from 'react-apollo';
 import BookingPaymentLoadingContainer from './BookingPaymentLoading.container';
 
 import { Web3Provider, Web3Consumer } from 'HOCs/Web3Provider';
-import { Booking, CryptoParams, GET_BOOKING, GUEST_CONFIRM_BOOKING, Currency } from 'networking/bookings';
+import {
+  Booking,
+  CryptoParams,
+  GET_BOOKING,
+  GUEST_CONFIRM_BOOKING,
+  GET_GUEST_SORTED_BOOKINGS,
+  Currency
+} from 'networking/bookings';
 import Button from 'shared/Button';
 import Portal from 'shared/Portal';
 import GridLoading from 'shared/loading/GridLoading';
@@ -160,6 +167,7 @@ export default compose(
       guestConfirmBooking: (cryptoParams: CryptoParams | undefined = undefined) => {
         return mutate({
           query: GET_BOOKING,
+          refetchQueries: [{ query: GET_GUEST_SORTED_BOOKINGS }],
           variables: {
             input: {
               id: booking.id,

@@ -24,7 +24,6 @@ import CryptoPortal from 'shared/CryptoPortal';
 import TabNavBar from 'shared/TabNavBar';
 import { Switch, Route, Redirect } from 'react-router';
 import NotFound from 'components/routes/NotFound';
-import StartedTripCard from 'components/routes/Trips/StartedTripCard';
 
 interface Props {
   cancelBooking: (booking: Booking) => Promise<void>;
@@ -60,8 +59,8 @@ class Trips extends React.Component<Props, State> {
               if (error || !data) {
                 return <h1>{error ? error.message : 'Error / No Data'}</h1>;
               }
-              const { cancelled, current, past, started, upcoming } = data;
-              const isCurrentEmpty = !(current || []).length && !(started || []).length;
+              const { cancelled, current, past, upcoming } = data;
+              const isCurrentEmpty = !(current || []).length;
               const isUpcomingEmpty = !(upcoming || []).length;
               return (
                 <>
@@ -85,77 +84,59 @@ class Trips extends React.Component<Props, State> {
                   ]} />
                   <div className="trip-cards-container">
                     <Switch>
-                      <Route exact path="/trips/current" component={() =>
-                        <>
-                          {!!started.length &&
-                            <>
-                              <div className="started-trip-container">
-                                <h3>Finish this booking:</h3>
-                                <StartedTripCard
-                                  trip={started[0]} />
-                              </div>
-                              {!!current.length && <h2>Current bookings:</h2>}
-                            </>
-                          }
-                          {!!current.length &&
-                            <section className="active-cards-container">
-                              {current.map((trip: Booking) =>
-                                <ActiveTripCard 
-                                  onCancelClick={this.handleCancelBooking.bind(this, trip)}
-                                  key={trip.id}
-                                  trip={trip} />
-                              )}
-                            </section>
-                          }
-                        </>
-                      } />
-                      <Route exact path="/trips/upcoming" component={() =>
-                        <>
-                          {isUpcomingEmpty
-                            ?
-                              <div className="trips-book-now">
-                                <div className="trips-book-now--text">
-                                  <h2>You haven't booked any trips yet.</h2>
-                                </div>
-                                <BeeLink to="/">
-                                  <Button radius="4px">Book a Home Today!</Button>
-                                </BeeLink>
-                              </div>
-                            :
-                              <section className="active-cards-container">
-                                {upcoming.map((trip: Booking) => (
-                                  <ActiveTripCard
-                                    onCancelClick={this.handleCancelBooking.bind(this, trip)}
-                                    key={trip.id}
-                                    trip={trip}
-                                  />
-                                ))}
-                              </section>
-                          }
-                        </>
-                      } />
-                      <Route exact path="/trips/past" component={() =>
-                        <>
-                          {!!past.length && (
-                            <section className="expired-trip-cards">
-                              {past.map((trip: Booking) => (
-                                <ExpiredTripCard key={trip.id} trip={trip} />
-                              ))}
-                            </section>
+                      <Route exact path="/trips/current" component={() => isCurrentEmpty ? (
+                        <div className="trips-book-now">
+                          <div className="trips-book-now--text">
+                            <h2>You have no trips awaiting approval.</h2>
+                          </div>
+                          <BeeLink to="/">
+                            <Button>Book a Home Today!</Button>
+                          </BeeLink>
+                        </div>                        
+                      ) : (
+                        <section className="active-cards-container">
+                          {current.map((trip: Booking) =>
+                            <ActiveTripCard 
+                              onCancelClick={this.handleCancelBooking.bind(this, trip)}
+                              key={trip.id}
+                              trip={trip} />
                           )}
-                        </>
-                      } />
-                      <Route exact path="/trips/cancelled" component={() =>
-                        <>
-                          {!!cancelled.length && (
-                            <section className="expired-trip-cards">
-                              {cancelled.map((trip: Booking) => (
-                                <ExpiredTripCard key={trip.id} trip={trip} />
-                              ))}
-                            </section>
-                          )}
-                        </>
-                      } />
+                        </section>
+                      )} />
+                      <Route exact path="/trips/upcoming" component={() => isUpcomingEmpty ? (
+                        <div className="trips-book-now">
+                          <div className="trips-book-now--text">
+                            <h2>You haven't booked any trips yet.</h2>
+                          </div>
+                          <BeeLink to="/">
+                            <Button>Book a Home Today!</Button>
+                          </BeeLink>
+                        </div>
+                      ) : (
+                        <section className="active-cards-container">
+                          {upcoming.map((trip: Booking) => (
+                            <ActiveTripCard
+                              onCancelClick={this.handleCancelBooking.bind(this, trip)}
+                              key={trip.id}
+                              trip={trip}
+                            />
+                          ))}
+                        </section>
+                      )} />
+                      <Route exact path="/trips/past" component={() => past.length > 0 ? (
+                        <section className="expired-trip-cards">
+                          {past.map((trip: Booking) => (
+                            <ExpiredTripCard key={trip.id} trip={trip} />
+                          ))}
+                        </section>
+                      ) : (<></>)} />
+                      <Route exact path="/trips/cancelled" component={() => cancelled.length > 0 ? (
+                        <section className="expired-trip-cards">
+                          {cancelled.map((trip: Booking) => (
+                            <ExpiredTripCard key={trip.id} trip={trip} />
+                          ))}
+                        </section>
+                      ) : (<></>)} />
                       <Redirect exact from="/trips" to={isCurrentEmpty ? "/trips/upcoming" : "/trips/current"} />
                       <Route component={NotFound} />
                     </Switch>
