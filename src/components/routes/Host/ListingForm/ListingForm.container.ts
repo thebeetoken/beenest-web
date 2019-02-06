@@ -159,6 +159,7 @@ const ListingFormMobileContainer = styled.section`
             .image-container--horizontal {
               height: 180px;
               width: 240px;
+              margin-bottom: 16px;
             }
           }
         }
