@@ -3,7 +3,7 @@ import ListItem from 'shared/ListItem';
 import Svg from 'shared/Svg';
 import LazyImage from 'shared/LazyImage';
 
-interface ListingHelperInterface {
+interface ListingHelpTextInterfaceInterface {
   [name: string]: React.ReactNode;
 }
 
@@ -199,7 +199,7 @@ const HouseRules = () => (
   </div>
 );
 
-const ListingHelper: ListingHelperInterface = {
+const ListingHelpTextInterface: ListingHelpTextInterfaceInterface = {
   homeType: <HomeType />,
   title: <Title />,
   description: <Description />,
@@ -229,4 +229,4 @@ const ListingHelper: ListingHelperInterface = {
   houseRules: <HouseRules />,
 }
 
-export default ListingHelper;
+export default ListingHelpTextInterface;
