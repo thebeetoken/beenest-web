@@ -79,7 +79,7 @@ const PricingAvailabilityForm = (props: any): JSX.Element => {
       </div>
 
       <div className="form-item">
-        <InputLabel htmlFor={ListingField.ICAL_URLS} subLabel="(separate by comma)">iCal URLs:</InputLabel>
+        <InputLabel htmlFor={ListingField.ICAL_URLS} subLabel="(optional, separate by comma)">iCal URLs:</InputLabel>
         <Textarea
           textareaHeight="80px"
           name={ListingField.ICAL_URLS}
