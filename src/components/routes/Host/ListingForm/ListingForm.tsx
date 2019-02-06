@@ -164,8 +164,8 @@ const AsideHeaders: AsideHeadersInterface = {
   ),
   accommodations: (
     <header>
-      This section allows guests to determine if your space meets their needs. <strong>Note:</strong> Type of bed is
-      important, especially for larger groups. e.g. 1 Queen, 2 Double, 3 Kings.
+      This section allows guests to determine if your space meets their needs. <span>Note:</span> Type of bed is
+      important, especially for larger groups. e.g. 1 Queen, 2 Doubles, 3 Kings.
     </header>
   ),
   pricing_availability: (

@@ -29,7 +29,11 @@ const ListingInfoForm = (props: any): JSX.Element => {
     <>
       <div className="form-item">
         <InputLabel>Type of Home</InputLabel>
-        <SelectBoxWrapper suffixSize="tiny">
+        <SelectBoxWrapper
+          borderColor="body"
+          borderSize="1px"
+          focusBorderColor="style"
+          suffixSize="tiny">
           <select
             id={ListingField.HOME_TYPE}
             name={ListingField.HOME_TYPE}
@@ -123,24 +127,19 @@ const ListingInfoForm = (props: any): JSX.Element => {
             <Field name={name} onFocus={onFocus} placeholder={placeholder} type={type} />
           </InputWrapper>
         ))}
-          {<StyledErrorMessage name={
-            errors.addressLine1 ? ListingField.ADDRESS_LINE_1 :
-            errors.city ? ListingField.CITY :
-            errors.state ? ListingField.STATE :
-            errors.postalCode ? ListingField.POSTAL_CODE : ''} />}
-      </div>
-
-      <div className="form-item">
-        <InputLabel>Country</InputLabel>
-        <SelectBoxWrapper suffixSize="tiny">
+        <SelectBoxWrapper
+          borderColor="body"
+          borderSize="1px"
+          className="country"
+          focusBorderColor="style"
+          suffixSize="tiny">
           <select
             id={ListingField.COUNTRY}
             name={ListingField.COUNTRY}
             onFocus={() => setFocus(ListingField.COUNTRY)}
             onBlur={() => setFieldTouched(ListingField.COUNTRY, true)}
             onChange={(event: React.ChangeEvent<HTMLSelectElement>) => setFieldValue(ListingField.COUNTRY, event.target.value)}
-            value={values.country}
-          >
+            value={values.country}>
             {COUNTRY_CODES.map(country => (
               <option key={country.code} value={country.code}>
                 {country.name}
@@ -151,7 +150,12 @@ const ListingInfoForm = (props: any): JSX.Element => {
             <Svg className="suffix" src="utils/carat-down" />
           </label>
         </SelectBoxWrapper>
-        <StyledErrorMessage name={ListingField.COUNTRY} />
+        {<StyledErrorMessage name={
+            errors.addressLine1 ? ListingField.ADDRESS_LINE_1 :
+            errors.city ? ListingField.CITY :
+            errors.state ? ListingField.STATE :
+            errors.postalCode ? ListingField.POSTAL_CODE :
+            errors.country ? ListingField.COUNTRY : ''} />}
       </div>
 
       <div className="form-item map-preview">

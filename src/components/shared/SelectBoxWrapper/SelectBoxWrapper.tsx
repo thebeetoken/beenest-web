@@ -12,10 +12,13 @@ import SelectBoxWrapperContainer from './SelectBoxWrapper.container';
 
 type Props = Partial<{
   background: string;
+  borderColor: string;
+  borderSize: string;
   box: boolean;
   children: React.ReactNode;
   className: string;
   end: string;
+  focusBorderColor: string;
   font: string;
   mobile: boolean;
   noFlex: boolean;
@@ -33,7 +36,7 @@ type Props = Partial<{
 
 const SelectBoxWrapper = (props: Props) => {
   const { className, children } = props;
-
+  
   return (
     <SelectBoxWrapperContainer
       className={`bee-select-box-wrapper ${className || ''}`.trim()} 

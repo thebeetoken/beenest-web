@@ -45,7 +45,6 @@ const ListingFormMobileContainer = styled.section`
           .state,
           .postal-code {
             display: inline-block;
-            margin-bottom: 0;
           }
           .state,
           .postal-code {
@@ -59,6 +58,9 @@ const ListingFormMobileContainer = styled.section`
           }
           .postal-code {
             width: 20%;
+          }
+          .country {
+            margin-bottom: 0;
           }
         }
         &.photo {
@@ -112,6 +114,9 @@ const ListingFormMobileContainer = styled.section`
           ${typography('title', 7)}
           color: ${color('dark')};
           margin-bottom: 32px;
+          > span {
+            ${typography('emp', 5)}
+          }
         }
         > div {
           h3 {
