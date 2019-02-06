@@ -1,17 +1,18 @@
 import * as React from 'react';
+import { Field, ErrorMessage } from 'formik';
 
+import { ListingField } from 'networking/listings';
+import Checkbox from 'shared/Checkbox';
+import ErrorMessageWrapper from 'shared/ErrorMessageWrapper';
 import InputLabel from 'shared/InputLabel';
 import InputWrapper from 'shared/InputWrapper';
 import NumberInput from 'shared/NumberInput';
 import Textarea from 'shared/Textarea';
 import { TextareaEvent } from 'shared/Textarea/Textarea';
 import { stringToArray, arrayToString } from 'utils/formatter';
-import Checkbox from 'shared/Checkbox';
-import { Field, ErrorMessage } from 'formik';
-import ErrorMessageWrapper from 'shared/ErrorMessageWrapper';
 
 const AccommodationsForm = (props: any): JSX.Element => {
-  const { ListingField, setFocus, setFieldTouched, setFieldValue, values } = props;
+  const { setFocus, setFieldTouched, setFieldValue, values } = props;
   const StyledErrorMessage = (props: { name: string }) => (
     <ErrorMessageWrapper>
       {props.name && <ErrorMessage {...props} />}

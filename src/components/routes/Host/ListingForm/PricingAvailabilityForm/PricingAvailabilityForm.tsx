@@ -1,16 +1,17 @@
 import * as React from 'react';
+import { Field, ErrorMessage } from 'formik';
 
+import { ListingField } from 'networking/listings';
+import ErrorMessageWrapper from 'shared/ErrorMessageWrapper/ErrorMessageWrapper';
 import InputLabel from 'shared/InputLabel';
 import InputWrapper from 'shared/InputWrapper';
+import NumberInput from 'shared/NumberInput';
 import Textarea from 'shared/Textarea';
 import { TextareaEvent } from 'shared/Textarea/Textarea';
-import { Field, ErrorMessage } from 'formik';
 import { stringToArray, arrayToString } from 'utils/formatter';
-import ErrorMessageWrapper from 'shared/ErrorMessageWrapper/ErrorMessageWrapper';
-import NumberInput from 'shared/NumberInput';
 
 const PricingAvailabilityForm = (props: any): JSX.Element => {
-  const { ListingField, setFocus, setFieldTouched, setFieldValue, values } = props;
+  const { setFocus, setFieldTouched, setFieldValue, values } = props;
   const StyledErrorMessage = (props: { name: string }) => (
     <ErrorMessageWrapper>
       {props.name && <ErrorMessage {...props} />}

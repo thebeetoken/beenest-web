@@ -1,16 +1,17 @@
 import * as React from 'react';
+import { ErrorMessage } from 'formik';
 
+import { ListingField } from 'networking/listings';
+import ErrorMessageWrapper from 'shared/ErrorMessageWrapper';
 import InputLabel from 'shared/InputLabel';
 import SelectBoxWrapper from 'shared/SelectBoxWrapper';
 import Svg from 'shared/Svg';
 import Textarea from 'shared/Textarea';
 import { TextareaEvent } from 'shared/Textarea/Textarea';
 import timeOptions from 'utils/timeOptions';
-import ErrorMessageWrapper from 'shared/ErrorMessageWrapper';
-import { ErrorMessage } from 'formik';
 
 const CheckinDetailsForm = (props: any): JSX.Element => {
-  const { ListingField, setFocus, setFieldTouched, setFieldValue, values } = props;
+  const { setFocus, setFieldTouched, setFieldValue, values } = props;
   const StyledErrorMessage = (props: { name: string }) => (
     <ErrorMessageWrapper>
       {props.name && <ErrorMessage {...props} />}

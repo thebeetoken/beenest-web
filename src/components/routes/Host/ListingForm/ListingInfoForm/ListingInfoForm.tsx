@@ -1,23 +1,24 @@
 import * as React from 'react';
+import { Field, ErrorMessage } from 'formik';
 
+import { ListingField } from 'networking/listings';
+import ErrorMessageWrapper from 'shared/ErrorMessageWrapper';
 import InputLabel from 'shared/InputLabel';
 import InputWrapper from 'shared/InputWrapper';
+import GoogleMaps from 'shared/GoogleMaps';
+import { PhotoUploader, Photo } from 'shared/PhotoUploader';
 import SelectBoxWrapper from 'shared/SelectBoxWrapper';
 import Svg from 'shared/Svg';
-import { COUNTRY_CODES } from 'utils/countryCodes';
 import Textarea from 'shared/Textarea';
+import { TextareaEvent } from 'shared/Textarea/Textarea';
+import { COUNTRY_CODES } from 'utils/countryCodes';
 import { formatAddress } from 'utils/formatter';
 import { HomeTypeHostForm } from 'utils/validators';
-import { PhotoUploader, Photo } from 'components/shared/PhotoUploader';
-import GoogleMaps from 'components/shared/GoogleMaps';
-import { Field, ErrorMessage } from 'formik';
-import { TextareaEvent } from 'components/shared/Textarea/Textarea';
-import ErrorMessageWrapper from 'components/shared/ErrorMessageWrapper';
 
 const LAT_LNG_EPSILON = Math.pow(10, -6); // decimal places stored in db
 
 const ListingInfoForm = (props: any): JSX.Element => {
-  const { errors, ListingField, setFieldValue, setFieldTouched, setFocus, values } = props;
+  const { errors, setFieldValue, setFieldTouched, setFocus, values } = props;
   const { addressLine1, city, postalCode, state } = values;
   const address = formatAddress(addressLine1, city, state, postalCode);
   const StyledErrorMessage = (props: { name: string }) => (
