@@ -37,7 +37,7 @@ const PricingAvailabilityForm = (props: any): JSX.Element => {
 
       <div className="form-item short">
         <div className="input-container">
-          <InputLabel htmlFor={ListingField.MINIMUM_NIGHTS} subLabel="(required)">Min Nights</InputLabel>
+          <InputLabel htmlFor={ListingField.MINIMUM_NIGHTS} subLabel="(required)">Minimum Nights</InputLabel>
           <InputWrapper>
             <Field
               onFocus={() => setFocus(ListingField.MINIMUM_NIGHTS)}

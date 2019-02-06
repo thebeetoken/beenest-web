@@ -134,7 +134,7 @@ const MaxGuests = () => (
 
 const MinimumNights = () => (
   <div>
-    <h3>Min Nights</h3>
+    <h3>Minimum Nights</h3>
     <p>Indicate the minimum number of nights guests must book to stay at your place.</p>
   </div>
 );
