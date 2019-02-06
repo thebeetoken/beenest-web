@@ -90,7 +90,7 @@ class Trips extends React.Component<Props, State> {
                             <h2>You have no trips awaiting approval.</h2>
                           </div>
                           <BeeLink to="/">
-                            <Button radius="4px">Book a Home Today!</Button>
+                            <Button>Book a Home Today!</Button>
                           </BeeLink>
                         </div>                        
                       ) : (
@@ -109,7 +109,7 @@ class Trips extends React.Component<Props, State> {
                             <h2>You haven't booked any trips yet.</h2>
                           </div>
                           <BeeLink to="/">
-                            <Button radius="4px">Book a Home Today!</Button>
+                            <Button>Book a Home Today!</Button>
                           </BeeLink>
                         </div>
                       ) : (
