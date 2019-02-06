@@ -16,7 +16,7 @@ import NotFound from 'routes/NotFound';
 import Button from 'shared/Button';
 import timeOptions from 'utils/timeOptions';
 import { History } from 'history';
-import AsideContent from './AsideContent';
+import ListingHelper from './ListingHelper';
 import { ApolloError } from 'apollo-client';
 import { AppConsumer, AppConsumerProps, ScreenType } from 'components/App.context';
 
@@ -280,7 +280,7 @@ class ListingForm extends React.Component<Props, State> {
                         <div className="background-extender" />
                         <div className="aside-container">
                           {isFirstFocused(this.state.focus) && AsideHeaders[getCurrentCrumb(this.props.history)]}
-                          {AsideContent[this.state.focus]}
+                          {ListingHelper[this.state.focus]}
                         </div>
                       </aside>
                     )
