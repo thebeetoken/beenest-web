@@ -56,7 +56,7 @@ const AdminListingsTable = ({ deleteListing }: Props): JSX.Element => {
                       </td>
                       <td>
                         <h6 className="admin-table-count">
-                          {offset + 1} to {offset + limit} of {count}
+                          {offset + 1} to {offset + listings.length} of {count}
                         </h6>
                       </td>
                       <td>
