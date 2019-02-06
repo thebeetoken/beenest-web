@@ -19,8 +19,8 @@ const LAT_LNG_EPSILON = Math.pow(10, -6); // decimal places stored in db
 
 const ListingInfoForm = (props: FormikProps<ListingInput>): JSX.Element => {
   const { errors, setFieldValue, setFieldTouched, values } = props;
-  const { addressLine1, city, postalCode, state } = values;
-  const address = formatAddress(addressLine1, city, state, postalCode);
+  const { addressLine1, city, country, postalCode, state } = values;
+  const address = formatAddress(addressLine1, city, state, postalCode, country);
   const StyledErrorMessage = (props: { name: string }) => (
     <ErrorMessageWrapper>
       {props.name && <ErrorMessage {...props} />}
