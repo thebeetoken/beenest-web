@@ -97,6 +97,7 @@ const ListingFormSchema = Yup.object().shape({
     .min(1, minNumberError('Max Guests'))
     .max(50, maxNumberError('Max Guests')),
   minimumNights: Yup.number()
+    .required('Minimum Nights is a required field.')
     .min(1, minNumberError('Minimum Nights')),
   numberOfBathrooms: Yup.number()
     .min(0, minNumberError('Number of Bathrooms')),
@@ -108,8 +109,10 @@ const ListingFormSchema = Yup.object().shape({
     .min(1, minStringError('Postal Code'))
     .max(45, maxStringError('Postal Code')),
   pricePerNightUsd: Yup.number()
+    .required('Price Per Night USD is a required field.')
     .min(1, minNumberError('Price Per Night')),
   securityDepositUsd: Yup.number()
+    .required('Security Deposit USD is a required field.')
     .min(0, minNumberError('Security Deposit')),
   sharedBathroom: Yup.string(),
   sleepingArrangement: Yup.string()

@@ -65,7 +65,5 @@ const ListingFormNav = ({ formikProps, history, id, onSubmit, setNextCrumb, show
 export default ListingFormNav;
 
 function formatListingErrorsAlert(errors: FormikErrors<ListingInput>): string {
-  return `Listing has unsaved changes due to the following errors:\n\n
-    ${Object.values(errors).join('\n').toString()}\r\n\r\n
-    Are you sure you want to proceed?`;
+  return `Listing has unsaved changes due to the following errors:\n\n${Object.values(errors).join('\n').toString()}\n\nAre you sure you want to proceed?`;
 };
