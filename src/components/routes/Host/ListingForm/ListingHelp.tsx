@@ -2,8 +2,9 @@ import * as React from 'react';
 import ListItem from 'shared/ListItem';
 import Svg from 'shared/Svg';
 import LazyImage from 'shared/LazyImage';
+import { ListingField }from 'networking/listings';
 
-interface ListingHelpTextInterfaceInterface {
+interface ListingHelpInterface {
   [name: string]: React.ReactNode;
 }
 
@@ -199,34 +200,34 @@ const HouseRules = () => (
   </div>
 );
 
-const ListingHelpTextInterface: ListingHelpTextInterfaceInterface = {
-  homeType: <HomeType />,
-  title: <Title />,
-  description: <Description />,
-  addressLine1: <FullAddress/>,
-  addressLine2: <FullAddress/>,
-  city: <FullAddress/>,
-  state: <FullAddress/>,
-  postalCode: <FullAddress/>,
-  country: <FullAddress />,
-  listingPicUrl: <ListingPicUrl />,
-  photos: <Photos />,
+const ListingHelp: ListingHelpInterface = {
+  [ListingField.HOME_TYPE]: <HomeType />,
+  [ListingField.TITLE]: <Title />,
+  [ListingField.DESCRIPTION]: <Description />,
+  [ListingField.ADDRESS_LINE_1]: <FullAddress/>,
+  [ListingField.ADDRESS_LINE_2]: <FullAddress/>,
+  [ListingField.CITY]: <FullAddress/>,
+  [ListingField.STATE]: <FullAddress/>,
+  [ListingField.POSTAL_CODE]: <FullAddress/>,
+  [ListingField.COUNTRY]: <FullAddress />,
+  [ListingField.LISTING_PIC_URL]: <ListingPicUrl />,
+  [ListingField.PHOTOS]: <Photos />,
   
-  sleepingArrangement: <SleepingArrangement />,
-  numberOfBedrooms: <NumberOfBedrooms />,
-  numberOfBathrooms: <NumberOfBathrooms />,
-  sharedBathroom: <SharedBathroom />,
-  amenities: <Amenities />,
+  [ListingField.SLEEPING_ARRANGEMENT]: <SleepingArrangement />,
+  [ListingField.NUMBER_OF_BEDROOMS]: <NumberOfBedrooms />,
+  [ListingField.NUMBER_OF_BATHROOMS]: <NumberOfBathrooms />,
+  [ListingField.SHARED_BATHROOM]: <SharedBathroom />,
+  [ListingField.AMENITIES]: <Amenities />,
 
-  maxGuests: <MaxGuests />,
-  minimumNights: <MinimumNights />,
-  pricePerNightUsd: <PricePerNightUsd />,
-  securityDepositUsd: <SecurityDepositUsd />,
-  icalUrls: <IcalUrls />,
+  [ListingField.MAX_GUESTS]: <MaxGuests />,
+  [ListingField.MINIMUM_NIGHTS]: <MinimumNights />,
+  [ListingField.PRICE_PER_NIGHT_USD]: <PricePerNightUsd />,
+  [ListingField.SECURITY_DEPOSIT_USD]: <SecurityDepositUsd />,
+  [ListingField.ICAL_URLS]: <IcalUrls />,
   
-  checkInTime: <CheckInTime />,
-  checkOutTime: <CheckOutTime />,
-  houseRules: <HouseRules />,
+  [ListingField.CHECK_IN_TIME]: <CheckInTime />,
+  [ListingField.CHECK_OUT_TIME]: <CheckOutTime />,
+  [ListingField.HOUSE_RULES]: <HouseRules />,
 }
 
-export default ListingHelpTextInterface;
+export default ListingHelp;

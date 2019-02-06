@@ -1,7 +1,7 @@
 import * as React from 'react';
 import { Redirect, Route, Switch } from 'react-router-dom';
 import { compose, graphql } from 'react-apollo';
-import { Listing, GET_HOST_LISTINGS, UPDATE_LISTING, ListingInput } from 'networking/listings';
+import { Listing, GET_HOST_LISTINGS, UPDATE_LISTING, ListingField, ListingInput } from 'networking/listings';
 import { Formik, Form, FormikProps, FormikActions } from 'formik';
 import * as Yup from 'yup';
 
@@ -16,39 +16,9 @@ import NotFound from 'routes/NotFound';
 import Button from 'shared/Button';
 import timeOptions from 'utils/timeOptions';
 import { History } from 'history';
-import ListingHelpText from './ListingHelpText';
+import ListingHelp from './ListingHelp';
 import { ApolloError } from 'apollo-client';
 import { AppConsumer, AppConsumerProps, ScreenType } from 'components/App.context';
-
-enum ListingField {
-  ADDRESS_LINE_1 = 'addressLine1',
-  ADDRESS_LINE_2 = 'addressLine2',
-  AMENITIES = 'amenities',
-  CHECK_IN_TIME = 'checkInTime',
-  CHECK_OUT_TIME = 'checkOutTime',
-  CITY = 'city',
-  COUNTRY = 'country',
-  DESCRIPTION = 'description',
-  HOME_TYPE = 'homeType',
-  HOUSE_RULES = 'houseRules',
-  ICAL_URLS = 'icalUrls',
-  IS_ACTIVE = 'isActive',
-  LAT = 'lat',
-  LNG = 'lng',
-  LISTING_PIC_URL = 'listingPicUrl',
-  MAX_GUESTS = 'maxGuests',
-  MINIMUM_NIGHTS = 'minimumNights',
-  NUMBER_OF_BATHROOMS = 'numberOfBathrooms',
-  NUMBER_OF_BEDROOMS = 'numberOfBedrooms',
-  PHOTOS = 'photos',
-  POSTAL_CODE = 'postalCode',
-  PRICE_PER_NIGHT_USD = 'pricePerNightUsd',
-  SECURITY_DEPOSIT_USD = 'securityDepositUsd',
-  SHARED_BATHROOM = 'sharedBathroom',
-  SLEEPING_ARRANGEMENT = 'sleepingArrangement',
-  STATE = 'state',
-  TITLE = 'title',
-}
 
 interface FormValues {
   [name: string]: boolean | string | string[] | number | object | undefined;
@@ -225,32 +195,28 @@ class ListingForm extends React.Component<Props, State> {
                       exact
                       path="/host/listings/:id/accommodations"
                       render={() => (
-                        <AccommodationsForm {...FormikProps} ListingField={ListingField} setFocus={this.handleFocus} />
+                        <AccommodationsForm {...FormikProps} setFocus={this.handleFocus} />
                       )}
                     />
                     <Route
                       exact
                       path="/host/listings/:id/checkin_details"
                       render={() => (
-                        <CheckinDetailsForm {...FormikProps} ListingField={ListingField} setFocus={this.handleFocus} />
+                        <CheckinDetailsForm {...FormikProps} setFocus={this.handleFocus} />
                       )}
                     />
                     <Route
                       exact
                       path="/host/listings/:id/listing_info"
                       render={() => (
-                        <ListingInfoForm {...FormikProps} ListingField={ListingField} setFocus={this.handleFocus} />
+                        <ListingInfoForm {...FormikProps} setFocus={this.handleFocus} />
                       )}
                     />
                     <Route
                       exact
                       path="/host/listings/:id/pricing_availability"
                       render={() => (
-                        <PricingAvailabilityForm
-                          {...FormikProps}
-                          ListingField={ListingField}
-                          setFocus={this.handleFocus}
-                        />
+                        <PricingAvailabilityForm {...FormikProps} setFocus={this.handleFocus} />
                       )}
                     />
                     <Redirect exact from="/host/listings/:id/edit" to="/host/listings/:id/listing_info" />
@@ -280,7 +246,7 @@ class ListingForm extends React.Component<Props, State> {
                         <div className="background-extender" />
                         <div className="aside-container">
                           {isFirstFocused(this.state.focus) && AsideHeaders[getCurrentCrumb(this.props.history)]}
-                          {ListingHelpText[this.state.focus]}
+                          {ListingHelp[this.state.focus]}
                         </div>
                       </aside>
                     )

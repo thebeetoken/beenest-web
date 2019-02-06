@@ -469,3 +469,34 @@ export const DEACTIVATE_LISTING = gql`
     }
   }
 `;
+
+// TODO: Move this into more related form file when it becomes more appropriate
+export enum ListingField {
+  ADDRESS_LINE_1 = 'addressLine1',
+  ADDRESS_LINE_2 = 'addressLine2',
+  AMENITIES = 'amenities',
+  CHECK_IN_TIME = 'checkInTime',
+  CHECK_OUT_TIME = 'checkOutTime',
+  CITY = 'city',
+  COUNTRY = 'country',
+  DESCRIPTION = 'description',
+  HOME_TYPE = 'homeType',
+  HOUSE_RULES = 'houseRules',
+  ICAL_URLS = 'icalUrls',
+  IS_ACTIVE = 'isActive',
+  LAT = 'lat',
+  LNG = 'lng',
+  LISTING_PIC_URL = 'listingPicUrl',
+  MAX_GUESTS = 'maxGuests',
+  MINIMUM_NIGHTS = 'minimumNights',
+  NUMBER_OF_BATHROOMS = 'numberOfBathrooms',
+  NUMBER_OF_BEDROOMS = 'numberOfBedrooms',
+  PHOTOS = 'photos',
+  POSTAL_CODE = 'postalCode',
+  PRICE_PER_NIGHT_USD = 'pricePerNightUsd',
+  SECURITY_DEPOSIT_USD = 'securityDepositUsd',
+  SHARED_BATHROOM = 'sharedBathroom',
+  SLEEPING_ARRANGEMENT = 'sleepingArrangement',
+  STATE = 'state',
+  TITLE = 'title',
+}
