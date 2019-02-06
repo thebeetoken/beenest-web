@@ -24,7 +24,6 @@ import CryptoPortal from 'shared/CryptoPortal';
 import TabNavBar from 'shared/TabNavBar';
 import { Switch, Route, Redirect } from 'react-router';
 import NotFound from 'components/routes/NotFound';
-import StartedTripCard from 'components/routes/Trips/StartedTripCard';
 
 interface Props {
   cancelBooking: (booking: Booking) => Promise<void>;
@@ -60,8 +59,8 @@ class Trips extends React.Component<Props, State> {
               if (error || !data) {
                 return <h1>{error ? error.message : 'Error / No Data'}</h1>;
               }
-              const { cancelled, current, past, started, upcoming } = data;
-              const isCurrentEmpty = !(current || []).length && !(started || []).length;
+              const { cancelled, current, past, upcoming } = data;
+              const isCurrentEmpty = !(current || []).length;
               const isUpcomingEmpty = !(upcoming || []).length;
               return (
                 <>
@@ -87,16 +86,6 @@ class Trips extends React.Component<Props, State> {
                     <Switch>
                       <Route exact path="/trips/current" component={() =>
                         <>
-                          {!!started.length &&
-                            <>
-                              <div className="started-trip-container">
-                                <h3>Finish this booking:</h3>
-                                <StartedTripCard
-                                  trip={started[0]} />
-                              </div>
-                              {!!current.length && <h2>Current bookings:</h2>}
-                            </>
-                          }
                           {!!current.length &&
                             <section className="active-cards-container">
                               {current.map((trip: Booking) =>
