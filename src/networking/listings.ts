@@ -370,35 +370,38 @@ export const SEARCH_LISTINGS = gql`
 export const GET_ALL_LISTINGS = gql`
   query allListings($input: AllListingsInput) {
     allListings(input: $input) {
-      city
-      country
-      createdAt
-      currency
-      hostNameSlug
-      hostId
-      id
-      isActive
-      lat
-      lng
-      maxGuests
-      minimumNights
-      listingPicUrl
-      prices {
+      listings {
+        city
+        country
+        createdAt
         currency
-        pricePerNight
-        securityDeposit
-      }
-      pricePerNightUsd
-      securityDepositUsd
-      state
-      title
-      host {
-        email
-        displayName
-        fullName
+        hostNameSlug
+        hostId
         id
+        isActive
+        lat
+        lng
+        maxGuests
+        minimumNights
+        listingPicUrl
+        prices {
+          currency
+          pricePerNight
+          securityDeposit
+        }
+        pricePerNightUsd
+        securityDepositUsd
+        state
+        title
+        host {
+          email
+          displayName
+          fullName
+          id
+        }
+        updatedAt
       }
-      updatedAt
+      count
     }
   }
 `;
