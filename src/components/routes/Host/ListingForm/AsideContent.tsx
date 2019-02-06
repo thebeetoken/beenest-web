@@ -10,11 +10,11 @@ interface AsideContentInterface {
 const HomeType = () => (
   <div>
     <h3>Type of Home</h3>
-    <h4><strong>Entire place</strong></h4>
+    <h4>Entire place</h4>
     <p>The whole space is dedicated to guests. This may be a house, apartment, condo, loft, etc.</p>
-    <h4><strong>Private room</strong></h4>
+    <h4>Private room</h4>
     <p>A single room within a place is dedicated to guests. While other areas could be shared, guests have their own private room for sleeping.</p>
-    <h4><strong>Shared room</strong></h4>
+    <h4>Shared room</h4>
     <p>Bedrooms or a common area that could be shared with others are dedicated to guests.</p>
   </div>
 );
@@ -55,8 +55,8 @@ const ListingPicUrl = () => (
 const Photos = () => (
   <div>
     <h3>Listing Photos</h3>
-    <p>Beenest recommends listings have at least 5 high-definition photos available. Photos are the best way to show off your place to potential guests. <strong>Pro tip:</strong> provide multiple well-lit photos with different angles of bedrooms, bathrooms, and public spaces so guests know exactly what to expect.</p>
-    <h4><strong>Do:</strong></h4>
+    <p>Beenest recommends listings have at least 5 high-definition photos available. Photos are the best way to show off your place to potential guests. <span>Pro tip:</span> provide multiple well-lit photos with different angles of bedrooms, bathrooms, and public spaces so guests know exactly what to expect.</p>
+    <h4>Do:</h4>
     <ul>
       <ListItem noHover prefixColor="correct" start="tiny">
         <Svg className="prefix" src="utils/check-circle" />
@@ -71,7 +71,7 @@ const Photos = () => (
         <span>Do provide multiple angles</span>
       </ListItem>
     </ul>
-    <h4><strong>Don't:</strong></h4>
+    <h4>Don't:</h4>
     <ul>
       <ListItem noHover prefixColor="incorrect" start="tiny">
         <Svg className="prefix" src="utils/x-circle" />
@@ -150,7 +150,7 @@ const PricePerNightUsd = () => (
 const SecurityDepositUsd = () => (
   <div>
     <h3>Security Deposit</h3>
-    <p><strong>Note:</strong> Security deposit is not charged at the time of booking. It will only be charged if a guest damages your property.</p>
+    <p><span>Note:</span> Security deposit is not charged at the time of booking. It will only be charged if a guest damages your property.</p>
   </div>
 );
 
@@ -160,12 +160,12 @@ const IcalUrls = () => (
     <p>To avoid double bookings and to prevent multiple guests from booking the same dates, sync your Beenest calendar with your other calendars and input your iCal URL from other booking platforms.</p>
     <p>Instructions to export calendars on other platforms are generally:</p>
     <ol>
-      <li>Go to <strong>Host</strong> and select <strong>Calendar</strong></li>
-      <li>Click <strong>Availability</strong> settings in your calendar view</li>
-      <li>Under Sync calendars, select <strong>Export Calendar</strong></li>
+      <li>Go to <span>Host</span> and select <span>Calendar</span></li>
+      <li>Click <span>Availability</span> settings in your calendar view</li>
+      <li>Under Sync calendars, select <span>Export Calendar</span></li>
       <li>Copy and paste the calendar link into Beenest</li>
     </ol>
-    <p><strong>Note:</strong> When you edit an external calendar that syncs with your calendar on Beenest, it will take a few hours for those changes to be visible to guests who view your listing.</p>
+    <p><span>Note:</span> When you edit an external calendar that syncs with your calendar on Beenest, it will take a few hours for those changes to be visible to guests who view your listing.</p>
   </div>
 );
 

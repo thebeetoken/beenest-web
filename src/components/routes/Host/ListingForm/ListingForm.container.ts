@@ -125,10 +125,16 @@ const ListingFormMobileContainer = styled.section`
           p {
             ${typography('read', 2)}
             margin-bottom: 24px;
+            > span {
+              ${typography('emp', 6)}
+            }
           }
           ol {
             li {
               list-style-type: decimal;
+              > span {
+                ${typography('emp', 5)}
+              }
             }
           }
           ul {
