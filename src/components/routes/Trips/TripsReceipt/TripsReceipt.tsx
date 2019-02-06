@@ -216,7 +216,7 @@ const TripsReceiptPriceQuote = (props: Booking): JSX.Element => {
                   noHover
                   start="medium-large"
                   textColor="body">
-                  <span>{pricePerNight} {currency} x {(priceTotalNights / pricePerNight)} {(priceTotalNights / pricePerNight) > 1 ? 'nights' : 'night'}</span>
+                  <span>{pricePerNight} {currency} x {Math.floor((priceTotalNights / pricePerNight))} {(priceTotalNights / pricePerNight) > 1 ? 'nights' : 'night'}</span>
                 </ListItem>
                 <ListItem
                   font="small-e"
@@ -241,7 +241,7 @@ const TripsReceiptPriceQuote = (props: Booking): JSX.Element => {
                   start="medium-large"
                   textColor="body"
                   textAlign="right">
-                  <span>{securityDeposit || 0} {currency}</span>
+                  <span>{currency === 'USD' ? roundToUsdPrice(securityDeposit || 0) : (securityDeposit || 0)} {currency}</span>
                 </ListItem>
               </div>
               <div className="trips-receipt-paid--line-items">
