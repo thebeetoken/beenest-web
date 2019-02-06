@@ -123,20 +123,20 @@ class Trips extends React.Component<Props, State> {
                           ))}
                         </section>
                       )} />
-                      <Route exact path="/trips/past" component={() => past.length > 0 && (
+                      <Route exact path="/trips/past" component={() => past.length > 0 ? (
                         <section className="expired-trip-cards">
                           {past.map((trip: Booking) => (
                             <ExpiredTripCard key={trip.id} trip={trip} />
                           ))}
                         </section>
-                      )} />
-                      <Route exact path="/trips/cancelled" component={() => cancelled.length > 0 && (
+                      ) : (<></>)} />
+                      <Route exact path="/trips/cancelled" component={() => cancelled.length > 0 ? (
                         <section className="expired-trip-cards">
                           {cancelled.map((trip: Booking) => (
                             <ExpiredTripCard key={trip.id} trip={trip} />
                           ))}
                         </section>
-                      )} />
+                      ) : (<></>)} />
                       <Redirect exact from="/trips" to={isCurrentEmpty ? "/trips/upcoming" : "/trips/current"} />
                       <Route component={NotFound} />
                     </Switch>
