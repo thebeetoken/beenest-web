@@ -68,7 +68,7 @@ const Photos = () => (
       </ListItem>
       <ListItem noHover prefixColor="correct" start="tiny">
         <Svg className="prefix" src="utils/check-circle" />
-        <span>Do provide multiple angles</span>
+        <span>Provide multiple angles</span>
       </ListItem>
     </ul>
     <h4>Don't:</h4>
