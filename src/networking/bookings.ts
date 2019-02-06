@@ -315,10 +315,6 @@ export const GET_GUEST_SORTED_BOOKINGS = gql`
       }
       ...baseTripFields
     }
-    started: guestBookings(status: "started") {
-      currency
-      ...baseTripFields
-    }
     current: guestBookings(status: "current") {
       currency
       ...baseTripFields
