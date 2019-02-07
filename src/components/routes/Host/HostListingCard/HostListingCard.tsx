@@ -5,6 +5,7 @@ import Switch from 'react-switch';
 
 import HostListingCardContainer from './HostListingCard.container';
 
+import { FirebaseConsumer, FirebaseUserProps } from 'HOCs/FirebaseProvider';
 import BeeLink from 'shared/BeeLink';
 import Button from 'shared/Button';
 import LazyImage from 'shared/LazyImage';
@@ -79,12 +80,18 @@ const HostListingCard = (props: Props): JSX.Element => {
           <div className='host-listing-publish'>
             <label htmlFor={`publish-${id}`} title={canPublish ? '' : INCOMPLETE_LISTING}>
               <span className={canPublish ? '' : 'host-listing-meta--disabled'}>Publish</span>
-              <Switch
-                checked={isActive}
-                disabled={!canPublish}
-                onColor={hexColor('correct')}
-                onChange={() => toggleListing(id).catch((error) => alert(error))}
-                id={`publish-${id}`} />
+              <FirebaseConsumer>
+                {({ completedVerification }: FirebaseUserProps) => {
+                  return (
+                    <Switch
+                      checked={isActive}
+                      disabled={!canPublish || !completedVerification}
+                      onColor={hexColor('correct')}
+                      onChange={() => toggleListing(id).catch((error) => alert(error))}
+                      id={`publish-${id}`} />
+                  );
+                }}
+              </FirebaseConsumer>
             </label>
             {!canPublish && <p className='host-listing-notice'>{INCOMPLETE_LISTING}</p>}
           </div>
