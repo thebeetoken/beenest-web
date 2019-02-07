@@ -589,7 +589,7 @@ const DateRangePickerContainer = styled.div`
     overflow-y: scroll;
   }
   .DateInput {
-    height: 40px;
+    height: 39px;
     margin: 0;
     padding: 0;
     background: #fff;
@@ -616,7 +616,7 @@ const DateRangePickerContainer = styled.div`
     font-family: 'Montserrat';
     ${typography('read', 1)}
     line-height: 1;
-    height: 40px;
+    height: 39px;
     background-color: #fff;
     width: 100%;
     padding: 0 0 0 16px;
@@ -716,7 +716,7 @@ const DateRangePickerContainer = styled.div`
     color: #484848;
     display: flex;
     flex-direction: column;
-    height: 41px;  /* need this since weird bottom border shows up at certain screen sizes */
+    height: 39px;
     justify-content: center;
     margin-left: 16px;
     margin-right: 20px;
