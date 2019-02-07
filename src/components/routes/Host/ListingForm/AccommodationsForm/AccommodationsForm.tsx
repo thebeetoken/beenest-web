@@ -1,17 +1,18 @@
 import * as React from 'react';
+import { Field, ErrorMessage } from 'formik';
 
+import { ListingField } from 'networking/listings';
+import Checkbox from 'shared/Checkbox';
+import ErrorMessageWrapper from 'shared/ErrorMessageWrapper';
 import InputLabel from 'shared/InputLabel';
 import InputWrapper from 'shared/InputWrapper';
 import NumberInput from 'shared/NumberInput';
 import Textarea from 'shared/Textarea';
 import { TextareaEvent } from 'shared/Textarea/Textarea';
 import { stringToArray, arrayToString } from 'utils/formatter';
-import Checkbox from 'shared/Checkbox';
-import { Field, ErrorMessage } from 'formik';
-import ErrorMessageWrapper from 'shared/ErrorMessageWrapper';
 
 const AccommodationsForm = (props: any): JSX.Element => {
-  const { setFieldTouched, setFieldValue, values } = props;
+  const { setFocus, setFieldTouched, setFieldValue, values } = props;
   const StyledErrorMessage = (props: { name: string }) => (
     <ErrorMessageWrapper>
       {props.name && <ErrorMessage {...props} />}
@@ -19,34 +20,16 @@ const AccommodationsForm = (props: any): JSX.Element => {
   );
   return (
     <>
-      {/* <div className="form-item">
-        <InputLabel>Housing Accommodation</InputLabel>
-        <SelectBoxWrapper suffixSize="tiny">
-          <select id="homeType" name="homeType" value={props.inputForm.homeType} onChange={onInput}>
-            <option value={undefined}>
-              Choose the Accommodation
-            </option>
-            {Object.values(HomeTypeHostForm).map((value: HomeTypeHostForm) => (
-              <option value={value} key={value}>
-                {value}
-              </option>
-            ))}
-          </select>
-          <label htmlFor="homeType">
-            <Svg className="suffix" src="utils/carat-down" />
-          </label>
-        </SelectBoxWrapper>
-      </div> */}
-
       <div className="form-item">
-        <InputLabel htmlFor="sleepingArrangement" subLabel="(required)">Sleeping Arrangement</InputLabel>
+        <InputLabel htmlFor={ListingField.SLEEPING_ARRANGEMENT} subLabel="(required)">Sleeping Arrangement</InputLabel>
         <InputWrapper>
           <Field
-            name="sleepingArrangement"
+            name={ListingField.SLEEPING_ARRANGEMENT}
+            onFocus={() => setFocus(ListingField.SLEEPING_ARRANGEMENT)}
             placeholder="1 King, 2 Queens"
             type="text" />
         </InputWrapper>
-        <StyledErrorMessage name="sleepingArrangement" />
+        <StyledErrorMessage name={ListingField.SLEEPING_ARRANGEMENT} />
       </div>
 
       <div className="form-item">
@@ -57,8 +40,9 @@ const AccommodationsForm = (props: any): JSX.Element => {
             max={50}
             min={1}
             onChange={(value: number) => {
-              setFieldValue('numberOfBedrooms', value);
-              setFieldTouched('numberOfBedrooms');
+              setFieldValue(ListingField.NUMBER_OF_BEDROOMS, value);
+              setFieldTouched(ListingField.NUMBER_OF_BEDROOMS);
+              setFocus(ListingField.NUMBER_OF_BEDROOMS);
             }}
           />
         </div>
@@ -72,8 +56,9 @@ const AccommodationsForm = (props: any): JSX.Element => {
             max={50}
             min={0}
             onChange={(value: number) => {
-              setFieldValue('numberOfBathrooms', value);
-              setFieldTouched('numberOfBathrooms');
+              setFieldValue(ListingField.NUMBER_OF_BATHROOMS, value);
+              setFieldTouched(ListingField.NUMBER_OF_BATHROOMS);
+              setFocus(ListingField.NUMBER_OF_BATHROOMS);
             }}
             step={0.5}
           />
@@ -85,24 +70,28 @@ const AccommodationsForm = (props: any): JSX.Element => {
           checked={isSharedBathroom(values.sharedBathroom)}
           onChange={() => {
             const value = isSharedBathroom(values.sharedBathroom) ? 'No' : 'Yes';
-            setFieldValue('sharedBathroom', value);
-            setFieldTouched('sharedBathroom', true);
+            setFieldValue(ListingField.SHARED_BATHROOM, value);
+            setFieldTouched(ListingField.SHARED_BATHROOM, true);
+            setFocus(ListingField.SHARED_BATHROOM);
           }}>
-          Shared Bathroom
+          <InputLabel>
+            Shared Bathroom
+          </InputLabel>
         </Checkbox>
       </div>
 
       <div className="form-item">
-        <InputLabel htmlFor="amenities" subLabel="(required, separate by comma)">Amenities</InputLabel>
+        <InputLabel htmlFor={ListingField.AMENITIES} subLabel="(required, separate by comma)">Amenities</InputLabel>
         <Textarea
-          name="amenities"
-          onBlur={() => setFieldTouched('amenities', true)}
+          name={ListingField.AMENITIES}
+          onBlur={() => setFieldTouched(ListingField.AMENITIES, true)}
+          onFocus={() => setFocus(ListingField.AMENITIES)}
           onChange={(event: TextareaEvent) => {
-            setFieldValue('amenities', stringToArray(event.target.value));
+            setFieldValue(ListingField.AMENITIES, stringToArray(event.target.value));
           }}
           value={arrayToString(values.amenities)}
-          placeholder="Towels, Soap, Detergent" />
-          <StyledErrorMessage name="amenities" />
+          placeholder="Wifi, Towels, Soap, TV, Coffee..." />
+          <StyledErrorMessage name={ListingField.AMENITIES} />
       </div>
     </>
   );

@@ -1,7 +1,7 @@
 import * as React from 'react';
 import { Redirect, Route, Switch } from 'react-router-dom';
 import { compose, graphql } from 'react-apollo';
-import { Listing, GET_HOST_LISTINGS, UPDATE_LISTING, ListingInput } from 'networking/listings';
+import { Listing, GET_HOST_LISTINGS, UPDATE_LISTING, ListingField, ListingInput } from 'networking/listings';
 import { Formik, Form, FormikProps, FormikActions } from 'formik';
 import * as Yup from 'yup';
 
@@ -15,44 +15,46 @@ import GeneralWrapper from 'shared/GeneralWrapper';
 import NotFound from 'routes/NotFound';
 import Button from 'shared/Button';
 import timeOptions from 'utils/timeOptions';
+import { History } from 'history';
+import ListingHelp from './ListingHelp';
 import { ApolloError } from 'apollo-client';
+import { AppConsumer, AppConsumerProps, ScreenType } from 'components/App.context';
 
 interface FormValues {
   [name: string]: boolean | string | string[] | number | object | undefined;
 }
 
 const defaultValues: FormValues = {
-  addressLine1: '',
-  addressLine2: '',
-  amenities: [],
-  checkInTime: {
+  [ListingField.ADDRESS_LINE_1]: '',
+  [ListingField.ADDRESS_LINE_2]: '',
+  [ListingField.AMENITIES]: [],
+  [ListingField.CHECK_IN_TIME]: {
     from: '3:00 p.m.',
     to: '10:00 p.m.',
   },
-  checkOutTime: '11:00 a.m.',
-  city: '',
-  country: 'USA',
-  description: '',
-  homeType: 'Entire Place',
-  // housing: '',
-  houseRules: '',
-  icalUrls: [],
-  isActive: false,
-  lat: 0,
-  lng: 0,
-  listingPicUrl: '',
-  maxGuests: 1,
-  minimumNights: 1,
-  numberOfBathrooms: 0,
-  numberOfBedrooms: 1,
-  photos: [],
-  postalCode: '',
-  pricePerNightUsd: 100,
-  securityDepositUsd: 50,
-  sharedBathroom: 'No',
-  sleepingArrangement: '',
-  state: '',
-  title: '',
+  [ListingField.CHECK_OUT_TIME]: '11:00 a.m.',
+  [ListingField.CITY]: '',
+  [ListingField.COUNTRY]: 'USA',
+  [ListingField.DESCRIPTION]: '',
+  [ListingField.HOME_TYPE]: 'Entire Place',
+  [ListingField.HOUSE_RULES]: '',
+  [ListingField.ICAL_URLS]: [],
+  [ListingField.IS_ACTIVE]: false,
+  [ListingField.LAT]: 0,
+  [ListingField.LNG]: 0,
+  [ListingField.LISTING_PIC_URL]: '',
+  [ListingField.MAX_GUESTS]: 1,
+  [ListingField.MINIMUM_NIGHTS]: 1,
+  [ListingField.NUMBER_OF_BATHROOMS]: 0,
+  [ListingField.NUMBER_OF_BEDROOMS]: 1,
+  [ListingField.PHOTOS]: [],
+  [ListingField.POSTAL_CODE]: '',
+  [ListingField.PRICE_PER_NIGHT_USD]: 100,
+  [ListingField.SECURITY_DEPOSIT_USD]: 50,
+  [ListingField.SHARED_BATHROOM]: 'No',
+  [ListingField.SLEEPING_ARRANGEMENT]: '',
+  [ListingField.STATE]: '',
+  [ListingField.TITLE]: '',
 };
 
 interface Props extends RouterProps {
@@ -61,12 +63,10 @@ interface Props extends RouterProps {
 }
 
 const ListingFormSchema = Yup.object().shape({
-  addressLine1: Yup.string()
-    .min(1, minStringError('Address Line 1')),
-  addressLine2: Yup.string(),
-  amenities: Yup.array()
-    .of(Yup.string()),
-  checkInTime: Yup.object()
+  [ListingField.ADDRESS_LINE_1]: Yup.string().min(1, minStringError('Address Line 1')),
+  [ListingField.ADDRESS_LINE_2]: Yup.string(),
+  [ListingField.AMENITIES]: Yup.array().of(Yup.string()),
+  [ListingField.CHECK_IN_TIME]: Yup.object()
     .shape({
       from: Yup.string().oneOf(timeOptions),
       to: Yup.string().oneOf(timeOptions),
@@ -75,70 +75,97 @@ const ListingFormSchema = Yup.object().shape({
       const { from, to } = this.parent.checkInTime;
       return from !== to;
     }),
-  checkOutTime: Yup.string().oneOf(timeOptions),
-  city: Yup.string().max(60, maxStringError('City')),
-  country: Yup.string(),
-  description: Yup.string()
-    .min(1, minStringError('Description')),
-  homeType: Yup.string().min(1, minStringError('Home Type')),
-  houseRules: Yup.string()
-    .min(1, minStringError('House Rules')),
-  icalUrls: Yup.array().of(Yup.string().url('${value} is not a valid ical url. ')),
-  isActive: Yup.bool(),
-  lat: Yup.number()
+  [ListingField.CHECK_OUT_TIME]: Yup.string().oneOf(timeOptions),
+  [ListingField.CITY]: Yup.string().max(60, maxStringError('City')),
+  [ListingField.COUNTRY]: Yup.string(),
+  [ListingField.DESCRIPTION]: Yup.string().min(1, minStringError('Description')),
+  [ListingField.HOME_TYPE]: Yup.string().min(1, minStringError('Home Type')),
+  [ListingField.HOUSE_RULES]: Yup.string().min(1, minStringError('House Rules')),
+  [ListingField.ICAL_URLS]: Yup.array().of(Yup.string().url('${value} is not a valid ical url. ')),
+  [ListingField.IS_ACTIVE]: Yup.bool(),
+  [ListingField.LAT]: Yup.number()
     .moreThan(-90)
     .lessThan(90),
-  lng: Yup.number()
+  [ListingField.LNG]: Yup.number()
     .moreThan(-180)
     .lessThan(180),
-  listingPicUrl: Yup.string()
-    .url(),
-  maxGuests: Yup.number()
+  [ListingField.LISTING_PIC_URL]: Yup.string().url(),
+  [ListingField.MAX_GUESTS]: Yup.number()
     .min(1, minNumberError('Max Guests'))
     .max(50, maxNumberError('Max Guests')),
-  minimumNights: Yup.number()
+  [ListingField.MINIMUM_NIGHTS]: Yup.number()
     .required('Minimum Nights is a required field.')
     .min(1, minNumberError('Minimum Nights')),
-  numberOfBathrooms: Yup.number()
-    .min(0, minNumberError('Number of Bathrooms')),
-  numberOfBedrooms: Yup.number()
-    .min(0, minNumberError('Number of Bedrooms')),
-  photos: Yup.array()
-    .of(Yup.string().url()),
-  postalCode: Yup.string()
+  [ListingField.NUMBER_OF_BATHROOMS]: Yup.number().min(0, minNumberError('Number of Bathrooms')),
+  [ListingField.NUMBER_OF_BEDROOMS]: Yup.number().min(0, minNumberError('Number of Bedrooms')),
+  [ListingField.PHOTOS]: Yup.array().of(Yup.string().url()),
+  [ListingField.POSTAL_CODE]: Yup.string()
     .min(1, minStringError('Postal Code'))
     .max(45, maxStringError('Postal Code')),
-  pricePerNightUsd: Yup.number()
+  [ListingField.PRICE_PER_NIGHT_USD]: Yup.number()
     .required('Price Per Night USD is a required field.')
     .min(1, minNumberError('Price Per Night')),
-  securityDepositUsd: Yup.number()
+  [ListingField.SECURITY_DEPOSIT_USD]: Yup.number()
     .required('Security Deposit USD is a required field.')
     .min(0, minNumberError('Security Deposit')),
-  sharedBathroom: Yup.string(),
-  sleepingArrangement: Yup.string()
-    .min(1, minStringError('Sleeping Arrangement')),
-  state: Yup.string()
-    .min(1, minStringError('State'))
-    .max(60, maxStringError('State')),
-  title: Yup.string()
+  [ListingField.SHARED_BATHROOM]: Yup.string(),
+  [ListingField.SLEEPING_ARRANGEMENT]: Yup.string().min(1, minStringError('Sleeping Arrangement')),
+  [ListingField.STATE]: Yup.string(),
+  [ListingField.TITLE]: Yup.string()
     .min(5, minStringError('Title'))
     .max(50, maxStringError('Title')),
 });
 
 const formCrumbs = ['listing_info', 'accommodations', 'pricing_availability', 'checkin_details'];
 
+const defaultFocus: { [name: string]: string } = {
+  listing_info: 'homeType',
+  accommodations: 'sleepingArrangement',
+  pricing_availability: 'maxGuests',
+  checkin_details: 'checkInTime',
+};
+
+interface AsideHeadersInterface {
+  [name: string]: React.ReactNode;
+}
+
+const AsideHeaders: AsideHeadersInterface = {
+  listing_info: (
+    <header>
+      Let's get started! This section will inform guests about where they'll be staying and what to expect. The more
+      descriptive, the better.
+    </header>
+  ),
+  accommodations: (
+    <header>
+      This section allows guests to determine if your space meets their needs. <span>Note:</span> Type of bed is
+      important, especially for larger groups. e.g. 1 Queen, 2 Doubles, 3 Kings.
+    </header>
+  ),
+  pricing_availability: (
+    <header>Let guests know how many people can stay at your place and how much it will cost right away.</header>
+  ),
+  checkin_details: (
+    <header>
+      You're almost finished! Let guests know the times they're able to check in and out as well as the rules they must
+      abide by.
+    </header>
+  ),
+};
+
 interface State {
   nextCrumb: string;
+  focus: string;
 }
 
 class ListingForm extends React.Component<Props, State> {
   readonly state: State = {
     nextCrumb: '',
+    focus: defaultFocus[getCurrentCrumb(this.props.history)],
   };
 
   componentDidMount = () => {
-    const path = this.props.history.location.pathname;
-    const currentCrumb = path.substr(path.lastIndexOf('/') + 1);
+    const currentCrumb = getCurrentCrumb(this.props.history);
     const nextCrumb = formCrumbs[formCrumbs.indexOf(currentCrumb) + 1];
     this.setState({
       nextCrumb: nextCrumb ? `${this.props.match.params.id}/${nextCrumb}` : '',
@@ -153,7 +180,8 @@ class ListingForm extends React.Component<Props, State> {
           initialValues={populateListingForm(defaultValues, props.listing)}
           isInitialValid
           validationSchema={ListingFormSchema}
-          onSubmit={this.handleSubmit}>
+          onSubmit={this.handleSubmit}
+        >
           {(FormikProps: FormikProps<ListingInput>) => (
             <>
               <ListingFormNav
@@ -170,22 +198,30 @@ class ListingForm extends React.Component<Props, State> {
                     <Route
                       exact
                       path="/host/listings/:id/accommodations"
-                      render={() => <AccommodationsForm {...FormikProps} />}
+                      render={() => (
+                        <AccommodationsForm {...FormikProps} setFocus={this.handleFocus} />
+                      )}
                     />
                     <Route
                       exact
                       path="/host/listings/:id/checkin_details"
-                      render={() => <CheckinDetailsForm {...FormikProps} />}
+                      render={() => (
+                        <CheckinDetailsForm {...FormikProps} setFocus={this.handleFocus} />
+                      )}
                     />
                     <Route
                       exact
                       path="/host/listings/:id/listing_info"
-                      render={() => <ListingInfoForm {...FormikProps} />}
+                      render={() => (
+                        <ListingInfoForm {...FormikProps} setFocus={this.handleFocus} />
+                      )}
                     />
                     <Route
                       exact
                       path="/host/listings/:id/pricing_availability"
-                      render={() => <PricingAvailabilityForm {...FormikProps} />}
+                      render={() => (
+                        <PricingAvailabilityForm {...FormikProps} setFocus={this.handleFocus} />
+                      )}
                     />
                     <Redirect exact from="/host/listings/:id/edit" to="/host/listings/:id/listing_info" />
                     <Route component={NotFound} />
@@ -194,7 +230,11 @@ class ListingForm extends React.Component<Props, State> {
                   <Button
                     onClick={() => {
                       if (!FormikProps.isValid) {
-                        alert(`Cannot save changes due to errors:\n\n${Object.values(FormikProps.errors).join('\n').toString()}`);
+                        alert(
+                          `Cannot save changes due to errors:\n\n${Object.values(FormikProps.errors)
+                            .join('\n')
+                            .toString()}`
+                        );
                       }
                       FormikProps.submitForm();
                     }}
@@ -203,6 +243,19 @@ class ListingForm extends React.Component<Props, State> {
                     Save &amp; Continue
                   </Button>
                 </Form>
+                <AppConsumer>
+                  {({ screenType }: AppConsumerProps) =>
+                    screenType >= ScreenType.DESKTOP && (
+                      <aside>
+                        <div className="background-extender" />
+                        <div className="aside-container">
+                          {isFirstFocused(this.state.focus) && AsideHeaders[getCurrentCrumb(this.props.history)]}
+                          {ListingHelp[this.state.focus]}
+                        </div>
+                      </aside>
+                    )
+                  }
+                </AppConsumer>
               </GeneralWrapper>
             </>
           )}
@@ -211,7 +264,13 @@ class ListingForm extends React.Component<Props, State> {
     );
   }
 
-  setNextCrumb = (nextCrumb: string) => this.setState({ nextCrumb });
+  handleFocus = (focus: string) => this.setState({ focus });
+  setNextCrumb = (nextCrumb: string) => {
+    this.setState({
+      nextCrumb,
+      focus: defaultFocus[nextCrumb],
+    });
+  };
 
   handleSubmit = (values: ListingInput, actions: FormikActions<FormValues>) => {
     const { props } = this;
@@ -223,12 +282,17 @@ class ListingForm extends React.Component<Props, State> {
         props.history.push(`/host/listings/${this.state.nextCrumb}`);
       })
       .catch((error: ApolloError) => {
-        const formattedError = error.graphQLErrors ? error.graphQLErrors.map(e => e.message).join('\r\n').toString() : error;
+        const formattedError = error.graphQLErrors
+          ? error.graphQLErrors
+              .map(e => e.message)
+              .join('\r\n')
+              .toString()
+          : error;
         alert(`${formattedError}\r\n\r\nIf this continues to occur, please contact us at support@beenest.com`);
         console.error(error);
         return actions.setSubmitting(false);
       });
-  }
+  };
 }
 
 export default compose(
@@ -278,6 +342,11 @@ function omitFields(key: string, value: any) {
   return ['id', '__typename', 'createdAt'].includes(key) ? undefined : value;
 }
 
+function getCurrentCrumb(history: History): string {
+  const path = history.location.pathname;
+  return path.substr(path.lastIndexOf('/') + 1);
+}
+
 function minStringError(readableName: string) {
   return `${readableName}` + ' must be at least ${min} characters long.';
 }
@@ -292,4 +361,8 @@ function minNumberError(readableName: string) {
 
 function maxNumberError(readableName: string) {
   return `${readableName}` + ' must be less than or equal to ${min}.';
+}
+
+function isFirstFocused(focus: string): boolean {
+  return Object.values(defaultFocus).includes(focus);
 }
