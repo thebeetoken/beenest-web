@@ -12,7 +12,7 @@ import {
 } from 'networking/bookings';
 import AudioLoading from 'shared/loading/AudioLoading';
 import Fab from 'shared/Fab';
-import CryptoPortal from 'shared/CryptoPortal';
+import LoadingPortal from 'shared/LoadingPortal';
 import Portal from 'shared/Portal';
 import { ToggleProvider, ToggleProviderRef } from 'shared/ToggleProvider';
 
@@ -46,7 +46,7 @@ class AdminBookingStatusOptions extends React.Component<Props, State> {
         <div className="update-status">
           <AudioLoading height={16} width={32} />
           <h2>Updating</h2>
-          {(currency === Currency.BEE) && <CryptoPortal />}
+          {(currency === Currency.BEE) && <LoadingPortal />}
         </div>
       );
     }
