@@ -29,6 +29,7 @@ interface Props extends HostListingShort {
 }
 
 const INCOMPLETE_LISTING = "This listing is incomplete. Click Edit to complete all required fields to publish.";
+const VERIFICATION_REQUIRED = "You must verify your email and phone to publish.";
 
 const HostListingCard = (props: Props): JSX.Element => {
   const {
@@ -77,24 +78,25 @@ const HostListingCard = (props: Props): JSX.Element => {
           <Button background="white" border="core" color="core" size="small" onClick={() => deleteListing(id)}>
             Delete
           </Button>
-          <div className='host-listing-publish'>
-            <label htmlFor={`publish-${id}`} title={canPublish ? '' : INCOMPLETE_LISTING}>
-              <span className={canPublish ? '' : 'host-listing-meta--disabled'}>Publish</span>
-              <FirebaseConsumer>
-                {({ completedVerification }: FirebaseUserProps) => {
-                  return (
-                    <Switch
-                      checked={isActive}
-                      disabled={!canPublish || !completedVerification}
-                      onColor={hexColor('correct')}
-                      onChange={() => toggleListing(id).catch((error) => alert(error))}
-                      id={`publish-${id}`} />
-                  );
-                }}
-              </FirebaseConsumer>
-            </label>
-            {!canPublish && <p className='host-listing-notice'>{INCOMPLETE_LISTING}</p>}
-          </div>
+          <FirebaseConsumer>
+            {({ completedVerification }: FirebaseUserProps) => {
+              return (
+                <div className='host-listing-publish'>
+                  <label htmlFor={`publish-${id}`} title={canPublish ? '' : INCOMPLETE_LISTING}>
+                    <span className={canPublish ? '' : 'host-listing-meta--disabled'}>Publish</span>
+                          <Switch
+                            checked={isActive}
+                            disabled={!canPublish || !completedVerification}
+                            onColor={hexColor('correct')}
+                            onChange={() => toggleListing(id).catch((error) => alert(error))}
+                            id={`publish-${id}`} />
+                  </label>
+                  {(!completedVerification || !canPublish) &&
+                    <p className='host-listing-notice'>{!completedVerification ? VERIFICATION_REQUIRED : INCOMPLETE_LISTING}</p>}
+                </div>
+              );
+            }}
+          </FirebaseConsumer>
         </div>
       </div>
       <div className="host-listing-image">
