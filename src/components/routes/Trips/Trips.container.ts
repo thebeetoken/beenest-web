@@ -152,11 +152,7 @@ const TripsContainerTablet = styled(TripsContainerMobile)`
         }
         .active-cards-container {
           .active-trip-card {
-            margin-bottom: 40px;
             width: 100%;
-            &:nth-last-child(-n+2) {
-              margin-bottom: 0;
-            }
           }
         }
         .expired-trip-cards {
