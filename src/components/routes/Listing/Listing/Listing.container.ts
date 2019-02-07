@@ -159,7 +159,7 @@ const ListingContainerMobile = styled.div`
               align-self: flex-start;
               ${typography('light', 8)};
               color: ${color('secondary')};
-              margin-bottom: 8px;
+              margin-bottom: 12px;
             }
           }
           .about-host-container--img {

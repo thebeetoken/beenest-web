@@ -12,8 +12,9 @@ import GoogleMaps from 'shared/GoogleMaps';
 import LazyImage from 'shared/LazyImage';
 import ListItem from 'shared/ListItem';
 import Svg from 'shared/Svg';
-import { dateToYear, formatDateRange } from 'utils/formatDate';
+import { formatDateRange } from 'utils/formatDate';
 import { formatAddress, formatGeolocationAddress } from 'utils/formatter';
+import { format } from 'date-fns';
 
 const TripsReceipt = ({ match }: RouterProps): JSX.Element => {
   return (
@@ -71,7 +72,7 @@ const TripsReceiptContent = (props: Booking): JSX.Element => {
           </div>
           <div className="trips-receipt-host-profile-meta">
             <h5>Hosted by: <span>{firstName}</span></h5>
-            {createdAt && <h6>Member since {dateToYear(createdAt)}</h6>}
+            {createdAt && <h6>Member since {format(createdAt, 'MMMM YYYY')}</h6>}
           </div>
         </div>
         <AppConsumer>

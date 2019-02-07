@@ -9,11 +9,11 @@ import GoogleMaps from 'shared/GoogleMaps';
 import LazyImage from 'shared/LazyImage';
 import ListItem from 'shared/ListItem';
 import Svg from 'shared/Svg';
-import { dateToYear } from 'utils/formatDate';
 import { formatAddress  } from 'utils/formatter'
 import Portal from 'components/shared/Portal';
 import ContactHostForm from 'components/shared/ContactHostForm';
 import { ToggleProviderRef, ToggleProvider } from 'components/shared/ToggleProvider';
+import { format } from 'date-fns';
 
 interface Props {
   listing: Listing;
@@ -109,8 +109,10 @@ const ListingInformation = ({ listing, host }: Props) => {
 
       <div className="about-host-container">
         <div className="about-host-heading-container">
-          <h2>About {displayName}</h2>
-          {createdAt && <h3>Joined since {dateToYear(createdAt)}</h3>}
+          <div className="about-host-heading-container--title">
+            <h2>About {displayName}</h2>
+            {createdAt && <h3>Joined since {format(createdAt, 'MMMM YYYY')}</h3>}
+          </div>
           <div className="about-host-container--img">
             <LazyImage src={profilePicUrl || DEFAULT_PROFILE_URL} />
           </div>
