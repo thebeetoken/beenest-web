@@ -13,7 +13,7 @@ import { formatAddress  } from 'utils/formatter'
 import Portal from 'components/shared/Portal';
 import ContactHostForm from 'components/shared/ContactHostForm';
 import { ToggleProviderRef, ToggleProvider } from 'components/shared/ToggleProvider';
-import { format } from 'date-fns';
+import format from 'date-fns/format';
 
 interface Props {
   listing: Listing;
