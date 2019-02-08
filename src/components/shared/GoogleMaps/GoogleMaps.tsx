@@ -8,11 +8,6 @@ const { GOOGLE_MAPS_KEY } = SETTINGS;
 import GoogleMapsContainer from './GoogleMaps.container';
 import AudioLoading from 'shared/loading/AudioLoading';
 
-interface LatLng {
-  lng: number | undefined;
-  lat: number | undefined;
-}
-
 interface Props {
   address?: string;
   children?: React.ReactNode;
@@ -20,7 +15,7 @@ interface Props {
   height?: string;
   lat?: number;
   lng?: number;
-  getCoordinates?: (coordinates: LatLng) => LatLng;
+  getCoordinates?: (coordinates: google.maps.LatLngLiteral) => google.maps.LatLngLiteral;
   showMarker?: boolean;
   showCircle?: boolean;
   width?: string;
@@ -35,7 +30,7 @@ const circleOptions = {
 };
 
 function GoogleMaps(props: Props) {
-  const [coordinates, setCoordinates] = useState<LatLng>({ lat: undefined, lng: undefined });
+  const [coordinates, setCoordinates] = useState<google.maps.LatLngLiteral>({ lat: 0, lng: 0 });
   const [loading, setLoading] = useState<boolean>(false);
   const [error, setError] = useState<boolean>(false);
   const [isMounted, setIsMounted] = useState<boolean>(true);
@@ -47,7 +42,7 @@ function GoogleMaps(props: Props) {
     setIsMounted(true);
 
     fetchCoordinates(debouncedAddress || '')
-      .then(({ lat, lng }: LatLng) => {
+      .then(({ lat, lng }: google.maps.LatLngLiteral) => {
         if (!isMounted) return;
 
         props.getCoordinates && props.getCoordinates({ lat, lng });
@@ -74,18 +69,19 @@ function GoogleMaps(props: Props) {
     setIsMounted(false);
   }
 
+  
   if (loading) {
     return <AudioLoading height={48} width={96} />;
+  }
+  
+  if (coordinates.lat === 0 && coordinates.lng === 0) {
+    return <h1>Please provide a valid address</h1>;
   }
   
   if (error) {
     return <h1>Error</h1>;
   }
-
-  if (coordinates.lat === undefined || coordinates.lng === undefined) {
-    return <h1>Please provide a valid address</h1>;
-  }
-
+  
   return (
     <GoogleMap defaultZoom={13.5} defaultCenter={coordinates}>
       {props.showCircle && <Circle center={coordinates} options={circleOptions} radius={900} />}
@@ -118,12 +114,12 @@ export default compose<{}, Props>(
   withGoogleMap
 )(GoogleMaps);
 
-function fetchCoordinates(address: string): Promise<LatLng> {
+function fetchCoordinates(address: string): Promise<google.maps.LatLngLiteral> {
   if (!window.google || !window.google.maps) return Promise.reject(new Error('Google Maps does not exist.'));
   
   const geocoder = new window.google.maps.Geocoder();
 
-  return new Promise<LatLng>((resolve, reject) => {
+  return new Promise<google.maps.LatLngLiteral>((resolve, reject) => {
     geocoder.geocode({ address }, (res: google.maps.GeocoderResult[], status: google.maps.GeocoderStatus) => {
       if (status === google.maps.GeocoderStatus.OK) {
         resolve({ lat: res[0].geometry.location.lat(), lng: res[0].geometry.location.lng() });
