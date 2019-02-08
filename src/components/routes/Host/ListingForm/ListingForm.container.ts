@@ -1,5 +1,5 @@
 import styled from 'styled-components';
-import { color } from 'styled/utils';
+import { color, typography } from 'styled/utils';
 
 const ListingFormMobileContainer = styled.section`
   width: 100%;
@@ -22,6 +22,11 @@ const ListingFormMobileContainer = styled.section`
         .bee-textarea {
           width: 100%;
         }
+        .bee-checkbox {
+          label {
+            margin-bottom: 0;
+          }
+        }
         .input-number-container {
           align-items: center;
           display: flex;
@@ -40,7 +45,6 @@ const ListingFormMobileContainer = styled.section`
           .state,
           .postal-code {
             display: inline-block;
-            margin-bottom: 0;
           }
           .state,
           .postal-code {
@@ -54,6 +58,9 @@ const ListingFormMobileContainer = styled.section`
           }
           .postal-code {
             width: 20%;
+          }
+          .country {
+            margin-bottom: 0;
           }
         }
         &.photo {
@@ -86,11 +93,77 @@ const ListingFormMobileContainer = styled.section`
     }
 
     aside {
-      background-color: ${color('white')};
-      min-height: calc(100% - 128px);
-      position: absolute;
+      background-color: ${color('light')};
+      height: 100%;
       left: calc(586px + (100% - 976px) / 2);
+      position: fixed;
       width: calc((100% - 586px) - ((100% - 976px) / 2));
+      z-index: -1;
+      .background-extender {
+        background-color: ${color('light')};
+        position: absolute;
+        top: -64px;
+        width: 100%;
+        height: 64px;
+      }
+      .aside-container {
+        height: 608px;
+        max-width: 632px;
+        padding: 40px 56px 72px;
+        header {
+          ${typography('title', 7)}
+          color: ${color('dark')};
+          margin-bottom: 32px;
+          > span {
+            ${typography('emp', 5)}
+          }
+        }
+        > div {
+          h3 {
+            ${typography('read', 1)}
+            margin-bottom: 24px;
+          }
+          h4 {
+            ${typography('emp', 5)}
+            margin-bottom: 8px;
+          }
+          p {
+            ${typography('read', 2)}
+            margin-bottom: 24px;
+            > span {
+              ${typography('emp', 6)}
+            }
+          }
+          ol {
+            li {
+              list-style-type: decimal;
+              > span {
+                ${typography('emp', 5)}
+              }
+            }
+          }
+          ul {
+            margin-top: 0;
+            margin-bottom: 24px;
+            padding-left: 12px;
+            list-style-position: inside;
+            li {
+              list-style-type: disc;
+            }
+          }
+          .images-container {
+            display: flex;
+            flex-direction: row;
+            flex-wrap: wrap;
+            justify-content: space-between;
+            .image-container--horizontal {
+              height: 180px;
+              width: 240px;
+              margin-bottom: 16px;
+            }
+          }
+        }
+      }
     }
   }
 `;

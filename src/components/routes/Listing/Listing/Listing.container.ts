@@ -159,7 +159,7 @@ const ListingContainerMobile = styled.div`
               align-self: flex-start;
               ${typography('light', 8)};
               color: ${color('secondary')};
-              margin-bottom: 8px;
+              margin-bottom: 12px;
             }
           }
           .about-host-container--img {
@@ -194,6 +194,23 @@ const ListingContainerMobile = styled.div`
 
     .divider-style {
       margin-bottom: 24px;
+    }
+
+    &.error {
+      flex-direction: column;
+      padding: 24px;
+      
+      h1 {
+        ${typography('title', 5)};
+      }
+
+      a {
+        margin-top: 24px;
+        width: 100%;
+        button {
+          width: inherit;
+        }
+      }
     }
   }
 `;
@@ -265,6 +282,26 @@ const ListingContainerTablet = styled(ListingContainerMobile)`
           }
         }
       }
+
+
+      &.error {
+        align-items: center;
+        justify-content: center;
+        margin: auto;
+        padding: 128px 64px;
+        
+        h1 {
+          text-align: center;
+          width: 80%;
+        }
+
+        a {
+          width: 80%;
+          button {
+            width: 100%;
+          }
+        }
+      }
     }
 
     .divider-style {
@@ -320,6 +357,23 @@ const ListingContainerDesktop = styled(ListingContainerTablet)`
             p {
               ${typography('read', 1)};
             }
+          }
+        }
+      }
+
+
+      &.error {
+        padding: 128px 64px;
+        h1 {
+          ${typography('title', 5)};
+          width: 50%;
+        }
+
+        a {
+          margin-top: 24px;
+          width: 50%;
+          button {
+            width: 100%;
           }
         }
       }

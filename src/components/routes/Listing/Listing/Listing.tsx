@@ -10,6 +10,8 @@ import ListingInformation from './ListingInformation';
 import { AppConsumer, AppConsumerProps, ScreenType } from 'components/App.context';
 import { FirebaseConsumer, FirebaseUserProps } from 'HOCs/FirebaseProvider';
 import { GET_PUBLIC_LISTING } from 'networking/listings';
+import BeeLink from 'shared/BeeLink';
+import Button from 'shared/Button';
 import AudioLoading from 'shared/loading/AudioLoading';
 import PopUpCard from 'shared/PopUpCard';
 
@@ -31,8 +33,15 @@ class Listing extends React.Component<RouterProps> {
             if (loading) {
               return <AudioLoading height={48} width={96} />;
             }
-            if (error || !data) {
-              return <h1>{error ? error.message : 'Error / No Data'}</h1>;
+            if (error || !data || !data.listing.id) {
+              return (
+                <div className="listing-body error">
+                  <h1>Sorry! This listing is currently unavailable.  Please try again later.</h1>
+                  <BeeLink to="/">
+                    <Button>Back to Search</Button>
+                  </BeeLink>
+                </div>
+              )
             }
             const { listing } = data;
             const {

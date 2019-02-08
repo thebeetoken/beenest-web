@@ -90,6 +90,7 @@ export const GET_CONFERENCE = gql`
       link
       listings {
         city
+        country
         homeType
         id
         idSlug

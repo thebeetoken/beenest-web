@@ -15,7 +15,7 @@ import { getUserBookingDisplayStatus } from 'utils/bookingsDisplayStatus';
 import { ToggleProvider, ToggleProviderRef } from 'shared/ToggleProvider';
 import Portal from 'shared/Portal';
 import ContactHostForm from 'shared/ContactHostForm';
-import { getGoogleMapURI, formatAddress } from 'utils/formatter';
+import { getGoogleMapURI, formatAddress, formatGeolocationAddress } from 'utils/formatter';
 
 interface Props {
   onCancelClick: () => void;
@@ -24,9 +24,7 @@ interface Props {
 
 const ActiveTripCard = ({ onCancelClick, trip }: Props) => {
   const { checkInDate, checkOutDate, id, listing, status } = trip;
-  const streetAddress = (listing.addressLine1 || '').concat(listing.addressLine2 ? `, ${listing.addressLine2}` : '');
-  const isApproved = status === 'host_approved';
-  const isStarted = status === 'started';
+  const { addressLine1, addressLine2, city, country, lat, lng, postalCode, state } = listing;
   const displayStatus = getUserBookingDisplayStatus(status);
   const titleLink = status === 'started' ? `/bookings/${id}/options` : `listings/${listing.idSlug}`;
   return (
@@ -42,7 +40,10 @@ const ActiveTripCard = ({ onCancelClick, trip }: Props) => {
         <div className="address">
         <BeeLink href={getGoogleMapURI(listing)} target="_blank">
           <ListItem noHover suffixColor="secondary" textColor="secondary" textTransform="uppercase">
-            <span>{formatAddress(streetAddress, listing.city, listing.state, listing.country.toUpperCase())}</span>
+            <span>
+              {addressLine1 && formatAddress(addressLine1, addressLine2, city, state, country, postalCode)}
+              {!addressLine1 && formatGeolocationAddress({ lat, lng, city, country })}
+            </span>
             <AppConsumer>
               {({ screenType }: AppConsumerProps) => (
                 screenType > ScreenType.TABLET && <Svg className="suffix" src="decorative/location" />
@@ -93,34 +94,30 @@ const ActiveTripCard = ({ onCancelClick, trip }: Props) => {
               </>
             )}
           </ToggleProvider>
-          {isApproved && (
-            <BeeLink href={`/trips/${trip.id}/receipt`}>
-              <Fab
-                clear
-                color="upper"
-                icon="decorative/receipt"
-                iconColor="secondary"
-                noFlex
-                noPadding
-                textStyle="read-4">
-                Receipt
-              </Fab>
-            </BeeLink>
-          )}
-          {!isStarted && (
+          <BeeLink href={`/trips/${trip.id}/receipt`}>
             <Fab
               clear
               color="upper"
-              icon="utils/cancel"
+              icon="decorative/receipt"
               iconColor="secondary"
-              id={id}
               noFlex
               noPadding
-              onClick={onCancelClick}
               textStyle="read-4">
-              Cancel Trip
+              Receipt
             </Fab>
-          )}
+          </BeeLink>
+          <Fab
+            clear
+            color="upper"
+            icon="utils/cancel"
+            iconColor="secondary"
+            id={id}
+            noFlex
+            noPadding
+            onClick={onCancelClick}
+            textStyle="read-4">
+            Cancel Trip
+          </Fab>
         </div>
       </div>
     </ActiveTripCardContainer>

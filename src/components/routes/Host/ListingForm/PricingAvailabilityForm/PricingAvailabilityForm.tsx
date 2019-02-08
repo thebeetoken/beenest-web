@@ -1,16 +1,17 @@
 import * as React from 'react';
+import { Field, ErrorMessage } from 'formik';
 
+import { ListingField } from 'networking/listings';
+import ErrorMessageWrapper from 'shared/ErrorMessageWrapper/ErrorMessageWrapper';
 import InputLabel from 'shared/InputLabel';
 import InputWrapper from 'shared/InputWrapper';
+import NumberInput from 'shared/NumberInput';
 import Textarea from 'shared/Textarea';
 import { TextareaEvent } from 'shared/Textarea/Textarea';
-import { Field, ErrorMessage } from 'formik';
 import { stringToArray, arrayToString } from 'utils/formatter';
-import ErrorMessageWrapper from 'shared/ErrorMessageWrapper/ErrorMessageWrapper';
-import NumberInput from 'shared/NumberInput';
 
 const PricingAvailabilityForm = (props: any): JSX.Element => {
-  const { setFieldTouched, setFieldValue, values } = props;
+  const { setFocus, setFieldTouched, setFieldValue, values } = props;
   const StyledErrorMessage = (props: { name: string }) => (
     <ErrorMessageWrapper>
       {props.name && <ErrorMessage {...props} />}
@@ -20,71 +21,76 @@ const PricingAvailabilityForm = (props: any): JSX.Element => {
     <>
       <div className="form-item">
         <div className="input-container max-guests">
-          <InputLabel htmlFor="maxGuests">Max Guests</InputLabel>
+          <InputLabel htmlFor={ListingField.MAX_GUESTS}>Max Guests</InputLabel>
           <NumberInput
             value={values.maxGuests}
             max={16}
             min={1}
             onChange={(value: number) => {
-              setFieldValue('maxGuests', value);
-              setFieldTouched('maxGuests');
+              setFieldValue(ListingField.MAX_GUESTS, value);
+              setFieldTouched(ListingField.MAX_GUESTS);
+              setFocus(ListingField.MAX_GUESTS);
             }}
           />
         </div>
-        <StyledErrorMessage name="maxGuests" />
+        <StyledErrorMessage name={ListingField.MAX_GUESTS} />
       </div>
 
       <div className="form-item short">
         <div className="input-container">
-          <InputLabel htmlFor="minimumNights" subLabel="(required)">Min Nights</InputLabel>
+          <InputLabel htmlFor={ListingField.MINIMUM_NIGHTS} subLabel="(required)">Minimum Nights</InputLabel>
           <InputWrapper>
             <Field
-              name="minimumNights"
+              onFocus={() => setFocus(ListingField.MINIMUM_NIGHTS)}
+              name={ListingField.MINIMUM_NIGHTS}
               placeholder="# of nights"
               type="number" />
           </InputWrapper>
-          <StyledErrorMessage name="minimumNights" />
+          <StyledErrorMessage name={ListingField.MINIMUM_NIGHTS} />
         </div>
       </div>
 
       <div className="form-item short">
         <div className="input-container">
-          <InputLabel htmlFor="pricePerNightUsd" subLabel="(required)">Price Per Night USD</InputLabel>
+          <InputLabel htmlFor={ListingField.PRICE_PER_NIGHT_USD} subLabel="(required)">Price Per Night USD</InputLabel>
           <InputWrapper>
             <Field
-              name="pricePerNightUsd"
+              onFocus={() => setFocus(ListingField.PRICE_PER_NIGHT_USD)}
+              name={ListingField.PRICE_PER_NIGHT_USD}
               placeholder="$"
               type="number" />
           </InputWrapper>
-          <StyledErrorMessage name="pricePerNightUsd" />
+          <StyledErrorMessage name={ListingField.PRICE_PER_NIGHT_USD} />
         </div>
       </div>
       
       <div className="form-item short">
-        <div className="input-container security-deposit">
-          <InputLabel htmlFor="securityDepositUsd" subLabel="(required)">Security Deposit USD</InputLabel>
+        <div className="input-container">
+          <InputLabel htmlFor={ListingField.SECURITY_DEPOSIT_USD} subLabel="(required)">Security Deposit USD</InputLabel>
           <InputWrapper>
             <Field
-              name="securityDepositUsd"
+              onFocus={() => setFocus(ListingField.SECURITY_DEPOSIT_USD)}
+              name={ListingField.SECURITY_DEPOSIT_USD}
               placeholder="$"
               type="number" />
           </InputWrapper>
-          <StyledErrorMessage name="securityDepositUsd" />
+          <StyledErrorMessage name={ListingField.SECURITY_DEPOSIT_USD} />
         </div>
       </div>
 
       <div className="form-item">
-        <InputLabel htmlFor="icalUrls" subLabel="(separate by comma)">iCal URLs:</InputLabel>
+        <InputLabel htmlFor={ListingField.ICAL_URLS} subLabel="(optional, separate by comma)">iCal URLs:</InputLabel>
         <Textarea
           textareaHeight="80px"
-          name="icalUrls"
-          onBlur={() => setFieldTouched('icalUrls', true)}
+          name={ListingField.ICAL_URLS}
+          onBlur={() => setFieldTouched(ListingField.ICAL_URLS, true)}
+          onFocus={() => setFocus(ListingField.ICAL_URLS)}
           onChange={(event: TextareaEvent) => {
-            setFieldValue('icalUrls', stringToArray(event.target.value));
+            setFieldValue(ListingField.ICAL_URLS, stringToArray(event.target.value));
           }}
           value={arrayToString(values.icalUrls)}
           placeholder="https://www.airbnb.com/calendar/ical/XXX" />
-        <StyledErrorMessage name="icalUrls" />
+        <StyledErrorMessage name={ListingField.ICAL_URLS} />
       </div>
     </>
   );
