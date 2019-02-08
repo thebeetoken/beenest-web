@@ -20,7 +20,6 @@ import {
 import { showAccountVerificationBanner } from 'utils/bannerUtility';
 import {
   auth,
-  facebookProvider,
   FirebaseUser,
 } from 'utils/firebase';
 
@@ -54,10 +53,6 @@ const VERIFICATION_MESSAGE = {
   EMAIL: {
     VERIFIED: 'Your email has been verified',
     VERIFY: 'Click here to verify your email address',
-  },
-  FACEBOOK: {
-    LINK: 'Click here to link your Facebook account.',
-    VERIFIED: 'Your Facebook has been verified',
   },
   LOADING: 'Loading',
   PHONE: {
@@ -116,11 +111,10 @@ class AccountVerification extends React.Component<Props, State> {
         <FirebaseConsumer>
           {({ user }: FirebaseUserProps) => {
             const { showModal, snackbar, submitStatus, verificationSnackbar } = this.state;
-            const { EMAIL, FACEBOOK, PHONE } = VERIFICATION_MESSAGE;
+            const { EMAIL, PHONE } = VERIFICATION_MESSAGE;
             if (user && (submitStatus !== SubmitStatus.LOADING)) {
               const { emailVerified } = user;
               const phoneVerified = (user.providerData || []).some((provider: FirebaseUser) => provider && provider.providerId === 'phone');
-              const facebookVerified = (user.providerData || []).some((provider: FirebaseUser) => provider && provider.providerId === 'facebook.com');
 
               return (
                 <>
@@ -151,16 +145,6 @@ class AccountVerification extends React.Component<Props, State> {
                     subLabel={emailVerified ? VERIFICATION_STATUS.VERIFIED : VERIFICATION_STATUS.NOT_VERIFIED}
                     verified={emailVerified}>
                     {emailVerified ? EMAIL.VERIFIED : EMAIL.VERIFY}
-                  </ListButton>
-
-                  <ListButton
-                    label="Facebook"
-                    disabled={facebookVerified}
-                    onClick={this.handleFacebookVerification}
-                    src="social/facebook"
-                    subLabel={facebookVerified ? VERIFICATION_STATUS.VERIFIED : VERIFICATION_STATUS.NOT_VERIFIED}
-                    verified={facebookVerified}>
-                    {facebookVerified ? FACEBOOK.VERIFIED : FACEBOOK.LINK}
                   </ListButton>
 
                   {snackbar.open &&
@@ -199,14 +183,6 @@ class AccountVerification extends React.Component<Props, State> {
                   src="decorative/email">
                   VERIFICATION_MESSAGE.LOADING
                 </ListButton>
-
-                <ListButton
-                  label="Facebook"
-                  disabled
-                  src="social/facebook">
-                  VERIFICATION_MESSAGE.LOADING
-                </ListButton>
-
               </>
             );
           }}
@@ -271,53 +247,6 @@ class AccountVerification extends React.Component<Props, State> {
         this.setState({ 
           snackbar: {
             ...snackbar,
-            open: true,
-          },
-          verificationSnackbar: {
-            ...this.state.verificationSnackbar,
-            open: false,
-          }
-        });
-      });
-  }
-
-  handleFacebookVerification = () => {
-    const { snackbar } = this.state;
-    if (!auth.currentUser) {
-      return this.setState({ 
-        snackbar: {
-          ...snackbar,
-          open: true,
-        },
-        verificationSnackbar: {
-          ...this.state.verificationSnackbar,
-          open: false,
-        }
-      });
-    }
-
-    auth.currentUser.linkWithPopup(facebookProvider)
-      .then(() => this.props.refreshVerificationStatus())
-      .then(() => {
-        this.setState({ 
-          snackbar: {
-            autoHideDuration: SNACKBAR_DURATION_MS,
-            message: getDisplaySuccessMessage(SuccessMessage.FACEBOOK_LINKED),
-            open: true,
-          },
-          verificationSnackbar: {
-            ...this.state.verificationSnackbar,
-            open: false,
-          }
-        });
-      })
-      .catch((err) => {
-        const { snackbar } = this.state;
-        this.setState({ 
-          snackbar: {
-            ...snackbar,
-            autoHideDuration: 10000,
-            message: err.message || getDisplayErrorMessage(ErrorMessage.GENERIC),
             open: true,
           },
           verificationSnackbar: {

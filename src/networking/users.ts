@@ -192,9 +192,9 @@ export const SEARCH_HOSTS = gql`
   }
 `;
 
-export const CREATE_OR_LOGIN_FACEBOOK_USER = gql`
-  mutation createOrLoginFacebookUser($id: ID!) {
-    createOrLoginFacebookUser(id: $id) {
+export const CREATE_OR_LOGIN_WITH_PROVIDERS = gql`
+  mutation createOrLoginWithProviders($id: ID!) {
+    createOrLoginWithProviders(id: $id) {
       firstName
     }
   }

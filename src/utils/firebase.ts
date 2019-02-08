@@ -11,9 +11,14 @@ export interface FirebaseUser extends firebase.User {}
 export const auth = firebase.auth();
 export const facebookProvider = new firebase.auth.FacebookAuthProvider();
 export const phoneProvider = new firebase.auth.PhoneAuthProvider();
+export const googleProvider = new firebase.auth.GoogleAuthProvider();
 
 export function signInWithFacebookPopUp(): Promise<any> {
   return auth.signInWithPopup(facebookProvider);
+}
+
+export function signInWithGooglePopUp(): Promise<any> {
+  return auth.signInWithPopup(googleProvider);
 }
 
 export function login(email: string, password: string) {
