@@ -47,8 +47,10 @@ class GoogleMaps extends React.Component<Props, State> {
     loading: false,
     error: false,
   }
+  mounted: boolean;
 
   componentDidMount() {
+    this.mounted = true;
     if ((this.state.lat === undefined || this.state.lng === undefined) && this.props.address) {
       this._updateCoordinates();
     }
@@ -58,6 +60,10 @@ class GoogleMaps extends React.Component<Props, State> {
     if (this.props.address && (prevProps.address !== this.props.address)) {
       this._updateCoordinates();
     }
+  }
+
+  componentWillUnmount() {
+    this.mounted = false;
   }
 
   render() {
@@ -83,7 +89,7 @@ class GoogleMaps extends React.Component<Props, State> {
   }
 
   _debouncedFetchCoordinates = debounce(() => {
-    fetchCoordinates(this.props.address || '').then(({ lat, lng }) => {
+    this.mounted && fetchCoordinates(this.props.address || '').then(({ lat, lng }) => {
       this.props.getCoordinates && this.props.getCoordinates({ lat, lng });
       this.setState({
         lat,
