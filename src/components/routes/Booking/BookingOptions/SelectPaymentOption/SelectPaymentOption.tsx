@@ -13,7 +13,6 @@ import BookingOptionsCrypto from '../BookingOptionsCrypto';
 import InputLabel from 'shared/InputLabel';
 import SelectBoxWrapper from 'shared/SelectBoxWrapper';
 import Svg from 'shared/Svg';
-import { AppEnv, APP_ENV } from 'configs/settings';
 import { loadWeb3, priceWithEther, priceWithToken } from 'utils/web3';
 
 const TWO_DAYS_MS = 2 * 24 * 60 * 60 * 1000;
