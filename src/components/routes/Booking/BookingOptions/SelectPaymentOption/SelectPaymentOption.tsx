@@ -40,8 +40,7 @@ class SelectPaymentOption extends React.Component<Props> {
     const isTwoDaysFromNow =
       moment.utc(booking.checkInDate).valueOf() > (Date.now() + TWO_DAYS_MS);
     const showBee = isTwoDaysFromNow && !!booking.host.walletAddress;
-    const showEth = isTwoDaysFromNow && !!booking.host.walletAddress &&
-      APP_ENV !== AppEnv.PRODUCTION;
+    const showEth = isTwoDaysFromNow && !!booking.host.walletAddress;
     const showBtc = isTwoDaysFromNow &&
       booking.priceQuotes.some(({ currency }) => currency === Currency.BTC);
     // The 1.01 multiplier below accounts for fluctuating exchange rates etc.
