@@ -105,7 +105,7 @@ class LoginForm extends React.Component<LoginProps, State> {
             background="google"
             color="white"
             onClick={this.signInWithGoogle}
-            prefix="social/google-plus"
+            prefix="social/google"
             type="button">
             Log In with Google
           </Button>
