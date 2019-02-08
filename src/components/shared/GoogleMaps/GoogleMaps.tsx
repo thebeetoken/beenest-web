@@ -1,13 +1,12 @@
-import * as React from 'react';
+import React, { useState, useEffect } from 'react';
 import { branch, compose, lifecycle, renderComponent, withProps } from 'recompose';
 import { Circle, GoogleMap, withGoogleMap, withScriptjs, Marker } from 'react-google-maps';
-import debounce from 'lodash.debounce';
 
 import { SETTINGS } from 'configs/settings';
 const { GOOGLE_MAPS_KEY } = SETTINGS;
 
 import GoogleMapsContainer from './GoogleMaps.container';
-import AudioLoading from 'components/shared/loading/AudioLoading';
+import AudioLoading from 'shared/loading/AudioLoading';
 
 interface LatLng {
   lng: number | undefined;
@@ -19,17 +18,12 @@ interface Props {
   children?: React.ReactNode;
   className?: string;
   height?: string;
-  lat?: number | undefined;
-  lng?: number | undefined;
+  lat?: number;
+  lng?: number;
   getCoordinates?: (coordinates: LatLng) => LatLng;
   showMarker?: boolean;
   showCircle?: boolean;
   width?: string;
-}
-
-interface State extends LatLng {
-  loading: boolean;
-  error: boolean;
 }
 
 const circleOptions = {
@@ -40,77 +34,64 @@ const circleOptions = {
   strokeWeight: 2,
 };
 
-class GoogleMaps extends React.Component<Props, State> {
-  readonly state = {
-    lat: this.props.lat,
-    lng: this.props.lng,
-    loading: false,
-    error: false,
-  }
-  mounted: boolean;
+function GoogleMaps(props: Props) {
+  const [coordinates, setCoordinates] = useState<LatLng>({ lat: undefined, lng: undefined });
+  const [loading, setLoading] = useState<boolean>(false);
+  const [error, setError] = useState<boolean>(false);
+  const [isMounted, setIsMounted] = useState<boolean>(true);
 
-  componentDidMount() {
-    this.mounted = true;
-    if ((this.state.lat === undefined || this.state.lng === undefined) && this.props.address) {
-      this._updateCoordinates();
-    }
-  }
+  const debouncedAddress = useDebounce(props.address, 500);
 
-  componentDidUpdate = (prevProps: Props) => {
-    if (this.props.address && (prevProps.address !== this.props.address)) {
-      this._updateCoordinates();
-    }
-  }
+  useEffect(() => {
+    setLoading(true);
+    setIsMounted(true);
 
-  componentWillUnmount() {
-    this.mounted = false;
-  }
+    fetchCoordinates(debouncedAddress || '')
+      .then(({ lat, lng }: LatLng) => {
+        if (!isMounted) return;
 
-  render() {
-    const { lat, lng } = this.state;
-    if (this.state.loading) {
-      return <AudioLoading height={48} width={96} />;
-    }
-    
-    if (this.state.error) {
-      return <h1>Error</h1>;
-    }
-
-    if (lat === undefined || lng === undefined) {
-      return <h1>Please provide a valid address</h1>;
-    }
-
-    return (
-      <GoogleMap defaultZoom={13.5} defaultCenter={{ lat, lng }}>
-        {this.props.showCircle && <Circle center={{ lat, lng }} options={circleOptions} radius={900} />}
-        {this.props.showMarker && <Marker position={{ lat, lng }} />}
-      </GoogleMap>
-    );
-  }
-
-  _debouncedFetchCoordinates = debounce(() => {
-    this.mounted && fetchCoordinates(this.props.address || '').then(({ lat, lng }) => {
-      this.props.getCoordinates && this.props.getCoordinates({ lat, lng });
-      this.setState({
-        lat,
-        lng,
-        error: false,
-        loading: false,
+        props.getCoordinates && props.getCoordinates({ lat, lng });
+        setCoordinates({ lat, lng });
+        setLoading(false);
+        setError(false);
       })
-    }).catch(error => {
-      console.error(error);
-      this.setState({
-        error: true,
-        loading: false,
-      })
-    });
-  }, 1000);
+      .catch(error => {
+        if (!isMounted) return;
 
-  _updateCoordinates = () => {
-    this.setState({
-      loading: true
-    }, this._debouncedFetchCoordinates);
+        console.error(error);
+        setLoading(false);
+        setError(true);
+      });
+      
+    return cleanUp;
+  },
+    [debouncedAddress]
+  );
+
+  function cleanUp() {
+    setLoading(false);
+    setError(false);
+    setIsMounted(false);
   }
+
+  if (loading) {
+    return <AudioLoading height={48} width={96} />;
+  }
+  
+  if (error) {
+    return <h1>Error</h1>;
+  }
+
+  if (coordinates.lat === undefined || coordinates.lng === undefined) {
+    return <h1>Please provide a valid address</h1>;
+  }
+
+  return (
+    <GoogleMap defaultZoom={13.5} defaultCenter={coordinates}>
+      {props.showCircle && <Circle center={coordinates} options={circleOptions} radius={900} />}
+      {props.showMarker && <Marker position={coordinates} />}
+    </GoogleMap>
+  );
 }
 
 export default compose<{}, Props>(
@@ -140,7 +121,7 @@ export default compose<{}, Props>(
 function fetchCoordinates(address: string): Promise<LatLng> {
   if (!window.google || !window.google.maps) return Promise.reject(new Error('Google Maps does not exist.'));
   
-  const geocoder = new google.maps.Geocoder();
+  const geocoder = new window.google.maps.Geocoder();
 
   return new Promise<LatLng>((resolve, reject) => {
     geocoder.geocode({ address }, (res: google.maps.GeocoderResult[], status: google.maps.GeocoderStatus) => {
@@ -152,3 +133,23 @@ function fetchCoordinates(address: string): Promise<LatLng> {
     });
   });
 };
+
+// https://dev.to/gabe_ragland/debouncing-with-react-hooks-jci
+function useDebounce(value: any, delay: number) {
+  const [debouncedValue, setDebouncedValue] = useState(value);
+
+  useEffect(
+    () => {
+      const handler = setTimeout(() => {
+        setDebouncedValue(value);
+      }, delay);
+      return () => {
+        clearTimeout(handler);
+      };
+    },
+    [value] 
+  );
+
+  return debouncedValue;
+}
+
