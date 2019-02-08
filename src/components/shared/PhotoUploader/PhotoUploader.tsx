@@ -22,6 +22,7 @@ interface Props {
   initialPhotos?: Photo[];
   maxFiles?: number;
   message?: string;
+  onClick?: () => void;
   onPhotosUpdated: (value: Photo[]) => void;
 }
 
@@ -54,6 +55,7 @@ export class PhotoUploader extends React.Component<Props, State> {
 
   render() {
     const djsConfig = {
+      clickable: true,
       addRemoveLinks: true,
       acceptedFiles: 'image/jpeg,image/png,image/gif',
       autoProcessQueue: true,
@@ -65,8 +67,11 @@ export class PhotoUploader extends React.Component<Props, State> {
       parallelUploads: 1,
     };
     return (
-      <PhotoUploaderContainer>
-        <DropzoneComponent config={CONFIG} eventHandlers={this.eventHandlers} djsConfig={djsConfig}>
+      <PhotoUploaderContainer onClick={this.props.onClick}>
+        <DropzoneComponent
+          config={CONFIG}
+          eventHandlers={this.eventHandlers}
+          djsConfig={djsConfig}>
           <div className="dz-message">
             <Svg className="photouploader-svg" src="logo/bee-circle" />
             <span>{this.props.message}</span>

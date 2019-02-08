@@ -2,7 +2,10 @@ import styled from 'styled-components';
 import { base, color, typography } from 'styled/utils';
 
 type Props = Partial<{
+  focusBorderColor: string;
   background: string;
+  borderColor: string;
+  borderSize: string;
   box: boolean;
   end: string;
   font: string;
@@ -105,9 +108,9 @@ const SelectBoxWrapperContainer = styled.div`
     background-color: transparent;
     border: 0;
     border-radius: 0;
-    ${({ box }: Props) => {
+    ${({ box, borderColor, borderSize }: Props) => {
       const type = box ? 'border' : 'border-bottom';
-      return `${type}: 2px solid ${color('style')};`; 
+      return `${type}: ${borderSize || '2px'} solid ${color(borderColor || 'style')};`; 
     }};
     color: ${({ textColor }: Props) => color(textColor || 'body')};
     display: flex;
@@ -129,9 +132,9 @@ const SelectBoxWrapperContainer = styled.div`
       opacity: 0.5;
     }
     &:focus {
-      ${({ box }: Props) => {
+      ${({ box, borderSize, focusBorderColor }: Props) => {
         const type = box ? 'border' : 'border-bottom';
-        return `${type}: 2px solid ${color('secondary')};`; 
+        return `${type}: ${borderSize || '2px'} solid ${color(focusBorderColor || 'secondary')};`; 
       }};
     }
     &:-moz-focusring { /** Remove dotted border/outline onClick from firefox */

@@ -26,8 +26,6 @@ const ActiveTripCard = ({ onCancelClick, trip }: Props) => {
   const { checkInDate, checkOutDate, id, listing, status } = trip;
   const { lat, lng } = listing;
   const streetAddress = (listing.addressLine1 || '').concat(listing.addressLine2 ? `, ${listing.addressLine2}` : '');
-  const isApproved = status === 'host_approved';
-  const isStarted = status === 'started';
   const displayStatus = getUserBookingDisplayStatus(status);
   const titleLink = status === 'started' ? `/bookings/${id}/options` : `listings/${listing.idSlug}`;
   return (
@@ -96,34 +94,30 @@ const ActiveTripCard = ({ onCancelClick, trip }: Props) => {
               </>
             )}
           </ToggleProvider>
-          {isApproved && (
-            <BeeLink href={`/trips/${trip.id}/receipt`}>
-              <Fab
-                clear
-                color="upper"
-                icon="decorative/receipt"
-                iconColor="secondary"
-                noFlex
-                noPadding
-                textStyle="read-4">
-                Receipt
-              </Fab>
-            </BeeLink>
-          )}
-          {!isStarted && (
+          <BeeLink href={`/trips/${trip.id}/receipt`}>
             <Fab
               clear
               color="upper"
-              icon="utils/cancel"
+              icon="decorative/receipt"
               iconColor="secondary"
-              id={id}
               noFlex
               noPadding
-              onClick={onCancelClick}
               textStyle="read-4">
-              Cancel Trip
+              Receipt
             </Fab>
-          )}
+          </BeeLink>
+          <Fab
+            clear
+            color="upper"
+            icon="utils/cancel"
+            iconColor="secondary"
+            id={id}
+            noFlex
+            noPadding
+            onClick={onCancelClick}
+            textStyle="read-4">
+            Cancel Trip
+          </Fab>
         </div>
       </div>
     </ActiveTripCardContainer>
