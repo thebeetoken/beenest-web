@@ -41,7 +41,7 @@ const ActiveTripCard = ({ onCancelClick, trip }: Props) => {
         <div className="address">
         <BeeLink href={getGoogleMapURI(listing)} target="_blank">
           <ListItem noHover suffixColor="secondary" textColor="secondary" textTransform="uppercase">
-            <span>{formatAddress(streetAddress || `Lat: ${lat}, Lng: ${lng}`, listing.city, listing.state, listing.country.toUpperCase())}</span>
+            <span>{formatAddress(streetAddress || `Lat, Lng: ${lat} ${lng}`, listing.city, listing.state, listing.country.toUpperCase())}</span>
             <AppConsumer>
               {({ screenType }: AppConsumerProps) => (
                 screenType > ScreenType.TABLET && <Svg className="suffix" src="decorative/location" />
