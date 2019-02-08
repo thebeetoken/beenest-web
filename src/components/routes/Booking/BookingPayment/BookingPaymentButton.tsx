@@ -15,7 +15,7 @@ import {
 import Button from 'shared/Button';
 import Portal from 'shared/Portal';
 import GridLoading from 'shared/loading/GridLoading';
-import CryptoPortal from 'shared/CryptoPortal';
+import LoadingPortal from 'shared/LoadingPortal';
 import { Web3Data, isNetworkValid, payWithBee, payWithEther, payWithToken, getValidNetworkName, loadWeb3 } from 'utils/web3';
 
 interface Props {
@@ -91,7 +91,7 @@ class BookingPaymentButton extends React.Component<Props, State> {
               const message = fromBee && FROM_BEE_MESSAGE;
               return (
                 <>
-                  {isSubmitting && <CryptoPortal message={message}/>}
+                  {isSubmitting && <LoadingPortal currency={booking.currency} message={message}/>}
                   <Button
                     disabled={isButtonDisabled}
                     onClick={() => this.handleSubmit(walletAddress)}

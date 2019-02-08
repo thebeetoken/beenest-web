@@ -20,7 +20,7 @@ import ExpiredTripCard from 'routes/Trips/ExpiredTripCard';
 import { cancel, loadWeb3 } from 'utils/web3';
 import Button from 'shared/Button';
 import BeeLink from 'shared/BeeLink';
-import CryptoPortal from 'shared/CryptoPortal';
+import LoadingPortal from 'shared/LoadingPortal';
 import TabNavBar from 'shared/TabNavBar';
 import { Switch, Route, Redirect } from 'react-router';
 import NotFound from 'components/routes/NotFound';
@@ -30,6 +30,7 @@ interface Props {
 }
 
 interface State {
+  currency: Currency | null;
   message: string;
   open: boolean;
   isSubmitting: boolean;
@@ -37,6 +38,7 @@ interface State {
 
 class Trips extends React.Component<Props, State> {
   readonly state = {
+    currency: Currency.USD,
     message: '',
     open: false,
     isSubmitting: false,
@@ -141,7 +143,7 @@ class Trips extends React.Component<Props, State> {
                       <Route component={NotFound} />
                     </Switch>
                   </div>
-                  {isSubmitting && <CryptoPortal />}
+                  {isSubmitting && <LoadingPortal currency={this.state.currency} />}
                   {open && (
                     <Snackbar autoHideDuration={5000} open={open} onClose={this.closeSnackbar}>
                       {message}
@@ -167,6 +169,7 @@ class Trips extends React.Component<Props, State> {
         .cancelBooking(booking)
         .then(() => {
           this.setState({
+            currency: booking.currency,
             message: 'Your booking has been cancelled',
             open: true,
             isSubmitting: false,
