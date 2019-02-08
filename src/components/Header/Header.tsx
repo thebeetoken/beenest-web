@@ -1,4 +1,5 @@
 import * as React from 'react';
+import { Query } from 'react-apollo';
 import { Route, Switch } from 'react-router-dom';
 
 import HeaderContainer from './Header.container';
@@ -6,6 +7,7 @@ import HeaderContainer from './Header.container';
 import { AppConsumer, AppConsumerProps, ScreenType } from 'components/App.context';
 import { BannerConsumer, BannerConsumerProps } from 'HOCs/BannerProvider';
 import { FirebaseConsumer, FirebaseUserProps } from 'HOCs/FirebaseProvider';
+import { GET_USER } from 'networking/users';
 import Banner from 'shared/Banner';
 import BeeLink from 'shared/BeeLink';
 import Button from 'shared/Button';
@@ -87,7 +89,7 @@ class HomeHeader extends React.Component {
       <HeaderContainer className={`header ${this.state.transparentHeader ? 'transparent' : ''}`.trim()}>
         <BannerConsumer>
           {({ bannerState, bannerActions: { closeBanner } }: BannerConsumerProps) => {
-            return bannerState.showBanner ? <Banner {...bannerState} onClose={closeBanner} /> : <></>
+            return bannerState.showBanner ? <Banner {...bannerState} onClose={closeBanner} /> : <></>;
           }}
         </BannerConsumer>
         <HeaderContent />
@@ -109,7 +111,7 @@ const DefaultHeader = () => (
   <HeaderContainer className="header">
     <BannerConsumer>
       {({ bannerState, bannerActions: { closeBanner } }: BannerConsumerProps) => {
-        return bannerState.showBanner ? <Banner {...bannerState} onClose={closeBanner} /> : <></>
+        return bannerState.showBanner ? <Banner {...bannerState} onClose={closeBanner} /> : <></>;
       }}
     </BannerConsumer>
     <HeaderContent />
@@ -174,7 +176,7 @@ class DefaultMobileHeader extends React.Component<MobileHeaderProps> {
       <HeaderContainer className={`header ${this.props.className}`.trim()}>
         <BannerConsumer>
           {({ bannerState, bannerActions: { closeBanner } }: BannerConsumerProps) => {
-            return bannerState.showBanner ? <Banner {...bannerState} onClose={closeBanner} /> : <></>
+            return bannerState.showBanner ? <Banner {...bannerState} onClose={closeBanner} /> : <></>;
           }}
         </BannerConsumer>
         <div className={`header-wrapper ${this.state.showMenu ? 'white' : ''}`.trim()}>
@@ -192,33 +194,69 @@ class DefaultMobileHeader extends React.Component<MobileHeaderProps> {
               }
               if (user) {
                 return (
-                  <>
-                    <div className="header-menu-container image" onClick={this.toggleMenu}>
-                      <AppConsumer>
-                        {({ screenType }: AppConsumerProps) => {
-                          if (screenType < ScreenType.TABLET) {
-                            return (
-                              <LazyImage
-                                className={`${!showMenu ? 'show' : 'bee-lazy-image'}`}
-                                height="24"
-                                width="24"
-                                src={user.photoURL ? user.photoURL : "https://d9lhrxmc0upxv.cloudfront.net/fit-in/24x24/images/app/misc/profile.png"} />
-                            );
-                          }
+                  <Query query={GET_USER}>
+                    {({ loading, error, data }) => {
+                      if (loading) {
+                        return (
+                          <div className="header-loading">
+                            <AudioLoading height={48} width={96} />
+                          </div>
+                        );
+                      }
 
-                          return (
-                            <LazyImage
-                              className={`${!showMenu ? 'show' : 'bee-lazy-image'}`}
-                              height="48"
-                              width="48"
-                              src={user.photoURL ? user.photoURL : "https://d9lhrxmc0upxv.cloudfront.net/fit-in/48x48/images/app/misc/profile.png"} />
-                          );
-                        }}
-                      </AppConsumer>
-                      <Svg className={`${showMenu ? 'show' : 'bee-svg'}`} src="utils/x" />
-                    </div>
-                    <MobileAuthenticatedHamburger closeMenu={this.closeMenu} showMenu={this.state.showMenu} />
-                  </>
+                      if (error || !data) {
+                        return <h1>{error ? error.message : 'Error / No Data'}</h1>;
+                      }
+
+                      if (!data) {
+                        return <UnauthenticatedNavLinks />;
+                      }
+
+                      return (
+                        <>
+                          <div className="header-menu-container image" onClick={this.toggleMenu}>
+                            <AppConsumer>
+                              {({ screenType }: AppConsumerProps) => {
+                                if (screenType < ScreenType.TABLET) {
+                                  return (
+                                    <LazyImage
+                                      className={`${!showMenu ? 'show' : 'bee-lazy-image'}`}
+                                      height="24"
+                                      width="24"
+                                      src={
+                                        data.user.profilePicUrl
+                                          ? data.user.profilePicUrl
+                                          : user.photoURL
+                                          ? user.photoURL
+                                          : 'https://d9lhrxmc0upxv.cloudfront.net/fit-in/24x24/images/app/misc/profile.png'
+                                      }
+                                    />
+                                  );
+                                }
+
+                                return (
+                                  <LazyImage
+                                    className={`${!showMenu ? 'show' : 'bee-lazy-image'}`}
+                                    height="48"
+                                    width="48"
+                                    src={
+                                      data.user.profilePicUrl
+                                        ? data.user.profilePicUrl
+                                        : user.photoURL
+                                        ? user.photoURL
+                                        : 'https://d9lhrxmc0upxv.cloudfront.net/fit-in/48x48/images/app/misc/profile.png'
+                                    }
+                                  />
+                                );
+                              }}
+                            </AppConsumer>
+                            <Svg className={`${showMenu ? 'show' : 'bee-svg'}`} src="utils/x" />
+                          </div>
+                          <MobileAuthenticatedHamburger closeMenu={this.closeMenu} showMenu={this.state.showMenu} />
+                        </>
+                      );
+                    }}
+                  </Query>
                 );
               }
               return (
@@ -256,10 +294,7 @@ const MobileAuthenticatedHamburger = ({ closeMenu, showMenu }: MobileHamburgerPr
     <>
       {showMenu && (
         <div className="header-menu-mobile">
-          <BeeLink
-            href={HOST_INTEREST_LINK}
-            target="_blank"
-          >
+          <BeeLink href={HOST_INTEREST_LINK} target="_blank">
             <ListItem font="small-e" onClick={closeMenu} noHover suffixColor="secondary" textColor="secondary">
               <span>Become a Host</span>
               <Svg className="suffix" src="decorative/house" />
@@ -311,10 +346,7 @@ const MobileUnauthenticatedHamburger = ({ closeMenu, showMenu }: MobileHamburger
               <span>Login</span>
             </ListItem>
           </BeeLink>
-          <BeeLink
-            href={HOST_INTEREST_LINK}
-            target="_blank"
-          >
+          <BeeLink href={HOST_INTEREST_LINK} target="_blank">
             <ListItem font="small" noHover>
               <span>Become a Host</span>
             </ListItem>
@@ -349,13 +381,39 @@ const NavigationItems = () => (
             </div>
           );
         }
-        return user ? <AuthenticatedNavLinks photoURL={user.photoURL} /> : <UnauthenticatedNavLinks />;
+        if (!user) {
+          return <UnauthenticatedNavLinks />;
+        }
+
+        return (
+          <Query query={GET_USER}>
+            {({ loading, error, data }) => {
+              if (loading) {
+                return (
+                  <div className="header-loading">
+                    <AudioLoading height={48} width={96} />
+                  </div>
+                );
+              }
+
+              if (error) {
+                return <h1>{error ? error.message : 'Error / No Data'}</h1>;
+              }
+
+              if (!data) {
+                return <UnauthenticatedNavLinks />;
+              }
+
+              return <AuthenticatedNavLinks profilePicUrl={user.photoURL || data.user.profilePicUrl} />;
+            }}
+          </Query>
+        );
       }}
     </FirebaseConsumer>
   </div>
 );
 
-const AuthenticatedNavLinks = ({ photoURL }: any) => (
+const AuthenticatedNavLinks = ({ profilePicUrl }: any) => (
   <div className="header-authenticated">
     <BeeLink to="/trips">
       <span>Trips</span>
@@ -365,10 +423,30 @@ const AuthenticatedNavLinks = ({ photoURL }: any) => (
         <AppConsumer>
           {({ screenType }: AppConsumerProps) => {
             if (screenType < ScreenType.TABLET) {
-              return <LazyImage src={photoURL ? photoURL : "https://d9lhrxmc0upxv.cloudfront.net/fit-in/24x24/images/app/misc/profile.png"} height="24" width="24" />;
+              return (
+                <LazyImage
+                  src={
+                    profilePicUrl
+                      ? profilePicUrl
+                      : 'https://d9lhrxmc0upxv.cloudfront.net/fit-in/24x24/images/app/misc/profile.png'
+                  }
+                  height="24"
+                  width="24"
+                />
+              );
             }
 
-            return <LazyImage src={photoURL ? photoURL : "https://d9lhrxmc0upxv.cloudfront.net/fit-in/48x48/images/app/misc/profile.png"} height="48" width="48" />;
+            return (
+              <LazyImage
+                src={
+                  profilePicUrl
+                    ? profilePicUrl
+                    : 'https://d9lhrxmc0upxv.cloudfront.net/fit-in/48x48/images/app/misc/profile.png'
+                }
+                height="48"
+                width="48"
+              />
+            );
           }}
         </AppConsumer>
       </BeeLink>
@@ -444,13 +522,8 @@ const HostsHeaderContent = () => (
     <BeeLink to="/">
       <Svg className="header-logo" src="logo/beenest-horizontal" />
     </BeeLink>
-    <BeeLink
-      href={HOST_INTEREST_LINK}
-      target="_blank">
-      <Button
-        border="white"
-        radius="4px"
-        size="small">
+    <BeeLink href={HOST_INTEREST_LINK} target="_blank">
+      <Button border="white" radius="4px" size="small">
         List Your Home
       </Button>
     </BeeLink>
