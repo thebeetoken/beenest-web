@@ -24,6 +24,7 @@ interface Props {
 
 const ActiveTripCard = ({ onCancelClick, trip }: Props) => {
   const { checkInDate, checkOutDate, id, listing, status } = trip;
+  const { lat, lng } = listing;
   const streetAddress = (listing.addressLine1 || '').concat(listing.addressLine2 ? `, ${listing.addressLine2}` : '');
   const isApproved = status === 'host_approved';
   const isStarted = status === 'started';
@@ -42,7 +43,9 @@ const ActiveTripCard = ({ onCancelClick, trip }: Props) => {
         <div className="address">
         <BeeLink href={getGoogleMapURI(listing)} target="_blank">
           <ListItem noHover suffixColor="secondary" textColor="secondary" textTransform="uppercase">
-            <span>{formatAddress(streetAddress, listing.city, listing.state, listing.country.toUpperCase())}</span>
+            {streetAddress
+              ? <span>{formatAddress(streetAddress, listing.city, listing.state, listing.country.toUpperCase())}</span>
+              : <span>Lat: {lat}, Lng: {lng}</span>}
             <AppConsumer>
               {({ screenType }: AppConsumerProps) => (
                 screenType > ScreenType.TABLET && <Svg className="suffix" src="decorative/location" />
