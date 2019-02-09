@@ -54,6 +54,7 @@
     "formik": "^1.4.2",
     "graphql": "^14.0.2",
     "graphql-tag": "^2.10.0",
+    "lodash.debounce": "^4.0.8",
     "lodash.omit": "^4.5.0",
     "lodash.once": "^4.1.1",
     "qs": "^6.5.2",
