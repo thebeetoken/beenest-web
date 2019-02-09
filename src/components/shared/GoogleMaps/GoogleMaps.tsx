@@ -30,7 +30,7 @@ const circleOptions = {
 };
 
 function GoogleMaps(props: Props) {
-  const [coordinates, setCoordinates] = useState<google.maps.LatLngLiteral>({ lat: 0, lng: 0 });
+  const [coordinates, setCoordinates] = useState<google.maps.LatLngLiteral>({ lat: props.lat || 0, lng: props.lng || 0 });
   const [loading, setLoading] = useState<boolean>(false);
   const [error, setError] = useState<boolean>(false);
   const [isMounted, setIsMounted] = useState<boolean>(true);
@@ -38,25 +38,29 @@ function GoogleMaps(props: Props) {
   const debouncedAddress = useDebounce(props.address, 500);
 
   useEffect(() => {
-    setLoading(true);
     setIsMounted(true);
+    
+    if (debouncedAddress) {
+      setLoading(true);
+      fetchCoordinates(debouncedAddress || '')
+        .then(({ lat, lng }: google.maps.LatLngLiteral) => {
+          if (!isMounted) return;
 
-    fetchCoordinates(debouncedAddress || '')
-      .then(({ lat, lng }: google.maps.LatLngLiteral) => {
-        if (!isMounted) return;
+          props.getCoordinates && props.getCoordinates({ lat, lng });
+          setCoordinates({ lat, lng });
+          setLoading(false);
+          setError(false);
+        })
+        .catch(error => {
+          console.log('error:', error);
+          console.log('error:', props.lat, props.lng);
+          if (!isMounted) return;
 
-        props.getCoordinates && props.getCoordinates({ lat, lng });
-        setCoordinates({ lat, lng });
-        setLoading(false);
-        setError(false);
-      })
-      .catch(error => {
-        if (!isMounted) return;
-
-        console.error(error);
-        setLoading(false);
-        setError(true);
-      });
+          console.error(error);
+          setLoading(false);
+          setError(true);
+        });
+    }
 
     return cleanUp;
   }, [debouncedAddress]);
