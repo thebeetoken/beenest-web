@@ -30,7 +30,10 @@ const circleOptions = {
 };
 
 function GoogleMaps(props: Props) {
-  const [coordinates, setCoordinates] = useState<google.maps.LatLngLiteral>({ lat: props.lat || 0, lng: props.lng || 0 });
+  const [coordinates, setCoordinates] = useState<google.maps.LatLngLiteral>({
+    lat: props.lat || 0,
+    lng: props.lng || 0,
+  });
   const [loading, setLoading] = useState<boolean>(false);
   const [error, setError] = useState<boolean>(false);
   const [isMounted, setIsMounted] = useState<boolean>(true);
@@ -39,7 +42,7 @@ function GoogleMaps(props: Props) {
 
   useEffect(() => {
     setIsMounted(true);
-    
+
     if (debouncedAddress) {
       setLoading(true);
       fetchCoordinates(debouncedAddress || '')
