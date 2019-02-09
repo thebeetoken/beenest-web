@@ -57,11 +57,9 @@ function GoogleMaps(props: Props) {
         setLoading(false);
         setError(true);
       });
-      
+
     return cleanUp;
-  },
-    [debouncedAddress]
-  );
+  }, [debouncedAddress]);
 
   function cleanUp() {
     setLoading(false);
@@ -69,19 +67,18 @@ function GoogleMaps(props: Props) {
     setIsMounted(false);
   }
 
-  
   if (loading) {
     return <AudioLoading height={48} width={96} />;
   }
-  
+
   if (coordinates.lat === 0 && coordinates.lng === 0) {
     return <h1>Please provide a valid address</h1>;
   }
-  
+
   if (error) {
     return <h1>Error</h1>;
   }
-  
+
   return (
     <GoogleMap defaultZoom={13.5} defaultCenter={coordinates}>
       {props.showCircle && <Circle center={coordinates} options={circleOptions} radius={900} />}
@@ -104,19 +101,16 @@ export default compose<{}, Props>(
     componentDidCatch(error: any, info: any) {
       console.log(error, info);
       this.setState({ error: true });
-    }
+    },
   }),
-  branch(
-    ({ error }) => error,
-    renderComponent(() => <h1>Error loading Google Maps.</h1>)
-  ),
+  branch(({ error }) => error, renderComponent(() => <h1>Error loading Google Maps.</h1>)),
   withScriptjs,
   withGoogleMap
 )(GoogleMaps);
 
 function fetchCoordinates(address: string): Promise<google.maps.LatLngLiteral> {
   if (!window.google || !window.google.maps) return Promise.reject(new Error('Google Maps does not exist.'));
-  
+
   const geocoder = new window.google.maps.Geocoder();
 
   return new Promise<google.maps.LatLngLiteral>((resolve, reject) => {
@@ -128,24 +122,20 @@ function fetchCoordinates(address: string): Promise<google.maps.LatLngLiteral> {
       }
     });
   });
-};
+}
 
 // https://dev.to/gabe_ragland/debouncing-with-react-hooks-jci
 function useDebounce(value: any, delay: number) {
   const [debouncedValue, setDebouncedValue] = useState(value);
 
-  useEffect(
-    () => {
-      const handler = setTimeout(() => {
-        setDebouncedValue(value);
-      }, delay);
-      return () => {
-        clearTimeout(handler);
-      };
-    },
-    [value] 
-  );
+  useEffect(() => {
+    const handler = setTimeout(() => {
+      setDebouncedValue(value);
+    }, delay);
+    return () => {
+      clearTimeout(handler);
+    };
+  }, [value]);
 
   return debouncedValue;
 }
-
