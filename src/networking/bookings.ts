@@ -312,11 +312,19 @@ export const GET_GUEST_SORTED_BOOKINGS = gql`
       listing {
         addressLine1
         addressLine2
+        lat
+        lng
       }
       ...baseTripFields
     }
     current: guestBookings(status: "current") {
       currency
+      listing {
+        addressLine1
+        addressLine2
+        lat
+        lng
+      }
       ...baseTripFields
     }
     past: guestBookings(status: "past") {
