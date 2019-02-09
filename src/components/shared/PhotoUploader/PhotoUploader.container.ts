@@ -1,4 +1,5 @@
 import styled from 'styled-components';
+import { color } from 'styled/color';
 
 const PhotoUploaderContainer = styled.div`
   .photouploader-svg {
@@ -11,7 +12,7 @@ const PhotoUploaderContainer = styled.div`
     justify-content: center;
     flex-wrap: wrap;
     text-align: center;
-    background-color: #e1e1e1;
+    background-color: ${color('middle')};
     border-radius: 5px;
     min-height: 60px;
   }
@@ -280,7 +281,7 @@ const PhotoUploaderContainer = styled.div`
 
   .dropzone {
     min-height: 150px;
-    border: 2px solid rgba(0, 0, 0, 0.3);
+    border: 2px solid ${color('upper')};
     background: white;
     padding: 20px 20px;
   }
