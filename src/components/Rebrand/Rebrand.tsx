@@ -1,11 +1,3 @@
-/**
- * This is the main Admin screen
- *
- * In addition, it will render default tab, AdminTabsBooking
- *
- * @author tommy, andy, kevin
- **/
-
 import * as React from 'react';
 import { Redirect, Route, Switch } from 'react-router-dom';
 
