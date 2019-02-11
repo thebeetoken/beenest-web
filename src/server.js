@@ -42,7 +42,7 @@ if (isDevelopmentNodeEnv) {
   app.use('/js', serveStatic(path.join(__dirname, '..', 'dist', 'js')));
   app.use('/admin', serveStatic(path.join(__dirname, '..', 'dist', 'admin.html')));
   app.use('/work', serveStatic(path.join(__dirname, '..', 'dist', 'work.html')));
-  app.use((req, res) => res.sendFile(path.resolve(__dirname, '..', 'dist', 'index-v2.html')));
+  app.use((req, res) => res.sendFile(path.resolve(__dirname, '..', 'dist', 'index.html')));
 }
 
 app.listen(PORT, () =>
