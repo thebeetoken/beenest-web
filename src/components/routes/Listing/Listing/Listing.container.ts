@@ -162,24 +162,27 @@ const ListingContainerMobile = styled.div`
               margin-bottom: 12px;
             }
           }
-          .about-host-container--img {
-            align-self: flex-start;
-            border-radius: 50%;
-            height: 80px;
-            overflow: hidden;
-            width: 80px;
-          }
-          .about-host-container--contact-btn {
-            bottom: 24;
-            display: inline-block;
-            position: absolute;
-            top: 56px;
-            right: 0;
-            width: 176px;
-            &:hover {
-              .bee-svg {
-                transition: all 0.15s ease-in-out;
+          .about-host--row {
+            align-items: center;
+            display: flex;
+            flex-direction: row;
+            justify-content: space-between;
+            .about-host--img {
+              align-self: flex-start;
+              border-radius: 50%;
+              height: 80px;
+              overflow: hidden;
+              width: 80px;
+            }
+            .about-host--contact-btn {
+              width: 176px;
+              &:hover {
+                background-color: ${color('core')};
                 color: ${color('white')};
+                .bee-svg {
+                  transition: all 0.15s ease-in-out;
+                  color: ${color('white')};
+                }
               }
             }
           }
@@ -272,6 +275,11 @@ const ListingContainerTablet = styled(ListingContainerMobile)`
               }
               h3 {
                 ${typography('caption', 1)};
+              }
+            }
+            .about-host--row {
+              .about-host--contact-btn {
+                margin-right: 12px;
               }
             }
           }
