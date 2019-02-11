@@ -42,7 +42,7 @@ const CONFIG = {
 export class PhotoUploader extends React.Component<Props, State> {
   static defaultProps = {
     maxFiles: 10,
-    message: 'Drag Cover Photo Here',
+    message: 'Drag Photo Here',
   };
   readonly state = {
     token: null,

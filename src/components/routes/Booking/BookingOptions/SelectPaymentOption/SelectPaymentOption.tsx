@@ -13,7 +13,6 @@ import BookingOptionsCrypto from '../BookingOptionsCrypto';
 import InputLabel from 'shared/InputLabel';
 import SelectBoxWrapper from 'shared/SelectBoxWrapper';
 import Svg from 'shared/Svg';
-import { AppEnv, APP_ENV } from 'configs/settings';
 import { loadWeb3, priceWithEther, priceWithToken } from 'utils/web3';
 
 const TWO_DAYS_MS = 2 * 24 * 60 * 60 * 1000;
@@ -40,8 +39,7 @@ class SelectPaymentOption extends React.Component<Props> {
     const isTwoDaysFromNow =
       moment.utc(booking.checkInDate).valueOf() > (Date.now() + TWO_DAYS_MS);
     const showBee = isTwoDaysFromNow && !!booking.host.walletAddress;
-    const showEth = isTwoDaysFromNow && !!booking.host.walletAddress &&
-      APP_ENV !== AppEnv.PRODUCTION;
+    const showEth = isTwoDaysFromNow && !!booking.host.walletAddress;
     const showBtc = isTwoDaysFromNow &&
       booking.priceQuotes.some(({ currency }) => currency === Currency.BTC);
     // The 1.01 multiplier below accounts for fluctuating exchange rates etc.
