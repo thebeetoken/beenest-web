@@ -4,14 +4,14 @@ import { withRouter } from 'react-router-dom';
 
 import { AppConsumer, AppConsumerProps, ScreenType } from 'components/App.context';
 import {
-  CREATE_OR_LOGIN_FACEBOOK_USER,
+  CREATE_OR_LOGIN_WITH_PROVIDERS,
   User
 } from 'networking/users';
 import BeeLink from 'shared/BeeLink';
 import Button from 'shared/Button';
 import Divider from 'shared/Divider';
 import InputWrapper from 'shared/InputWrapper';
-import { login, signInWithFacebookPopUp } from 'utils/firebase';
+import { login, signInWithFacebookPopUp, signInWithGooglePopUp } from 'utils/firebase';
 import {
   FieldValidation,
   getFriendlyErrorMessage,
@@ -33,7 +33,7 @@ interface State {
 }
 
 interface LoginProps extends RouterProps {
-  createOrLoginFacebookUser: (id: string) => Promise<any>;
+  createOrLoginWithProviders: (id: string) => Promise<any>;
 }
 
 class LoginForm extends React.Component<LoginProps, State> {
@@ -102,6 +102,14 @@ class LoginForm extends React.Component<LoginProps, State> {
             <Divider />
           </div>
           <Button
+            background="google"
+            color="white"
+            onClick={this.signInWithGoogle}
+            prefix="social/google"
+            type="button">
+            Log In with Google
+          </Button>
+          <Button
             background="facebook"
             color="white"
             onClick={this.signInWithFacebook}
@@ -145,16 +153,24 @@ class LoginForm extends React.Component<LoginProps, State> {
   signInWithFacebook = () => {
     signInWithFacebookPopUp()
       .then((result) => {
-        return this.props.createOrLoginFacebookUser(result.user.uid);
+        return this.props.createOrLoginWithProviders(result.user.uid);
+      })
+      .catch((error: Error) => this.setErrorMessage(error));
+  }
+
+  signInWithGoogle = () => {
+    signInWithGooglePopUp()
+      .then((result) => {
+        return this.props.createOrLoginWithProviders(result.user.uid);
       })
       .catch((error: Error) => this.setErrorMessage(error));
   }
 }
 
 export default compose(
-  graphql(CREATE_OR_LOGIN_FACEBOOK_USER, {
+  graphql(CREATE_OR_LOGIN_WITH_PROVIDERS, {
     props: ({ mutate }: any) => ({
-      createOrLoginFacebookUser: (id: string): Promise<User> => {
+      createOrLoginWithProviders: (id: string): Promise<User> => {
         return mutate({ variables: { id } });
       },
     }),

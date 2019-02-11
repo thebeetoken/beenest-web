@@ -3,7 +3,7 @@ import { compose, graphql } from 'react-apollo';
 
 import {
   CreateUser,
-  CREATE_OR_LOGIN_FACEBOOK_USER,
+  CREATE_OR_LOGIN_WITH_PROVIDERS,
   CREATE_USER,
   User
 } from 'networking/users';
@@ -11,7 +11,7 @@ import Button from 'shared/Button';
 import Divider from 'shared/Divider';
 import InputWrapper from 'shared/InputWrapper';
 import AudioLoading from 'shared/loading/AudioLoading';
-import { auth, login, signInWithFacebookPopUp } from 'utils/firebase';
+import { auth, login, signInWithGooglePopUp } from 'utils/firebase';
 import { parseQueryString } from 'utils/queryParams';
 import {
   ErrorMessage,
@@ -48,7 +48,7 @@ interface State {
 }
 
 interface SignUpProps extends RouterProps {
-  createOrLoginFacebookUser: (id: string) => Promise<any>;
+  createOrLoginWithProviders: (id: string) => Promise<any>;
   createUser: (user: CreateUser) => Promise<User>;
 }
 
@@ -97,11 +97,11 @@ class SignUpForm extends React.Component<SignUpProps, State> {
         {!isSubmitting ? (
           <>
             <Button
-              background="facebook"
+              background="google"
               color="white"
-              onClick={this.signInWithFacebook}
-              prefix="social/facebook-circle">
-              Sign up with Facebook
+              onClick={this.signInWithGoogle}
+              prefix="social/google">
+              Sign up with Google
             </Button>
             <div className="authentication-divider">
               <Divider />
@@ -273,9 +273,9 @@ class SignUpForm extends React.Component<SignUpProps, State> {
     });
   }
 
-  signInWithFacebook = () => {
-    signInWithFacebookPopUp()
-      .then((result) => this.props.createOrLoginFacebookUser(result.user.uid))
+  signInWithGoogle = () => {
+    signInWithGooglePopUp()
+      .then((result) => this.props.createOrLoginWithProviders(result.user.uid))
       .catch((error: Error) => this.setSignupError(error));
   }
 }
@@ -288,9 +288,9 @@ export default compose(
       },
     }),
   }),
-  graphql(CREATE_OR_LOGIN_FACEBOOK_USER, {
+  graphql(CREATE_OR_LOGIN_WITH_PROVIDERS, {
     props: ({ mutate }: any) => ({
-      createOrLoginFacebookUser: (id: string): Promise<User> => {
+      createOrLoginWithProviders: (id: string): Promise<User> => {
         return mutate({ variables: { id } });
       },
     }),

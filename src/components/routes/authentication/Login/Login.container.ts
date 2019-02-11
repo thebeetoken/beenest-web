@@ -4,8 +4,6 @@ import AuthenticationContainer from '../Authentication.container';
 
 import { color, typography } from 'styled/utils';
 
-
-
 const LoginContainerMobile = styled(AuthenticationContainer)`
   width: 100%;
 
@@ -53,11 +51,13 @@ const LoginContainerMobile = styled(AuthenticationContainer)`
       .login-cta-container {
         display: flex;
         flex-direction: column;
-        height: 130px;
         margin-top: 14px;
       }
       .authentication-divider {
-        margin: 16px 0;
+        margin: 8px 0;
+      }
+      .bee-button:last-of-type {
+        margin-top: 8px;
       }
       a {
         margin-top: 24px;
@@ -74,13 +74,19 @@ const LoginContainerMobile = styled(AuthenticationContainer)`
 const LoginContainerTablet = styled(LoginContainerMobile)`
   @media (min-width: 768px) {
     .login-container {
-        height: 500px;
-        min-height: 500px;
+        height: 562px;
+        min-height: 562px;
         width: 384px;
       .login-container-header {
         box-shadow: 0 0 20px ${color('black', 0.25)};
-        height: 420px;
+        height: 478px;
         padding: 32px;
+        .authentication-divider {
+          margin: 16px 0;
+        }
+        .bee-button:last-of-type {
+          margin-top: 16px;
+        }
       }
     }
   }

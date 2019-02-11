@@ -6,7 +6,8 @@ const SvgContainer = styled.div`
     fill: currentColor;
     height: inherit;
     width: inherit;
-    path {
+    path,
+    polyline {
       fill: currentColor;
     }
   }
