@@ -113,42 +113,44 @@ const ListingInformation = ({ listing, host }: Props) => {
             <h2>About {displayName}</h2>
             {createdAt && <h3>Joined since {format(createdAt, 'MMMM YYYY')}</h3>}
           </div>
-          <div className="about-host-container--img">
-            <LazyImage src={profilePicUrl || DEFAULT_PROFILE_URL} />
+          <div className="about-host--row">
+            <div className="about-host--img">
+              <LazyImage src={profilePicUrl || DEFAULT_PROFILE_URL} />
+            </div>
+            <FirebaseConsumer>
+              {({ completedVerification }: FirebaseUserProps) => {
+                if (!completedVerification) {
+                  return null;
+                }
+                return (
+                  <ToggleProvider>
+                    {({ show, toggle }: ToggleProviderRef) => (
+                      <>
+                        <Button
+                          background="white"
+                          border="core"
+                          className="about-host--contact-btn"
+                          color="core"
+                          onClick={toggle}
+                          size="small"
+                          suffix="decorative/email">
+                          Contact Host
+                        </Button>
+                        {show && (
+                          <Portal color="up" opacity={0.9} onClick={toggle}>
+                            <ContactHostForm
+                              host={host}
+                              listingId={id}
+                              onClose={toggle} />
+                          </Portal>
+                        )}
+                      </>
+                    )}
+                  </ToggleProvider>
+                );
+              }}
+            </FirebaseConsumer>
           </div>
-          <FirebaseConsumer>
-            {({ completedVerification }: FirebaseUserProps) => {
-              if (!completedVerification) {
-                return null;
-              }
-              return (
-                <ToggleProvider>
-                  {({ show, toggle }: ToggleProviderRef) => (
-                    <>
-                      <Button
-                        background="white"
-                        border="core"
-                        className="about-host-container--contact-btn"
-                        color="core"
-                        onClick={toggle}
-                        size="small"
-                        suffix="decorative/email">
-                        Contact Host
-                      </Button>
-                      {show && (
-                        <Portal color="up" opacity={0.9} onClick={toggle}>
-                          <ContactHostForm
-                            host={host}
-                            listingId={id}
-                            onClose={toggle} />
-                        </Portal>
-                      )}
-                    </>
-                  )}
-                </ToggleProvider>
-              );
-            }}
-          </FirebaseConsumer>
         </div>
         {about && <div className="about-host-container--description" dangerouslySetInnerHTML={{ __html: sanitizeHtml(about) }} />}
       </div>
