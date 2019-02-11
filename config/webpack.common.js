@@ -15,6 +15,7 @@ const nodeModules = path.resolve(__dirname, '..', 'node_modules');
 module.exports = {
   entry: {
     index: `${root}/index.tsx`,
+    work: `${root}/work.tsx`,
     admin: `${root}/admin.tsx`,
     vendor: [
       'react',
@@ -86,6 +87,10 @@ module.exports = {
         include: /src/,
         exclude: /node_modules/,
         loader: ['babel-loader', 'awesome-typescript-loader'],
+      },
+      {
+        test:/\.(s*)css$/,
+        use:['style-loader','css-loader', 'sass-loader'],
       },
       {
         test: /\.svg$/,
