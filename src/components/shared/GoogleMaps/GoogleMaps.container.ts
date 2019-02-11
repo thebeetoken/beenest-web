@@ -1,4 +1,5 @@
 import styled from 'styled-components';
+import { typography, color } from 'styled/utils';
 
 interface Props {
   height?: string;
@@ -10,14 +11,25 @@ const GoogleMapsContainer = styled.div`
   position: relative;
   width: 100%;
 
+  > div:first-child {
+    > div:first-child {
+      background-color: ${color('light')} !important;
+    }
+  }
 
   > div:last-child {
     position: absolute;
     top: 50%;
     left: 50%;
     transform: translate3d(-50%, -50%, 0);
+    width: 80%;
   }
 
+
+  p {
+    ${typography('title', 5)}
+    text-align: center;
+  }
 
   @media (min-width: 768px) {
     height: ${({ height }: Props) => height || '400px'};
