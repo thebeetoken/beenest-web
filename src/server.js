@@ -35,11 +35,13 @@ if (isDevelopmentNodeEnv) {
     })
   );
   opn(`http://localhost:${PORT}/`);
+  app.use('/rebrand', (req, res) => res.sendFile('templates/rebrand.development.html', { root: __dirname }));
   app.use('/admin', (req, res) => res.sendFile('templates/admin.development.html', { root: __dirname }));
   app.use((req, res) => res.sendFile('templates/index.development.html', { root: __dirname }));
 } else {
   app.use('/js', serveStatic(path.join(__dirname, '..', 'dist', 'js')));
   app.use('/admin', serveStatic(path.join(__dirname, '..', 'dist', 'admin.html')));
+  app.use('/rebrand', serveStatic(path.join(__dirname, '..', 'dist', 'rebrand.html')));
   app.use((req, res) => res.sendFile(path.resolve(__dirname, '..', 'dist', 'index-v2.html')));
 }
 

@@ -25,7 +25,7 @@ export class Paginator extends React.Component<PaginatorProps, PaginatorState> {
     totalCount: 0,
   };
 
-  render(): JSX.Element {
+  render() {
     return React.Children.only(
       this.props.children({
         offset: this.state.offset,

@@ -12,6 +12,10 @@ function getS3HtmlPath(path) {
     return '/admin.html';
   }
 
+  if (path.startsWith('/rebrand')) {
+    return '/rebrand.html';
+  }
+
   return path;
 }
 
