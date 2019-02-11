@@ -52,7 +52,14 @@ const Conference = ({ match }: RouterProps) => (
         const renderHotelListings = (listings || [])
           .filter((listing: ListingShort) => listing.homeType === HOTEL_ROOM)
           .map((listing: ListingShort) => {
-            return <HotelCard hover key={listing.id} {...listing} />;
+            return (
+              <HotelCard
+                endDate={endDate}
+                hover
+                key={listing.id}
+                startDate={startDate}
+                {...listing} />
+            );
           });
         const propertyListings = (listings || [])
           .filter((listing: ListingShort) => listing.homeType !== HOTEL_ROOM);

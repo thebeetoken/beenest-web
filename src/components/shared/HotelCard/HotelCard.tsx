@@ -9,13 +9,16 @@ import Svg from 'shared/Svg';
 
 interface Props extends ListingShort {
   className?: string;
+  endDate?: string;
   hover?: boolean;
+  startDate?: boolean;
 }
 
 export const HotelCard = (props: Props) => {
-  const { hover, idSlug, listingPicUrl, pricePerNightUsd, sleepingArrangement, title } = props;
+  const { endDate, hover, idSlug, listingPicUrl, pricePerNightUsd, sleepingArrangement, startDate, title } = props;
+  const queryParams = (startDate && endDate) ? `?checkInDate=${startDate}&checkOutDate=${endDate}` : '';
   return (
-    <BeeLink to={`/listings/${idSlug}`}>
+    <BeeLink to={`/listings/${idSlug}${queryParams}`}>
       <HotelCardContainer
         className={`bee-hotel-card ${props.className || ''}`.trim()}
         {...{ hover }}>
