@@ -1,7 +1,5 @@
 import * as React from 'react';
-import { Redirect, Route, Switch } from 'react-router-dom';
-
-import { FirebaseConsumer, FirebaseUserProps } from 'HOCs/FirebaseProvider';
+import { Route, Switch } from 'react-router-dom';
 
 import WorkTest from './WorkTest';
 
@@ -13,13 +11,4 @@ const Work = () => (
   </div>
 );
 
-export default () => (
-  <FirebaseConsumer>
-    {({ isAdmin, loading }: FirebaseUserProps) => {
-      if (loading) {
-        return null;
-      }
-      return isAdmin ? <Work /> : <Redirect to="/login" />;
-    }}
-  </FirebaseConsumer>
-);
+export default Work;
