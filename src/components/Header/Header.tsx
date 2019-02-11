@@ -17,6 +17,8 @@ import ListItem from 'shared/ListItem';
 import AudioLoading from 'shared/loading/AudioLoading';
 import Svg from 'shared/Svg';
 
+const DEFAULT_PROFILE_PHOTO = 'https://d9lhrxmc0upxv.cloudfront.net/fit-in/48x48/images/app/misc/profile.png';
+
 const HEADER_HEIGHT = 64;
 const HOST_INTEREST_LINK = '/hosts/signup?utm_source=header_host_signup_button';
 
@@ -223,13 +225,7 @@ class DefaultMobileHeader extends React.Component<MobileHeaderProps> {
                                       className={`${!showMenu ? 'show' : 'bee-lazy-image'}`}
                                       height="24"
                                       width="24"
-                                      src={
-                                        data.user.profilePicUrl
-                                          ? data.user.profilePicUrl
-                                          : user.photoURL
-                                          ? user.photoURL
-                                          : 'https://d9lhrxmc0upxv.cloudfront.net/fit-in/24x24/images/app/misc/profile.png'
-                                      }
+                                      src={getProfilePhoto(data.user.profilePicUrl, user.photoURL)}
                                     />
                                   );
                                 }
@@ -239,13 +235,7 @@ class DefaultMobileHeader extends React.Component<MobileHeaderProps> {
                                     className={`${!showMenu ? 'show' : 'bee-lazy-image'}`}
                                     height="48"
                                     width="48"
-                                    src={
-                                      data.user.profilePicUrl
-                                        ? data.user.profilePicUrl
-                                        : user.photoURL
-                                        ? user.photoURL
-                                        : 'https://d9lhrxmc0upxv.cloudfront.net/fit-in/48x48/images/app/misc/profile.png'
-                                    }
+                                    src={getProfilePhoto(data.user.profilePicUrl, user.photoURL)}
                                   />
                                 );
                               }}
@@ -404,7 +394,7 @@ const NavigationItems = () => (
                 return <UnauthenticatedNavLinks />;
               }
 
-              return <AuthenticatedNavLinks profilePicUrl={user.photoURL || data.user.profilePicUrl} />;
+              return <AuthenticatedNavLinks profilePicUrl={getProfilePhoto(data.user.profilePicUrl, user.photoURL)} />;
             }}
           </Query>
         );
@@ -425,11 +415,7 @@ const AuthenticatedNavLinks = ({ profilePicUrl }: any) => (
             if (screenType < ScreenType.TABLET) {
               return (
                 <LazyImage
-                  src={
-                    profilePicUrl
-                      ? profilePicUrl
-                      : 'https://d9lhrxmc0upxv.cloudfront.net/fit-in/24x24/images/app/misc/profile.png'
-                  }
+                  src={profilePicUrl}
                   height="24"
                   width="24"
                 />
@@ -438,11 +424,7 @@ const AuthenticatedNavLinks = ({ profilePicUrl }: any) => (
 
             return (
               <LazyImage
-                src={
-                  profilePicUrl
-                    ? profilePicUrl
-                    : 'https://d9lhrxmc0upxv.cloudfront.net/fit-in/48x48/images/app/misc/profile.png'
-                }
+                src={profilePicUrl}
                 height="48"
                 width="48"
               />
@@ -529,4 +511,17 @@ const HostsHeaderContent = () => (
     </BeeLink>
   </div>
 );
+
+
+// healper functions
+
+const getProfilePhoto = (photo: string | null | undefined, firebasePhoto: string | null | undefined): string => {
+  if(photo) {
+    return photo;
+  } else if (firebasePhoto) {
+    return firebasePhoto;
+  }
+
+  return DEFAULT_PROFILE_PHOTO;
+}
 export default Header;
