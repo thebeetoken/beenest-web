@@ -67,11 +67,11 @@ class GoogleMaps extends React.Component<Props, State> {
     }
     
     if (this.state.error) {
-      return <h1>Error</h1>;
+      return <p>Error</p>;
     }
 
     if (lat === undefined || lng === undefined) {
-      return <h1>Please provide a valid address</h1>;
+      return <p>Please provide a valid address</p>;
     }
 
     return (

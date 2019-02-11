@@ -23,7 +23,7 @@ interface ToggleProviderState {
 export class ToggleProvider extends React.Component<ToggleProviderProps, ToggleProviderState> {
   readonly state = { show: false };
 
-  render(): JSX.Element {
+  render() {
     return React.Children.only(
       this.props.children({
         show: this.state.show !== (!!this.props.showing),
