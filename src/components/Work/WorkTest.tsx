@@ -18,7 +18,7 @@ interface State {
   isOpen: boolean;
 }
 
-class RebrandTest extends React.Component<State> {
+class WorkTest extends React.Component<State> {
   state = {
     isOpen: false,
   };
@@ -64,4 +64,4 @@ class RebrandTest extends React.Component<State> {
   }
 }
 
-export default RebrandTest;
+export default WorkTest;

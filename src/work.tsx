@@ -16,7 +16,7 @@ import GlobalStyles from 'styled/globalStyles';
 import ApolloWrapper from 'HOCs/ApolloWrapper';
 import ErrorBoundaryWrapper from 'HOCs/ErrorBoundaryWrapper';
 import { FirebaseProvider } from 'HOCs/FirebaseProvider';
-import Rebrand from './components/Rebrand';
+import Work from './components/Work';
 
 ReactDOM.render(
   <>
@@ -24,7 +24,7 @@ ReactDOM.render(
       <ApolloWrapper>
         <FirebaseProvider>
           <BrowserRouter>
-            <Rebrand />
+            <Work />
           </BrowserRouter>
         </FirebaseProvider>
       </ApolloWrapper>

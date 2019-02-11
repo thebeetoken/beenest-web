@@ -49,18 +49,18 @@ module.exports = merge(common, {
     new HtmlWebpackPlugin({
       filename: 'index.html',
       template: `${root}/templates/index.html`,
-      excludeChunks: ['admin', 'rebrand'],
+      excludeChunks: ['admin', 'work'],
       ...commonHtmlWebpackOpts,
     }),
     new HtmlWebpackPlugin({
       filename: 'admin.html',
       template: `${root}/templates/admin.html`,
-      excludeChunks: ['index', 'rebrand'],
+      excludeChunks: ['index', 'work'],
       ...commonHtmlWebpackOpts,
     }),
     new HtmlWebpackPlugin({
-      filename: 'admin.html',
-      template: `${root}/templates/rebrand.html`,
+      filename: 'work.html',
+      template: `${root}/templates/work.html`,
       excludeChunks: ['index', 'admin'],
       ...commonHtmlWebpackOpts,
     }),

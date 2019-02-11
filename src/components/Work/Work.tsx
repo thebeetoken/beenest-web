@@ -3,12 +3,12 @@ import { Redirect, Route, Switch } from 'react-router-dom';
 
 import { FirebaseConsumer, FirebaseUserProps } from 'HOCs/FirebaseProvider';
 
-import RebrandTest from './RebrandTest';
+import WorkTest from './WorkTest';
 
-const Rebrand = () => (
+const Work = () => (
   <div>
     <Switch>
-      <Route path="/rebrand" component={RebrandTest} />
+      <Route path="/work" component={WorkTest} />
     </Switch>
   </div>
 );
@@ -19,7 +19,7 @@ export default () => (
       if (loading) {
         return null;
       }
-      return isAdmin ? <Rebrand /> : <Redirect to="/login" />;
+      return isAdmin ? <Work /> : <Redirect to="/login" />;
     }}
   </FirebaseConsumer>
 );
