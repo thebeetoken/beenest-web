@@ -1,35 +1,24 @@
-import * as React from 'react';
+import React, { useState, useEffect } from 'react';
 import { branch, compose, lifecycle, renderComponent, withProps } from 'recompose';
 import { Circle, GoogleMap, withGoogleMap, withScriptjs, Marker } from 'react-google-maps';
-import debounce from 'lodash.debounce';
 
 import { SETTINGS } from 'configs/settings';
 const { GOOGLE_MAPS_KEY } = SETTINGS;
 
 import GoogleMapsContainer from './GoogleMaps.container';
-import AudioLoading from 'components/shared/loading/AudioLoading';
-
-interface LatLng {
-  lng: number | undefined;
-  lat: number | undefined;
-}
+import AudioLoading from 'shared/loading/AudioLoading';
 
 interface Props {
   address?: string;
   children?: React.ReactNode;
   className?: string;
   height?: string;
-  lat?: number | undefined;
-  lng?: number | undefined;
-  getCoordinates?: (coordinates: LatLng) => LatLng;
+  lat?: number;
+  lng?: number;
+  getCoordinates?: (coordinates: google.maps.LatLngLiteral) => google.maps.LatLngLiteral;
   showMarker?: boolean;
   showCircle?: boolean;
   width?: string;
-}
-
-interface State extends LatLng {
-  loading: boolean;
-  error: boolean;
 }
 
 const circleOptions = {
@@ -40,71 +29,69 @@ const circleOptions = {
   strokeWeight: 2,
 };
 
-class GoogleMaps extends React.Component<Props, State> {
-  readonly state = {
-    lat: this.props.lat,
-    lng: this.props.lng,
-    loading: false,
-    error: false,
+function GoogleMaps(props: Props) {
+  const [coordinates, setCoordinates] = useState<google.maps.LatLngLiteral>({
+    lat: props.lat || 0,
+    lng: props.lng || 0,
+  });
+  const [loading, setLoading] = useState<boolean>(false);
+  const [error, setError] = useState<boolean>(false);
+  const [isMounted, setIsMounted] = useState<boolean>(true);
+
+  const debouncedAddress = useDebounce(props.address, 500);
+
+  useEffect(() => {
+    setIsMounted(true);
+
+    if (debouncedAddress) {
+      setLoading(true);
+      fetchCoordinates(debouncedAddress || '')
+        .then(({ lat, lng }: google.maps.LatLngLiteral) => {
+          if (!isMounted) return;
+
+          props.getCoordinates && props.getCoordinates({ lat, lng });
+          setCoordinates({ lat, lng });
+          setLoading(false);
+          setError(false);
+        })
+        .catch(error => {
+          console.log('error:', error);
+          console.log('error:', props.lat, props.lng);
+          if (!isMounted) return;
+
+          console.error(error);
+          setLoading(false);
+          setError(true);
+        });
+    }
+
+    return cleanUp;
+  }, [debouncedAddress]);
+
+  function cleanUp() {
+    setLoading(false);
+    setError(false);
+    setIsMounted(false);
   }
 
-  componentDidMount() {
-    if ((this.state.lat === undefined || this.state.lng === undefined) && this.props.address) {
-      this._updateCoordinates();
-    }
+  if (loading) {
+    return <AudioLoading height={48} width={96} />;
   }
 
-  componentDidUpdate = (prevProps: Props) => {
-    if (this.props.address && (prevProps.address !== this.props.address)) {
-      this._updateCoordinates();
-    }
+  if (coordinates.lat === 0 && coordinates.lng === 0) {
+    return <h1>Please provide a valid address</h1>;
   }
 
-  render() {
-    const { lat, lng } = this.state;
-    if (this.state.loading) {
-      return <AudioLoading height={48} width={96} />;
-    }
-    
-    if (this.state.error) {
-      return <p>Error</p>;
-    }
-
-    if (lat === undefined || lng === undefined) {
-      return <p>Please provide a valid address</p>;
-    }
-
-    return (
-      <GoogleMap defaultZoom={13.5} defaultCenter={{ lat, lng }}>
-        {this.props.showCircle && <Circle center={{ lat, lng }} options={circleOptions} radius={900} />}
-        {this.props.showMarker && <Marker position={{ lat, lng }} />}
-      </GoogleMap>
-    );
+  if (error) {
+    return <h1>Error</h1>;
   }
 
-  _debouncedFetchCoordinates = debounce(() => {
-    fetchCoordinates(this.props.address || '').then(({ lat, lng }) => {
-      this.props.getCoordinates && this.props.getCoordinates({ lat, lng });
-      this.setState({
-        lat,
-        lng,
-        error: false,
-        loading: false,
-      })
-    }).catch(error => {
-      console.error(error);
-      this.setState({
-        error: true,
-        loading: false,
-      })
-    });
-  }, 1000);
-
-  _updateCoordinates = () => {
-    this.setState({
-      loading: true
-    }, this._debouncedFetchCoordinates);
-  }
+  return (
+    <GoogleMap defaultZoom={13.5} defaultCenter={coordinates}>
+      {props.showCircle && <Circle center={coordinates} options={circleOptions} radius={900} />}
+      {props.showMarker && <Marker position={coordinates} />}
+    </GoogleMap>
+  );
 }
 
 export default compose<{}, Props>(
@@ -121,22 +108,19 @@ export default compose<{}, Props>(
     componentDidCatch(error: any, info: any) {
       console.log(error, info);
       this.setState({ error: true });
-    }
+    },
   }),
-  branch(
-    ({ error }) => error,
-    renderComponent(() => <h1>Error loading Google Maps.</h1>)
-  ),
+  branch(({ error }) => error, renderComponent(() => <h1>Error loading Google Maps.</h1>)),
   withScriptjs,
   withGoogleMap
 )(GoogleMaps);
 
-function fetchCoordinates(address: string): Promise<LatLng> {
+function fetchCoordinates(address: string): Promise<google.maps.LatLngLiteral> {
   if (!window.google || !window.google.maps) return Promise.reject(new Error('Google Maps does not exist.'));
-  
-  const geocoder = new google.maps.Geocoder();
 
-  return new Promise<LatLng>((resolve, reject) => {
+  const geocoder = new window.google.maps.Geocoder();
+
+  return new Promise<google.maps.LatLngLiteral>((resolve, reject) => {
     geocoder.geocode({ address }, (res: google.maps.GeocoderResult[], status: google.maps.GeocoderStatus) => {
       if (status === google.maps.GeocoderStatus.OK) {
         resolve({ lat: res[0].geometry.location.lat(), lng: res[0].geometry.location.lng() });
@@ -145,4 +129,20 @@ function fetchCoordinates(address: string): Promise<LatLng> {
       }
     });
   });
-};
+}
+
+// https://dev.to/gabe_ragland/debouncing-with-react-hooks-jci
+function useDebounce(value: any, delay: number) {
+  const [debouncedValue, setDebouncedValue] = useState(value);
+
+  useEffect(() => {
+    const handler = setTimeout(() => {
+      setDebouncedValue(value);
+    }, delay);
+    return () => {
+      clearTimeout(handler);
+    };
+  }, [value]);
+
+  return debouncedValue;
+}
