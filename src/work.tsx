@@ -9,7 +9,6 @@
 import * as React from 'react';
 import * as ReactDOM from 'react-dom';
 import { BrowserRouter } from 'react-router-dom';
-import 'bootstrap/dist/css/bootstrap.css';
 import 'styled/theme.css';
 
 // Inject Global Styles
