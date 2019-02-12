@@ -1,4 +1,5 @@
 import * as React from 'react';
+import moment from 'moment';
 import { withRouter } from 'react-router-dom';
 
 import { Web3Provider, Web3Consumer } from 'HOCs/Web3Provider';
@@ -15,6 +16,8 @@ import BeeLink from 'shared/BeeLink';
 import { balanceOf, Web3Data, isNetworkValid, getValidNetworkName, loadWeb3 } from 'utils/web3';
 import { numberToLocaleString } from 'utils/numberToLocaleString';
 import { AppConsumer, AppConsumerProps, ScreenType } from 'components/App.context';
+
+const TWO_DAYS_MS = 2 * 24 * 60 * 60 * 1000;
 
 interface Props extends RouterProps {
   booking: Booking;
@@ -52,6 +55,8 @@ const BookingOptionsCrypto = ({ booking, currency, fromBee, history }: Props) =>
         if (!accounts.length) {
           return <p>Please log in to your wallet (e.g. MetaMask)</p>;
         }
+        const isTwoDaysFromNow =
+          moment.utc(booking.checkInDate).valueOf() > (Date.now() + TWO_DAYS_MS);
         const { priceQuotes } = booking;
         const outputCurrency = fromBee ? Currency.BEE : currency;
         const quote = priceQuotes.find(p => p.currency === outputCurrency);
@@ -64,7 +69,7 @@ const BookingOptionsCrypto = ({ booking, currency, fromBee, history }: Props) =>
             const hasInsufficientFunds = !availableFunds || (availableFunds < total);
             // TODO: Communicate error state more clearly
             const currencyUnavailable = total === '--.--';
-            const isDisabled = hasInsufficientFunds || currencyUnavailable;
+            const isDisabled = hasInsufficientFunds || currencyUnavailable || !isTwoDaysFromNow;
             return (
               <BookingOptionsCryptoContainer>
                 <AppConsumer>
@@ -104,6 +109,9 @@ const BookingOptionsCrypto = ({ booking, currency, fromBee, history }: Props) =>
                       </div>
                     </div>
                   ))}
+                {!isTwoDaysFromNow && <div className="booking-options-error">
+                  <p>Bookings paid using Ethereum or ERC-20 tokens must be made at least two days in advance.</p>
+                </div>}
                 <AppConsumer>
                   {({ screenType }: AppConsumerProps) => {
                     if (screenType < ScreenType.TABLET) {
