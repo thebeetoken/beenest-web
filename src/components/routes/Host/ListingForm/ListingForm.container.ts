@@ -13,6 +13,9 @@ const ListingFormMobileContainer = styled.section`
       min-height: calc(100% - 128px);
       padding: 48px 24px 56px;
       width: 100%;
+      .bee-button {
+        width: 160px;
+      }
       label {
         margin-bottom: 8px;
       }

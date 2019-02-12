@@ -19,6 +19,7 @@ import { History } from 'history';
 import ListingHelp from './ListingHelp';
 import { ApolloError } from 'apollo-client';
 import { AppConsumer, AppConsumerProps, ScreenType } from 'components/App.context';
+import AudioLoading from 'components/shared/loading/AudioLoading';
 
 interface FormValues {
   [name: string]: boolean | string | string[] | number | object | undefined;
@@ -226,8 +227,8 @@ class ListingForm extends React.Component<Props, State> {
                     <Redirect exact from="/host/listings/:id/edit" to="/host/listings/:id/listing_info" />
                     <Route component={NotFound} />
                   </Switch>
-
                   <Button
+                    disabled={FormikProps.isSubmitting}
                     onClick={() => {
                       if (!FormikProps.isValid) {
                         alert(
@@ -238,9 +239,9 @@ class ListingForm extends React.Component<Props, State> {
                       }
                       FormikProps.submitForm();
                     }}
-                    type="button"
-                  >
-                    Save &amp; Continue
+                    type="button">
+                    {FormikProps.isSubmitting
+                    ? <AudioLoading color="dark" height={24} width={48} /> : 'Save & Continue'}
                   </Button>
                 </Form>
                 <AppConsumer>
