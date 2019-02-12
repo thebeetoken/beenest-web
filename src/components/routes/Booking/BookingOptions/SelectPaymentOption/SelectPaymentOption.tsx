@@ -1,5 +1,4 @@
 import * as React from 'react';
-import moment from 'moment';
 
 import { Booking, Currency } from 'networking/bookings';
 
@@ -14,8 +13,6 @@ import InputLabel from 'shared/InputLabel';
 import SelectBoxWrapper from 'shared/SelectBoxWrapper';
 import Svg from 'shared/Svg';
 import { loadWeb3, priceWithEther, priceWithToken } from 'utils/web3';
-
-const TWO_DAYS_MS = 2 * 24 * 60 * 60 * 1000;
 
 interface Props {
   booking: Booking;
@@ -36,11 +33,9 @@ class SelectPaymentOption extends React.Component<Props> {
   render() {
     const { currency, conversionRateFromBee, errorPricingToken } = this.state;
     const { booking } = this.props;
-    const isTwoDaysFromNow =
-      moment.utc(booking.checkInDate).valueOf() > (Date.now() + TWO_DAYS_MS);
-    const showBee = isTwoDaysFromNow && !!booking.host.walletAddress;
-    const showEth = isTwoDaysFromNow && !!booking.host.walletAddress;
-    const showBtc = isTwoDaysFromNow &&
+    const showBee = !!booking.host.walletAddress;
+    const showEth = !!booking.host.walletAddress;
+    const showBtc =
       booking.priceQuotes.some(({ currency }) => currency === Currency.BTC);
     // The 1.01 multiplier below accounts for fluctuating exchange rates etc.
     const fromBee = errorPricingToken ?
