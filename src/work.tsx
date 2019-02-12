@@ -9,7 +9,7 @@
 import * as React from 'react';
 import * as ReactDOM from 'react-dom';
 import { BrowserRouter } from 'react-router-dom';
-import 'styled/theme/theme.scss';
+import 'styled/theme.css';
 
 // Inject Global Styles
 import GlobalStyles from 'styled/globalStyles';
