@@ -48,7 +48,7 @@
     "autotrack": "^2.4.1",
     "babel-runtime": "^6.26.0",
     "big.js": "^5.2.2",
-    "bootstrap": "^4.2.1",
+    "bootstrap": "^4.3.0",
     "date-fns": "^1.29.0",
     "draft-js": "^0.10.5",
     "draft-js-export-html": "^1.2.0",

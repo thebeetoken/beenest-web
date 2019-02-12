@@ -18,7 +18,7 @@ interface State {
   isOpen: boolean;
 }
 
-class WorkTest extends React.Component<State> {
+class Home extends React.Component<State> {
   state = {
     isOpen: false,
   };
@@ -64,4 +64,4 @@ class WorkTest extends React.Component<State> {
   }
 }
 
-export default WorkTest;
+export default Home;
