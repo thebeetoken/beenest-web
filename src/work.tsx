@@ -16,7 +16,7 @@ import GlobalStyles from 'styled/globalStyles';
 import ApolloWrapper from 'HOCs/ApolloWrapper';
 import ErrorBoundaryWrapper from 'HOCs/ErrorBoundaryWrapper';
 import { FirebaseProvider } from 'HOCs/FirebaseProvider';
-import Work from './components/Work';
+import Work from './pages';
 
 ReactDOM.render(
   <>
