@@ -24,7 +24,6 @@ import {
   isOptional,
   isPositive,
   isValidCheckOutTime,
-  isValidDateString,
   isValidEmail,
   isValidHomeType,
   isValidIcalUrls,
