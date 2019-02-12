@@ -1,12 +1,12 @@
 import * as React from 'react';
 import { Route, Switch } from 'react-router-dom';
 
-import WorkTest from './WorkTest';
+import Home from './home';
 
 const Work = () => (
   <div>
     <Switch>
-      <Route path="/work" component={WorkTest} />
+      <Route path="/work" component={Home} />
     </Switch>
   </div>
 );

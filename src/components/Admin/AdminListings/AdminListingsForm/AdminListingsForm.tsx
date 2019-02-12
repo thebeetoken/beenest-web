@@ -24,7 +24,6 @@ import {
   isOptional,
   isPositive,
   isValidCheckOutTime,
-  isValidDateString,
   isValidEmail,
   isValidHomeType,
   isValidIcalUrls,
@@ -78,9 +77,9 @@ interface InputValidation {
 const validationMap: Validation = {
   autoApprove: bypass,
   totalQuantity: isNonNegative,
-  checkInDate: isValidDateString,
+  checkInDate: isOptional,
   checkInTime: isValidCheckOutTime,
-  checkOutDate: isValidDateString,
+  checkOutDate: isOptional,
   checkOutTime: isNotEmpty,
   country: isNotEmpty,
   homeType: isValidHomeType,
@@ -1127,11 +1126,11 @@ function compileListing(inputForm: AdminListingInput): Promise<AdminListingInput
   const hotelParams = homeType === HomeTypeAdminForm.HOTEL_ROOM
     ? { 
       autoApprove,
-      checkInDate: new Date(checkInDate),
-      checkOutDate: new Date(checkOutDate),
+      checkInDate: checkInDate && new Date(checkInDate),
+      checkOutDate: checkOutDate && new Date(checkOutDate),
       totalQuantity,
     } : {};
-  
+
   return fetchCoordinates(address).then(
     (coordinates: LatLng): AdminListingInput => {
       return {

@@ -6,16 +6,20 @@ import { ListingShort } from 'networking/listings';
 import BeeLink from 'shared/BeeLink'
 import LazyImage from 'shared/LazyImage';
 import Svg from 'shared/Svg';
+import { formatSingleDate } from 'utils/formatDate';
 
 interface Props extends ListingShort {
   className?: string;
+  endDate?: string;
   hover?: boolean;
+  startDate?: string;
 }
 
 export const HotelCard = (props: Props) => {
-  const { hover, idSlug, listingPicUrl, pricePerNightUsd, sleepingArrangement, title } = props;
+  const { endDate, hover, idSlug, listingPicUrl, pricePerNightUsd, sleepingArrangement, startDate, title } = props;
+  const queryParams = (startDate && endDate) ? `?checkInDate=${formatSingleDate(startDate, 'MM-DD-YYYY')}&checkOutDate=${formatSingleDate(endDate, 'MM-DD-YYYY')}` : '';
   return (
-    <BeeLink to={`/listings/${idSlug}`}>
+    <BeeLink to={`/listings/${idSlug}${queryParams}`}>
       <HotelCardContainer
         className={`bee-hotel-card ${props.className || ''}`.trim()}
         {...{ hover }}>
