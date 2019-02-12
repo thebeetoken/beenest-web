@@ -110,7 +110,7 @@ const BookingOptionsCrypto = ({ booking, currency, fromBee, history }: Props) =>
                     </div>
                   ))}
                 {!isTwoDaysFromNow && <div className="booking-options-error">
-                  <p>Bookings paid using Ethereum or ERC-20 tokens must be made at least two days in advance.</p>
+                  <p>Bookings paid using Ethereum or ERC-20 tokens must be made more than two days in advance.</p>
                 </div>}
                 <AppConsumer>
                   {({ screenType }: AppConsumerProps) => {
