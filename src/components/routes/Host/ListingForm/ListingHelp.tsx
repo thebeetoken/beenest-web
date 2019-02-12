@@ -45,10 +45,16 @@ const ListingPicUrl = () => (
   <div>
     <h3>Cover Photo</h3>
     <p>High-quality photos are a must as our guests are typically business travelers. Ideal image dimensions are 1440x960. The maximum file size is 5 MB and the file types we accept are .jpg &amp; .png.</p>
-    <h4>Examples:</h4>
-    <div className="images-container">
-      <LazyImage className="image-container--horizontal" src="https://static.beenest.com/images/photo-examples/Do_LA_Bedroom.jpg" />
-      <LazyImage className="image-container--horizontal" src="https://static.beenest.com/images/photo-examples/Do_LA_Bedroom_2.jpg" />
+    <div className="image-examples-container">
+      <div className="image-container">
+        <h4>Good:</h4>
+        <LazyImage height="150px" width="200px" src="https://static.beenest.com/images/photo-examples/Do_LA_Bedroom.jpg" />
+        {/* <LazyImage className="image-container--horizontal" src="https://static.beenest.com/images/photo-examples/Do_LA_Bedroom_2.jpg" /> */}
+      </div>
+      <div className="image-container">
+        <h4>Bad:</h4>
+        <LazyImage height="200px" width="150px" src="https://static.beenest.com/images/photo-examples/bad_cover_example.png" />
+      </div>
     </div>
   </div>
 );

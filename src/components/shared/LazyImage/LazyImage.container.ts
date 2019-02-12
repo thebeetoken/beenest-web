@@ -1,13 +1,15 @@
 import styled from 'styled-components';
 
 type Props = Partial<{
+  height?: string;
   position?: string;
   transition?: boolean;
+  width?: string;
 }>
 
 const LazyImageContainer = styled.img`
-  width: 100%;
-  height: 100%;
+  width: ${({ width }: Props) => width || '100%' };
+  height: ${({ height }: Props) => height || '100%' };
   object-fit: cover;
   object-position: ${({ position }: Props) => position || 'top'};
   opacity: ${({ transition }: Props) => transition ? '0' : '1'};
