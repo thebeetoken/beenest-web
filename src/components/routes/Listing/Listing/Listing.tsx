@@ -28,7 +28,7 @@ class Listing extends React.Component<RouterProps> {
     const { id } = this.props.match.params;
     return (
       <ListingContainer>
-        <Query query={GET_PUBLIC_LISTING} variables={{ id, ...PROFILE_IMAGE_PARAMETERS }}>
+        <Query query={GET_PUBLIC_LISTING} fetchPolicy="cache-and-network" variables={{ id, ...PROFILE_IMAGE_PARAMETERS }}>
           {({ loading, error, data }) => {
             if (loading) {
               return <AudioLoading height={48} width={96} />;
