@@ -44,33 +44,36 @@ class WorkAccount extends React.Component<any> {
           </Collapse>
         </Navbar>
 
-        <div>
-          <p>Profile</p>
-          <hr />
-          <Nav>
-            <NavItem>
-              <NavLink href="/work/account/general">General Info</NavLink>
-            </NavItem>
-            <NavItem>
-              <NavLink href="/work/account/payment">Payment</NavLink>
-            </NavItem>
-            <NavItem>
-              <NavLink href="/work/account/security">Security</NavLink>
-            </NavItem>
-            <NavItem>
-              <NavLink href="/work/account/verification">Verification</NavLink>
-            </NavItem>
-          </Nav>
+        <Container>
+          <div>
+            <h1>Profile</h1>
+            <hr />
+            <Nav>
+              <NavItem>
+                <NavLink href="/work/account/general">General Info</NavLink>
+              </NavItem>
+              <NavItem>
+                <NavLink href="/work/account/payment">Payment</NavLink>
+              </NavItem>
+              <NavItem>
+                <NavLink href="/work/account/security">Security</NavLink>
+              </NavItem>
+              <NavItem>
+                <NavLink href="/work/account/verification">Verification</NavLink>
+              </NavItem>
+            </Nav>
 
-          <Switch>
-            <Route exact path="/work/account/general" render={() => <h1>This is the General Info Page</h1>} />
-            <Route exact path="/work/account/payment" render={() => <h1>This is the Payment Page</h1>} />
-            <Route exact path="/work/account/security" component={() => <h1>This is the Security Page</h1>} />
-            <Route exact path="/work/account/verification" component={() => <h1>This is the Verification Page</h1>} />
-            <Redirect exact from="/work/account" to="/work/account/general" />
-            <Route component={NotFound} />
-          </Switch>
-        </div>
+            <Switch>
+              <Route exact path="/work/account/general" render={() => <h1>This is the General Info Page</h1>} />
+              <Route exact path="/work/account/payment" render={() => <h1>This is the Payment Page</h1>} />
+              <Route exact path="/work/account/security" component={() => <h1>This is the Security Page</h1>} />
+              <Route exact path="/work/account/verification" component={() => <h1>This is the Verification Page</h1>} />
+              <Redirect exact from="/work/account" to="/work/account/general" />
+              <Route component={NotFound} />
+            </Switch>
+          </div>
+        </Container>
+
       </div>
     );
   }
