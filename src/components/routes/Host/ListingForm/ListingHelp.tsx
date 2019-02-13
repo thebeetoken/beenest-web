@@ -23,7 +23,12 @@ const HomeType = () => (
 const Title = () => (
   <div>
     <h3>Listing Name</h3>
-    <p>&quot;Beautiful Home with Wifi and Views&quot;</p>
+    <p>Choose a name that perfectly describes your listing. Be sure to use proper casing.</p>
+    <ul>
+      <li>&quot;Beautiful Home with View of Manhattan Skyline&quot;</li>
+      <li>&quot;Convenient Room in the Heart of San Francisco&quot;</li>
+      <li>&quot;Downtown LA Apartment near Pershing Square&quot;</li>
+    </ul>
   </div>
 );
 
@@ -45,10 +50,15 @@ const ListingPicUrl = () => (
   <div>
     <h3>Cover Photo</h3>
     <p>High-quality photos are a must as our guests are typically business travelers. Ideal image dimensions are 1440x960. The maximum file size is 5 MB and the file types we accept are .jpg &amp; .png.</p>
-    <h4>Examples:</h4>
-    <div className="images-container">
-      <LazyImage className="image-container--horizontal" src="https://static.beenest.com/images/photo-examples/Do_LA_Bedroom.jpg" />
-      <LazyImage className="image-container--horizontal" src="https://static.beenest.com/images/photo-examples/Do_LA_Bedroom_2.jpg" />
+    <div className="image-examples-container">
+      <div className="image-container">
+        <h4>Good:</h4>
+        <LazyImage height="150px" width="200px" src="https://static.beenest.com/images/photo-examples/Do_LA_Bedroom.jpg" />
+      </div>
+      <div className="image-container">
+        <h4>Bad:</h4>
+        <LazyImage height="220px" width="150px" src="https://static.beenest.com/images/photo-examples/bad_cover_example.png" />
+      </div>
     </div>
   </div>
 );
