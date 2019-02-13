@@ -23,10 +23,12 @@ const HomeType = () => (
 const Title = () => (
   <div>
     <h3>Listing Name</h3>
-    <h3>Choose a name that perfectly describes your listing. Be sure to use proper casing.</h3>
-    <p>&quot;Beautiful Home with View of Manhattan Skyline&quot;</p>
-    <p>&quot;Convenient Room in the Heart of San Francisco&quot;</p>
-    <p>&quot;Downtown LA Apartment near Pershing Square&quot;</p>
+    <p>Choose a name that perfectly describes your listing. Be sure to use proper casing.</p>
+    <ul>
+      <li>&quot;Beautiful Home with View of Manhattan Skyline&quot;</li>
+      <li>&quot;Convenient Room in the Heart of San Francisco&quot;</li>
+      <li>&quot;Downtown LA Apartment near Pershing Square&quot;</li>
+    </ul>
   </div>
 );
 
