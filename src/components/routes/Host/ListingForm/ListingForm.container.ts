@@ -13,6 +13,9 @@ const ListingFormMobileContainer = styled.section`
       min-height: calc(100% - 128px);
       padding: 48px 24px 56px;
       width: 100%;
+      .bee-button {
+        width: 160px;
+      }
       label {
         margin-bottom: 8px;
       }
@@ -151,15 +154,18 @@ const ListingFormMobileContainer = styled.section`
               list-style-type: disc;
             }
           }
-          .images-container {
+          .image-examples-container {
             display: flex;
             flex-direction: row;
             flex-wrap: wrap;
             justify-content: space-between;
-            .image-container--horizontal {
-              height: 180px;
+            .image-container {
+              display: flex;
+              flex-direction: column;
               width: 240px;
-              margin-bottom: 16px;
+              .bee-lazy-image {
+                margin-bottom: 16px;
+              }
             }
           }
         }
