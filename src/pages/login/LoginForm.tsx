@@ -6,7 +6,7 @@ import * as Yup from 'yup';
 const LoginSchema = Yup.object().shape({
   loginEmail: Yup.string()
     .email('Please enter a valid email address.')
-    .required('Please enter a valid email address.'),
+    .required('Please enter an email address.'),
   loginPassword: Yup.string()
     .min(8, 'Your password is too short, please enter a valid password')
     .required('Please enter a valid password.'),
@@ -32,7 +32,7 @@ const LoginForm = () => (
           </h2>
           <p>Login to manage your account</p>
         </div>
-      {console.log(errors.loginEmail)}
+      {console.log(errors)}
         <FormGroup>
           <Label for="loginEmail" className="form-label">
             Email Address
