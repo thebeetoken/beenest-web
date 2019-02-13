@@ -50,25 +50,25 @@ class Account extends React.Component<any> {
             <hr />
             <Nav>
               <NavItem>
-                <NavLink href="/account/general">General Info</NavLink>
+                <NavLink href="/work/account/general">General Info</NavLink>
               </NavItem>
               <NavItem>
-                <NavLink href="/account/payment">Payment</NavLink>
+                <NavLink href="/work/account/payment">Payment</NavLink>
               </NavItem>
               <NavItem>
-                <NavLink href="/account/security">Security</NavLink>
+                <NavLink href="/work/account/security">Security</NavLink>
               </NavItem>
               <NavItem>
-                <NavLink href="/account/verification">Verification</NavLink>
+                <NavLink href="/work/account/verification">Verification</NavLink>
               </NavItem>
             </Nav>
 
             <Switch>
-              <Route exact path="/account/general" render={() => <AccountGeneral />} />
-              <Route exact path="/account/payment" render={() => <AccountPayment />} />
-              <Route exact path="/account/security" component={AccountSecurity} />
-              <Route exact path="/account/verification" component={AccountVerification} />
-              <Redirect exact from="/account" to="/account/general" />
+              <Route exact path="/work/account/general" render={() => <AccountGeneral />} />
+              <Route exact path="/work/account/payment" render={() => <AccountPayment />} />
+              <Route exact path="/work/account/security" component={AccountSecurity} />
+              <Route exact path="/work/account/verification" component={AccountVerification} />
+              <Redirect exact from="/work/account" to="/work/account/general" />
               <Route component={NotFound} />
             </Switch>
           </div>
