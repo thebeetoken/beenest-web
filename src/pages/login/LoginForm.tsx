@@ -49,10 +49,10 @@ const LoginForm = () => (
     </FormGroup>
     <Row className="align-items-center mb-5">
       <Col xs="6">
-      <span className="small text-muted">Don't have an account? <a className="small" href="/">Sign up</a></span>
+      <span className="small text-muted">Don't have an account?</span> <a className="small" href="/">Signup</a>
       </Col>
       <Col xs="6" className="text-right">
-        <Button color="primary" className="transition-3d-hover">
+        <Button type="submit" color="primary" className="btn-primary transition-3d-hover">
           Get Started
         </Button>
       </Col>
