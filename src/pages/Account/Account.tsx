@@ -8,19 +8,15 @@ import {
   NavItem,
   NavLink,
   Container,
-  Row,
-  Col,
-  Jumbotron,
-  Button,
 } from 'reactstrap';
 import { Route, Redirect, Switch } from 'react-router';
 import NotFound from 'components/routes/NotFound';
-import WorkAccountGeneral from './WorkAccountGeneral';
-import WorkAccountPayment from './WorkAccountPayment';
-import WorkAccountSecurity from './WorkAccountSecurity';
-import WorkAccountVerification from './WorkAccountVerification';
+import AccountGeneral from './AccountGeneral';
+import AccountPayment from './AccountPayment';
+import AccountSecurity from './AccountSecurity';
+import AccountVerification from './AccountVerification';
 
-class WorkAccount extends React.Component<any> {
+class Account extends React.Component<any> {
   state = {
     isOpen: false,
   };
@@ -54,25 +50,25 @@ class WorkAccount extends React.Component<any> {
             <hr />
             <Nav>
               <NavItem>
-                <NavLink href="/work/account/general">General Info</NavLink>
+                <NavLink href="/account/general">General Info</NavLink>
               </NavItem>
               <NavItem>
-                <NavLink href="/work/account/payment">Payment</NavLink>
+                <NavLink href="/account/payment">Payment</NavLink>
               </NavItem>
               <NavItem>
-                <NavLink href="/work/account/security">Security</NavLink>
+                <NavLink href="/account/security">Security</NavLink>
               </NavItem>
               <NavItem>
-                <NavLink href="/work/account/verification">Verification</NavLink>
+                <NavLink href="/account/verification">Verification</NavLink>
               </NavItem>
             </Nav>
 
             <Switch>
-              <Route exact path="/work/account/general" render={() => <WorkAccountGeneral />} />
-              <Route exact path="/work/account/payment" render={() => <WorkAccountPayment />} />
-              <Route exact path="/work/account/security" component={WorkAccountSecurity} />
-              <Route exact path="/work/account/verification" component={WorkAccountVerification} />
-              <Redirect exact from="/work/account" to="/work/account/general" />
+              <Route exact path="/account/general" render={() => <AccountGeneral />} />
+              <Route exact path="/account/payment" render={() => <AccountPayment />} />
+              <Route exact path="/account/security" component={AccountSecurity} />
+              <Route exact path="/account/verification" component={AccountVerification} />
+              <Redirect exact from="/account" to="/account/general" />
               <Route component={NotFound} />
             </Switch>
           </div>
@@ -83,4 +79,4 @@ class WorkAccount extends React.Component<any> {
   }
 }
 
-export default WorkAccount;
+export default Account;
