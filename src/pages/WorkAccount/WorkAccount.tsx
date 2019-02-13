@@ -15,6 +15,10 @@ import {
 } from 'reactstrap';
 import { Route, Redirect, Switch } from 'react-router';
 import NotFound from 'components/routes/NotFound';
+import WorkAccountGeneral from './WorkAccountGeneral';
+import WorkAccountPayment from './WorkAccountPayment';
+import WorkAccountSecurity from './WorkAccountSecurity';
+import WorkAccountVerification from './WorkAccountVerification';
 
 class WorkAccount extends React.Component<any> {
   state = {
@@ -64,10 +68,10 @@ class WorkAccount extends React.Component<any> {
             </Nav>
 
             <Switch>
-              <Route exact path="/work/account/general" render={() => <h1>This is the General Info Page</h1>} />
-              <Route exact path="/work/account/payment" render={() => <h1>This is the Payment Page</h1>} />
-              <Route exact path="/work/account/security" component={() => <h1>This is the Security Page</h1>} />
-              <Route exact path="/work/account/verification" component={() => <h1>This is the Verification Page</h1>} />
+              <Route exact path="/work/account/general" render={() => <WorkAccountGeneral />} />
+              <Route exact path="/work/account/payment" render={() => <WorkAccountPayment />} />
+              <Route exact path="/work/account/security" component={WorkAccountSecurity} />
+              <Route exact path="/work/account/verification" component={WorkAccountVerification} />
               <Redirect exact from="/work/account" to="/work/account/general" />
               <Route component={NotFound} />
             </Switch>
