@@ -46,7 +46,7 @@ class LoginForm extends React.Component<LoginProps, State> {
         validationSchema={LoginSchema}
         onSubmit={this.handleSubmit}
       >
-        {({ errors, touched, setFieldTouched, setFieldValue, submitForm, isSubmitting }) => (
+        {({ errors, touched, setFieldValue, submitForm, isSubmitting }) => (
           <Form className="mt-5" method="POST">
             <div className="mb-7">
               <h2 className="h3 text-primary font-weight-normal mb-0">
