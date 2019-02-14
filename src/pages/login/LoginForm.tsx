@@ -90,7 +90,7 @@ class LoginForm extends React.Component<LoginProps> {
               <FormFeedback>{errors.loginPassword}</FormFeedback>
             </FormGroup>
 
-            <Row className="align-items-center mb-5">
+            <Row className="d-flex align-items-center mb-5">
               <Col xs="6">
                 <span className="small text-muted">Don't have an account?</span>
                 <a className="small" href="/">
@@ -108,6 +108,22 @@ class LoginForm extends React.Component<LoginProps> {
                 </Button>
               </Col>
             </Row>
+
+            <Row className="d-flex flex-column align-items-center mb-5 px-3">
+            <Button 
+              className="btn-google transition-3d-hover mb-4 w-100"
+              type="button"
+              onClick={this.signInWithGoogle}>
+              Sign in with Google
+            </Button>
+
+            <Button 
+              className="btn-facebook transition-3d-hover w-100"
+              type="button"
+              onClick={this.signInWithFacebook}>
+              Sign in with Facebook
+            </Button>
+            </Row>
           </Form>
         )}
       </Formik>
@@ -123,21 +139,29 @@ class LoginForm extends React.Component<LoginProps> {
       });
   }
 
-  // signInWithFacebook = () => {
-  //   signInWithFacebookPopUp()
-  //     .then((result) => {
-  //       return this.props.createOrLoginWithProviders(result.user.uid);
-  //     })
-  //     .catch((error: Error) => actions.setSubmitting(false));
-  // }
+  signInWithFacebook = () => {
+    signInWithFacebookPopUp()
+      .then((result) => {
+        return this.props.createOrLoginWithProviders(result.user.uid);
+      })
+      .catch(error => {
+        console.log(error);
+        // formik set error object?
+        // how to set isSubmitting to true?
+      });
+  }
 
-  // signInWithGoogle = () => {
-  //   signInWithGooglePopUp()
-  //     .then((result) => {
-  //       return this.props.createOrLoginWithProviders(result.user.uid);
-  //     })
-  //     .catch((error: Error) => actions.setSubmitting(false));
-  // }
+  signInWithGoogle = () => {
+    signInWithGooglePopUp()
+      .then((result) => {
+        return this.props.createOrLoginWithProviders(result.user.uid);
+      })
+      .catch(error => {
+        console.log(error);
+        // formik set error object?
+        // how to set isSubmitting to true?
+      });
+  }
 }
 
 export default compose(
