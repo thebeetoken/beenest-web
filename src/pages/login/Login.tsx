@@ -1,10 +1,9 @@
 import * as React from 'react';
-import { Col, Container, Row } from 'reactstrap';
+import { Col, Container, Row, Spinner } from 'reactstrap';
 import { Redirect, RouteProps } from 'react-router-dom';
 
 import AuthenticationHeader from 'components-work/AuthenticationHeader';
 import { FirebaseConsumer, FirebaseUserProps } from 'HOCs/FirebaseProvider';
-import AudioLoading from 'shared/loading/AudioLoading';
 
 import LoginForm from './LoginForm';
 import LoginTestimonals from './LoginTestimonials';
@@ -14,8 +13,8 @@ const Login = (props: RouteProps) => (
     {({ loading, user }: FirebaseUserProps) => {
       if (loading) {
         return (
-          <Container className="d-flex align-items-center justify-content-center position-relative height-lg-100vh">
-            <AudioLoading height={64} width={128} />
+          <Container className="d-flex align-items-center justify-content-center position-relative height-100vh">
+            <Spinner color="primary" style={{ width: '8rem', height: '8rem' }} type="grow" />
           </Container>
         );
       }
@@ -40,7 +39,7 @@ const LoginContent = () => (
   <Container>
     <Row noGutters>
       <Col
-        className="space-2 space-md-3 space-lg-0"
+        className="space-top-2 space-md-3 space-lg-0"
         md={{ size: 8, offset: 2 }}
         lg={{ size: 7, offset: 2 }}
         xl={{ size: 6, offset: 3 }}

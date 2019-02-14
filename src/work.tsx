@@ -15,6 +15,7 @@ import ApolloWrapper from 'HOCs/ApolloWrapper';
 import ErrorBoundaryWrapper from 'HOCs/ErrorBoundaryWrapper';
 import { FirebaseProvider } from 'HOCs/FirebaseProvider';
 import Work from './pages';
+import '../src/styled/customStyles.scss';
 
 ReactDOM.render(
   <>
