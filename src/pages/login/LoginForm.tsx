@@ -1,13 +1,13 @@
 import { Formik, Field } from 'formik';
 import * as React from 'react';
-import { Button, Col, Form, FormFeedback, FormGroup, Input, Label, Row } from 'reactstrap';
+import { Button, Col, FormFeedback, Form, FormGroup, Input, Label, Row } from 'reactstrap';
 import * as Yup from 'yup';
 
 const LoginSchema = Yup.object().shape({
-  loginEmail: Yup.string()
+  email: Yup.string()
     .email('Please enter a valid email address.')
     .required('Please enter an email address.'),
-  loginPassword: Yup.string()
+  password: Yup.string()
     .min(8, 'Your password is too short, please enter a valid password')
     .required('Please enter a valid password.'),
 });
@@ -15,8 +15,8 @@ const LoginSchema = Yup.object().shape({
 const LoginForm = () => (
   <Formik
     initialValues={{
-      loginEmail: '',
-      loginPassword: '',
+      email: '',
+      password: '',
     }}
     validationSchema={LoginSchema}
     onSubmit={values => {
@@ -34,25 +34,25 @@ const LoginForm = () => (
         </div>
       {console.log(errors)}
         <FormGroup>
-          <Label for="loginEmail" className="form-label">
+          <Label for="email" className="form-label">
             Email Address
           </Label>
           <Input
             type="email"
             name="email"
-            id="loginEmail"
+            id="email"
             tag={Field}
-            onBlur={() => setFieldTouched('loginEmail', true)}
+            onBlur={() => setFieldTouched('email', true)}
             onChange={(event: React.FormEvent<HTMLInputElement>) => {
-              setFieldValue('loginEmail', event.currentTarget);
+              setFieldValue('email', event.currentTarget);
             }}
             placeholder="Email address"
-            invalid={!!errors.loginEmail && touched.loginEmail} />
-          <FormFeedback>{errors.loginEmail}</FormFeedback>
+            invalid={!!errors.email && touched.email} />
+          <FormFeedback>{errors.email}</FormFeedback>
         </FormGroup>
 
         <FormGroup>
-          <Label for="loginPassword" className="form-label">
+          <Label for="password" className="form-label">
             <span className="d-flex justify-content-between align-items-center">
               Password{' '}
               <a className="link-muted text-capitalize font-weight-normal" href="/work">
@@ -63,15 +63,15 @@ const LoginForm = () => (
           <Input
             type="password"
             name="password"
-            id="loginPassword"
+            id="password"
             tag={Field}
-            onBlur={() => setFieldTouched('loginPassword', true)}
+            onBlur={() => setFieldTouched('password', true)}
             onChange={(event: React.FormEvent<HTMLInputElement>) => {
-              setFieldValue('loginPassword', event.currentTarget);
+              setFieldValue('password', event.currentTarget);
             }}
             placeholder="********"
-            invalid={!!errors.loginPassword && touched.loginPassword} />
-          <FormFeedback>{errors.loginPassword}</FormFeedback>
+            invalid={!!errors.password && touched.password} />
+          <FormFeedback>{errors.password}</FormFeedback>
         </FormGroup>
 
         <Row className="align-items-center mb-5">
