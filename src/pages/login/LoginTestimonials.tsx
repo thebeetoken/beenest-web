@@ -1,5 +1,5 @@
 import * as React from 'react';
-import { Carousel, CarouselItem, CarouselControl, CarouselIndicators, CarouselCaption, Col, Container } from 'reactstrap';
+import { Carousel, CarouselItem, CarouselIndicators, CarouselCaption, Col, Container } from 'reactstrap';
 
 
 // should we create a custom wrapper over this carousel?  a little hard to use
