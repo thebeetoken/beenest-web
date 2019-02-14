@@ -4,27 +4,32 @@ import { Button, Col, FormFeedback, Form, FormGroup, Input, Label, Row } from 'r
 import * as Yup from 'yup';
 
 const LoginSchema = Yup.object().shape({
-  email: Yup.string()
+  loginEmail: Yup.string()
     .email('Please enter a valid email address.')
     .required('Please enter an email address.'),
-  password: Yup.string()
+  loginPassword: Yup.string()
     .min(8, 'Your password is too short, please enter a valid password')
     .required('Please enter a valid password.'),
 });
 
+interface LoginFormInput {
+  loginEmail: string;
+  loginPassword: string;
+}
+
 const LoginForm = () => (
   <Formik
     initialValues={{
-      email: '',
-      password: '',
+      loginEmail: '',
+      loginPassword: '',
     }}
     validationSchema={LoginSchema}
-    onSubmit={values => {
+    onSubmit={(values: LoginFormInput) => {
       // same shape as initial values
       console.log(values);
     }}
   >
-    {({ errors, touched, setFieldTouched, setFieldValue, }) => (
+    {({ errors, touched, setFieldTouched, setFieldValue, submitForm }) => (
       <Form className="mt-5">
         <div className="mb-7">
           <h2 className="h3 text-primary font-weight-normal mb-0">
@@ -32,27 +37,27 @@ const LoginForm = () => (
           </h2>
           <p>Login to manage your account</p>
         </div>
-      {console.log(errors)}
         <FormGroup>
-          <Label for="email" className="form-label">
+          <Label for="loginEmail" className="form-label">
             Email Address
           </Label>
           <Input
             type="email"
-            name="email"
-            id="email"
+            name="loginEmail"
+            id="loginEmail"
             tag={Field}
-            onBlur={() => setFieldTouched('email', true)}
+            onBlur={() => setFieldTouched('loginEmail', true)}
             onChange={(event: React.FormEvent<HTMLInputElement>) => {
-              setFieldValue('email', event.currentTarget);
+              setFieldValue('loginEmail', event.currentTarget.value);
             }}
             placeholder="Email address"
-            invalid={!!errors.email && touched.email} />
-          <FormFeedback>{errors.email}</FormFeedback>
+            invalid={!!errors.loginEmail && touched.loginEmail}
+          />
+          <FormFeedback>{errors.loginEmail}</FormFeedback>
         </FormGroup>
 
         <FormGroup>
-          <Label for="password" className="form-label">
+          <Label for="loginPassword" className="form-label">
             <span className="d-flex justify-content-between align-items-center">
               Password{' '}
               <a className="link-muted text-capitalize font-weight-normal" href="/work">
@@ -62,16 +67,17 @@ const LoginForm = () => (
           </Label>
           <Input
             type="password"
-            name="password"
-            id="password"
+            name="loginPassword"
+            id="loginPassword"
             tag={Field}
-            onBlur={() => setFieldTouched('password', true)}
+            onBlur={() => setFieldTouched('loginPassword', true)}
             onChange={(event: React.FormEvent<HTMLInputElement>) => {
-              setFieldValue('password', event.currentTarget);
+              setFieldValue('loginPassword', event.currentTarget.value);
             }}
             placeholder="********"
-            invalid={!!errors.password && touched.password} />
-          <FormFeedback>{errors.password}</FormFeedback>
+            invalid={!!errors.loginPassword && touched.loginPassword}
+          />
+          <FormFeedback>{errors.loginPassword}</FormFeedback>
         </FormGroup>
 
         <Row className="align-items-center mb-5">
@@ -82,7 +88,11 @@ const LoginForm = () => (
             </a>
           </Col>
           <Col xs="6" className="text-right">
-            <Button type="submit" color="primary" className="btn-primary transition-3d-hover">
+            <Button 
+              className="btn-primary transition-3d-hover"
+              type="submit"
+              onClick={submitForm}
+              color="primary">
               Get Started
             </Button>
           </Col>
