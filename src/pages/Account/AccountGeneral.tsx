@@ -38,7 +38,7 @@ function AccountGeneral({ user, updateUser }: any) {
             <Col md={6}>
               <FormGroup inline>
                 <Label for={UserField.FIRST_NAME} className="form-label">First Name</Label>
-                <Input
+                <Field
                   className="form-control"
                   id={UserField.FIRST_NAME}
                   name={UserField.FIRST_NAME}
