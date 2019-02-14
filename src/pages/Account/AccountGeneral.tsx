@@ -1,8 +1,8 @@
 import * as React from 'react';
-import { Col, FormGroup, Label, FormFeedback, Row, Button } from 'reactstrap';
+import { Button, Col, Form, FormGroup, FormFeedback, Input, Label, Row } from 'reactstrap';
 import { compose, graphql } from 'react-apollo';
 import { UPDATE_USER, User, GET_ACCOUNT_PAGE, UserField } from 'networking/users';
-import { Formik, Form, FormikProps, Field, FormikActions } from 'formik';
+import { Formik, FormikProps, FormikActions } from 'formik';
 import * as Yup from 'yup';
 import Textarea from 'components/shared/Textarea';
 import { TextareaEvent } from 'components/shared/Textarea/Textarea';
@@ -12,10 +12,13 @@ interface FormValues {
 }
 
 const GeneralInfoSchema = Yup.object().shape({
-  [UserField.FIRST_NAME]: Yup.string().min(5),
-  [UserField.LAST_NAME]: Yup.string().min(1),
-  [UserField.EMAIL]: Yup.string().min(1),
-  [UserField.ABOUT]: Yup.string().min(1),
+  [UserField.FIRST_NAME]: Yup.string()
+    .required('Please provide your first name.'),
+  [UserField.LAST_NAME]: Yup.string()
+    .required('Please provide your last name.'),
+  [UserField.EMAIL]: Yup.string(),
+  [UserField.ABOUT]: Yup.string()
+    .required('Please fill out the About section.'),
 })
 
 const defaultValues: FormValues = {
@@ -32,30 +35,40 @@ function AccountGeneral({ user, updateUser }: any) {
       isInitialValid
       validationSchema={GeneralInfoSchema}
       onSubmit={handleSubmit}>
-      {({ errors, resetForm, isSubmitting, setFieldValue, values }: FormikProps<any>) => (
+      {({ errors, resetForm, isSubmitting, setFieldTouched, setFieldValue, submitForm, touched, values }: FormikProps<any>) => (
         <Form>
           <Row>
             <Col md={6}>
               <FormGroup inline>
                 <Label for={UserField.FIRST_NAME} className="form-label">First Name</Label>
-                <Field
-                  className={`form-control${errors.firstName ? ' is-invalid' : ''}`}
+                <Input
+                  onBlur={() => setFieldTouched(UserField.FIRST_NAME, true)}
+                  onChange={(event: React.ChangeEvent<HTMLInputElement>) => {
+                    setFieldValue(UserField.FIRST_NAME, event.currentTarget.value);
+                  }}
                   id={UserField.FIRST_NAME}
+                  invalid={!!errors.firstName && !!touched.firstName}
                   name={UserField.FIRST_NAME}
                   placeholder="First name"
-                  type="text" />
+                  type="text"
+                  value={values.firstName} />
                 <FormFeedback>{errors.firstName}</FormFeedback>
               </FormGroup>
             </Col>
             <Col md={6}>
               <FormGroup inline>
                 <Label for={UserField.LAST_NAME} className="form-label">Last Name</Label>
-                <Field
-                  className={`form-control${errors.lastName ? ' is-invalid' : ''}`}
+                <Input
+                  onBlur={() => setFieldTouched(UserField.LAST_NAME, true)}
+                  onChange={(event: React.ChangeEvent<HTMLInputElement>) => {
+                    setFieldValue(UserField.LAST_NAME, event.currentTarget.value);
+                  }}
                   id={UserField.LAST_NAME}
+                  invalid={!!errors.lastName && !!touched.lastName}
                   name={UserField.LAST_NAME}
                   placeholder="Last name"
-                  type="text" />
+                  type="text"
+                  value={values.lastName} />
                 <FormFeedback>{errors.lastName}</FormFeedback>
               </FormGroup>
             </Col>
@@ -63,12 +76,17 @@ function AccountGeneral({ user, updateUser }: any) {
           
           <FormGroup>
             <Label for={UserField.EMAIL} className="form-label">Email</Label>
-            <Field
-              className={`form-control${errors.email ? ' is-invalid' : ''}`}
+            <Input
+              onBlur={() => setFieldTouched(UserField.EMAIL, true)}
+              onChange={(event: React.ChangeEvent<HTMLInputElement>) => {
+                setFieldValue(UserField.EMAIL, event.currentTarget.value);
+              }}
               disabled
               id={UserField.EMAIL}
+              invalid={!!errors.email && !!touched.email}
               name={UserField.EMAIL}
-              type="text" />
+              type="email"
+              value={values.email} />
             <FormFeedback>{errors.email}</FormFeedback>
           </FormGroup>
 
@@ -78,6 +96,7 @@ function AccountGeneral({ user, updateUser }: any) {
               className={`form-control${errors.about ? ' is-invalid' : ''}`}
               html
               name={UserField.ABOUT}
+              onBlur={() => setFieldTouched(UserField.ABOUT, true)}
               onChange={(event: TextareaEvent) => {
                 setFieldValue(UserField.ABOUT, event.target.value);
                 console.log('errors:', errors);
@@ -104,7 +123,8 @@ function AccountGeneral({ user, updateUser }: any) {
                 disabled={isSubmitting}
                 className="btn-success transition-3d-hover"
                 color="success"
-                type="submit">
+                onClick={submitForm}
+                type="button">
                 Save Changes
               </Button>
             </Col>
@@ -115,7 +135,6 @@ function AccountGeneral({ user, updateUser }: any) {
   );
 
   function handleSubmit(values: any, actions: FormikActions<any>) {
-    actions.setSubmitting(true);
     updateUser(values)
       .then(() => {
         alert('user successfully updated');
