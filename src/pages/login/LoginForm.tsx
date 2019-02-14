@@ -1,13 +1,10 @@
 import { Field, Formik, FormikActions } from 'formik';
 import * as React from 'react';
-import { Button, Col, FormFeedback, Form, FormGroup, Input, Label, Row } from 'reactstrap';
+import { Button, Col, FormFeedback, FormText, Form, FormGroup, Input, Label, Row } from 'reactstrap';
 import { compose, graphql } from 'react-apollo';
 import * as Yup from 'yup';
 
-import {
-  CREATE_OR_LOGIN_WITH_PROVIDERS,
-  User
-} from 'networking/users';
+import { CREATE_OR_LOGIN_WITH_PROVIDERS, User } from 'networking/users';
 import { login, signInWithFacebookPopUp, signInWithGooglePopUp } from 'utils/firebase';
 
 interface LoginProps {
@@ -26,18 +23,29 @@ const LoginSchema = Yup.object().shape({
 interface LoginFormInput {
   loginEmail: string;
   loginPassword: string;
+  authenticationError: string;
 }
 
-class LoginForm extends React.Component<LoginProps> {
+interface State {
+  providerError: string | null;
+}
+
+class LoginForm extends React.Component<LoginProps, State> {
+  readonly state = {
+    providerError: null,
+  }
+
   render() {
     return (
       <Formik
         initialValues={{
           loginEmail: '',
           loginPassword: '',
+          authenticationError: '',
         }}
         validationSchema={LoginSchema}
         onSubmit={this.handleSubmit}
+        
       >
         {({ errors, touched, setFieldTouched, setFieldValue, submitForm, isSubmitting }) => (
           <Form className="mt-5">
@@ -59,6 +67,10 @@ class LoginForm extends React.Component<LoginProps> {
                 onBlur={() => setFieldTouched('loginEmail', true)}
                 onChange={(event: React.FormEvent<HTMLInputElement>) => {
                   setFieldValue('loginEmail', event.currentTarget.value);
+
+                  if (this.state.providerError !== null) {
+                    this.setState({ providerError: null });
+                  }
                 }}
                 placeholder="Email address"
                 invalid={!!errors.loginEmail && touched.loginEmail}
@@ -83,6 +95,10 @@ class LoginForm extends React.Component<LoginProps> {
                 onBlur={() => setFieldTouched('loginPassword', true)}
                 onChange={(event: React.FormEvent<HTMLInputElement>) => {
                   setFieldValue('loginPassword', event.currentTarget.value);
+
+                  if (this.state.providerError !== null) {
+                    this.setState({ providerError: null });
+                  }
                 }}
                 placeholder="********"
                 invalid={!!errors.loginPassword && touched.loginPassword}
@@ -90,39 +106,48 @@ class LoginForm extends React.Component<LoginProps> {
               <FormFeedback>{errors.loginPassword}</FormFeedback>
             </FormGroup>
 
+            <FormText className="mb-3" color="danger">{errors.authenticationError || this.state.providerError}</FormText>
+
             <Row className="d-flex align-items-center mb-5">
               <Col xs="6">
-                <span className="small text-muted">Don't have an account?</span>
+                <span className="small text-muted">Don't have an account?</span>{' '}
                 <a className="small" href="/">
                   Signup
                 </a>
               </Col>
               <Col xs="6" className="text-right">
-                <Button 
+                <Button
                   className="btn-primary transition-3d-hover"
-                  type="submit"
+                  type="button"
                   onClick={submitForm}
                   disabled={isSubmitting}
-                  color="primary">
+                  color="primary"
+                >
                   Get Started
                 </Button>
               </Col>
             </Row>
 
             <Row className="d-flex flex-column align-items-center mb-5 px-3">
-            <Button 
-              className="btn-google transition-3d-hover mb-4 w-100"
-              type="button"
-              onClick={this.signInWithGoogle}>
-              Sign in with Google
-            </Button>
+              <Button
+                className="btn-google transition-3d-hover mb-4 w-100 d-flex justify-content-between align-items-center"
+                type="button"
+                onClick={this.signInWithProvider.bind(this, signInWithGooglePopUp)}
+              >
+                 <i className="fa fa-google" />
+                 Sign in with Google
+                 <div />
+              </Button>
 
-            <Button 
-              className="btn-facebook transition-3d-hover w-100"
-              type="button"
-              onClick={this.signInWithFacebook}>
-              Sign in with Facebook
-            </Button>
+              <Button
+                className="btn-facebook transition-3d-hover w-100 d-flex justify-content-between align-items-center"
+                type="button"
+                onClick={this.signInWithProvider.bind(this, signInWithFacebookPopUp)}
+              >
+                <i className="fa fa-facebook" />
+                Sign in with Facebook
+                <div />
+              </Button>
             </Row>
           </Form>
         )}
@@ -131,36 +156,20 @@ class LoginForm extends React.Component<LoginProps> {
   }
 
   handleSubmit = (values: LoginFormInput, actions: FormikActions<LoginFormInput>) => {
-    login(values.loginEmail, values.loginPassword)
-      .catch(error => {
-        console.log(error);
-        // formik set error object?
-        actions.setSubmitting(false);
-      });
-  }
+    login(values.loginEmail, values.loginPassword).catch(error => {
+      actions.setErrors({ authenticationError: error.message });
+      actions.setSubmitting(false);
+    });
+  };
 
-  signInWithFacebook = () => {
-    signInWithFacebookPopUp()
-      .then((result) => {
-        return this.props.createOrLoginWithProviders(result.user.uid);
-      })
-      .catch(error => {
-        console.log(error);
-        // formik set error object?
-        // how to set isSubmitting to true?
-      });
-  }
-
-  signInWithGoogle = () => {
-    signInWithGooglePopUp()
-      .then((result) => {
-        return this.props.createOrLoginWithProviders(result.user.uid);
-      })
-      .catch(error => {
-        console.log(error);
-        // formik set error object?
-        // how to set isSubmitting to true?
-      });
+  signInWithProvider = (callback: () => Promise<any>) => {
+    callback()
+    .then(result => {
+      return this.props.createOrLoginWithProviders(result.user.uid);
+    })
+    .catch(error => {
+      this.setState({ providerError: error.message });
+    });
   }
 }
 

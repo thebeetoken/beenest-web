@@ -40,7 +40,7 @@ const LoginContent = () => (
   <Container>
     <Row noGutters>
       <Col
-        className="space-3 space-lg-0"
+        className="space-2 space-md-3 space-lg-0"
         md={{ size: 8, offset: 2 }}
         lg={{ size: 7, offset: 2 }}
         xl={{ size: 6, offset: 3 }}
