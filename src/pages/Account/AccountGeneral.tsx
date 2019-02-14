@@ -2,7 +2,7 @@ import * as React from 'react';
 import { Button, Col, Form, FormGroup, FormFeedback, Input, Label, Row } from 'reactstrap';
 import { compose, graphql } from 'react-apollo';
 import { UPDATE_USER, User, GET_ACCOUNT_PAGE, UserField } from 'networking/users';
-import { Formik, FormikProps, FormikActions } from 'formik';
+import { Field, Formik, FormikProps, FormikActions } from 'formik';
 import * as Yup from 'yup';
 import Textarea from 'components/shared/Textarea';
 import { TextareaEvent } from 'components/shared/Textarea/Textarea';
@@ -29,29 +29,26 @@ const defaultValues: FormValues = {
 }
 
 function AccountGeneral({ user, updateUser }: any) {
+  const initialValues = populateForm(defaultValues, user);
   return (
     <Formik
-      initialValues={populateForm(defaultValues, user)}
+      initialValues={initialValues}
       isInitialValid
       validationSchema={GeneralInfoSchema}
       onSubmit={handleSubmit}>
       {({ errors, resetForm, isSubmitting, setFieldTouched, setFieldValue, submitForm, touched, values }: FormikProps<any>) => (
-        <Form>
+        <Form method="POST">
           <Row>
             <Col md={6}>
               <FormGroup inline>
                 <Label for={UserField.FIRST_NAME} className="form-label">First Name</Label>
                 <Input
-                  onBlur={() => setFieldTouched(UserField.FIRST_NAME, true)}
-                  onChange={(event: React.ChangeEvent<HTMLInputElement>) => {
-                    setFieldValue(UserField.FIRST_NAME, event.currentTarget.value);
-                  }}
                   id={UserField.FIRST_NAME}
                   invalid={!!errors.firstName && !!touched.firstName}
                   name={UserField.FIRST_NAME}
                   placeholder="First name"
-                  type="text"
-                  value={values.firstName} />
+                  tag={Field}
+                  type="text" />
                 <FormFeedback>{errors.firstName}</FormFeedback>
               </FormGroup>
             </Col>
@@ -59,16 +56,12 @@ function AccountGeneral({ user, updateUser }: any) {
               <FormGroup inline>
                 <Label for={UserField.LAST_NAME} className="form-label">Last Name</Label>
                 <Input
-                  onBlur={() => setFieldTouched(UserField.LAST_NAME, true)}
-                  onChange={(event: React.ChangeEvent<HTMLInputElement>) => {
-                    setFieldValue(UserField.LAST_NAME, event.currentTarget.value);
-                  }}
                   id={UserField.LAST_NAME}
                   invalid={!!errors.lastName && !!touched.lastName}
                   name={UserField.LAST_NAME}
                   placeholder="Last name"
-                  type="text"
-                  value={values.lastName} />
+                  tag={Field}
+                  type="text" />
                 <FormFeedback>{errors.lastName}</FormFeedback>
               </FormGroup>
             </Col>
@@ -77,16 +70,12 @@ function AccountGeneral({ user, updateUser }: any) {
           <FormGroup>
             <Label for={UserField.EMAIL} className="form-label">Email</Label>
             <Input
-              onBlur={() => setFieldTouched(UserField.EMAIL, true)}
-              onChange={(event: React.ChangeEvent<HTMLInputElement>) => {
-                setFieldValue(UserField.EMAIL, event.currentTarget.value);
-              }}
               disabled
               id={UserField.EMAIL}
               invalid={!!errors.email && !!touched.email}
               name={UserField.EMAIL}
-              type="email"
-              value={values.email} />
+              tag={Field}
+              type="email" />
             <FormFeedback>{errors.email}</FormFeedback>
           </FormGroup>
 
@@ -99,7 +88,6 @@ function AccountGeneral({ user, updateUser }: any) {
               onBlur={() => setFieldTouched(UserField.ABOUT, true)}
               onChange={(event: TextareaEvent) => {
                 setFieldValue(UserField.ABOUT, event.target.value);
-                console.log('errors:', errors);
               }}
               placeholder="Tell us about yourself"
               value={values.about} />
@@ -113,7 +101,9 @@ function AccountGeneral({ user, updateUser }: any) {
               <Button
                 color="secondary"
                 className="btn-secondary transition-3d-hover"
-                onClick={resetForm}
+                onClick={() => {
+                  resetForm(initialValues);
+                }}
                 type="button">
                 Cancel
               </Button>
