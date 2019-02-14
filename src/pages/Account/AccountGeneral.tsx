@@ -1,5 +1,5 @@
 import * as React from 'react';
-import { Col, FormGroup, Label, FormFeedback, Row, Button, Input } from 'reactstrap';
+import { Col, FormGroup, Label, FormFeedback, Row, Button } from 'reactstrap';
 import { compose, graphql } from 'react-apollo';
 import { UPDATE_USER, User, GET_ACCOUNT_PAGE, UserField } from 'networking/users';
 import { Formik, Form, FormikProps, Field, FormikActions } from 'formik';
@@ -39,7 +39,7 @@ function AccountGeneral({ user, updateUser }: any) {
               <FormGroup inline>
                 <Label for={UserField.FIRST_NAME} className="form-label">First Name</Label>
                 <Field
-                  className="form-control"
+                  className={`form-control${errors.firstName ? ' is-invalid' : ''}`}
                   id={UserField.FIRST_NAME}
                   name={UserField.FIRST_NAME}
                   placeholder="First name"
@@ -51,7 +51,7 @@ function AccountGeneral({ user, updateUser }: any) {
               <FormGroup inline>
                 <Label for={UserField.LAST_NAME} className="form-label">Last Name</Label>
                 <Field
-                  className="form-control"
+                  className={`form-control${errors.lastName ? ' is-invalid' : ''}`}
                   id={UserField.LAST_NAME}
                   name={UserField.LAST_NAME}
                   placeholder="Last name"
@@ -64,7 +64,7 @@ function AccountGeneral({ user, updateUser }: any) {
           <FormGroup>
             <Label for={UserField.EMAIL} className="form-label">Email</Label>
             <Field
-              className="form-control"
+              className={`form-control${errors.email ? ' is-invalid' : ''}`}
               disabled
               id={UserField.EMAIL}
               name={UserField.EMAIL}
@@ -75,6 +75,7 @@ function AccountGeneral({ user, updateUser }: any) {
           <FormGroup>
             <Label for={UserField.ABOUT} className="form-label">About</Label>
             <Textarea
+              className={`form-control${errors.about ? ' is-invalid' : ''}`}
               html
               name={UserField.ABOUT}
               onChange={(event: TextareaEvent) => {
