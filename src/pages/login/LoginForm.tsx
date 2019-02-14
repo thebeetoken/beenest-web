@@ -45,10 +45,9 @@ class LoginForm extends React.Component<LoginProps, State> {
         }}
         validationSchema={LoginSchema}
         onSubmit={this.handleSubmit}
-        
       >
         {({ errors, touched, setFieldTouched, setFieldValue, submitForm, isSubmitting }) => (
-          <Form className="mt-5">
+          <Form className="mt-5" method="POST">
             <div className="mb-7">
               <h2 className="h3 text-primary font-weight-normal mb-0">
                 Welcome <span className="font-weight-semi-bold">back</span>
@@ -64,7 +63,6 @@ class LoginForm extends React.Component<LoginProps, State> {
                 name="loginEmail"
                 id="loginEmail"
                 tag={Field}
-                onBlur={() => setFieldTouched('loginEmail', true)}
                 onChange={(event: React.FormEvent<HTMLInputElement>) => {
                   setFieldValue('loginEmail', event.currentTarget.value);
 
@@ -92,7 +90,6 @@ class LoginForm extends React.Component<LoginProps, State> {
                 name="loginPassword"
                 id="loginPassword"
                 tag={Field}
-                onBlur={() => setFieldTouched('loginPassword', true)}
                 onChange={(event: React.FormEvent<HTMLInputElement>) => {
                   setFieldValue('loginPassword', event.currentTarget.value);
 
@@ -118,7 +115,7 @@ class LoginForm extends React.Component<LoginProps, State> {
               <Col xs="6" className="text-right">
                 <Button
                   className="btn-primary transition-3d-hover"
-                  type="button"
+                  type="submit"
                   onClick={submitForm}
                   disabled={isSubmitting}
                   color="primary"
@@ -168,6 +165,10 @@ class LoginForm extends React.Component<LoginProps, State> {
       return this.props.createOrLoginWithProviders(result.user.uid);
     })
     .catch(error => {
+      if (error.message.includes('You are already logged in.')) {
+        return;
+      }
+
       this.setState({ providerError: error.message });
     });
   }
