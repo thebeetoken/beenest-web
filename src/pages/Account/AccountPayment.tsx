@@ -1,5 +1,5 @@
 import * as React from 'react';
-import { ListGroup, ListGroupItem, Row, Button, Col } from 'reactstrap';
+import { ListGroup, ListGroupItem, Row, Col } from 'reactstrap';
 import { Query } from 'react-apollo';
 import { GET_PAYMENT_SOURCES, PaymentSource } from 'networking/paymentSources';
 import AudioLoading from 'shared/loading/AudioLoading';
@@ -24,7 +24,7 @@ const AccountPayment = ({ creditBalance }: Props) => {
         const renderPaymentSources = paymentSources.map((paymentSource: PaymentSource) => (
           <ListGroupItem key={paymentSource.id} className="w-100 d-flex justify-content-between align-items-center">
             <h6 className="mb-0">{paymentSource.stripeBrand}&nbsp;(...{paymentSource.stripeLast4})</h6>
-            <i className="fa fa-trash-o" />
+            <i className="fas fa-trash-alt" />
           </ListGroupItem>
         ));
         return (
@@ -41,7 +41,7 @@ const AccountPayment = ({ creditBalance }: Props) => {
             
             <Row>
               <Col xs="12" className="d-flex align-items-center">
-                <i className="fa fa-plus-circle" />
+                <i className="fas fa-plus-circle" />
                 <h6 className="ml-1 mb-0">Add New Card</h6>
               </Col>
             </Row>
