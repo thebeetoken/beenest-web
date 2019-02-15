@@ -8,10 +8,11 @@ import { UPDATE_USER, User, GET_ACCOUNT_PAGE, UserField } from 'networking/users
 import Textarea from 'shared/Textarea';
 import { TextareaEvent } from 'shared/Textarea/Textarea';
 
-interface Alert {
+interface AlertProperties {
   msg: string;
   color: string;
 }
+
 interface FormValues {
   [name: string]: boolean | string | string[] | number | object | undefined;
 }
@@ -34,7 +35,7 @@ const defaultValues: FormValues = {
 }
 
 function AccountGeneral({ user, updateUser }: any) {
-  const [alert, setAlert] = React.useState<Alert>({ msg: '', color: ''});
+  const [alert, setAlert] = React.useState<AlertProperties>({ msg: '', color: ''});
   
   const initialValues = populateForm(defaultValues, user);
   const { msg, color } = alert; 
