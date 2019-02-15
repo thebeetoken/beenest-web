@@ -1,5 +1,5 @@
 import * as React from 'react';
-import { ListGroup, ListGroupItem, Row, Col } from 'reactstrap';
+import { ListGroup, ListGroupItem, Row, Col, Modal, ModalHeader, ModalBody, ModalFooter, Button } from 'reactstrap';
 import { Query } from 'react-apollo';
 import { GET_PAYMENT_SOURCES, PaymentSource } from 'networking/paymentSources';
 import AudioLoading from 'shared/loading/AudioLoading';
@@ -9,8 +9,11 @@ interface Props extends RouterProps {
   creditBalance: CreditBalance;
 }
 
+type ModalType = 'ADD_NEW_CARD' | 'DELETE_CARD' | '';
+
 const AccountPayment = ({ creditBalance }: Props) => {
-  console.log('creditBalance:', creditBalance);
+  const [modal, setModal] = React.useState<ModalType>('');
+
   return (
     <Query query={GET_PAYMENT_SOURCES}>
       {({ loading, error, data }) => {
@@ -24,9 +27,10 @@ const AccountPayment = ({ creditBalance }: Props) => {
         const renderPaymentSources = paymentSources.map((paymentSource: PaymentSource) => (
           <ListGroupItem key={paymentSource.id} className="w-100 d-flex justify-content-between align-items-center">
             <h6 className="mb-0">{paymentSource.stripeBrand}&nbsp;(...{paymentSource.stripeLast4})</h6>
-            <i className="fas fa-trash-alt" />
+            <i onClick={() => handleModal('DELETE_CARD')} className="fas fa-trash-alt" />
           </ListGroupItem>
         ));
+        
         return (
           <section>
             <Row>
@@ -40,16 +44,44 @@ const AccountPayment = ({ creditBalance }: Props) => {
             </ListGroup>
             
             <Row>
-              <Col xs="12" className="d-flex align-items-center">
-                <i className="fas fa-plus-circle" />
-                <h6 className="ml-1 mb-0">Add New Card</h6>
+              <Col xs="12">
+                <div onClick={() => handleModal('ADD_NEW_CARD')} className="w-auto d-inline-block align-items-center">
+                  <i className="fas fa-plus-circle" />
+                  <h6 className="ml-2 mb-0 d-inline-block">Add New Card</h6>
+                </div>
               </Col>
             </Row>
+
+            <Modal isOpen={modal === 'ADD_NEW_CARD'} toggle={() => handleModal('ADD_NEW_CARD')}>
+              <ModalHeader toggle={handleModal}>Add New Card</ModalHeader>
+              <ModalBody>
+                Add New Card Form Goes Here
+              </ModalBody>
+              <ModalFooter>
+                <Button color="secondary" onClick={() => handleModal()}>Cancel</Button>{' '}
+                <Button color="primary" onClick={() => handleModal()}>Add Card</Button>
+              </ModalFooter>
+            </Modal>
+
+            <Modal isOpen={modal === 'DELETE_CARD'} toggle={handleModal}>
+              <ModalHeader toggle={handleModal}>Delete Card</ModalHeader>
+              <ModalBody>
+                Delete Card Form Goes Here
+              </ModalBody>
+              <ModalFooter>
+                <Button color="secondary" onClick={() => handleModal()}>Cancel</Button>{' '}
+                <Button color="primary" onClick={() => handleModal()}>Delete Card</Button>
+              </ModalFooter>
+            </Modal>
           </section>
         );
       }}
     </Query>
   );
+
+  function handleModal(modal: ModalType = '') {
+    setModal(modal);
+  }
 }
 
 export default AccountPayment;
