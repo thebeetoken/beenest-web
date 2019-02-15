@@ -55,7 +55,7 @@ const AccountPayment = ({ creditBalance }: Props) => {
             <Modal isOpen={modal === 'ADD_NEW_CARD'} toggle={() => handleModal('ADD_NEW_CARD')}>
               <ModalHeader toggle={handleModal}>Add New Card</ModalHeader>
               <ModalBody>
-                Add New Card Form Goes Here
+                <NewCardForm />
               </ModalBody>
               <ModalFooter>
                 <Button color="secondary" onClick={() => handleModal()}>Cancel</Button>{' '}
