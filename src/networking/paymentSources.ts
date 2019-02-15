@@ -45,6 +45,13 @@ export const GET_PAYMENT_SOURCES = gql`
   }
 `;
 
+export const GET_CREDIT_BALANCE = gql`
+  query creditBalance {
+    creditBalance {
+      amountUsd
+    }
+  }
+`;
 
 // Mutations
 
