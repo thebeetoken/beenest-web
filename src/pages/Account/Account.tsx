@@ -40,7 +40,6 @@ const Account = () => {
             <Nav tabs>
               <NavItem>
                 <NavLink
-                  activeClassName="active"
                   tag={RRNavLink}
                   to="/work/account/general">
                   General Info
@@ -48,7 +47,6 @@ const Account = () => {
               </NavItem>
               <NavItem>
                 <NavLink
-                  activeClassName="active"
                   tag={RRNavLink}
                   to="/work/account/payment">
                   Payment
@@ -56,7 +54,6 @@ const Account = () => {
               </NavItem>
               <NavItem>
                 <NavLink
-                  activeClassName="active"
                   tag={RRNavLink}
                   to="/work/account/security">
                   Security
@@ -64,7 +61,6 @@ const Account = () => {
               </NavItem>
               <NavItem>
                 <NavLink
-                  activeClassName="active"
                   tag={RRNavLink}
                   to="/work/account/verification">
                   Verification
