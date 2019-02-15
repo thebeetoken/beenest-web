@@ -56,6 +56,10 @@ export const GET_ACCOUNT_PAGE = gql`
       walletAddress
       listingCount
     }
+
+    creditBalance {
+      amountUsd
+    }
   }
 `;
 

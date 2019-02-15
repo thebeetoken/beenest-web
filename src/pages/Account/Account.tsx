@@ -29,7 +29,8 @@ const Account = () => {
         if (error || !data) {
           return <h1>{error ? error.message : 'Error / No Data'}</h1>;
         }
-        const { user } = data;
+        
+        const { creditBalance, user } = data;
         return (
           <Container>
             <h1>Profile</h1>
@@ -75,7 +76,7 @@ const Account = () => {
                   <hr />
                   <Switch>
                     <Route exact path="/work/account/general" render={(props: RouterProps) => <AccountGeneral {...props} user={user} />} />
-                    <Route exact path="/work/account/payment" render={() => <AccountPayment />} />
+                    <Route exact path="/work/account/payment" render={(props: RouterProps) => <AccountPayment {...props} creditBalance={creditBalance} />} />
                     <Route exact path="/work/account/security" component={AccountSecurity} />
                     <Route exact path="/work/account/verification" component={AccountVerification} />
                     <Redirect exact from="/work/account" to="/work/account/general" />
