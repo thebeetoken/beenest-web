@@ -26,13 +26,15 @@ const ListingsResult = () => (
   </ListingsResultContainer>
 );
 
+interface BoundsQueryParams {
+  east: string;
+  north: string;
+  south: string;
+  west: string;
+}
+
 interface QueryParams {
-  bounds?: {
-    east: string;
-    north: string;
-    south: string;
-    west: string;
-  };
+  bounds?: BoundsQueryParams;
   checkInDate?: string;
   checkOutDate?: string;
   coordinates?: {
@@ -43,12 +45,12 @@ interface QueryParams {
   locationQuery?: string;
 }
 
-const boundsToSearchParams = bounds => {
+const boundsToSearchParams = (bounds: BoundsQueryParams) => {
   // Add some padding to search bounds, e.g. to get Monterey Park from Los Angeles
-  const { east, west, south, north } = ['east', 'west', 'south', 'north'].reduce(
-    (parsedBounds, key) => ({ [key]: parseFloat(bounds[key]), ...parsedBounds }),
-    {}
-  );
+  const east = parseFloat(bounds.east);
+  const west = parseFloat(bounds.west);
+  const south = parseFloat(bounds.south);
+  const north = parseFloat(bounds.north);
   const latPad = (east - west) / 8;
   const lngPad = (north - south) / 8;
   return {
