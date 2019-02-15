@@ -1,6 +1,6 @@
 import * as React from 'react';
 import { Field, Formik, FormikProps, FormikActions } from 'formik';
-import { Button, Col, Form, FormGroup, FormFeedback, Input, Label, Row } from 'reactstrap';
+import { Button, Col, Form, FormGroup, FormFeedback, Input, Label, Row, Alert } from 'reactstrap';
 import * as Yup from 'yup';
 import { compose, graphql } from 'react-apollo';
 import { UPDATE_USER, User, GET_ACCOUNT_PAGE, UserField } from 'networking/users';
@@ -8,6 +8,10 @@ import { UPDATE_USER, User, GET_ACCOUNT_PAGE, UserField } from 'networking/users
 import Textarea from 'shared/Textarea';
 import { TextareaEvent } from 'shared/Textarea/Textarea';
 
+interface Alert {
+  msg: string;
+  color: string;
+}
 interface FormValues {
   [name: string]: boolean | string | string[] | number | object | undefined;
 }
@@ -30,7 +34,10 @@ const defaultValues: FormValues = {
 }
 
 function AccountGeneral({ user, updateUser }: any) {
+  const [alert, setAlert] = React.useState<Alert>({ msg: '', color: ''});
+  
   const initialValues = populateForm(defaultValues, user);
+  const { msg, color } = alert; 
   return (
     <Formik
       initialValues={initialValues}
@@ -39,6 +46,11 @@ function AccountGeneral({ user, updateUser }: any) {
       onSubmit={handleSubmit}>
       {({ errors, isSubmitting, setFieldTouched, setFieldValue, submitForm, touched, values }: FormikProps<any>) => (
         <Form method="POST">
+          {msg &&
+            <Alert color={color}>
+              {msg}
+            </Alert>
+          }
           <Row>
             <Col md={6}>
               <FormGroup inline>
@@ -117,11 +129,17 @@ function AccountGeneral({ user, updateUser }: any) {
   function handleSubmit(values: any, actions: FormikActions<any>) {
     updateUser(values)
       .then(() => {
-        alert('user successfully updated');
+        setAlert({ 
+          msg: 'User has been successfully updated',
+          color: 'success',
+        });
       })
       .catch((error: any) => {
         console.log('error: ', error);
-        alert(error);
+        setAlert({ 
+          msg: error,
+          color: 'danger',
+        });
       })
       .finally(() => actions.setSubmitting(false));
   }
