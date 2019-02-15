@@ -36,7 +36,7 @@ function AccountGeneral({ user, updateUser }: any) {
       isInitialValid
       validationSchema={GeneralInfoSchema}
       onSubmit={handleSubmit}>
-      {({ errors, resetForm, isSubmitting, setFieldTouched, setFieldValue, submitForm, touched, values }: FormikProps<any>) => (
+      {({ errors, isSubmitting, setFieldTouched, setFieldValue, submitForm, touched, values }: FormikProps<any>) => (
         <Form method="POST">
           <Row>
             <Col md={6}>
@@ -97,17 +97,6 @@ function AccountGeneral({ user, updateUser }: any) {
           <hr />
 
           <Row className="align-items-center justify-content-end">
-            <Col xs="auto" className="text-right float-right">
-              <Button
-                color="secondary"
-                className="btn-secondary transition-3d-hover"
-                onClick={() => {
-                  resetForm(initialValues);
-                }}
-                type="button">
-                Cancel
-              </Button>
-            </Col>
             <Col xs="auto" className="text-right float-right">
               <Button
                 disabled={isSubmitting}
