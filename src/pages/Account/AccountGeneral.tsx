@@ -3,8 +3,8 @@ import { Field, Formik, FormikProps, FormikActions } from 'formik';
 import { Button, Col, Form, FormGroup, FormFeedback, Input, Label, Row } from 'reactstrap';
 import * as Yup from 'yup';
 import { compose, graphql } from 'react-apollo';
-
 import { UPDATE_USER, User, GET_ACCOUNT_PAGE, UserField } from 'networking/users';
+
 import Textarea from 'shared/Textarea';
 import { TextareaEvent } from 'shared/Textarea/Textarea';
 

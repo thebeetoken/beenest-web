@@ -7,17 +7,19 @@ import {
   Col,
   Row,
 } from 'reactstrap';
+import { Query } from 'react-apollo';
 import { Route, Redirect, Switch } from 'react-router';
 import { NavLink as RRNavLink } from 'react-router-dom';
+import { GET_ACCOUNT_PAGE } from 'networking/users';
+
+import AudioLoading from 'shared/loading/AudioLoading';
 import NotFound from 'components/routes/NotFound';
+import { FirebaseConsumer, FirebaseUserProps } from 'HOCs/FirebaseProvider';
+
 import AccountGeneral from './AccountGeneral';
 import AccountPayment from './AccountPayment';
 import AccountSecurity from './AccountSecurity';
 import AccountVerification from './AccountVerification';
-import { GET_ACCOUNT_PAGE } from 'networking/users';
-import { Query } from 'react-apollo';
-import AudioLoading from 'shared/loading/AudioLoading';
-import { FirebaseConsumer, FirebaseUserProps } from 'HOCs/FirebaseProvider';
 
 const Account = () => {
   return (
