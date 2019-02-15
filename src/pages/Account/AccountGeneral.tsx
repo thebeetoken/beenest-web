@@ -54,7 +54,7 @@ function AccountGeneral({ user, updateUser }: any) {
           }
           <Row>
             <Col md={6}>
-              <FormGroup inline>
+              <FormGroup>
                 <Label for={UserField.FIRST_NAME} className="form-label">First Name</Label>
                 <Input
                   id={UserField.FIRST_NAME}
@@ -67,7 +67,7 @@ function AccountGeneral({ user, updateUser }: any) {
               </FormGroup>
             </Col>
             <Col md={6}>
-              <FormGroup inline>
+              <FormGroup>
                 <Label for={UserField.LAST_NAME} className="form-label">Last Name</Label>
                 <Input
                   id={UserField.LAST_NAME}

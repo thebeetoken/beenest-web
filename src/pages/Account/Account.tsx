@@ -53,7 +53,7 @@ const Account = () => {
                   title: 'Verification',
                 },
               ].map(({ title, tag, to }) => (
-                <NavItem>
+                <NavItem key={to}>
                   <NavLink tag={tag} to={to}>
                     {title}
                   </NavLink>
