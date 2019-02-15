@@ -1,11 +1,12 @@
 import * as React from 'react';
-import { Button, Col, Form, FormGroup, FormFeedback, Input, Label, Row } from 'reactstrap';
-import { compose, graphql } from 'react-apollo';
-import { UPDATE_USER, User, GET_ACCOUNT_PAGE, UserField } from 'networking/users';
 import { Field, Formik, FormikProps, FormikActions } from 'formik';
+import { Button, Col, Form, FormGroup, FormFeedback, Input, Label, Row } from 'reactstrap';
 import * as Yup from 'yup';
-import Textarea from 'components/shared/Textarea';
-import { TextareaEvent } from 'components/shared/Textarea/Textarea';
+import { compose, graphql } from 'react-apollo';
+
+import { UPDATE_USER, User, GET_ACCOUNT_PAGE, UserField } from 'networking/users';
+import Textarea from 'shared/Textarea';
+import { TextareaEvent } from 'shared/Textarea/Textarea';
 
 interface FormValues {
   [name: string]: boolean | string | string[] | number | object | undefined;
@@ -97,7 +98,7 @@ function AccountGeneral({ user, updateUser }: any) {
           <hr />
 
           <Row className="align-items-center justify-content-end">
-            <Col xs="auto" className="text-right float-right">
+            <Col className="text-right">
               <Button
                 disabled={isSubmitting}
                 className="btn-success transition-3d-hover"
