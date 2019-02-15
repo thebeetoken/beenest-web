@@ -11,11 +11,11 @@ import * as ReactDOM from 'react-dom';
 import { BrowserRouter } from 'react-router-dom';
 
 // Inject Global Styles
-import GlobalStyles from 'styled/globalStyles';
 import ApolloWrapper from 'HOCs/ApolloWrapper';
 import ErrorBoundaryWrapper from 'HOCs/ErrorBoundaryWrapper';
 import { FirebaseProvider } from 'HOCs/FirebaseProvider';
 import Work from './pages';
+import '../src/styled/customStyles.scss';
 
 ReactDOM.render(
   <>
@@ -28,7 +28,6 @@ ReactDOM.render(
         </FirebaseProvider>
       </ApolloWrapper>
     </ErrorBoundaryWrapper>
-    <GlobalStyles />
   </>,
   document.getElementById('root') as HTMLElement
 );
