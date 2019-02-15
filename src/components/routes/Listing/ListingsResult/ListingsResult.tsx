@@ -43,17 +43,28 @@ interface QueryParams {
   locationQuery?: string;
 }
 
+const boundsToSearchParams = bounds => {
+  // Add some padding to search bounds, e.g. to get Monterey Park from Los Angeles
+  const { east, west, south, north } = ['east', 'west', 'south', 'north'].reduce(
+    (parsedBounds, key) => ({ [key]: parseFloat(bounds[key]), ...parsedBounds }),
+    {}
+  );
+  const latPad = (east - west) / 8;
+  const lngPad = (north - south) / 8;
+  return {
+    east: east + latPad,
+    west: west - latPad,
+    north: north + lngPad,
+    south: south - lngPad
+  };
+};
+
 const ListingQuery = () => {
   const queryParams: QueryParams = parseQueryString(location.search);
   const { bounds, checkInDate, checkOutDate, coordinates, numberOfGuests, locationQuery } = queryParams;
   const areBoundsValid = bounds && bounds.east && bounds.north && bounds.south && bounds.west;
   const areCoordinatesValid = coordinates && coordinates.lat && coordinates.lng;
-  const parsedBounds = areBoundsValid && !!bounds ? {
-    east: parseFloat(bounds.east),
-    north: parseFloat(bounds.north),
-    south: parseFloat(bounds.south),
-    west: parseFloat(bounds.west),
-  } : undefined;
+  const parsedBounds = areBoundsValid && !!bounds ? boundsToSearchParams(bounds) : undefined;
   const input = {
     checkInDate: checkInDate && isValid(new Date(checkInDate)) ? checkInDate : '',
     checkOutDate: checkOutDate && isValid(new Date(checkOutDate)) ? checkOutDate : '',
