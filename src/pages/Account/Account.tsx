@@ -97,7 +97,7 @@ export default () => (
       if (loading) {
         return null;
       }
-      return user ? <Account /> : <Redirect to="/login" />;
+      return user ? <Account /> : <Redirect to="/work/login" />;
     }}
   </FirebaseConsumer>
 );
