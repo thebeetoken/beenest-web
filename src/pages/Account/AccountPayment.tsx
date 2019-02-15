@@ -4,6 +4,7 @@ import { Query } from 'react-apollo';
 import { GET_PAYMENT_SOURCES, PaymentSource } from 'networking/paymentSources';
 import AudioLoading from 'shared/loading/AudioLoading';
 import { CreditBalance } from 'networking/users';
+import NewCardForm from './NewCardForm';
 
 interface Props extends RouterProps {
   creditBalance: CreditBalance;
