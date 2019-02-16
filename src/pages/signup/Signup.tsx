@@ -6,9 +6,9 @@ import AuthenticationHeader from 'components-work/AuthenticationHeader';
 import AuthenticationTestimonials from 'components-work/AuthenticationTestimonials';
 import { FirebaseConsumer, FirebaseUserProps } from 'HOCs/FirebaseProvider';
 
-import LoginForm from './LoginForm';
+import SignupForm from './SignupForm';
 
-const Login = (props: RouteProps) => (
+const Signup = (props: RouteProps) => (
   <FirebaseConsumer>
     {({ loading, user }: FirebaseUserProps) => {
       if (loading) {
@@ -28,14 +28,14 @@ const Login = (props: RouteProps) => (
         <Container className="d-flex flex-column flex-lg-row align-items-center position-relative height-lg-100vh px-0" fluid>
           <AuthenticationHeader />
           <AuthenticationTestimonials />
-          <LoginContent />
+          <SignupContent />
         </Container>
       );
     }}
   </FirebaseConsumer>
 );
 
-const LoginContent = () => (
+const SignupContent = () => (
   <Container>
     <Row noGutters>
       <Col
@@ -44,10 +44,10 @@ const LoginContent = () => (
         lg={{ size: 7, offset: 2 }}
         xl={{ size: 6, offset: 3 }}
       >
-        <LoginForm />
+        <SignupForm />
       </Col>
     </Row>
   </Container>
 );
 
-export default Login;
+export default Signup;

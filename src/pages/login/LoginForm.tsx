@@ -6,6 +6,7 @@ import * as Yup from 'yup';
 
 import { CREATE_OR_LOGIN_WITH_PROVIDERS, User } from 'networking/users';
 import { login, signInWithFacebookPopUp, signInWithGooglePopUp } from 'utils/firebase';
+import { getFriendlyErrorMessage } from 'utils/validators';
 
 interface LoginProps {
   createOrLoginWithProviders: (id: string) => Promise<any>;
@@ -47,12 +48,12 @@ class LoginForm extends React.Component<LoginProps, State> {
         onSubmit={this.handleSubmit}
       >
         {({ errors, touched, setFieldValue, submitForm, isSubmitting }) => (
-          <Form className="mt-5" method="POST">
+          <Form method="POST">
             <div className="mb-7">
               <h2 className="h3 text-primary font-weight-normal mb-0">
                 Welcome <span className="font-weight-semi-bold">back</span>
               </h2>
-              <p>Login to manage your account</p>
+              <p>Login to manage your account.</p>
             </div>
             <FormGroup>
               <Label for="loginEmail" className="form-label">
@@ -105,7 +106,7 @@ class LoginForm extends React.Component<LoginProps, State> {
 
             <FormText className="mb-3" color="danger">{errors.authenticationError || this.state.providerError}</FormText>
 
-            <Row className="d-flex align-items-center mb-5">
+            <Row className="d-flex align-items-center my-5">
               <Col xs="6">
                 <span className="small text-muted">Don't have an account?</span>{' '}
                 <a className="small" href="/">
@@ -125,13 +126,13 @@ class LoginForm extends React.Component<LoginProps, State> {
               </Col>
             </Row>
 
-            <Row className="d-flex flex-column align-items-center mb-5 px-3">
+            <Row className="d-flex flex-column align-items-center px-3">
               <Button
                 className="btn-google transition-3d-hover mb-4 w-100 d-flex justify-content-between align-items-center"
                 type="button"
                 onClick={this.signInWithProvider.bind(this, signInWithGooglePopUp)}
               >
-                 <i className="fa fa-google" />
+                 <i className="fab fa-google" />
                  Sign in with Google
                  <div />
               </Button>
@@ -141,7 +142,7 @@ class LoginForm extends React.Component<LoginProps, State> {
                 type="button"
                 onClick={this.signInWithProvider.bind(this, signInWithFacebookPopUp)}
               >
-                <i className="fa fa-facebook" />
+                <i className="fab fa-facebook" />
                 Sign in with Facebook
                 <div />
               </Button>
@@ -154,7 +155,7 @@ class LoginForm extends React.Component<LoginProps, State> {
 
   handleSubmit = (values: LoginFormInput, actions: FormikActions<LoginFormInput>) => {
     login(values.loginEmail, values.loginPassword).catch(error => {
-      actions.setErrors({ authenticationError: error.message });
+      actions.setErrors({ authenticationError: getFriendlyErrorMessage(error) });
       actions.setSubmitting(false);
     });
   };

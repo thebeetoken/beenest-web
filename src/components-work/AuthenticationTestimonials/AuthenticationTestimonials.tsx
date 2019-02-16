@@ -18,7 +18,7 @@ const items = [
   },
 ];
 
-class LoginTestimonials extends React.Component {
+class AuthenticationTestimonials extends React.Component {
   readonly state = {
     activeIndex: 0,
   };
@@ -75,4 +75,4 @@ class LoginTestimonials extends React.Component {
   }
 }
 
-export default LoginTestimonials;
+export default AuthenticationTestimonials;
