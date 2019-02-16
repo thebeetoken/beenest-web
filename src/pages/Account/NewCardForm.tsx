@@ -1,7 +1,7 @@
 import * as React from 'react';
 import { Button, Form, Row, Col, FormGroup, Label, FormFeedback, Input } from 'reactstrap';
 import { GET_PAYMENT_SOURCES, CREATE_PAYMENT_SOURCE } from 'networking/paymentSources';
-import { Formik, Field } from 'formik';
+import { Formik, Field, FormikProps } from 'formik';
 import * as Yup from 'yup';
 import { compose, graphql } from 'react-apollo';
 import { injectStripe, CardNumberElement, CardExpiryElement, CardCVCElement, PostalCodeElement } from 'react-stripe-elements';
@@ -42,24 +42,24 @@ const NewCardForm = ({ createPaymentSource, stripe }: Props) => (
       mm: '',
       zip: '',
     }}
-    isInitialValid
     validationSchema={NewCardSchema}
     onSubmit={(values, actions) => {
+      return console.log('values:', values);
       return stripe
-      .createToken(values)
-      .then(({ token }: any) => {
-        return createPaymentSource(token.id);
-      })
-      .then(() => {
-        alert('Credit card successfully added.');
-      })
-      .catch((error: Error) => {
-        console.error('error: ', error);
-        alert(error);
-      })
-      .finally(() => actions.setSubmitting(false));
+        .createToken(values)
+        .then(({ token }: any) => {
+          return createPaymentSource(token.id);
+        })
+        .then(() => {
+          alert('Credit card successfully added.');
+        })
+        .catch((error: Error) => {
+          console.error('error: ', error);
+          alert(error);
+        })
+        .finally(() => actions.setSubmitting(false));
     }}>
-    {({ errors, isSubmitting, setFieldTouched, setFieldValue, submitForm, touched, values }: FormikProps<any>) => (
+    {({ errors, isSubmitting, submitForm, touched }: FormikProps<any>) => (
       <Form method="POST">
         <Row>
           <Col>
@@ -117,7 +117,7 @@ const NewCardForm = ({ createPaymentSource, stripe }: Props) => (
                   id={NewCardField.ZIP}
                   name={NewCardField.ZIP}
                   tag={PostalCodeElement} />
-                <FormFeedback>{errors.ZIP}</FormFeedback>
+                <FormFeedback>{errors.zip}</FormFeedback>
             </FormGroup>
           </Col>
         </Row>
@@ -130,7 +130,10 @@ const NewCardForm = ({ createPaymentSource, stripe }: Props) => (
               disabled={isSubmitting}
               className="btn-success transition-3d-hover"
               color="success"
-              onClick={submitForm}
+              onClick={() => {
+                console.log('errors:', errors);
+                submitForm();
+              }}
               type="button">
               Save Changes
             </Button>
