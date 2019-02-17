@@ -175,7 +175,7 @@ const NewCardForm = ({ createPaymentSource, stripe }: Props) => (
                 submitForm();
               }}
               type="button">
-              Save Changes
+              Add Card
             </Button>
           </Col>
         </Row>
