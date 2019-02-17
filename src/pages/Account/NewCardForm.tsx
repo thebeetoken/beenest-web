@@ -1,7 +1,7 @@
 import * as React from 'react';
 import { Button, Form, Row, Col, FormGroup, Label, FormFeedback, Input } from 'reactstrap';
 import { GET_PAYMENT_SOURCES, CREATE_PAYMENT_SOURCE } from 'networking/paymentSources';
-import { Formik, Field, FormikProps } from 'formik';
+import { Formik, Field, FormikProps, ErrorMessage } from 'formik';
 import * as Yup from 'yup';
 import { compose, graphql } from 'react-apollo';
 import { injectStripe, CardNumberElement, CardExpiryElement, CardCVCElement, PostalCodeElement } from 'react-stripe-elements';
@@ -26,7 +26,7 @@ enum NewCardField {
   ID = 'id',
   NAME_ON_CARD = 'nameOnCard',
   CARD_EXPIRY = 'cardExpiry',
-  ZIP = 'zip',
+  ZIP = 'ZIP',
 }
   
 const NewCardSchema = Yup.object().shape({
@@ -45,12 +45,12 @@ const NewCardForm = ({ createPaymentSource, stripe }: Props) => (
       CVC: '',
       id: '',
       nameOnCard: '',
-      yy: '',
-      mm: '',
-      zip: '',
+      cardExpiry: '',
+      ZIP: '',
     }}
     validationSchema={NewCardSchema}
     onSubmit={(values, actions) => {
+      return console.log('submitted');
       return stripe
         .createToken(values)
         .then(({ token }: any) => {
@@ -66,7 +66,7 @@ const NewCardForm = ({ createPaymentSource, stripe }: Props) => (
         })
         .finally(() => actions.setSubmitting(false));
     }}>
-    {({ errors, isSubmitting, setFieldTouched, submitForm, touched }: FormikProps<any>) => (
+    {({ errors, isSubmitting, isValid, setFieldTouched, setFieldError, submitForm, touched }: FormikProps<any>) => (
       <Form method="POST">
         <Row>
           <Col>
@@ -89,37 +89,56 @@ const NewCardForm = ({ createPaymentSource, stripe }: Props) => (
               <Label for={NewCardField.CARD_NUMBER} className="form-label">Card Number</Label>
               <StripeInputContainer>
                 <CardNumberElement
-                  className="form-control d-flex align-items-center"
+                  className={`form-control d-flex align-items-center
+                    ${!!errors.cardNumber && !!touched.cardNumber ? ' is-invalid' : ''}`}
                   id={NewCardField.CARD_NUMBER}
-                  onBlur={() => setFieldTouched(NewCardField.CARD_NUMBER)}/>
+                  onBlur={() => setFieldTouched(NewCardField.CARD_NUMBER)}
+                  onChange={({ error }: any) => {
+                    setFieldError('cardNumber', error ? error.message : undefined);
+                  }} />
               </StripeInputContainer>
-              <FormFeedback>{errors.cardNumber}</FormFeedback>
+              <FormFeedback className="d-block">
+                <ErrorMessage name={NewCardField.CARD_NUMBER} />
+              </FormFeedback>
             </FormGroup>
           </Col>
+
           <Col md={3}>
             <FormGroup>
               <Label for={NewCardField.CARD_EXPIRY} className="form-label">Card Expiry</Label>
               <StripeInputContainer>
-                <Input
-                  className="form-control d-flex align-items-center"
+                <CardExpiryElement
+                  className={`form-control d-flex align-items-center
+                    ${!!errors.cardExpiry && !!touched.cardExpiry ? ' is-invalid' : ''}`}
                   id={NewCardField.CARD_EXPIRY}
-                  name={NewCardField.CARD_EXPIRY}
-                  tag={CardExpiryElement} />
+                  onBlur={() => setFieldTouched(NewCardField.CARD_EXPIRY)}
+                  onChange={({ error }: any) => {
+                    console.log('error:', error);
+                    setFieldError(NewCardField.CARD_EXPIRY, error ? error.message : undefined);
+                  }} />
               </StripeInputContainer>
-              <FormFeedback>{errors.cardExpiry}</FormFeedback>
+              <FormFeedback className="d-block">
+                <ErrorMessage name={NewCardField.CARD_EXPIRY} />
+              </FormFeedback>
             </FormGroup>
           </Col>
+
           <Col md={3}>
             <FormGroup>
             <Label for={NewCardField.CVC} className="form-label">CVC</Label>
               <StripeInputContainer>
-                <Input
-                  className="form-control d-flex align-items-center"
+                <CardCVCElement
+                  className={`form-control d-flex align-items-center
+                    ${!!errors.CVC && !!touched.CVC ? ' is-invalid' : ''}`}
                   id={NewCardField.CVC}
-                  name={NewCardField.CVC}
-                  tag={CardCVCElement} />
+                  onBlur={() => setFieldTouched(NewCardField.CVC)}
+                  onChange={({ error }: any) => {
+                    setFieldError(NewCardField.CVC, error ? error.message : undefined);
+                  }} />
               </StripeInputContainer>
-              <FormFeedback>{errors.CVC}</FormFeedback>
+              <FormFeedback className="d-block">
+                <ErrorMessage name={NewCardField.CVC} />
+              </FormFeedback>
             </FormGroup>
           </Col>
         </Row>
@@ -129,13 +148,17 @@ const NewCardForm = ({ createPaymentSource, stripe }: Props) => (
             <FormGroup>
               <Label for={NewCardField.ZIP} className="form-label">ZIP</Label>
                 <StripeInputContainer>
-                  <Input
-                    className="form-control d-flex align-items-center"
-                    id={NewCardField.ZIP}
-                    name={NewCardField.ZIP}
-                    tag={PostalCodeElement} />
+                  <PostalCodeElement
+                    className={`form-control d-flex align-items-center${!!errors.ZIP && !!touched.ZIP ? ' is-invalid' : ''}`}
+                    onBlur={() => setFieldTouched(NewCardField.ZIP)}
+                    onChange={({ error }: any) => {
+                      setFieldError(NewCardField.ZIP, error ? error.message : undefined);
+                    }}
+                    id={NewCardField.ZIP} />
                 </StripeInputContainer>
-                <FormFeedback>{errors.zip}</FormFeedback>
+                <FormFeedback className="d-block">
+                  <ErrorMessage name={NewCardField.ZIP} />
+                </FormFeedback>
             </FormGroup>
           </Col>
         </Row>
@@ -145,7 +168,7 @@ const NewCardForm = ({ createPaymentSource, stripe }: Props) => (
         <Row className="align-items-center justify-content-end">
           <Col xs="auto" className="text-right float-right">
             <Button
-              disabled={isSubmitting}
+              disabled={isSubmitting || !isValid}
               className="btn-success transition-3d-hover"
               color="success"
               onClick={() => {
