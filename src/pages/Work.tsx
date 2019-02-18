@@ -10,8 +10,8 @@ const Work = () => (
     <Switch>
       <Route path="/work/account" component={Account} />
       <Route exact path="/work/login" component={Login} />
-      <Route path="/work" component={Home} />
-      <Redirect from="/" to="/work" />
+      <Route exact path="/work/home" component={Home} />
+      <Redirect from="/work" to="/work/home" />
     </Switch>
   </div>
 );
