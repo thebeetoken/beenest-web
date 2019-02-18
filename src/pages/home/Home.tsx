@@ -13,6 +13,7 @@ import {
   Jumbotron,
   Button,
 } from 'reactstrap';
+import { Link } from 'react-router-dom';
 
 interface State {
   isOpen: boolean;
@@ -40,7 +41,7 @@ class Home extends React.Component<State> {
                 <NavLink href="/components/">Components</NavLink>
               </NavItem>
               <NavItem>
-                <NavLink href="https://github.com/reactstrap/reactstrap">Github</NavLink>
+                <Link to="/work/login">login</Link>
               </NavItem>
             </Nav>
           </Collapse>

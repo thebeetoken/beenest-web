@@ -46,6 +46,7 @@ module.exports = {
       ABIs: `${root}/ABIs`,
       assets: `${root}/assets`,
       components: `${root}/components`,
+      componentsWork: `${root}/componentsWork`,
       configs: `${root}/configs`,
       routes: `${root}/components/routes`,
       shared: `${root}/components/shared`,

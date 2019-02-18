@@ -1,5 +1,5 @@
 import * as React from 'react';
-import { Route, Switch } from 'react-router-dom';
+import { Route, Switch, Redirect } from 'react-router-dom';
 
 import Home from './home';
 import Account from './Account';
@@ -11,6 +11,7 @@ const Work = () => (
       <Route path="/work/account" component={Account} />
       <Route exact path="/work/login" component={Login} />
       <Route path="/work" component={Home} />
+      <Redirect from="/" to="/work" />
     </Switch>
   </div>
 );
