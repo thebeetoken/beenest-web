@@ -45,7 +45,6 @@ interface TextareaState {
   editorState: EditorState;
   isFocused: boolean;
   isPristine: boolean;
-  value: string | number;
 }
 
 function createEditorState(string: string): EditorState {
@@ -63,7 +62,6 @@ class Textarea extends React.Component<Props, TextareaState> {
     editorState: createEditorState(this.props.value || ''),
     isFocused: false,
     isPristine: true,
-    value: this.props.value || '',
   };
 
   render() {
@@ -114,9 +112,9 @@ class Textarea extends React.Component<Props, TextareaState> {
           name: name || ''
         }
       });
-      this.setState({ editorState, value: outputString, isPristine: false });
+      this.setState({ isPristine: false });
     }
-    else this.setState({ editorState });
+    this.setState({ editorState });
   }
 }
 
