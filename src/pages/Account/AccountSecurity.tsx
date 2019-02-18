@@ -1,5 +1,6 @@
 import * as React from 'react';
 import { ListGroup, ListGroupItem } from 'reactstrap';
+import { resetPassword } from 'utils/firebase';
 
 class AccountSecurity extends React.Component<any> {
   render() {
