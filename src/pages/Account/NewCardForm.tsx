@@ -10,6 +10,7 @@ interface Props {
   stripe: Window['Stripe'];
   createPaymentSource: (stripeToken: string) => void;
   handleModal: (modal?: string) => void;
+  setAlert: (msg?: string) => void;
 }
 
 interface State {
@@ -227,7 +228,7 @@ class NewCardForm extends React.Component<Props, State> {
 
   handleSubmit = (event: React.FormEvent): void => {
     event.preventDefault();
-    const { createPaymentSource, handleModal, stripe } = this.props;
+    const { createPaymentSource, handleModal,  setAlert, stripe } = this.props;
 
     this.setState({ isSubmitting: true },
       () => (
@@ -237,6 +238,7 @@ class NewCardForm extends React.Component<Props, State> {
           })
           .then(() => {
             this.setState({ isSubmitting: false }, handleModal);
+            setAlert('Success! Your new card has been added.');
           })
           .catch((error: Error) => {
             console.error('error: ', error);
@@ -283,9 +285,9 @@ const EnhancedNewCardForm = compose(
   })
 )(injectStripe(NewCardForm));
 
-const StripeWrappedNewCardForm = ({ handleModal }: { handleModal: (modal?: string) => void }) => (
+const StripeWrappedNewCardForm = ({ handleModal, setAlert }: any) => (
   <StripeWrapper>
-    <EnhancedNewCardForm handleModal={handleModal} />
+    <EnhancedNewCardForm handleModal={handleModal} setAlert={setAlert} />
   </StripeWrapper>
 )
 

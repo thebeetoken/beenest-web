@@ -8,12 +8,16 @@ interface Props {
   paymentSource: PaymentSource;
   deletePaymentSource: (paymentSourceId: string) => Promise<any>;
   handleModal: () => void;
+  setAlert: (msg?: string) => void;
 }
 
-const DeleteCardForm = ({ deletePaymentSource, paymentSource, handleModal }: Props) => {
+const DeleteCardForm = ({ deletePaymentSource, handleModal, paymentSource, setAlert }: Props) => {
   const handleDelete = () => {
     return deletePaymentSource(paymentSource.id)
-      .then(handleModal)
+      .then(() => {
+        handleModal();
+        setAlert(`Success! Your card ${paymentSource.stripeBrand} ending in ${paymentSource.stripeLast4} has been deleted.`);
+      })
       .catch((error: any) => alert('Oops! Something went wrong:\n\n' + error));
   }
   return (

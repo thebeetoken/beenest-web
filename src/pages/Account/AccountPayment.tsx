@@ -1,5 +1,5 @@
 import * as React from 'react';
-import { ListGroup, ListGroupItem, Row, Col, Modal, ModalHeader, ModalBody } from 'reactstrap';
+import { ListGroup, ListGroupItem, Row, Col, Modal, ModalHeader, ModalBody, Alert } from 'reactstrap';
 import { Query } from 'react-apollo';
 import { GET_PAYMENT_SOURCES, PaymentSource } from 'networking/paymentSources';
 import AudioLoading from 'shared/loading/AudioLoading';
@@ -15,6 +15,7 @@ type ModalType = 'ADD_NEW_CARD' | 'DELETE_CARD' | '';
 
 const AccountPayment = ({ creditBalance }: Props) => {
   const [modal, setModal] = React.useState<ModalType>('');
+  const [alert, setAlert] = React.useState<String>('');
   const [paymentSource, setPaymentSource] = React.useState<PaymentSource | undefined>(undefined);
 
   return (
@@ -42,6 +43,8 @@ const AccountPayment = ({ creditBalance }: Props) => {
 
         return (
           <section>
+            {alert && <Alert color="success">{alert}</Alert>}
+
             <Row>
               <Col xs="12">
                 <p>Credit Balance: {creditBalance.amountUsd}</p>
@@ -63,14 +66,14 @@ const AccountPayment = ({ creditBalance }: Props) => {
               <Modal isOpen toggle={handleModal}>
                 <ModalHeader>Add New Card</ModalHeader>
                 <ModalBody>
-                  <NewCardForm handleModal={handleModal}/>
+                  <NewCardForm handleModal={handleModal} setAlert={setAlert} />
                 </ModalBody>
               </Modal>
             )}
 
             {modal === 'DELETE_CARD' && (
               <Modal isOpen toggle={handleModal}>
-                <DeleteCardForm handleModal={handleModal} paymentSource={paymentSource} />
+                <DeleteCardForm handleModal={handleModal} paymentSource={paymentSource} setAlert={setAlert} />
               </Modal>
             )}
           </section>
