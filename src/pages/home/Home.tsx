@@ -41,7 +41,7 @@ class Home extends React.Component<State> {
                 <NavLink href="/components/">Components</NavLink>
               </NavItem>
               <NavItem>
-                <Link to="https://github.com/reactstrap/reactstrap">login</Link>
+                <Link to="/work/login">login</Link>
               </NavItem>
             </Nav>
           </Collapse>
