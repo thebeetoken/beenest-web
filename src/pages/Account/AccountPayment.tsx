@@ -63,7 +63,7 @@ const AccountPayment = ({ creditBalance }: Props) => {
               <Modal isOpen toggle={handleModal}>
                 <ModalHeader>Add New Card</ModalHeader>
                 <ModalBody>
-                  <NewCardForm />
+                  <NewCardForm handleModal={handleModal}/>
                 </ModalBody>
               </Modal>
             )}
