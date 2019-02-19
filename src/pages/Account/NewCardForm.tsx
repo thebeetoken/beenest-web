@@ -51,21 +51,10 @@ enum NewCardField {
 
 class NewCardForm extends React.Component<Props, State> {
   readonly state: State = {
-    completed: {
-      [NewCardField.CARD_EXPIRY]: false,
-      [NewCardField.CARD_NUMBER]: false,
-      [NewCardField.CARD_CVC]: false,
-      [NewCardField.NAME]: false,
-      [NewCardField.POSTAL_CODE]: false,
-    },
-    errors: {
-      [NewCardField.CARD_EXPIRY]: '',
-      [NewCardField.CARD_NUMBER]: '',
-      [NewCardField.CARD_CVC]: '',
-      [NewCardField.NAME]: '',
-      [NewCardField.POSTAL_CODE]: '',
-      submit: '',
-    },
+    completed: Object.values(NewCardField)
+      .reduce((obj, curr) => { return { ...obj, [curr]: false }}, {}),
+    errors: Object.values(NewCardField)
+      .reduce((obj, curr) => { return { ...obj, [curr]: '' }}, {}),
     [NewCardField.NAME]: '',  // name isn't a stripe element component; must collect separately
     isSubmitting: false,
   }
