@@ -79,7 +79,7 @@ class LoginForm extends React.Component<LoginProps, State> {
                 name={EMAIL}
                 id={EMAIL}
                 tag={Field}
-                onChange={(event: React.FormEvent<HTMLInputElement>) => this.handleChange(EMAIL, event, setFieldValue)}
+                onChange={(event: React.FormEvent<HTMLInputElement>) => this.handleChange(event, setFieldValue)}
                 placeholder="Email address"
                 invalid={!!errors[EMAIL] && touched[EMAIL]}
               />
@@ -100,7 +100,7 @@ class LoginForm extends React.Component<LoginProps, State> {
                 name={PASSWORD}
                 id={PASSWORD}
                 tag={Field}
-                onChange={(event: React.FormEvent<HTMLInputElement>) => this.handleChange(PASSWORD, event, setFieldValue)}
+                onChange={(event: React.FormEvent<HTMLInputElement>) => this.handleChange(event, setFieldValue)}
                 placeholder="********"
                 invalid={!!errors[PASSWORD] && touched[PASSWORD]}
               />
@@ -162,8 +162,9 @@ class LoginForm extends React.Component<LoginProps, State> {
     });
   };
 
-  handleChange = (htmlId: string, event: React.FormEvent<HTMLInputElement>, setFieldValue: (field: string, value: any) => void) => {
-    setFieldValue(htmlId, event.currentTarget.value);
+  handleChange = (event: React.FormEvent<HTMLInputElement>, setFieldValue: (field: string, value: any) => void) => {
+    const { name, value } = event.currentTarget;
+    setFieldValue(name, value);
     if (this.state.providerError !== null) {
       this.setState({ providerError: null });
     }

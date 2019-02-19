@@ -99,7 +99,7 @@ class SignupForm extends React.Component<SignupProps, State> {
                     name={FIRST_NAME}
                     id={FIRST_NAME}
                     tag={Field}
-                    onChange={(event: React.FormEvent<HTMLInputElement>) => this.handleChange(FIRST_NAME, event, setFieldValue)}
+                    onChange={(event: React.FormEvent<HTMLInputElement>) => this.handleChange(event, setFieldValue)}
                     placeholder="First Name"
                     invalid={!!errors[FIRST_NAME] && touched[FIRST_NAME]}
                   />
@@ -116,7 +116,7 @@ class SignupForm extends React.Component<SignupProps, State> {
                     name={LAST_NAME}
                     id={LAST_NAME}
                     tag={Field}
-                    onChange={(event: React.FormEvent<HTMLInputElement>) => this.handleChange(LAST_NAME, event, setFieldValue)}
+                    onChange={(event: React.FormEvent<HTMLInputElement>) => this.handleChange(event, setFieldValue)}
                     placeholder="Last Name"
                     invalid={!!errors[LAST_NAME] && touched[LAST_NAME]}
                   />
@@ -134,7 +134,7 @@ class SignupForm extends React.Component<SignupProps, State> {
                 name={EMAIL}
                 id={EMAIL}
                 tag={Field}
-                onChange={(event: React.FormEvent<HTMLInputElement>) => this.handleChange(EMAIL, event, setFieldValue)}
+                onChange={(event: React.FormEvent<HTMLInputElement>) => this.handleChange(event, setFieldValue)}
                 placeholder="Email address"
                 invalid={!!errors[EMAIL] && touched[EMAIL]}
               />
@@ -150,7 +150,7 @@ class SignupForm extends React.Component<SignupProps, State> {
                 name={PASSWORD}
                 id={PASSWORD}
                 tag={Field}
-                onChange={(event: React.FormEvent<HTMLInputElement>) => this.handleChange(PASSWORD, event, setFieldValue)}
+                onChange={(event: React.FormEvent<HTMLInputElement>) => this.handleChange(event, setFieldValue)}
                 placeholder="********"
                 invalid={!!errors[PASSWORD] && touched[PASSWORD]}
               />
@@ -166,7 +166,7 @@ class SignupForm extends React.Component<SignupProps, State> {
                 name={CONFIRM_PASSWORD}
                 id={CONFIRM_PASSWORD}
                 tag={Field}
-                onChange={(event: React.FormEvent<HTMLInputElement>) => this.handleChange(CONFIRM_PASSWORD, event, setFieldValue)}
+                onChange={(event: React.FormEvent<HTMLInputElement>) => this.handleChange(event, setFieldValue)}
                 placeholder="Re-enter password"
                 invalid={!!errors[CONFIRM_PASSWORD] && touched[CONFIRM_PASSWORD]}
               />
@@ -239,8 +239,9 @@ class SignupForm extends React.Component<SignupProps, State> {
       });
   };
 
-  handleChange = (htmlId: string, event: React.FormEvent<HTMLInputElement>, setFieldValue: (field: string, value: any) => void) => {
-    setFieldValue(htmlId, event.currentTarget.value);
+  handleChange = (event: React.FormEvent<HTMLInputElement>, setFieldValue: (field: string, value: any) => void) => {
+    const { name, value } = event.currentTarget;
+    setFieldValue(name, value);
     if (this.state.providerError !== null) {
       this.setState({ providerError: null });
     }
