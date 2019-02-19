@@ -5,7 +5,7 @@ import { Redirect, RouteProps } from 'react-router-dom';
 import AuthHeader from 'components/work/AuthHeader';
 import UserTestimonials from 'components/work/UserTestimonials';
 import { FirebaseConsumer, FirebaseUserProps } from 'HOCs/FirebaseProvider';
-import { AUTHENTICATION_CONTAINER, AUTHENTICATION_CONTENT } from 'styled/sharedClasses/authentication';
+import { AUTH_CONTAINER, AUTH_CONTENT } from 'styled/sharedClasses/authentication';
 import { VIEWPORT_CENTER_LAYOUT } from 'styled/sharedClasses/layout';
 
 import SignupForm from './SignupForm';
@@ -27,7 +27,7 @@ const Signup = (props: RouteProps) => (
         return <Redirect to={destination} />;
       }
       return (
-        <Container className={AUTHENTICATION_CONTAINER} fluid>
+        <Container className={AUTH_CONTAINER} fluid>
           <AuthHeader />
           <UserTestimonials />
           <SignupContent />
@@ -41,7 +41,7 @@ const SignupContent = () => (
   <Container>
     <Row noGutters>
       <Col
-        className={AUTHENTICATION_CONTENT}
+        className={AUTH_CONTENT}
         md={{ size: 8, offset: 2 }}
         lg={{ size: 7, offset: 2 }}
         xl={{ size: 6, offset: 3 }}
