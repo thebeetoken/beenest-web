@@ -1,13 +1,15 @@
 import * as React from 'react';
-import { ListGroup, ListGroupItem } from 'reactstrap';
+import { Modal, ModalHeader, ModalBody, CardBody, ListGroup, ListGroupItem } from 'reactstrap';
 import { compose } from 'recompose';
 import { graphql } from 'react-apollo';
 import { REFRESH_VERIFICATION_STATUS, GET_USER } from 'networking/users';
 import { FirebaseConsumer, FirebaseUserProps } from 'HOCs/FirebaseProvider';
 import { FirebaseUser } from 'utils/firebase';
+import PhoneNumberVerificationForm from './PhoneNumberVerificationForm';
 
-class AccountVerification extends React.Component<any> {
-  render() {
+function AccountVerification() {
+  const [modal, setModal] = React.useState<boolean>(false);
+
     return (
       <FirebaseConsumer>
         {({ user }: FirebaseUserProps) => {
@@ -16,40 +18,66 @@ class AccountVerification extends React.Component<any> {
 
           return (
             <>
-              <ListGroup className="mb-2 d-flex flex-column">
-                <ListGroupItem className="mb-5 w-100 d-flex flex-column" disabled={phoneVerified}>
-                  <h6 className="mb-0">Phone (Required){' '}
-                    {phoneVerified
-                      ? <span className="small text-success">(Verified)</span>
-                      : <span className="small text-danger">(Not Verified)</span>
-                    }
-                  </h6>
-                  <div className="d-flex justify-content-between">
-                    <h6 className="mb-0 small text-muted">Click here to change and verify your phone number</h6>
-                    <i className="fa fa-lock"></i>
-                  </div>
+              <ListGroup className="d-flex flex-column">
+                <ListGroupItem
+                  disabled={phoneVerified}
+                  className="mb-5"
+                  onClick={handleModal}>
+                  <CardBody>
+                    <h6 className="mb-0">Phone (Required){' '}
+                      {phoneVerified
+                        ? <span className="small text-success">(Verified)</span>
+                        : <span className="small text-danger">(Not Verified)</span>
+                      }
+                    </h6>
+                    <div className="d-flex justify-content-between">
+                      <h6 className="mb-0 small text-muted">Click here to change and verify your phone number</h6>
+                      <i className="fa fa-lock"></i>
+                    </div>
+                  </CardBody>
                 </ListGroupItem>
 
-                <ListGroupItem className="w-100 d-flex flex-column" disabled={emailVerified}>
-                  <h6 className="mb-0">Email (Required){' '}
-                    {emailVerified
-                      ? <span className="small text-success">(Verified)</span>
-                      : <span className="small text-danger">(Not Verified)</span>
-                    }
-                  </h6>
-                  <div className="d-flex justify-content-between">
-                    <h6 className="mb-0 small text-muted">Your email has been verified</h6>
-                    <i className="fa fa-lock"></i>
-                  </div>
+                <ListGroupItem
+                  disabled={emailVerified}>
+                  <CardBody>
+                    <h6 className="mb-0">Email (Required){' '}
+                      {emailVerified
+                        ? <span className="small text-success">(Verified)</span>
+                        : <span className="small text-danger">(Not Verified)</span>
+                      }
+                    </h6>
+                    <div className="d-flex justify-content-between">
+                      <h6 className="mb-0 small text-muted">Your email has been verified</h6>
+                      <i className="fa fa-lock"></i>
+                    </div>
+                  </CardBody>
                 </ListGroupItem>
               </ListGroup>
+
+              {modal &&
+                <Modal isOpen toggle={handleModal}>
+                  <ModalHeader>Verify Your Phone</ModalHeader>
+                  <ModalBody>
+                    <PhoneNumberVerificationForm
+                      // onClose={this.closeModal}
+                      // showSnackBarSuccess={this.closeModalAndShowSuccessSnackbar}
+                      refreshVerificationStatus={''}
+                      user={user} />
+                  </ModalBody>
+                </Modal>
+              }
             </>
           )
         }}
       </FirebaseConsumer>
     );
-  }
+  
+    function handleModal() {
+      console.log('asdf');
+      setModal(true);
+    }
 }
+
 export default compose(
   graphql(REFRESH_VERIFICATION_STATUS, {
     props: ({ mutate }: any) => ({
