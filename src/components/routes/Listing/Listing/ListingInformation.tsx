@@ -80,11 +80,11 @@ const ListingInformation = ({ listing, host }: Props) => {
         <ul>
           {homeType && <li>Home type: {homeType}</li>}
           {sleepingArrangement && <li>Sleeping arrangement: {sleepingArrangement}</li>}
-          {numberOfBedrooms && <li>Number of bedrooms: {numberOfBedrooms}</li>}
-          {numberOfBathrooms && <li>Number of bathrooms: {numberOfBathrooms}</li>}
+          {numberOfBedrooms >= 0 && <li>Number of bedrooms: {numberOfBedrooms}</li>}
+          {numberOfBedrooms >= 0 && <li>Number of bathrooms: {numberOfBathrooms}</li>}
           {sharedBathroom && <li>Shared bathroom: {sharedBathroom}</li>}
-          {maxGuests && <li>Maximum number of guests: {maxGuests}</li>}
-          {minimumNights && <li>Minimum number of nights: {minimumNights}</li>}
+          {maxGuests >= 1 && <li>Maximum number of guests: {maxGuests}</li>}
+          {minimumNights >= 1 && <li>Minimum number of nights: {minimumNights}</li>}
           {checkInTime && <li>Check-in: {checkInTime.from} to {checkInTime.to}</li>}
           {checkOutTime && <li>Check-out: {checkOutTime}</li>}
         </ul>

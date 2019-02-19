@@ -302,3 +302,11 @@ export const CONTACT_USER = gql`
     }
   }
 `;
+
+// TODO: Move this into more related form file when it becomes more appropriate
+export enum UserField {
+  ABOUT = 'about',
+  EMAIL = 'email',
+  FIRST_NAME = 'firstName',
+  LAST_NAME = 'lastName',
+}
