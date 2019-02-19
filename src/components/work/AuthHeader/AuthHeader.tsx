@@ -1,7 +1,7 @@
 import * as React from 'react';
 import { Navbar, NavbarBrand } from 'reactstrap';
 
-const AuthenticationHeader = () => (
+const AuthHeader = () => (
   <>
   <Navbar className="fixed-top">
     <NavbarBrand
@@ -31,4 +31,4 @@ const AuthenticationHeader = () => (
   </>
 );
 
-export default AuthenticationHeader;
+export default AuthHeader;

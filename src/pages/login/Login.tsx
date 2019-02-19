@@ -2,8 +2,8 @@ import * as React from 'react';
 import { Col, Container, Row, Spinner } from 'reactstrap';
 import { Redirect, RouteProps } from 'react-router-dom';
 
-import AuthenticationHeader from 'components/work/AuthenticationHeader';
-import AuthenticationTestimonials from 'components/work/AuthenticationTestimonials';
+import AuthHeader from 'components/work/AuthHeader';
+import UserTestimonials from 'components/work/UserTestimonials';
 import { FirebaseConsumer, FirebaseUserProps } from 'HOCs/FirebaseProvider';
 import { AUTHENTICATION_CONTAINER, AUTHENTICATION_CONTENT } from 'styled/sharedClasses/authentication';
 import { VIEWPORT_CENTER_LAYOUT } from 'styled/sharedClasses/layout';
@@ -28,8 +28,8 @@ const Login = (props: RouteProps) => (
       }
       return (
         <Container className={AUTHENTICATION_CONTAINER} fluid>
-          <AuthenticationHeader />
-          <AuthenticationTestimonials />
+          <AuthHeader />
+          <UserTestimonials />
           <LoginContent />
         </Container>
       );
