@@ -8,29 +8,27 @@ import { User } from 'firebase';
 interface AlertProperties {
   color: string;
   msg: string;
-  show: boolean;
 }
 
 function AccountSecurity() {
-  const [alert, setAlert] = React.useState<AlertProperties>({ color: '', msg: '', show: false });
+  const [alert, setAlert] = React.useState<AlertProperties>({ color: '', msg: '' });
   const [isSubmitting, setSubmitting] = React.useState<boolean>(false);
 
   function handleClick(user: User) {
     if (!user.email) return;
+    
     setSubmitting(true);
     resetPassword(user.email)
       .then(() => {
         setAlert({
           color: 'success',
           msg: getDisplaySuccessMessage(SuccessMessage.CHECK_EMAIL),
-          show: true,
         });
       })
       .catch(() => {
         setAlert({
           color: 'danger',
           msg: getDisplayErrorMessage(ErrorMessage.GENERIC),
-          show: true,
         });
       })
       .finally(() => {
@@ -59,11 +57,12 @@ function AccountSecurity() {
         )}
       </FirebaseConsumer>
 
-      <Alert
-        color={alert.color}
-        isOpen={alert.show}>
-        {alert.msg}
-      </Alert>
+      {alert.msg &&
+        <Alert
+          color={alert.color}>
+          {alert.msg}
+        </Alert>
+      }
     </>
   );
 }
