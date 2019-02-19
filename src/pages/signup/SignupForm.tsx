@@ -2,6 +2,7 @@ import { Field, Formik, FormikActions } from 'formik';
 import * as React from 'react';
 import { Button, Col, FormFeedback, FormText, Form, FormGroup, Input, Label, Row } from 'reactstrap';
 import { compose, graphql } from 'react-apollo';
+import { Link } from 'react-router-dom';
 import * as Yup from 'yup';
 
 import { CreateUser, CREATE_OR_LOGIN_WITH_PROVIDERS, CREATE_USER, User } from 'networking/users';
@@ -14,28 +15,37 @@ interface SignupProps {
 }
 
 const LoginSchema = Yup.object().shape({
-  signupEmail: Yup.string()
+  email: Yup.string()
     .email('Please enter a valid email address.')
     .required('Please enter an email address.'),
-  signupFirstName: Yup.string()
+  firstName: Yup.string()
     .required('Please enter your first name.'),
-  signupLastName: Yup.string()
+  lastName: Yup.string()
     .required('Please enter your last name.'),
-  signupPassword: Yup.string()
+  password: Yup.string()
     .min(8, 'Your password is too short, please enter a password that is at least 8 characters long')
     .required('Please enter a valid password.'),
-  signupConfirmPassword: Yup.string()
-    .oneOf([Yup.ref('signupPassword')], 'Your passwords do not match.')
+  confirmPassword: Yup.string()
+    .oneOf([Yup.ref('password')], 'Your passwords do not match.')
     .required('Please re-enter your password here.'),
 });
 
+enum SignupFormField {
+  EMAIL = 'email',
+  FIRST_NAME = 'firstName',
+  LAST_NAME = 'lastName',
+  PASSWORD = 'password',
+  CONFIRM_PASSWORD = 'confirmPassword',
+  SUBMIT_ERROR = 'submitError',
+}
+
 interface SignupFormInput {
-  signupEmail: string;
-  signupFirstName: string;
-  signupLastName: string;
-  signupPassword: string;
-  signupConfirmPassword: string;
-  authenticationError: string;
+  [SignupFormField.EMAIL]: string;
+  [SignupFormField.FIRST_NAME]: string;
+  [SignupFormField.LAST_NAME]: string;
+  [SignupFormField.PASSWORD]: string;
+  [SignupFormField.CONFIRM_PASSWORD]: string;
+  [SignupFormField.SUBMIT_ERROR]: string;
 }
 
 interface State {
@@ -48,15 +58,23 @@ class SignupForm extends React.Component<SignupProps, State> {
   };
 
   render() {
+    const {
+      EMAIL,
+      FIRST_NAME,
+      LAST_NAME,
+      PASSWORD,
+      CONFIRM_PASSWORD,
+      SUBMIT_ERROR
+    } = SignupFormField;
     return (
       <Formik
         initialValues={{
-          signupEmail: '',
-          signupFirstName: '',
-          signupLastName: '',
-          signupPassword: '',
-          signupConfirmPassword: '',
-          authenticationError: '',
+          [EMAIL]: '',
+          [FIRST_NAME]: '',
+          [LAST_NAME]: '',
+          [PASSWORD]: '',
+          [CONFIRM_PASSWORD]: '',
+          [SUBMIT_ERROR]: '',
         }}
         validationSchema={LoginSchema}
         onSubmit={this.handleSubmit}
@@ -73,120 +91,90 @@ class SignupForm extends React.Component<SignupProps, State> {
             <Row className="d-flex flex-sm-column flex-md-row">
               <Col md={6}>
                 <FormGroup>
-                  <Label for="signupFirstName" className="form-label">
+                  <Label for={FIRST_NAME} className="form-label">
                     First Name
                   </Label>
                   <Input
                     type="text"
-                    name="signupFirstName"
-                    id="signupFirstName"
+                    name={FIRST_NAME}
+                    id={FIRST_NAME}
                     tag={Field}
-                    onChange={(event: React.FormEvent<HTMLInputElement>) => {
-                      setFieldValue('signupFirstName', event.currentTarget.value);
-
-                      if (this.state.providerError !== null) {
-                        this.setState({ providerError: null });
-                      }
-                    }}
+                    onChange={(event: React.FormEvent<HTMLInputElement>) => this.handleChange(FIRST_NAME, event, setFieldValue)}
                     placeholder="First Name"
-                    invalid={!!errors.signupFirstName && touched.signupFirstName}
+                    invalid={!!errors[FIRST_NAME] && touched[FIRST_NAME]}
                   />
-                  <FormFeedback>{errors.signupFirstName}</FormFeedback>
+                  <FormFeedback>{errors[FIRST_NAME]}</FormFeedback>
                 </FormGroup>
               </Col>
               <Col md={6}>
               <FormGroup>
-                  <Label for="signupLastName" className="form-label">
+                  <Label for={LAST_NAME} className="form-label">
                     First Name
                   </Label>
                   <Input
                     type="text"
-                    name="signupLastName"
-                    id="signupLastName"
+                    name={LAST_NAME}
+                    id={LAST_NAME}
                     tag={Field}
-                    onChange={(event: React.FormEvent<HTMLInputElement>) => {
-                      setFieldValue('signupLastName', event.currentTarget.value);
-
-                      if (this.state.providerError !== null) {
-                        this.setState({ providerError: null });
-                      }
-                    }}
+                    onChange={(event: React.FormEvent<HTMLInputElement>) => this.handleChange(LAST_NAME, event, setFieldValue)}
                     placeholder="Last Name"
-                    invalid={!!errors.signupLastName && touched.signupLastName}
+                    invalid={!!errors[LAST_NAME] && touched[LAST_NAME]}
                   />
-                  <FormFeedback>{errors.signupLastName}</FormFeedback>
+                  <FormFeedback>{errors[LAST_NAME]}</FormFeedback>
                 </FormGroup>
               </Col>
             </Row>
 
             <FormGroup>
-              <Label for="signupEmail" className="form-label">
+              <Label for={EMAIL} className="form-label">
                 Email Address
               </Label>
               <Input
                 type="email"
-                name="signupEmail"
-                id="signupEmail"
+                name={EMAIL}
+                id={EMAIL}
                 tag={Field}
-                onChange={(event: React.FormEvent<HTMLInputElement>) => {
-                  setFieldValue('signupEmail', event.currentTarget.value);
-
-                  if (this.state.providerError !== null) {
-                    this.setState({ providerError: null });
-                  }
-                }}
+                onChange={(event: React.FormEvent<HTMLInputElement>) => this.handleChange(EMAIL, event, setFieldValue)}
                 placeholder="Email address"
-                invalid={!!errors.signupEmail && touched.signupEmail}
+                invalid={!!errors[EMAIL] && touched[EMAIL]}
               />
-              <FormFeedback>{errors.signupEmail}</FormFeedback>
+              <FormFeedback>{errors[EMAIL]}</FormFeedback>
             </FormGroup>
 
             <FormGroup>
-              <Label for="signupPassword" className="form-label">
+              <Label for={PASSWORD} className="form-label">
                 Password
               </Label>
               <Input
                 type="password"
-                name="signupPassword"
-                id="signupPassword"
+                name={PASSWORD}
+                id={PASSWORD}
                 tag={Field}
-                onChange={(event: React.FormEvent<HTMLInputElement>) => {
-                  setFieldValue('signupPassword', event.currentTarget.value);
-
-                  if (this.state.providerError !== null) {
-                    this.setState({ providerError: null });
-                  }
-                }}
+                onChange={(event: React.FormEvent<HTMLInputElement>) => this.handleChange(PASSWORD, event, setFieldValue)}
                 placeholder="********"
-                invalid={!!errors.signupPassword && touched.signupPassword}
+                invalid={!!errors[PASSWORD] && touched[PASSWORD]}
               />
-              <FormFeedback>{errors.signupPassword}</FormFeedback>
+              <FormFeedback>{errors[PASSWORD]}</FormFeedback>
             </FormGroup>
 
             <FormGroup>
-              <Label for="signupConfirmPassword" className="form-label">
+              <Label for={CONFIRM_PASSWORD} className="form-label">
                 Confirm Password
               </Label>
               <Input
                 type="password"
-                name="signupConfirmPassword"
-                id="signupConfirmPassword"
+                name={CONFIRM_PASSWORD}
+                id={CONFIRM_PASSWORD}
                 tag={Field}
-                onChange={(event: React.FormEvent<HTMLInputElement>) => {
-                  setFieldValue('signupConfirmPassword', event.currentTarget.value);
-
-                  if (this.state.providerError !== null) {
-                    this.setState({ providerError: null });
-                  }
-                }}
+                onChange={(event: React.FormEvent<HTMLInputElement>) => this.handleChange(CONFIRM_PASSWORD, event, setFieldValue)}
                 placeholder="Re-enter password"
-                invalid={!!errors.signupConfirmPassword && touched.signupConfirmPassword}
+                invalid={!!errors[CONFIRM_PASSWORD] && touched[CONFIRM_PASSWORD]}
               />
-              <FormFeedback>{errors.signupConfirmPassword}</FormFeedback>
+              <FormFeedback>{errors[CONFIRM_PASSWORD]}</FormFeedback>
             </FormGroup>
 
             <FormText className="mb-3" color="danger">
-              {errors.authenticationError || this.state.providerError}
+              {errors[SUBMIT_ERROR] || this.state.providerError}
             </FormText>
 
             <Row className="d-flex align-items-center justify-content-end my-5">
@@ -214,6 +202,13 @@ class SignupForm extends React.Component<SignupProps, State> {
                 <div />
               </Button>
             </Row>
+
+            <Row className="d-flex align-items-center mt-3">
+              <Col className="d-flex align-items-center justify-content-center">
+                <span className="small text-muted">Already have an account?</span>
+                <Link className="small ml-1" to="/work/login">Login</Link>
+              </Col>
+            </Row>
           </Form>
         )}
       </Formik>
@@ -221,21 +216,35 @@ class SignupForm extends React.Component<SignupProps, State> {
   }
 
   handleSubmit = (values: SignupFormInput, actions: FormikActions<SignupFormInput>) => {
+    const {
+      EMAIL,
+      FIRST_NAME,
+      LAST_NAME,
+      CONFIRM_PASSWORD,
+      SUBMIT_ERROR,
+    } = SignupFormField;
     const input = {
-      email: values.signupEmail,
-      firstName: values.signupFirstName,
-      lastName: values.signupLastName,
-      password: values.signupConfirmPassword,
+      email: values[EMAIL],
+      firstName: values[FIRST_NAME],
+      lastName: values[LAST_NAME],
+      password: values[CONFIRM_PASSWORD],
     }
 
     this.props.createUser(input)
       .then((_) => login(input.email, input.password))
       .then((_) => !auth.currentUser ? Promise.resolve() : auth.currentUser.sendEmailVerification())
       .catch((error: Error) => {
-        actions.setErrors({ authenticationError: getFriendlyErrorMessage(error) });
+        actions.setErrors({ [SUBMIT_ERROR]: getFriendlyErrorMessage(error) });
         actions.setSubmitting(false);
       });
   };
+
+  handleChange = (htmlId: string, event: React.FormEvent<HTMLInputElement>, setFieldValue: (field: string, value: any) => void) => {
+    setFieldValue(htmlId, event.currentTarget.value);
+    if (this.state.providerError !== null) {
+      this.setState({ providerError: null });
+    }
+  }
 
   signInWithProvider = (callback: () => Promise<any>) => {
     callback()

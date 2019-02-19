@@ -2,6 +2,7 @@ import { Field, Formik, FormikActions } from 'formik';
 import * as React from 'react';
 import { Button, Col, FormFeedback, FormText, Form, FormGroup, Input, Label, Row } from 'reactstrap';
 import { compose, graphql } from 'react-apollo';
+import { Link } from 'react-router-dom';
 import * as Yup from 'yup';
 
 import { CREATE_OR_LOGIN_WITH_PROVIDERS, User } from 'networking/users';
@@ -13,18 +14,27 @@ interface LoginProps {
 }
 
 const LoginSchema = Yup.object().shape({
-  loginEmail: Yup.string()
+  email: Yup.string()
     .email('Please enter a valid email address.')
     .required('Please enter an email address.'),
-  loginPassword: Yup.string()
+  password: Yup.string()
     .min(8, 'Your password is too short, please enter a valid password')
     .required('Please enter a valid password.'),
 });
 
+enum LoginFormField {
+  EMAIL = 'email',
+  FIRST_NAME = 'firstName',
+  LAST_NAME = 'lastName',
+  PASSWORD = 'password',
+  CONFIRM_PASSWORD = 'confirmPassword',
+  SUBMIT_ERROR = 'submitError',
+}
+
 interface LoginFormInput {
-  loginEmail: string;
-  loginPassword: string;
-  authenticationError: string;
+  [LoginFormField.EMAIL]: string;
+  [LoginFormField.PASSWORD]: string;
+  [LoginFormField.SUBMIT_ERROR]: string;
 }
 
 interface State {
@@ -37,12 +47,17 @@ class LoginForm extends React.Component<LoginProps, State> {
   }
 
   render() {
+    const {
+      EMAIL,
+      PASSWORD,
+      SUBMIT_ERROR
+    } = LoginFormField;
     return (
       <Formik
         initialValues={{
-          loginEmail: '',
-          loginPassword: '',
-          authenticationError: '',
+          [EMAIL]: '',
+          [PASSWORD]: '',
+          [SUBMIT_ERROR]: '',
         }}
         validationSchema={LoginSchema}
         onSubmit={this.handleSubmit}
@@ -56,29 +71,23 @@ class LoginForm extends React.Component<LoginProps, State> {
               <p>Login to manage your account.</p>
             </div>
             <FormGroup>
-              <Label for="loginEmail" className="form-label">
+              <Label for={EMAIL} className="form-label">
                 Email Address
               </Label>
               <Input
                 type="email"
-                name="loginEmail"
-                id="loginEmail"
+                name={EMAIL}
+                id={EMAIL}
                 tag={Field}
-                onChange={(event: React.FormEvent<HTMLInputElement>) => {
-                  setFieldValue('loginEmail', event.currentTarget.value);
-
-                  if (this.state.providerError !== null) {
-                    this.setState({ providerError: null });
-                  }
-                }}
+                onChange={(event: React.FormEvent<HTMLInputElement>) => this.handleChange(EMAIL, event, setFieldValue)}
                 placeholder="Email address"
-                invalid={!!errors.loginEmail && touched.loginEmail}
+                invalid={!!errors[EMAIL] && touched[EMAIL]}
               />
-              <FormFeedback>{errors.loginEmail}</FormFeedback>
+              <FormFeedback>{errors[EMAIL]}</FormFeedback>
             </FormGroup>
 
             <FormGroup>
-              <Label for="loginPassword" className="form-label">
+              <Label for={PASSWORD} className="form-label">
                 <span className="d-flex justify-content-between align-items-center">
                   Password{' '}
                   <a className="link-muted text-capitalize font-weight-normal" href="/work">
@@ -88,30 +97,22 @@ class LoginForm extends React.Component<LoginProps, State> {
               </Label>
               <Input
                 type="password"
-                name="loginPassword"
-                id="loginPassword"
+                name={PASSWORD}
+                id={PASSWORD}
                 tag={Field}
-                onChange={(event: React.FormEvent<HTMLInputElement>) => {
-                  setFieldValue('loginPassword', event.currentTarget.value);
-
-                  if (this.state.providerError !== null) {
-                    this.setState({ providerError: null });
-                  }
-                }}
+                onChange={(event: React.FormEvent<HTMLInputElement>) => this.handleChange(PASSWORD, event, setFieldValue)}
                 placeholder="********"
-                invalid={!!errors.loginPassword && touched.loginPassword}
+                invalid={!!errors[PASSWORD] && touched[PASSWORD]}
               />
-              <FormFeedback>{errors.loginPassword}</FormFeedback>
+              <FormFeedback>{errors[PASSWORD]}</FormFeedback>
             </FormGroup>
 
-            <FormText className="mb-3" color="danger">{errors.authenticationError || this.state.providerError}</FormText>
+            <FormText className="mb-3" color="danger">{errors[SUBMIT_ERROR] || this.state.providerError}</FormText>
 
             <Row className="d-flex align-items-center my-5">
               <Col xs="6">
                 <span className="small text-muted">Don't have an account?</span>{' '}
-                <a className="small" href="/">
-                  Signup
-                </a>
+                <Link className="small" to="/work/signup">Signup</Link>
               </Col>
               <Col xs="6" className="text-right">
                 <Button
@@ -154,11 +155,19 @@ class LoginForm extends React.Component<LoginProps, State> {
   }
 
   handleSubmit = (values: LoginFormInput, actions: FormikActions<LoginFormInput>) => {
-    login(values.loginEmail, values.loginPassword).catch(error => {
-      actions.setErrors({ authenticationError: getFriendlyErrorMessage(error) });
+    const { EMAIL, PASSWORD } = LoginFormField;
+    login(values[EMAIL], values[PASSWORD]).catch(error => {
+      actions.setErrors({ submitError: getFriendlyErrorMessage(error) });
       actions.setSubmitting(false);
     });
   };
+
+  handleChange = (htmlId: string, event: React.FormEvent<HTMLInputElement>, setFieldValue: (field: string, value: any) => void) => {
+    setFieldValue(htmlId, event.currentTarget.value);
+    if (this.state.providerError !== null) {
+      this.setState({ providerError: null });
+    }
+  }
 
   signInWithProvider = (callback: () => Promise<any>) => {
     callback()
