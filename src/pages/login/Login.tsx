@@ -5,6 +5,7 @@ import { Redirect, RouteProps } from 'react-router-dom';
 import AuthenticationHeader from 'components/work/AuthenticationHeader';
 import AuthenticationTestimonials from 'components/work/AuthenticationTestimonials';
 import { FirebaseConsumer, FirebaseUserProps } from 'HOCs/FirebaseProvider';
+import { AUTHENTICATION_CONTAINER } from 'styled/sharedClasses';
 
 import LoginForm from './LoginForm';
 
@@ -25,7 +26,7 @@ const Login = (props: RouteProps) => (
         return <Redirect to={destination} />;
       }
       return (
-        <Container className="d-flex flex-column flex-lg-row align-items-center position-relative height-lg-100vh px-0" fluid>
+        <Container className={AUTHENTICATION_CONTAINER} fluid>
           <AuthenticationHeader />
           <AuthenticationTestimonials />
           <LoginContent />
