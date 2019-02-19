@@ -28,7 +28,6 @@
       "ABIs/*": ["ABIs/*"],
       "assets/*": ["assets/*"],
       "components/*": ["components/*"],
-      "componentsWork/*": ["componentsWork/*"],
       "routes/*": ["components/routes/*"],
       "shared/*": ["components/shared/*"],
       "HOCs/*": ["HOCs/*"],

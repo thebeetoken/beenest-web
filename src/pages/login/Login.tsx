@@ -2,7 +2,7 @@ import * as React from 'react';
 import { Col, Container, Row, Spinner } from 'reactstrap';
 import { Redirect, RouteProps } from 'react-router-dom';
 
-import AuthenticationHeader from 'componentsWork/AuthenticationHeader';
+import AuthenticationHeader from 'components/work/AuthenticationHeader';
 import { FirebaseConsumer, FirebaseUserProps } from 'HOCs/FirebaseProvider';
 
 import LoginForm from './LoginForm';
