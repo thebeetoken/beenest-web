@@ -1,5 +1,5 @@
 import * as React from 'react';
-import { Route, Switch, Redirect } from 'react-router-dom';
+import { Route, Switch } from 'react-router-dom';
 
 import Home from './home';
 import Account from './Account';
@@ -10,8 +10,7 @@ const Work = () => (
     <Switch>
       <Route path="/work/account" component={Account} />
       <Route exact path="/work/login" component={Login} />
-      <Route exact path="/work/home" component={Home} />
-      <Redirect from="/work" to="/work/home" />
+      <Route exact path="/work" component={Home} />
     </Switch>
   </div>
 );

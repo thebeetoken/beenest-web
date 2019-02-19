@@ -183,7 +183,6 @@
     "moduleNameMapper": {
       "^assets(.*)$": "<rootDir>/src/assets$1",
       "^components(.*)$": "<rootDir>/src/components$1",
-      "^componentsWork(.*)$": "<rootDir>/src/componentsWork$1",
       "^configs(.*)$": "<rootDir>/src/configs$1",
       "^routes(.*)$": "<rootDir>/src/components/routes$1",
       "^shared(.*)$": "<rootDir>/src/components/shared$1",
