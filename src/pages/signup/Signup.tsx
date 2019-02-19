@@ -5,7 +5,8 @@ import { Redirect, RouteProps } from 'react-router-dom';
 import AuthenticationHeader from 'components/work/AuthenticationHeader';
 import AuthenticationTestimonials from 'components/work/AuthenticationTestimonials';
 import { FirebaseConsumer, FirebaseUserProps } from 'HOCs/FirebaseProvider';
-import { AUTHENTICATION_CONTAINER } from 'styled/sharedClasses';
+import { AUTHENTICATION_CONTAINER, AUTHENTICATION_CONTENT } from 'styled/sharedClasses/authentication';
+import { VIEWPORT_CENTER_LAYOUT } from 'styled/sharedClasses/layout';
 
 import SignupForm from './SignupForm';
 
@@ -14,7 +15,7 @@ const Signup = (props: RouteProps) => (
     {({ loading, user }: FirebaseUserProps) => {
       if (loading) {
         return (
-          <Container className="d-flex align-items-center justify-content-center position-relative height-100vh">
+          <Container className={VIEWPORT_CENTER_LAYOUT}>
             <Spinner color="primary" style={{ width: '8rem', height: '8rem' }} type="grow" />
           </Container>
         );
@@ -40,7 +41,7 @@ const SignupContent = () => (
   <Container>
     <Row noGutters>
       <Col
-        className="space-1 space-md-3 space-lg-0"
+        className={AUTHENTICATION_CONTENT}
         md={{ size: 8, offset: 2 }}
         lg={{ size: 7, offset: 2 }}
         xl={{ size: 6, offset: 3 }}
