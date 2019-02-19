@@ -15,20 +15,9 @@ interface Props {
 
 interface State {
   completed: {
-    cardExpiry: boolean;
-    cardNumber: boolean;
-    cardCvc: boolean;
-    name: boolean;
-    postalCode: boolean;
     [key: string]: boolean;
   },
   errors: {
-    cardExpiry: string;
-    cardNumber: string;
-    cardCvc: string;
-    name: string;
-    postalCode: string;
-    submit: string;
     [key: string]: string;
   };
   isSubmitting: boolean;
@@ -52,12 +41,13 @@ enum NewCardField {
 class NewCardForm extends React.Component<Props, State> {
   readonly state: State = {
     completed: Object.values(NewCardField)
-      .reduce((obj, curr) => { return { ...obj, [curr]: false }}, {}),
+      .reduce((result, key) => { return { ...result, [key]: false }}, {}),
     errors: Object.values(NewCardField)
-      .reduce((obj, curr) => { return { ...obj, [curr]: '' }}, {}),
+      .reduce((result, key) => { return { ...result, [key]: '' }}, {}),
     [NewCardField.NAME]: '',  // name isn't a stripe element component; must collect separately
     isSubmitting: false,
   }
+
   render () {
     const { errors, isSubmitting } = this.state;
     return (  
@@ -153,7 +143,7 @@ class NewCardForm extends React.Component<Props, State> {
           </Col>
           <Col md={4} className="text-right">
             <Button
-              disabled={isSubmitting || !this.isFilledOut() || this.hasErrors()}
+              disabled={isSubmitting || !this.isCompleted() || this.hasErrors()}
               className="btn-success transition-3d-hover"
               color="success"
               onClick={this.handleSubmit}
@@ -199,7 +189,7 @@ class NewCardForm extends React.Component<Props, State> {
     });
   };
   
-  isFilledOut = () => {
+  isCompleted = () => {
     const { completed } = this.state;
     for (let key in completed) {
       if (!completed[key]) return false;
