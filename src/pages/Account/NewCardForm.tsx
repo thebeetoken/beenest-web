@@ -5,12 +5,7 @@ import { compose, graphql } from 'react-apollo';
 import { injectStripe, CardNumberElement, CardExpiryElement, CardCVCElement, PostalCodeElement } from 'react-stripe-elements';
 import StripeWrapper from 'HOCs/StripeWrapper';
 import styled from 'styled-components';
-
-interface AlertProperties {
-  msg: string,
-  color: string,
-  show: boolean,
-}
+import { AlertProperties } from 'components/work/Alert/Alert';
 
 interface Props {
   stripe: Window['Stripe'];

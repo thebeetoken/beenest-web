@@ -8,15 +8,10 @@ import AudioLoading from 'shared/loading/AudioLoading';
 
 import NewCardForm from './NewCardForm';
 import DeleteCardForm from './DeleteCardForm';
+import { AlertProperties } from 'components/work/Alert/Alert';
 
 interface Props extends RouterProps {
   creditBalance: CreditBalance;
-}
-
-interface AlertProperties {
-  msg: string,
-  color: string,
-  show: boolean,
 }
 
 enum ModalType {
@@ -54,7 +49,7 @@ const AccountPayment = ({ creditBalance }: Props) => {
 
         return (
           <section>
-            <Alert color="success" isOpen={!!alert.show} toggle={() => setAlert({ ...alert, show: !alert.show })}>{alert.msg}</Alert>
+            <Alert color={alert.color} isOpen={!!alert.show} toggle={() => setAlert({ ...alert, show: !alert.show })}>{alert.msg}</Alert>
 
             <Row>
               <Col xs="12">

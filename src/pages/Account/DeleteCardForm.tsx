@@ -3,12 +3,7 @@ import { compose, graphql } from 'react-apollo';
 
 import { DELETE_PAYMENT_SOURCE, GET_PAYMENT_SOURCES, PaymentSource } from 'networking/paymentSources';
 import { Button, ModalBody, ModalFooter } from 'reactstrap';
-
-interface AlertProperties {
-  msg: string,
-  color: string,
-  show: boolean,
-}
+import { AlertProperties } from 'components/work/Alert/Alert';
 
 interface Props {
   paymentSource: PaymentSource;
@@ -24,7 +19,7 @@ const DeleteCardForm = ({ deletePaymentSource, handleModal, paymentSource, setAl
         handleModal();
         setAlert({
           color: 'success',
-          msg: `Success! Your card ${paymentSource.stripeBrand} ending in ${paymentSource.stripeLast4} has been deleted.`,
+          msg: `Your card ${paymentSource.stripeBrand} ending in ${paymentSource.stripeLast4} has been deleted.`,
           show: true,
         });
       })
