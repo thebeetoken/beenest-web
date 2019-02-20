@@ -10,7 +10,7 @@ const Work = () => (
     <Switch>
       <Route path="/work/account" component={Account} />
       <Route exact path="/work/login" component={Login} />
-      <Route path="/work" component={Home} />
+      <Route exact path="/work" component={Home} />
     </Switch>
   </div>
 );

@@ -131,7 +131,7 @@ class LoginForm extends React.Component<LoginProps, State> {
                 type="button"
                 onClick={this.signInWithProvider.bind(this, signInWithGooglePopUp)}
               >
-                 <i className="fa fa-google" />
+                 <i className="fab fa-google" />
                  Sign in with Google
                  <div />
               </Button>
@@ -141,7 +141,7 @@ class LoginForm extends React.Component<LoginProps, State> {
                 type="button"
                 onClick={this.signInWithProvider.bind(this, signInWithFacebookPopUp)}
               >
-                <i className="fa fa-facebook" />
+                <i className="fab fa-facebook" />
                 Sign in with Facebook
                 <div />
               </Button>
