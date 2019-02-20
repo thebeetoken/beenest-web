@@ -35,16 +35,18 @@ const AccountPayment = ({ creditBalance }: Props) => {
         }
         const paymentSources = data.getPaymentSources;
         const renderPaymentSources = paymentSources.map((paymentSource: PaymentSource) => (
-          <ListGroupItem
-            className="w-100 d-flex justify-content-between align-items-center cursor-pointer"
-            id={paymentSource.id}
+          <a
             key={paymentSource.id}
             onClick={() => handleModalAction(ModalType.DELETE_CARD, paymentSource)}>
-            <h6 className="mb-0">
-              {paymentSource.stripeBrand}&nbsp;(...{paymentSource.stripeLast4})
-            </h6>
-            <i className="fas fa-trash-alt" />
-          </ListGroupItem>
+            <ListGroupItem
+              className="w-100 d-flex justify-content-between align-items-center cursor-pointer"
+              id={paymentSource.id}>
+              <h6 className="mb-0">
+                {paymentSource.stripeBrand}&nbsp;(...{paymentSource.stripeLast4})
+              </h6>
+              <i className="fas fa-trash-alt" />
+            </ListGroupItem>
+          </a>
         ));
 
         return (
