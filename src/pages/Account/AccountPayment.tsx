@@ -11,13 +11,21 @@ interface Props extends RouterProps {
   creditBalance: CreditBalance;
 }
 
-type ModalType = 'ADD_NEW_CARD' | 'DELETE_CARD' | '';
+enum ModalType {
+  ADD_NEW_CARD = 'ADD_NEW_CARD',
+  DELETE_CARD = 'DELETE_CARD',
+}
 
 const AccountPayment = ({ creditBalance }: Props) => {
-  const [modal, setModal] = React.useState<ModalType>('');
-  const [alert, setAlert] = React.useState<String>('');
+  const [modal, setModal] = React.useState<ModalType | undefined>(undefined);
+  const [alert, setAlert] = React.useState<string>('');
   const [paymentSource, setPaymentSource] = React.useState<PaymentSource | undefined>(undefined);
 
+  function handleModal(modal?: ModalType, paymentSource?: PaymentSource) {
+    setModal(modal);
+    setPaymentSource(paymentSource);
+  }
+  
   return (
     <Query query={GET_PAYMENT_SOURCES}>
       {({ loading, error, data }) => {
@@ -37,7 +45,7 @@ const AccountPayment = ({ creditBalance }: Props) => {
             <h6 className="mb-0">
               {paymentSource.stripeBrand}&nbsp;(...{paymentSource.stripeLast4})
             </h6>
-            <i onClick={() => handleModal('DELETE_CARD', paymentSource)} className="fas fa-trash-alt" />
+            <i onClick={() => handleModal(ModalType.DELETE_CARD, paymentSource)} className="fas fa-trash-alt" />
           </ListGroupItem>
         ));
 
@@ -55,14 +63,14 @@ const AccountPayment = ({ creditBalance }: Props) => {
 
             <Row>
               <Col xs="12">
-                <div onClick={() => handleModal('ADD_NEW_CARD')} className="w-auto d-inline-block align-items-center">
+                <div onClick={() => handleModal(ModalType.ADD_NEW_CARD)} className="w-auto d-inline-block align-items-center">
                   <i className="fas fa-plus-circle" />
                   <h6 className="ml-2 mb-0 d-inline-block">Add New Card</h6>
                 </div>
               </Col>
             </Row>
 
-            {modal === 'ADD_NEW_CARD' && (
+            {modal === ModalType.ADD_NEW_CARD && (
               <Modal isOpen toggle={handleModal}>
                 <ModalHeader>Add New Card</ModalHeader>
                 <ModalBody>
@@ -71,9 +79,12 @@ const AccountPayment = ({ creditBalance }: Props) => {
               </Modal>
             )}
 
-            {modal === 'DELETE_CARD' && (
+            {modal === ModalType.DELETE_CARD && (
               <Modal isOpen toggle={handleModal}>
-                <DeleteCardForm handleModal={handleModal} paymentSource={paymentSource} setAlert={setAlert} />
+                <ModalHeader>Delete Card</ModalHeader>
+                <ModalBody>
+                  <DeleteCardForm handleModal={handleModal} paymentSource={paymentSource} setAlert={setAlert} />
+                </ModalBody>
               </Modal>
             )}
           </section>
@@ -81,11 +92,6 @@ const AccountPayment = ({ creditBalance }: Props) => {
       }}
     </Query>
   );
-
-  function handleModal(modal: ModalType = '', paymentSource?: PaymentSource) {
-    setModal(modal);
-    setPaymentSource(paymentSource);
-  }
 };
 
 export default AccountPayment;
