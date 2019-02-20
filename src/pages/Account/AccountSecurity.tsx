@@ -19,7 +19,8 @@ function AccountSecurity() {
     <>
       <Alert
         isOpen={alert.show}
-        color={alert.color}>
+        color={alert.color}
+        toggle={() => setAlert({ ...alert, show: false })}>
         {alert.msg}
       </Alert>
 
