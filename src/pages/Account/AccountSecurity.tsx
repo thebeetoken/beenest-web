@@ -8,36 +8,21 @@ import { User } from 'firebase';
 interface AlertProperties {
   color: string;
   msg: string;
+  show: boolean;
 }
 
 function AccountSecurity() {
-  const [alert, setAlert] = React.useState<AlertProperties>({ color: '', msg: '' });
+  const [alert, setAlert] = React.useState<AlertProperties>({ color: '', msg: '', show: false });
   const [isSubmitting, setSubmitting] = React.useState<boolean>(false);
-
-  function handleClick(user: User) {
-    if (!user.email) return;
-    
-    setSubmitting(true);
-    resetPassword(user.email)
-      .then(() => {
-        setAlert({
-          color: 'success',
-          msg: getDisplaySuccessMessage(SuccessMessage.CHECK_EMAIL),
-        });
-      })
-      .catch(() => {
-        setAlert({
-          color: 'danger',
-          msg: getDisplayErrorMessage(ErrorMessage.GENERIC),
-        });
-      })
-      .finally(() => {
-        setSubmitting(false);
-      });
-  }
 
   return (
     <>
+      <Alert
+        isOpen={alert.show}
+        color={alert.color}>
+        {alert.msg}
+      </Alert>
+
       <FirebaseConsumer>
         {({ user }: FirebaseUserProps) => (
           <ListGroup className="mb-2 d-flex flex-column">
@@ -56,15 +41,32 @@ function AccountSecurity() {
           </ListGroup>
         )}
       </FirebaseConsumer>
-
-      {alert.msg &&
-        <Alert
-          color={alert.color}>
-          {alert.msg}
-        </Alert>
-      }
     </>
   );
+
+  function handleClick(user: User) {
+    if (!user.email) return;
+    
+    setSubmitting(true);
+    resetPassword(user.email)
+      .then(() => {
+        setAlert({
+          color: 'success',
+          msg: getDisplaySuccessMessage(SuccessMessage.CHECK_EMAIL),
+          show: true,
+        });
+      })
+      .catch(() => {
+        setAlert({
+          color: 'danger',
+          msg: getDisplayErrorMessage(ErrorMessage.GENERIC),
+          show: true,
+        });
+      })
+      .finally(() => {
+        setSubmitting(false);
+      });
+  }
 }
 
 export default AccountSecurity;
