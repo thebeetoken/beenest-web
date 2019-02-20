@@ -10,7 +10,7 @@ import { AlertProperties } from 'components/work/Alert/Alert';
 interface Props {
   stripe: Window['Stripe'];
   createPaymentSource: (stripeToken: string) => void;
-  handleModal: (modal?: string) => void;
+  handleModalAction: (modal?: string) => void;
   setAlert: (alert: AlertProperties) => void;
 }
 
@@ -208,7 +208,7 @@ class NewCardForm extends React.Component<Props, State> {
 
   handleSubmit = (event: React.FormEvent): void => {
     event.preventDefault();
-    const { createPaymentSource, handleModal,  setAlert, stripe } = this.props;
+    const { createPaymentSource, handleModalAction,  setAlert, stripe } = this.props;
 
     this.setState({ isSubmitting: true },
       () => (
@@ -217,7 +217,7 @@ class NewCardForm extends React.Component<Props, State> {
             return createPaymentSource(token.id);
           })
           .then(() => {
-            this.setState({ isSubmitting: false }, handleModal);
+            this.setState({ isSubmitting: false }, handleModalAction);
             setAlert({
               color: 'success',
               msg: 'Success! Your new card has been added.',
@@ -269,9 +269,9 @@ const EnhancedNewCardForm = compose(
   })
 )(injectStripe(NewCardForm));
 
-const StripeWrappedNewCardForm = ({ handleModal, setAlert }: any) => (
+const StripeWrappedNewCardForm = ({ handleModalAction, setAlert }: any) => (
   <StripeWrapper>
-    <EnhancedNewCardForm handleModal={handleModal} setAlert={setAlert} />
+    <EnhancedNewCardForm handleModalAction={handleModalAction} setAlert={setAlert} />
   </StripeWrapper>
 )
 

@@ -8,15 +8,15 @@ import { AlertProperties } from 'components/work/Alert/Alert';
 interface Props {
   paymentSource: PaymentSource;
   deletePaymentSource: (paymentSourceId: string) => Promise<any>;
-  handleModal: () => void;
+  handleModalAction: () => void;
   setAlert: (alert: AlertProperties) => void;
 }
 
-const DeleteCardForm = ({ deletePaymentSource, handleModal, paymentSource, setAlert }: Props) => {
+const DeleteCardForm = ({ deletePaymentSource, handleModalAction, paymentSource, setAlert }: Props) => {
   const handleDelete = () => {
     return deletePaymentSource(paymentSource.id)
       .then(() => {
-        handleModal();
+        handleModalAction();
         setAlert({
           color: 'success',
           msg: `Your card ${paymentSource.stripeBrand} ending in ${paymentSource.stripeLast4} has been deleted.`,
@@ -44,7 +44,7 @@ const DeleteCardForm = ({ deletePaymentSource, handleModal, paymentSource, setAl
 
       <Row>
         <Col className="text-right">
-          <Button color="secondary" onClick={() => handleModal()}>Cancel</Button>{' '}
+          <Button color="secondary" onClick={() => handleModalAction()}>Cancel</Button>{' '}
           <Button color="primary" onClick={() => handleDelete()}>Delete Card</Button>
         </Col>
       </Row>

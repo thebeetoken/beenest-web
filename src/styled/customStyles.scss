@@ -1,5 +1,5 @@
 .carousel-item {
-  >img {
+  > img {
     height: 100%;
     object-fit: cover;
     object-position: center;
@@ -12,6 +12,20 @@
       left: auto;
       right: auto;
       top: auto;
+    }
+  }
+}
+
+// bootstrap does not natively have this class
+.cursor-pointer {
+  cursor: pointer;
+}
+
+* {
+  &:disabled {
+    cursor: not-allowed;
+    &:hover {
+      transform: none;
     }
   }
 }
