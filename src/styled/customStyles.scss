@@ -16,11 +16,6 @@
   }
 }
 
-// bootstrap does not natively have this class
-.cursor-pointer {
-  cursor: pointer;
-}
-
 * {
   &:disabled {
     cursor: not-allowed;
