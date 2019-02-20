@@ -2,13 +2,21 @@ import * as React from 'react';
 import { ListGroup, ListGroupItem, Row, Col, Modal, ModalHeader, ModalBody, Alert } from 'reactstrap';
 import { Query } from 'react-apollo';
 import { GET_PAYMENT_SOURCES, PaymentSource } from 'networking/paymentSources';
-import AudioLoading from 'shared/loading/AudioLoading';
 import { CreditBalance } from 'networking/users';
+
+import AudioLoading from 'shared/loading/AudioLoading';
+
 import NewCardForm from './NewCardForm';
 import DeleteCardForm from './DeleteCardForm';
 
 interface Props extends RouterProps {
   creditBalance: CreditBalance;
+}
+
+interface AlertProperties {
+  msg: string,
+  color: string,
+  show: boolean,
 }
 
 enum ModalType {
@@ -18,13 +26,8 @@ enum ModalType {
 
 const AccountPayment = ({ creditBalance }: Props) => {
   const [modal, setModal] = React.useState<ModalType | undefined>(undefined);
-  const [alert, setAlert] = React.useState<string>('');
+  const [alert, setAlert] = React.useState<AlertProperties>({ msg: '', color: '', show: false });
   const [paymentSource, setPaymentSource] = React.useState<PaymentSource | undefined>(undefined);
-
-  function handleModal(modal?: ModalType, paymentSource?: PaymentSource) {
-    setModal(modal);
-    setPaymentSource(paymentSource);
-  }
   
   return (
     <Query query={GET_PAYMENT_SOURCES}>
@@ -51,7 +54,7 @@ const AccountPayment = ({ creditBalance }: Props) => {
 
         return (
           <section>
-            {alert && <Alert color="success">{alert}</Alert>}
+            <Alert color="success" isOpen={!!alert.show} toggle={() => setAlert({ ...alert, show: !alert.show })}>{alert.msg}</Alert>
 
             <Row>
               <Col xs="12">
@@ -92,6 +95,11 @@ const AccountPayment = ({ creditBalance }: Props) => {
       }}
     </Query>
   );
+
+  function handleModal(modal?: ModalType, paymentSource?: PaymentSource) {
+    setModal(modal);
+    setPaymentSource(paymentSource);
+  }
 };
 
 export default AccountPayment;

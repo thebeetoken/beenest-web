@@ -6,11 +6,17 @@ import { injectStripe, CardNumberElement, CardExpiryElement, CardCVCElement, Pos
 import StripeWrapper from 'HOCs/StripeWrapper';
 import styled from 'styled-components';
 
+interface AlertProperties {
+  msg: string,
+  color: string,
+  show: boolean,
+}
+
 interface Props {
   stripe: Window['Stripe'];
   createPaymentSource: (stripeToken: string) => void;
   handleModal: (modal?: string) => void;
-  setAlert: (msg?: string) => void;
+  setAlert: (alert: AlertProperties) => void;
 }
 
 interface State {
@@ -217,7 +223,11 @@ class NewCardForm extends React.Component<Props, State> {
           })
           .then(() => {
             this.setState({ isSubmitting: false }, handleModal);
-            setAlert('Success! Your new card has been added.');
+            setAlert({
+              color: 'success',
+              msg: 'Success! Your new card has been added.',
+              show: true,
+            });
           })
           .catch((error: Error) => {
             console.error('error: ', error);

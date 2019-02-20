@@ -2,13 +2,19 @@ import * as React from 'react';
 import { compose, graphql } from 'react-apollo';
 
 import { DELETE_PAYMENT_SOURCE, GET_PAYMENT_SOURCES, PaymentSource } from 'networking/paymentSources';
-import { Button, ModalHeader, ModalBody, ModalFooter } from 'reactstrap';
+import { Button, ModalBody, ModalFooter } from 'reactstrap';
+
+interface AlertProperties {
+  msg: string,
+  color: string,
+  show: boolean,
+}
 
 interface Props {
   paymentSource: PaymentSource;
   deletePaymentSource: (paymentSourceId: string) => Promise<any>;
   handleModal: () => void;
-  setAlert: (msg?: string) => void;
+  setAlert: (alert: AlertProperties) => void;
 }
 
 const DeleteCardForm = ({ deletePaymentSource, handleModal, paymentSource, setAlert }: Props) => {
@@ -16,13 +22,23 @@ const DeleteCardForm = ({ deletePaymentSource, handleModal, paymentSource, setAl
     return deletePaymentSource(paymentSource.id)
       .then(() => {
         handleModal();
-        setAlert(`Success! Your card ${paymentSource.stripeBrand} ending in ${paymentSource.stripeLast4} has been deleted.`);
+        setAlert({
+          color: 'success',
+          msg: `Success! Your card ${paymentSource.stripeBrand} ending in ${paymentSource.stripeLast4} has been deleted.`,
+          show: true,
+        });
       })
-      .catch((error: any) => alert('Oops! Something went wrong:\n\n' + error));
+      .catch((error: any) =>
+        setAlert({
+          color: 'danger',
+          msg: 'Oops! Something went wrong:\n\n' + error,
+          show: true,
+        })
+      );
   }
+
   return (
     <>
-      <ModalHeader>Delete Card</ModalHeader>
       <ModalBody>
         <p>
           Are you sure you want to remove the card shown?
