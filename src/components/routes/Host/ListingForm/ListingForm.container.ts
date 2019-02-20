@@ -168,6 +168,26 @@ const ListingFormMobileContainer = styled.section`
               }
             }
           }
+          .amenities-container {
+            display: flex;
+            flex-direction: column;
+            margin-bottom: 24px;
+            ul {
+              columns: 2;
+              margin: 0;
+              padding: 0;
+              width: 100%;
+              .bee-list-item {
+                align-items: flex-start;
+                break-inside: avoid;
+                margin-bottom: 8px;
+                width: 100%;
+                span {
+                  padding-top: 2px;
+                }
+              }
+            }
+          }
         }
       }
     }

@@ -104,6 +104,7 @@ const SleepingArrangement = () => (
   <div>
     <h3>Sleeping Arrangement</h3>
     <p>Sleeping Arrangement must include the quantity and size of beds.</p>
+    <p>Don’t forget to add <span>#</span> and <span>type</span> of bed!</p>
   </div>
 );
 
@@ -128,10 +129,56 @@ const SharedBathroom = () => (
   </div>
 );
 
+const amenities = [
+  'Wifi (charges apply)',
+  'Ironing facilities',
+  'Air conditioning',
+  'Free toiletries',
+  'Private bathroom',
+  'Toilet',
+  'Flat-screen TV',
+  'Heating',
+  'Minibar',
+  'Satellite channel',
+  'Shower',
+  'Cable channels',
+  'Safe',
+  'Bathtub or shower',
+  'TV',
+  'Wake-up service',
+  'Telephone',
+  'iPod dock',
+  'Hairdryer',
+  'Wardrobe or closet',
+  'Iron',
+  'Toilet paper',
+  'Bathrobe',
+]
+
 const Amenities = () => (
   <div>
-    <h3>Amenities</h3>
-    <p>Please make sure to include Wifi capabilities for business travelers. Providing the essentials helps guests feel at home in your place. Other common amenities include: TV, Heat, Air Conditioning, Iron, Hair dryer, First Aid Kit, Parking on premises, etc.</p>
+    <h1>Amenities</h1>
+    <br />
+    <div className="amenities-container">
+      <ul>
+        {(amenities || []).map(amenity =>
+          <ListItem noFlex noHover prefixColor="style" start="tiniest" key={amenity}>
+            <Svg className="prefix" src="utils/check-circle" />
+            <span>{amenity}</span>
+          </ListItem>
+        )}
+      </ul>
+    </div>
+    <p>Wait a minute! Amenities are a critical part for our travelers.</p>
+    <p>Include Wifi capabilities and working desk(s) for business travelers. Seperate listings with commas.</p>
+    <p>Bonus points for</p>
+    <ol>
+      <li>(1) going to https://fast.com/</li>
+      <li>(2) screenshotting the speed and adding it to your photos</li>
+    </ol>
+    <div className="image-container">
+      <LazyImage height="200px" width="335px" src="https://static.beenest.com/images/photo-examples/fast_internet.png" />
+    </div>
     <p>There’s no maximum to the number of amenities you can include so add as many as you’d like! </p>
   </div>
 );
