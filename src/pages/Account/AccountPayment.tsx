@@ -89,7 +89,7 @@ const AccountPayment = ({ creditBalance }: Props) => {
 
   function handleModal(modal?: ModalType, newPaymentSource?: PaymentSource) {
     setModal(modal)
-    newPaymentSource && setPaymentSource(newPaymentSource); // null check modal throws undefined error since fade out takes time
+    newPaymentSource && setPaymentSource(newPaymentSource); // null check prevents modal from rendering undefined paymentSource when fading out
   }
 };
 

@@ -2,7 +2,7 @@ import * as React from 'react';
 import { compose, graphql } from 'react-apollo';
 
 import { DELETE_PAYMENT_SOURCE, GET_PAYMENT_SOURCES, PaymentSource } from 'networking/paymentSources';
-import { Button, ModalBody, ModalFooter } from 'reactstrap';
+import { Button, Row, Col } from 'reactstrap';
 import { AlertProperties } from 'components/work/Alert/Alert';
 
 interface Props {
@@ -34,18 +34,20 @@ const DeleteCardForm = ({ deletePaymentSource, handleModal, paymentSource, setAl
 
   return (
     <>
-      <ModalBody>
-        <p>
-          Are you sure you want to remove the card shown?
-        </p>
-        <p>
-          {paymentSource.stripeBrand} XXXX-XXXX-XXXX-{paymentSource.stripeLast4}
-        </p>
-      </ModalBody>
-      <ModalFooter>
-        <Button color="secondary" onClick={() => handleModal()}>Cancel</Button>{' '}
-        <Button color="primary" onClick={() => handleDelete()}>Delete Card</Button>
-      </ModalFooter>
+      <p>
+        Are you sure you want to remove the card shown?
+      </p>
+      <p>
+        {paymentSource.stripeBrand} XXXX-XXXX-XXXX-{paymentSource.stripeLast4}
+      </p>
+      <hr />
+
+      <Row>
+        <Col className="text-right">
+          <Button color="secondary" onClick={() => handleModal()}>Cancel</Button>{' '}
+          <Button color="primary" onClick={() => handleDelete()}>Delete Card</Button>
+        </Col>
+      </Row>
     </>
   );
 };
