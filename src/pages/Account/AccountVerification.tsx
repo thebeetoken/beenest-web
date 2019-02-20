@@ -22,7 +22,7 @@ function AccountVerification() {
                 <ListGroupItem
                   disabled={phoneVerified}
                   className="mb-5"
-                  onClick={handleModal}>
+                  onClick={toggleModal}>
                   <CardBody>
                     <h6 className="mb-0">Phone (Required){' '}
                       {phoneVerified
@@ -55,7 +55,7 @@ function AccountVerification() {
               </ListGroup>
 
               {modal &&
-                <Modal isOpen toggle={handleModal}>
+                <Modal isOpen toggle={toggleModal}>
                   <ModalHeader>Verify Your Phone</ModalHeader>
                   <ModalBody>
                     <PhoneNumberVerificationForm
@@ -72,9 +72,8 @@ function AccountVerification() {
       </FirebaseConsumer>
     );
   
-    function handleModal() {
-      console.log('asdf');
-      setModal(true);
+    function toggleModal() {
+      setModal(!modal);
     }
 }
 
