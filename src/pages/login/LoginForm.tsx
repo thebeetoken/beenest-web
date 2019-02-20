@@ -37,153 +37,145 @@ interface LoginFormInput {
   [LoginFormField.SUBMIT_ERROR]: string;
 }
 
-interface State {
-  providerError: string | null;
-}
+const LoginForm = (props: LoginProps) => {
+  const [providerError, setError] = React.useState<String | null>(null);
+  const { EMAIL, PASSWORD, SUBMIT_ERROR } = LoginFormField;
 
-class LoginForm extends React.Component<LoginProps, State> {
-  readonly state = {
-    providerError: null,
-  }
+  return (
+    <Formik
+      initialValues={{
+        [EMAIL]: '',
+        [PASSWORD]: '',
+        [SUBMIT_ERROR]: '',
+      }}
+      validationSchema={LoginSchema}
+      onSubmit={handleSubmit}
+    >
+      {({ errors, touched, setFieldValue, submitForm, isSubmitting }) => (
+        <Form tag={FormikForm}>
+          <div className="mb-7">
+            <h2 className="h3 text-primary font-weight-normal mb-0">
+              Welcome <span className="font-weight-semi-bold">back</span>
+            </h2>
+            <p>Login to manage your account.</p>
+          </div>
+          <FormGroup>
+            <Label for={EMAIL} className="form-label">
+              Email Address
+            </Label>
+            <Input
+              type="email"
+              name={EMAIL}
+              id={EMAIL}
+              tag={Field}
+              onChange={(event: React.FormEvent<HTMLInputElement>) => handleChange(event, setFieldValue)}
+              placeholder="Email address"
+              invalid={!!errors[EMAIL] && touched[EMAIL]}
+            />
+            <FormFeedback>{errors[EMAIL]}</FormFeedback>
+          </FormGroup>
 
-  render() {
-    const {
-      EMAIL,
-      PASSWORD,
-      SUBMIT_ERROR
-    } = LoginFormField;
-    return (
-      <Formik
-        initialValues={{
-          [EMAIL]: '',
-          [PASSWORD]: '',
-          [SUBMIT_ERROR]: '',
-        }}
-        validationSchema={LoginSchema}
-        onSubmit={this.handleSubmit}
-      >
-        {({ errors, touched, setFieldValue, submitForm, isSubmitting }) => (
-          <Form tag={FormikForm}>
-            <div className="mb-7">
-              <h2 className="h3 text-primary font-weight-normal mb-0">
-                Welcome <span className="font-weight-semi-bold">back</span>
-              </h2>
-              <p>Login to manage your account.</p>
-            </div>
-            <FormGroup>
-              <Label for={EMAIL} className="form-label">
-                Email Address
-              </Label>
-              <Input
-                type="email"
-                name={EMAIL}
-                id={EMAIL}
-                tag={Field}
-                onChange={(event: React.FormEvent<HTMLInputElement>) => this.handleChange(event, setFieldValue)}
-                placeholder="Email address"
-                invalid={!!errors[EMAIL] && touched[EMAIL]}
-              />
-              <FormFeedback>{errors[EMAIL]}</FormFeedback>
-            </FormGroup>
+          <FormGroup>
+            <Label for={PASSWORD} className="form-label">
+              <span className="d-flex justify-content-between align-items-center">
+                Password{' '}
+                <a className="link-muted text-capitalize font-weight-normal" href="/work">
+                  Forgot Password?
+                </a>
+              </span>
+            </Label>
+            <Input
+              type="password"
+              name={PASSWORD}
+              id={PASSWORD}
+              tag={Field}
+              onChange={(event: React.FormEvent<HTMLInputElement>) => handleChange(event, setFieldValue)}
+              placeholder="********"
+              invalid={!!errors[PASSWORD] && touched[PASSWORD]}
+            />
+            <FormFeedback>{errors[PASSWORD]}</FormFeedback>
+          </FormGroup>
 
-            <FormGroup>
-              <Label for={PASSWORD} className="form-label">
-                <span className="d-flex justify-content-between align-items-center">
-                  Password{' '}
-                  <a className="link-muted text-capitalize font-weight-normal" href="/work">
-                    Forgot Password?
-                  </a>
-                </span>
-              </Label>
-              <Input
-                type="password"
-                name={PASSWORD}
-                id={PASSWORD}
-                tag={Field}
-                onChange={(event: React.FormEvent<HTMLInputElement>) => this.handleChange(event, setFieldValue)}
-                placeholder="********"
-                invalid={!!errors[PASSWORD] && touched[PASSWORD]}
-              />
-              <FormFeedback>{errors[PASSWORD]}</FormFeedback>
-            </FormGroup>
+          <FormText className="mb-3" color="danger">
+            {errors[SUBMIT_ERROR] || providerError}
+          </FormText>
 
-            <FormText className="mb-3" color="danger">{errors[SUBMIT_ERROR] || this.state.providerError}</FormText>
-
-            <Row className="d-flex align-items-center my-5">
-              <Col xs="6">
-                <span className="small text-muted">Don't have an account?</span>{' '}
-                <Link className="small" to="/work/signup">Signup</Link>
-              </Col>
-              <Col xs="6" className="text-right">
-                <Button
-                  className="btn-primary transition-3d-hover"
-                  type="submit"
-                  onClick={submitForm}
-                  disabled={isSubmitting}
-                  color="primary"
-                >
-                  Get Started
-                </Button>
-              </Col>
-            </Row>
-
-            <Row className="d-flex flex-column align-items-center px-3">
+          <Row className="d-flex align-items-center my-5">
+            <Col xs="6">
+              <span className="small text-muted">Don't have an account?</span>{' '}
+              <Link className="small" to="/work/signup">
+                Signup
+              </Link>
+            </Col>
+            <Col xs="6" className="text-right">
               <Button
-                className="btn-google transition-3d-hover mb-4 w-100 d-flex justify-content-between align-items-center"
-                type="button"
-                onClick={this.signInWithProvider.bind(this, signInWithGooglePopUp)}
+                className="btn-primary transition-3d-hover"
+                type="submit"
+                onClick={submitForm}
+                disabled={isSubmitting}
+                color="primary"
               >
-                 <i className="fab fa-google" />
-                 Sign in with Google
-                 <div />
+                Get Started
               </Button>
+            </Col>
+          </Row>
 
-              <Button
-                className="btn-facebook transition-3d-hover w-100 d-flex justify-content-between align-items-center"
-                type="button"
-                onClick={this.signInWithProvider.bind(this, signInWithFacebookPopUp)}
-              >
-                <i className="fab fa-facebook" />
-                Sign in with Facebook
-                <div />
-              </Button>
-            </Row>
-          </Form>
-        )}
-      </Formik>
-    );
-  }
+          <Row className="d-flex flex-column align-items-center px-3">
+            <Button
+              className="btn-google transition-3d-hover mb-4 w-100 d-flex justify-content-between align-items-center"
+              type="button"
+              onClick={signInWithProvider.bind(null, signInWithGooglePopUp)}
+            >
+              <i className="fab fa-google" />
+              Sign in with Google
+              <div />
+            </Button>
 
-  handleSubmit = (values: LoginFormInput, actions: FormikActions<LoginFormInput>) => {
+            <Button
+              className="btn-facebook transition-3d-hover w-100 d-flex justify-content-between align-items-center"
+              type="button"
+              onClick={signInWithProvider.bind(null, signInWithFacebookPopUp)}
+            >
+              <i className="fab fa-facebook" />
+              Sign in with Facebook
+              <div />
+            </Button>
+          </Row>
+        </Form>
+      )}
+    </Formik>
+  );
+
+  function handleSubmit(values: LoginFormInput, actions: FormikActions<LoginFormInput>) {
     const { EMAIL, PASSWORD } = LoginFormField;
     login(values[EMAIL], values[PASSWORD]).catch(error => {
       actions.setErrors({ submitError: getFriendlyErrorMessage(error) });
       actions.setSubmitting(false);
     });
-  };
+  }
 
-  handleChange = (event: React.FormEvent<HTMLInputElement>, setFieldValue: (field: string, value: any) => void) => {
+  function handleChange(event: React.FormEvent<HTMLInputElement>, setFieldValue: (field: string, value: any) => void) {
     const { name, value } = event.currentTarget;
     setFieldValue(name, value);
-    if (this.state.providerError !== null) {
-      this.setState({ providerError: null });
+    if (providerError !== null) {
+      setError(null);
     }
   }
 
-  signInWithProvider = (callback: () => Promise<any>) => {
+  function signInWithProvider(callback: () => Promise<any>) {
     callback()
-    .then(result => {
-      return this.props.createOrLoginWithProviders(result.user.uid);
-    })
-    .catch(error => {
-      if (error.message.includes('You are already logged in.')) {
-        return;
-      }
+      .then(result => {
+        return props.createOrLoginWithProviders(result.user.uid);
+      })
+      .catch(error => {
+        if (error.message.includes('You are already logged in.')) {
+          return;
+        }
 
-      this.setState({ providerError: error.message });
-    });
+        setError(error.message);
+      });
   }
-}
+};
 
 export default compose(
   graphql(CREATE_OR_LOGIN_WITH_PROVIDERS, {
