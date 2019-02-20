@@ -36,14 +36,14 @@ const AccountPayment = ({ creditBalance }: Props) => {
         const paymentSources = data.getPaymentSources;
         const renderPaymentSources = paymentSources.map((paymentSource: PaymentSource) => (
           <ListGroupItem
-            className="w-100 d-flex justify-content-between align-items-center cursor-pointer"
+            className="w-100 d-flex justify-content-between align-items-center"
             id={paymentSource.id}
             key={paymentSource.id}>
             <h6 className="mb-0">
               {paymentSource.stripeBrand}&nbsp;(...{paymentSource.stripeLast4})
             </h6>
             <Button
-              className="btn-icon btn-primary"
+              className="btn-icon"
               onClick={() => handleModalAction(ModalType.DELETE_CARD, paymentSource)}>
               <span className="fas fa-trash-alt btn-icon__inner"></span>
             </Button>
@@ -64,11 +64,10 @@ const AccountPayment = ({ creditBalance }: Props) => {
 
             <Row>
               <Col xs="12">
-                <Button onClick={() => handleModalAction(ModalType.ADD_NEW_CARD)}>
-                  <div className="w-auto d-inline-block align-items-center cursor-pointer">
-                    <i className="fas fa-plus-circle" />
-                    <h6 className="ml-2 mb-0 d-inline-block">Add New Card</h6>
-                  </div>
+                <Button
+                  onClick={() => handleModalAction(ModalType.ADD_NEW_CARD)}>
+                  <span className="fas fa-plus-circle pull-left mr-2"></span>
+                  Add New Card
                 </Button>
               </Col>
             </Row>
