@@ -68,32 +68,28 @@ const AccountPayment = ({ creditBalance }: Props) => {
               </Col>
             </Row>
 
-            {modal === ModalType.ADD_NEW_CARD && (
-              <Modal isOpen toggle={handleModal}>
-                <ModalHeader>Add New Card</ModalHeader>
-                <ModalBody>
-                  <NewCardForm handleModal={handleModal} setAlert={setAlert} />
-                </ModalBody>
-              </Modal>
-            )}
+            <Modal isOpen={modal === ModalType.ADD_NEW_CARD} toggle={handleModal}>
+              <ModalHeader>Add New Card</ModalHeader>
+              <ModalBody>
+                <NewCardForm handleModal={handleModal} setAlert={setAlert} />
+              </ModalBody>
+            </Modal>
 
-            {modal === ModalType.DELETE_CARD && (
-              <Modal isOpen toggle={handleModal}>
-                <ModalHeader>Delete Card</ModalHeader>
-                <ModalBody>
-                  <DeleteCardForm handleModal={handleModal} paymentSource={paymentSource} setAlert={setAlert} />
-                </ModalBody>
-              </Modal>
-            )}
+            <Modal isOpen={modal === ModalType.DELETE_CARD} toggle={handleModal}>
+              <ModalHeader>Delete Card</ModalHeader>
+              <ModalBody>
+                <DeleteCardForm handleModal={handleModal} paymentSource={paymentSource} setAlert={setAlert} />
+              </ModalBody>
+            </Modal>
           </section>
         );
       }}
     </Query>
   );
 
-  function handleModal(modal?: ModalType, paymentSource?: PaymentSource) {
-    setModal(modal);
-    setPaymentSource(paymentSource);
+  function handleModal(modal?: ModalType, newPaymentSource?: PaymentSource) {
+    setModal(modal)
+    newPaymentSource && setPaymentSource(newPaymentSource); // null check modal throws undefined error since fade out takes time
   }
 };
 
