@@ -1,4 +1,4 @@
-import { Field, Formik, FormikActions } from 'formik';
+import { Field, Formik, FormikActions, Form as FormikForm } from 'formik';
 import * as React from 'react';
 import { Button, Col, FormFeedback, FormText, Form, FormGroup, Input, Label, Row } from 'reactstrap';
 import { compose, graphql } from 'react-apollo';
@@ -63,7 +63,7 @@ class LoginForm extends React.Component<LoginProps, State> {
         onSubmit={this.handleSubmit}
       >
         {({ errors, touched, setFieldValue, submitForm, isSubmitting }) => (
-          <Form method="POST">
+          <Form tag={FormikForm}>
             <div className="mb-7">
               <h2 className="h3 text-primary font-weight-normal mb-0">
                 Welcome <span className="font-weight-semi-bold">back</span>
