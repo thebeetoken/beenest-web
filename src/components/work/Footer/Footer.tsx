@@ -35,18 +35,22 @@ const socialData = [
   {
     btnClass: 'btn-facebook',
     iconClass: 'fa-facebook-f',
+    link: 'https://www.facebook.com/thebeetoken/',
   },
   {
     btnClass: 'btn-twitter',
     iconClass: 'fa-twitter',
+    link: 'https://twitter.com/thebeetoken',
   },
   {
     btnClass: 'btn-github',
     iconClass: 'fa-github',
+    link: 'https://github.com/thebeetoken/beenest-web',
   },
   {
     btnClass: 'btn-linkedin',
     iconClass: 'fa-linkedin',
+    link: 'https://www.linkedin.com/company/beenestofficial/',
   },
 ];
 
@@ -115,13 +119,14 @@ const Footer = () => (
       </h4>
       <div className="d-flex mt-sm-5">
         {socialData.map(social => (
-          <Button
-            type="button"
-            className={`btn btn-icon transition-3d-hover mx-1 ${social.btnClass}`}
-            key={social.btnClass}
-          >
-            <span className={`fab btn-icon__inner ${social.iconClass}`} />
-          </Button>
+          <a target="_blank" href={social.link} key={social.btnClass}>
+            <Button
+              type="button"
+              className={`btn btn-icon transition-3d-hover mx-1 ${social.btnClass}`}
+            >
+              <span className={`fab btn-icon__inner ${social.iconClass}`} />
+            </Button>
+          </a>
         ))}
       </div>
     </Container>
