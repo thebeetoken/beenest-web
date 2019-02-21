@@ -10,6 +10,7 @@ import NumberInput from 'shared/NumberInput';
 import Textarea from 'shared/Textarea';
 import { TextareaEvent } from 'shared/Textarea/Textarea';
 import { stringToArray, arrayToString } from 'utils/formatter';
+import { PhotoUploader, Photo } from 'components/shared/PhotoUploader';
 
 const AccommodationsForm = (props: any): JSX.Element => {
   const { setFocus, setFieldTouched, setFieldValue, values } = props;
@@ -92,6 +93,19 @@ const AccommodationsForm = (props: any): JSX.Element => {
           value={arrayToString(values.amenities)}
           placeholder="Wifi, Towels, Soap, TV, Coffee..." />
           <StyledErrorMessage name={ListingField.AMENITIES} />
+      </div>
+
+      <div className="form-item photo" onMouseEnter={() => setFocus(ListingField.WIFI)}>
+        <InputLabel htmlFor={ListingField.WIFI} subLabel="(required)">Wifi Screenshot</InputLabel>
+        <PhotoUploader
+          initialPhotos={values.listingPicUrl ? [{ url: values.listingPicUrl }] : []}
+          maxFiles={1}
+          onClick={() => setFocus(ListingField.WIFI)}
+          onPhotosUpdated={(photo: Photo[]) => {
+            setFieldTouched(ListingField.WIFI, true);
+            setFieldValue(ListingField.WIFI, photo[0] ? photo[0].url : '');
+          }} />
+        <StyledErrorMessage name={ListingField.WIFI} />
       </div>
     </>
   );

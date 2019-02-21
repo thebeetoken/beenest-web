@@ -248,7 +248,7 @@ class ListingForm extends React.Component<Props, State> {
                   {({ screenType }: AppConsumerProps) =>
                     screenType >= ScreenType.DESKTOP && (
                       <aside>
-                        <div className="background-extender" />
+                        {/* <div className="background-extender" /> */}
                         <div className="aside-container">
                           {isFirstFocused(this.state.focus) && AsideHeaders[getCurrentCrumb(this.props.history)]}
                           {ListingHelp[this.state.focus]}

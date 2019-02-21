@@ -170,6 +170,12 @@ const Amenities = () => (
       </ul>
     </div>
     <p>Wait a minute! Amenities are a critical part for our travelers.</p>
+    <p>There’s no maximum to the number of amenities you can include so add as many as you’d like! </p>
+  </div>
+);
+
+const Wifi = () => (
+  <div>
     <p>Include Wifi capabilities and working desk(s) for business travelers. Seperate listings with commas.</p>
     <p>Bonus points for</p>
     <ol>
@@ -177,11 +183,12 @@ const Amenities = () => (
       <li>(2) screenshotting the speed and adding it to your photos</li>
     </ol>
     <div className="image-container">
-      <LazyImage height="200px" width="335px" src="https://static.beenest.com/images/photo-examples/fast_internet.png" />
+      <a href="https://fast.com/">
+        <LazyImage height="200px" width="335px" src="https://static.beenest.com/images/photo-examples/fast_internet.png" />
+      </a>
     </div>
-    <p>There’s no maximum to the number of amenities you can include so add as many as you’d like! </p>
   </div>
-);
+)
 
 const MaxGuests = () => (
   <div>
@@ -275,6 +282,7 @@ const ListingHelp: ListingHelpInterface = {
   [ListingField.NUMBER_OF_BATHROOMS]: <NumberOfBathrooms />,
   [ListingField.SHARED_BATHROOM]: <SharedBathroom />,
   [ListingField.AMENITIES]: <Amenities />,
+  [ListingField.WIFI]: <Wifi />,
 
   [ListingField.MAX_GUESTS]: <MaxGuests />,
   [ListingField.MINIMUM_NIGHTS]: <MinimumNights />,

@@ -502,4 +502,5 @@ export enum ListingField {
   SLEEPING_ARRANGEMENT = 'sleepingArrangement',
   STATE = 'state',
   TITLE = 'title',
+  WIFI = 'wifi',
 }

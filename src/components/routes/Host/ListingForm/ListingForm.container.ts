@@ -97,11 +97,14 @@ const ListingFormMobileContainer = styled.section`
 
     aside {
       background-color: ${color('light')};
+      border-radius: 8px;
       height: 100%;
       left: calc(586px + (100% - 976px) / 2);
-      position: fixed;
-      width: calc((100% - 586px) - ((100% - 976px) / 2));
-      z-index: -1;
+      position: sticky;
+      top: 168px;
+      /* width: calc((100% - 586px) - ((100% - 976px) / 2)); */
+      width: 390px;
+      z-index: 0;
       .background-extender {
         background-color: ${color('light')};
         position: absolute;
@@ -110,7 +113,7 @@ const ListingFormMobileContainer = styled.section`
         height: 64px;
       }
       .aside-container {
-        height: 608px;
+        height: 728px;
         max-width: 632px;
         padding: 40px 56px 72px;
         header {
