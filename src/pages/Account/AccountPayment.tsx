@@ -1,5 +1,5 @@
 import * as React from 'react';
-import { ListGroup, ListGroupItem, Row, Col, Modal, ModalHeader, ModalBody, Alert, Button } from 'reactstrap';
+import { ListGroup, ListGroupItem, Row, Col, Modal, ModalHeader, ModalBody, Alert, Button, UncontrolledAlert } from 'reactstrap';
 import { Query } from 'react-apollo';
 import { GET_PAYMENT_SOURCES, PaymentSource } from 'networking/paymentSources';
 import { CreditBalance } from 'networking/users';
@@ -31,7 +31,11 @@ const AccountPayment = ({ creditBalance }: Props) => {
           return <AudioLoading height={48} width={96} />;
         }
         if (error || !data) {
-          return <h4>{error ? error.message : 'Error / No Data'}</h4>;
+          return (
+            <UncontrolledAlert color="danger">
+              {error ? error.message : 'Error / No Data'}
+            </UncontrolledAlert>
+          )
         }
         const paymentSources = data.getPaymentSources;
         const renderPaymentSources = paymentSources.map((paymentSource: PaymentSource) => (
@@ -43,7 +47,7 @@ const AccountPayment = ({ creditBalance }: Props) => {
               {paymentSource.stripeBrand}&nbsp;(...{paymentSource.stripeLast4})
             </h6>
             <Button
-              className="btn-icon"
+              className="btn-icon btn-light"
               onClick={() => handleModalAction(ModalType.DELETE_CARD, paymentSource)}>
               <span className="fas fa-trash-alt btn-icon__inner"></span>
             </Button>
