@@ -8,7 +8,7 @@ type Props = Partial<{
   width: string; // '8rem'
 }>;
 
-const PulseLoading = (props: Props) => {
+const Loading = (props: Props) => {
   const { color, height, type, width } = props;
   const style = {
     height: height || '3rem',
@@ -18,4 +18,4 @@ const PulseLoading = (props: Props) => {
   return <Spinner color={color || 'primary'} style={style} type={type || 'grow'} />;
 };
 
-export default PulseLoading;
+export default Loading;
