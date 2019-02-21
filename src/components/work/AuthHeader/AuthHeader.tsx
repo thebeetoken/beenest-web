@@ -1,11 +1,13 @@
 import * as React from 'react';
 import { Navbar, NavbarBrand } from 'reactstrap';
+import { Link } from 'react-router-dom';
 
 const AuthHeader = () => (
   <>
   <Navbar className="fixed-top">
     <NavbarBrand
-      href="/work"
+      tag={Link}
+      to="/work"
       className="navbar-brand u-header__navbar-brand u-header__navbar-brand-center u-header__navbar-brand-default u-header__navbar-brand-text-white"
     >
     <div className="d-none d-lg-flex">

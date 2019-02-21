@@ -1,10 +1,11 @@
 import * as React from 'react';
-import { Col, Container, Row, Spinner } from 'reactstrap';
+import { Col, Container, Row } from 'reactstrap';
 import { Redirect, RouteProps } from 'react-router-dom';
 
 import AuthHeader from 'components/work/AuthHeader';
 import UserTestimonials from 'components/work/UserTestimonials';
 import { FirebaseConsumer, FirebaseUserProps } from 'HOCs/FirebaseProvider';
+import Loading from 'shared/loading/Loading';
 import { AUTH_CONTAINER, AUTH_CONTENT } from 'styled/sharedClasses/authentication';
 import { VIEWPORT_CENTER_LAYOUT } from 'styled/sharedClasses/layout';
 
@@ -16,7 +17,7 @@ const Login = (props: RouteProps) => (
       if (loading) {
         return (
           <Container className={VIEWPORT_CENTER_LAYOUT}>
-            <Spinner color="primary" style={{ width: '8rem', height: '8rem' }} type="grow" />
+            <Loading height="8rem" width="8rem" />
           </Container>
         );
       }
