@@ -2,13 +2,19 @@ import * as React from 'react';
 import { Button, Collapse, Navbar, NavbarToggler, NavbarBrand, Nav, NavItem, NavLink } from 'reactstrap';
 import { Link } from 'react-router-dom';
 
+import { FirebaseConsumer, FirebaseUserProps } from 'HOCs/FirebaseProvider';
 import { BeenestSVGPrimary } from 'shared/svgComponents/SvgComponents';
+import Loading from 'shared/loading/Loading';
+
+const DEFAULT_PROFILE_PHOTO = 'https://d9lhrxmc0upxv.cloudfront.net/fit-in/48x48/images/app/misc/profile.png';
+
+const helpNavItem = {
+  header: 'Help',
+  link: '/work',
+}
 
 const navItems = [
-  {
-    header: 'Help',
-    link: '/work',
-  },
+  helpNavItem,
   {
     header: 'Login',
     link: '/work/login',
@@ -19,11 +25,23 @@ const navItems = [
   },
 ];
 
+const authNavItems = [
+  helpNavItem,
+  {
+    header: 'Account',
+    link: '/work/account',
+  },
+  {
+    header: 'Logout',
+    link: '/work/logout',
+  },
+];
+
 const Header = () => {
   const [isOpen, toggleNavbar] = React.useState<boolean>(false);
 
   return (
-    <header className="fixed-top bg-white">
+    <header className="fixed-top bg-white" id="bee-main-header">
       <Navbar light expand="md">
         <NavbarBrand href="/work">
           <BeenestSVGPrimary />
@@ -34,13 +52,33 @@ const Header = () => {
             <Button type="button" outline color="primary" className="mb-4 mb-md-0 mr-md-4">
               Become a Host
             </Button>
-            {navItems.map(item => (
-              <NavItem className="px-2" key={item.header}>
-                <NavLink to={item.link} tag={Link}>
-                  {item.header}
-                </NavLink>
-              </NavItem>
-            ))}
+            <FirebaseConsumer>
+              {({ loading, user }: FirebaseUserProps) => {
+                if (loading) {
+                  return <Loading />;
+                }
+                if (user) {
+                  return (
+                    authNavItems.map(item => (
+                      <NavItem className="px-2" key={item.header}>
+                        <NavLink to={item.link} tag={Link}>
+                          {item.header}
+                        </NavLink>
+                      </NavItem>
+                    ))
+                  );
+                }
+                return (
+                  navItems.map(item => (
+                    <NavItem className="px-2" key={item.header}>
+                      <NavLink to={item.link} tag={Link}>
+                        {item.header}
+                      </NavLink>
+                    </NavItem>
+                  ))
+                );
+              }}
+            </FirebaseConsumer>
           </Nav>
         </Collapse>
       </Navbar>
@@ -50,6 +88,16 @@ const Header = () => {
   function handleToggleNavbar() {
     toggleNavbar(!isOpen);
   }
+};
+
+const getProfilePhoto = (photo: string | null | undefined, firebasePhoto: string | null | undefined): string => {
+  if (photo) {
+    return photo;
+  } else if (firebasePhoto) {
+    return firebasePhoto;
+  }
+
+  return DEFAULT_PROFILE_PHOTO;
 };
 
 export default Header;
