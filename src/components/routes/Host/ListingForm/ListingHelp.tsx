@@ -1,4 +1,5 @@
 import * as React from 'react';
+
 import ListItem from 'shared/ListItem';
 import Svg from 'shared/Svg';
 import LazyImage from 'shared/LazyImage';
@@ -129,62 +130,32 @@ const SharedBathroom = () => (
   </div>
 );
 
-const amenities = [
-  'Wifi (charges apply)',
-  'Ironing facilities',
-  'Air conditioning',
-  'Free toiletries',
-  'Private bathroom',
-  'Toilet',
-  'Flat-screen TV',
-  'Heating',
-  'Minibar',
-  'Satellite channel',
-  'Shower',
-  'Cable channels',
-  'Safe',
-  'Bathtub or shower',
-  'TV',
-  'Wake-up service',
-  'Telephone',
-  'iPod dock',
-  'Hairdryer',
-  'Wardrobe or closet',
-  'Iron',
-  'Toilet paper',
-  'Bathrobe',
-]
-
 const Amenities = () => (
   <div>
-    <h1>Amenities</h1>
-    <br />
-    <div className="amenities-container">
-      <ul>
-        {(amenities || []).map(amenity =>
-          <ListItem noFlex noHover prefixColor="style" start="tiniest" key={amenity}>
-            <Svg className="prefix" src="utils/check-circle" />
-            <span>{amenity}</span>
-          </ListItem>
-        )}
-      </ul>
+    <div className="image-examples-container">
+      <div className="image-container">
+        <LazyImage height="156px" width="477px" src="https://static.beenest.com/images/photo-examples/amenities_example.png" />
+      </div>
     </div>
     <p>Wait a minute! Amenities are a critical part for our travelers.</p>
-    <p>There’s no maximum to the number of amenities you can include so add as many as you’d like! </p>
+    <p>Include <span>Wifi capabilities</span> and <span>working desk(s)</span> for business travelers. Separate amenities with commas.</p>
+    <p>There’s no maximum to the number of amenities you can include so add as many as you’d like! The more the better.</p>
+    <p>Adding essentials quickly helps guests assess your place. Time is money, right?</p>
   </div>
 );
 
 const Wifi = () => (
   <div>
-    <p>Include Wifi capabilities and working desk(s) for business travelers. Seperate listings with commas.</p>
     <p>Bonus points for</p>
     <ol>
-      <li>(1) going to https://fast.com/</li>
-      <li>(2) screenshotting the speed and adding it to your photos</li>
+      <li>Going to <a href="https://fast.com/">https://fast.com/</a></li>
+      <li>Screenshotting the speed and adding it to your photos</li>
     </ol>
-    <div className="image-container">
+    <div className="image-examples-container">
       <a href="https://fast.com/">
-        <LazyImage height="200px" width="335px" src="https://static.beenest.com/images/photo-examples/fast_internet.png" />
+        <div className="image-container">
+            <LazyImage height="200px" width="335px" src="https://static.beenest.com/images/photo-examples/fast_internet.png" />
+        </div>
       </a>
     </div>
   </div>

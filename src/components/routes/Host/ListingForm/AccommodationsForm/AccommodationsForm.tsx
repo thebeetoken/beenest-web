@@ -94,7 +94,7 @@ const AccommodationsForm = (props: any): JSX.Element => {
       </div>
 
       <div className="form-item photo" onMouseEnter={() => setFocus(ListingField.WIFI)}>
-        <InputLabel htmlFor={ListingField.WIFI} subLabel="(required)">Wifi Screenshot</InputLabel>
+        <InputLabel htmlFor={ListingField.WIFI} subLabel="(recommended)">Wifi Screenshot</InputLabel>
         <PhotoUploader
           initialPhotos={values.listingPicUrl ? [{ url: values.listingPicUrl }] : []}
           maxFiles={1}

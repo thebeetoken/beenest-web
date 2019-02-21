@@ -151,6 +151,9 @@ const ListingFormDesktopContainer = styled(ListingFormTabletContainer)`
             }
           }
           > div {
+            a {
+              color: ${color('secondary')};
+            }
             h3 {
               ${typography('read', 1)}
               margin-bottom: 24px;
@@ -189,31 +192,8 @@ const ListingFormDesktopContainer = styled(ListingFormTabletContainer)`
               flex-wrap: wrap;
               justify-content: space-between;
               .image-container {
-                display: flex;
-                flex-direction: column;
-                width: 240px;
                 .bee-lazy-image {
                   margin-bottom: 16px;
-                }
-              }
-            }
-            .amenities-container {
-              display: flex;
-              flex-direction: column;
-              margin-bottom: 24px;
-              ul {
-                columns: 2;
-                margin: 0;
-                padding: 0;
-                width: 100%;
-                .bee-list-item {
-                  align-items: flex-start;
-                  break-inside: avoid;
-                  margin-bottom: 8px;
-                  width: 100%;
-                  span {
-                    padding-top: 2px;
-                  }
                 }
               }
             }
