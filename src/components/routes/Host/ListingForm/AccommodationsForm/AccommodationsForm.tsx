@@ -75,9 +75,7 @@ const AccommodationsForm = (props: any): JSX.Element => {
             setFieldTouched(ListingField.SHARED_BATHROOM, true);
             setFocus(ListingField.SHARED_BATHROOM);
           }}>
-          <InputLabel>
-            Shared Bathroom
-          </InputLabel>
+          Shared Bathroom
         </Checkbox>
       </div>
 
