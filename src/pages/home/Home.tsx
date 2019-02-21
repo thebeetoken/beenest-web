@@ -15,6 +15,8 @@ import {
 } from 'reactstrap';
 import { Link } from 'react-router-dom';
 
+import Footer from 'components/work/Footer';
+
 interface State {
   isOpen: boolean;
 }
@@ -31,7 +33,8 @@ class Home extends React.Component<State> {
   }
   render() {
     return (
-      <div>
+      <>
+      <div className="height-100vh">
         <Navbar color="inverse" light expand="md">
           <NavbarBrand href="/">reactstrap</NavbarBrand>
           <NavbarToggler onClick={this.toggle} />
@@ -61,6 +64,8 @@ class Home extends React.Component<State> {
           </Container>
         </Jumbotron>
       </div>
+      <Footer />
+      </>
     );
   }
 }
