@@ -6,8 +6,6 @@ import { FirebaseConsumer, FirebaseUserProps } from 'HOCs/FirebaseProvider';
 import { BeenestSVGPrimary } from 'shared/svgComponents/SvgComponents';
 import Loading from 'shared/loading/Loading';
 
-const DEFAULT_PROFILE_PHOTO = 'https://d9lhrxmc0upxv.cloudfront.net/fit-in/48x48/images/app/misc/profile.png';
-
 const helpNavItem = {
   header: 'Help',
   link: '/work',
@@ -88,16 +86,6 @@ const Header = () => {
   function handleToggleNavbar() {
     toggleNavbar(!isOpen);
   }
-};
-
-const getProfilePhoto = (photo: string | null | undefined, firebasePhoto: string | null | undefined): string => {
-  if (photo) {
-    return photo;
-  } else if (firebasePhoto) {
-    return firebasePhoto;
-  }
-
-  return DEFAULT_PROFILE_PHOTO;
 };
 
 export default Header;
