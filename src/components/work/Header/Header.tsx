@@ -47,9 +47,11 @@ const Header = () => {
         <NavbarToggler onClick={handleToggleNavbar} className="mr-2" />
         <Collapse isOpen={isOpen} navbar>
           <Nav className="ml-auto u-header__navbar-nav pt-5 pt-md-0" navbar>
-            <Button type="button" outline color="primary" className="mb-4 mb-md-0 mr-md-4">
-              Become a Host
-            </Button>
+            <a href="/hosts/signup">
+              <Button className="mb-4 mb-md-0 mr-md-4" type="button" outline color="primary">
+                Become a Host
+              </Button>
+            </a>
             <FirebaseConsumer>
               {({ loading, user }: FirebaseUserProps) => {
                 if (loading) {
