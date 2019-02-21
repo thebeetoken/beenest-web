@@ -94,112 +94,13 @@ const ListingFormMobileContainer = styled.section`
         }
       }
     }
-
-    aside {
-      background-color: ${color('light')};
-      border-radius: 8px;
-      height: 100%;
-      left: calc(586px + (100% - 976px) / 2);
-      position: sticky;
-      top: 168px;
-      /* width: calc((100% - 586px) - ((100% - 976px) / 2)); */
-      width: 390px;
-      z-index: 0;
-      .background-extender {
-        background-color: ${color('light')};
-        position: absolute;
-        top: -64px;
-        width: 100%;
-        height: 64px;
-      }
-      .aside-container {
-        height: 728px;
-        max-width: 632px;
-        padding: 40px 56px 72px;
-        header {
-          ${typography('title', 7)}
-          color: ${color('dark')};
-          margin-bottom: 32px;
-          > span {
-            ${typography('emp', 5)}
-          }
-        }
-        > div {
-          h3 {
-            ${typography('read', 1)}
-            margin-bottom: 24px;
-          }
-          h4 {
-            ${typography('emp', 5)}
-            margin-bottom: 8px;
-          }
-          p {
-            ${typography('read', 2)}
-            margin-bottom: 24px;
-            > span {
-              ${typography('emp', 6)}
-            }
-          }
-          ol {
-            li {
-              list-style-type: decimal;
-              > span {
-                ${typography('emp', 5)}
-              }
-            }
-          }
-          ul {
-            margin-top: 0;
-            margin-bottom: 24px;
-            padding-left: 12px;
-            list-style-position: inside;
-            li {
-              list-style-type: disc;
-            }
-          }
-          .image-examples-container {
-            display: flex;
-            flex-direction: row;
-            flex-wrap: wrap;
-            justify-content: space-between;
-            .image-container {
-              display: flex;
-              flex-direction: column;
-              width: 240px;
-              .bee-lazy-image {
-                margin-bottom: 16px;
-              }
-            }
-          }
-          .amenities-container {
-            display: flex;
-            flex-direction: column;
-            margin-bottom: 24px;
-            ul {
-              columns: 2;
-              margin: 0;
-              padding: 0;
-              width: 100%;
-              .bee-list-item {
-                align-items: flex-start;
-                break-inside: avoid;
-                margin-bottom: 8px;
-                width: 100%;
-                span {
-                  padding-top: 2px;
-                }
-              }
-            }
-          }
-        }
-      }
-    }
   }
 `;
 
 const ListingFormTabletContainer = styled(ListingFormMobileContainer)`
   @media (min-width: 768px) {
     & > .bee-general-wrapper {
+      justify-content: center;
       form {
         padding: 40px 56px 96px 24px;
         width: 586px;
@@ -211,10 +112,113 @@ const ListingFormTabletContainer = styled(ListingFormMobileContainer)`
 const ListingFormDesktopContainer = styled(ListingFormTabletContainer)`
   @media (min-width: 1025px) {
     & > .bee-general-wrapper {
-      width: 976px;
-      min-width: 976px;
+      margin: 0;
+      padding-left: calc((100% - 976px) / 2);
+      width: 100%;
+      min-width: 100%;
       form {
         padding: 40px 56px 96px 0;
+        width: 586px;
+        min-width: 586px;
+      }
+    
+
+      aside {
+        background-color: ${color('light')};
+        height: 100vh;
+        position: sticky;
+        top: 128px;
+        width: 100%;
+        .background-extender {
+          background-color: ${color('light')};
+          position: absolute;
+          top: -64px;
+          width: 100%;
+          height: 64px;
+        }
+        .aside-container {
+          height: 608px;
+          width: 528px;
+          padding: 40px 56px 72px;
+          position: sticky;
+          top: 128px;
+          header {
+            ${typography('title', 7)}
+            color: ${color('dark')};
+            margin-bottom: 32px;
+            > span {
+              ${typography('emp', 5)}
+            }
+          }
+          > div {
+            h3 {
+              ${typography('read', 1)}
+              margin-bottom: 24px;
+            }
+            h4 {
+              ${typography('emp', 5)}
+              margin-bottom: 8px;
+            }
+            p {
+              ${typography('read', 2)}
+              margin-bottom: 24px;
+              > span {
+                ${typography('emp', 6)}
+              }
+            }
+            ol {
+              li {
+                list-style-type: decimal;
+                > span {
+                  ${typography('emp', 5)}
+                }
+              }
+            }
+            ul {
+              margin-top: 0;
+              margin-bottom: 24px;
+              padding-left: 12px;
+              list-style-position: inside;
+              li {
+                list-style-type: disc;
+              }
+            }
+            .image-examples-container {
+              display: flex;
+              flex-direction: row;
+              flex-wrap: wrap;
+              justify-content: space-between;
+              .image-container {
+                display: flex;
+                flex-direction: column;
+                width: 240px;
+                .bee-lazy-image {
+                  margin-bottom: 16px;
+                }
+              }
+            }
+            .amenities-container {
+              display: flex;
+              flex-direction: column;
+              margin-bottom: 24px;
+              ul {
+                columns: 2;
+                margin: 0;
+                padding: 0;
+                width: 100%;
+                .bee-list-item {
+                  align-items: flex-start;
+                  break-inside: avoid;
+                  margin-bottom: 8px;
+                  width: 100%;
+                  span {
+                    padding-top: 2px;
+                  }
+                }
+              }
+            }
+          }
+        }
       }
     }
   }
