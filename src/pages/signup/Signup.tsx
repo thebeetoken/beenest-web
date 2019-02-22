@@ -9,9 +9,9 @@ import Loading from 'shared/loading/Loading';
 import { AUTH_CONTAINER, AUTH_CONTENT } from 'styled/sharedClasses/authentication';
 import { VIEWPORT_CENTER_LAYOUT } from 'styled/sharedClasses/layout';
 
-import LoginForm from './LoginForm';
+import SignupForm from './SignupForm';
 
-const Login = (props: RouteProps) => (
+const Signup = (props: RouteProps) => (
   <FirebaseConsumer>
     {({ loading, user }: FirebaseUserProps) => {
       if (loading) {
@@ -31,14 +31,14 @@ const Login = (props: RouteProps) => (
         <Container className={AUTH_CONTAINER} fluid>
           <AuthHeader />
           <UserTestimonials />
-          <LoginContent />
+          <SignupContent />
         </Container>
       );
     }}
   </FirebaseConsumer>
 );
 
-const LoginContent = () => (
+const SignupContent = () => (
   <Container>
     <Row noGutters>
       <Col
@@ -47,10 +47,10 @@ const LoginContent = () => (
         lg={{ size: 7, offset: 2 }}
         xl={{ size: 6, offset: 3 }}
       >
-        <LoginForm />
+        <SignupForm />
       </Col>
     </Row>
   </Container>
 );
 
-export default Login;
+export default Signup;
