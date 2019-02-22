@@ -1,15 +1,11 @@
 import * as React from 'react';
 import { ListGroup, ListGroupItem, Alert } from 'reactstrap';
-import { resetPassword } from 'utils/firebase';
-import { getDisplaySuccessMessage, SuccessMessage, getDisplayErrorMessage, ErrorMessage } from 'utils/validators';
 import { FirebaseConsumer, FirebaseUserProps } from 'HOCs/FirebaseProvider';
 import { User } from 'firebase';
 
-interface AlertProperties {
-  color: string;
-  msg: string;
-  show: boolean;
-}
+import { getDisplaySuccessMessage, SuccessMessage, getDisplayErrorMessage, ErrorMessage } from 'utils/validators';
+import { resetPassword } from 'utils/firebase';
+import { AlertProperties } from 'components/work/Alert/Alert';
 
 function AccountSecurity() {
   const [alert, setAlert] = React.useState<AlertProperties>({ color: '', msg: '', show: false });
@@ -31,7 +27,7 @@ function AccountSecurity() {
               <ListGroupItem
                 className="w-100 d-flex flex-column"
                 disabled={isSubmitting}
-                onClick={() => handleClick(user)}>
+                onClick={() => handleResetPasswordClick(user)}>
                 <h6 className="mb-0">Reset Password</h6>
                 <div className="d-flex justify-content-between">
                   <h6 className="mb-0 small text-muted">Click here to reset your password</h6>
@@ -45,7 +41,7 @@ function AccountSecurity() {
     </>
   );
 
-  function handleClick(user: User) {
+  function handleResetPasswordClick(user: User) {
     if (!user.email) return;
     
     setSubmitting(true);
