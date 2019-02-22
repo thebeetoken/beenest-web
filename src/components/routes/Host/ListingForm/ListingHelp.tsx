@@ -141,17 +141,16 @@ const Amenities = () => (
     <p>Wait a minute! Amenities are a critical part for our travelers.</p>
     <p>Include <span>Wifi capabilities</span> and <span>working desk(s)</span> for business travelers. Separate amenities with commas.</p>
     <p>There’s no maximum to the number of amenities you can include so add as many as you’d like! The more the better.</p>
-    <p>Adding essentials quickly helps guests assess your place. Time is money, right?</p>
   </div>
 );
 
 const Wifi = () => (
   <div>
     <h3>Wifi</h3>
-    <p>Bonus points for</p>
+    <p>Bonus points for adding proof of fast Wifi!</p>
     <ol>
-      <li>Going to <a href="https://fast.com/">https://fast.com/</a></li>
-      <li>Screenshotting the speed and adding it to your photos</li>
+      <li>Go to <a href="https://fast.com/">https://fast.com/</a></li>
+      <li>Screenshot the speed and upload the photo</li>
     </ol>
     <div className="image-examples-container">
       <a href="https://fast.com/">
