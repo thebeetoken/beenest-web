@@ -108,6 +108,7 @@ const validationMap: Validation = {
   amenities: isNotEmpty,
   houseRules: isNotEmpty,
   airbnbLink: isValidOptionalUrl,
+  wifiPhoto: isOptional,
 };
 
 const hotelFields = new Set([
@@ -152,6 +153,7 @@ function convertToListingForm(listing = {} as Listing): AdminListingInput {
     state: listing.state || '',
     title: listing.title || '',
     totalQuantity: listing.totalQuantity || 0,
+    wifiPhoto: listing.wifiPhoto || '',
   }
 };
 
@@ -224,9 +226,9 @@ class AdminListingsForm extends React.Component<Props, State> {
     this.validateAndUpdate(event.target.name, event.target.checked);
   }
 
-  setCoverPhoto = (photos: Photo[]) => {
+  setSinglePhoto = (field: string, photos: Photo[]) => {
     const url = photos[0] ? photos[0].url : '';
-    this.validateAndUpdate('listingPicUrl', url);
+    this.validateAndUpdate(field, url);
   };
 
   setListingPhotos = (photos: Photo[]) => {
@@ -329,6 +331,7 @@ class AdminListingsForm extends React.Component<Props, State> {
       state,
       title,
       totalQuantity,
+      wifiPhoto,
     } = inputForm;
     return (
       <form onSubmit={this.handleSubmit}>
@@ -605,7 +608,7 @@ class AdminListingsForm extends React.Component<Props, State> {
             <PhotoUploader
               initialPhotos={this.props.listing ? [{ url: this.props.listing.listingPicUrl }] : []}
               maxFiles={1}
-              onPhotosUpdated={this.setCoverPhoto}
+              onPhotosUpdated={(photos: Photo[]) => this.setSinglePhoto('listingPicUrl', photos)}
             />
             <Svg
               className={`admin-input__success ${getInputSuccessClass(inputValidation.listingPicUrl)}`.trim()}
@@ -951,6 +954,24 @@ class AdminListingsForm extends React.Component<Props, State> {
               src="utils/check-circle"
             />
             <span className={`admin-input__error ${getInputErrorClass(inputValidation.amenities)}`.trim()}>
+              {errorMessages.generic}
+            </span>
+          </div>
+        </div>
+
+        <div className="admin-form--item">
+          <AdminInputLabel htmlFor="wifiPhoto">WiFi Photo:</AdminInputLabel>
+          <div className="single-input-validator-container">
+            <PhotoUploader
+              initialPhotos={this.props.listing ? [{ url: this.props.listing.wifiPhoto }] : []}
+              maxFiles={1}
+              onPhotosUpdated={(photos: Photo[]) => this.setSinglePhoto('wifiPhoto', photos)}
+            />
+            <Svg
+              className={`admin-input__success ${getInputSuccessClass(inputValidation.wifiPhoto)}`.trim()}
+              src="utils/check-circle"
+            />
+            <span className={`admin-input__error ${getInputErrorClass(inputValidation.wifiPhoto)}`.trim()}>
               {errorMessages.generic}
             </span>
           </div>
