@@ -8,7 +8,7 @@ export interface CheckInTime {
 
 export interface Wifi {
   speed: number;
-  photoUrl: string;
+  photo: string;
 }
 
 export interface Listing {

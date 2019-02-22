@@ -108,7 +108,7 @@ const validationMap: Validation = {
   amenities: isNotEmpty,
   houseRules: isNotEmpty,
   airbnbLink: isValidOptionalUrl,
-  wifiPhoto: isOptional,
+  wifi: isOptional,
 };
 
 const hotelFields = new Set([
@@ -153,7 +153,7 @@ function convertToListingForm(listing = {} as Listing): AdminListingInput {
     state: listing.state || '',
     title: listing.title || '',
     totalQuantity: listing.totalQuantity || 0,
-    wifiPhoto: listing.wifiPhoto || '',
+    wifi: listing.wifi || { photo: '', speed: 0 },
   }
 };
 
@@ -230,6 +230,11 @@ class AdminListingsForm extends React.Component<Props, State> {
     const url = photos[0] ? photos[0].url : '';
     this.validateAndUpdate(field, url);
   };
+
+  setWifiPhoto = (photos: Photo[]) => {
+    const url = photos[0] ? photos[0].url : '';
+    this.validateAndUpdate('wifi', { ...this.state.inputForm.wifi, photo: url });
+  }
 
   setListingPhotos = (photos: Photo[]) => {
     const urls = photos.map(photo => photo.url);
@@ -331,6 +336,7 @@ class AdminListingsForm extends React.Component<Props, State> {
       state,
       title,
       totalQuantity,
+      wifi,
     } = inputForm;
     return (
       <form onSubmit={this.handleSubmit}>
@@ -959,18 +965,44 @@ class AdminListingsForm extends React.Component<Props, State> {
         </div>
 
         <div className="admin-form--item">
-          <AdminInputLabel htmlFor="wifiPhoto">WiFi Photo:</AdminInputLabel>
+          <AdminInputLabel htmlFor="wifi" subLabel="(in Mbps)">Wifi Speed:</AdminInputLabel>
           <div className="single-input-validator-container">
-            <PhotoUploader
-              initialPhotos={this.props.listing ? [{ url: this.props.listing.wifiPhoto }] : []}
-              maxFiles={1}
-              onPhotosUpdated={(photos: Photo[]) => this.setSinglePhoto('wifiPhoto', photos)}
-            />
+            <AdminInputWrapper>
+              <input
+                className={getInputValidationClass(inputValidation.wifi)}
+                onChange={(event: React.FormEvent<HTMLInputElement>) => {
+                  this.validateAndUpdate('wifi', { ...this.state.inputForm.wifi, speed: event.currentTarget.value || 0 });
+                }}
+                id="wifi"
+                placeholder="20"
+                type="number"
+                name="wifi"
+                value={wifi.speed || ''}
+              />
+            </AdminInputWrapper>
             <Svg
-              className={`admin-input__success ${getInputSuccessClass(inputValidation.wifiPhoto)}`.trim()}
+              className={`admin-input__success ${getInputSuccessClass(inputValidation.wifi)}`.trim()}
               src="utils/check-circle"
             />
-            <span className={`admin-input__error ${getInputErrorClass(inputValidation.wifiPhoto)}`.trim()}>
+            <span className={`admin-input__error ${getInputErrorClass(inputValidation.wifi)}`.trim()}>
+              {errorMessages.generic}
+            </span>
+          </div>
+        </div>
+
+        <div className="admin-form--item">
+          <AdminInputLabel htmlFor="wifi">Wifi Screenshot:</AdminInputLabel>
+          <div className="single-input-validator-container">
+            <PhotoUploader
+              initialPhotos={this.props.listing.wifi && this.props.listing.wifi.photo ? [{ url: this.props.listing.wifi.photo }] : []}
+              maxFiles={1}
+              onPhotosUpdated={(photos: Photo[]) => this.setWifiPhoto(photos)}
+            />
+            <Svg
+              className={`admin-input__success ${getInputSuccessClass(inputValidation.wifi)}`.trim()}
+              src="utils/check-circle"
+            />
+            <span className={`admin-input__error ${getInputErrorClass(inputValidation.wifi)}`.trim()}>
               {errorMessages.generic}
             </span>
           </div>
