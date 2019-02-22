@@ -2,7 +2,7 @@ import * as React from 'react';
 import { Button, Col, Container, Row } from 'reactstrap';
 
 import { guestValueProps, HomeUser, hostValueProps } from './home.config';
-import { JUMBOTRON_STYLES, CONTENT_CLASSES, CONTENT_3_STYLES, AFFILIATE_CLASSES } from './home.styled';
+import { JUMBOTRON_STYLES, CONTENT_CLASSES, AFFILIATE_CLASSES } from './home.styled';
 
 import Footer from 'components/work/Footer';
 import Header from 'components/work/Header';
