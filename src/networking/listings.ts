@@ -49,6 +49,7 @@ export interface Listing {
   totalQuantity: number;
   updatedAt: string;
   host: Host | null;
+  wifiPhoto: string;
 }
 
 export interface ListingShort {
@@ -196,6 +197,7 @@ const LISTING_DETAILS_FRAGMENT = gql`
     sharedBathroom
     sleepingArrangement
     totalQuantity
+    wifiPhoto
     ...ListingCard
   }
 `;
@@ -502,5 +504,5 @@ export enum ListingField {
   SLEEPING_ARRANGEMENT = 'sleepingArrangement',
   STATE = 'state',
   TITLE = 'title',
-  WIFI = 'wifi',
+  WIFI_PHOTO = 'wifiPhoto',
 }

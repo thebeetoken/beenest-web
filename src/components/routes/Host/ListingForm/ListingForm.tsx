@@ -56,6 +56,7 @@ const defaultValues: FormValues = {
   [ListingField.SLEEPING_ARRANGEMENT]: '',
   [ListingField.STATE]: '',
   [ListingField.TITLE]: '',
+  [ListingField.WIFI_PHOTO]: '',
 };
 
 interface Props extends RouterProps {
@@ -115,6 +116,7 @@ const ListingFormSchema = Yup.object().shape({
   [ListingField.TITLE]: Yup.string()
     .min(5, minStringError('Title'))
     .max(50, maxStringError('Title')),
+  [ListingField.WIFI_PHOTO]: Yup.string().url(),
 });
 
 const formCrumbs = ['listing_info', 'accommodations', 'pricing_availability', 'checkin_details'];

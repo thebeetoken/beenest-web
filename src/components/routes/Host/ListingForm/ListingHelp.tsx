@@ -144,7 +144,7 @@ const Amenities = () => (
   </div>
 );
 
-const Wifi = () => (
+const WifiPhoto = () => (
   <div>
     <h3>Wifi</h3>
     <p>Bonus points for adding proof of fast Wifi!</p>
@@ -159,6 +159,7 @@ const Wifi = () => (
         </div>
       </a>
     </div>
+    <p>Preferred Dimensions: 420x248</p>
   </div>
 )
 
@@ -209,7 +210,7 @@ const IcalUrls = () => (
 const CheckInTime = () => (
   <div>
     <h3>Check-in (From) and (To)</h3>
-    <p>Provide a window of time in which guests are able to check into your place. Typical times guests check in are between 11 AM - 2PM.</p>
+    <p>Provide a window of time in which guests are able to check into your place. Typical times guests check in are between 11AM - 2PM.</p>
     <p>Allowing guests to check in later, for instance up until 11:30PM, is preferred.</p>
   </div>
 );
@@ -254,7 +255,7 @@ const ListingHelp: ListingHelpInterface = {
   [ListingField.NUMBER_OF_BATHROOMS]: <NumberOfBathrooms />,
   [ListingField.SHARED_BATHROOM]: <SharedBathroom />,
   [ListingField.AMENITIES]: <Amenities />,
-  [ListingField.WIFI]: <Wifi />,
+  [ListingField.WIFI_PHOTO]: <WifiPhoto />,
 
   [ListingField.MAX_GUESTS]: <MaxGuests />,
   [ListingField.MINIMUM_NIGHTS]: <MinimumNights />,
