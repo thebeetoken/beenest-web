@@ -10,7 +10,7 @@ import NumberInput from 'shared/NumberInput';
 import Textarea from 'shared/Textarea';
 import { TextareaEvent } from 'shared/Textarea/Textarea';
 import { stringToArray, arrayToString } from 'utils/formatter';
-import { PhotoUploader, Photo } from 'components/shared/PhotoUploader';
+import { PhotoUploader, Photo } from 'shared/PhotoUploader';
 
 const AccommodationsForm = (props: any): JSX.Element => {
   const { setFocus, setFieldTouched, setFieldValue, values } = props;
