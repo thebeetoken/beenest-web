@@ -2,7 +2,7 @@ import * as React from 'react';
 import { Button, Col, Container, Row } from 'reactstrap';
 
 import { guestValueProps, HomeUser, hostValueProps } from './home.config';
-import { JUMBOTRON_STYLES, CONTENT_CLASSES, CONTENT_3_STYLES } from './home.styled';
+import { JUMBOTRON_STYLES, CONTENT_CLASSES, CONTENT_3_STYLES, AFFILIATE_CLASSES } from './home.styled';
 
 import Footer from 'components/work/Footer';
 import Header from 'components/work/Header';
@@ -57,11 +57,11 @@ const Home = () => {
 
         <Container className="my-10 pb-lg-10">
           <h2 className={CONTENT_CLASSES.TITLE}>Partners</h2>
-          <p className={`${CONTENT_CLASSES.SUBTITLE} mb-5`}>
+          <p className={`${CONTENT_CLASSES.SUBTITLE} mb-5 mb-md-0 mb-lg-5`}>
             Beenest has been featured in the following news and magazines.
           </p>
-          <Row className="py-10">
-            <Col className={FLEX_CENTER}>
+          <Row className="py-4 py-md-10">
+            <Col className={AFFILIATE_CLASSES}>
               <a
                 href="https://www.forbes.com/sites/lorihil/2018/02/15/a-more-secure-way-to-home-share-blockchain-technology/#3891384c5e8b"
                 target="_blank"
@@ -69,7 +69,7 @@ const Home = () => {
                 <ForbesSVG />
               </a>
             </Col>
-            <Col className={FLEX_CENTER}>
+            <Col className={AFFILIATE_CLASSES}>
               <a
                 href="https://www.huffingtonpost.com/entry/brain-drain-uber-google-facebook-engineers-create_us_5a4d4965e4b0df0de8b06f18"
                 target="_blank"
@@ -77,7 +77,7 @@ const Home = () => {
                 <HuffPostSVG />
               </a>
             </Col>
-            <Col className={FLEX_CENTER}>
+            <Col className={AFFILIATE_CLASSES}>
               <a
                 href="https://www.fastcompany.com/40524021/on-this-blockchain-based-version-of-airbnb-theres-no-middleman"
                 target="_blank"
@@ -85,7 +85,7 @@ const Home = () => {
                 <FastCompanySvg />
               </a>
             </Col>
-            <Col className={FLEX_CENTER}>
+            <Col className={AFFILIATE_CLASSES}>
               <a
                 href="https://www.inc.com/darren-heitner/how-this-entrepreneur-is-fixing-250-billion-sharing-economy-with-blockchain-technology.html"
                 target="_blank"
@@ -117,12 +117,12 @@ const Home = () => {
 
 const HomeGuests = () => (
   <>
-    <Container className={CONTENT_CLASSES.CONTENT_1.LAYOUT}>
+    <Container className={CONTENT_CLASSES.FEATURES_CONTAINER.LAYOUT}>
       <h2 className={CONTENT_CLASSES.TITLE}>Tired of finding a good place to stay?</h2>
       <p className={CONTENT_CLASSES.SUBTITLE}>
         Worry not, here you can find the best place for your next business trip.
       </p>
-      <Row className={CONTENT_CLASSES.CONTENT_2.LAYOUT}>
+      <Row className={CONTENT_CLASSES.FEATURES.LAYOUT}>
         {guestValueProps.map(card => (
           <Col xs="12" md="6" lg="4" key={card.title}>
             <ValuePropCard src={card.src} center className={card.className} title={card.title} body={card.body} />
@@ -131,20 +131,20 @@ const HomeGuests = () => (
       </Row>
     </Container>
 
-    <Container className="p-0 mt-10" fluid>
+    {/* <Container className="p-0 mt-10" fluid>
       <div className="bg-img-hero d-flex" style={CONTENT_3_STYLES} />
-    </Container>
+    </Container> */}
   </>
 );
 
 const HomeHosts = () => (
   <>
-    <Container className={CONTENT_CLASSES.CONTENT_1.LAYOUT}>
+    <Container className={CONTENT_CLASSES.FEATURES_CONTAINER.LAYOUT}>
       <h2 className={CONTENT_CLASSES.TITLE}>Want to rent out your homes to professionals?</h2>
       <p className={CONTENT_CLASSES.SUBTITLE}>
         Here, your guests will be business travelers so don’t worry about parties.
       </p>
-      <Row className={CONTENT_CLASSES.CONTENT_2.LAYOUT}>
+      <Row className={CONTENT_CLASSES.FEATURES.LAYOUT}>
         {hostValueProps.map(card => (
           <Col xs="12" md="6" lg="4" key={card.title}>
             <ValuePropCard src={card.src} center className={card.className} title={card.title} body={card.body} />
@@ -153,9 +153,9 @@ const HomeHosts = () => (
       </Row>
     </Container>
 
-    <Container className="p-0 mt-10" fluid>
+    {/* <Container className="p-0 mt-10" fluid>
       <div className="bg-img-hero d-flex" style={CONTENT_3_STYLES} />
-    </Container>
+    </Container> */}
   </>
 );
 
