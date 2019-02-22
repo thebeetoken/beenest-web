@@ -4,6 +4,7 @@ import ListItem from 'shared/ListItem';
 import Svg from 'shared/Svg';
 import LazyImage from 'shared/LazyImage';
 import { ListingField }from 'networking/listings';
+import { FirebaseConsumer, FirebaseUserProps } from 'HOCs/FirebaseProvider';
 
 interface ListingHelpInterface {
   [name: string]: React.ReactNode;
@@ -234,6 +235,22 @@ const HouseRules = () => (
       <li>Self check-in with keypad</li>
       <li>Additional cancellation policies</li>
     </ul>
+    <FirebaseConsumer>
+      {({ user }: FirebaseUserProps) => {
+        console.log(user);
+        return <p><span>Wait!</span> Before you go, {user ? `${user.displayName} `: ''}make sure your listing is business travel friendly and provides:</p>
+      }}
+    </FirebaseConsumer>
+    <ul>
+      <li>Fast, stable wifi</li>
+      <li>A working desk</li>
+      <li>Transparent pricing (all taxes and fees included)</li>
+    </ul>
+    <p>Thanks,</p>
+	  <p>The Beenest Team</p>
+
+	
+
   </div>
 );
 
