@@ -144,7 +144,7 @@ const Amenities = () => (
   </div>
 );
 
-const WifiPhoto = () => (
+const Wifi = () => (
   <div>
     <h3>Wifi</h3>
     <p>Bonus points for adding proof of fast Wifi!</p>
@@ -255,7 +255,7 @@ const ListingHelp: ListingHelpInterface = {
   [ListingField.NUMBER_OF_BATHROOMS]: <NumberOfBathrooms />,
   [ListingField.SHARED_BATHROOM]: <SharedBathroom />,
   [ListingField.AMENITIES]: <Amenities />,
-  [ListingField.WIFI_PHOTO]: <WifiPhoto />,
+  [ListingField.WIFI]: <Wifi />,
 
   [ListingField.MAX_GUESTS]: <MaxGuests />,
   [ListingField.MINIMUM_NIGHTS]: <MinimumNights />,

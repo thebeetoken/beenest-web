@@ -93,17 +93,34 @@ const AccommodationsForm = (props: any): JSX.Element => {
           <StyledErrorMessage name={ListingField.AMENITIES} />
       </div>
 
-      <div className="form-item photo" onMouseEnter={() => setFocus(ListingField.WIFI_PHOTO)}>
-        <InputLabel htmlFor={ListingField.WIFI_PHOTO} subLabel="(recommended)">Wifi Screenshot</InputLabel>
+      <div className="form-item short">
+        <InputLabel htmlFor={ListingField.WIFI} subLabel="(in Mbps)">Wifi Speed</InputLabel>
+        <InputWrapper>
+          <Field
+            name={ListingField.WIFI}
+            onFocus={() => setFocus(ListingField.WIFI)}
+            onChange={(event: React.FormEvent<HTMLInputElement>) => {
+              setFieldTouched(ListingField.WIFI, true);
+              setFieldValue(ListingField.WIFI, { ...values.wifi, speed: event.currentTarget.value || 0 });
+            }}
+            placeholder="240"
+            type="number"
+            value={values.wifi.speed || ''} />
+        </InputWrapper>
+        <StyledErrorMessage name={`${ListingField.WIFI}.speed`} />
+      </div>
+
+      <div className="form-item photo" onMouseEnter={() => setFocus(ListingField.WIFI)}>
+        <InputLabel htmlFor={ListingField.WIFI} subLabel="(recommended)">Wifi Screenshot</InputLabel>
         <PhotoUploader
-          initialPhotos={values.wifiPhoto ? [{ url: values.wifiPhoto }] : []}
+          initialPhotos={values.wifi && values.wifi.photo ? [{ url: values.wifi.photo }] : []}
           maxFiles={1}
-          onClick={() => setFocus(ListingField.WIFI_PHOTO)}
+          onClick={() => setFocus(ListingField.WIFI)}
           onPhotosUpdated={(photo: Photo[]) => {
-            setFieldTouched(ListingField.WIFI_PHOTO, true);
-            setFieldValue(ListingField.WIFI_PHOTO, photo[0] ? photo[0].url : '');
+            setFieldTouched(ListingField.WIFI, true);
+            setFieldValue(ListingField.WIFI, { ...values.wifi, photo: photo[0] ? photo[0].url : '' });
           }} />
-        <StyledErrorMessage name={ListingField.WIFI_PHOTO} />
+        <StyledErrorMessage name={`${ListingField.WIFI}.photo`} />
       </div>
     </>
   );
