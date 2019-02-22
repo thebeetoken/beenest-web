@@ -39,7 +39,7 @@ const Header = () => {
   const [isOpen, toggleNavbar] = React.useState<boolean>(false);
 
   return (
-    <header className="fixed-top bg-white" id="bee-main-header">
+    <header className="fixed-top bg-white custom-header-height" id="bee-main-header">
       <Navbar light expand="md">
         <NavbarBrand className="p-0 m-0" href="/work">
           <BeenestSVGPrimary />
