@@ -9,7 +9,7 @@ type Props = Partial<{
 
 const Jumbotron = (props: Props) => {
   return (
-    <ReactstrapJumbotron className={`mb-0 pb-0 pt-9 ${(props.className || '')}`.trim()} fluid={props.fluid}>
+    <ReactstrapJumbotron className={`mb-0 pb-0 pt-9 bg-white ${(props.className || '')}`.trim()} fluid={props.fluid}>
       {props.children}
     </ReactstrapJumbotron>
   );
