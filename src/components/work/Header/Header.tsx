@@ -41,14 +41,14 @@ const Header = () => {
   return (
     <header className="fixed-top bg-white" id="bee-main-header">
       <Navbar light expand="md">
-        <NavbarBrand href="/work">
+        <NavbarBrand className="p-0 m-0" href="/work">
           <BeenestSVGPrimary />
         </NavbarBrand>
         <NavbarToggler onClick={handleToggleNavbar} className="mr-2" />
         <Collapse isOpen={isOpen} navbar>
           <Nav className="ml-auto u-header__navbar-nav pt-5 pt-md-0" navbar>
             <a href="/hosts/signup">
-              <Button className="mb-4 mb-md-0 mr-md-4" type="button" outline color="primary">
+              <Button className="mb-4 mb-md-0 mr-md-4" size="sm" type="button" outline color="primary">
                 Become a Host
               </Button>
             </a>
