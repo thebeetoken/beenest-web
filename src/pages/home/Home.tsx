@@ -57,7 +57,7 @@ const Home = () => {
 
         <Container className="my-10 pb-lg-10">
           <h2 className={CONTENT_CLASSES.TITLE}>Partners</h2>
-          <p className={`${CONTENT_CLASSES.SUBTITLE} mb-5 mb-md-0 mb-lg-5`}>
+          <p className={`${CONTENT_CLASSES.SUBTITLE} mb-5 mb-md-0 mb-lg-3`}>
             Beenest has been featured in the following news and magazines.
           </p>
           <Row className="py-4 py-md-10">
