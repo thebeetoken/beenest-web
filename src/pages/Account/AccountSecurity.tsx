@@ -3,7 +3,7 @@ import { ListGroup, ListGroupItem, Alert } from 'reactstrap';
 import { FirebaseConsumer, FirebaseUserProps } from 'HOCs/FirebaseProvider';
 import { User } from 'firebase';
 
-import { getDisplaySuccessMessage, SuccessMessage, getDisplayErrorMessage, ErrorMessage } from 'utils/validators';
+import { getDisplaySuccessMessage, SuccessMessage, getDisplayErrorMessage, ErrorMessage, errorMessages } from 'utils/validators';
 import { resetPassword } from 'utils/firebase';
 import { AlertProperties } from 'components/work/Alert/Alert';
 
@@ -42,7 +42,14 @@ function AccountSecurity() {
   );
 
   function handleResetPasswordClick(user: User) {
-    if (!user.email) return;
+    if (!user.email) {
+      setAlert({
+        color: 'danger',
+        msg: getDisplayErrorMessage(errorMessages.emailMissing),
+        show: true,
+      });
+      return;
+    }
     
     setSubmitting(true);
     resetPassword(user.email)
