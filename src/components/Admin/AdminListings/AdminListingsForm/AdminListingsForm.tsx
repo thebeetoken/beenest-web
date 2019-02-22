@@ -331,7 +331,6 @@ class AdminListingsForm extends React.Component<Props, State> {
       state,
       title,
       totalQuantity,
-      wifiPhoto,
     } = inputForm;
     return (
       <form onSubmit={this.handleSubmit}>
