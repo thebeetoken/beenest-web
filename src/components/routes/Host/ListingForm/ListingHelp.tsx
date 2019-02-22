@@ -132,6 +132,7 @@ const SharedBathroom = () => (
 
 const Amenities = () => (
   <div>
+    <h3>Amenities</h3>
     <div className="image-examples-container">
       <div className="image-container">
         <LazyImage height="156px" width="477px" src="https://static.beenest.com/images/photo-examples/amenities_example.png" />
@@ -146,6 +147,7 @@ const Amenities = () => (
 
 const Wifi = () => (
   <div>
+    <h3>Wifi</h3>
     <p>Bonus points for</p>
     <ol>
       <li>Going to <a href="https://fast.com/">https://fast.com/</a></li>
@@ -154,7 +156,7 @@ const Wifi = () => (
     <div className="image-examples-container">
       <a href="https://fast.com/">
         <div className="image-container">
-            <LazyImage height="200px" width="335px" src="https://static.beenest.com/images/photo-examples/fast_internet.png" />
+          <LazyImage height="186px" width="315px" src="https://static.beenest.com/images/photo-examples/fast_internet.png" />
         </div>
       </a>
     </div>

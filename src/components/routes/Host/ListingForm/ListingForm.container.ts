@@ -170,6 +170,7 @@ const ListingFormDesktopContainer = styled(ListingFormTabletContainer)`
               }
             }
             ol {
+              margin-bottom: 24px;
               li {
                 list-style-type: decimal;
                 > span {

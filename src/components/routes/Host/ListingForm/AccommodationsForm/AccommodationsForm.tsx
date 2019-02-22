@@ -79,7 +79,7 @@ const AccommodationsForm = (props: any): JSX.Element => {
         </Checkbox>
       </div>
 
-      <div className="form-item">
+      <div className="form-item" onClick={() => setFocus(ListingField.AMENITIES)}>
         <InputLabel htmlFor={ListingField.AMENITIES} subLabel="(required, separate by comma)">Amenities</InputLabel>
         <Textarea
           name={ListingField.AMENITIES}
