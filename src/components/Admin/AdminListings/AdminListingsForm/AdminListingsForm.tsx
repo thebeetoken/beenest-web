@@ -153,7 +153,7 @@ function convertToListingForm(listing = {} as Listing): AdminListingInput {
     state: listing.state || '',
     title: listing.title || '',
     totalQuantity: listing.totalQuantity || 0,
-    wifi: listing.wifi || { photo: '', speed: 0 },
+    wifi: listing.wifi || { photo: '', mbps: 0 },
   }
 };
 
@@ -971,13 +971,13 @@ class AdminListingsForm extends React.Component<Props, State> {
               <input
                 className={getInputValidationClass(inputValidation.wifi)}
                 onChange={(event: React.FormEvent<HTMLInputElement>) => {
-                  this.validateAndUpdate('wifi', { ...this.state.inputForm.wifi, speed: event.currentTarget.value || 0 });
+                  this.validateAndUpdate('wifi', { ...this.state.inputForm.wifi, mbps: event.currentTarget.value || 0 });
                 }}
                 id="wifi"
                 placeholder="20"
                 type="number"
                 name="wifi"
-                value={wifi.speed || ''}
+                value={wifi.mbps || ''}
               />
             </AdminInputWrapper>
             <Svg

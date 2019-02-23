@@ -7,7 +7,7 @@ export interface CheckInTime {
 }
 
 export interface Wifi {
-  speed: number;
+  mbps: number;
   photo: string;
 }
 
@@ -203,7 +203,7 @@ const LISTING_DETAILS_FRAGMENT = gql`
     sleepingArrangement
     totalQuantity
     wifi {
-      speed
+      mbps
       photo
     }
     ...ListingCard

@@ -101,13 +101,13 @@ const AccommodationsForm = (props: any): JSX.Element => {
             onFocus={() => setFocus(ListingField.WIFI)}
             onChange={(event: React.FormEvent<HTMLInputElement>) => {
               setFieldTouched(ListingField.WIFI, true);
-              setFieldValue(ListingField.WIFI, { ...values.wifi, speed: event.currentTarget.value || 0 });
+              setFieldValue(ListingField.WIFI, { ...values.wifi, mbps: event.currentTarget.value || 0 });
             }}
             placeholder="240"
             type="number"
-            value={values.wifi.speed || ''} />
+            value={values.wifi.mbps || ''} />
         </InputWrapper>
-        <StyledErrorMessage name={`${ListingField.WIFI}.speed`} />
+        <StyledErrorMessage name={`${ListingField.WIFI}.mbps`} />
       </div>
 
       <div className="form-item photo" onMouseEnter={() => setFocus(ListingField.WIFI)}>

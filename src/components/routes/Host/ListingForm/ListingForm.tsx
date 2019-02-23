@@ -59,7 +59,7 @@ const defaultValues: FormValues = {
   [ListingField.TITLE]: '',
   [ListingField.WIFI]: {
     photo: '',
-    speed: 0,
+    mbps: 0,
   },
 };
 
@@ -123,7 +123,7 @@ const ListingFormSchema = Yup.object().shape({
     .max(50, maxStringError('Title')),
   [ListingField.WIFI]: Yup.object({
     photo: Yup.string().url().nullable(true),
-    speed: Yup.number().min(0, minNumberError('Wifi Speed')).nullable(true),
+    mbps: Yup.number().min(0, minNumberError('Wifi Speed')).nullable(true),
   }),
 });
 
