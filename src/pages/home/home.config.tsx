@@ -1,5 +1,8 @@
-import { CONTENT_CLASSES } from './home.styled';
+import * as React from 'react';
 
+import { AFFILIATE_CLASSES, CONTENT_CLASSES } from './home.styled';
+import { FLEX_CENTER } from 'styled/sharedClasses/layout';
+import { ForbesSVG, HuffPostSVG, FastCompanySvg, IncSVG, SFChronicalSVG } from 'shared/svgComponents/SvgComponents';
 export enum HomeUser {
   GUEST,
   HOST,
@@ -56,5 +59,33 @@ export const hostValueProps = [
     title: 'Easy Set Up and Tracking',
     body:
       'We make sure that you can list your place in few steps. We also have an advanced dashboard for you to track your houses.',
+  },
+];
+
+export const affiliations = [
+  {
+    className: AFFILIATE_CLASSES,
+    svg: <ForbesSVG />,
+    href: 'https://www.forbes.com/sites/lorihil/2018/02/15/a-more-secure-way-to-home-share-blockchain-technology/#3891384c5e8b',
+  },
+  {
+    className: AFFILIATE_CLASSES,
+    svg: <HuffPostSVG />,
+    href: 'https://www.huffingtonpost.com/entry/brain-drain-uber-google-facebook-engineers-create_us_5a4d4965e4b0df0de8b06f18',
+  },
+  {
+    className: AFFILIATE_CLASSES,
+    svg: <FastCompanySvg />,
+    href: 'https://www.fastcompany.com/40524021/on-this-blockchain-based-version-of-airbnb-theres-no-middleman',
+  },
+  {
+    className: AFFILIATE_CLASSES,
+    svg: <IncSVG />,
+    href: 'https://www.inc.com/darren-heitner/how-this-entrepreneur-is-fixing-250-billion-sharing-economy-with-blockchain-technology.html',
+  },
+  {
+    className: FLEX_CENTER,
+    svg: <SFChronicalSVG />,
+    href: 'https://www.sfchronicle.com/business/article/Bitcoin-ethereum-can-pay-for-home-rentals-12526206.php',
   },
 ];

@@ -1,15 +1,13 @@
 import * as React from 'react';
 import { Button, Col, Container, Row } from 'reactstrap';
 
-import { guestValueProps, HomeUser, hostValueProps } from './home.config';
-import { JUMBOTRON_STYLES, CONTENT_CLASSES, AFFILIATE_CLASSES } from './home.styled';
+import { affiliations, guestValueProps, HomeUser, hostValueProps } from './home.config';
+import { JUMBOTRON_STYLES, CONTENT_CLASSES } from './home.styled';
 
 import Footer from 'components/work/Footer';
 import Header from 'components/work/Header';
 import Jumbotron from 'components/work/Jumbotron';
 import ValuePropCard from 'components/work/ValuePropCard';
-import { ForbesSVG, HuffPostSVG, FastCompanySvg, IncSVG, SFChronicalSVG } from 'shared/svgComponents/SvgComponents';
-import { FLEX_CENTER } from 'styled/sharedClasses/layout';
 
 const Home = () => {
   const [isGuestActive, setGuestActive] = React.useState<Boolean>(true);
@@ -61,46 +59,13 @@ const Home = () => {
             Beenest has been featured in the following news and magazines.
           </p>
           <Row className="py-4 py-md-10">
-            <Col className={AFFILIATE_CLASSES}>
-              <a
-                href="https://www.forbes.com/sites/lorihil/2018/02/15/a-more-secure-way-to-home-share-blockchain-technology/#3891384c5e8b"
-                target="_blank"
-              >
-                <ForbesSVG />
-              </a>
-            </Col>
-            <Col className={AFFILIATE_CLASSES}>
-              <a
-                href="https://www.huffingtonpost.com/entry/brain-drain-uber-google-facebook-engineers-create_us_5a4d4965e4b0df0de8b06f18"
-                target="_blank"
-              >
-                <HuffPostSVG />
-              </a>
-            </Col>
-            <Col className={AFFILIATE_CLASSES}>
-              <a
-                href="https://www.fastcompany.com/40524021/on-this-blockchain-based-version-of-airbnb-theres-no-middleman"
-                target="_blank"
-              >
-                <FastCompanySvg />
-              </a>
-            </Col>
-            <Col className={AFFILIATE_CLASSES}>
-              <a
-                href="https://www.inc.com/darren-heitner/how-this-entrepreneur-is-fixing-250-billion-sharing-economy-with-blockchain-technology.html"
-                target="_blank"
-              >
-                <IncSVG />
-              </a>
-            </Col>
-            <Col className={FLEX_CENTER}>
-              <a
-                href="https://www.sfchronicle.com/business/article/Bitcoin-ethereum-can-pay-for-home-rentals-12526206.php"
-                target="_blank"
-              >
-                <SFChronicalSVG />
-              </a>
-            </Col>
+            {affiliations.map(affiliate => (
+              <Col className={affiliate.className} key={affiliate.href}>
+                <a href={affiliate.href} target="_blank">
+                  {affiliate.svg}
+                </a>
+              </Col>
+            ))}
           </Row>
         </Container>
       </Container>
