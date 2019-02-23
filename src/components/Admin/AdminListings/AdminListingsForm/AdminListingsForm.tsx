@@ -226,9 +226,9 @@ class AdminListingsForm extends React.Component<Props, State> {
     this.validateAndUpdate(event.target.name, event.target.checked);
   }
 
-  setSinglePhoto = (field: string, photos: Photo[]) => {
+  setCoverPhoto = (photos: Photo[]) => {
     const url = photos[0] ? photos[0].url : '';
-    this.validateAndUpdate(field, url);
+    this.validateAndUpdate('listingPicUrl', url);
   };
 
   setWifiPhoto = (photos: Photo[]) => {
@@ -613,7 +613,7 @@ class AdminListingsForm extends React.Component<Props, State> {
             <PhotoUploader
               initialPhotos={this.props.listing ? [{ url: this.props.listing.listingPicUrl }] : []}
               maxFiles={1}
-              onPhotosUpdated={(photos: Photo[]) => this.setSinglePhoto('listingPicUrl', photos)}
+              onPhotosUpdated={(photos: Photo[]) => this.setCoverPhoto(photos)}
             />
             <Svg
               className={`admin-input__success ${getInputSuccessClass(inputValidation.listingPicUrl)}`.trim()}
