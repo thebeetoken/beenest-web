@@ -87,12 +87,16 @@ const HomeGuests = () => (
       <p className={CONTENT_CLASSES.SUBTITLE}>
         Worry not, here you can find the best place for your next business trip.
       </p>
+
       <Row className={CONTENT_CLASSES.FEATURES.LAYOUT}>
         {guestValueProps.map(card => (
           <Col xs="12" md="6" lg="4" key={card.title}>
             <ValuePropCard src={card.src} center className={card.className} title={card.title} body={card.body} />
           </Col>
         ))}
+      </Row>
+      <Row>
+          
       </Row>
     </Container>
 
@@ -109,12 +113,17 @@ const HomeHosts = () => (
       <p className={CONTENT_CLASSES.SUBTITLE}>
         Here, your guests will be business travelers so don’t worry about parties.
       </p>
+
       <Row className={CONTENT_CLASSES.FEATURES.LAYOUT}>
         {hostValueProps.map(card => (
           <Col xs="12" md="6" lg="4" key={card.title}>
             <ValuePropCard src={card.src} center className={card.className} title={card.title} body={card.body} />
           </Col>
         ))}
+      </Row>
+
+      <Row>
+          
       </Row>
     </Container>
 
