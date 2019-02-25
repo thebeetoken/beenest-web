@@ -7,11 +7,7 @@ import { UPDATE_USER, User, GET_ACCOUNT_PAGE, UserField } from 'networking/users
 
 import Textarea from 'shared/Textarea';
 import { TextareaEvent } from 'shared/Textarea/Textarea';
-
-interface AlertProperties {
-  msg: string;
-  color: string;
-}
+import { AlertProperties } from 'components/work/Alert/Alert';
 
 interface FormValues {
   [name: string]: boolean | string | string[] | number | object | undefined;
@@ -35,10 +31,9 @@ const defaultValues: FormValues = {
 }
 
 function AccountGeneral({ user, updateUser }: any) {
-  const [alert, setAlert] = React.useState<AlertProperties>({ msg: '', color: ''});
+  const [alert, setAlert] = React.useState<AlertProperties>({ color: '', msg: '', show: false });
   
   const initialValues = populateForm(defaultValues, user);
-  const { msg, color } = alert; 
   return (
     <Formik
       initialValues={initialValues}
@@ -47,11 +42,8 @@ function AccountGeneral({ user, updateUser }: any) {
       onSubmit={handleSubmit}>
       {({ errors, isSubmitting, setFieldTouched, setFieldValue, submitForm, touched, values }: FormikProps<any>) => (
         <Form method="POST">
-          {msg &&
-            <Alert color={color}>
-              {msg}
-            </Alert>
-          }
+          <Alert color={alert.color} isOpen={!!alert.show} toggle={() => setAlert({ ...alert, show: !alert.show })}>{alert.msg}</Alert>
+
           <Row>
             <Col md={6}>
               <FormGroup>
@@ -131,15 +123,17 @@ function AccountGeneral({ user, updateUser }: any) {
     updateUser(values)
       .then(() => {
         setAlert({ 
-          msg: 'User has been successfully updated',
           color: 'success',
+          msg: 'User has been successfully updated',
+          show: true,
         });
       })
       .catch((error: any) => {
         console.log('error: ', error);
         setAlert({ 
-          msg: error,
           color: 'danger',
+          msg: error,
+          show: true,
         });
       })
       .finally(() => actions.setSubmitting(false));
