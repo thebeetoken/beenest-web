@@ -73,30 +73,30 @@ const Photos = () => (
     <ul>
       <ListItem noHover prefixColor="correct" start="tiny">
         <Svg className="prefix" src="utils/check-circle" />
-        <strong>Take horizontal photos</strong>
+        <span>Take horizontal photos</span>
       </ListItem>
       <ListItem noHover prefixColor="correct" start="tiny">
         <Svg className="prefix" src="utils/check-circle" />
-        <strong>Take photos when natural light is brightest</strong>
+        <span>Take photos when natural light is brightest</span>
       </ListItem>
       <ListItem noHover prefixColor="correct" start="tiny">
         <Svg className="prefix" src="utils/check-circle" />
-        <strong>Provide multiple angles</strong>
+        <span>Provide multiple angles</span>
       </ListItem>
     </ul>
     <h4>Don't:</h4>
     <ul>
       <ListItem noHover prefixColor="incorrect" start="tiny">
         <Svg className="prefix" src="utils/x-circle" />
-        <strong>Take vertical photos</strong>
+        <span>Take vertical photos</span>
       </ListItem>
       <ListItem noHover prefixColor="incorrect" start="tiny">
         <Svg className="prefix" src="utils/x-circle" />
-        <strong>Take photos when there is no natural light</strong>
+        <span>Take photos when there is no natural light</span>
       </ListItem>
       <ListItem noHover prefixColor="incorrect" start="tiny">
         <Svg className="prefix" src="utils/x-circle" />
-        <strong>Upload blurry photos</strong>
+        <span>Upload blurry photos</span>
       </ListItem>
     </ul>
   </div>
@@ -237,7 +237,6 @@ const HouseRules = () => (
     </ul>
     <FirebaseConsumer>
       {({ user }: FirebaseUserProps) => {
-        console.log(user);
         return <p><strong>Wait!</strong> Before you go, {user ? `${user.displayName} `: ''}make sure your listing is business travel friendly and provides:</p>
       }}
     </FirebaseConsumer>

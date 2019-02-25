@@ -138,7 +138,8 @@ const ListingFormDesktopContainer = styled(ListingFormTabletContainer)`
         }
         .aside-container {
           height: 608px;
-          width: 556px;
+          min-width: 390px;
+          max-width: 556px;
           padding: 40px 56px 72px;
           position: sticky;
           top: 128px;
