@@ -2,7 +2,7 @@ import * as React from 'react';
 import { Button, Col, Container, Row } from 'reactstrap';
 
 import { affiliations, guestValueProps, HomeUser, hostValueProps, testimonials } from './home.config';
-import { AFFILICATION_CONFIG_CLASSES, CONTENT_CLASSES, JUMBOTRON_STYLES, TESTIMONIAL_CONFIG_CLASSES } from './home.styled';
+import { AFFILIATION_CONFIG_CLASSES, CONTENT_CLASSES, JUMBOTRON_STYLES, TESTIMONIAL_CONFIG_CLASSES } from './home.styled';
 
 import Footer from 'components/work/Footer';
 import Header from 'components/work/Header';
@@ -61,7 +61,7 @@ const Home = () => {
           </p>
           <Row className="py-4 py-md-10">
             {affiliations.map((affiliate, index) => (
-              <Col className={AFFILICATION_CONFIG_CLASSES[index]} key={affiliate.href}>
+              <Col className={AFFILIATION_CONFIG_CLASSES[index]} key={affiliate.href}>
                 <a href={affiliate.href} target="_blank">
                   {affiliate.svg}
                 </a>
