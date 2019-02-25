@@ -68,35 +68,35 @@ const ListingPicUrl = () => (
 const Photos = () => (
   <div>
     <h3>Listing Photos</h3>
-    <p>Beenest recommends listings have at least 5 high-definition photos available. Photos are the best way to show off your place to potential guests. <span>Pro tip:</span> provide multiple well-lit photos with different angles of bedrooms, bathrooms, and public spaces so guests know exactly what to expect.</p>
+    <p>Beenest recommends listings have at least 5 high-definition photos available. Photos are the best way to show off your place to potential guests. <strong>Pro tip:</strong> provide multiple well-lit photos with different angles of bedrooms, bathrooms, and public spaces so guests know exactly what to expect.</p>
     <h4>Do:</h4>
     <ul>
       <ListItem noHover prefixColor="correct" start="tiny">
         <Svg className="prefix" src="utils/check-circle" />
-        <span>Take horizontal photos</span>
+        <strong>Take horizontal photos</strong>
       </ListItem>
       <ListItem noHover prefixColor="correct" start="tiny">
         <Svg className="prefix" src="utils/check-circle" />
-        <span>Take photos when natural light is brightest</span>
+        <strong>Take photos when natural light is brightest</strong>
       </ListItem>
       <ListItem noHover prefixColor="correct" start="tiny">
         <Svg className="prefix" src="utils/check-circle" />
-        <span>Provide multiple angles</span>
+        <strong>Provide multiple angles</strong>
       </ListItem>
     </ul>
     <h4>Don't:</h4>
     <ul>
       <ListItem noHover prefixColor="incorrect" start="tiny">
         <Svg className="prefix" src="utils/x-circle" />
-        <span>Take vertical photos</span>
+        <strong>Take vertical photos</strong>
       </ListItem>
       <ListItem noHover prefixColor="incorrect" start="tiny">
         <Svg className="prefix" src="utils/x-circle" />
-        <span>Take photos when there is no natural light</span>
+        <strong>Take photos when there is no natural light</strong>
       </ListItem>
       <ListItem noHover prefixColor="incorrect" start="tiny">
         <Svg className="prefix" src="utils/x-circle" />
-        <span>Upload blurry photos</span>
+        <strong>Upload blurry photos</strong>
       </ListItem>
     </ul>
   </div>
@@ -106,7 +106,7 @@ const SleepingArrangement = () => (
   <div>
     <h3>Sleeping Arrangement</h3>
     <p>Sleeping Arrangement must include the quantity and size of beds.</p>
-    <p>Don’t forget to add <span>#</span> and <span>type</span> of bed!</p>
+    <p>Don’t forget to add <strong>#</strong> and <strong>type</strong> of bed!</p>
   </div>
 );
 
@@ -140,7 +140,7 @@ const Amenities = () => (
       </div>
     </div>
     <p>Wait a minute! Amenities are a critical part for our travelers.</p>
-    <p>Include <span>Wifi capabilities</span> and <span>working desk(s)</span> for business travelers. Separate amenities with commas.</p>
+    <p>Include <strong>Wifi capabilities</strong> and <strong>working desk(s)</strong> for business travelers. Separate amenities with commas.</p>
     <p>There’s no maximum to the number of amenities you can include so add as many as you’d like! The more the better.</p>
   </div>
 );
@@ -189,7 +189,7 @@ const PricePerNightUsd = () => (
 const SecurityDepositUsd = () => (
   <div>
     <h3>Security Deposit</h3>
-    <p><span>Note:</span> Security deposit is not charged at the time of booking. It will only be charged if a guest damages your property.</p>
+    <p><strong>Note:</strong> Security deposit is not charged at the time of booking. It will only be charged if a guest damages your property.</p>
   </div>
 );
 
@@ -199,12 +199,12 @@ const IcalUrls = () => (
     <p>To avoid double bookings and to prevent multiple guests from booking the same dates, sync your Beenest calendar with your other calendars and input your iCal URL from other booking platforms.</p>
     <p>Instructions to export calendars on other platforms are generally:</p>
     <ol>
-      <li>Go to <span>Host</span> and select <span>Calendar</span></li>
-      <li>Click <span>Availability</span> settings in your calendar view</li>
-      <li>Under Sync calendars, select <span>Export Calendar</span></li>
+      <li>Go to <strong>Host</strong> and select <strong>Calendar</strong></li>
+      <li>Click <strong>Availability</strong> settings in your calendar view</li>
+      <li>Under Sync calendars, select <strong>Export Calendar</strong></li>
       <li>Copy and paste the calendar link into Beenest</li>
     </ol>
-    <p><span>Note:</span> When you edit an external calendar that syncs with your calendar on Beenest, it will take a few hours for those changes to be visible to guests who view your listing.</p>
+    <p><strong>Note:</strong> When you edit an external calendar that syncs with your calendar on Beenest, it will take a few hours for those changes to be visible to guests who view your listing.</p>
   </div>
 );
 
@@ -238,7 +238,7 @@ const HouseRules = () => (
     <FirebaseConsumer>
       {({ user }: FirebaseUserProps) => {
         console.log(user);
-        return <p><span>Wait!</span> Before you go, {user ? `${user.displayName} `: ''}make sure your listing is business travel friendly and provides:</p>
+        return <p><strong>Wait!</strong> Before you go, {user ? `${user.displayName} `: ''}make sure your listing is business travel friendly and provides:</p>
       }}
     </FirebaseConsumer>
     <ul>

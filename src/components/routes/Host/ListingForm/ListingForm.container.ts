@@ -146,7 +146,7 @@ const ListingFormDesktopContainer = styled(ListingFormTabletContainer)`
             ${typography('title', 7)}
             color: ${color('dark')};
             margin-bottom: 32px;
-            > span {
+            > strong {
               ${typography('emp', 5)}
             }
           }
@@ -165,7 +165,7 @@ const ListingFormDesktopContainer = styled(ListingFormTabletContainer)`
             p {
               ${typography('read', 2)}
               margin-bottom: 24px;
-              > span {
+              > strong {
                 ${typography('emp', 6)}
               }
             }
@@ -173,7 +173,7 @@ const ListingFormDesktopContainer = styled(ListingFormTabletContainer)`
               margin-bottom: 24px;
               li {
                 list-style-type: decimal;
-                > span {
+                > strong {
                   ${typography('emp', 5)}
                 }
               }
