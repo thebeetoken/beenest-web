@@ -14,11 +14,17 @@ type Props = Partial<{
 const TestimonialCard = (props: Props) => {
   const { alt, body, center, className, subtitle, src, title } = props;
   return (
-    <Card className={`border-0 align-items-center ${className ? className : ''}`.trim()}>
-      <CardImg top className="w-100" src={src} alt={alt} />
-      <CardBody className={center ? 'text-center' : ''}>
-        <CardTitle className="h5 mb-2">{title}</CardTitle>
-        <CardSubtitle className="small">{subtitle}</CardSubtitle>
+    <Card className={`border-0 align-items-center bg-transparent ${className ? className : ''}`.trim()}>
+      <CardImg top className="w-100 rounded" src={src} alt={alt} />
+      <CardBody className={`${center ? 'text-center' : ''} bg-white shadow-sm mt-n6 mx-3 rounded`}>
+        <CardTitle className="h6 font-weight-normal mb-2">
+          {title}
+        </CardTitle>
+        <CardSubtitle className="small mb-3">
+          <p>
+            {subtitle}
+          </p>
+        </CardSubtitle>
         <CardText className="small">{body}</CardText>
       </CardBody>
     </Card>

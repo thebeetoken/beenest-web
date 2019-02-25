@@ -1,12 +1,13 @@
 import * as React from 'react';
 import { Button, Col, Container, Row } from 'reactstrap';
 
-import { affiliations, guestValueProps, HomeUser, hostValueProps } from './home.config';
-import { JUMBOTRON_STYLES, CONTENT_CLASSES } from './home.styled';
+import { affiliations, guestValueProps, HomeUser, hostValueProps, testimonials } from './home.config';
+import { AFFILICATION_CONFIG_CLASSES, CONTENT_CLASSES, JUMBOTRON_STYLES, TESTIMONIAL_CONFIG_CLASSES } from './home.styled';
 
 import Footer from 'components/work/Footer';
 import Header from 'components/work/Header';
 import Jumbotron from 'components/work/Jumbotron';
+import TestimonialCard from 'components/work/TestimonialCard';
 import ValuePropCard from 'components/work/ValuePropCard';
 
 const Home = () => {
@@ -53,14 +54,14 @@ const Home = () => {
 
         {isGuestActive ? <HomeGuests /> : <HomeHosts />}
 
-        <Container className="my-10 pb-lg-10">
+        <Container className="my-10 pb-lg-4">
           <h2 className={CONTENT_CLASSES.TITLE}>Partners</h2>
           <p className={`${CONTENT_CLASSES.SUBTITLE} mb-5 mb-md-0 mb-lg-3`}>
             Beenest has been featured in the following news and magazines.
           </p>
           <Row className="py-4 py-md-10">
-            {affiliations.map(affiliate => (
-              <Col className={affiliate.className} key={affiliate.href}>
+            {affiliations.map((affiliate, index) => (
+              <Col className={AFFILICATION_CONFIG_CLASSES[index]} key={affiliate.href}>
                 <a href={affiliate.href} target="_blank">
                   {affiliate.svg}
                 </a>
@@ -91,13 +92,31 @@ const HomeGuests = () => (
       <Row className={CONTENT_CLASSES.FEATURES.LAYOUT}>
         {guestValueProps.map(card => (
           <Col xs="12" md="6" lg="4" key={card.title}>
-            <ValuePropCard src={card.src} center className={card.className} title={card.title} body={card.body} />
+            <ValuePropCard src={card.src} center className={CONTENT_CLASSES.FEATURES.COLUMN_LAYOUT} title={card.title} body={card.body} />
           </Col>
         ))}
       </Row>
-      <Row>
-          
-      </Row>
+    </Container>
+
+    <Container className={`${CONTENT_CLASSES.FEATURES_CONTAINER.LAYOUT} position-relative`} fluid>
+      <h2 className={CONTENT_CLASSES.TITLE}>"Booking for my buisness trip was never easier."</h2>
+      <p className={CONTENT_CLASSES.SUBTITLE}>
+        Real guests, Real stories.
+      </p>
+      <Container className="mt-8">
+        <Row>
+          {testimonials.map((testimonial, index) => (
+            <Col md="6" lg="3" key={testimonial.title}>
+              <TestimonialCard
+                className={`${TESTIMONIAL_CONFIG_CLASSES[index]}`}
+                title={testimonial.title}
+                subtitle={testimonial.subtitle}
+                body={testimonial.body}
+                src={testimonial.src} />
+            </Col>
+          ))}
+        </Row>
+      </Container>
     </Container>
 
     {/* <Container className="p-0 mt-10" fluid>
@@ -117,14 +136,31 @@ const HomeHosts = () => (
       <Row className={CONTENT_CLASSES.FEATURES.LAYOUT}>
         {hostValueProps.map(card => (
           <Col xs="12" md="6" lg="4" key={card.title}>
-            <ValuePropCard src={card.src} center className={card.className} title={card.title} body={card.body} />
+            <ValuePropCard src={card.src} center className={CONTENT_CLASSES.FEATURES.COLUMN_LAYOUT} title={card.title} body={card.body} />
           </Col>
         ))}
       </Row>
 
-      <Row>
-          
-      </Row>
+      <Container className={`${CONTENT_CLASSES.FEATURES_CONTAINER.LAYOUT} position-relative`} fluid>
+        <h2 className={CONTENT_CLASSES.TITLE}>"Booking for my buisness trip was never easier."</h2>
+        <p className={CONTENT_CLASSES.SUBTITLE}>
+          Real guests, Real stories.
+      </p>
+        <Container className="mt-8">
+          <Row>
+            {testimonials.map((testimonial, index) => (
+              <Col md="6" lg="3" key={testimonial.title}>
+                <TestimonialCard
+                  className={`${TESTIMONIAL_CONFIG_CLASSES[index]}`}
+                  title={testimonial.title}
+                  subtitle={testimonial.subtitle}
+                  body={testimonial.body}
+                  src={testimonial.src} />
+              </Col>
+            ))}
+          </Row>
+        </Container>
+      </Container>
     </Container>
 
     {/* <Container className="p-0 mt-10" fluid>
