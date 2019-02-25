@@ -2,7 +2,7 @@ import * as React from 'react';
 import { Button, Col, Container, Row } from 'reactstrap';
 
 import { affiliations, guestValueProps, HomeUser, hostValueProps, testimonials } from './home.config';
-import { AFFILIATION_CONFIG_CLASSES, CONTENT_CLASSES, JUMBOTRON_STYLES, TESTIMONIAL_CONFIG_CLASSES } from './home.styled';
+import { AFFILIATE_CLASSES, CONTENT_CLASSES, JUMBOTRON_STYLES, TESTIMONIAL_CLASSES } from './home.styled';
 
 import Footer from 'components/work/Footer';
 import Header from 'components/work/Header';
@@ -59,9 +59,9 @@ const Home = () => {
           <p className={`${CONTENT_CLASSES.SUBTITLE} mb-5 mb-md-0 mb-lg-3`}>
             Beenest has been featured in the following news and magazines.
           </p>
-          <Row className="py-4 py-md-10">
-            {affiliations.map((affiliate, index) => (
-              <Col className={AFFILIATION_CONFIG_CLASSES[index]} key={affiliate.href}>
+          <Row className="py-4 py-md-10 home-affilications">
+            {affiliations.map((affiliate) => (
+              <Col className={AFFILIATE_CLASSES} key={affiliate.href}>
                 <a href={affiliate.href} target="_blank">
                   {affiliate.svg}
                 </a>
@@ -104,11 +104,10 @@ const HomeGuests = () => (
         Real guests, Real stories.
       </p>
       <Container className="mt-8">
-        <Row>
-          {testimonials.map((testimonial, index) => (
-            <Col md="6" lg="3" key={testimonial.title}>
+        <Row className="home-testimonials">
+          {testimonials.map((testimonial) => (
+            <Col md="6" lg="3" className={TESTIMONIAL_CLASSES} key={testimonial.title}>
               <TestimonialCard
-                className={`${TESTIMONIAL_CONFIG_CLASSES[index]}`}
                 title={testimonial.title}
                 subtitle={testimonial.subtitle}
                 body={testimonial.body}
@@ -147,11 +146,11 @@ const HomeHosts = () => (
           Real guests, Real stories.
       </p>
         <Container className="mt-8">
-          <Row>
-            {testimonials.map((testimonial, index) => (
+          <Row className="home-testimonials">
+            {testimonials.map((testimonial) => (
               <Col md="6" lg="3" key={testimonial.title}>
                 <TestimonialCard
-                  className={`${TESTIMONIAL_CONFIG_CLASSES[index]}`}
+                  className={TESTIMONIAL_CLASSES}
                   title={testimonial.title}
                   subtitle={testimonial.subtitle}
                   body={testimonial.body}

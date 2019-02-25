@@ -15,21 +15,6 @@ export const CONTENT_CLASSES = {
 export const AFFILIATE_CLASSES = `${FLEX_CENTER} mb-4 mb-lg-0`;
 export const TESTIMONIAL_CLASSES = `${FLEX_CENTER} mb-6 mb-lg-0`;
 
-export const AFFILIATION_CONFIG_CLASSES = [
-  AFFILIATE_CLASSES,
-  AFFILIATE_CLASSES,
-  AFFILIATE_CLASSES,
-  AFFILIATE_CLASSES,
-  FLEX_CENTER,
-];
-
-export const TESTIMONIAL_CONFIG_CLASSES = [
-  TESTIMONIAL_CLASSES,
-  TESTIMONIAL_CLASSES,
-  TESTIMONIAL_CLASSES,
-  '',
-];
-
 export const JUMBOTRON_STYLES = {
   backgroundImage: `url('https://static.beenest.com/images/app/misc/painted-ladies2.jpg')`,
   height: '72vh',

@@ -1,3 +1,10 @@
+// home custom styles
+.home-affilications,
+.home-testimonials {
+  >div:last-of-type {
+    margin-bottom: 0!important;
+  }
+}
 // carousel custom styles
 .carousel-item {
   >img {
