@@ -289,7 +289,6 @@ class ListingForm extends React.Component<Props, State> {
     actions.setSubmitting(true);
     const { updateListing } = props;
     const { id } = props.match.params;
-    console.log('values:', values);
     return updateListing(id, values)
       .then(() => {
         props.history.push(`/host/listings/${this.state.nextCrumb}`);

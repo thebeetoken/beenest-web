@@ -237,7 +237,7 @@ const HouseRules = () => (
     </ul>
     <FirebaseConsumer>
       {({ user }: FirebaseUserProps) => {
-        return <p><strong>Wait!</strong> Before you go, {user ? `${user.displayName} `: ''}make sure your listing is business travel friendly and provides:</p>
+        return <p><strong>Wait!</strong> Before you go, {user ? `${user.displayName}, `: ''}make sure your listing is business travel friendly and provides:</p>
       }}
     </FirebaseConsumer>
     <ul>
