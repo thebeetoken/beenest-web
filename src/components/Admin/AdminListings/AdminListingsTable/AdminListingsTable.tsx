@@ -26,7 +26,7 @@ const AdminListingsTable = ({ deleteListing }: Props): JSX.Element => {
   const limit = 20;
   return (<AdminListingsTableContainer>
     <Paginator limit={20}>{({ offset, next, previous }: PaginatorRef) => (
-      <Query query={GET_ALL_LISTINGS} variables={{ input: { offset, limit, userId, userEmail } }}>
+      <Query query={GET_ALL_LISTINGS} fetchPolicy="cache-and-network" variables={{ input: { offset, limit, userId, userEmail } }}>
         {({ loading, error, data }): JSX.Element => {
           if (loading) {
             return <AdminLoading />;

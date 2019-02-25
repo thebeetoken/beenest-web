@@ -275,6 +275,7 @@ export const errorMessages = {
   phoneNumber: 'Please enter a valid international phone number.',
   postalCode: 'Please enter a valid zip/postal code',
   isEmpty: 'Field cannot be empty',
+  emailMissing: 'User does not have an email.',
 };
 
 
