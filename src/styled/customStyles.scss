@@ -1,3 +1,11 @@
+// home custom styles
+.home-affiliations,
+.home-testimonials {
+  >div:last-of-type {
+    margin-bottom: 0!important;
+  }
+}
+// carousel custom styles
 .carousel-item {
   >img {
     height: 100%;
@@ -12,6 +20,27 @@
       left: auto;
       right: auto;
       top: auto;
+    }
+  }
+}
+
+// custom fixed header height to ensure we know the exact header height
+.custom-header-height {
+  height: 4rem;
+
+  nav {
+    height: 100%;
+  }
+}
+
+
+// add not-allowed cursor and no transform on disabled items
+* {
+  &:disabled {
+    cursor: not-allowed;
+
+    &:hover {
+      transform: none;
     }
   }
 }

@@ -109,6 +109,7 @@ const validationMap: Validation = {
   houseRules: isNotEmpty,
   airbnbLink: isValidOptionalUrl,
   wifi: isOptional,
+  adminNotes: isOptional,
 };
 
 const hotelFields = new Set([
@@ -120,6 +121,7 @@ const hotelFields = new Set([
 
 function convertToListingForm(listing = {} as Listing): AdminListingInput {
   return {
+    adminNotes: listing.adminNotes || '',
     autoApprove: listing.autoApprove || false,
     addressLine1: listing.addressLine1 || '',
     addressLine2: listing.addressLine2 || '',
@@ -309,6 +311,7 @@ class AdminListingsForm extends React.Component<Props, State> {
     const {
       addressLine1,
       addressLine2,
+      adminNotes,
       airbnbLink,
       amenities,
       autoApprove,
@@ -1129,6 +1132,27 @@ class AdminListingsForm extends React.Component<Props, State> {
               src="utils/check-circle"
             />
             <span className={`admin-input__error ${getInputErrorClass(inputValidation.airbnbLink)}`.trim()}>
+              {errorMessages.generic}
+            </span>
+          </div>
+        </div>
+
+        <div className="admin-form--item">
+          <AdminInputLabel htmlFor="adminNotes" subLabel="(optional)">Admin Notes:</AdminInputLabel>
+          <div className="single-input-validator-container">
+            <AdminTextarea
+              className={getInputValidationClass(inputValidation.adminNotes)}
+              html
+              name="adminNotes"
+              onChange={this.handleInput}
+              placeholder="Type in notes about this listing"
+              value={adminNotes}
+            />
+            <Svg
+              className={`admin-input__success ${getInputSuccessClass(inputValidation.adminNotes)}`.trim()}
+              src="utils/check-circle"
+            />
+            <span className={`admin-input__error ${getInputErrorClass(inputValidation.adminNotes)}`.trim()}>
               {errorMessages.generic}
             </span>
           </div>
