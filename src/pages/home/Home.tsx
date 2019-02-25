@@ -59,7 +59,7 @@ const Home = () => {
           <p className={`${CONTENT_CLASSES.SUBTITLE} mb-5 mb-md-0 mb-lg-3`}>
             Beenest has been featured in the following news and magazines.
           </p>
-          <Row className="py-4 py-md-10 home-affilications">
+          <Row className="py-4 py-md-10 home-affiliations">
             {affiliations.map((affiliate) => (
               <Col className={AFFILIATE_CLASSES} key={affiliate.href}>
                 <a href={affiliate.href} target="_blank">
