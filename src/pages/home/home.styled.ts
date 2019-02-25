@@ -19,8 +19,3 @@ export const JUMBOTRON_STYLES = {
   backgroundImage: `url('https://static.beenest.com/images/app/misc/painted-ladies2.jpg')`,
   height: '72vh',
 };
-
-// export const CONTENT_3_STYLES = {
-//   backgroundImage: `url('https://static.beenest.com/images/app/misc/painted-ladies2.jpg')`,
-//   height: '52vh',
-// };

@@ -117,10 +117,6 @@ const HomeGuests = () => (
         </Row>
       </Container>
     </Container>
-
-    {/* <Container className="p-0 mt-10" fluid>
-      <div className="bg-img-hero d-flex" style={CONTENT_3_STYLES} />
-    </Container> */}
   </>
 );
 
@@ -161,10 +157,6 @@ const HomeHosts = () => (
         </Container>
       </Container>
     </Container>
-
-    {/* <Container className="p-0 mt-10" fluid>
-      <div className="bg-img-hero d-flex" style={CONTENT_3_STYLES} />
-    </Container> */}
   </>
 );
 
