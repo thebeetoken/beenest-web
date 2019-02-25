@@ -9,6 +9,7 @@ export interface CheckInTime {
 export interface Listing {
   addressLine1: string;
   addressLine2?: string;
+  adminNotes?: string;
   airbnbLink?: string;
   amenities: string[];
   autoApprove: boolean;
@@ -83,6 +84,7 @@ export interface HostListingShort {
 export interface ListingInput {
   addressLine1?: string;
   addressLine2?: string;
+  adminNotes?: string;
   airbnbLink?: string;
   amenities?: string[];
   city?: string;
@@ -292,6 +294,7 @@ export const GET_LISTING_FORM = gql`
     listing(id: $id) {
       addressLine1
       addressLine2
+      adminNotes
       airbnbLink
       autoApprove
       checkInDate
@@ -412,6 +415,7 @@ export const CREATE_LISTING = gql`
     createListing(input: $input) {
       addressLine1
       addressLine2
+      adminNotes
       airbnbLink
       createdAt
       currency
@@ -438,6 +442,7 @@ export const UPDATE_LISTING = gql`
     updateListing(id: $id, input: $input) {
       addressLine1
       addressLine2
+      adminNotes
       airbnbLink
       host {
         createdAt
