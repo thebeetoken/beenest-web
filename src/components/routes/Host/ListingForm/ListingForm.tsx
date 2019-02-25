@@ -58,7 +58,7 @@ const defaultValues: FormValues = {
   [ListingField.STATE]: '',
   [ListingField.TITLE]: '',
   [ListingField.WIFI]: {
-    photo: '',
+    photoUrl: '',
     mbps: 0,
   },
 };
@@ -122,7 +122,7 @@ const ListingFormSchema = Yup.object().shape({
     .min(5, minStringError('Title'))
     .max(50, maxStringError('Title')),
   [ListingField.WIFI]: Yup.object({
-    photo: Yup.string().url().nullable(true),
+    photoUrl: Yup.string().url().nullable(true),
     mbps: Yup.number().min(0, minNumberError('Wifi Speed')).nullable(true),
   }),
 });
@@ -289,6 +289,7 @@ class ListingForm extends React.Component<Props, State> {
     actions.setSubmitting(true);
     const { updateListing } = props;
     const { id } = props.match.params;
+    console.log('values:', values);
     return updateListing(id, values)
       .then(() => {
         props.history.push(`/host/listings/${this.state.nextCrumb}`);

@@ -113,12 +113,12 @@ const AccommodationsForm = (props: any): JSX.Element => {
       <div className="form-item photo" onMouseEnter={() => setFocus(ListingField.WIFI)}>
         <InputLabel htmlFor={ListingField.WIFI} subLabel="(recommended)">Wifi Screenshot</InputLabel>
         <PhotoUploader
-          initialPhotos={values.wifi && values.wifi.photo ? [{ url: values.wifi.photo }] : []}
+          initialPhotos={values.wifi && values.wifi.photoUrl ? [{ url: values.wifi.photoUrl }] : []}
           maxFiles={1}
           onClick={() => setFocus(ListingField.WIFI)}
           onPhotosUpdated={(photo: Photo[]) => {
             setFieldTouched(ListingField.WIFI, true);
-            setFieldValue(ListingField.WIFI, { ...values.wifi, photo: photo[0] ? photo[0].url : '' });
+            setFieldValue(ListingField.WIFI, { ...values.wifi, photoUrl: photo[0] ? photo[0].url : '' });
           }} />
         <StyledErrorMessage name={`${ListingField.WIFI}.photo`} />
       </div>

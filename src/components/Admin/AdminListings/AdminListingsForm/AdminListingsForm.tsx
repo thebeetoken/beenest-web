@@ -153,7 +153,7 @@ function convertToListingForm(listing = {} as Listing): AdminListingInput {
     state: listing.state || '',
     title: listing.title || '',
     totalQuantity: listing.totalQuantity || 0,
-    wifi: listing.wifi || { photo: '', mbps: 0 },
+    wifi: listing.wifi || { photoUrl: '', mbps: 0 },
   }
 };
 
@@ -233,7 +233,7 @@ class AdminListingsForm extends React.Component<Props, State> {
 
   setWifiPhoto = (photos: Photo[]) => {
     const url = photos[0] ? photos[0].url : '';
-    this.validateAndUpdate('wifi', { ...this.state.inputForm.wifi, photo: url });
+    this.validateAndUpdate('wifi', { ...this.state.inputForm.wifi, photoUrl: url });
   }
 
   setListingPhotos = (photos: Photo[]) => {
@@ -994,7 +994,7 @@ class AdminListingsForm extends React.Component<Props, State> {
           <AdminInputLabel htmlFor="wifi">Wifi Screenshot:</AdminInputLabel>
           <div className="single-input-validator-container">
             <PhotoUploader
-              initialPhotos={this.props.listing.wifi && this.props.listing.wifi.photo ? [{ url: this.props.listing.wifi.photo }] : []}
+              initialPhotos={this.props.listing.wifi && this.props.listing.wifi.photoUrl ? [{ url: this.props.listing.wifi.photoUrl }] : []}
               maxFiles={1}
               onPhotosUpdated={(photos: Photo[]) => this.setWifiPhoto(photos)}
             />
