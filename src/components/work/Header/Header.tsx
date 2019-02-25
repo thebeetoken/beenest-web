@@ -46,7 +46,7 @@ const Header = () => {
         </NavbarBrand>
         <NavbarToggler onClick={handleToggleNavbar} className="mr-2" />
         <Collapse isOpen={isOpen} navbar>
-          <Nav className="ml-auto u-header__navbar-nav pt-5 pt-md-0" navbar>
+          <Nav className="ml-auto u-header__navbar-nav pt-5 pb-3 pt-md-0 pb-md-0" navbar>
             <a href="/hosts/signup">
               <Button className="mb-4 mb-md-0 mr-md-4" type="button" outline color="primary">
                 Become a Host

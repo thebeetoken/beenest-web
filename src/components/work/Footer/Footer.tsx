@@ -55,7 +55,7 @@ const socialData = [
 ];
 
 const Footer = () => (
-  <footer>
+  <footer className="pt-md-10">
     <Container className="space-lg-2 border-bottom">
       <Row className="justify-content-md-between">
         <Col lg="3" className="d-none d-lg-flex mb-4 mb-lg-0">
