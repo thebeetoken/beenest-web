@@ -14,20 +14,23 @@ import {
 } from 'reactstrap';
 import { Link } from 'react-router-dom';
 
+import { SETTINGS } from 'configs/settings';
 import { BeenestSVGPrimary } from 'shared/svgComponents/SvgComponents';
+
+const { BEENEST_HOST } = SETTINGS;
 
 const contentData = [
   {
-    header: 'Account',
-    links: [['Profile', '/work'], ['User Contacts', '/work'], ['Projects', '/work'], ['Settings', '/work']],
+    header: 'Top Cities',
+    links: [['San Francisco', `${BEENEST_HOST}/work`], ['New York', `${BEENEST_HOST}/work`], ['Los Angeles', `${BEENEST_HOST}/work`], ['Denver', `${BEENEST_HOST}/work`], ['Chicago', `${BEENEST_HOST}/work`]],
   },
   {
     header: 'Company',
-    links: [['About', '/work'], ['Services', '/work'], ['Careers', '/work'], ['Blog', '/work']],
+    links: [['About', `${BEENEST_HOST}/work`], ['Blog', 'https://medium.com/thebeetoken', '_blank']],
   },
   {
-    header: 'Resources',
-    links: [['Invoice', '/work'], ['Help', '/work'], ['Terms', '/work'], ['Privacy', '/work']],
+    header: 'Community',
+    links: [['Telegram', 'https://t.me/beetoken', '_blank'], ['Twitter', 'https://twitter.com/thebeetoken', '_blank'], ['Facebook', 'https://www.facebook.com/thebeetoken/', '_blank']],
   },
 ];
 
@@ -70,7 +73,7 @@ const Footer = () => (
               </DropdownToggle>
               <DropdownMenu>
                 {item.links.map(link => (
-                  <DropdownItem tag={Link} to={link[1]} key={link[0]}>
+                  <DropdownItem tag="a" href={link[1]} target={link[2] || '_self'} key={link[0]}>
                     {link[0]}
                   </DropdownItem>
                 ))}
@@ -84,7 +87,7 @@ const Footer = () => (
             <ListGroup className="list-group-borderless" flush>
               <ListGroupItemHeading className="h6 font-weight-semi-bold">{item.header}</ListGroupItemHeading>
               {item.links.map(link => (
-                <ListGroupItem action tag={Link} to={link[1]} key={link[0]}>
+                <ListGroupItem action tag="a" href={link[1]} target={link[2] || '_self'} key={link[0]}>
                   {link[0]}
                 </ListGroupItem>
               ))}
@@ -95,7 +98,6 @@ const Footer = () => (
         <Col sm="3" lg="3" className="mb-4 mb-lg-0">
           <ListGroup className="list-group-borderless" flush>
             <ListGroupItemHeading className="h6 font-weight-semi-bold">Contact</ListGroupItemHeading>
-            <ListGroupItem className="text-secondary">+1 (408) 123-4567</ListGroupItem>
             <ListGroupItem tag={Link} to="/work">
               support@beenest.com
             </ListGroupItem>
