@@ -22,15 +22,27 @@ const { BEENEST_HOST } = SETTINGS;
 const contentData = [
   {
     header: 'Top Cities',
-    links: [['San Francisco', `${BEENEST_HOST}/work`], ['New York', `${BEENEST_HOST}/work`], ['Los Angeles', `${BEENEST_HOST}/work`], ['Denver', `${BEENEST_HOST}/work`], ['Chicago', `${BEENEST_HOST}/work`]],
+    links: [
+      ['San Francisco', `${BEENEST_HOST}/listings?locationQuery=San%20Francisco%2C%20CA%2C%20USA`],
+      ['New York', `${BEENEST_HOST}/listings?locationQuery=New%20York%2C%20CA%2C%20USA`],
+      ['Los Angeles', `${BEENEST_HOST}/listings?locationQuery=Los%20Angeles%2C%20CA%2C%20USA`],
+      ['Denver', `${BEENEST_HOST}/listings?locationQuery=Denver%2C%20CA%2C%20USA`],
+      ['Chicago', `${BEENEST_HOST}/listings?locationQuery=Chicago%2C%20CA%2C%20USA`]],
   },
   {
     header: 'Company',
-    links: [['About', `${BEENEST_HOST}/work`], ['Blog', 'https://medium.com/thebeetoken', '_blank']],
+    links: [
+      ['About', `${BEENEST_HOST}/work`],
+      ['Blog', 'https://medium.com/thebeetoken', '_blank'],
+    ],
   },
   {
     header: 'Community',
-    links: [['Telegram', 'https://t.me/beetoken', '_blank'], ['Twitter', 'https://twitter.com/thebeetoken', '_blank'], ['Facebook', 'https://www.facebook.com/thebeetoken/', '_blank']],
+    links: [
+      ['Telegram', 'https://t.me/beetoken', '_blank'],
+      ['Twitter', 'https://twitter.com/thebeetoken', '_blank'],
+      ['Facebook', 'https://www.facebook.com/thebeetoken/', '_blank'],
+    ],
   },
 ];
 
@@ -98,7 +110,7 @@ const Footer = () => (
         <Col sm="3" lg="3" className="mb-4 mb-lg-0">
           <ListGroup className="list-group-borderless" flush>
             <ListGroupItemHeading className="h6 font-weight-semi-bold">Contact</ListGroupItemHeading>
-            <ListGroupItem tag={Link} to="/work">
+            <ListGroupItem tag="a" href="mailto:support@beenest.com?subject=Contact Support">
               support@beenest.com
             </ListGroupItem>
             <ListGroupItem className="text-secondary">
