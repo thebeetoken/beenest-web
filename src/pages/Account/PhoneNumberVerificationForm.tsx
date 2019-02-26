@@ -1,8 +1,6 @@
 import firebase from 'firebase/app';
 import * as React from 'react'
 
-import { AppConsumer, AppConsumerProps, ScreenType } from 'components/App.context';;
-import Divider from 'shared/Divider';
 import { COUNTRY_CODES, CountryCode } from 'utils/countryCodes';
 import {
   FirebaseUser,
@@ -17,7 +15,9 @@ import {
   isValidVerificationCode,
   SuccessMessage,
 } from 'utils/validators';
-import { Row, Col, Button, Alert, Input, FormGroup, Label, FormFeedback, Container } from 'reactstrap';
+import { Row, Col, Button, Alert, Input, FormGroup, Label, FormFeedback, Container, ModalFooter, Modal } from 'reactstrap';
+import ModalHeader from 'reactstrap/lib/ModalHeader';
+import ModalBody from 'reactstrap/lib/ModalBody';
 
 enum SubmitType {
   PHONE_NUMBER,
@@ -25,7 +25,7 @@ enum SubmitType {
 }
 
 interface Props {
-  onClose: () => void,
+  toggleModal: () => void,
   refreshVerificationStatus: () => Promise<void>;
   user: FirebaseUser,
 };
@@ -83,114 +83,108 @@ class AccountVerificationPhoneCard extends React.Component<Props, State> {
 
   render() {
     const { inputForm, phoneNumberErrorMessage, alert, submitType } = this.state;
-    const { onClose } = this.props;
+    const { toggleModal } = this.props;
     return (
       <>
-        <div className="fixed-bottom fixed-right" ref={(ref) => this.recaptcha = ref} />
-        <Container>
-          <FormGroup>
-            <Label for="country-code">Country Code</Label>
-            <Input
-              id="country-code"
-              name="country-code"
-              onChange={this.handleDialCodeChange}
-              type="select">
-              {COUNTRY_CODES.map((options: CountryCode) => (
-                <option
-                  key={options.code}
-                  value={options.code}>
-                  +{options.phone} {options.name}
-                </option>
-              ))}
-            </Input>
-          </FormGroup>
-          <FormGroup>
-            <Input
-              id="phoneNumber"
-              invalid={!!phoneNumberErrorMessage}
-              name="phoneNumber"
-              onChange={this.handleInput}
-              placeholder="555-555-5555"
-              type="text" />
-            <FormFeedback>{phoneNumberErrorMessage}</FormFeedback>
-          </FormGroup>
-          {submitType === SubmitType.VERIFICATION_CODE &&
-            <div>
-              <Label for="verificationCode">Verification Code</Label>
-              <Row>
-                <Col md={6}>
-                  <FormGroup>
-                    <Input
-                      onChange={this.handleInput}
-                      placeholder="6 digit code"
-                      type="text"
-                      name="verificationCode"
-                      value={inputForm.verificationCode} />
-                  </FormGroup>
-                </Col>
-                <Col md={6} className="text-right">
-                  <Button
-                    border="core"
-                    disabled={submitType === SubmitType.PHONE_NUMBER}
-                    size="small">
-                    Resend Code
-                  </Button>
-                </Col>
-              </Row>
-              <div className="verification-code-messaging">
-                <p>
-                  {getDisplaySuccessMessage(SuccessMessage.NEW_CODE_SENT)}
-                </p>
-                <p>
-                  {getDisplaySuccessMessage(SuccessMessage.ENTER_SIX_DIGIT_CODE)}
-                </p>
+        <div ref={(ref) => this.recaptcha = ref} />
+        <Modal isOpen toggle={toggleModal}>
+          <ModalHeader toggle={toggleModal}>Change/Add Phone Number</ModalHeader>
+          <ModalBody>
+            <FormGroup>
+              <Label for="country-code">Country Code</Label>
+              <Input
+                id="country-code"
+                name="country-code"
+                onChange={this.handleDialCodeChange}
+                type="select">
+                {COUNTRY_CODES.map((options: CountryCode) => (
+                  <option
+                    key={options.code}
+                    value={options.code}>
+                    +{options.phone} {options.name}
+                  </option>
+                ))}
+              </Input>
+            </FormGroup>
+            <FormGroup>
+              <Input
+                id="phoneNumber"
+                invalid={!!phoneNumberErrorMessage}
+                name="phoneNumber"
+                onChange={this.handleInput}
+                placeholder="555-555-5555"
+                type="text" />
+              <FormFeedback>{phoneNumberErrorMessage}</FormFeedback>
+            </FormGroup>
+            {submitType === SubmitType.VERIFICATION_CODE &&
+              <div>
+                <Label for="verificationCode">Verification Code</Label>
+                <Row>
+                  <Col md={6}>
+                    <FormGroup>
+                      <Input
+                        onChange={this.handleInput}
+                        placeholder="6 digit code"
+                        type="text"
+                        name="verificationCode"
+                        value={inputForm.verificationCode} />
+                    </FormGroup>
+                  </Col>
+                  <Col md={6} className="text-right">
+                    <Button
+                      border="core"
+                      disabled={submitType === SubmitType.PHONE_NUMBER}
+                      size="small">
+                      Resend Code
+                    </Button>
+                  </Col>
+                </Row>
+                <div className="verification-code-messaging">
+                  <p>
+                    {getDisplaySuccessMessage(SuccessMessage.NEW_CODE_SENT)}
+                  </p>
+                  <p>
+                    {getDisplaySuccessMessage(SuccessMessage.ENTER_SIX_DIGIT_CODE)}
+                  </p>
+                </div>
               </div>
-            </div>
-          }
-          <AppConsumer>
-            {({ screenType }: AppConsumerProps) => {
-              if (screenType > ScreenType.MOBILE) return null;
-              return <div className="bee-flex-div" />;
-            }}
-          </AppConsumer>
-          <Divider color="middle" />
-          <AppConsumer>
-            {({ screenType }: AppConsumerProps) => {
-              if (screenType < ScreenType.TABLET) return null;
-              return <div className="bee-flex-div" />;
-            }}
-          </AppConsumer>
-          <Row className="align-items-center justify-content-end">
-            <Col className="text-right">
-              {submitType === SubmitType.PHONE_NUMBER &&
-                <Button
-                  disabled={(isValidPhoneNumber(inputForm.phoneNumber) !== FieldValidation.SUCCESS) || this.state.isSubmitting}
-                  onClick={this.handlePhoneNumberSubmit}>
-                  Submit Phone Number
-                </Button>
-              }
-              {submitType === SubmitType.VERIFICATION_CODE &&
-                <Button
-                  disabled={(isValidVerificationCode(inputForm.verificationCode) !== FieldValidation.SUCCESS) || this.state.isSubmitting}
-                  onClick={this.handleVerificationCodeSubmit}>
-                  Submit Verification Code
-                </Button>
-              }
-              <button
-                onClick={() => {
-                  console.log('this.state:', this.state);
-                }}>
-                test
-              </button>
-            </Col>
-          </Row>
+            }
+            <hr />
 
-          <Alert
-            isOpen={alert.open}
-            color="success">
-            {alert.message}
-          </Alert>
-        </Container>
+            <Row className="align-items-center justify-content-end">
+              <Col className="text-right">
+                <button
+                  onClick={() => {
+                    console.log('this.state:', this.state);
+                  }}>
+                  test
+                </button>
+                {submitType === SubmitType.PHONE_NUMBER &&
+                  <Button
+                    color="success"
+                    disabled={(isValidPhoneNumber(inputForm.phoneNumber) !== FieldValidation.SUCCESS) || this.state.isSubmitting}
+                    onClick={this.handlePhoneNumberSubmit}>
+                    Submit Phone Number
+                  </Button>
+                }
+                {submitType === SubmitType.VERIFICATION_CODE &&
+                  <Button
+                    color="success"
+                    disabled={(isValidVerificationCode(inputForm.verificationCode) !== FieldValidation.SUCCESS) || this.state.isSubmitting}
+                    onClick={this.handleVerificationCodeSubmit}>
+                    Submit Verification Code
+                  </Button>
+                }
+              </Col>
+            </Row>
+
+            <Alert
+              isOpen={alert.open}
+              color="success">
+              {alert.message}
+            </Alert>
+          </ModalBody>
+        </Modal>
       </>
     )
   }

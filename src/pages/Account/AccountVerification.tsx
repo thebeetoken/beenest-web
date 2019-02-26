@@ -55,16 +55,11 @@ function AccountVerification() {
               </ListGroup>
 
               {modal &&
-                <Modal isOpen toggle={toggleModal}>
-                  <ModalHeader toggle={toggleModal}>Change/Add Phone Number</ModalHeader>
-                  <ModalBody>
-                    <PhoneNumberVerificationForm
-                      // onClose={this.closeModal}
-                      // showSnackBarSuccess={this.closeModalAndShowSuccessSnackbar}
-                      refreshVerificationStatus={''}
-                      user={user} />
-                  </ModalBody>
-                </Modal>
+                <PhoneNumberVerificationForm
+                  // onClose={this.closeModal}
+                  // showSnackBarSuccess={this.closeModalAndShowSuccessSnackbar}
+                  refreshVerificationStatus={''}
+                  user={user} />
               }
             </>
           )
