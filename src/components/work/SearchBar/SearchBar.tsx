@@ -9,8 +9,11 @@ import { guestsSelectboxOptions } from './searchBar.config';
 
 import { AppConsumer, AppConsumerProps, ScreenType } from 'components/App.context';
 import GoogleAutoComplete from 'components/shared/GoogleAutoComplete';
+import { SETTINGS } from 'configs/settings';
 import WorkDateRangePickerContainer from 'styled/containers/WorkDateRangePicker.container';
 import { parseQueryString, stringifyQueryString } from 'utils/queryParams';
+
+const { BEENEST_HOST } = SETTINGS;
 
 enum SearchBarQueryParam {
   CHECK_IN_DATE = 'checkInDate',
@@ -166,7 +169,7 @@ class SearchBar extends React.Component<RouterProps, State> {
   handleSubmit = (event: React.FormEvent) => {
     event.preventDefault();
     const { bounds, coordinates, checkInDate, checkOutDate, numberOfGuests, locationQuery } = this.state;
-    return window.location.href = `${location.origin}/listings?${stringifyQueryString({
+    return window.location.href = `${BEENEST_HOST}/listings?${stringifyQueryString({
       locationQuery,
       utm_term: locationQuery,
       ...(bounds && { bounds }),
