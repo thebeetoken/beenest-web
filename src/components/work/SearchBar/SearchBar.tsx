@@ -7,8 +7,9 @@ import 'react-dates/initialize';
 
 import { guestsSelectboxOptions } from './searchBar.config';
 
+import { AppConsumer, AppConsumerProps, ScreenType } from 'components/App.context';
 import GoogleAutoComplete from 'components/shared/GoogleAutoComplete';
-import DateRangePickerContainer from 'styled/containers/DateRangePicker.container';
+import WorkDateRangePickerContainer from 'styled/containers/WorkDateRangePicker.container';
 import { parseQueryString, stringifyQueryString } from 'utils/queryParams';
 
 enum SearchBarQueryParam {
@@ -66,143 +67,137 @@ function getInitialState({ location }: RouterProps): State {
   };
 }
 
-const SearchBar = (props: RouterProps) => {
-  const [searchState, setSearchState] = React.useState<State>(getInitialState(props));
-  const { checkInDate, checkOutDate, focusedInput, locationQuery } = searchState;
+class SearchBar extends React.Component<RouterProps, State> {
+  readonly state: State = getInitialState(this.props);
 
-  const firstAvailableDay: moment.Moment = moment()
+  private firstAvailableDay: moment.Moment = moment()
     .utc()
     .startOf('day')
     .add(2, 'days');
-  const futureBlockedDates: moment.Moment = moment()
+  private futureBlockedDates: moment.Moment = moment()
     .utc()
     .startOf('day')
     .add(6, 'months');
 
-  const { CHECK_IN_DATE, CHECK_OUT_DATE, LOCATION_QUERY, NUMBER_OF_GUESTS } = SearchBarQueryParam;
-  return (
-    <Form className="d-flex flex-column flex-lg-row justify-content-between w-100"
-      onKeyPress={disableEnter}>
-      <Col md="4" className="px-0">
-        <GoogleAutoComplete onPlaceChange={handlePlaceChange}>
-          <FormGroup className="mb-md-0">
-            <Input
-              onChange={handleChange}
-              id={LOCATION_QUERY}
-              name={LOCATION_QUERY}
-              placeholder="Try &quot;San Francisco&quot;"
-              defaultValue={locationQuery}
-              required />
+  render() {
+    const { checkInDate, checkOutDate, focusedInput, locationQuery } = this.state;
+    const { LOCATION_QUERY, NUMBER_OF_GUESTS } = SearchBarQueryParam;
+    return (
+      <Form className="d-flex flex-column flex-lg-row justify-content-between w-100"
+        onKeyPress={this.disableEnter}>
+        <Col mg="12" lg="4" className="px-0">
+          <FormGroup className="mb-lg-0 bee-home-search-autocomplete">
+            <GoogleAutoComplete onPlaceChange={this.handlePlaceChange}>
+              <Input
+                onChange={this.handleLocationChange}
+                id={LOCATION_QUERY}
+                name={LOCATION_QUERY}
+                placeholder="Try &quot;San Francisco&quot;"
+                defaultValue={locationQuery}
+                required />
+            </GoogleAutoComplete>
           </FormGroup>
-        </GoogleAutoComplete>
 
-      </Col>
+        </Col>
 
-      <Col md="4" className="px-0">
-        <FormGroup className="mb-md-0">
-          {/* <DateRangePickerContainer className="d-md-none">
-            <DateRangePicker
-              isOutsideRange={handleIsOutsideRange}
-              startDate={checkInDate} // momentPropTypes.momentObj or null,
-              startDateId="startDate"
-              startDatePlaceholderText="Check-In"
-              daySize={32}
-              endDate={checkOutDate} // momentPropTypes.momentObj or null,
-              endDateId="endDate"
-              endDatePlaceholderText="Check-Out"
-              onDatesChange={handleOnDatesChange} // PropTypes.func.isRequired,
-              focusedInput={focusedInput} // PropTypes.oneOf(['startDate', 'endDate']) or null,
-              onFocusChange={handleOnFocusChange} // PropTypes.func.isRequired,
-              minimumNights={1}
-              numberOfMonths={1}
-              readOnly={true}
-            />
-          </DateRangePickerContainer> */}
+        <Col mg="12" lg="4" className="px-0">
+          <FormGroup className="mb-lg-0">
+            <AppConsumer>
+              {({ screenType }: AppConsumerProps) => {
+                const isMobile = screenType < ScreenType.TABLET;
+                const isTablet = screenType <= ScreenType.TABLET;
+                return (
 
-          <DateRangePickerContainer>
-            <DateRangePicker
-              isOutsideRange={handleIsOutsideRange}
-              startDate={checkInDate} // momentPropTypes.momentObj or null,
-              startDateId="startDate"
-              startDatePlaceholderText="Check-In"
-              daySize={40}
-              endDate={checkOutDate} // momentPropTypes.momentObj or null,
-              endDateId="endDate"
-              endDatePlaceholderText="Check-Out"
-              onDatesChange={handleOnDatesChange} // PropTypes.func.isRequired,
-              focusedInput={focusedInput} // PropTypes.oneOf(['startDate', 'endDate']) or null,
-              onFocusChange={handleOnFocusChange} // PropTypes.func.isRequired,
-              minimumNights={1}
-              numberOfMonths={1}
-              readOnly={false}
-            />
-          </DateRangePickerContainer>
-        </FormGroup>
-      </Col>
+                  <WorkDateRangePickerContainer>
+                    <DateRangePicker
+                      isOutsideRange={this.handleIsOutsideRange}
+                      startDate={checkInDate} // momentPropTypes.momentObj or null,
+                      startDateId="startDate"
+                      startDatePlaceholderText="Check-In"
+                      daySize={isMobile ? 32 : 40}
+                      endDate={checkOutDate} // momentPropTypes.momentObj or null,
+                      endDateId="endDate"
+                      endDatePlaceholderText="Check-Out"
+                      onDatesChange={this.handleOnDatesChange} // PropTypes.func.isRequired,
+                      focusedInput={focusedInput} // PropTypes.oneOf(['startDate', 'endDate']) or null,
+                      onFocusChange={this.handleOnFocusChange} // PropTypes.func.isRequired,
+                      minimumNights={1}
+                      numberOfMonths={1}
+                      readOnly={isTablet}
+                    />
+                  </WorkDateRangePickerContainer>
+                );
+              }}
+            </AppConsumer>
+          </FormGroup>
+        </Col>
 
 
-      <Col md="2" className="px-0">
-        <FormGroup className="mb-md-0">
-          <Input
-            type="select"
-            name={NUMBER_OF_GUESTS}
-            component="select">
-            {guestsSelectboxOptions.map(option => (
-              <option value={option.value} key={option.value}>
-                {option.option}
-              </option>
-            ))}
-          </Input>
-        </FormGroup>
-      </Col>
+        <Col md="12" lg="2" className="px-0">
+          <FormGroup className="mb-lg-0">
+            <Input
+              type="select"
+              name={NUMBER_OF_GUESTS}
+              onChange={this.handleGuestChange}
+              component="select">
+              {guestsSelectboxOptions.map(option => (
+                <option value={option.value} key={option.value}>
+                  {option.option}
+                </option>
+              ))}
+            </Input>
+          </FormGroup>
+        </Col>
 
 
-      <Button
-        className="btn-primary mb-md-0 transition-3d-hover"
-        type="submit"
-        onClick={handleSubmit}
-        color="primary">
-        Search
-			</Button>
+        <Button
+          className="btn-primary mb-md-0 transition-3d-hover"
+          type="submit"
+          onClick={this.handleSubmit}
+          color="primary">
+          Search
+        </Button>
 
-    </Form>
-  );
+      </Form>
+    );
 
-  function handleSubmit(event: React.FormEvent) {
+  }
+
+  handleSubmit = (event: React.FormEvent) => {
     event.preventDefault();
-    const { bounds, coordinates, checkInDate, checkOutDate, numberOfGuests, locationQuery } = searchState;
-    return props.history.push({
-      pathname: '/listings',
-      search: stringifyQueryString({
-        locationQuery,
-        utm_term: locationQuery,
-        ...(bounds && { bounds }),
-        ...(coordinates && { coordinates }),
-        ...(numberOfGuests && { numberOfGuests }),
-        ...(checkInDate && {
-          checkInDate: checkInDate.format('YYYY-MM-DD'),
-        }),
-        ...(checkOutDate && {
-          checkOutDate: checkOutDate.format('YYYY-MM-DD'),
-        }),
+    const { bounds, coordinates, checkInDate, checkOutDate, numberOfGuests, locationQuery } = this.state;
+    return window.location.href = `${location.origin}/listings?${stringifyQueryString({
+      locationQuery,
+      utm_term: locationQuery,
+      ...(bounds && { bounds }),
+      ...(coordinates && { coordinates }),
+      ...(numberOfGuests && { numberOfGuests }),
+      ...(checkInDate && {
+        checkInDate: checkInDate.format('YYYY-MM-DD'),
       }),
-    });
+      ...(checkOutDate && {
+        checkOutDate: checkOutDate.format('YYYY-MM-DD'),
+      }),
+    })}`
   };
 
-  function handleChange(event: React.ChangeEvent<HTMLInputElement>) {
+  handleLocationChange = (event: React.ChangeEvent<HTMLInputElement>) => {
     // handlePlaceChange will be called later, if the user selects from Autocomplete
-    return setSearchState({
-      ...searchState,
+    this.setState({
       coordinates: null,
       bounds: null,
       locationQuery: event.target.value,
     });
+  };
+
+  handleGuestChange = (event: React.ChangeEvent<HTMLInputElement>) => {
+    this.setState({ numberOfGuests: event.target.value });
+    console.log(this.state);
   }
 
-  function handlePlaceChange(place: google.maps.places.PlaceResult, value: string) {
+  handlePlaceChange = (place: google.maps.places.PlaceResult, value: string) => {
     if (!place.geometry || !value) return;
-    setSearchState({
-      ...searchState,
+    this.setState({
       coordinates: {
         lat: place.geometry.location.lat(),
         lng: place.geometry.location.lng(),
@@ -210,38 +205,34 @@ const SearchBar = (props: RouterProps) => {
       bounds: place.geometry.viewport.toJSON(),
       locationQuery: value,
     });
-  }
+  };
 
-  function handleIsOutsideRange(day: moment.Moment) {
+  handleIsOutsideRange = (day: moment.Moment) => {
     const utcDay = day
       .clone()
       .utc()
       .set('hours', 0);
-    return utcDay.isBefore(firstAvailableDay) || utcDay.isAfter(futureBlockedDates);
-  }
+    return utcDay.isBefore(this.firstAvailableDay) || utcDay.isAfter(this.futureBlockedDates);
+  };
 
-  function handleOnDatesChange({ startDate, endDate }: DateRange) {
+  handleOnDatesChange = ({ startDate, endDate }: DateRange) => {
     const checkInDate = startDate && startDate.utc().set('hours', 0);
     const checkOutDate = endDate && endDate.utc().set('hours', 0);
-    setSearchState({
-      ...searchState,
+    this.setState({
       checkInDate,
       checkOutDate,
     });
-  }
+  };
 
-  function handleOnFocusChange(focusedInput: 'startDate' | 'endDate' | null) {
-    console.log(focusedInput);
-    setSearchState({ ...searchState, focusedInput });
-  }
+  handleOnFocusChange = (focusedInput: 'startDate' | 'endDate' | null) => { this.setState({ focusedInput }) };
 
-  function disableEnter(event: React.KeyboardEvent) {
+  disableEnter = (event: React.KeyboardEvent) => {
     // Places Array does not update in time, so we need to disable the native submit enter keypress and force the
     // Client to submit by clicking on the button
     if (event.which === 13 /* Enter */) {
       event.preventDefault();
     }
-  }
+  };
 };
 
 export default withRouter(SearchBar);

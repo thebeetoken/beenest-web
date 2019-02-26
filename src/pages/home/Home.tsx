@@ -21,7 +21,7 @@ const Home = () => {
       <Container className="min-vh-100 h-100 px-0" fluid>
         <Jumbotron fluid>
           <div
-            className="home-hero-img bg-img-hero d-flex flex-column align-items-center justify-content-center height-md-60vh gradient-overlay-half-primary-v1"
+            className="bee-home-hero-img bg-img-hero d-flex flex-column align-items-center justify-content-center height-md-60vh gradient-overlay-half-primary-v1 pt-8 pb-6 pt-md-0 pb-md-0"
             style={{ backgroundImage: `url('https://static.beenest.com/images/app/misc/painted-ladies2.jpg')` }}>
             <Row className="d-flex flex-column align-items-center justify-content-center mx-0">
               <h1 className="display-4 font-size-md-down-5 text-white px-4">Planning a Business Trip?</h1>
@@ -30,7 +30,7 @@ const Home = () => {
               </p>
             </Row>
 
-            <Row className={`${FLEX_CENTER} d-flex w-100 w-md-65 mt-4`}>
+            <Row className={`${FLEX_CENTER} d-flex w-100 w-md-65 mt-4 px-4 px-md-0`}>
               <SearchBar />
             </Row>
           </div>
@@ -64,7 +64,7 @@ const Home = () => {
           <p className={`${CONTENT_CLASSES.SUBTITLE} mb-5 mb-md-0 mb-lg-3`}>
             Beenest has been featured in the following news and magazines.
           </p>
-          <Row className="py-4 py-md-10 home-affiliations">
+          <Row className="py-4 py-md-10 bee-home-affiliations">
             {affiliations.map((affiliate) => (
               <Col className={AFFILIATE_CLASSES} key={affiliate.href}>
                 <a href={affiliate.href} target="_blank">
@@ -109,7 +109,7 @@ const HomeGuests = () => (
         Real guests, Real stories.
       </p>
       <Container className="mt-8">
-        <Row className="home-testimonials">
+        <Row className="bee-home-testimonials">
           {testimonials.map((testimonial) => (
             <Col md="6" lg="3" className={TESTIMONIAL_CLASSES} key={testimonial.title}>
               <TestimonialCard
@@ -147,7 +147,7 @@ const HomeHosts = () => (
           Real guests, Real stories.
       </p>
         <Container className="mt-8">
-          <Row className="home-testimonials">
+          <Row className="bee-home-testimonials">
             {testimonials.map((testimonial) => (
               <Col md="6" lg="3" key={testimonial.title}>
                 <TestimonialCard
