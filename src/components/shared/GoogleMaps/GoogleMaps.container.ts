@@ -11,12 +11,6 @@ const GoogleMapsContainer = styled.div`
   position: relative;
   width: 100%;
 
-  div {
-    > h1 {
-      text-align: center;
-    }
-  }
-
   > div:first-child {
     > div:first-child {
       background-color: ${color('light')} !important;

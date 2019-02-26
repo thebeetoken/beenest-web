@@ -2,11 +2,9 @@ import styled from 'styled-components';
 import { color, typography } from 'styled/utils';
 
 const ListingFormNavMobileContainer = styled.div`
-  position: relative;
   background-color: ${color('lighter')};
   height: 116px;
   width: 100%;
-  z-index: 10;
   
   .bee-general-wrapper {
     display: flex;

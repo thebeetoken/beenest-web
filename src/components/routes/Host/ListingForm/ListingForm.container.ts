@@ -94,13 +94,89 @@ const ListingFormMobileContainer = styled.section`
         }
       }
     }
+
+    aside {
+      background-color: ${color('light')};
+      height: 100%;
+      left: calc(586px + (100% - 976px) / 2);
+      position: fixed;
+      width: calc((100% - 586px) - ((100% - 976px) / 2));
+      z-index: -1;
+      .background-extender {
+        background-color: ${color('light')};
+        position: absolute;
+        top: -64px;
+        width: 100%;
+        height: 64px;
+      }
+      .aside-container {
+        height: 608px;
+        max-width: 632px;
+        padding: 40px 56px 72px;
+        header {
+          ${typography('title', 7)}
+          color: ${color('dark')};
+          margin-bottom: 32px;
+          > span {
+            ${typography('emp', 5)}
+          }
+        }
+        > div {
+          h3 {
+            ${typography('read', 1)}
+            margin-bottom: 24px;
+          }
+          h4 {
+            ${typography('emp', 5)}
+            margin-bottom: 8px;
+          }
+          p {
+            ${typography('read', 2)}
+            margin-bottom: 24px;
+            > span {
+              ${typography('emp', 6)}
+            }
+          }
+          ol {
+            li {
+              list-style-type: decimal;
+              > span {
+                ${typography('emp', 5)}
+              }
+            }
+          }
+          ul {
+            margin-top: 0;
+            margin-bottom: 24px;
+            padding-left: 12px;
+            list-style-position: inside;
+            li {
+              list-style-type: disc;
+            }
+          }
+          .image-examples-container {
+            display: flex;
+            flex-direction: row;
+            flex-wrap: wrap;
+            justify-content: space-between;
+            .image-container {
+              display: flex;
+              flex-direction: column;
+              width: 240px;
+              .bee-lazy-image {
+                margin-bottom: 16px;
+              }
+            }
+          }
+        }
+      }
+    }
   }
 `;
 
 const ListingFormTabletContainer = styled(ListingFormMobileContainer)`
   @media (min-width: 768px) {
     & > .bee-general-wrapper {
-      justify-content: center;
       form {
         padding: 40px 56px 96px 24px;
         width: 586px;
@@ -112,95 +188,10 @@ const ListingFormTabletContainer = styled(ListingFormMobileContainer)`
 const ListingFormDesktopContainer = styled(ListingFormTabletContainer)`
   @media (min-width: 1025px) {
     & > .bee-general-wrapper {
-      margin: 0;
-      padding-left: calc((100% - 976px) / 2);
-      width: 100%;
-      min-width: 100%;
+      width: 976px;
+      min-width: 976px;
       form {
         padding: 40px 56px 96px 0;
-        width: 586px;
-        min-width: 586px;
-      }
-    
-
-      aside {
-        background-color: ${color('light')};
-        height: 100vh;
-        position: sticky;
-        top: 128px;
-        width: 100%;
-        .background-extender {
-          background-color: ${color('light')};
-          position: absolute;
-          top: -64px;
-          width: 100%;
-          height: 64px;
-        }
-        .aside-container {
-          height: 608px;
-          min-width: 390px;
-          max-width: 556px;
-          padding: 40px 56px 72px;
-          position: sticky;
-          top: 128px;
-          header {
-            ${typography('title', 7)}
-            color: ${color('dark')};
-            margin-bottom: 32px;
-            > strong {
-              ${typography('emp', 5)}
-            }
-          }
-          > div {
-            a {
-              color: ${color('secondary')};
-            }
-            h3 {
-              ${typography('read', 1)}
-              margin-bottom: 24px;
-            }
-            h4 {
-              ${typography('emp', 5)}
-              margin-bottom: 8px;
-            }
-            p {
-              ${typography('read', 2)}
-              margin-bottom: 24px;
-              > strong {
-                ${typography('emp', 6)}
-              }
-            }
-            ol {
-              margin-bottom: 24px;
-              li {
-                list-style-type: decimal;
-                > strong {
-                  ${typography('emp', 5)}
-                }
-              }
-            }
-            ul {
-              margin-top: 0;
-              margin-bottom: 24px;
-              padding-left: 12px;
-              list-style-position: inside;
-              li {
-                list-style-type: disc;
-              }
-            }
-            .image-examples-container {
-              display: flex;
-              flex-direction: row;
-              flex-wrap: wrap;
-              justify-content: space-between;
-              .image-container {
-                .bee-lazy-image {
-                  margin-bottom: 16px;
-                }
-              }
-            }
-          }
-        }
       }
     }
   }

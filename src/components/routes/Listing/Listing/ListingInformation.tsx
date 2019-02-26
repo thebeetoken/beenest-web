@@ -44,7 +44,7 @@ const ListingInformation = ({ listing, host }: Props) => {
     title,
   } = listing;
   const { about, createdAt, displayName, profilePicUrl } = host;
-  const renderAmenities = (amenities || []).map(amenity => {
+  const renderAmenities = (amenities || []).map(amenity=> {
     const noFlex = amenity && amenity.length > 25;
     return (
       <ListItem noFlex={!!noFlex} noHover prefixColor="style" start="tiniest" key={amenity}>
