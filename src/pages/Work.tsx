@@ -5,6 +5,7 @@ import Home from './home';
 import Account from './Account';
 import Login from './login';
 import Logout from './logout';
+import Search from './search';
 import Signup from './signup';
 
 const Work = () => (
@@ -13,6 +14,7 @@ const Work = () => (
       <Route path="/work/account" component={Account} />
       <Route exact path="/work/login" component={Login} />
       <Route exact path="/work/logout" component={Logout} />
+      <Route exact path="/work/search" component={Search} />
       <Route exact path="/work/signup" component={Signup} />
       <Route path="/work" component={Home} />
     </Switch>
