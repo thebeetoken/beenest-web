@@ -56,7 +56,7 @@ function AccountVerification() {
 
               {modal &&
                 <Modal isOpen toggle={toggleModal}>
-                  <ModalHeader>Verify Your Phone</ModalHeader>
+                  <ModalHeader toggle={toggleModal}>Change/Add Phone Number</ModalHeader>
                   <ModalBody>
                     <PhoneNumberVerificationForm
                       // onClose={this.closeModal}
