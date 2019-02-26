@@ -1,11 +1,14 @@
 import * as React from 'react';
-import { withRouter } from 'react-router-dom';
 import { Button, Col, Form, FormGroup, Input } from 'reactstrap';
+import { withRouter } from 'react-router-dom';
+import { DateRangePicker } from 'react-dates';
 import moment from 'moment';
+import 'react-dates/initialize';
 
 import { guestsSelectboxOptions } from './searchBar.config';
 
 import GoogleAutoComplete from 'components/shared/GoogleAutoComplete';
+import DateRangePickerContainer from 'styled/containers/DateRangePicker.container';
 import { parseQueryString, stringifyQueryString } from 'utils/queryParams';
 
 enum SearchBarQueryParam {
@@ -22,10 +25,10 @@ type QueryParams = Partial<{
   [SearchBarQueryParam.NUMBER_OF_GUESTS]: string;
 }>
 
-// interface DateRange {
-//   startDate: moment.Moment;
-//   endDate: moment.Moment;
-// }
+interface DateRange {
+  startDate: moment.Moment;
+  endDate: moment.Moment;
+}
 
 interface LatLng {
   lat: number,
@@ -51,7 +54,7 @@ interface State {
 
 function getInitialState({ location }: RouterProps): State {
   const queryParams: QueryParams = parseQueryString(location.search);
-  const { checkInDate, checkOutDate, numberOfGuests, locationQuery } = queryParams;
+  const { checkInDate, checkOutDate, locationQuery, numberOfGuests } = queryParams;
   return {
     bounds: null,
     coordinates: null,
@@ -65,11 +68,20 @@ function getInitialState({ location }: RouterProps): State {
 
 const SearchBar = (props: RouterProps) => {
   const [searchState, setSearchState] = React.useState<State>(getInitialState(props));
-  const { locationQuery } = searchState;
+  const { checkInDate, checkOutDate, focusedInput, locationQuery } = searchState;
+
+  const firstAvailableDay: moment.Moment = moment()
+    .utc()
+    .startOf('day')
+    .add(2, 'days');
+  const futureBlockedDates: moment.Moment = moment()
+    .utc()
+    .startOf('day')
+    .add(6, 'months');
 
   const { CHECK_IN_DATE, CHECK_OUT_DATE, LOCATION_QUERY, NUMBER_OF_GUESTS } = SearchBarQueryParam;
   return (
-    <Form className="d-flex flex-column flex-md-row justify-content-between w-100"
+    <Form className="d-flex flex-column flex-lg-row justify-content-between w-100"
       onKeyPress={disableEnter}>
       <Col md="4" className="px-0">
         <GoogleAutoComplete onPlaceChange={handlePlaceChange}>
@@ -87,7 +99,45 @@ const SearchBar = (props: RouterProps) => {
       </Col>
 
       <Col md="4" className="px-0">
+        <FormGroup className="mb-md-0">
+          {/* <DateRangePickerContainer className="d-md-none">
+            <DateRangePicker
+              isOutsideRange={handleIsOutsideRange}
+              startDate={checkInDate} // momentPropTypes.momentObj or null,
+              startDateId="startDate"
+              startDatePlaceholderText="Check-In"
+              daySize={32}
+              endDate={checkOutDate} // momentPropTypes.momentObj or null,
+              endDateId="endDate"
+              endDatePlaceholderText="Check-Out"
+              onDatesChange={handleOnDatesChange} // PropTypes.func.isRequired,
+              focusedInput={focusedInput} // PropTypes.oneOf(['startDate', 'endDate']) or null,
+              onFocusChange={handleOnFocusChange} // PropTypes.func.isRequired,
+              minimumNights={1}
+              numberOfMonths={1}
+              readOnly={true}
+            />
+          </DateRangePickerContainer> */}
 
+          <DateRangePickerContainer>
+            <DateRangePicker
+              isOutsideRange={handleIsOutsideRange}
+              startDate={checkInDate} // momentPropTypes.momentObj or null,
+              startDateId="startDate"
+              startDatePlaceholderText="Check-In"
+              daySize={40}
+              endDate={checkOutDate} // momentPropTypes.momentObj or null,
+              endDateId="endDate"
+              endDatePlaceholderText="Check-Out"
+              onDatesChange={handleOnDatesChange} // PropTypes.func.isRequired,
+              focusedInput={focusedInput} // PropTypes.oneOf(['startDate', 'endDate']) or null,
+              onFocusChange={handleOnFocusChange} // PropTypes.func.isRequired,
+              minimumNights={1}
+              numberOfMonths={1}
+              readOnly={false}
+            />
+          </DateRangePickerContainer>
+        </FormGroup>
       </Col>
 
 
@@ -162,13 +212,36 @@ const SearchBar = (props: RouterProps) => {
     });
   }
 
+  function handleIsOutsideRange(day: moment.Moment) {
+    const utcDay = day
+      .clone()
+      .utc()
+      .set('hours', 0);
+    return utcDay.isBefore(firstAvailableDay) || utcDay.isAfter(futureBlockedDates);
+  }
+
+  function handleOnDatesChange({ startDate, endDate }: DateRange) {
+    const checkInDate = startDate && startDate.utc().set('hours', 0);
+    const checkOutDate = endDate && endDate.utc().set('hours', 0);
+    setSearchState({
+      ...searchState,
+      checkInDate,
+      checkOutDate,
+    });
+  }
+
+  function handleOnFocusChange(focusedInput: 'startDate' | 'endDate' | null) {
+    console.log(focusedInput);
+    setSearchState({ ...searchState, focusedInput });
+  }
+
   function disableEnter(event: React.KeyboardEvent) {
     // Places Array does not update in time, so we need to disable the native submit enter keypress and force the
     // Client to submit by clicking on the button
     if (event.which === 13 /* Enter */) {
       event.preventDefault();
     }
-  };
+  }
 };
 
 export default withRouter(SearchBar);

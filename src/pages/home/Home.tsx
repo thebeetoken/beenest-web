@@ -2,7 +2,7 @@ import * as React from 'react';
 import { Button, Col, Container, Row } from 'reactstrap';
 
 import { affiliations, guestValueProps, HomeUser, hostValueProps, testimonials } from './home.config';
-import { AFFILIATE_CLASSES, CONTENT_CLASSES, JUMBOTRON_STYLES, TESTIMONIAL_CLASSES } from './home.styled';
+import { AFFILIATE_CLASSES, CONTENT_CLASSES, TESTIMONIAL_CLASSES } from './home.styled';
 
 import Footer from 'components/work/Footer';
 import Header from 'components/work/Header';
@@ -21,9 +21,8 @@ const Home = () => {
       <Container className="min-vh-100 h-100 px-0" fluid>
         <Jumbotron fluid>
           <div
-            className="bg-img-hero d-flex flex-column align-items-center justify-content-center gradient-overlay-half-primary-v1"
-            style={JUMBOTRON_STYLES}
-          >
+            className="home-hero-img bg-img-hero d-flex flex-column align-items-center justify-content-center height-md-60vh gradient-overlay-half-primary-v1"
+            style={{ backgroundImage: `url('https://static.beenest.com/images/app/misc/painted-ladies2.jpg')` }}>
             <Row className="d-flex flex-column align-items-center justify-content-center mx-0">
               <h1 className="display-4 font-size-md-down-5 text-white px-4">Planning a Business Trip?</h1>
               <p className="text-white font-weight-light px-4">

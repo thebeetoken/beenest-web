@@ -5,6 +5,14 @@
     margin-bottom: 0!important;
   }
 }
+
+.home-hero-img {
+  @media (min-width: 768px) {
+    min-height: 0;
+    height: 72vh;
+  }
+}
+
 // carousel custom styles
 .carousel-item {
   >img {

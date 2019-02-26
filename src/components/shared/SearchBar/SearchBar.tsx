@@ -168,7 +168,10 @@ class SearchBar extends React.Component<RouterProps, State> {
     });
   };
 
-  handleOnFocusChange = (focusedInput: 'startDate' | 'endDate' | null) => this.setState({ focusedInput });
+  handleOnFocusChange = (focusedInput: 'startDate' | 'endDate' | null) => {
+    console.log(focusedInput);
+    this.setState({ focusedInput });
+  }
   handleGuests = (event: React.ChangeEvent<HTMLInputElement>) => this.setState({ numberOfGuests: event.target.value });
 
   handleChange = (event: React.ChangeEvent<HTMLInputElement>) => {
