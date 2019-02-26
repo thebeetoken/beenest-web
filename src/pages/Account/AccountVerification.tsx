@@ -1,75 +1,158 @@
 import * as React from 'react';
-import { Modal, ModalHeader, ModalBody, CardBody, ListGroup, ListGroupItem } from 'reactstrap';
 import { compose } from 'recompose';
 import { graphql } from 'react-apollo';
+import { CardBody, ListGroup, ListGroupItem, Alert } from 'reactstrap';
 import { REFRESH_VERIFICATION_STATUS, GET_USER } from 'networking/users';
 import { FirebaseConsumer, FirebaseUserProps } from 'HOCs/FirebaseProvider';
-import { FirebaseUser } from 'utils/firebase';
+import { auth, FirebaseUser } from 'utils/firebase';
+
 import PhoneNumberVerificationForm from './PhoneNumberVerificationForm';
+import { AlertProperties } from 'components/work/Alert/Alert';
+import { getDisplaySuccessMessage, SuccessMessage } from 'utils/validators';
 
-function AccountVerification() {
-  const [modal, setModal] = React.useState<boolean>(false);
+interface Props {
+  refreshVerificationStatus: () => Promise<void>;
+}
 
-    return (
-      <FirebaseConsumer>
-        {({ user }: FirebaseUserProps) => {
-          const emailVerified = !!(user && user.emailVerified);
-          const phoneVerified = (user && user.providerData || []).some((provider: FirebaseUser) => provider && provider.providerId === 'phone');
+const VERIFICATION_MESSAGE = {
+  EMAIL: {
+    VERIFIED: 'Your email has been verified',
+    VERIFY: 'Click here to verify your email address',
+  },
+  LOADING: 'Loading',
+  PHONE: {
+    ADD: 'Click here to add and verify your phone number',
+    CHANGE: 'Click here to change and verify your phone number',
+  },
+};
 
-          return (
-            <>
-              <ListGroup className="d-flex flex-column">
-                <ListGroupItem
-                  disabled={phoneVerified}
-                  className="mb-5"
-                  onClick={toggleModal}>
-                  <CardBody>
-                    <h6 className="mb-0">Phone (Required){' '}
-                      {phoneVerified
-                        ? <span className="small text-success">(Verified)</span>
-                        : <span className="small text-danger">(Not Verified)</span>
-                      }
-                    </h6>
-                    <div className="d-flex justify-content-between">
-                      <h6 className="mb-0 small text-muted">Click here to change and verify your phone number</h6>
-                      <i className="fa fa-lock"></i>
-                    </div>
-                  </CardBody>
-                </ListGroupItem>
-
-                <ListGroupItem
-                  disabled={emailVerified}>
-                  <CardBody>
-                    <h6 className="mb-0">Email (Required){' '}
-                      {emailVerified
-                        ? <span className="small text-success">(Verified)</span>
-                        : <span className="small text-danger">(Not Verified)</span>
-                      }
-                    </h6>
-                    <div className="d-flex justify-content-between">
-                      <h6 className="mb-0 small text-muted">Your email has been verified</h6>
-                      <i className="fa fa-lock"></i>
-                    </div>
-                  </CardBody>
-                </ListGroupItem>
-              </ListGroup>
-
-              {modal &&
-                <PhoneNumberVerificationForm
-                  // onClose={this.closeModal}
-                  // showSnackBarSuccess={this.closeModalAndShowSuccessSnackbar}
-                  refreshVerificationStatus={''}
-                  user={user} />
-              }
-            </>
-          )
-        }}
-      </FirebaseConsumer>
-    );
+const AccountVerification: React.SFC<Props> = ({ refreshVerificationStatus }: Props) => {
+  const [isOpen, setModal] = React.useState<boolean>(false);
+  const [alert, setAlert] = React.useState<AlertProperties>({ color: '', msg: '', show: false });
   
-    function toggleModal() {
-      setModal(!modal);
+  React.useEffect(() => {
+    refreshVerificationStatus();
+  });
+
+  return (
+    <FirebaseConsumer>
+      {({ user }: FirebaseUserProps) => {
+        const emailVerified = !!(user && user.emailVerified);
+        const phoneVerified = (user && user.providerData || []).some((provider: FirebaseUser) => provider && provider.providerId === 'phone');
+
+        if (!user) {
+          return (
+            <ListGroup className="d-flex flex-column">
+              <ListGroupItem
+                disabled={phoneVerified}
+                className="mb-5">
+                <CardBody>
+                  {VERIFICATION_MESSAGE.LOADING}
+                </CardBody>
+              </ListGroupItem>
+
+              <ListGroupItem
+                disabled={emailVerified}>
+                <CardBody>
+                  {VERIFICATION_MESSAGE.LOADING}
+                </CardBody>
+              </ListGroupItem>
+            </ListGroup>
+          );
+        }
+
+        return (
+          <>
+            <Alert
+              isOpen={alert.show}
+              color={alert.color}>
+              {alert.msg}
+            </Alert>
+
+            <ListGroup className="d-flex flex-column">
+              <ListGroupItem
+                className="mb-5"
+                onClick={toggleModal}>
+                <CardBody>
+                  <h6 className="mb-0">Phone (Required){' '}
+                    {phoneVerified
+                      ? <span className="small text-success">(Verified)</span>
+                      : <span className="small text-danger">(Not Verified)</span>}
+                  </h6>
+                  <div className="d-flex justify-content-between">
+                    <h6 className="mb-0 small text-muted">
+                      {phoneVerified
+                        ? VERIFICATION_MESSAGE.PHONE.CHANGE
+                        : VERIFICATION_MESSAGE.PHONE.ADD }
+                    </h6>
+                    <i className="fa fa-lock"></i>
+                  </div>
+                </CardBody>
+              </ListGroupItem>
+
+              <ListGroupItem
+                disabled={emailVerified}
+                onClick={handleEmailVerification}>
+                <CardBody>
+                  <h6 className="mb-0">Email (Required){' '}
+                    {emailVerified
+                      ? <span className="small text-success">(Verified)</span>
+                      : <span className="small text-danger">(Not Verified)</span>
+                    }
+                  </h6>
+                  <div className="d-flex justify-content-between">
+                    <h6 className="mb-0 small text-muted">
+                      {emailVerified
+                        ? VERIFICATION_MESSAGE.EMAIL.VERIFIED
+                        : VERIFICATION_MESSAGE.EMAIL.VERIFY }
+                    </h6>
+                    <i className="fa fa-lock"></i>
+                  </div>
+                </CardBody>
+              </ListGroupItem>
+            </ListGroup>
+
+            <PhoneNumberVerificationForm
+              isOpen={isOpen}
+              toggleModal={toggleModal}
+              refreshVerificationStatus={refreshVerificationStatus}
+              user={user} />
+          </>
+        )
+      }}
+    </FirebaseConsumer>
+  );
+
+  function handleEmailVerification() {
+    if (!auth.currentUser) {
+      return setAlert({
+        color: 'danger',
+        msg: 'Could not find current user.',
+        show: true,
+      });
     }
+
+    auth.currentUser.sendEmailVerification()
+      .then(() => {
+        setAlert({
+          color: 'success',
+          msg: getDisplaySuccessMessage(SuccessMessage.EMAIL_VERIFICATION_SENT),
+          show: true,
+        })
+      })
+      .catch((error: any) => {
+        console.error(error);
+        setAlert({
+          color: 'success',
+          msg: error,
+          show: true,
+        })
+      });
+  }
+
+  function toggleModal() {
+    setModal(!isOpen);
+  }
 }
 
 export default compose(

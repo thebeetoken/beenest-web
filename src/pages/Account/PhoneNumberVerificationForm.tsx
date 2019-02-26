@@ -15,7 +15,7 @@ import {
   isValidVerificationCode,
   SuccessMessage,
 } from 'utils/validators';
-import { Row, Col, Button, Alert, Input, FormGroup, Label, FormFeedback, Container, ModalFooter, Modal } from 'reactstrap';
+import { Row, Col, Button, Alert, Input, FormGroup, Label, FormFeedback, Modal } from 'reactstrap';
 import ModalHeader from 'reactstrap/lib/ModalHeader';
 import ModalBody from 'reactstrap/lib/ModalBody';
 
@@ -25,8 +25,9 @@ enum SubmitType {
 }
 
 interface Props {
-  toggleModal: () => void,
+  isOpen: boolean;
   refreshVerificationStatus: () => Promise<void>;
+  toggleModal: () => void,
   user: FirebaseUser,
 };
 
@@ -44,6 +45,7 @@ interface State {
   isSubmitting: boolean;
   phoneNumberErrorMessage: string;
   alert: {
+    color: string;
     message: string;
     open: boolean;
   },
@@ -66,6 +68,7 @@ class AccountVerificationPhoneCard extends React.Component<Props, State> {
     isSubmitting: false,
     phoneNumberErrorMessage: '',
     alert: {
+      color: 'danger',
       message: '',
       open: false,
     },
@@ -74,7 +77,6 @@ class AccountVerificationPhoneCard extends React.Component<Props, State> {
   };
 
   appVerifier: any;
-  currentUser = this.props.user;
   recaptcha: any;
 
   componentDidMount() {
@@ -83,11 +85,11 @@ class AccountVerificationPhoneCard extends React.Component<Props, State> {
 
   render() {
     const { inputForm, phoneNumberErrorMessage, alert, submitType } = this.state;
-    const { toggleModal } = this.props;
+    const { isOpen, toggleModal } = this.props;
     return (
       <>
         <div ref={(ref) => this.recaptcha = ref} />
-        <Modal isOpen toggle={toggleModal}>
+        <Modal isOpen={isOpen} toggle={toggleModal}>
           <ModalHeader toggle={toggleModal}>Change/Add Phone Number</ModalHeader>
           <ModalBody>
             <FormGroup>
@@ -116,49 +118,56 @@ class AccountVerificationPhoneCard extends React.Component<Props, State> {
                 type="text" />
               <FormFeedback>{phoneNumberErrorMessage}</FormFeedback>
             </FormGroup>
-            {submitType === SubmitType.VERIFICATION_CODE &&
-              <div>
-                <Label for="verificationCode">Verification Code</Label>
-                <Row>
-                  <Col md={6}>
-                    <FormGroup>
-                      <Input
-                        onChange={this.handleInput}
-                        placeholder="6 digit code"
-                        type="text"
-                        name="verificationCode"
-                        value={inputForm.verificationCode} />
-                    </FormGroup>
-                  </Col>
-                  <Col md={6} className="text-right">
-                    <Button
-                      border="core"
-                      disabled={submitType === SubmitType.PHONE_NUMBER}
-                      size="small">
-                      Resend Code
-                    </Button>
-                  </Col>
-                </Row>
-                <div className="verification-code-messaging">
-                  <p>
-                    {getDisplaySuccessMessage(SuccessMessage.NEW_CODE_SENT)}
-                  </p>
-                  <p>
-                    {getDisplaySuccessMessage(SuccessMessage.ENTER_SIX_DIGIT_CODE)}
-                  </p>
-                </div>
-              </div>
+
+            {submitType ===  SubmitType.VERIFICATION_CODE &&
+              <Row>
+                <Col>
+                  <Label for="verificationCode">Verification Code</Label>
+                  <Row>
+                    <Col md={6}>
+                      <FormGroup>
+                        <Input
+                          onChange={this.handleInput}
+                          placeholder="6 digit code"
+                          type="text"
+                          name="verificationCode"
+                          value={inputForm.verificationCode} />
+                      </FormGroup>
+                    </Col>
+                    <Col md={6} className="text-right">
+                      <Button
+                        border="core"
+                        className="btn-success transition-3d-hover"
+                        disabled={this.state.isSubmitting}
+                        onClick={this.handlePhoneNumberSubmit}
+                        size="small">
+                        Resend Code
+                      </Button>
+                    </Col>
+                  </Row>
+                </Col>
+              </Row>
             }
+
+            <Row>
+              <Col>
+                <Alert
+                  isOpen={alert.open}
+                  color={alert.color}>
+                  {alert.message
+                    ? alert.message
+                    : <p className="mb-0 small">
+                        {getDisplaySuccessMessage(SuccessMessage.NEW_CODE_SENT)}<br />{getDisplaySuccessMessage(SuccessMessage.ENTER_SIX_DIGIT_CODE)}
+                      </p>
+                  }
+                </Alert>
+              </Col>
+            </Row>
+            
             <hr />
 
             <Row className="align-items-center justify-content-end">
               <Col className="text-right">
-                <button
-                  onClick={() => {
-                    console.log('this.state:', this.state);
-                  }}>
-                  test
-                </button>
                 {submitType === SubmitType.PHONE_NUMBER &&
                   <Button
                     color="success"
@@ -177,12 +186,6 @@ class AccountVerificationPhoneCard extends React.Component<Props, State> {
                 }
               </Col>
             </Row>
-
-            <Alert
-              isOpen={alert.open}
-              color="success">
-              {alert.message}
-            </Alert>
           </ModalBody>
         </Modal>
       </>
@@ -223,6 +226,11 @@ class AccountVerificationPhoneCard extends React.Component<Props, State> {
     this.setState({ isSubmitting: true });
     phoneProvider.verifyPhoneNumber(phoneNumber, this.appVerifier)
       .then((verificationId) => this.setState({
+        alert: {
+          color: 'success',
+          open: true,
+          message: '',
+        },
         inputValidation: { ...inputValidation, phoneNumber: FieldValidation.PRISTINE },
         isSubmitting: false,
         phoneNumberErrorMessage: '',
@@ -244,14 +252,16 @@ class AccountVerificationPhoneCard extends React.Component<Props, State> {
     this.setState({ isSubmitting: true });
     getPhoneCredential(verificationId, inputForm.verificationCode)
       .then((phoneCredential) => {
-        if (this.currentUser) {
-          return this.currentUser.linkAndRetrieveDataWithCredential(phoneCredential)
+        if (this.props.user) {
+          return this.props.user.linkAndRetrieveDataWithCredential(phoneCredential)
         }
         return Promise.reject();
       })
       .then(() => this.props.refreshVerificationStatus())
       .then(() => {
-        this.setState({ isSubmitting: false });
+        this.setState({
+          isSubmitting: false,
+        }, this.props.toggleModal)
       })
       .catch((error: Error) => {
         this.setState({ 
@@ -261,6 +271,7 @@ class AccountVerificationPhoneCard extends React.Component<Props, State> {
           },
           isSubmitting: false,
           alert: {
+            color: 'danger',
             message: getDisplayErrorMessage(error.message),
             open: true,
           },

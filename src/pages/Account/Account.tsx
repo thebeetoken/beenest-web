@@ -60,7 +60,7 @@ const Account = () => {
                     to={to}>
                     {title}
                     {title === 'Verification'
-                      && !user.completedVerifcation
+                      && !user.completedVerification
                       && <Badge className="ml-2" color="danger">!</Badge>}
                   </NavLink>
                 </NavItem>
