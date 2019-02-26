@@ -6,9 +6,11 @@ import { AFFILIATE_CLASSES, CONTENT_CLASSES, JUMBOTRON_STYLES, TESTIMONIAL_CLASS
 
 import Footer from 'components/work/Footer';
 import Header from 'components/work/Header';
+import SearchBar from 'components/work/SearchBar';
 import Jumbotron from 'components/work/Jumbotron';
 import TestimonialCard from 'components/work/TestimonialCard';
 import ValuePropCard from 'components/work/ValuePropCard';
+import { FLEX_CENTER } from 'styled/sharedClasses/layout';
 
 const Home = () => {
   const [isGuestActive, setGuestActive] = React.useState<Boolean>(true);
@@ -19,7 +21,7 @@ const Home = () => {
       <Container className="min-vh-100 h-100 px-0" fluid>
         <Jumbotron fluid>
           <div
-            className="bg-img-hero d-flex align-items-center justify-content-center gradient-overlay-half-primary-v1"
+            className="bg-img-hero d-flex flex-column align-items-center justify-content-center gradient-overlay-half-primary-v1"
             style={JUMBOTRON_STYLES}
           >
             <Row className="d-flex flex-column align-items-center justify-content-center mx-0">
@@ -27,6 +29,10 @@ const Home = () => {
               <p className="text-white font-weight-light px-4">
                 Beenest is the easiest way for business travelers to book a home or rental.
               </p>
+            </Row>
+
+            <Row className={`${FLEX_CENTER} d-flex w-100 w-md-65 mt-4`}>
+              <SearchBar />
             </Row>
           </div>
         </Jumbotron>
