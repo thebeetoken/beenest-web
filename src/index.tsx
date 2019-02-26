@@ -20,15 +20,9 @@ import App from './components/App';
 // Google Analytics to only work on production
 import { AppEnv, APP_ENV } from 'configs/settings';
 if (APP_ENV === AppEnv.PRODUCTION) {
-  require('autotrack/lib/plugins/event-tracker');
-  require('autotrack/lib/plugins/outbound-link-tracker');
-  require('autotrack/lib/plugins/url-change-tracker');
-  require('autotrack/lib/plugins/page-visibility-tracker');
+  require('autotrack/autotrack.js');
   window.ga('create', 'UA-106852049-2', 'auto');
-  window.ga('require', 'eventTracker');
-  window.ga('require', 'outboundLinkTracker');
-  window.ga('require', 'urlChangeTracker');
-  window.ga('require', 'pageVisibilityTracker');
+  window.ga('require', 'autotrack');
   window.ga('send', 'pageview');
 }
 
