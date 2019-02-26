@@ -1,9 +1,11 @@
 import * as React from 'react';
 import { Prompt } from "react-router";
-import ListingFormNavContainer from './ListingFormNav.container';
-import GeneralWrapper from 'shared/GeneralWrapper';
 import { FormikActions, FormikProps, FormikErrors } from 'formik';
 import { History } from 'history';
+import flat from 'flat';
+
+import ListingFormNavContainer from './ListingFormNav.container';
+import GeneralWrapper from 'shared/GeneralWrapper';
 import { ListingInput } from 'networking/listings';
 import TabNavBar from 'shared/TabNavBar';
 
@@ -42,7 +44,7 @@ const ListingFormNav = ({ formikProps, history, id, onSubmit, setNextCrumb, show
         <Prompt
           when={showAlert}
           message={!formikProps.isValid
-            ? formatListingErrorsAlert(formikProps.errors)
+            ? formatListingErrorsAlert(flat(formikProps.errors))
             : 'Listing has unsaved changes. Are you sure you want to proceed?'}>
         </Prompt>
         <TabNavBar config={listingFormNavConfig} />

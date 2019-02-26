@@ -21,7 +21,7 @@ const checkboxColorClasses = Object.keys(canvas).map((key: string): string => {
 
 const CheckboxContainer = styled<Props, any>('label')`
   /* Default styles for custom checkbox */
-  ${typography('read', 2)}
+  ${typography('read', 1)}
   cursor: pointer;
   display: inline-block;
   height: 24px;
@@ -35,6 +35,7 @@ const CheckboxContainer = styled<Props, any>('label')`
   /* Style to center text text */
   .bee-checkbox--text-container {
     align-items: center;
+    color: ${color('core')};
     display: flex;
     height: 100%;
   }
