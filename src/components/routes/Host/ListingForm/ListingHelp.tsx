@@ -1,8 +1,10 @@
 import * as React from 'react';
+
 import ListItem from 'shared/ListItem';
 import Svg from 'shared/Svg';
 import LazyImage from 'shared/LazyImage';
 import { ListingField }from 'networking/listings';
+import { FirebaseConsumer, FirebaseUserProps } from 'HOCs/FirebaseProvider';
 
 interface ListingHelpInterface {
   [name: string]: React.ReactNode;
@@ -66,7 +68,7 @@ const ListingPicUrl = () => (
 const Photos = () => (
   <div>
     <h3>Listing Photos</h3>
-    <p>Beenest recommends listings have at least 5 high-definition photos available. Photos are the best way to show off your place to potential guests. <span>Pro tip:</span> provide multiple well-lit photos with different angles of bedrooms, bathrooms, and public spaces so guests know exactly what to expect.</p>
+    <p>Beenest recommends listings have at least 5 high-definition photos available. Photos are the best way to show off your place to potential guests. <strong>Pro tip:</strong> provide multiple well-lit photos with different angles of bedrooms, bathrooms, and public spaces so guests know exactly what to expect.</p>
     <h4>Do:</h4>
     <ul>
       <ListItem noHover prefixColor="correct" start="tiny">
@@ -104,6 +106,7 @@ const SleepingArrangement = () => (
   <div>
     <h3>Sleeping Arrangement</h3>
     <p>Sleeping Arrangement must include the quantity and size of beds.</p>
+    <p>Don’t forget to add <strong>#</strong> and <strong>type</strong> of bed!</p>
   </div>
 );
 
@@ -131,10 +134,35 @@ const SharedBathroom = () => (
 const Amenities = () => (
   <div>
     <h3>Amenities</h3>
-    <p>Please make sure to include Wifi capabilities for business travelers. Providing the essentials helps guests feel at home in your place. Other common amenities include: TV, Heat, Air Conditioning, Iron, Hair dryer, First Aid Kit, Parking on premises, etc.</p>
-    <p>There’s no maximum to the number of amenities you can include so add as many as you’d like! </p>
+    <div className="image-examples-container">
+      <div className="image-container">
+        <LazyImage height="156px" width="477px" src="https://static.beenest.com/images/photo-examples/amenities_example.png" />
+      </div>
+    </div>
+    <p>Wait a minute! Amenities are a critical part for our travelers.</p>
+    <p>Include <strong>Wifi capabilities</strong> and <strong>working desk(s)</strong> for business travelers. Separate amenities with commas.</p>
+    <p>There’s no maximum to the number of amenities you can include so add as many as you’d like! The more the better.</p>
   </div>
 );
+
+const Wifi = () => (
+  <div>
+    <h3>Wifi</h3>
+    <p>Bonus points for adding proof of fast Wifi!</p>
+    <ol>
+      <li>Go to <a href="https://fast.com/">https://fast.com/</a></li>
+      <li>Screenshot the speed and upload the photo</li>
+    </ol>
+    <div className="image-examples-container">
+      <a href="https://fast.com/">
+        <div className="image-container">
+          <LazyImage height="186px" width="315px" src="https://static.beenest.com/images/photo-examples/fast_internet.png" />
+        </div>
+      </a>
+    </div>
+    <p>Preferred Dimensions: 420x248</p>
+  </div>
+)
 
 const MaxGuests = () => (
   <div>
@@ -161,7 +189,7 @@ const PricePerNightUsd = () => (
 const SecurityDepositUsd = () => (
   <div>
     <h3>Security Deposit</h3>
-    <p><span>Note:</span> Security deposit is not charged at the time of booking. It will only be charged if a guest damages your property.</p>
+    <p><strong>Note:</strong> Security deposit is not charged at the time of booking. It will only be charged if a guest damages your property.</p>
   </div>
 );
 
@@ -171,19 +199,19 @@ const IcalUrls = () => (
     <p>To avoid double bookings and to prevent multiple guests from booking the same dates, sync your Beenest calendar with your other calendars and input your iCal URL from other booking platforms.</p>
     <p>Instructions to export calendars on other platforms are generally:</p>
     <ol>
-      <li>Go to <span>Host</span> and select <span>Calendar</span></li>
-      <li>Click <span>Availability</span> settings in your calendar view</li>
-      <li>Under Sync calendars, select <span>Export Calendar</span></li>
+      <li>Go to <strong>Host</strong> and select <strong>Calendar</strong></li>
+      <li>Click <strong>Availability</strong> settings in your calendar view</li>
+      <li>Under Sync calendars, select <strong>Export Calendar</strong></li>
       <li>Copy and paste the calendar link into Beenest</li>
     </ol>
-    <p><span>Note:</span> When you edit an external calendar that syncs with your calendar on Beenest, it will take a few hours for those changes to be visible to guests who view your listing.</p>
+    <p><strong>Note:</strong> When you edit an external calendar that syncs with your calendar on Beenest, it will take a few hours for those changes to be visible to guests who view your listing.</p>
   </div>
 );
 
 const CheckInTime = () => (
   <div>
     <h3>Check-in (From) and (To)</h3>
-    <p>Provide a window of time in which guests are able to check into your place. Typical times guests check in are between 11 AM - 2PM.</p>
+    <p>Provide a window of time in which guests are able to check into your place. Typical times guests check in are between 11AM - 2PM.</p>
     <p>Allowing guests to check in later, for instance up until 11:30PM, is preferred.</p>
   </div>
 );
@@ -207,6 +235,21 @@ const HouseRules = () => (
       <li>Self check-in with keypad</li>
       <li>Additional cancellation policies</li>
     </ul>
+    <FirebaseConsumer>
+      {({ user }: FirebaseUserProps) => {
+        return <p><strong>Wait!</strong> Before you go, {user ? `${user.displayName}, `: ''}make sure your listing is business travel friendly and provides:</p>
+      }}
+    </FirebaseConsumer>
+    <ul>
+      <li>Fast, stable wifi</li>
+      <li>A working desk</li>
+      <li>Transparent pricing (all taxes and fees included)</li>
+    </ul>
+    <p>Thanks,</p>
+	  <p>The Beenest Team</p>
+
+	
+
   </div>
 );
 
@@ -228,6 +271,7 @@ const ListingHelp: ListingHelpInterface = {
   [ListingField.NUMBER_OF_BATHROOMS]: <NumberOfBathrooms />,
   [ListingField.SHARED_BATHROOM]: <SharedBathroom />,
   [ListingField.AMENITIES]: <Amenities />,
+  [ListingField.WIFI]: <Wifi />,
 
   [ListingField.MAX_GUESTS]: <MaxGuests />,
   [ListingField.MINIMUM_NIGHTS]: <MinimumNights />,

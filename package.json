@@ -16,6 +16,7 @@
   "dependencies": {
     "@types/big.js": "^4.0.5",
     "@types/draft-js": "^0.10.26",
+    "@types/flat": "0.0.28",
     "@types/googlemaps": "^3.30.16",
     "@types/graphql": "^14.0.3",
     "@types/lodash.debounce": "^4.0.4",
@@ -53,6 +54,7 @@
     "draft-js-export-html": "^1.2.0",
     "draft-js-import-html": "^1.3.0",
     "firebase": "^5.5.6",
+    "flat": "^4.1.0",
     "formik": "^1.4.2",
     "graphql": "^14.0.2",
     "graphql-tag": "^2.10.0",

@@ -4,6 +4,7 @@ import { compose, graphql } from 'react-apollo';
 import { Listing, GET_HOST_LISTINGS, UPDATE_LISTING, ListingField, ListingInput } from 'networking/listings';
 import { Formik, Form, FormikProps, FormikActions } from 'formik';
 import * as Yup from 'yup';
+import flat from 'flat';
 
 import AccommodationsForm from './AccommodationsForm';
 import CheckinDetailsForm from './CheckinDetailsForm';
@@ -56,6 +57,10 @@ const defaultValues: FormValues = {
   [ListingField.SLEEPING_ARRANGEMENT]: '',
   [ListingField.STATE]: '',
   [ListingField.TITLE]: '',
+  [ListingField.WIFI]: {
+    photoUrl: '',
+    mbps: 0,
+  },
 };
 
 interface Props extends RouterProps {
@@ -96,7 +101,8 @@ const ListingFormSchema = Yup.object().shape({
     .max(50, maxNumberError('Max Guests')),
   [ListingField.MINIMUM_NIGHTS]: Yup.number()
     .required('Minimum Nights is a required field.')
-    .min(1, minNumberError('Minimum Nights')),
+    .min(1, minNumberError('Minimum Nights'))
+    .integer('Minimum Nights must be an integer.'),
   [ListingField.NUMBER_OF_BATHROOMS]: Yup.number().min(0, minNumberError('Number of Bathrooms')),
   [ListingField.NUMBER_OF_BEDROOMS]: Yup.number().min(0, minNumberError('Number of Bedrooms')),
   [ListingField.PHOTOS]: Yup.array().of(Yup.string().url()),
@@ -115,6 +121,10 @@ const ListingFormSchema = Yup.object().shape({
   [ListingField.TITLE]: Yup.string()
     .min(5, minStringError('Title'))
     .max(50, maxStringError('Title')),
+  [ListingField.WIFI]: Yup.object({
+    photoUrl: Yup.string().url().nullable(true),
+    mbps: Yup.number().min(0, minNumberError('Wifi Speed')).nullable(true),
+  }),
 });
 
 const formCrumbs = ['listing_info', 'accommodations', 'pricing_availability', 'checkin_details'];
@@ -199,9 +209,9 @@ class ListingForm extends React.Component<Props, State> {
                     <Route
                       exact
                       path="/host/listings/:id/accommodations"
-                      render={() => (
-                        <AccommodationsForm {...FormikProps} setFocus={this.handleFocus} />
-                      )}
+                      render={() => {
+                        return <AccommodationsForm {...FormikProps} setFocus={this.handleFocus} />
+                      }}
                     />
                     <Route
                       exact
@@ -232,7 +242,7 @@ class ListingForm extends React.Component<Props, State> {
                     onClick={() => {
                       if (!FormikProps.isValid) {
                         alert(
-                          `Cannot save changes due to errors:\n\n${Object.values(FormikProps.errors)
+                          `Cannot save changes due to errors:\n\n${Object.values(flat(FormikProps.errors))
                             .join('\n')
                             .toString()}`
                         );
@@ -241,7 +251,8 @@ class ListingForm extends React.Component<Props, State> {
                     }}
                     type="button">
                     {FormikProps.isSubmitting
-                    ? <AudioLoading color="dark" height={24} width={48} /> : 'Save & Continue'}
+                      ? <AudioLoading color="dark" height={24} width={48} />
+                      : 'Save & Continue'}
                   </Button>
                 </Form>
                 <AppConsumer>

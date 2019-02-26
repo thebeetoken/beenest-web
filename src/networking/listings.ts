@@ -6,6 +6,11 @@ export interface CheckInTime {
   to: string;
 }
 
+export interface Wifi {
+  mbps: number;
+  photoUrl: string;
+}
+
 export interface Listing {
   addressLine1: string;
   addressLine2?: string;
@@ -50,6 +55,7 @@ export interface Listing {
   totalQuantity: number;
   updatedAt: string;
   host: Host | null;
+  wifi: Wifi;
 }
 
 export interface ListingShort {
@@ -198,6 +204,10 @@ const LISTING_DETAILS_FRAGMENT = gql`
     sharedBathroom
     sleepingArrangement
     totalQuantity
+    wifi {
+      mbps
+      photoUrl
+    }
     ...ListingCard
   }
 `;
@@ -507,4 +517,5 @@ export enum ListingField {
   SLEEPING_ARRANGEMENT = 'sleepingArrangement',
   STATE = 'state',
   TITLE = 'title',
+  WIFI = 'wifi',
 }

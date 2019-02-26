@@ -108,6 +108,7 @@ const validationMap: Validation = {
   amenities: isNotEmpty,
   houseRules: isNotEmpty,
   airbnbLink: isValidOptionalUrl,
+  wifi: isOptional,
   adminNotes: isOptional,
 };
 
@@ -154,6 +155,7 @@ function convertToListingForm(listing = {} as Listing): AdminListingInput {
     state: listing.state || '',
     title: listing.title || '',
     totalQuantity: listing.totalQuantity || 0,
+    wifi: listing.wifi || { photoUrl: '', mbps: 0 },
   }
 };
 
@@ -230,6 +232,11 @@ class AdminListingsForm extends React.Component<Props, State> {
     const url = photos[0] ? photos[0].url : '';
     this.validateAndUpdate('listingPicUrl', url);
   };
+
+  setWifiPhoto = (photos: Photo[]) => {
+    const url = photos[0] ? photos[0].url : '';
+    this.validateAndUpdate('wifi', { ...this.state.inputForm.wifi, photoUrl: url });
+  }
 
   setListingPhotos = (photos: Photo[]) => {
     const urls = photos.map(photo => photo.url);
@@ -332,6 +339,7 @@ class AdminListingsForm extends React.Component<Props, State> {
       state,
       title,
       totalQuantity,
+      wifi,
     } = inputForm;
     return (
       <form onSubmit={this.handleSubmit}>
@@ -608,7 +616,7 @@ class AdminListingsForm extends React.Component<Props, State> {
             <PhotoUploader
               initialPhotos={this.props.listing ? [{ url: this.props.listing.listingPicUrl }] : []}
               maxFiles={1}
-              onPhotosUpdated={this.setCoverPhoto}
+              onPhotosUpdated={(photos: Photo[]) => this.setCoverPhoto(photos)}
             />
             <Svg
               className={`admin-input__success ${getInputSuccessClass(inputValidation.listingPicUrl)}`.trim()}
@@ -954,6 +962,50 @@ class AdminListingsForm extends React.Component<Props, State> {
               src="utils/check-circle"
             />
             <span className={`admin-input__error ${getInputErrorClass(inputValidation.amenities)}`.trim()}>
+              {errorMessages.generic}
+            </span>
+          </div>
+        </div>
+
+        <div className="admin-form--item">
+          <AdminInputLabel htmlFor="wifi" subLabel="(in Mbps)">Wifi Speed:</AdminInputLabel>
+          <div className="single-input-validator-container">
+            <AdminInputWrapper>
+              <input
+                className={getInputValidationClass(inputValidation.wifi)}
+                onChange={(event: React.FormEvent<HTMLInputElement>) => {
+                  this.validateAndUpdate('wifi', { ...this.state.inputForm.wifi, mbps: event.currentTarget.value || 0 });
+                }}
+                id="wifi"
+                placeholder="20"
+                type="number"
+                name="wifi"
+                value={wifi.mbps || ''}
+              />
+            </AdminInputWrapper>
+            <Svg
+              className={`admin-input__success ${getInputSuccessClass(inputValidation.wifi)}`.trim()}
+              src="utils/check-circle"
+            />
+            <span className={`admin-input__error ${getInputErrorClass(inputValidation.wifi)}`.trim()}>
+              {errorMessages.generic}
+            </span>
+          </div>
+        </div>
+
+        <div className="admin-form--item">
+          <AdminInputLabel htmlFor="wifi">Wifi Screenshot:</AdminInputLabel>
+          <div className="single-input-validator-container">
+            <PhotoUploader
+              initialPhotos={this.props.listing.wifi && this.props.listing.wifi.photoUrl ? [{ url: this.props.listing.wifi.photoUrl }] : []}
+              maxFiles={1}
+              onPhotosUpdated={(photos: Photo[]) => this.setWifiPhoto(photos)}
+            />
+            <Svg
+              className={`admin-input__success ${getInputSuccessClass(inputValidation.wifi)}`.trim()}
+              src="utils/check-circle"
+            />
+            <span className={`admin-input__error ${getInputErrorClass(inputValidation.wifi)}`.trim()}>
               {errorMessages.generic}
             </span>
           </div>
