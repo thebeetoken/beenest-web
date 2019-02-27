@@ -93,6 +93,16 @@ const ListingContainerMobile = styled.div`
           }
         }
       }
+      .wifi-container {
+        margin-bottom: 32px;
+        p {
+          margin-bottom: 4px;
+        }
+        .wifi-container--img {
+          height: 248px;
+          width: 420px;
+        }
+      }
       .accommodations-container {
         margin-bottom: 40px;
         ul {

@@ -42,6 +42,7 @@ const ListingInformation = ({ listing, host }: Props) => {
     sleepingArrangement,
     state,
     title,
+    wifi,
   } = listing;
   const { about, createdAt, displayName, profilePicUrl } = host;
   const renderAmenities = (amenities || []).map(amenity => {
@@ -75,6 +76,18 @@ const ListingInformation = ({ listing, host }: Props) => {
         {description && <div className="description-container--content" dangerouslySetInnerHTML={{ __html: sanitizeHtml(description) }} />}
       </div>
 
+      {wifi &&
+        <div className="wifi-container">
+          <h2>Wifi</h2>
+          {wifi.mbps && <p>Wifi Speed: {wifi.mbps}</p>}
+          {wifi.photoUrl &&
+            <div className="wifi-container--img">
+              <LazyImage src={wifi.photoUrl} />
+            </div>
+          }
+        </div>
+      }
+
       <div className="accommodations-container">
         <h2>Accommodations</h2>
         <ul>
@@ -90,12 +103,14 @@ const ListingInformation = ({ listing, host }: Props) => {
         </ul>
       </div>
 
-      <div className="amenities-container">
-        <h2>Amenities</h2>
-        <div className="amenities-list-container">
-          <ul>{renderAmenities}</ul>
+      {(amenities || []).length !== 0 &&
+        <div className="amenities-container">
+          <h2>Amenities</h2>
+          <div className="amenities-list-container">
+            <ul>{renderAmenities}</ul>
+          </div>
         </div>
-      </div>
+      }
 
       <Divider className="divider-style" />
 
