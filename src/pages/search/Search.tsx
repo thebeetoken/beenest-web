@@ -1,5 +1,5 @@
 import * as React from 'react';
-import { Col, Container, Row } from 'reactstrap';
+import { Col, Row } from 'reactstrap';
 
 import GoogleMapsWithMarkers from 'shared/GoogleMapsWithMarkers';
 
@@ -136,22 +136,20 @@ const Search = () => {
   return (
     <>
       <Header />
-      <Container className="min-vh-100 h-100 px-0" fluid>
-        <Row>
-          <Col className="p-5">
-            Search bar goes here...
-          </Col>
-        </Row>
-        <Row className="min-vh-100 h-100 px-0">
-          <Col>
-            <SearchForm />
-            <SearchResults listings={TEST_LISTINGS} />
-          </Col>
-          <Col>
-            <GoogleMapsWithMarkers className="w-100 h-100 pb-9" listings={[]} />
-          </Col>
-        </Row>
-      </Container>
+      <Row className="px-0 mx-0">
+        <Col className="p-5">
+          Search bar goes here...
+        </Col>
+      </Row>
+      <Row className="min-vh-100 h-100 px-0 mx-0">
+        <Col className="px-0">
+          <SearchForm />
+          <SearchResults listings={TEST_LISTINGS} />
+        </Col>
+        <Col className="px-0">
+          <GoogleMapsWithMarkers className="w-100 h-100 pb-9" listings={[]} />
+        </Col>
+      </Row>
       <Footer />
     </>
   );
