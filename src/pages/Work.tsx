@@ -7,6 +7,8 @@ import Home from './home';
 import Login from './login';
 import Logout from './logout';
 import Signup from './signup';
+import Trips from './trips';
+import AuthenticatedRoute from 'HOCs/AuthenticatedRoute';
 
 const Work = () => (
   <div>
@@ -16,6 +18,7 @@ const Work = () => (
       <Route exact path="/work/login" component={Login} />
       <Route exact path="/work/logout" component={Logout} />
       <Route exact path="/work/signup" component={Signup} />
+      <AuthenticatedRoute path="/work/trips" component={Trips} />
       <Route path="/work" component={Home} />
     </Switch>
   </div>
