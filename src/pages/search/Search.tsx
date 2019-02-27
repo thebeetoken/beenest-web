@@ -6,6 +6,7 @@ import GoogleMapsWithMarkers from 'shared/GoogleMapsWithMarkers';
 import Footer from 'components/work/Footer';
 import Header from 'components/work/Header';
 
+import SearchBar from 'components/work/SearchBar';
 import SearchForm from './SearchForm';
 import SearchResults from './SearchResults';
 
@@ -138,7 +139,7 @@ const Search = () => {
       <Header />
       <Row className="px-0 mx-0 bg-white" style={{ position: 'sticky', top: '4.125rem', zIndex: 2 }}>
         <Col className="p-5">
-          Search bar goes here...
+          <SearchBar />
         </Col>
       </Row>
       <Row className="min-vh-100 h-100 px-0 mx-0">
@@ -150,7 +151,7 @@ const Search = () => {
           <SearchResults listings={TEST_LISTINGS} />
         </Col>
         <Col className="px-0">
-          <div className="w-100" style={{ height: 'calc(100vh - 9.5rem)', position: 'sticky', top: '9.625rem', zIndex: 1 }}>
+          <div className="w-100" style={{ height: 'calc(100vh - 11.25rem)', position: 'sticky', top: '11.25rem', zIndex: 1 }}>
             <GoogleMapsWithMarkers className="w-100 h-100" listings={TEST_LISTINGS} />
           </div>
         </Col>
