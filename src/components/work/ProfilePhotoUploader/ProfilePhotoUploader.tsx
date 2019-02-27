@@ -1,6 +1,6 @@
 import * as React from 'react';
 import { compose, graphql } from 'react-apollo';
-import { Card, Alert, Row, Col } from 'reactstrap';
+import { Card, Alert } from 'reactstrap';
 import { GET_USER, UPDATE_USER } from 'networking/users';
 import Container from 'reactstrap/lib/Container';
 

@@ -1,5 +1,5 @@
 import * as React from 'react';
-import { Nav, NavItem, NavLink, Container, Col, Row, Card, CardBody, CardText, CardImg, Alert } from 'reactstrap';
+import { Nav, NavItem, NavLink, Container, Col, Row } from 'reactstrap';
 import { Query } from 'react-apollo';
 import { Route, Redirect, Switch } from 'react-router';
 import { NavLink as RRNavLink } from 'react-router-dom';
