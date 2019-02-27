@@ -79,7 +79,7 @@ const ListingInformation = ({ listing, host }: Props) => {
       {wifi &&
         <div className="wifi-container">
           <h2>Wifi</h2>
-          {wifi.mbps && <p>Wifi Speed: {wifi.mbps} Mbps</p>}
+          {wifi.mbps && <p>Speed: {wifi.mbps} Mbps</p>}
           {wifi.photoUrl &&
             <div className="wifi-container--img">
               <LazyImage src={wifi.photoUrl} />
