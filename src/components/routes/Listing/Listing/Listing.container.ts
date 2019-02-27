@@ -96,11 +96,12 @@ const ListingContainerMobile = styled.div`
       .wifi-container {
         margin-bottom: 32px;
         p {
+          ${typography('read', 2)};
           margin-bottom: 4px;
         }
         .wifi-container--img {
-          height: 248px;
-          width: 420px;
+          height: 160px;
+          width: 272px;
         }
       }
       .accommodations-container {
@@ -259,6 +260,16 @@ const ListingContainerTablet = styled(ListingContainerMobile)`
             p {
               ${typography('read', 1)};
             }
+          }
+        }
+        .wifi-container {
+          margin-bottom: 40px;
+          p {
+            ${typography('read', 1)};
+          }
+          .wifi-container--img {
+            height: 248px;
+            width: 420px;
           }
         }
         .amenities-container {
