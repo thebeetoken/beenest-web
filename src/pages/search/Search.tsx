@@ -18,7 +18,7 @@ const Search = () => {
             <SearchForm />
           </Col>
           <Col>
-            <GoogleMapsWithMarkers className="w-100 h-100" listings={[]} />
+            <GoogleMapsWithMarkers className="w-100 h-100 pb-9" listings={[]} />
           </Col>
         </Row>
       </Container>
