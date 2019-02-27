@@ -150,7 +150,7 @@ const Search = () => {
           </div>
           <SearchResults listings={TEST_LISTINGS} />
         </Col>
-        <Col md="6" lg="7" xl="8" className="px-0">
+        <Col md="6" lg="7" xl="8" className="px-0 d-sm-none d-md-block">
           <div className="w-100" style={{ height: 'calc(100vh - 11.25rem)', position: 'sticky', top: '11.25rem', zIndex: 1 }}>
             <GoogleMapsWithMarkers className="w-100 h-100" listings={TEST_LISTINGS} />
           </div>
