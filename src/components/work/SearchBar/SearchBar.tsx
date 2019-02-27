@@ -72,6 +72,7 @@ function getInitialState({ location }: RouterProps): State {
 
 class SearchBar extends React.Component<RouterProps, State> {
   readonly state: State = getInitialState(this.props);
+  private inputRef: React.RefObject<HTMLInputElement | null> = React.createRef();
 
   private firstAvailableDay: moment.Moment = moment()
     .utc()
@@ -90,9 +91,11 @@ class SearchBar extends React.Component<RouterProps, State> {
         onKeyPress={this.disableEnter}>
         <Col mg="12" lg="4" className="px-0">
           <FormGroup className="mb-lg-0 bee-home-search-autocomplete">
-            <GoogleAutoComplete onPlaceChange={this.handlePlaceChange}>
+            <GoogleAutoComplete inputRef={this.inputRef} onPlaceChange={this.handlePlaceChange}>
               <Input
                 onChange={this.handleLocationChange}
+                tag="input"
+                innerRef={this.inputRef}
                 id={LOCATION_QUERY}
                 name={LOCATION_QUERY}
                 placeholder="Try &quot;San Francisco&quot;"
@@ -168,7 +171,8 @@ class SearchBar extends React.Component<RouterProps, State> {
 
   handleSubmit = (event: React.FormEvent) => {
     event.preventDefault();
-    const { bounds, coordinates, checkInDate, checkOutDate, numberOfGuests, locationQuery } = this.state;
+    const { bounds, coordinates, checkInDate, checkOutDate, numberOfGuests } = this.state;
+    const locationQuery = this.inputRef.current ? this.inputRef.current.value : '';
     return window.location.href = `${BEENEST_HOST}/listings?${stringifyQueryString({
       locationQuery,
       utm_term: locationQuery,
