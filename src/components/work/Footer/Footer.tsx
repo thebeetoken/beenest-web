@@ -18,16 +18,16 @@ import { BeenestSVGPrimary } from 'shared/svgComponents/SvgComponents';
 
 const contentData = [
   {
-    header: 'Top Cities',
-    links: [['San Francisco', '/work'], ['New York', '/work'], ['Los Angeles', '/work'], ['Denver', '/work'], ['Chicago', '/work']],
+    header: 'Account',
+    links: [['Profile', '/work'], ['User Contacts', '/work'], ['Projects', '/work'], ['Settings', '/work']],
   },
   {
     header: 'Company',
-    links: [['About', '/work'], ['Blog', '/work']],
+    links: [['About', '/work'], ['Services', '/work'], ['Careers', '/work'], ['Blog', '/work']],
   },
   {
-    header: 'Community',
-    links: [['Telegram', '/work'], ['Twitter', '/work'], ['Facebook', '/work']],
+    header: 'Resources',
+    links: [['Invoice', '/work'], ['Help', '/work'], ['Terms', '/work'], ['Privacy', '/work']],
   },
 ];
 
