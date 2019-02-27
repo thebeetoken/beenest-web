@@ -1,5 +1,5 @@
 import * as React from 'react';
-import { Button, Col, Container, Row } from 'reactstrap';
+import { Button, Col, Container, Fade, Row } from 'reactstrap';
 
 import SimpleHeader from 'components/work/SimpleHeader';
 import { SETTINGS } from 'configs/settings';
@@ -7,7 +7,7 @@ import { SETTINGS } from 'configs/settings';
 const { BEENEST_HOST } = SETTINGS;
 
 const About = () => (
-  <>
+  <Fade>
     <SimpleHeader white />
     <Container className="min-vh-100 px-0" fluid>
       <div
@@ -30,7 +30,7 @@ const About = () => (
         </Row>
       </div>
     </Container>
-  </>
+  </Fade>
 );
 
 export default About;
