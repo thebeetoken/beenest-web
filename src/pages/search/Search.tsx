@@ -143,8 +143,10 @@ const Search = () => {
       </Row>
       <Row className="min-vh-100 h-100 px-0 mx-0">
         <Col className="px-5">
-          <SearchForm />
-          <div className="mb-5" />
+          <div className="d-none"> {/* TODO: Show search filters */}
+            <SearchForm />
+            <div className="mb-5" />
+          </div>
           <SearchResults listings={TEST_LISTINGS} />
         </Col>
         <Col className="px-0">
