@@ -13,8 +13,8 @@ const SearchResults = ({ listings }: Props) => (
   <CardDeck>
     <Row>
       {listings.map((listing, index) => (
-        <Col xs="12" md="6" lg="4">
-          <ListingCard key={index} {...listing} />
+        <Col xs="12" md="6" lg="4" key={index}>
+          <ListingCard {...listing} />
         </Col>
       ))}
     </Row>
