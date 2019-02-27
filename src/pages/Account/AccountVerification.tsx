@@ -29,7 +29,8 @@ const VERIFICATION_MESSAGE = {
 const AccountVerification: React.SFC<Props> = ({ refreshVerificationStatus }: Props) => {
   const [isOpen, setModal] = React.useState<boolean>(false);
   const [alert, setAlert] = React.useState<AlertProperties>({ color: '', msg: '', show: false });
-  
+  const [isEmailSubmitting, setEmailSubmitting] = React.useState<boolean>(false);
+
   React.useEffect(() => {
     refreshVerificationStatus();
   });
@@ -93,7 +94,7 @@ const AccountVerification: React.SFC<Props> = ({ refreshVerificationStatus }: Pr
               </ListGroupItem>
 
               <ListGroupItem
-                disabled={emailVerified}
+                disabled={emailVerified || isEmailSubmitting}
                 onClick={handleEmailVerification}>
                 <CardBody>
                   <h6 className="mb-0">Email (Required){' '}
@@ -135,6 +136,7 @@ const AccountVerification: React.SFC<Props> = ({ refreshVerificationStatus }: Pr
       });
     }
 
+    setEmailSubmitting(true);
     auth.currentUser.sendEmailVerification()
       .then(() => {
         setAlert({
@@ -143,14 +145,15 @@ const AccountVerification: React.SFC<Props> = ({ refreshVerificationStatus }: Pr
           show: true,
         })
       })
-      .catch((error: any) => {
+      .catch((error: Error) => {
         console.error(error);
         setAlert({
-          color: 'success',
-          msg: error,
+          color: 'danger',
+          msg: error.message,
           show: true,
         })
-      });
+      })
+      .finally(() => setEmailSubmitting(false));
   }
 
   function toggleModal() {
