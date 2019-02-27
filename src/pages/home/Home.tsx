@@ -121,8 +121,7 @@ const HomeGuests = () => (
 );
 
 const HomeHosts = () => (
-  <Fade>
-    <Container className={CONTENT_CLASSES.FEATURES_CONTAINER.LAYOUT}>
+    <Container tag={Fade} className={CONTENT_CLASSES.FEATURES_CONTAINER.LAYOUT}>
       <h2 className={CONTENT_CLASSES.TITLE}>Want to rent out your homes to professionals?</h2>
       <p className={CONTENT_CLASSES.SUBTITLE}>
         Here, your guests will be business travelers so don’t worry about parties.
@@ -157,7 +156,6 @@ const HomeHosts = () => (
         </Container>
       </Container>
     </Container>
-  </Fade>
 );
 
 export default Home;
