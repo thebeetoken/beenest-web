@@ -1,7 +1,8 @@
 import * as React from 'react';
 import { Dropdown, DropdownToggle, DropdownMenu } from 'reactstrap';
 
-interface Props extends React.Props {
+interface Props {
+  children: React.ReactNode;
   label: String;
 }
 
