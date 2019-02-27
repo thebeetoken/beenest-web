@@ -43,9 +43,9 @@ const ProfilePhotoUploaderContainer = styled.div`
     }
     .hide-uploader {
       .dz-message {
-          display: flex !important;
+        display: flex !important;
       }
-      .dz-previow {
+      .dz-preview {
         display: none !important;
       }
     }
