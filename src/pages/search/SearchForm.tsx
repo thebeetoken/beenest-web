@@ -1,4 +1,5 @@
 import * as React from 'react';
+import { Col, Container, Row } from 'reactstrap';
 
 import SearchFilter from './SearchFilter';
 
@@ -22,13 +23,17 @@ const SEARCH_FILTERS = [
 ];
 
 const SearchForm = () => (
-  <>
-  {SEARCH_FILTERS.map(({ label, component }) => (
-    <SearchFilter label={label}>
-      {component}
-    </SearchFilter>
-  ))}
-  </>
+  <Container>
+    <Row>
+    {SEARCH_FILTERS.map(({ label, component }) => (
+      <Col key={label}>
+        <SearchFilter label={label}>
+          {component}
+        </SearchFilter>
+      </Col>
+    ))}
+    </Row>
+  </Container>
 );
 
 export default SearchForm;
