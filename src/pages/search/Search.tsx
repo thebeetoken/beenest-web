@@ -38,7 +38,7 @@ const TEST_LISTINGS = [
     prices: [],
     sleepingArrangement: '2 Beds',
     state: 'CA',
-    title: 'Actual nest of bees'
+    title: 'Actual nest of actual terrifying bees'
   },
   {
     city: 'San Francisco',
@@ -128,7 +128,7 @@ const TEST_LISTINGS = [
     prices: [],
     sleepingArrangement: '2 Beds',
     state: 'CA',
-    title: 'Actual nest of bees'
+    title: 'Actual nest of beeeeeeeees'
   }
 ];
 

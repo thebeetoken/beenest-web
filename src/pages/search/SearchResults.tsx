@@ -1,5 +1,5 @@
 import * as React from 'react';
-import { CardDeck } from 'reactstrap';
+import { CardDeck, Col, Row } from 'reactstrap';
 
 import { ListingShort } from 'networking/listings';
 
@@ -11,7 +11,13 @@ interface Props {
 
 const SearchResults = ({ listings }: Props) => (
   <CardDeck>
-    {listings.map((listing, index) => <ListingCard key={index} {...listing} />)}
+    <Row>
+      {listings.map((listing, index) => (
+        <Col xs="12" md="6" lg="4">
+          <ListingCard key={index} {...listing} />
+        </Col>
+      ))}
+    </Row>
   </CardDeck>
 );
 
