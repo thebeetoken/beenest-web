@@ -136,7 +136,7 @@ const Search = () => {
   return (
     <>
       <Header />
-      <Row className="px-0 mx-0 bg-white" style={{ position: 'sticky', top: '4rem', zIndex: 1 }}>
+      <Row className="px-0 mx-0 bg-white" style={{ position: 'sticky', top: '4.125rem', zIndex: 1 }}>
         <Col className="p-5">
           Search bar goes here...
         </Col>
@@ -150,7 +150,7 @@ const Search = () => {
           <SearchResults listings={TEST_LISTINGS} />
         </Col>
         <Col className="px-0">
-          <div className="w-100" style={{ height: 'calc(100vh - 9.5rem)' }}>
+          <div className="w-100" style={{ height: 'calc(100vh - 9.5rem)', position: 'sticky', top: '9.625rem', zIndex: 1 }}>
             <GoogleMapsWithMarkers className="w-100 h-100" listings={[]} />
           </div>
         </Col>
