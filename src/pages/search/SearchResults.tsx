@@ -11,7 +11,7 @@ interface Props {
 
 const SearchResults = ({ listings }: Props) => (
   <CardDeck>
-    {listings.map(listing => <ListingCard {...listing} />)}
+    {listings.map((listing, index) => <ListingCard key={index} {...listing} />)}
   </CardDeck>
 );
 
