@@ -1,4 +1,5 @@
 import * as React from 'react';
+import { CardDeck } from 'reactstrap';
 
 import { ListingShort } from 'networking/listings';
 
@@ -9,9 +10,9 @@ interface Props {
 }
 
 const SearchResults = ({ listings }: Props) => (
-  <>
+  <CardDeck>
     {listings.map(listing => <ListingCard {...listing} />)}
-  </>
+  </CardDeck>
 );
 
 export default SearchResults;
