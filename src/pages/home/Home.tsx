@@ -2,12 +2,14 @@ import * as React from 'react';
 import { Button, Col, Container, Fade, Jumbotron, Row } from 'reactstrap';
 
 import { affiliations, guestValueProps, HomeUser, hostValueProps, testimonials } from './home.config';
-import { AFFILIATE_CLASSES, CONTENT_CLASSES, JUMBOTRON_STYLES, TESTIMONIAL_CLASSES } from './home.styled';
+import { AFFILIATE_CLASSES, CONTENT_CLASSES, JUMBOTRON_CLASSES, TESTIMONIAL_CLASSES } from './home.styled';
 
 import Footer from 'components/work/Footer';
 import Header from 'components/work/Header';
+import SearchBar from 'components/work/SearchBar';
 import TestimonialCard from 'components/work/TestimonialCard';
 import ValuePropCard from 'components/work/ValuePropCard';
+import { FLEX_CENTER } from 'styled/sharedClasses/layout';
 
 const Home = () => {
   const [isGuestActive, setGuestActive] = React.useState<Boolean>(true);
@@ -18,14 +20,17 @@ const Home = () => {
       <Container tag={Fade} className="min-vh-100 h-100 px-0" fluid>
         <Jumbotron className="p-0" fluid>
           <div
-            className="bg-img-hero d-flex align-items-center justify-content-center gradient-overlay-half-primary-v1"
-            style={JUMBOTRON_STYLES}
-          >
+            className={JUMBOTRON_CLASSES}
+            style={{ backgroundImage: `url('https://static.beenest.com/images/app/misc/painted-ladies2.jpg')` }}>
             <Row className="d-flex flex-column align-items-center justify-content-center mx-0">
               <h1 className="display-4 font-size-md-down-5 text-white px-4">Planning a Business Trip?</h1>
               <p className="text-white font-weight-light px-4">
                 Beenest is the easiest way for business travelers to book a home or rental.
               </p>
+            </Row>
+
+            <Row className={`${FLEX_CENTER} d-flex w-100 w-md-65 mt-4 px-4 px-md-0`}>
+              <SearchBar />
             </Row>
           </div>
         </Jumbotron>
@@ -59,7 +64,7 @@ const Home = () => {
           <p className={`${CONTENT_CLASSES.SUBTITLE} mb-5 mb-md-0 mb-lg-3`}>
             Beenest has been featured in the following news and magazines.
           </p>
-          <Row className="py-4 py-md-10 home-affiliations">
+          <Row className="py-4 py-md-10 bee-home-affiliations">
             {affiliations.map((affiliate) => (
               <Col className={AFFILIATE_CLASSES} key={affiliate.href}>
                 <a href={affiliate.href} target="_blank">
@@ -104,7 +109,7 @@ const HomeGuests = () => (
         Real guests, Real stories.
       </p>
       <Container className="mt-8">
-        <Row className="home-testimonials">
+        <Row className="bee-home-testimonials">
           {testimonials.map((testimonial) => (
             <Col md="6" lg="3" className={TESTIMONIAL_CLASSES} key={testimonial.title}>
               <TestimonialCard
@@ -141,7 +146,7 @@ const HomeHosts = () => (
           Real guests, Real stories.
       </p>
         <Container className="mt-8">
-          <Row className="home-testimonials">
+          <Row className="bee-home-testimonials">
             {testimonials.map((testimonial) => (
               <Col md="6" lg="3" key={testimonial.title}>
                 <TestimonialCard
