@@ -202,15 +202,14 @@ class SearchBar extends React.Component<RouterProps, State> {
     console.log(this.state);
   }
 
-  handlePlaceChange = (place: google.maps.places.PlaceResult, value: string) => {
-    if (!place.geometry || !value) return;
+  handlePlaceChange = (place: google.maps.places.PlaceResult) => {
+    if (!place.geometry) return;
     this.setState({
       coordinates: {
         lat: place.geometry.location.lat(),
         lng: place.geometry.location.lng(),
       },
       bounds: place.geometry.viewport.toJSON(),
-      locationQuery: value,
     });
   };
 
