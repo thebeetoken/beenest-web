@@ -22,11 +22,11 @@ const contentData = [
   {
     header: 'Top Cities',
     links: [
-      ['San Francisco', `${BEENEST_HOST}/listings?locationQuery=San%20Francisco%2C%20CA%2C%20USA`],
-      ['New York', `${BEENEST_HOST}/listings?locationQuery=New%20York%2C%20CA%2C%20USA`],
-      ['Los Angeles', `${BEENEST_HOST}/listings?locationQuery=Los%20Angeles%2C%20CA%2C%20USA`],
-      ['Denver', `${BEENEST_HOST}/listings?locationQuery=Denver%2C%20CA%2C%20USA`],
-      ['Chicago', `${BEENEST_HOST}/listings?locationQuery=Chicago%2C%20CA%2C%20USA`]],
+      ['San Francisco', `${BEENEST_HOST}/markets/san-francisco`],
+      ['New York', `${BEENEST_HOST}/markets/new-york`],
+      ['Los Angeles', `${BEENEST_HOST}/markets/los-angeles`],
+      ['Denver', `${BEENEST_HOST}/markets/denver`],
+      ['Chicago', `${BEENEST_HOST}/markets/chicago`]],
   },
   {
     header: 'Company',
