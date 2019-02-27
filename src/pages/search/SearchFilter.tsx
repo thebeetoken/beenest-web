@@ -1,17 +1,22 @@
 import * as React from 'react';
 import { Dropdown, DropdownToggle, DropdownMenu } from 'reactstrap';
 
-const HomeType = () => {
+interface Props extends React.Props {
+  label: String;
+}
+
+const SearchFilter = ({ children, label }: Props) => {
   const [isOpen, setOpen] = React.useState<boolean>(false);
   return (
     <Dropdown isOpen={isOpen} toggle={() => setOpen(!isOpen)}>
       <DropdownToggle>
-        Home Type
+        {label}
       </DropdownToggle>
       <DropdownMenu>
+        {children}
       </DropdownMenu>
     </Dropdown>
   );
 };
 
-export default HomeType;
+export default SearchFilter;
