@@ -136,7 +136,7 @@ const Search = () => {
   return (
     <>
       <Header />
-      <Row className="px-0 mx-0">
+      <Row className="px-0 mx-0 bg-white" style={{ position: 'sticky', top: '4rem', zIndex: 1 }}>
         <Col className="p-5">
           Search bar goes here...
         </Col>
