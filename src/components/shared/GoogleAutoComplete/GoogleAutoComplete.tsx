@@ -1,20 +1,17 @@
 import * as React from 'react';
-
+import { Fade } from 'reactstrap';
 import { compose, withProps } from 'recompose';
 import { withScriptjs } from 'react-google-maps';
-
-import GoogleAutoCompleteContainer from './GoogleAutoComplete.container';
-import InputWrapper from 'shared/InputWrapper';
 
 import { SETTINGS } from 'configs/settings';
 const { GOOGLE_MAPS_KEY } = SETTINGS;
 
 interface Props {
-  defaultValue?: string;
-  inputRef: React.RefObject<HTMLInputElement>;
-  onChange(): void;
   onPlaceChange(place: google.maps.places.PlaceResult): void;
+  inputRef: React.RefObject<HTMLInputElement>;
+  children: React.ReactNode;
 }
+
 
 // needed since typescript doesn't recognize 'setFields' as a function
 interface AutocompleteInterface extends google.maps.places.Autocomplete {
@@ -31,7 +28,7 @@ class GoogleAutoComplete extends React.Component<Props, any> {
     this.autocomplete = new google.maps.places.Autocomplete(
       this.props.inputRef.current,
       {"types": ["(regions)"]}
-    )
+    );
     if (this.autocomplete.setFields) this.autocomplete.setFields(['geometry', 'name']);
     this.autocomplete.addListener('place_changed', this.handlePlaceChanged);
   }
@@ -42,19 +39,9 @@ class GoogleAutoComplete extends React.Component<Props, any> {
 
   render() {
     return (
-      <GoogleAutoCompleteContainer>
-        <InputWrapper box>
-          <input
-            onChange={() => this.props.onChange()}
-            ref={this.props.inputRef}
-            id="locationQuery"
-            name="locationQuery"
-            placeholder="Try &quot;San Francisco&quot;"
-            defaultValue={this.props.defaultValue}
-            required
-            type="text" />
-        </InputWrapper>
-      </GoogleAutoCompleteContainer>
+      <Fade>
+        {this.props.children}
+      </Fade>
     );
   }
 }

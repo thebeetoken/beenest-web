@@ -1,10 +1,22 @@
 // home custom styles
-.home-affiliations,
-.home-testimonials {
+.bee-home-affiliations,
+.bee-home-testimonials {
   >div:last-of-type {
     margin-bottom: 0!important;
   }
 }
+
+.bee-home-hero-img {
+  @media (min-width: 768px) {
+    min-height: 0;
+    height: 72vh;
+  }
+}
+
+.bee-home-search-autocomplete {
+  height: calc(3rem + 2px);
+}
+
 // carousel custom styles
 .carousel-item {
   >img {
