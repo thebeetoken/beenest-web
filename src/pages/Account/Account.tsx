@@ -64,7 +64,7 @@ const Account = () => {
 
             <Container>
               <Row>
-                <Col md={6} className="mb-5">
+                <Col md="6" className="mb-5">
                   <Switch>
                     <Route
                       exact
@@ -82,11 +82,11 @@ const Account = () => {
                     <Route component={NotFound} />
                   </Switch>
                 </Col>
-                <Col md={1} />
-                <Col md={4} className="d-flex justify-content-center">
+                <Col md="1" />
+                <Col md="4" className="d-flex justify-content-center">
                   <ProfilePhotoUploader profilePicUrl={user.profilePicUrl} />
                 </Col>
-                <Col md={1} />
+                <Col md="1" />
               </Row>
             </Container>
           </Container>

@@ -16,22 +16,22 @@ const ProfilePhotoUploader = ({ profilePicUrl, updateUser }: any) => {
   const hideUploaderClass = isUploadSuccessful ? 'hide-uploader' : '';
   return (
     <Container className="d-flex flex-column align-items-center">
-        <Card className="p-3 mb-3 rounded-0">
-          <ProfilePhotoUploaderContainer>
-            <div
-              className="photo-uploader-container"
-              style={{
-              backgroundImage: `url(${profilePicUrl || 'https://static.beenest.com/images/app/misc/profile.png'})`,
-              }}>
-              <div className={hideUploaderClass}>
-                <PhotoUploader maxFiles={1} message="Change Photo" onPhotosUpdated={handlePhotoChange} />
-              </div>
+      <Card className="p-3 mb-3 rounded-0">
+        <ProfilePhotoUploaderContainer>
+          <div
+            className="photo-uploader-container"
+            style={{
+            backgroundImage: `url(${profilePicUrl || 'https://static.beenest.com/images/app/misc/profile.png'})`,
+            }}>
+            <div className={hideUploaderClass}>
+              <PhotoUploader maxFiles={1} message="Change Photo" onPhotosUpdated={handlePhotoChange} />
             </div>
-            </ProfilePhotoUploaderContainer>
-        </Card>
-        <Alert color={alert.color} isOpen={alert.show} toggle={() => setAlert({ ...alert, show: !alert.show })}>
-            {alert.msg}
-        </Alert>
+          </div>
+          </ProfilePhotoUploaderContainer>
+      </Card>
+      <Alert color={alert.color} isOpen={alert.show} toggle={() => setAlert({ ...alert, show: !alert.show })}>
+          {alert.msg}
+      </Alert>
     </Container>
   );
 
