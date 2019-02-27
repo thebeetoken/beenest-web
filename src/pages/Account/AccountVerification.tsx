@@ -77,13 +77,15 @@ const AccountVerification: React.SFC<Props> = ({ refreshVerificationStatus }: Pr
                   <h6 className="mb-0">Phone (Required){' '}
                     {phoneVerified
                       ? <span className="small text-success">(Verified)</span>
-                      : <span className="small text-danger">(Not Verified)</span>}
+                      : <span className="small text-danger">(Not Verified)</span>
+                    }
                   </h6>
                   <div className="d-flex justify-content-between">
                     <h6 className="mb-0 small text-muted">
                       {phoneVerified
                         ? VERIFICATION_MESSAGE.PHONE.CHANGE
-                        : VERIFICATION_MESSAGE.PHONE.ADD }
+                        : VERIFICATION_MESSAGE.PHONE.ADD
+                      }
                     </h6>
                     <i className="fa fa-lock"></i>
                   </div>
@@ -104,7 +106,8 @@ const AccountVerification: React.SFC<Props> = ({ refreshVerificationStatus }: Pr
                     <h6 className="mb-0 small text-muted">
                       {emailVerified
                         ? VERIFICATION_MESSAGE.EMAIL.VERIFIED
-                        : VERIFICATION_MESSAGE.EMAIL.VERIFY }
+                        : VERIFICATION_MESSAGE.EMAIL.VERIFY
+                      }
                     </h6>
                     <i className="fa fa-lock"></i>
                   </div>
