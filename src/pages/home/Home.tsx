@@ -1,12 +1,11 @@
 import * as React from 'react';
-import { Button, Col, Container, Fade, Row } from 'reactstrap';
+import { Button, Col, Container, Fade, Jumbotron, Row } from 'reactstrap';
 
 import { affiliations, guestValueProps, HomeUser, hostValueProps, testimonials } from './home.config';
 import { AFFILIATE_CLASSES, CONTENT_CLASSES, JUMBOTRON_STYLES, TESTIMONIAL_CLASSES } from './home.styled';
 
 import Footer from 'components/work/Footer';
 import Header from 'components/work/Header';
-import Jumbotron from 'components/work/Jumbotron';
 import TestimonialCard from 'components/work/TestimonialCard';
 import ValuePropCard from 'components/work/ValuePropCard';
 
@@ -17,7 +16,7 @@ const Home = () => {
     <>
       <Header />
       <Container tag={Fade} className="min-vh-100 h-100 px-0" fluid>
-        <Jumbotron fluid>
+        <Jumbotron className="p-0" fluid>
           <div
             className="bg-img-hero d-flex align-items-center justify-content-center gradient-overlay-half-primary-v1"
             style={JUMBOTRON_STYLES}
