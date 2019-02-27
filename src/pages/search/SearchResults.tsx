@@ -1,15 +1,17 @@
 import * as React from 'react';
-import { Query } from 'react-apollo';
-import { Col, Container, Row } from 'reactstrap';
 
 import { ListingShort } from 'networking/listings';
 
+import ListingCard from './ListingCard';
+
 interface Props {
-  listings: ListingShort[]
+  listings: ListingShort[];
 }
 
 const SearchResults = ({ listings }: Props) => (
-
+  <>
+    {listings.map(listing => <ListingCard {...listing} />)}
+  </>
 );
 
-export default SearchForm;
+export default SearchResults;
