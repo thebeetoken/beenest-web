@@ -1,5 +1,5 @@
 import * as React from 'react';
-import { Button, Col, Container, Row } from 'reactstrap';
+import { Button, Col, Container, Jumbotron, Row } from 'reactstrap';
 
 import { affiliations, guestValueProps, HomeUser, hostValueProps, testimonials } from './home.config';
 import { AFFILIATE_CLASSES, CONTENT_CLASSES, JUMBOTRON_CLASSES, TESTIMONIAL_CLASSES } from './home.styled';
@@ -7,7 +7,6 @@ import { AFFILIATE_CLASSES, CONTENT_CLASSES, JUMBOTRON_CLASSES, TESTIMONIAL_CLAS
 import Footer from 'components/work/Footer';
 import Header from 'components/work/Header';
 import SearchBar from 'components/work/SearchBar';
-import Jumbotron from 'components/work/Jumbotron';
 import TestimonialCard from 'components/work/TestimonialCard';
 import ValuePropCard from 'components/work/ValuePropCard';
 import { FLEX_CENTER } from 'styled/sharedClasses/layout';
@@ -19,7 +18,7 @@ const Home = () => {
     <>
       <Header />
       <Container className="min-vh-100 h-100 px-0" fluid>
-        <Jumbotron fluid>
+        <Jumbotron className="p-0" fluid>
           <div
             className={JUMBOTRON_CLASSES}
             style={{ backgroundImage: `url('https://static.beenest.com/images/app/misc/painted-ladies2.jpg')` }}>

@@ -10,6 +10,7 @@ import NumberInput from 'shared/NumberInput';
 import Textarea from 'shared/Textarea';
 import { TextareaEvent } from 'shared/Textarea/Textarea';
 import { stringToArray, arrayToString } from 'utils/formatter';
+import { PhotoUploader, Photo } from 'shared/PhotoUploader';
 
 const AccommodationsForm = (props: any): JSX.Element => {
   const { setFocus, setFieldTouched, setFieldValue, values } = props;
@@ -74,13 +75,11 @@ const AccommodationsForm = (props: any): JSX.Element => {
             setFieldTouched(ListingField.SHARED_BATHROOM, true);
             setFocus(ListingField.SHARED_BATHROOM);
           }}>
-          <InputLabel>
-            Shared Bathroom
-          </InputLabel>
+          Shared Bathroom
         </Checkbox>
       </div>
 
-      <div className="form-item">
+      <div className="form-item" onClick={() => setFocus(ListingField.AMENITIES)}>
         <InputLabel htmlFor={ListingField.AMENITIES} subLabel="(required, separate by comma)">Amenities</InputLabel>
         <Textarea
           name={ListingField.AMENITIES}
@@ -92,6 +91,36 @@ const AccommodationsForm = (props: any): JSX.Element => {
           value={arrayToString(values.amenities)}
           placeholder="Wifi, Towels, Soap, TV, Coffee..." />
           <StyledErrorMessage name={ListingField.AMENITIES} />
+      </div>
+
+      <div className="form-item short">
+        <InputLabel htmlFor={ListingField.WIFI} subLabel="(in Mbps)">Wifi Speed</InputLabel>
+        <InputWrapper>
+          <Field
+            name={ListingField.WIFI}
+            onFocus={() => setFocus(ListingField.WIFI)}
+            onChange={(event: React.FormEvent<HTMLInputElement>) => {
+              setFieldTouched(ListingField.WIFI, true);
+              setFieldValue(ListingField.WIFI, { ...values.wifi, mbps: event.currentTarget.value || 0 });
+            }}
+            placeholder="240"
+            type="number"
+            value={values.wifi.mbps || ''} />
+        </InputWrapper>
+        <StyledErrorMessage name={`${ListingField.WIFI}.mbps`} />
+      </div>
+
+      <div className="form-item photo" onMouseEnter={() => setFocus(ListingField.WIFI)}>
+        <InputLabel htmlFor={ListingField.WIFI} subLabel="(recommended)">Wifi Screenshot</InputLabel>
+        <PhotoUploader
+          initialPhotos={values.wifi && values.wifi.photoUrl ? [{ url: values.wifi.photoUrl }] : []}
+          maxFiles={1}
+          onClick={() => setFocus(ListingField.WIFI)}
+          onPhotosUpdated={(photo: Photo[]) => {
+            setFieldTouched(ListingField.WIFI, true);
+            setFieldValue(ListingField.WIFI, { ...values.wifi, photoUrl: photo[0] ? photo[0].url : '' });
+          }} />
+        <StyledErrorMessage name={`${ListingField.WIFI}.photo`} />
       </div>
     </>
   );
