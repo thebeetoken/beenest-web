@@ -18,7 +18,7 @@ const ListingCard = ({
     </div>
     <CardBody>
       <CardSubtitle>{homeType} &middot; {sleepingArrangement} </CardSubtitle>
-      <CardTitle tag="h4">{title}</CardTitle>
+      <CardTitle tag="h5">{title}</CardTitle>
       <CardText>${pricePerNightUsd} per night</CardText>
     </CardBody>
   </Card>
