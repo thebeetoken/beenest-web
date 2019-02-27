@@ -15,7 +15,6 @@ const Search = () => {
       <Container className="min-vh-100 h-100 px-0" fluid>
         <Row>
           <Col className="p-5">
-          <!-- TODO: Use SearchBar from https://github.com/thebeetoken/beenest-web/pull/206 -->
             Search bar goes here...
           </Col>
         </Row>
