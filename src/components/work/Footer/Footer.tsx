@@ -12,7 +12,6 @@ import {
   Row,
   UncontrolledDropdown,
 } from 'reactstrap';
-import { Link } from 'react-router-dom';
 
 import { SETTINGS } from 'configs/settings';
 import { BeenestSVGPrimary } from 'shared/svgComponents/SvgComponents';
@@ -32,7 +31,7 @@ const contentData = [
   {
     header: 'Company',
     links: [
-      ['About', `${BEENEST_HOST}/work`],
+      ['About', `${BEENEST_HOST}/work/about`],
       ['Blog', 'https://medium.com/thebeetoken', '_blank'],
     ],
   },
