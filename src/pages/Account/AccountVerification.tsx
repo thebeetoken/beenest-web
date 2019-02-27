@@ -65,8 +65,9 @@ const AccountVerification: React.SFC<Props> = ({ refreshVerificationStatus }: Pr
         return (
           <>
             <Alert
+              color={alert.color}
               isOpen={alert.show}
-              color={alert.color}>
+              toggle={() => setAlert({ ...alert, show: false })}>
               {alert.msg}
             </Alert>
 
@@ -78,7 +79,7 @@ const AccountVerification: React.SFC<Props> = ({ refreshVerificationStatus }: Pr
                   <h6 className="mb-0">Phone (Required){' '}
                     {phoneVerified
                       ? <span className="small text-success">(Verified)</span>
-                      : <span className="small text-danger">(Not Verified)</span>
+                      : <span className="small text-danger">(Not{'\u00A0'}Verified)</span>
                     }
                   </h6>
                   <div className="d-flex justify-content-between">
@@ -100,7 +101,7 @@ const AccountVerification: React.SFC<Props> = ({ refreshVerificationStatus }: Pr
                   <h6 className="mb-0">Email (Required){' '}
                     {emailVerified
                       ? <span className="small text-success">(Verified)</span>
-                      : <span className="small text-danger">(Not Verified)</span>
+                      : <span className="small text-danger">(Not{'\u00A0'}Verified)</span>
                     }
                   </h6>
                   <div className="d-flex justify-content-between">
