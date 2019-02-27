@@ -1,5 +1,5 @@
 import * as React from 'react';
-import { Nav, NavItem, NavLink, Container, Col, Row } from 'reactstrap';
+import { Nav, NavItem, NavLink, Container, Col, Row, Card, CardBody, CardText, CardImg, Alert } from 'reactstrap';
 import { Query } from 'react-apollo';
 import { Route, Redirect, Switch } from 'react-router';
 import { NavLink as RRNavLink } from 'react-router-dom';
@@ -13,6 +13,7 @@ import AccountGeneral from './AccountGeneral';
 import AccountPayment from './AccountPayment';
 import AccountSecurity from './AccountSecurity';
 import AccountVerification from './AccountVerification';
+import ProfilePhotoUploader from 'components/work/ProfilePhotoUploader';
 
 const Account = () => {
   return (
@@ -30,7 +31,7 @@ const Account = () => {
           <Container>
             <h1>Profile</h1>
             <hr />
-            <Nav tabs>
+            <Nav className="mb-5" tabs>
               {[
                 {
                   tag: RRNavLink,
@@ -63,8 +64,7 @@ const Account = () => {
 
             <Container>
               <Row>
-                <Col md={6}>
-                  <hr />
+                <Col md={6} className="mb-5">
                   <Switch>
                     <Route
                       exact
@@ -82,6 +82,11 @@ const Account = () => {
                     <Route component={NotFound} />
                   </Switch>
                 </Col>
+                <Col md={1} />
+                <Col md={4} className="d-flex justify-content-center">
+                  <ProfilePhotoUploader profilePicUrl={user.profilePicUrl} />
+                </Col>
+                <Col md={1} />
               </Row>
             </Container>
           </Container>
