@@ -1,12 +1,11 @@
 import * as React from 'react';
-import { Button, Col, Container, Row } from 'reactstrap';
+import { Button, Col, Container, Fade, Jumbotron, Row } from 'reactstrap';
 
 import { affiliations, guestValueProps, HomeUser, hostValueProps, testimonials } from './home.config';
 import { AFFILIATE_CLASSES, CONTENT_CLASSES, JUMBOTRON_STYLES, TESTIMONIAL_CLASSES } from './home.styled';
 
 import Footer from 'components/work/Footer';
 import Header from 'components/work/Header';
-import Jumbotron from 'components/work/Jumbotron';
 import TestimonialCard from 'components/work/TestimonialCard';
 import ValuePropCard from 'components/work/ValuePropCard';
 
@@ -16,8 +15,8 @@ const Home = () => {
   return (
     <>
       <Header />
-      <Container className="min-vh-100 h-100 px-0" fluid>
-        <Jumbotron fluid>
+      <Container tag={Fade} className="min-vh-100 h-100 px-0" fluid>
+        <Jumbotron className="p-0" fluid>
           <div
             className="bg-img-hero d-flex align-items-center justify-content-center gradient-overlay-half-primary-v1"
             style={JUMBOTRON_STYLES}
@@ -54,6 +53,7 @@ const Home = () => {
 
         {isGuestActive ? <HomeGuests /> : <HomeHosts />}
 
+
         <Container className="my-10 pb-lg-4">
           <h2 className={CONTENT_CLASSES.TITLE}>Partners</h2>
           <p className={`${CONTENT_CLASSES.SUBTITLE} mb-5 mb-md-0 mb-lg-3`}>
@@ -82,7 +82,7 @@ const Home = () => {
 };
 
 const HomeGuests = () => (
-  <>
+  <Fade>
     <Container className={CONTENT_CLASSES.FEATURES_CONTAINER.LAYOUT}>
       <h2 className={CONTENT_CLASSES.TITLE}>Tired of finding a good place to stay?</h2>
       <p className={CONTENT_CLASSES.SUBTITLE}>
@@ -117,12 +117,11 @@ const HomeGuests = () => (
         </Row>
       </Container>
     </Container>
-  </>
+  </Fade>
 );
 
 const HomeHosts = () => (
-  <>
-    <Container className={CONTENT_CLASSES.FEATURES_CONTAINER.LAYOUT}>
+    <Container tag={Fade} className={CONTENT_CLASSES.FEATURES_CONTAINER.LAYOUT}>
       <h2 className={CONTENT_CLASSES.TITLE}>Want to rent out your homes to professionals?</h2>
       <p className={CONTENT_CLASSES.SUBTITLE}>
         Here, your guests will be business travelers so don’t worry about parties.
@@ -157,7 +156,6 @@ const HomeHosts = () => (
         </Container>
       </Container>
     </Container>
-  </>
 );
 
 export default Home;

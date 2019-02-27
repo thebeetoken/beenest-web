@@ -1,5 +1,5 @@
 import * as React from 'react';
-import { Col, Container, Row } from 'reactstrap';
+import { Col, Container, Fade, Row } from 'reactstrap';
 import { Redirect, RouteProps } from 'react-router-dom';
 
 import AuthHeader from 'components/work/AuthHeader';
@@ -39,7 +39,7 @@ const Login = (props: RouteProps) => (
 );
 
 const LoginContent = () => (
-  <Container>
+  <Container tag={Fade}>
     <Row noGutters>
       <Col
         className={AUTH_CONTENT}

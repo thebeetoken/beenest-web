@@ -25,7 +25,6 @@ const ListingGallery = ({ listingPicUrl, photos }: Props) => {
             <div className="listing-gallery-container--btn-wrapper">
               <Button
                 background="secondary"
-                className="view-photos-button"
                 color="white"
                 radius="4px"
                 onClick={toggle}
