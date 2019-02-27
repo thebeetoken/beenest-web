@@ -13,6 +13,11 @@ const Search = () => {
     <>
       <Header />
       <Container className="min-vh-100 h-100 px-0" fluid>
+        <Row>
+          <Col className="p-5">
+            Search bar goes here...
+          </Col>
+        </Row>
         <Row className="min-vh-100 h-100 px-0">
           <Col>
             <SearchForm />
