@@ -61,14 +61,23 @@ export const testimonials = [
     subtitle: 'Administrative Business Partner',
     src: 'https://static.beenest.com/images/work/home/janelle.jpg',
     title: 'Janelle',
+    link: '',
   },
+  // {
+  //   alt: 'Benedict Testimonial',
+  //   body: 'Property damage is a major concern as a property manager. Beenest has always provided me with professional guests, and I worry less about things being broken. List on Beenest for better bookings.',
+  //   subtitle: 'Property Manager',
+  //   src: 'https://static.beenest.com/images/work/home/ben.jpg',
+  //   title: 'Benedict',
+  //   link: 'https://google.com',
+  // },
   {
-    alt: 'Benedict Testimonial',
-    body: 'Property damage is a major concern as a property manager. Beenest has always provided me with professional guests, and I worry less about things being broken. List on Beenest for better bookings.',
-    subtitle: 'Property Manager',
+    alt: 'Ben Testimonial',
+    body: '“I travel a lot as a consultant and Beenest helped me immensely with accommodations. Such a great site and easy to use! My go-to option when I travel to conferences. Thanks and best of luck to the Beenest team!” ',
+    subtitle: `Marketing Consultant`,
     src: 'https://static.beenest.com/images/work/home/ben.jpg',
-    title: 'Benedict',
-    link: 'https://google.com',
+    title: 'Ben',
+    link: '',
   },
   {
     alt: 'Kyle Testimonial',
@@ -76,13 +85,7 @@ export const testimonials = [
     subtitle: 'Lead Customer Success Manager',
     src: 'https://static.beenest.com/images/work/home/kyle.jpg',
     title: 'Kyle',
-  },
-  {
-    alt: 'Ben Testimonial',
-    body: '“I travel a lot as a consultant and Beenest helped me immensely with accommodations. Such a great site and easy to use! My go-to option when I travel to conferences. Thanks and best of luck to the Beenest team!” ',
-    subtitle: `Marketing Consultant`,
-    src: 'https://static.beenest.com/images/work/home/ben.jpg',
-    title: 'Ben',
+    link: '',
   },
 ];
 

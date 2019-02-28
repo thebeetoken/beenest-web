@@ -64,7 +64,7 @@ const Home = () => {
             Real users, Real stories.
           </p>
           <Container className="mt-6 mt-lg-8">
-            <Row className="bee-home-testimonials align-items-start">
+            <Row className="bee-home-testimonials align-items-start justify-content-around">
               {testimonials.map((testimonial) => {
                 if (testimonial.link) {
                   return (
