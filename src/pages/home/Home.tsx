@@ -68,15 +68,15 @@ const Home = () => {
               {testimonials.map((testimonial) => {
                 if (testimonial.link) {
                   return (
-                    <a target="_blank">
-                      <Col md="6" lg="3" className={TESTIMONIAL_CLASSES} key={testimonial.title}>
+                    <Col md="6" lg="3" className={TESTIMONIAL_CLASSES} key={testimonial.title}>
+                      <a href={testimonial.link} target="_blank">
                         <TestimonialCard
                           title={testimonial.title}
                           subtitle={testimonial.subtitle}
                           body={testimonial.body}
                           src={testimonial.src} />
-                      </Col>
-                    </a>
+                      </a>
+                    </Col>
                   );
                 }
                 return (

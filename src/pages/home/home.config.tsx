@@ -68,6 +68,7 @@ export const testimonials = [
     subtitle: 'Property Manager',
     src: 'https://static.beenest.com/images/work/home/ben.jpg',
     title: 'Benedict',
+    link: 'https://google.com',
   },
   {
     alt: 'Kyle Testimonial',
