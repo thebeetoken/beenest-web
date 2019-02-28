@@ -138,7 +138,7 @@ const Search = () => {
     <>
       <Header />
       <Row className="px-0 mx-0 bg-white" style={{ position: 'sticky', top: '4.125rem', zIndex: 2 }}>
-        <Col className="p-5">
+        <Col className="p-5" xs="12" lg="10" xl="9">
           <SearchBar />
         </Col>
       </Row>
