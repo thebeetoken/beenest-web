@@ -7,7 +7,7 @@ import Header from 'components/work/Header';
 const Listing = () => (
   <>
     <Header />
-    <Row>
+    <Row className="w-100">
       <Col>Hello, Listing.</Col>
     </Row>
     <Footer />
