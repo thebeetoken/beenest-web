@@ -238,7 +238,7 @@ class AccountVerificationPhoneCard extends React.Component<Props, State> {
         verificationId
       }))
       .catch((error: Error) => {
-        console.log(error);
+        console.error(error);
         return this.setState({
           inputValidation: { ...inputValidation, phoneNumber: FieldValidation.ERROR },
           isSubmitting: false,
