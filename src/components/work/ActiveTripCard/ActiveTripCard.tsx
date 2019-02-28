@@ -7,7 +7,7 @@ import { formatSingleDate } from 'utils/formatDate';
 
 interface Props {
   booking: Booking;
-  onCancelClick: (booking: Booking) => void;
+  onCancelClick: () => void;
 }
 
 const ActiveTripCard = ({ booking, onCancelClick }: Props) => {
@@ -15,7 +15,7 @@ const ActiveTripCard = ({ booking, onCancelClick }: Props) => {
   const { addressLine1, addressLine2, city, country, lat, lng, postalCode, state } = listing;
   const displayStatus = getUserBookingDisplayStatus(status);
   return (
-    <Card className="mb-5 flex-fill" key={booking.id} tag={Fade}>
+    <Card className="mb-5 flex-fill" key={booking.id}>
       <div className="embed-responsive embed-responsive-4by3">
         <div className="embed-responsive-item">
           <CardImg className="h-100" top src={booking.listing.listingPicUrl} alt="Listing Cover Photo" />
@@ -56,7 +56,7 @@ const ActiveTripCard = ({ booking, onCancelClick }: Props) => {
           </Col>
           <Col
             xs="4"
-            onClick={() => onCancelClick(booking)}>
+            onClick={onCancelClick}>
             <h5 className="small font-weight-normal text-secondary mb-0">Cancel Trip</h5>
           </Col>
         </Row>

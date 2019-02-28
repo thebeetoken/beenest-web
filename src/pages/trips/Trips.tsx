@@ -1,5 +1,5 @@
 import * as React from 'react';
-import { Nav, NavItem, NavLink, Container, Col, Row, Alert, Modal, ModalHeader, ModalBody } from 'reactstrap';
+import { Nav, NavItem, NavLink, Container, Col, Row, Alert, Modal, ModalHeader, ModalBody, Fade, Button, ModalFooter } from 'reactstrap';
 import { Query, compose, graphql } from 'react-apollo';
 import { Route, Redirect, Switch } from 'react-router';
 import { NavLink as RRNavLink } from 'react-router-dom';
@@ -22,14 +22,11 @@ enum ModalType {
   CONTACT_HOST = 'CONTACT_HOST',
 }
 
-
-const Trips = ({ cancelBooking }: Props) => {
+function Trips({ cancelBooking }: Props) {
   const [modal, setModal] = React.useState<ModalType | undefined>(undefined);
   const [alert, setAlert] = React.useState<AlertProperties>({ color: '', msg: '', show: false });
   const [isSubmitting, setSubmitting] = React.useState<boolean>(false);
   const [currency, setCurrency] = React.useState<Currency | null>(Currency.USD);
-  
-  
   return (
     <Query query={GET_GUEST_SORTED_BOOKINGS}>
       {({ loading, error, data }) => {
@@ -98,7 +95,7 @@ const Trips = ({ cancelBooking }: Props) => {
                               <ActiveTripCard
                                 key={booking.id}
                                 booking={booking}
-                                onCancelClick={handleCancelBooking} />
+                                onCancelClick={() => handleModalAction(ModalType.CANCEL_BOOKING)} />
                             </Col>
                           );
                         })}
@@ -111,18 +108,18 @@ const Trips = ({ cancelBooking }: Props) => {
                   path="/work/trips/upcoming"
                   component={() => (
                     <Container fluid>
-                      <Row>
+                      {/* <Row>
                         {upcoming.map((booking: Booking) => {
                           return (
                             <Col key={booking.id} className="d-flex" md="6" lg="4">
                               <ActiveTripCard
                                 key={booking.id}
                                 booking={booking}
-                                onCancelClick={handleCancelBooking} />
+                                onCancelClick={handleModalAction(ModalType.CANCEL_BOOKING)} />
                             </Col>
                           );
                         })}
-                      </Row>
+                      </Row> */}
                     </Container>
                   )}
                 />
@@ -151,14 +148,16 @@ const Trips = ({ cancelBooking }: Props) => {
               </Switch>
             </Container>
 
-            {modal === ModalType.CANCEL_BOOKING &&
-              <Modal isOpen toggle={handleModalAction}>
-                <ModalHeader>Cancel Booking</ModalHeader>
-                <ModalBody>
-                  <h1>Some Basic Are You Sure You Want To Cancel</h1>
-                </ModalBody>
-              </Modal>
-            }
+            <Modal isOpen={modal === ModalType.CANCEL_BOOKING} toggle={handleModalAction}>
+              <ModalHeader>Cancel Booking</ModalHeader>
+              <ModalBody>
+                <h6>Are you sure you want to cancel this booking?</h6>
+              </ModalBody>
+              <ModalFooter>
+                <Button color="secondary" onClick={() => handleModalAction()}>Back</Button>{' '}
+                <Button color="danger" onClick={(event: any) => { console.log('this is event:', event); }}>Yes, Cancel Booking</Button>
+              </ModalFooter>
+            </Modal>
 
             {/* {modal === ModalType.CONTACT_HOST &&
               <Modal isOpen toggle={handleModalAction}>
@@ -177,26 +176,24 @@ const Trips = ({ cancelBooking }: Props) => {
   );
 
   function handleCancelBooking(booking: Booking) {
-    if (confirm('Are you sure you want to cancel this booking?')) {
-      setSubmitting(true);
-      cancelBooking(booking)
-        .then(() => {
-          setCurrency(booking.currency);
-          setAlert({
-            ...alert,
-            msg: 'Your booking has been cancelled',
-            show: true,
-          });
-        })
-        .catch((error: Error) => {
-          setAlert({
-            ...alert,
-            msg: `There was an error processing your request.  ${error.message}`,
-            show: true,
-          });
-        })
-        .finally(() => setSubmitting(false));
-    }
+    setSubmitting(true);
+    cancelBooking(booking)
+      .then(() => {
+        setCurrency(booking.currency);
+        setAlert({
+          ...alert,
+          msg: 'Your booking has been cancelled',
+          show: true,
+        });
+      })
+      .catch((error: Error) => {
+        setAlert({
+          ...alert,
+          msg: `There was an error processing your request.  ${error.message}`,
+          show: true,
+        });
+      })
+      .finally(() => setSubmitting(false));
   };
 
   function handleModalAction(modal?: ModalType) {
