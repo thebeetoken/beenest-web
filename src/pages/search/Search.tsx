@@ -137,7 +137,7 @@ const Search = () => {
   return (
     <Fade>
       <Header />
-      <Row className="px-0 mx-0 bg-white sticky-top" style={{ top: '4.125rem', zIndex: 2 }}>
+      <Row className="px-0 mx-0 bg-white sticky-top bee-top">
         <Col className="p-5" xs="12" lg="10" xl="9">
           <SearchBar />
         </Col>
@@ -151,7 +151,7 @@ const Search = () => {
           <SearchResults listings={TEST_LISTINGS} />
         </Col>
         <Col md="0" lg="7" xl="8" className="px-0 d-md-none d-lg-block">
-          <div className="w-100 sticky-top" style={{ height: 'calc(100vh - 11.25rem)', top: '11.25rem', zIndex: 1 }}>
+          <div className="w-100 sticky-top bee-search-map">
             <GoogleMapsWithMarkers className="w-100 h-100" listings={TEST_LISTINGS} />
           </div>
         </Col>

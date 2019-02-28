@@ -9,6 +9,8 @@ import Logout from './logout';
 import Search from './search';
 import Signup from './signup';
 
+import '../styled/customStyles.scss';
+
 const Work = () => (
   <div>
     <Switch>
