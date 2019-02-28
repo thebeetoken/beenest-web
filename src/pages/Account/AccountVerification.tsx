@@ -1,7 +1,7 @@
 import * as React from 'react';
 import { compose } from 'recompose';
 import { graphql } from 'react-apollo';
-import { CardBody, ListGroup, ListGroupItem, Alert } from 'reactstrap';
+import { Fade, CardBody, ListGroup, ListGroupItem, Alert } from 'reactstrap';
 import { REFRESH_VERIFICATION_STATUS, GET_USER } from 'networking/users';
 import { FirebaseConsumer, FirebaseUserProps } from 'HOCs/FirebaseProvider';
 import { auth, FirebaseUser } from 'utils/firebase';
@@ -43,7 +43,7 @@ const AccountVerification: React.SFC<Props> = ({ refreshVerificationStatus }: Pr
 
         if (!user) {
           return (
-            <ListGroup className="d-flex flex-column">
+            <ListGroup className="d-flex flex-column" tag={Fade}>
               <ListGroupItem
                 disabled={phoneVerified}
                 className="mb-5">
@@ -63,7 +63,7 @@ const AccountVerification: React.SFC<Props> = ({ refreshVerificationStatus }: Pr
         }
 
         return (
-          <>
+          <Fade>
             <Alert
               color={alert.color}
               isOpen={alert.show}
@@ -122,7 +122,7 @@ const AccountVerification: React.SFC<Props> = ({ refreshVerificationStatus }: Pr
               toggleModal={toggleModal}
               refreshVerificationStatus={refreshVerificationStatus}
               user={user} />
-          </>
+          </Fade>
         )
       }}
     </FirebaseConsumer>
