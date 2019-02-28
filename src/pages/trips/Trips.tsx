@@ -31,28 +31,24 @@ const Trips = () => {
             <Nav tabs>
               {[
                 {
-                  tag: RRNavLink,
                   to: '/work/trips/current',
                   title: 'Current',
                 },
                 {
-                  tag: RRNavLink,
                   to: '/work/trips/upcoming',
                   title: 'Upcoming',
                 },
                 {
-                  tag: RRNavLink,
                   to: '/work/trips/past',
                   title: 'Past',
                 },
                 {
-                  tag: RRNavLink,
                   to: '/work/trips/cancelled',
                   title: 'Cancelled',
                 },
-              ].map(({ title, tag, to }) => (
+              ].map(({ title, to }) => (
                 <NavItem key={to}>
-                  <NavLink tag={tag} to={to}>
+                  <NavLink tag={RRNavLink} to={to}>
                     {title}
                   </NavLink>
                 </NavItem>
@@ -61,7 +57,7 @@ const Trips = () => {
 
             <Container>
               <Row>
-                <Col md={6}>
+                <Col md="6">
                   <Switch>
                     <Route
                       exact
