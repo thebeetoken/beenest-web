@@ -1,6 +1,6 @@
 import * as React from 'react';
 import { Query } from 'react-apollo';
-import { Col, Fade, Row } from 'reactstrap';
+import { Fade } from 'reactstrap';
 
 import Footer from 'components/work/Footer';
 import Header from 'components/work/Header';
