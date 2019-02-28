@@ -1,8 +1,9 @@
 import * as React from 'react';
-import { Fade, Row } from 'reactstrap';
+import { Button, Fade, Row } from 'reactstrap';
 import sanitizeHtml from 'sanitize-html';
 
 import { Listing } from 'networking/listings';
+import GoogleMaps from 'shared/GoogleMaps';
 import ImageGrid from 'shared/ImageGrid';
 import LazyImage from 'shared/LazyImage';
 import { formatAddress } from 'utils/formatter';
@@ -10,6 +11,7 @@ import { formatAddress } from 'utils/formatter';
 const DEFAULT_PROFILE_URL = 'https://static.beenest.com/images/app/misc/profile.png';
 
 const ListingInformation = ({
+  amenities,
   checkInTime,
   checkOutTime,
   city,
@@ -17,6 +19,8 @@ const ListingInformation = ({
   description,
   homeType,
   host,
+  lat,
+  lng,
   listingPicUrl,
   minimumNights,
   maxGuests,
@@ -49,6 +53,15 @@ const ListingInformation = ({
     <dt>Check-in</dt><dd>{checkInTime.from} to {checkInTime.to}</dd>
     <dt>Check-out</dt><dd>{checkOutTime}</dd>
   </dl>
+  <h1>Amenities</h1>
+  <ul>
+    {amenities.map(amenity => <li key={amenity}>{amenity}</li>)}
+  </ul>
+  <h1>Location</h1>
+  <GoogleMaps lat={lat} lng={lng} showCircle />
+  <h1>About Vic</h1>
+  <LazyImage src={host.profilePicUrl || DEFAULT_PROFILE_URL} width="5rem" height="5rem" />
+  <Button>Contact Host</Button>
 </Fade>;
 
 
