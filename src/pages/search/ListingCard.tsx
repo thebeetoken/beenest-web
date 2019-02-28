@@ -1,5 +1,5 @@
 import * as React from 'react';
-import { Card, CardBody, CardImg, CardSubtitle, CardText, CardTitle } from 'reactstrap';
+import { Card, CardBody, CardImg, CardSubtitle, CardText, CardTitle, Fade } from 'reactstrap';
 
 import { ListingShort } from 'networking/listings';
 
@@ -10,7 +10,7 @@ const ListingCard = ({
   sleepingArrangement,
   title
 }: ListingShort) => (
-  <Card>
+  <Card tag={Fade}>
     <div className="embed-responsive embed-responsive-4by3">
       <div className="embed-responsive-item">
         <CardImg className="w-100" src={listingPicUrl} alt={`Photo of ${title}`} />
