@@ -47,7 +47,7 @@ function AccountGeneral({ user, updateUser }: any) {
           <Row>
             <Col md={6}>
               <FormGroup>
-                <Label for={UserField.FIRST_NAME} className="form-label">First Name</Label>
+                <Label for={UserField.FIRST_NAME}>First Name</Label>
                 <Input
                   id={UserField.FIRST_NAME}
                   invalid={!!errors.firstName && !!touched.firstName}
@@ -60,7 +60,7 @@ function AccountGeneral({ user, updateUser }: any) {
             </Col>
             <Col md={6}>
               <FormGroup>
-                <Label for={UserField.LAST_NAME} className="form-label">Last Name</Label>
+                <Label for={UserField.LAST_NAME}>Last Name</Label>
                 <Input
                   id={UserField.LAST_NAME}
                   invalid={!!errors.lastName && !!touched.lastName}
@@ -74,7 +74,7 @@ function AccountGeneral({ user, updateUser }: any) {
           </Row>
           
           <FormGroup>
-            <Label for={UserField.EMAIL} className="form-label">Email</Label>
+            <Label for={UserField.EMAIL}>Email</Label>
             <Input
               disabled
               id={UserField.EMAIL}
@@ -86,7 +86,7 @@ function AccountGeneral({ user, updateUser }: any) {
           </FormGroup>
 
           <FormGroup>
-            <Label for={UserField.ABOUT} className="form-label">About</Label>
+            <Label for={UserField.ABOUT}>About</Label>
             <Textarea
               className={`form-control${errors.about ? ' is-invalid' : ''}`}
               html

@@ -1,5 +1,5 @@
 import * as React from 'react';
-import { ListGroup, ListGroupItem, Alert } from 'reactstrap';
+import { ListGroup, ListGroupItem, Alert, CardBody } from 'reactstrap';
 import { FirebaseConsumer, FirebaseUserProps } from 'HOCs/FirebaseProvider';
 import { User } from 'firebase';
 
@@ -28,11 +28,13 @@ function AccountSecurity() {
                 className="w-100 d-flex flex-column"
                 disabled={isSubmitting}
                 onClick={() => handleResetPasswordClick(user)}>
-                <h6 className="mb-0">Reset Password</h6>
-                <div className="d-flex justify-content-between">
-                  <h6 className="mb-0 small text-muted">Click here to reset your password</h6>
-                  <i className="fas fa-lock"></i>
-                </div>
+                <CardBody>
+                  <h6 className="mb-0">Reset Password</h6>
+                  <div className="d-flex justify-content-between">
+                    <h6 className="mb-0 small text-muted">Click here to reset your password</h6>
+                    <i className="fas fa-lock"></i>
+                  </div>
+                </CardBody>
               </ListGroupItem>
             }
           </ListGroup>
