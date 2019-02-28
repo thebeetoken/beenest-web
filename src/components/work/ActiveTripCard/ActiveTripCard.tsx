@@ -15,7 +15,7 @@ const ActiveTripCard = ({ booking, onCancelClick }: Props) => {
   const { addressLine1, addressLine2, city, country, lat, lng, postalCode, state } = listing;
   const displayStatus = getUserBookingDisplayStatus(status);
   return (
-    <Card className="mb-5" key={booking.id} tag={Fade}>
+    <Card className="mb-5 flex-fill" key={booking.id} tag={Fade}>
       <div className="embed-responsive embed-responsive-4by3">
         <div className="embed-responsive-item">
           <CardImg className="h-100" top src={booking.listing.listingPicUrl} alt="Listing Cover Photo" />

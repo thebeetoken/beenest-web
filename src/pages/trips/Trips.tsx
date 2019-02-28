@@ -1,5 +1,5 @@
 import * as React from 'react';
-import { Nav, NavItem, NavLink, Container, Col, Row, CardDeck, Alert, Modal, ModalHeader, ModalBody } from 'reactstrap';
+import { Nav, NavItem, NavLink, Container, Col, Row, Alert, Modal, ModalHeader, ModalBody } from 'reactstrap';
 import { Query, compose, graphql } from 'react-apollo';
 import { Route, Redirect, Switch } from 'react-router';
 import { NavLink as RRNavLink } from 'react-router-dom';
@@ -48,7 +48,7 @@ const Trips = ({ cancelBooking }: Props) => {
             <Container>
               <h1>Trips</h1>
               <hr />
-              <Nav tabs>
+              <Nav className="mb-5" tabs>
                 {[
                   {
                     tag: RRNavLink,
@@ -90,32 +90,40 @@ const Trips = ({ cancelBooking }: Props) => {
                   exact
                   path="/work/trips/current"
                   component={() => (
-                    <>
-                      <h1>This is the current page</h1>
-                      <p>{JSON.stringify(current)}</p>
-                    </>
+                    <Container fluid>
+                      <Row>
+                        {current.map((booking: Booking) => {
+                          return (
+                            <Col key={booking.id} className="d-flex" md="6" lg="4">
+                              <ActiveTripCard
+                                key={booking.id}
+                                booking={booking}
+                                onCancelClick={handleCancelBooking} />
+                            </Col>
+                          );
+                        })}
+                      </Row>
+                    </Container>
                   )}
                 />
                 <Route
                   exact
                   path="/work/trips/upcoming"
                   component={() => (
-                    <>
-                      <h1>This is the upcoming page</h1>
-                      <CardDeck>
-                        <Row>
-                          {past.map((booking: Booking) => {
-                            return (
-                              <Col key={booking.id} md="6" lg="4">
-                                <ActiveTripCard
-                                  booking={booking}
-                                  onCancelClick={handleCancelBooking} />
-                              </Col>
-                            );
-                          })}
-                        </Row>
-                      </CardDeck>
-                    </>
+                    <Container fluid>
+                      <Row>
+                        {upcoming.map((booking: Booking) => {
+                          return (
+                            <Col key={booking.id} className="d-flex" md="6" lg="4">
+                              <ActiveTripCard
+                                key={booking.id}
+                                booking={booking}
+                                onCancelClick={handleCancelBooking} />
+                            </Col>
+                          );
+                        })}
+                      </Row>
+                    </Container>
                   )}
                 />
                 <Route
@@ -143,14 +151,14 @@ const Trips = ({ cancelBooking }: Props) => {
               </Switch>
             </Container>
 
-            {/* {modal === ModalType.CANCEL_BOOKING &&
+            {modal === ModalType.CANCEL_BOOKING &&
               <Modal isOpen toggle={handleModalAction}>
                 <ModalHeader>Cancel Booking</ModalHeader>
                 <ModalBody>
                   <h1>Some Basic Are You Sure You Want To Cancel</h1>
                 </ModalBody>
               </Modal>
-            } */}
+            }
 
             {/* {modal === ModalType.CONTACT_HOST &&
               <Modal isOpen toggle={handleModalAction}>
