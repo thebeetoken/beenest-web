@@ -5,7 +5,6 @@ import { affiliations, guestValueProps, HomeUser, hostValueProps, testimonials }
 import { AFFILIATE_CLASSES, CONTENT_CLASSES, JUMBOTRON_CLASSES, TESTIMONIAL_CLASSES } from './home.styled';
 
 import Footer from 'components/work/Footer';
-import Header from 'components/work/Header';
 import SearchBar from 'components/work/SearchBar';
 import TestimonialCard from 'components/work/TestimonialCard';
 import ValuePropCard from 'components/work/ValuePropCard';
@@ -16,7 +15,6 @@ const Home = () => {
 
   return (
     <>
-      <Header />
       <Container tag={Fade} className="min-vh-100 h-100 px-0" fluid>
         <Jumbotron className="p-0" fluid>
           <div

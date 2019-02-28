@@ -10,8 +10,11 @@ import Signup from './signup';
 import Trips from './trips';
 import AuthenticatedRoute from 'HOCs/AuthenticatedRoute';
 
+import Header from 'components/work/Header';
+
 const Work = () => (
   <div>
+    <Header />
     <Switch>
     <Route path="/work/about" component={About} />
       <Route path="/work/account" component={Account} />

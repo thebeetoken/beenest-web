@@ -1,10 +1,11 @@
 import * as React from 'react';
 import { Button, Collapse, Navbar, NavbarToggler, NavbarBrand, Nav, NavItem, NavLink } from 'reactstrap';
-import { Link } from 'react-router-dom';
+import { Link, Route, Switch } from 'react-router-dom';
 
 import { FirebaseConsumer, FirebaseUserProps } from 'HOCs/FirebaseProvider';
 import { BeenestSVGPrimary } from 'shared/svgComponents/SvgComponents';
 import Loading from 'shared/loading/Loading';
+import SimpleHeader from 'components/work/SimpleHeader';
 
 const helpNavItem = {
   header: 'Help',
@@ -35,11 +36,22 @@ const authNavItems = [
   },
 ];
 
-const Header = () => {
+const Header = () => (
+  <Switch>
+    <Route path="/work/account" component={DetailedHeader} />
+    <Route exact path="/work" component={DetailedHeader} />
+    <Route exact path="/work/about" component={SimpleHeader} />
+    <Route exact path="/work/login" render={() => <SimpleHeader primary />} />
+    <Route exact path="/work/signup" render={() => <SimpleHeader primary />} />
+    <Route component={DetailedHeader} />
+  </Switch>
+);
+
+const DetailedHeader = () => {
   const [isOpen, toggleNavbar] = React.useState<boolean>(false);
 
   return (
-    <header className="sticky-top bg-white" id="bee-main-header">
+    <header className="sticky-top bg-white custom-header-height" id="bee-main-header">
       <Navbar light expand="md">
         <NavbarBrand href="/work">
           <BeenestSVGPrimary />
