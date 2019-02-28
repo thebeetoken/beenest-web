@@ -58,6 +58,41 @@ const Home = () => {
 
         {isGuestActive ? <HomeGuests /> : <HomeHosts />}
 
+        <Container className={`${CONTENT_CLASSES.FEATURES_CONTAINER.LAYOUT} position-relative`} fluid>
+          <h2 className={CONTENT_CLASSES.TITLE}>"Booking for my buisness trip was never easier."</h2>
+          <p className={CONTENT_CLASSES.SUBTITLE}>
+            Real users, Real stories.
+          </p>
+          <Container className="mt-8">
+            <Row className="bee-home-testimonials align-items-start">
+              {testimonials.map((testimonial) => {
+                if (testimonial.link) {
+                  return (
+                    <a target="_blank">
+                      <Col md="6" lg="3" className={TESTIMONIAL_CLASSES} key={testimonial.title}>
+                        <TestimonialCard
+                          title={testimonial.title}
+                          subtitle={testimonial.subtitle}
+                          body={testimonial.body}
+                          src={testimonial.src} />
+                      </Col>
+                    </a>
+                  );
+                }
+                return (
+                  <Col md="6" lg="3" className={TESTIMONIAL_CLASSES} key={testimonial.title}>
+                    <TestimonialCard
+                      title={testimonial.title}
+                      subtitle={testimonial.subtitle}
+                      body={testimonial.body}
+                      src={testimonial.src} />
+                  </Col>
+                );
+              })}
+            </Row>
+          </Container>
+        </Container>
+
 
         <Container className="my-10 pb-lg-4">
           <h2 className={CONTENT_CLASSES.TITLE}>Partners</h2>
@@ -102,35 +137,16 @@ const HomeGuests = () => (
         ))}
       </Row>
     </Container>
-
-    <Container className={`${CONTENT_CLASSES.FEATURES_CONTAINER.LAYOUT} position-relative`} fluid>
-      <h2 className={CONTENT_CLASSES.TITLE}>"Booking for my buisness trip was never easier."</h2>
-      <p className={CONTENT_CLASSES.SUBTITLE}>
-        Real guests, Real stories.
-      </p>
-      <Container className="mt-8">
-        <Row className="bee-home-testimonials">
-          {testimonials.map((testimonial) => (
-            <Col md="6" lg="3" className={TESTIMONIAL_CLASSES} key={testimonial.title}>
-              <TestimonialCard
-                title={testimonial.title}
-                subtitle={testimonial.subtitle}
-                body={testimonial.body}
-                src={testimonial.src} />
-            </Col>
-          ))}
-        </Row>
-      </Container>
-    </Container>
   </Fade>
 );
 
 const HomeHosts = () => (
+  <Fade>
     <Container tag={Fade} className={CONTENT_CLASSES.FEATURES_CONTAINER.LAYOUT}>
       <h2 className={CONTENT_CLASSES.TITLE}>Want to rent out your homes to professionals?</h2>
       <p className={CONTENT_CLASSES.SUBTITLE}>
         Here, your guests will be business travelers so don’t worry about parties.
-      </p>
+        </p>
 
       <Row className={CONTENT_CLASSES.FEATURES.LAYOUT}>
         {hostValueProps.map(card => (
@@ -139,28 +155,8 @@ const HomeHosts = () => (
           </Col>
         ))}
       </Row>
-
-      <Container className={`${CONTENT_CLASSES.FEATURES_CONTAINER.LAYOUT} position-relative`} fluid>
-        <h2 className={CONTENT_CLASSES.TITLE}>"Booking for my buisness trip was never easier."</h2>
-        <p className={CONTENT_CLASSES.SUBTITLE}>
-          Real guests, Real stories.
-      </p>
-        <Container className="mt-8">
-          <Row className="bee-home-testimonials">
-            {testimonials.map((testimonial) => (
-              <Col md="6" lg="3" key={testimonial.title}>
-                <TestimonialCard
-                  className={TESTIMONIAL_CLASSES}
-                  title={testimonial.title}
-                  subtitle={testimonial.subtitle}
-                  body={testimonial.body}
-                  src={testimonial.src} />
-              </Col>
-            ))}
-          </Row>
-        </Container>
-      </Container>
     </Container>
+  </Fade>
 );
 
 export default Home;
