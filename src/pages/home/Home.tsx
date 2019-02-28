@@ -58,9 +58,44 @@ const Home = () => {
 
         {isGuestActive ? <HomeGuests /> : <HomeHosts />}
 
+        <Container className={`${CONTENT_CLASSES.FEATURES_CONTAINER.LAYOUT} position-relative`} fluid>
+          <h3 className={CONTENT_CLASSES.TITLE}>"Booking for my buisness trip was never easier."</h3>
+          <p className={CONTENT_CLASSES.SUBTITLE}>
+            Real users, Real stories.
+          </p>
+          <Container className="mt-6 mt-lg-8">
+            <Row className="bee-home-testimonials align-items-start justify-content-around">
+              {testimonials.map((testimonial) => {
+                if (testimonial.link) {
+                  return (
+                    <Col md="6" lg="3" className={TESTIMONIAL_CLASSES} key={testimonial.title}>
+                      <a href={testimonial.link} target="_blank">
+                        <TestimonialCard
+                          title={testimonial.title}
+                          subtitle={testimonial.subtitle}
+                          body={testimonial.body}
+                          src={testimonial.src} />
+                      </a>
+                    </Col>
+                  );
+                }
+                return (
+                  <Col md="6" lg="3" className={TESTIMONIAL_CLASSES} key={testimonial.title}>
+                    <TestimonialCard
+                      title={testimonial.title}
+                      subtitle={testimonial.subtitle}
+                      body={testimonial.body}
+                      src={testimonial.src} />
+                  </Col>
+                );
+              })}
+            </Row>
+          </Container>
+        </Container>
+
 
         <Container className="my-10 pb-lg-4">
-          <h2 className={CONTENT_CLASSES.TITLE}>Partners</h2>
+          <h3 className={CONTENT_CLASSES.TITLE}>Partners</h3>
           <p className={`${CONTENT_CLASSES.SUBTITLE} mb-5 mb-md-0 mb-lg-3`}>
             Beenest has been featured in the following news and magazines.
           </p>
@@ -89,7 +124,7 @@ const Home = () => {
 const HomeGuests = () => (
   <Fade>
     <Container className={CONTENT_CLASSES.FEATURES_CONTAINER.LAYOUT}>
-      <h2 className={CONTENT_CLASSES.TITLE}>Tired of finding a good place to stay?</h2>
+      <h3 className={CONTENT_CLASSES.TITLE}>Tired of finding a good place to stay?</h3>
       <p className={CONTENT_CLASSES.SUBTITLE}>
         Worry not, here you can find the best place for your next business trip.
       </p>
@@ -102,35 +137,16 @@ const HomeGuests = () => (
         ))}
       </Row>
     </Container>
-
-    <Container className={`${CONTENT_CLASSES.FEATURES_CONTAINER.LAYOUT} position-relative`} fluid>
-      <h2 className={CONTENT_CLASSES.TITLE}>"Booking for my buisness trip was never easier."</h2>
-      <p className={CONTENT_CLASSES.SUBTITLE}>
-        Real guests, Real stories.
-      </p>
-      <Container className="mt-8">
-        <Row className="bee-home-testimonials">
-          {testimonials.map((testimonial) => (
-            <Col md="6" lg="3" className={TESTIMONIAL_CLASSES} key={testimonial.title}>
-              <TestimonialCard
-                title={testimonial.title}
-                subtitle={testimonial.subtitle}
-                body={testimonial.body}
-                src={testimonial.src} />
-            </Col>
-          ))}
-        </Row>
-      </Container>
-    </Container>
   </Fade>
 );
 
 const HomeHosts = () => (
+  <Fade>
     <Container tag={Fade} className={CONTENT_CLASSES.FEATURES_CONTAINER.LAYOUT}>
-      <h2 className={CONTENT_CLASSES.TITLE}>Want to rent out your homes to professionals?</h2>
+      <h3 className={CONTENT_CLASSES.TITLE}>Want to rent out your homes to professionals?</h3>
       <p className={CONTENT_CLASSES.SUBTITLE}>
         Here, your guests will be business travelers so don’t worry about parties.
-      </p>
+        </p>
 
       <Row className={CONTENT_CLASSES.FEATURES.LAYOUT}>
         {hostValueProps.map(card => (
@@ -139,28 +155,8 @@ const HomeHosts = () => (
           </Col>
         ))}
       </Row>
-
-      <Container className={`${CONTENT_CLASSES.FEATURES_CONTAINER.LAYOUT} position-relative`} fluid>
-        <h2 className={CONTENT_CLASSES.TITLE}>"Booking for my buisness trip was never easier."</h2>
-        <p className={CONTENT_CLASSES.SUBTITLE}>
-          Real guests, Real stories.
-      </p>
-        <Container className="mt-8">
-          <Row className="bee-home-testimonials">
-            {testimonials.map((testimonial) => (
-              <Col md="6" lg="3" key={testimonial.title}>
-                <TestimonialCard
-                  className={TESTIMONIAL_CLASSES}
-                  title={testimonial.title}
-                  subtitle={testimonial.subtitle}
-                  body={testimonial.body}
-                  src={testimonial.src} />
-              </Col>
-            ))}
-          </Row>
-        </Container>
-      </Container>
     </Container>
+  </Fade>
 );
 
 export default Home;
