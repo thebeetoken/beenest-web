@@ -1,5 +1,5 @@
 import * as React from 'react';
-import { ListGroup, ListGroupItem, Alert, CardBody } from 'reactstrap';
+import { Fade, ListGroup, ListGroupItem, Alert, CardBody } from 'reactstrap';
 import { FirebaseConsumer, FirebaseUserProps } from 'HOCs/FirebaseProvider';
 import { User } from 'firebase';
 
@@ -12,7 +12,7 @@ function AccountSecurity() {
   const [isSubmitting, setSubmitting] = React.useState<boolean>(false);
 
   return (
-    <>
+    <Fade>
       <Alert
         isOpen={alert.show}
         color={alert.color}
@@ -40,7 +40,7 @@ function AccountSecurity() {
           </ListGroup>
         )}
       </FirebaseConsumer>
-    </>
+    </Fade>
   );
 
   function handleResetPasswordClick(user: User) {

@@ -1,10 +1,12 @@
 import * as React from 'react';
-import { ListGroup, ListGroupItem, Row, Col, Modal, ModalHeader, ModalBody, Alert, Button, UncontrolledAlert } from 'reactstrap';
+import { Container, Fade, ListGroup, ListGroupItem, Row, Col, Modal, ModalHeader, ModalBody, Alert, Button, UncontrolledAlert } from 'reactstrap';
 import { Query } from 'react-apollo';
 import { GET_PAYMENT_SOURCES, PaymentSource } from 'networking/paymentSources';
 import { CreditBalance } from 'networking/users';
 
-import AudioLoading from 'shared/loading/AudioLoading';
+
+import Loading from 'shared/loading/Loading';
+import { VIEWPORT_CENTER_LAYOUT } from 'styled/sharedClasses/layout';
 
 import NewCardForm from './NewCardForm';
 import DeleteCardForm from './DeleteCardForm';
@@ -28,7 +30,11 @@ const AccountPayment = ({ creditBalance }: Props) => {
     <Query query={GET_PAYMENT_SOURCES}>
       {({ loading, error, data }) => {
         if (loading) {
-          return <AudioLoading height={48} width={96} />;
+          return (
+            <Container className={VIEWPORT_CENTER_LAYOUT}>
+              <Loading height="8rem" width="8rem" />
+            </Container>
+          );
         }
         if (error || !data) {
           return (
@@ -55,7 +61,7 @@ const AccountPayment = ({ creditBalance }: Props) => {
         ));
 
         return (
-          <section>
+          <Container tag={Fade} >
             <Alert color={alert.color} isOpen={!!alert.show} toggle={() => setAlert({ ...alert, show: !alert.show })}>{alert.msg}</Alert>
 
             <Row>
@@ -94,7 +100,7 @@ const AccountPayment = ({ creditBalance }: Props) => {
                 </ModalBody>
               </Modal>
             }
-          </section>
+          </Container>
         );
       }}
     </Query>
