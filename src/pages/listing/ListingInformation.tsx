@@ -6,7 +6,7 @@ import { Listing } from 'networking/listings';
 import GoogleMaps from 'shared/GoogleMaps';
 import ImageGrid from 'shared/ImageGrid';
 import LazyImage from 'shared/LazyImage';
-import { formatAddress } from 'utils/formatter';
+import { formatAddress, formatMonth } from 'utils/formatter';
 
 const DEFAULT_PROFILE_URL = 'https://static.beenest.com/images/app/misc/profile.png';
 
@@ -36,8 +36,8 @@ const ListingInformation = ({
     <ImageGrid images={[listingPicUrl, ...photos]} />
   </Row>
   <h1>{title}</h1>
-  <h2>{formatAddress(city, state, country)}</h2>
-  <h3>Host: {host.displayName}</h3>
+  <address>{formatAddress(city, state, country)}</address>
+  <p>Host: {host.displayName}</p>
   <LazyImage src={host.profilePicUrl || DEFAULT_PROFILE_URL} width="5rem" height="5rem" />
   <h1>Description</h1>
   <p dangerouslySetInnerHTML={{ __html: sanitizeHtml(description) }} />
@@ -59,9 +59,11 @@ const ListingInformation = ({
   </ul>
   <h1>Location</h1>
   <GoogleMaps lat={lat} lng={lng} showCircle />
-  <h1>About Vic</h1>
+  <h1>About {host.displayName}</h1>
+  <p><small>Member since {formatMonth(host.createdAt)}</small></p>
   <LazyImage src={host.profilePicUrl || DEFAULT_PROFILE_URL} width="5rem" height="5rem" />
-  <Button>Contact Host</Button>
+  <Button>Contact Host <span className="fas fa-envelope"></span></Button>
+  <p dangerouslySetInnerHTML={{ __html: sanitizeHtml(host.about) }} />
 </Fade>;
 
 
