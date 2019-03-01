@@ -117,7 +117,7 @@ class BookingPaymentButton extends React.Component<Props, State> {
       return guestConfirmBooking(cryptoParams);
     } catch (error) {
       console.error(error);
-      alert('There was an error in submitting your payment. Please contact us at support@beetoken.com');
+      alert('There was an error in submitting your payment. Please contact us at support@beenest.com.com');
       return this.setState({ isSubmitting: false });
     }
   };
@@ -136,7 +136,7 @@ async function getCryptoParams(
   const bookingCurrency = fromBee ? Currency.BEE : booking.currency;
   const priceQuote = booking.priceQuotes.find(({ currency }) => currency === bookingCurrency);
   if (!priceQuote) {
-    alert('There was an error in submitting your payment. Please contact us at support@beetoken.com');
+    alert('There was an error in submitting your payment. Please contact us at support@beenest.com.com');
     throw new Error('INVALID_CRYPTO_CURRENCY_AT_BOOKING_PAYMENT');
   }
   const paymentOptions = {
@@ -156,7 +156,7 @@ async function getCryptoParams(
     case Currency.BEE:
       return payWithBee(web3.eth, paymentOptions);
     default:
-      alert('There was an error in submitting your payment. Please contact us at support@beetoken.com');
+      alert('There was an error in submitting your payment. Please contact us at support@beenest.com.com');
       throw new Error('INVALID_CRYPTO_CURRENCY_AT_BOOKING_PAYMENT');
   }
 }
