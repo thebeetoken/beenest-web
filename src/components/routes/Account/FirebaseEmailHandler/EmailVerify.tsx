@@ -63,7 +63,7 @@ export default class EmailVerify extends React.Component<Props> {
         <h2>Sorry, there was an error.</h2>
         <p>{this.state.errorMessage}</p>
         <p>
-          <BeeLink href="mailto:support@beenest.com">
+          <BeeLink target="_blank" href="https://support.beenest.com/">
             <Button>Contact us for further help.</Button>
           </BeeLink>
         </p>

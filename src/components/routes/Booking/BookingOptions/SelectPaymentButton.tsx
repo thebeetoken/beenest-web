@@ -47,7 +47,7 @@ const SelectPaymentButton = ({ booking, className, currency, disabled, onSuccess
               },
             });
           } catch (error) {
-            alert('There was an issue. Please contact us at support@beenest.com.com!');
+            alert('There was an issue. Please contact us at support@beenest.com!');
             console.error('this is the error', error);
           }
         }}

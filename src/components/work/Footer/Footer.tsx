@@ -109,7 +109,7 @@ const Footer = () => (
         <Col sm="3" lg="3" className="mb-4 mb-lg-0">
           <ListGroup className="list-group-borderless" flush>
             <ListGroupItemHeading className="h6 font-weight-semi-bold">Contact</ListGroupItemHeading>
-            <ListGroupItem tag="a" href="mailto:support@beenest.com?subject=Contact Support">
+            <ListGroupItem tag="a" href="https://support.beenest.com/" target="_blank">
               support@beenest.com
             </ListGroupItem>
             <ListGroupItem className="text-secondary">
