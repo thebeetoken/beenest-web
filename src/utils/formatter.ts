@@ -1,3 +1,4 @@
+import format from 'date-fns/format';
 import { Listing } from "networking/listings";
 
 // comma-separates terms and leaves no trailing commas
@@ -33,4 +34,12 @@ export function stringToArray(input: string): string[] {
 export function getGoogleMapURI(listing: Listing): string {	
   const { lat, lng } = listing;
   return `https://www.google.com/maps/search/?api=1&query=${lat},${lng}`;
+}
+
+export function formatPrice(price: number) { // TODO: Currency?
+  return `\$${price.toFixed(2)}`;
+}
+
+export function formatMonth(date: Date | string) {
+  return format(date, 'MMMM YYYY');
 }

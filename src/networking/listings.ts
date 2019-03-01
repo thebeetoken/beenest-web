@@ -54,7 +54,7 @@ export interface Listing {
   title: string;
   totalQuantity: number;
   updatedAt: string;
-  host: Host | null;
+  host: Host;
   wifi: Wifi;
 }
 
