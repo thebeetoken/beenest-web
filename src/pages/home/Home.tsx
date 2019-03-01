@@ -11,7 +11,7 @@ import ValuePropCard from 'components/work/ValuePropCard';
 import { FLEX_CENTER } from 'styled/sharedClasses/layout';
 
 const Home = () => {
-  const [isGuestActive, setGuestActive] = React.useState<Boolean>(true);
+  const [isGuestActive, setGuestActive] = React.useState<boolean>(true);
 
   return (
     <>

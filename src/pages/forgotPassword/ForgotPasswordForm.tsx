@@ -24,68 +24,81 @@ interface ForgotPasswordFormInput {
 }
 
 const ForgotPasswordForm = (props: RouterProps) => {
-  const [providerError, setError] = React.useState<String | null>(null);
-  const [isOpen, toggleModal] = React.useState<Boolean>(false);
+  const [providerError, setError] = React.useState<string | null>(null);
+  const [isOpen, toggleModal] = React.useState<boolean>(false);
   const { EMAIL, SUBMIT_ERROR } = ForgotPasswordFormField;
 
   return (
-    <Card tag={Fade} className="p-md-5">
-      <Formik
-        initialValues={{
-          [EMAIL]: '',
-          [SUBMIT_ERROR]: '',
-        }}
-        validationSchema={ForgotPasswordSchema}
-        onSubmit={handleSubmit}
-      >
-        {({ errors, touched, setFieldValue, submitForm, isSubmitting }) => (
-          <Form tag={FormikForm}>
-            <div className="mb-4">
-              <h2 className="h3 text-primary font-weight-normal mb-0">
-                Forgot <span className="font-weight-semi-bold">password?</span>
-              </h2>
-              <p>Enter your email to reset your password.</p>
-            </div>
-            <FormGroup>
-              <Label for={EMAIL} className="form-label">
-                Email Address
+    <>
+      <Modal isOpen={isOpen} toggle={routeHome}>
+        <ModalHeader className="h3 text-primary font-weight-normal mb-0 border-0" toggle={routeHome}>
+          Password <span className="font-weight-semi-bold">Reset!</span>
+        </ModalHeader>
+        <ModalBody>
+          Please check your email for further instructions. 
+        </ModalBody>
+        <ModalFooter className="border-0 mt-3">
+          <Button className="w-md-100" color="primary" onClick={routeHome}>Back to Home</Button>
+        </ModalFooter>
+      </Modal>
+      <Card tag={Fade} className="p-md-5">
+        <Formik
+          initialValues={{
+            [EMAIL]: '',
+            [SUBMIT_ERROR]: '',
+          }}
+          validationSchema={ForgotPasswordSchema}
+          onSubmit={handleSubmit}
+        >
+          {({ errors, touched, setFieldValue, submitForm, isSubmitting }) => (
+            <Form tag={FormikForm}>
+              <div className="mb-4">
+                <h2 className="h3 text-primary font-weight-normal mb-0">
+                  Forgot <span className="font-weight-semi-bold">password?</span>
+                </h2>
+                <p>Enter your email to reset your password.</p>
+              </div>
+              <FormGroup>
+                <Label for={EMAIL} className="form-label">
+                  Email Address
             </Label>
-              <Input
-                type="email"
-                name={EMAIL}
-                id={EMAIL}
-                tag={Field}
-                onChange={(event: React.FormEvent<HTMLInputElement>) => handleChange(event, setFieldValue)}
-                placeholder="Email address"
-                invalid={!!errors[EMAIL] && touched[EMAIL]}
-              />
-              <FormFeedback>{errors[EMAIL]}</FormFeedback>
-            </FormGroup>
+                <Input
+                  type="email"
+                  name={EMAIL}
+                  id={EMAIL}
+                  tag={Field}
+                  onChange={(event: React.FormEvent<HTMLInputElement>) => handleChange(event, setFieldValue)}
+                  placeholder="Email address"
+                  invalid={!!errors[EMAIL] && touched[EMAIL]}
+                />
+                <FormFeedback>{errors[EMAIL]}</FormFeedback>
+              </FormGroup>
 
-                <FormText color="danger">
-                  {errors[SUBMIT_ERROR] || providerError}
-                </FormText>
+              <FormText color="danger">
+                {errors[SUBMIT_ERROR] || providerError}
+              </FormText>
 
-            <Row className="d-flex align-items-center mt-5" noGutters>
-              <Button
-                className="btn-primary transition-3d-hover w-md-100"
-                type="submit"
-                onClick={submitForm}
-                disabled={isSubmitting}
-                color="primary">
-                Reset Password
+              <Row className="d-flex align-items-center mt-5" noGutters>
+                <Button
+                  className="btn-primary transition-3d-hover w-md-100"
+                  type="submit"
+                  onClick={submitForm}
+                  disabled={isSubmitting}
+                  color="primary">
+                  Reset Password
               </Button>
-            </Row>
-          </Form>
-        )}
-      </Formik>
-    </Card>
+              </Row>
+            </Form>
+          )}
+        </Formik>
+      </Card>
+    </>
   );
 
   function handleSubmit(values: ForgotPasswordFormInput, actions: FormikActions<ForgotPasswordFormInput>) {
     const { EMAIL } = ForgotPasswordFormField;
     resetPassword(values[EMAIL])
-      .then(() => )
+      .then(() => toggleModal(true))
       .catch(error => {
         actions.setErrors({ submitError: getFriendlyErrorMessage(error) });
         actions.setSubmitting(false);
@@ -98,6 +111,10 @@ const ForgotPasswordForm = (props: RouterProps) => {
     if (providerError !== null) {
       setError(null);
     }
+  }
+
+  function routeHome() {
+    return props.history.push('/work');
   }
 };
 

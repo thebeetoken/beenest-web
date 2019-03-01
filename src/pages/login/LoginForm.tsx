@@ -38,7 +38,7 @@ interface LoginFormInput {
 }
 
 const LoginForm = (props: LoginProps) => {
-  const [providerError, setError] = React.useState<String | null>(null);
+  const [providerError, setError] = React.useState<string | null>(null);
   const { EMAIL, PASSWORD, SUBMIT_ERROR } = LoginFormField;
 
   return (

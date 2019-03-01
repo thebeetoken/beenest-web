@@ -49,7 +49,7 @@ interface SignupFormInput {
 }
 
 const SignupForm = (props: SignupProps) => {
-  const [providerError, setError] = React.useState<String | null>(null);
+  const [providerError, setError] = React.useState<string | null>(null);
   const {
     EMAIL,
     FIRST_NAME,
