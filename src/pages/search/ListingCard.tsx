@@ -1,5 +1,5 @@
 import * as React from 'react';
-import { Card, CardBody, CardImg, CardSubtitle, CardText, CardTitle, Fade } from 'reactstrap';
+import { Card, CardBody, CardFooter, CardImg, CardSubtitle, CardText, CardTitle, Fade } from 'reactstrap';
 
 import { ListingShort } from 'networking/listings';
 
@@ -19,8 +19,10 @@ const ListingCard = ({
     <CardBody>
       <CardSubtitle>{homeType} &middot; {sleepingArrangement} </CardSubtitle>
       <CardTitle tag="h5">{title}</CardTitle>
-      <CardText>${pricePerNightUsd} per night</CardText>
     </CardBody>
+    <CardFooter>
+      <CardText>${pricePerNightUsd} per night</CardText>
+    </CardFooter>
   </Card>
 );
 
