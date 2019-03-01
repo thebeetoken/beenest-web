@@ -58,6 +58,15 @@ export interface Listing {
   wifi: Wifi;
 }
 
+export interface ListingSearchCriteria {
+  checkInDate?: string;
+  checkOutDate?: string;
+  numberOfGuests?: number;
+  locationQuery: string;
+  bounds?: LatLngBounds;
+  coordinates?: LatLng;
+}
+
 export interface ListingShort {
   city: string;
   country: string;
@@ -126,6 +135,11 @@ export interface HostListingReservations {
   reservations: Reservation[];
   state: string;
   title: string;
+}
+
+export interface LatLng {
+  lat: number;
+  lng: number;
 }
 
 export interface LatLngBounds {

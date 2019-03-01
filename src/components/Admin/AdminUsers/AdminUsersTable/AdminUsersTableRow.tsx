@@ -49,7 +49,6 @@ const AdminUsersTableRow = (props: Props) => {
       </td>
       <td className="admin-table-row--item">
         <span>{completedVerification ? 'Verified' : 'Not Verified'}</span>
-        <span><BeeLink href={`https://app.autopilothq.com/#contacts/list/all/search/${email}/`} target="_blank">User Activity Autopilot</BeeLink></span>
         {!!listingCount && listingCount > 0 && <span><BeeLink to={`/admin/listings?userId=${id}`}>See {listingCount} listings</BeeLink></span> }
       </td>
       <td className="admin-table-row--item">

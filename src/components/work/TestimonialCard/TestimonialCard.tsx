@@ -1,5 +1,12 @@
 import * as React from 'react';
-import { Card, CardImg, CardText, CardBody, CardTitle, CardSubtitle } from 'reactstrap';
+import {
+  Card,
+  CardImg,
+  CardText,
+  CardBody,
+  CardTitle,
+  CardSubtitle
+} from 'reactstrap';
 
 type Props = Partial<{
   alt: string;
@@ -17,7 +24,7 @@ const TestimonialCard = (props: Props) => {
     <Card className={`border-0 align-items-center bg-transparent ${className ? className : ''}`.trim()}>
       <CardImg top className="w-100 rounded" src={src} alt={alt} />
       <CardBody className={`${center ? 'text-center' : ''} bg-white shadow-sm mt-n6 mx-3 rounded`}>
-        <CardTitle className="h6 font-weight-normal mb-2">
+        <CardTitle className="h6 font-weight-normal mb-2 text-dark">
           {title}
         </CardTitle>
         <CardSubtitle className="small mb-3">

@@ -15,7 +15,7 @@ interface Props {
   handleModalAction: (modal: ModalType) => void;
 }
 
-const ActiveTripCard = ({ booking, handleModalAction }: Props) => {
+const TripCard = ({ booking, handleModalAction }: Props) => {
   const { checkInDate, checkOutDate, id, listing, status } = booking;
   const { addressLine1, addressLine2, city, country, lat, lng, postalCode, state } = listing;
   const displayStatus = getUserBookingDisplayStatus(status);
@@ -73,4 +73,4 @@ const ActiveTripCard = ({ booking, handleModalAction }: Props) => {
   );
 };
 
-export default ActiveTripCard;
+export default TripCard;
