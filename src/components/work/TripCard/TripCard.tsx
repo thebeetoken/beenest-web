@@ -26,7 +26,16 @@ const TripCard = ({ booking, category, handleModalAction }: Props) => {
     <Card className="mb-5 shadow flex-fill border-0" key={booking.id}>
       <div className="embed-responsive embed-responsive-4by3">
         <div className="embed-responsive-item">
-          <CardImg className="h-100" top src={booking.listing.listingPicUrl} alt="Listing Cover Photo" />
+          <CardImg
+            style={{
+              height: '100%',
+              objectFit: 'cover',
+              objectPosition: 'center',
+              width: '100%',
+            }}
+            top
+            src={booking.listing.listingPicUrl}
+            alt="Listing Cover Photo" />
         </div>
       </div>
       <CardBody className="d-flex flex-column">
