@@ -174,6 +174,7 @@ const LISTING_CARD_FRAGMENT = gql`
   fragment ListingCard on Listing {
     city
     country
+    homeType
     id
     idSlug
     pricePerNightUsd
@@ -182,6 +183,7 @@ const LISTING_CARD_FRAGMENT = gql`
       pricePerNight
       securityDeposit
     }
+    sleepingArrangement
     state
     title
   }
@@ -200,7 +202,6 @@ const LISTING_DETAILS_FRAGMENT = gql`
     checkOutDate
     checkOutTime
     description
-    homeType
     houseRules
     lat
     lng
@@ -216,7 +217,6 @@ const LISTING_DETAILS_FRAGMENT = gql`
     }
     securityDepositUsd
     sharedBathroom
-    sleepingArrangement
     totalQuantity
     wifi {
       mbps
