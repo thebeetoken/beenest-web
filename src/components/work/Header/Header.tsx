@@ -102,6 +102,4 @@ const DetailedHeader = () => {
   }
 };
 
-const NoopComponent = () => null;
-
 export default Header;
