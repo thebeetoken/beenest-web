@@ -42,8 +42,8 @@ const Header = () => (
     <Route exact path="/work" component={DetailedHeader} />
     <Route exact path="/work/about" component={SimpleHeader} />
     <Route exact path="/work/forgot_password" render={() => <SimpleHeader white />} />
-    <Route exact path="/work/login" render={() => <SimpleHeader primary />} />
-    <Route exact path="/work/signup" render={() => <SimpleHeader primary />} />
+    <Route exact path="/work/login" render={() => <SimpleHeader primary block />} />
+    <Route exact path="/work/signup" render={() => <SimpleHeader primary block />} />
     <Route component={DetailedHeader} />
   </Switch>
 );
@@ -52,7 +52,7 @@ const DetailedHeader = () => {
   const [isOpen, toggleNavbar] = React.useState<boolean>(false);
 
   return (
-    <header className="sticky-top bg-white custom-header-height" id="bee-main-header">
+    <header className="sticky-top bg-white custom-header-height shadow" id="bee-main-header">
       <Navbar light expand="md">
         <NavbarBrand href="/work">
           <BeenestSVGPrimary />
