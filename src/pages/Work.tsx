@@ -2,7 +2,7 @@ import * as React from 'react';
 import { Route, Switch } from 'react-router-dom';
 
 import About from './about';
-import Account from './account';
+import Account from './Account';
 import ForgotPassword from './forgotPassword';
 import Home from './home';
 import Listing from './listing';
