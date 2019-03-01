@@ -3,11 +3,11 @@ export const teamMembers = [
     name: 'Jonathan Chou',
     title: 'Co-founder, CEO',
     avatar: 'https://static.beenest.com/images/work/members/jon-avatar.jpg',
-    handle: 'https://twitter.com/@jonchouofficial',
+    handle: 'https://twitter.com/jonchouofficial',
     social: [
       {
         iconClass: 'fa-twitter',
-        link: 'https://twitter.com/@jonchouofficial',
+        link: 'https://twitter.com/jonchouofficial',
       },
       {
         iconClass: 'fa-linkedin',
@@ -19,11 +19,11 @@ export const teamMembers = [
     name: 'Tony Tran',
     title: 'Co-founder, CTO',
     avatar: 'https://static.beenest.com/images/work/members/tony-avatar.jpg',
-    handle: 'https://twitter.com/@blockchain_tony',
+    handle: 'https://twitter.com/blockchain_tony',
     social: [
       {
         iconClass: 'fa-twitter',
-        link: 'https://twitter.com/@blockchain_tony',
+        link: 'https://twitter.com/blockchain_tony',
       },
       {
         iconClass: 'fa-linkedin',
@@ -35,11 +35,11 @@ export const teamMembers = [
     name: 'Tommy Chheng',
     title: 'Head of Engineering',
     avatar: 'https://static.beenest.com/images/work/members/tommy-avatar.jpg',
-    handle: 'https://twitter.com/@tommychheng',
+    handle: 'https://twitter.com/tommychheng',
     social: [
       {
         iconClass: 'fa-twitter',
-        link: 'https://twitter.com/@tommychheng',
+        link: 'https://twitter.com/tommychheng',
       },
       {
         iconClass: 'fa-github',
@@ -55,11 +55,11 @@ export const teamMembers = [
     name: 'Amy Nguyen',
     title: 'Operations Manager',
     avatar: 'https://static.beenest.com/images/work/members/amy-avatar.jpg',
-    handle: 'https://twitter.com/@nguyening__',
+    handle: 'https://twitter.com/nguyening__',
     social: [
       {
         iconClass: 'fa-twitter',
-        link: 'https://twitter.com/@nguyening__',
+        link: 'https://twitter.com/nguyening__',
       },
       {
         iconClass: 'fa-facebook',
@@ -91,11 +91,11 @@ export const teamMembers = [
     name: 'Jeremy Kwa',
     title: 'Full Stack Engineer',
     avatar: 'https://static.beenest.com/images/work/members/jeremy-avatar.jpg',
-    handle: 'https://twitter.com/@jerminatorhits',
+    handle: 'https://twitter.com/jerminatorhits',
     social: [
       {
         iconClass: 'fa-twitter',
-        link: 'https://twitter.com/@jerminatorhits',
+        link: 'https://twitter.com/jerminatorhits',
       },
       {
         iconClass: 'fa-github',
@@ -107,7 +107,7 @@ export const teamMembers = [
       },
       {
         iconClass: 'fa-medium',
-        link: 'https://medium.com/@jeremykwa',
+        link: 'https://medium.com/jeremykwa',
       },
     ],
   },
@@ -115,11 +115,11 @@ export const teamMembers = [
     name: 'Kevin Van',
     title: 'Senior Frontend Engineer',
     avatar: 'https://static.beenest.com/images/work/members/kevin-avatar.jpg',
-    handle: 'https://twitter.com/@kevincvan',
+    handle: 'https://twitter.com/kevincvan',
     social: [
       {
         iconClass: 'fa-twitter',
-        link: 'https://twitter.com/@kevincvan',
+        link: 'https://twitter.com/kevincvan',
       },
       {
         iconClass: 'fa-github',

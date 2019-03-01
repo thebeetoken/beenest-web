@@ -41,7 +41,7 @@ const TeamCard = (props: Props) => {
         <CardSubtitle className="small mb-2">{title}</CardSubtitle>
         {handle &&
           <a className="small" href={handle} target="_blank">
-            <CardSubtitle>{handle.substring(handle.indexOf('@'), (handle.length))}</CardSubtitle>
+            <CardSubtitle>{handle.substring(handle.lastIndexOf('/') + 1, (handle.length))}</CardSubtitle>
           </a>
         }
         <ul className="list-inline mt-4">
