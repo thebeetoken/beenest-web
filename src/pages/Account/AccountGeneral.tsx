@@ -13,7 +13,7 @@ interface FormValues {
   [name: string]: boolean | string | string[] | number | object | undefined;
 }
 
-const GeneralInfoSchema = Yup.object().shape({
+const GeneralInfoSchema = Yup.object({
   [UserField.FIRST_NAME]: Yup.string()
     .required('Please provide your first name.'),
   [UserField.LAST_NAME]: Yup.string()
@@ -21,7 +21,7 @@ const GeneralInfoSchema = Yup.object().shape({
   [UserField.EMAIL]: Yup.string(),
   [UserField.ABOUT]: Yup.string()
     .required('Please fill out the About section.'),
-})
+});
 
 const defaultValues: FormValues = {
   [UserField.FIRST_NAME]: '',
@@ -47,7 +47,7 @@ function AccountGeneral({ user, updateUser }: any) {
           <Row>
             <Col md={6}>
               <FormGroup>
-                <Label for={UserField.FIRST_NAME} className="form-label">First Name</Label>
+                <Label for={UserField.FIRST_NAME}>First Name</Label>
                 <Input
                   id={UserField.FIRST_NAME}
                   invalid={!!errors.firstName && !!touched.firstName}
@@ -60,7 +60,7 @@ function AccountGeneral({ user, updateUser }: any) {
             </Col>
             <Col md={6}>
               <FormGroup>
-                <Label for={UserField.LAST_NAME} className="form-label">Last Name</Label>
+                <Label for={UserField.LAST_NAME}>Last Name</Label>
                 <Input
                   id={UserField.LAST_NAME}
                   invalid={!!errors.lastName && !!touched.lastName}
@@ -74,7 +74,7 @@ function AccountGeneral({ user, updateUser }: any) {
           </Row>
           
           <FormGroup>
-            <Label for={UserField.EMAIL} className="form-label">Email</Label>
+            <Label for={UserField.EMAIL}>Email</Label>
             <Input
               disabled
               id={UserField.EMAIL}
@@ -86,9 +86,9 @@ function AccountGeneral({ user, updateUser }: any) {
           </FormGroup>
 
           <FormGroup>
-            <Label for={UserField.ABOUT} className="form-label">About</Label>
+            <Label for={UserField.ABOUT}>About</Label>
             <Textarea
-              className={`form-control${errors.about ? ' is-invalid' : ''}`}
+              className={`form-control${errors.about && touched.about ? ' is-invalid' : ''}`}
               html
               name={UserField.ABOUT}
               onBlur={() => setFieldTouched(UserField.ABOUT, true)}

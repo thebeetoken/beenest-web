@@ -12,6 +12,7 @@ import Loading from 'components/shared/loading/Loading';
 import ActiveTripCard from 'components/work/ActiveTripCard';
 import { AlertProperties } from 'components/work/Alert/Alert';
 import LoadingPortal from 'components/shared/LoadingPortal';
+import ContactHostFormModal from 'components/work/ContactHostFormModal';
 
 interface Props {
   cancelBooking: (booking: Booking) => Promise<void>;
@@ -97,9 +98,7 @@ function Trips({ cancelBooking }: Props) {
                               <ActiveTripCard
                                 key={booking.id}
                                 booking={booking}
-                                onCancelClick={() => {
-                                  handleModalAction(ModalType.CANCEL_BOOKING, booking);
-                                }} />
+                                handleModalAction={(modal: ModalType) => handleModalAction(modal, booking)} />
                             </Col>
                           );
                         })}
@@ -119,7 +118,7 @@ function Trips({ cancelBooking }: Props) {
                               <ActiveTripCard
                                 key={booking.id}
                                 booking={booking}
-                                onCancelClick={() => handleModalAction(ModalType.CANCEL_BOOKING, booking)} />
+                                handleModalAction={(modal: ModalType) => handleModalAction(modal, booking)} />
                             </Col>
                           );
                         })}
@@ -152,24 +151,23 @@ function Trips({ cancelBooking }: Props) {
               </Switch>
             </Container>
 
-            <Modal isOpen={modal === ModalType.CANCEL_BOOKING} toggle={handleModalAction}>
-              <ModalHeader>Cancel Booking</ModalHeader>
-              <ModalBody>
-                <h6>Are you sure you want to cancel this booking?</h6>
-                {booking && <h6>{`Booking: ${booking.id}`}</h6>}
-              </ModalBody>
-              <ModalFooter>
-                <Button color="secondary" onClick={() => handleModalAction()}>Back</Button>{' '}
-                <Button color="danger" onClick={() => handleCancelBooking()}>Yes, Cancel Booking</Button>
-              </ModalFooter>
-            </Modal>
+            {modal === ModalType.CANCEL_BOOKING &&
+              <Modal isOpen toggle={handleModalAction}>
+                <ModalHeader>Cancel Booking</ModalHeader>
+                <ModalBody>
+                  <h6>Are you sure you want to cancel this booking?</h6>
+                  {booking && <h6>{`Booking: ${booking.id}`}</h6>}
+                </ModalBody>
+                <ModalFooter>
+                  <Button color="secondary" onClick={() => handleModalAction()}>Back</Button>{' '}
+                  <Button color="danger" onClick={() => handleCancelBooking()}>Yes, Cancel Booking</Button>
+                </ModalFooter>
+              </Modal>
+            }
 
-            {/* <Modal isOpen={modal === ModalType.CONTACT_HOST} toggle={handleModalAction}>
-              <ModalHeader>Contact Host</ModalHeader>
-              <ModalBody>
-                <ContactHostForm booking={booking} onClose={handleModalAction} />
-              </ModalBody>
-            </Modal> */}
+            {modal === ModalType.CONTACT_HOST &&
+              <ContactHostFormModal booking={booking} handleModalAction={handleModalAction} />
+            }
 
             {isSubmitting && <LoadingPortal currency={currency} />}
           </>
