@@ -45,6 +45,15 @@
   }
 }
 
+.bee-top {
+  top: 4.125rem;
+}
+
+.bee-search-map {
+  height: calc(100vh - 11.25rem);
+  top: 11.25rem;
+  z-index: 999;
+}
 
 // add not-allowed cursor and no transform on disabled items
 * {
