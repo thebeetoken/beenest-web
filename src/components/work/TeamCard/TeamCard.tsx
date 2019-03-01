@@ -47,7 +47,7 @@ const TeamCard = (props: Props) => {
         <ul className="list-inline mt-4">
           {social.map(profile => (
             <li className="list-inline-item" key={profile.link}>
-              <a href={profile.link} className="btn btn-sm btn-icon btn-soft-secondary rounded-circle">
+              <a href={profile.link} target="_blank" className="btn btn-sm btn-icon btn-soft-secondary rounded-circle">
                 <span className={`fab btn-icon__inner ${profile.iconClass}`} />
               </a>
             </li>

@@ -85,6 +85,22 @@ export const teamMembers = [
         iconClass: 'fa-github',
         link: 'https://github.com/woeltjen',
       },
+      {
+        iconClass: 'fa-linkedin',
+        link: 'https://www.linkedin.com/in/victor-woeltjen-59740793',
+      },
+    ],
+  },
+  {
+    name: 'Anya Degtyarenko',
+    title: 'Business Development',
+    avatar: 'https://static.beenest.com/images/work/members/anya-avatar.jpg',
+    handle: '',
+    social: [
+      {
+        iconClass: 'fa-linkedin',
+        link: 'https://www.linkedin.com/in/annadegty',
+      },
     ],
   },
   {
