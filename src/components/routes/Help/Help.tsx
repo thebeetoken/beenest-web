@@ -38,7 +38,7 @@ const Help = () => (
         <h3>Dispute Resolution</h3>
         <h4>I have a dispute with my host, what should I do?</h4>
         <p>
-          Please attempt to resolve the dispute by going to the listing page and clicking "Contact Host". If you are not able to resolve your dispute with the host, please notify Beenest of the dispute by emailing <BeeLink href="mailto:support@beetoken.com" target="_blank" >support@beetoken.com</BeeLink>.
+          Please attempt to resolve the dispute by going to the listing page and clicking "Contact Host". If you are not able to resolve your dispute with the host, please notify Beenest of the dispute by visiting <BeeLink target="_blank" href="https://support.beenest.com/">support.beenest.com/</BeeLink>.
         </p>
         <h4>I read about the Arbitration Protocol in the Whitepaper. How does it work with Beenest?</h4>
         <p>
@@ -77,7 +77,7 @@ const Help = () => (
         </p>
         <h4>The cancellation period is 100% refund as long as a guest cancels 7 days out. Do I have other options for cancellation policy?</h4>
         <p>
-          No. We only support a single cancellation policy at the moment. If it is important to you to have an alternative cancellation policy, please write to us at <BeeLink href="mailto:team@beetoken.com" target="_blank" >team@beetoken.com</BeeLink>.
+          No. We only support a single cancellation policy at the moment. If it is important to you to have an alternative cancellation policy, please visit <BeeLink href="https://support.beenest.com/" target="_blank" >support.beenest.com/</BeeLink>.
         </p>
       </article>
       <div className="grey-line"></div>
@@ -171,7 +171,7 @@ const Help = () => (
       <article>
         <div>
           <p>Still need help?</p>
-          <BeeLink href="mailto:team@beetoken.com" target="_blank">
+          <BeeLink href="https://support.beenest.com/" target="_blank">
             <Button clear={true} border={'core'} color={'core'}>Contact Beenest</Button>
           </BeeLink>
         </div>
