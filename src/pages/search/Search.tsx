@@ -136,7 +136,6 @@ const TEST_LISTINGS = [
 const Search = () => {
   return (
     <Fade>
-      <Header />
       <Row className="px-0 mx-0 bg-white sticky-top bee-top">
         <Col className="p-5" xs="12" lg="10" xl="9">
           <SearchBar />
