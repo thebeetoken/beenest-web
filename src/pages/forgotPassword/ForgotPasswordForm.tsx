@@ -38,10 +38,10 @@ const ForgotPasswordForm = (props: RouterProps) => {
           Please check your email for further instructions. 
         </ModalBody>
         <ModalFooter className="border-0 mt-3">
-          <Button className="w-md-100" color="primary" onClick={routeHome}>Back to Home</Button>
+          <Button className="w-100" color="primary" onClick={routeHome}>Back to Home</Button>
         </ModalFooter>
       </Modal>
-      <Card tag={Fade} className="p-md-5">
+      <Card tag={Fade} className="p-3 p-md-5 border-0">
         <Formik
           initialValues={{
             [EMAIL]: '',
@@ -80,7 +80,7 @@ const ForgotPasswordForm = (props: RouterProps) => {
 
               <Row className="d-flex align-items-center mt-5" noGutters>
                 <Button
-                  className="btn-primary transition-3d-hover w-md-100"
+                  className="btn-primary transition-3d-hover w-100"
                   type="submit"
                   onClick={submitForm}
                   disabled={isSubmitting}

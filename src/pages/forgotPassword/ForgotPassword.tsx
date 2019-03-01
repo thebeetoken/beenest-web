@@ -9,7 +9,7 @@ const ForgotPassword = () => {
       <div
         className="bg-img-hero d-flex flex-column align-items-center justify-content-center min-vh-100 gradient-overlay-half-primary-v1"
         style={{ backgroundImage: `url('https://static.beenest.com/images/app/misc/painted-ladies2.jpg')` }}>
-        <Col md="7" lg="4">
+        <Col md="7" lg="4" className="p-2 p-md-0">
           <ForgotPasswordForm />
         </Col>
       </div>
