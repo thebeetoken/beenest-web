@@ -32,7 +32,7 @@ const hostsStartPageContent = {
         svg: 'decorative/house',
         title: '1. List Your Place',
         description: 'Fill out our Host Form and we\'ll create your free listing for you. It\'s as easy at that.\n\n Do you have 3+ properties?\nEmail us directly at ',
-        email: 'support@beenest.com.com',
+        email: 'support@beenest.com',
         subjectLine: 'Questions about Beenest',
       },
       {
@@ -96,7 +96,7 @@ const hostsStartPageContent = {
   contact: {
     header: 'Questions? Concerns?',
     description: 'We\'re here for you! Get in touch via email at ',
-    email: 'support@beenest.com.com',
+    email: 'support@beenest.com',
     subjectLine: 'Questions about Beenest',
   },
 };
