@@ -1,10 +1,9 @@
 import * as React from 'react';
-import { Button, Fade, Row } from 'reactstrap';
+import { Button, Fade } from 'reactstrap';
 import sanitizeHtml from 'sanitize-html';
 
 import { Listing } from 'networking/listings';
 import GoogleMaps from 'shared/GoogleMaps';
-import ImageGrid from 'shared/ImageGrid';
 import LazyImage from 'shared/LazyImage';
 import { formatAddress, formatMonth } from 'utils/formatter';
 
@@ -21,20 +20,15 @@ const ListingInformation = ({
   host,
   lat,
   lng,
-  listingPicUrl,
   minimumNights,
   maxGuests,
   numberOfBedrooms,
   numberOfBathrooms,
-  photos,
   sharedBathroom,
   sleepingArrangement,
   state,
   title
 }: Listing) => <Fade>
-  <Row className="w-100 px-0 mx-0" style={{ height: '75vh' }}>
-    <ImageGrid images={[listingPicUrl, ...photos]} />
-  </Row>
   <h1>{title}</h1>
   <address>{formatAddress(city, state, country)}</address>
   <p>Host: {host.displayName}</p>

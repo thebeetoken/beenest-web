@@ -9,7 +9,7 @@ import Loading from 'shared/loading/Loading';
 
 import { GET_PUBLIC_LISTING } from 'networking/listings';
 
-import ListingInformation from './ListingInformation';
+import ListingPage from './ListingPage';
 
 const PROFILE_IMAGE_PARAMETERS = { width: 300, height: 300 };
 
@@ -19,7 +19,7 @@ const Listing = ({ match }: RouterProps) => (
     <Query query={GET_PUBLIC_LISTING} fetchPolicy="cache-and-network" variables={{ id: match.params.id, ...PROFILE_IMAGE_PARAMETERS }}>
       {({ loading, error, data }) => loading ? <Loading /> :
         error ? <h1>Error: {error.message}</h1> :
-        <ListingInformation {...data.listing} />
+        <ListingPage {...data.listing} />
       }
     </Query>
     <Footer />
