@@ -1,5 +1,5 @@
 import * as React from 'react';
-import { Nav, NavItem, NavLink, Container, Col, Row, Alert, Modal, ModalHeader, ModalBody, Fade, Button, ModalFooter } from 'reactstrap';
+import { Nav, NavItem, NavLink, Container, Col, Row, Alert, Modal, ModalHeader, ModalBody, Button, ModalFooter } from 'reactstrap';
 import { Query, compose, graphql } from 'react-apollo';
 import { Route, Redirect, Switch } from 'react-router';
 import { NavLink as RRNavLink } from 'react-router-dom';
@@ -26,6 +26,7 @@ function Trips({ cancelBooking }: Props) {
   const [modal, setModal] = React.useState<ModalType | undefined>(undefined);
   const [alert, setAlert] = React.useState<AlertProperties>({ color: '', msg: '', show: false });
   const [isSubmitting, setSubmitting] = React.useState<boolean>(false);
+  const [booking, setBooking] = React.useState<Booking | undefined>(undefined);
   const [currency, setCurrency] = React.useState<Currency | null>(Currency.USD);
   return (
     <Query query={GET_GUEST_SORTED_BOOKINGS}>
@@ -78,7 +79,8 @@ function Trips({ cancelBooking }: Props) {
               
               <Alert
                 color={alert.color}
-                isOpen={alert.show}>
+                isOpen={alert.show}
+                toggle={() => setAlert({ ...alert, show: !alert.show })}>
                 {alert.msg}
               </Alert>
 
@@ -95,7 +97,9 @@ function Trips({ cancelBooking }: Props) {
                               <ActiveTripCard
                                 key={booking.id}
                                 booking={booking}
-                                onCancelClick={() => handleModalAction(ModalType.CANCEL_BOOKING)} />
+                                onCancelClick={() => {
+                                  handleModalAction(ModalType.CANCEL_BOOKING, booking);
+                                }} />
                             </Col>
                           );
                         })}
@@ -108,18 +112,18 @@ function Trips({ cancelBooking }: Props) {
                   path="/work/trips/upcoming"
                   component={() => (
                     <Container fluid>
-                      {/* <Row>
+                      <Row>
                         {upcoming.map((booking: Booking) => {
                           return (
                             <Col key={booking.id} className="d-flex" md="6" lg="4">
                               <ActiveTripCard
                                 key={booking.id}
                                 booking={booking}
-                                onCancelClick={handleModalAction(ModalType.CANCEL_BOOKING)} />
+                                onCancelClick={() => handleModalAction(ModalType.CANCEL_BOOKING, booking)} />
                             </Col>
                           );
                         })}
-                      </Row> */}
+                      </Row>
                     </Container>
                   )}
                 />
@@ -152,21 +156,20 @@ function Trips({ cancelBooking }: Props) {
               <ModalHeader>Cancel Booking</ModalHeader>
               <ModalBody>
                 <h6>Are you sure you want to cancel this booking?</h6>
+                {booking && <h6>{`Booking: ${booking.id}`}</h6>}
               </ModalBody>
               <ModalFooter>
                 <Button color="secondary" onClick={() => handleModalAction()}>Back</Button>{' '}
-                <Button color="danger" onClick={(event: any) => { console.log('this is event:', event); }}>Yes, Cancel Booking</Button>
+                <Button color="danger" onClick={() => handleCancelBooking()}>Yes, Cancel Booking</Button>
               </ModalFooter>
             </Modal>
 
-            {/* {modal === ModalType.CONTACT_HOST &&
-              <Modal isOpen toggle={handleModalAction}>
-                <ModalHeader>Contact Host</ModalHeader>
-                <ModalBody>
-                  <ContactHostForm booking={booking} onClose={handleModalAction} />
-                </ModalBody>
-              </Modal>
-            } */}
+            {/* <Modal isOpen={modal === ModalType.CONTACT_HOST} toggle={handleModalAction}>
+              <ModalHeader>Contact Host</ModalHeader>
+              <ModalBody>
+                <ContactHostForm booking={booking} onClose={handleModalAction} />
+              </ModalBody>
+            </Modal> */}
 
             {isSubmitting && <LoadingPortal currency={currency} />}
           </>
@@ -175,20 +178,23 @@ function Trips({ cancelBooking }: Props) {
     </Query>
   );
 
-  function handleCancelBooking(booking: Booking) {
+  function handleCancelBooking() {
+    if (!booking) return;
+
     setSubmitting(true);
     cancelBooking(booking)
       .then(() => {
         setCurrency(booking.currency);
         setAlert({
-          ...alert,
+          color: 'success',
           msg: 'Your booking has been cancelled',
           show: true,
         });
+        setModal(undefined);
       })
       .catch((error: Error) => {
         setAlert({
-          ...alert,
+          color: 'danger',
           msg: `There was an error processing your request.  ${error.message}`,
           show: true,
         });
@@ -196,7 +202,8 @@ function Trips({ cancelBooking }: Props) {
       .finally(() => setSubmitting(false));
   };
 
-  function handleModalAction(modal?: ModalType) {
+  function handleModalAction(modal?: ModalType, booking?: Booking) {
+    setBooking(booking);
     setModal(modal);
   }
 };
