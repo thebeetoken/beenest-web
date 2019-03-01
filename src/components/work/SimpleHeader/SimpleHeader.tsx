@@ -4,20 +4,23 @@ import { Link } from 'react-router-dom';
 
 import { BeenestSVGPrimary, BeenestSVGWhite } from 'shared/svgComponents/SvgComponents'
 
-const HEADER_CLASSES = 'custom-header-height fixed-top';
+const HEADER_CLASSES = 'd-flex align-items-center custom-header-height';
 const NAVBAR_BRAND_CLASSES = 'navbar-brand u-header__navbar-brand u-header__navbar-brand-center u-header__navbar-brand-default p-0 m-0 h-auto w-auto'
 const BRAND_CONTAINER_STYLE = {
   height: '36px'
 };
 
 type Props = Partial<{
+  block: boolean;
+  fixed: boolean;
   primary: boolean;
-  white: boolean
+  white: boolean;
 }>
 
-const SimpleHeader = ({ primary = false, white = false }: Props) => {
+const SimpleHeader = ({ primary = false, white = false, fixed = false, block = false }: Props) => {
   let mobileBrand = <BeenestSVGPrimary />;
   let brand = <BeenestSVGWhite />;
+  let headerBackground = 'bg-transparent';
 
   if (primary) {
     brand = <BeenestSVGPrimary />;
@@ -29,7 +32,7 @@ const SimpleHeader = ({ primary = false, white = false }: Props) => {
 
   return (
     <>
-      <header className={HEADER_CLASSES}>
+      <header className={`${HEADER_CLASSES} ${headerBackground} ${fixed ? 'fixed-top' : block ? '' : 'sticky-top'}`.trim()}>
         <Navbar className="d-lg-none vw-100">
           <NavbarBrand
             tag={Link}

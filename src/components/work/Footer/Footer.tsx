@@ -12,6 +12,7 @@ import {
   Row,
   UncontrolledDropdown,
 } from 'reactstrap';
+import { Route, Switch } from 'react-router-dom';
 
 import { SETTINGS } from 'configs/settings';
 import { BeenestSVGPrimary } from 'shared/svgComponents/SvgComponents';
@@ -69,6 +70,17 @@ const socialData = [
 ];
 
 const Footer = () => (
+  <Switch>
+    <Route path="/work/account" component={DetailedFooter} />
+    <Route exact path="/work" component={DetailedFooter} />
+    <Route exact path="/work/about" component={DetailedFooter} />
+    <Route exact path="/work/login" component={NoopComponent} />
+    <Route exact path="/work/signup" component={NoopComponent} />
+    <Route component={DetailedFooter} />
+  </Switch>
+)
+
+const DetailedFooter = () => (
   <footer className="pt-md-10">
     <Container className="space-lg-2 border-bottom">
       <Row className="justify-content-md-between">
@@ -145,5 +157,7 @@ const Footer = () => (
     </Container>
   </footer>
 );
+
+const NoopComponent = () => null;
 
 export default Footer;
