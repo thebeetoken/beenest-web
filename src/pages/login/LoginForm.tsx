@@ -79,9 +79,9 @@ const LoginForm = (props: LoginProps) => {
             <Label for={PASSWORD} className="form-label">
               <span className="d-flex justify-content-between align-items-center">
                 Password{' '}
-                <a className="link-muted text-capitalize font-weight-normal" href="/work">
+                <Link className="link-muted text-capitalize font-weight-normal" to="/work/forgot_password">
                   Forgot Password?
-                </a>
+                </Link>
               </span>
             </Label>
             <Input
