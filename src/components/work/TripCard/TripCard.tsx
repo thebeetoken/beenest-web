@@ -29,8 +29,9 @@ const TripCard = ({ booking, handleModalAction }: Props) => {
       <CardBody>
         <CardTitle className="h5 font-weight-normal mb-3">{booking.listing.title}</CardTitle>
         <CardSubtitle className="small mb-3">
-          {addressLine1 && formatAddress(addressLine1, addressLine2, city, state, country, postalCode)}
-          {!addressLine1 && formatGeolocationAddress({ lat, lng, city, country })}
+          {addressLine1
+            ? formatAddress(addressLine1, addressLine2, city, state, country, postalCode)
+            : formatGeolocationAddress({ lat, lng, city, country })}
         </CardSubtitle>
         <Row>
           <Col xs="6">
