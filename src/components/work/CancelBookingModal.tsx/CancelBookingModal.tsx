@@ -17,10 +17,9 @@ interface Props {
 
 function CancelBookingModal({ booking, cancelBooking, handleModalAction, setAlert }: Props) {
   const [isSubmitting, setSubmitting] = React.useState<boolean>(false);
-  const [currency, setCurrency] = React.useState<Currency | null>(Currency.USD);
-
+  
   if (isSubmitting) {
-    return <LoadingPortal currency={currency} />;
+    return <LoadingPortal currency={booking.currency} />;
   }
 
   return (
@@ -38,7 +37,6 @@ function CancelBookingModal({ booking, cancelBooking, handleModalAction, setAler
   );
 
   function handleCancelBooking() {
-    setCurrency(booking.currency);
     setSubmitting(true);
     cancelBooking(booking)
       .then(() => {
