@@ -13,7 +13,7 @@ import Loading from 'components/shared/loading/Loading';
 interface Props {
   contactUser: (input: ContactUserInput) => Promise<EmailResponse>;
   booking: Booking;
-  handleModalAction: () => void;
+  onModalAction: () => void;
 }
 
 interface FormValues {
@@ -46,20 +46,20 @@ const ContactHostSchema = Yup.object({
   message: Yup.string().required('Please fill out the message field.'),
 });
 
-function ContactHostForm({ booking, contactUser, handleModalAction }: Props) {
+function ContactHostForm({ booking, contactUser, onModalAction }: Props) {
   const [successMessage, setSuccessMessage] = React.useState<string>('');
   const [errorMessage, setErrorMessage] = React.useState<string>('');
   const { host, listingId, id } = booking;
 
   if (successMessage) {
     return (
-      <Modal isOpen toggle={handleModalAction}>
+      <Modal isOpen toggle={onModalAction}>
         <ModalHeader>Message Successfully Sent</ModalHeader>
         <ModalBody>
           <p>{successMessage}</p>
         </ModalBody>
         <ModalFooter>
-          <Button color="success" onClick={() => handleModalAction()}>
+          <Button color="success" onClick={onModalAction}>
             Okay
           </Button>
         </ModalFooter>
@@ -94,7 +94,7 @@ function ContactHostForm({ booking, contactUser, handleModalAction }: Props) {
       }}
     >
       {({ errors, isSubmitting, setFieldTouched, setFieldValue, touched, values }) => (
-        <Modal isOpen toggle={handleModalAction}>
+        <Modal isOpen toggle={onModalAction}>
           <Form tag={FormikForm}>
             <ModalHeader>Contact {host.firstName || 'Host'}</ModalHeader>
             <ModalBody>

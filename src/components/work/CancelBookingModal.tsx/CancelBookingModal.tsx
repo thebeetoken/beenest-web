@@ -11,11 +11,11 @@ import { getFriendlyErrorMessage } from 'utils/validators';
 interface Props {
   booking: Booking;
   cancelBooking: (booking: Booking) => Promise<Booking>;
-  handleModalAction: () => void;
+  onModalAction: () => void;
   setAlert: (alert: AlertProperties) => void;
 }
 
-function CancelBookingModal({ booking, cancelBooking, handleModalAction, setAlert }: Props) {
+function CancelBookingModal({ booking, cancelBooking, onModalAction, setAlert }: Props) {
   const [isSubmitting, setSubmitting] = React.useState<boolean>(false);
   
   if (isSubmitting) {
@@ -23,14 +23,14 @@ function CancelBookingModal({ booking, cancelBooking, handleModalAction, setAler
   }
 
   return (
-    <Modal isOpen toggle={() => !isSubmitting && handleModalAction}>
+    <Modal isOpen toggle={() => !isSubmitting && onModalAction}>
       <ModalHeader>Cancel Booking</ModalHeader>
       <ModalBody>
         <h6>Are you sure you want to cancel this booking?</h6>
         <h6>Booking: {booking.id}</h6>
       </ModalBody>
       <ModalFooter>
-        <Button color="secondary" disabled={isSubmitting} onClick={handleModalAction}>Back</Button>{' '}
+        <Button color="secondary" disabled={isSubmitting} onClick={onModalAction}>Back</Button>{' '}
         <Button color="danger" disabled={isSubmitting} onClick={handleCancelBooking}>Yes, Cancel Booking</Button>
       </ModalFooter>
     </Modal>
@@ -55,7 +55,7 @@ function CancelBookingModal({ booking, cancelBooking, handleModalAction, setAler
       })
       .finally(() => {
         setSubmitting(false)
-        handleModalAction();
+        onModalAction();
       });
   };
 }

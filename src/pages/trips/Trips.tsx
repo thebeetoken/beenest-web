@@ -158,11 +158,11 @@ function Trips() {
             </Switch>
 
             {modal === ModalType.CANCEL_BOOKING &&
-              <CancelBookingModal booking={booking} handleModalAction={handleModalAction} setAlert={setAlert}/>
+              <CancelBookingModal booking={booking} onModalAction={handleModalAction} setAlert={setAlert}/>
             }
 
             {modal === ModalType.CONTACT_HOST &&
-              <ContactHostFormModal booking={booking} handleModalAction={handleModalAction} />
+              <ContactHostFormModal booking={booking} onModalAction={handleModalAction} />
             }
           </Container>
         );
