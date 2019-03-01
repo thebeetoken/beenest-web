@@ -10,7 +10,7 @@ const ListingCard = ({
   sleepingArrangement,
   title
 }: ListingShort) => (
-  <Card tag={Fade}>
+  <Card tag={Fade} className="w-100">
     <div className="embed-responsive embed-responsive-4by3">
       <div className="embed-responsive-item">
         <CardImg className="w-100" src={listingPicUrl} alt={`Photo of ${title}`} />
