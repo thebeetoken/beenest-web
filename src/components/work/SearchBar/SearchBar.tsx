@@ -173,7 +173,7 @@ class SearchBar extends React.Component<RouterProps, State> {
     event.preventDefault();
     const { bounds, coordinates, checkInDate, checkOutDate, numberOfGuests } = this.state;
     const locationQuery = this.inputRef.current ? this.inputRef.current.value : '';
-    return window.location.href = `${BEENEST_HOST}/listings?${stringifyQueryString({
+    return window.location.href = `${BEENEST_HOST}/work/search?${stringifyQueryString({
       locationQuery,
       utm_term: locationQuery,
       ...(bounds && { bounds }),
