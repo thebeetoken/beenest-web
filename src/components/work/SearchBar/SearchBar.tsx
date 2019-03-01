@@ -1,7 +1,6 @@
 import * as React from 'react';
 import { Button, Col, Form, FormGroup, Input } from 'reactstrap';
 import { withRouter } from 'react-router-dom';
-import { DateRangePicker } from 'react-dates';
 import moment from 'moment';
 import 'react-dates/initialize';
 
@@ -10,7 +9,7 @@ import { guestsSelectboxOptions } from './searchBar.config';
 import { AppConsumer, AppConsumerProps, ScreenType } from 'components/App.context';
 import GoogleAutoComplete from 'components/shared/GoogleAutoComplete';
 import { SETTINGS } from 'configs/settings';
-import WorkDateRangePickerContainer from 'styled/containers/WorkDateRangePicker.container';
+import DateRangePicker  from 'components/work/DateRangePicker';
 import { parseQueryString, stringifyQueryString } from 'utils/queryParams';
 
 const { BEENEST_HOST } = SETTINGS;
@@ -113,25 +112,22 @@ class SearchBar extends React.Component<RouterProps, State> {
                 const isMobile = screenType < ScreenType.TABLET;
                 const isTablet = screenType <= ScreenType.TABLET;
                 return (
-
-                  <WorkDateRangePickerContainer>
-                    <DateRangePicker
-                      isOutsideRange={this.handleIsOutsideRange}
-                      startDate={checkInDate} // momentPropTypes.momentObj or null,
-                      startDateId="startDate"
-                      startDatePlaceholderText="Check-In"
-                      daySize={isMobile ? 32 : 40}
-                      endDate={checkOutDate} // momentPropTypes.momentObj or null,
-                      endDateId="endDate"
-                      endDatePlaceholderText="Check-Out"
-                      onDatesChange={this.handleOnDatesChange} // PropTypes.func.isRequired,
-                      focusedInput={focusedInput} // PropTypes.oneOf(['startDate', 'endDate']) or null,
-                      onFocusChange={this.handleOnFocusChange} // PropTypes.func.isRequired,
-                      minimumNights={1}
-                      numberOfMonths={1}
-                      readOnly={isTablet}
-                    />
-                  </WorkDateRangePickerContainer>
+                  <DateRangePicker
+                    isOutsideRange={this.handleIsOutsideRange}
+                    startDate={checkInDate} // momentPropTypes.momentObj or null,
+                    startDateId="startDate"
+                    startDatePlaceholderText="Check-In"
+                    daySize={isMobile ? 32 : 40}
+                    endDate={checkOutDate} // momentPropTypes.momentObj or null,
+                    endDateId="endDate"
+                    endDatePlaceholderText="Check-Out"
+                    onDatesChange={this.handleOnDatesChange} // PropTypes.func.isRequired,
+                    focusedInput={focusedInput} // PropTypes.oneOf(['startDate', 'endDate']) or null,
+                    onFocusChange={this.handleOnFocusChange} // PropTypes.func.isRequired,
+                    minimumNights={1}
+                    numberOfMonths={1}
+                    readOnly={isTablet}
+                  />
                 );
               }}
             </AppConsumer>
