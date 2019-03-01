@@ -60,5 +60,4 @@ const ListingInformation = ({
   <p dangerouslySetInnerHTML={{ __html: sanitizeHtml(host.about) }} />
 </Fade>;
 
-
 export default ListingInformation;
