@@ -1,4 +1,4 @@
 // authentication (login/signup) top level
-export const AUTH_CONTAINER = "d-flex flex-column flex-lg-row align-items-center position-relative height-lg-100vh px-0";
+export const AUTH_CONTAINER = "d-flex flex-column flex-lg-row align-items-center position-relative bee-auth-container px-0 pb-4";
 
-export const AUTH_CONTENT = "space-1 space-md-3 space-lg-0";
+export const AUTH_CONTENT = "p-md-4 bg-white";

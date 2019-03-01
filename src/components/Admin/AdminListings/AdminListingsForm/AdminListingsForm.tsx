@@ -488,7 +488,7 @@ class AdminListingsForm extends React.Component<Props, State> {
                 className={getInputValidationClass(inputValidation.hostEmail)}
                 onChange={this.handleInput}
                 id="hostEmail"
-                placeholder="pepe@thebeetoken.com"
+                placeholder="test@beenest.com"
                 type="text"
                 name="hostEmail"
                 value={hostEmail}

@@ -12,6 +12,7 @@ import {
   Row,
   UncontrolledDropdown,
 } from 'reactstrap';
+import { Route, Switch } from 'react-router-dom';
 
 import { SETTINGS } from 'configs/settings';
 import { BeenestSVGPrimary } from 'shared/svgComponents/SvgComponents';
@@ -69,6 +70,17 @@ const socialData = [
 ];
 
 const Footer = () => (
+  <Switch>
+    <Route path="/work/account" component={DetailedFooter} />
+    <Route exact path="/work" component={DetailedFooter} />
+    <Route exact path="/work/about" component={DetailedFooter} />
+    <Route exact path="/work/login" component={NoopComponent} />
+    <Route exact path="/work/signup" component={NoopComponent} />
+    <Route component={DetailedFooter} />
+  </Switch>
+)
+
+const DetailedFooter = () => (
   <footer className="pt-md-10">
     <Container className="space-lg-2 border-bottom">
       <Row className="justify-content-md-between">
@@ -109,8 +121,8 @@ const Footer = () => (
         <Col sm="3" lg="3" className="mb-4 mb-lg-0">
           <ListGroup className="list-group-borderless" flush>
             <ListGroupItemHeading className="h6 font-weight-semi-bold">Contact</ListGroupItemHeading>
-            <ListGroupItem tag="a" href="mailto:support@beenest.com?subject=Contact Support">
-              support@beenest.com
+            <ListGroupItem tag="a" href="https://support.beenest.com/" target="_blank">
+              Support
             </ListGroupItem>
             <ListGroupItem className="text-secondary">
               717 Market St.
@@ -145,5 +157,7 @@ const Footer = () => (
     </Container>
   </footer>
 );
+
+const NoopComponent = () => null;
 
 export default Footer;

@@ -1,3 +1,5 @@
+$HEADER-HEIGHT: 4.125rem;
+
 // home custom styles
 .bee-home-affiliations,
 .bee-home-testimonials {
@@ -15,6 +17,11 @@
 
 .bee-home-search-autocomplete {
   height: calc(3rem + 2px);
+}
+
+// login/signup styles
+.bee-auth-container {
+  min-height: calc(100vh - #{$HEADER-HEIGHT});
 }
 
 // carousel custom styles
@@ -38,7 +45,7 @@
 
 // custom fixed header height to ensure we know the exact header height
 .custom-header-height {
-  height: 4.125rem;
+   min-height: $HEADER-HEIGHT;
 
   nav {
     height: 100%;

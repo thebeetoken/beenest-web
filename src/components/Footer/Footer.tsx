@@ -69,7 +69,8 @@ const DefaultFooter = () => (
         </BeeLink>
         <div className="bee-flex-div" />
         <BeeLink
-          href="mailto:support@beenest.com">
+          target="_blank"
+          href="https://support.beenest.com/">
           Have Feedback? Help Us Improve!
         </BeeLink>
       </div>
