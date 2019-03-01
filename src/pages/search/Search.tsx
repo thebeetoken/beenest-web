@@ -4,7 +4,6 @@ import { Col, Fade, Row } from 'reactstrap';
 import GoogleMapsWithMarkers from 'shared/GoogleMapsWithMarkers';
 
 import Footer from 'components/work/Footer';
-import Header from 'components/work/Header';
 
 import SearchBar from 'components/work/SearchBar';
 import SearchForm from './SearchForm';
