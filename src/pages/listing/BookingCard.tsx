@@ -1,9 +1,10 @@
 import * as React from 'react';
-import { Button, Card, Row } from 'reactstrap';
+import { Button, Card, Input, Row } from 'reactstrap';
 
 import DateRangePicker from 'components/work/DateRangePicker';
-import { Listing } from 'networking/listings';
+import { guestsSelectboxOptions } from 'components/work/SearchBar/searchBar.config';
 
+import { Listing } from 'networking/listings';
 import { formatPrice } from 'utils/formatter';
 
 const BookingCard = ({
@@ -25,6 +26,17 @@ const BookingCard = ({
     minimumNights={1}
     numberOfMonths={1}
   /></Row>
+  <Row><Input
+    type="select"
+    name="numberOfGuests"
+    onChange={() => console.log('Guests changedd')}
+    component="select">
+    {guestsSelectboxOptions.map(option => (
+      <option value={option.value} key={option.value}>
+        {option.option}
+      </option>
+    ))}
+  </Input></Row>
   <Row><Button>Request to Book</Button></Row>
 </Card>);
 export default BookingCard;
