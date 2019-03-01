@@ -28,7 +28,7 @@ function CancelBookingModal({ booking, cancelBooking, handleModalAction, setAler
       <ModalHeader>Cancel Booking</ModalHeader>
       <ModalBody>
         <h6>Are you sure you want to cancel this booking?</h6>
-        {booking && <h6>{`Booking: ${booking.id}`}</h6>}
+        <h6>Booking: {booking.id}</h6>
       </ModalBody>
       <ModalFooter>
         <Button color="secondary" disabled={isSubmitting} onClick={() => handleModalAction()}>Back</Button>{' '}
