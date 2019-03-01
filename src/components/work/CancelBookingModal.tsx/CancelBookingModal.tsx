@@ -38,8 +38,6 @@ function CancelBookingModal({ booking, cancelBooking, handleModalAction, setAler
   );
 
   function handleCancelBooking() {
-    if (!booking) return;
-
     setCurrency(booking.currency);
     setSubmitting(true);
     cancelBooking(booking)
