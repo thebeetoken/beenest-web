@@ -51,8 +51,7 @@
 
 .bee-search-map {
   height: calc(100vh - 11.25rem);
-  top: 11.25rem;
-  z-index: 999;
+  z-index: 999; // Behind bootstrap overlays
 }
 
 // add not-allowed cursor and no transform on disabled items

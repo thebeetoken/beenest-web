@@ -14,7 +14,7 @@ interface Props {
 }
 
 const SearchPage = ({ listings }: Props) => <Fade>
-  <Row className="px-0 mx-0 bg-white sticky-top bee-top">
+  <Row className="px-0 mx-0 bg-white bee-top">
     <Col className="p-5" xs="12" lg="10" xl="9">
       <SearchBar />
     </Col>
@@ -28,7 +28,7 @@ const SearchPage = ({ listings }: Props) => <Fade>
       <SearchResults listings={listings} />
     </Col>
     <Col md="0" lg="7" xl="8" className="px-0 d-md-none d-lg-block">
-      <div className="w-100 sticky-top bee-search-map">
+      <div className="w-100 sticky-top bee-top bee-search-map">
         <GoogleMapsWithMarkers className="w-100 h-100" listings={listings} />
       </div>
     </Col>
