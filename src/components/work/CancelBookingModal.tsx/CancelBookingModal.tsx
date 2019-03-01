@@ -1,5 +1,5 @@
 import * as React from 'react';
-import { ModalHeader, Modal, ModalBody, ModalFooter, Button, Container } from 'reactstrap';
+import { ModalHeader, Modal, ModalBody, ModalFooter, Button } from 'reactstrap';
 import { GUEST_CANCEL_BOOKING, Booking, Currency, GET_GUEST_SORTED_BOOKINGS } from 'networking/bookings';
 import { graphql, compose } from 'react-apollo';
 import { differenceInDays } from 'date-fns';

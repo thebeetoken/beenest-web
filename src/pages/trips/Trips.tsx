@@ -1,14 +1,14 @@
 import * as React from 'react';
-import { Nav, NavItem, NavLink, Container, Col, Row, Alert, Modal, ModalHeader, ModalBody, Button, ModalFooter, Fade } from 'reactstrap';
+import { Nav, NavItem, NavLink, Container, Col, Row, Alert, Button, Fade } from 'reactstrap';
 import { Query } from 'react-apollo';
 import { Route, Redirect, Switch } from 'react-router';
 import { NavLink as RRNavLink } from 'react-router-dom';
-import { GET_GUEST_SORTED_BOOKINGS, Booking, Currency, GUEST_CANCEL_BOOKING } from 'networking/bookings';
+import { GET_GUEST_SORTED_BOOKINGS, Booking } from 'networking/bookings';
 
 import { VIEWPORT_CENTER_LAYOUT } from 'styled/sharedClasses/layout';
 import NotFound from 'components/routes/NotFound';
 import Loading from 'components/shared/loading/Loading';
-import TripCard from 'components/work/ActiveTripCard';
+import TripCard from 'components/work/TripCard';
 import { AlertProperties } from 'components/work/Alert/Alert';
 import ContactHostFormModal from 'components/work/ContactHostFormModal';
 import CancelBookingModal from 'components/work/CancelBookingModal.tsx';
@@ -38,9 +38,52 @@ function Trips() {
           return <h1>{error ? error.message : 'Error / No Data'}</h1>;
         }
 
-        const { cancelled, current, past, upcoming } = data;
+        const { current, upcoming } = data;
         const isCurrentEmpty = !(current || []).length;
-        // const isUpcomingEmpty = !(upcoming || []).length;
+        const isUpcomingEmpty = !(upcoming || []).length;
+        const renderCurrentEmpty = 
+          <>
+            <Row className="mb-2">
+              <h2>You have no trips awaiting approval.</h2>
+            </Row>
+            <Row>
+              <a href='/work'>
+                <Button>Book a Home Today!</Button>
+              </a>
+            </Row>
+          </>;
+        const renderUpcomingEmpty = 
+          <>
+            <Row className="mb-2">
+            <h2>You haven't booked any trips yet.</h2>
+            </Row>
+            <Row>
+              <a href='/work'>
+                <Button>Book a Home Today!</Button>
+              </a>
+            </Row>
+          </>;
+        const renderCards = Object.keys(data).reduce((result: any, category) => {
+          return {
+            ...result,
+            [category]: 
+              <Row>
+                {data[category].map((booking: Booking) => (
+                  <Col key={booking.id} className="d-flex" md="6" lg="4">
+                    <TripCard
+                      key={booking.id}
+                      booking={booking}
+                      handleModalAction={(modal: ModalType) => handleModalAction(modal, booking)} />
+                  </Col>
+                ))}
+              </Row>
+          };
+        }, {});
+        const renderCancelledCards = renderCards.cancelled;
+        const renderCurrentCards = renderCards.current;
+        const renderPastCards = renderCards.past;
+        const renderUpcomingCards = renderCards.upcoming;
+
         return (
           <Container className="pt-8 pb-6" tag={Fade}>
             <h1>Trips</h1>
@@ -80,67 +123,35 @@ function Trips() {
               toggle={() => setAlert({ ...alert, show: !alert.show })}>
               {alert.msg}
             </Alert>
-
+            
             <Switch>
               <Route
                 exact
                 path="/work/trips/current"
                 component={() => (
-                  <Container fluid>
-                    <Row>
-                      {current.map((booking: Booking) => {
-                        return (
-                          <Col key={booking.id} className="d-flex" md="6" lg="4">
-                            <TripCard
-                              key={booking.id}
-                              booking={booking}
-                              handleModalAction={(modal: ModalType) => handleModalAction(modal, booking)} />
-                          </Col>
-                        );
-                      })}
-                    </Row>
-                  </Container>
+                  isCurrentEmpty
+                    ? renderCurrentEmpty
+                    : renderCurrentCards
                 )}
               />
               <Route
                 exact
                 path="/work/trips/upcoming"
                 component={() => (
-                  <Container fluid>
-                    <Row>
-                      {upcoming.map((booking: Booking) => {
-                        return (
-                          <Col key={booking.id} className="d-flex" md="6" lg="4">
-                            <TripCard
-                              key={booking.id}
-                              booking={booking}
-                              handleModalAction={(modal: ModalType) => handleModalAction(modal, booking)} />
-                          </Col>
-                        );
-                      })}
-                    </Row>
-                  </Container>
+                  isUpcomingEmpty
+                    ? renderUpcomingEmpty
+                    : renderUpcomingCards
                 )}
               />
               <Route
                 exact
                 path="/work/trips/past"
-                component={() => (
-                  <>
-                    <h1>This is the past page</h1>
-                    <p>{JSON.stringify(past)}</p>
-                  </>
-                )}
+                component={() => renderPastCards}
               />
               <Route
                 exact
                 path="/work/trips/cancelled"
-                component={() => (
-                  <>
-                    <h1>This is the cancelled page</h1>
-                    <p>{JSON.stringify(cancelled)}</p>
-                  </>
-                )}
+                component={() => renderCancelledCards}
               />
               <Redirect exact from="/work/trips" to={isCurrentEmpty ? "/work/trips/upcoming" : "/work/trips/current"} />
               <Route component={NotFound} />
