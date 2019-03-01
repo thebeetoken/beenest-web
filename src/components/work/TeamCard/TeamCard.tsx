@@ -44,6 +44,7 @@ const TeamCard = (props: Props) => {
             <CardSubtitle>{handle.substring(handle.lastIndexOf('/') + 1, (handle.length))}</CardSubtitle>
           </a>
         }
+        <div className="bee-flex-div" />
         <ul className="list-inline mt-4">
           {social.map(profile => (
             <li className="list-inline-item" key={profile.link}>
