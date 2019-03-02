@@ -9,7 +9,7 @@ import BookingBar from './BookingBar';
 import { Listing } from 'networking/listings';
 
 const ListingPage = (listing: Listing) => (
-  <Row>
+  <>
     <ListingGallery {...listing} />
     <Container>
       <Row>
@@ -26,6 +26,6 @@ const ListingPage = (listing: Listing) => (
     <footer className="fixed-bottom bg-white d-lg-none">
       <BookingBar {...listing} />
     </footer>
-  </Row>
+  </>
 );
 export default ListingPage;
