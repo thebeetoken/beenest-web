@@ -22,7 +22,7 @@ const ListingPage = (listing: Listing) => (
         </Col>
       </Row>
     </Container>
-    <Row className="fixed-bottom bg-white d-lg-none w-100 p-2 justify-content-between">
+    <Row className="fixed-bottom bg-white d-lg-none w-100 p-2 align-items-center justify-content-between">
       <Col>
         ${listing.pricePerNightUsd} per night
       </Col>
