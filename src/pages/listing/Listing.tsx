@@ -3,7 +3,6 @@ import { Query } from 'react-apollo';
 import { Fade } from 'reactstrap';
 
 import Footer from 'components/work/Footer';
-import Header from 'components/work/Header';
 
 import Loading from 'shared/loading/Loading';
 
