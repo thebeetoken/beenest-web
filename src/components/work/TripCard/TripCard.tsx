@@ -1,7 +1,7 @@
 import * as React from 'react';
 import { Card, CardImg, CardBody, CardTitle, CardSubtitle, Row, Col, CardText, CardFooter } from 'reactstrap';
-import { Booking } from 'networking/bookings';
-import { getUserBookingDisplayStatus } from 'utils/bookingsDisplayStatus';
+import { Booking, GUEST_SORTED_BOOKINGS } from 'networking/bookings';
+import { getUserBookingDisplayStatus, cancelledDisplayMap } from 'utils/bookingsDisplayStatus';
 import { formatAddress, formatGeolocationAddress } from 'utils/formatter';
 import { formatSingleDate } from 'utils/formatDate';
 
@@ -12,28 +12,32 @@ enum ModalType {
 
 interface Props {
   booking: Booking;
+  category: GUEST_SORTED_BOOKINGS;
   handleModalAction: (modal: ModalType) => void;
 }
 
-const TripCard = ({ booking, handleModalAction }: Props) => {
+const TripCard = ({ booking, category, handleModalAction }: Props) => {
   const { checkInDate, checkOutDate, id, listing, status } = booking;
   const { addressLine1, addressLine2, city, country, lat, lng, postalCode, state } = listing;
+  const cancelledStatus = cancelledDisplayMap[status] || '';
   const displayStatus = getUserBookingDisplayStatus(status);
+  const isCancelButtonShown = category !== GUEST_SORTED_BOOKINGS.PAST && category !== GUEST_SORTED_BOOKINGS.CANCELLED;
   return (
-    <Card className="mb-5 flex-fill" key={booking.id}>
+    <Card className="mb-5 shadow flex-fill border-0" key={booking.id}>
       <div className="embed-responsive embed-responsive-4by3">
         <div className="embed-responsive-item">
-          <CardImg className="h-100" top src={booking.listing.listingPicUrl} alt="Listing Cover Photo" />
+          <CardImg src={booking.listing.listingPicUrl} alt="Listing Cover Photo" />
         </div>
       </div>
-      <CardBody>
+      <CardBody className="d-flex flex-column">
         <CardTitle className="h5 font-weight-normal mb-3">{booking.listing.title}</CardTitle>
+        <div className="bee-flex-div" />
         <CardSubtitle className="small mb-3">
           {addressLine1
             ? formatAddress(addressLine1, addressLine2, city, state, country, postalCode)
             : formatGeolocationAddress({ lat, lng, city, country })}
         </CardSubtitle>
-        <Row>
+        <Row className="mb-1">
           <Col xs="6">
             <small>Check-in:</small>
             <h6>{formatSingleDate(checkInDate)}</h6>
@@ -43,31 +47,46 @@ const TripCard = ({ booking, handleModalAction }: Props) => {
             <h6>{formatSingleDate(checkOutDate)}</h6>
           </Col>
         </Row>
-        <CardText>Status: {displayStatus}</CardText>
+        {category === GUEST_SORTED_BOOKINGS.CANCELLED
+          ? <CardText className="text-danger">{cancelledStatus}</CardText>
+          : <CardText>Status: {displayStatus}</CardText>}
         <CardText className="small">
           Booking: <span>{id}</span>
         </CardText>
       </CardBody>
       <CardFooter className="text-center">
         <Row className="align-items-center">
-          <Col
-            xs="4"
-            onClick={() => handleModalAction(ModalType.CONTACT_HOST)}
-            className="u-ver-divider">
-            <h5 className="small c-pointer font-weight-normal text-secondary mb-0">Contact Host</h5>
-          </Col>
-          <Col
-            xs="4"
-            className="u-ver-divider">
-            <a href={`/trips/${booking.id}/receipt`}>
-              <h5 className="small font-weight-normal text-secondary mb-0">Receipt</h5>
-            </a>
-          </Col>
-          <Col
-            xs="4"
-            onClick={() => handleModalAction(ModalType.CANCEL_BOOKING)}>
-            <h5 className="small c-pointer font-weight-normal text-secondary mb-0">Cancel Trip</h5>
-          </Col>
+          {[
+            {
+              label: 'Contact Host',
+              onClick: () => handleModalAction(ModalType.CONTACT_HOST),
+              show: true,
+            },
+            {
+              label: 'Receipt',
+              href: `/trips/${booking.id}/receipt`,
+              show: true,
+            },
+            {
+              label: 'Cancel Trip',
+              onClick: () => handleModalAction(ModalType.CANCEL_BOOKING),
+              show: isCancelButtonShown,
+            },
+          ]
+            .filter(({ show }) => show)
+            .map(({ label, href, onClick }, i, arr) => {
+              return (
+                <Col key={i} onClick={onClick} className={i !== arr.length - 1 ? 'u-ver-divider' : ''}>
+                  {href ? (
+                    <a href={href}>
+                      <h5 className="small font-weight-normal text-secondary mb-0">{label}</h5>
+                    </a>
+                  ) : (
+                    <h5 className="small c-pointer font-weight-normal text-secondary mb-0">{label}</h5>
+                  )}
+                </Col>
+              );
+            })}
         </Row>
       </CardFooter>
     </Card>
