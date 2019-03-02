@@ -4,6 +4,7 @@ import { Button, Col, Container, Row } from 'reactstrap';
 import ListingGallery from './ListingGallery';
 import ListingInformation from './ListingInformation';
 import BookingCard from './BookingCard';
+import BookingBar from './BookingBar';
 
 import { Listing } from 'networking/listings';
 
@@ -22,12 +23,9 @@ const ListingPage = (listing: Listing) => (
         </Col>
       </Row>
     </Container>
-    <Row className="fixed-bottom bg-white d-lg-none w-100 p-2 align-items-center justify-content-between">
-      <Col>
-        ${listing.pricePerNightUsd} per night
-      </Col>
-      <Button>Request to Book</Button>
-    </Row>
+    <footer className="fixed-bottom bg-white d-lg-none">
+      <BookingBar {...listing} />
+    </footer>
   </Row>
 );
 export default ListingPage;
