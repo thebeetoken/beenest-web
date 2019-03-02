@@ -1,5 +1,5 @@
 import * as React from 'react';
-import { Button, Col, Container, Row } from 'reactstrap';
+import { Col, Container, Row } from 'reactstrap';
 
 import ListingGallery from './ListingGallery';
 import ListingInformation from './ListingInformation';
