@@ -11,6 +11,7 @@ import Logout from './logout';
 import Search from './search';
 import Signup from './signup';
 import Trips from './trips';
+import TripsReceipt from './trips/TripsReceipt';
 import AuthenticatedRoute from 'HOCs/AuthenticatedRoute';
 
 import Header from 'components/work/Header';
@@ -21,7 +22,7 @@ const Work = () => (
   <div>
     <Header />
     <Switch>
-    <Route path="/work/about" component={About} />
+      <Route path="/work/about" component={About} />
       <Route path="/work/account" component={Account} />
       <Route path="/work/forgot_password" component={ForgotPassword} />
       <Route exact path="/work/listings/:id" component={Listing} />
@@ -29,6 +30,7 @@ const Work = () => (
       <Route exact path="/work/logout" component={Logout} />
       <Route exact path="/work/search" component={Search} />
       <Route exact path="/work/signup" component={Signup} />
+      <AuthenticatedRoute exact path="/work/trips/:id/receipt" component={TripsReceipt} />
       <AuthenticatedRoute path="/work/trips" component={Trips} />
       <Route path="/work" component={Home} />
     </Switch>
