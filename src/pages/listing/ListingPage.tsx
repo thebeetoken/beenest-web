@@ -22,9 +22,12 @@ const ListingPage = (listing: Listing) => (
         </Col>
       </Row>
     </Container>
-    <div className="fixed-bottom bg-white d-lg-none p-2">
+    <Row className="fixed-bottom bg-white d-lg-none w-100 p-2 justify-content-between">
+      <Col>
+        ${listing.pricePerNightUsd} per night
+      </Col>
       <Button>Request to Book</Button>
-    </div>
+    </Row>
   </Row>
 );
 export default ListingPage;
