@@ -54,7 +54,7 @@ const TripCard = ({ booking, handleModalAction }: Props) => {
             xs="4"
             onClick={() => handleModalAction(ModalType.CONTACT_HOST)}
             className="u-ver-divider">
-            <h5 className="small font-weight-normal text-secondary mb-0">Contact Host</h5>
+            <h5 className="small c-pointer font-weight-normal text-secondary mb-0">Contact Host</h5>
           </Col>
           <Col
             xs="4"
@@ -66,7 +66,7 @@ const TripCard = ({ booking, handleModalAction }: Props) => {
           <Col
             xs="4"
             onClick={() => handleModalAction(ModalType.CANCEL_BOOKING)}>
-            <h5 className="small font-weight-normal text-secondary mb-0">Cancel Trip</h5>
+            <h5 className="small c-pointer font-weight-normal text-secondary mb-0">Cancel Trip</h5>
           </Col>
         </Row>
       </CardFooter>
