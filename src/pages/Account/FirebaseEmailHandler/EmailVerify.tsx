@@ -17,7 +17,6 @@ interface State {
   isSubmitting: boolean;
   hasError: boolean;
   showVerifyEmailSuccess: boolean;
-  successMessage: string;
   errorMessage: string;
 }
 
@@ -31,7 +30,6 @@ export default class EmailVerify extends React.Component<Props> {
     hasError: false,
     showVerifyEmailSuccess: false,
     errorMessage: '',
-    successMessage: '',
   };
 
   componentDidMount() {
@@ -50,7 +48,6 @@ export default class EmailVerify extends React.Component<Props> {
       .then(() => {
         this.setState({
           showVerifyEmailSuccess: true,
-          successMessage: 'Thanks for verifying your email.',
         });
       })
       .catch(err => {
@@ -80,8 +77,6 @@ export default class EmailVerify extends React.Component<Props> {
   renderVerifyEmailSuccess() {
     return (
       <>
-        <h2>{this.state.successMessage}</h2>
-
         <FirebaseConsumer>
           {({ loading, user, completedVerification }: FirebaseUserProps) => {
             if (loading) {
