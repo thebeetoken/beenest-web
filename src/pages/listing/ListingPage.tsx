@@ -1,5 +1,5 @@
 import * as React from 'react';
-import { Col, Container, Row } from 'reactstrap';
+import { Button, Col, Container, Row } from 'reactstrap';
 
 import ListingGallery from './ListingGallery';
 import ListingInformation from './ListingInformation';
@@ -22,6 +22,9 @@ const ListingPage = (listing: Listing) => (
         </Col>
       </Row>
     </Container>
+    <div className="fixed-bottom bg-white d-lg-none">
+      <Button>Request to Book</Button>
+    </div>
   </Row>
 );
 export default ListingPage;
