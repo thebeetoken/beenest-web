@@ -7,7 +7,6 @@ const ListingCard = ({
   homeType,
   listingPicUrl,
   pricePerNightUsd,
-  sleepingArrangement,
   title
 }: ListingShort) => (
   <Card tag={Fade} className="w-100">
