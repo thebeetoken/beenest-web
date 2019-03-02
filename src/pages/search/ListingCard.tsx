@@ -17,7 +17,7 @@ const ListingCard = ({
       </div>
     </div>
     <CardBody>
-      <CardSubtitle>{homeType} &middot; {sleepingArrangement} </CardSubtitle>
+      <CardSubtitle>{homeType}</CardSubtitle>
       <CardTitle tag="h5">{title}</CardTitle>
     </CardBody>
     <CardFooter>
