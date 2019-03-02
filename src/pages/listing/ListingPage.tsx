@@ -16,7 +16,7 @@ const ListingPage = (listing: Listing) => (
           <ListingInformation {...listing} />
         </Col>
         <Col>
-          <div className="sticky-top bee-top">
+          <div className="sticky-top bee-top d-none d-lg-block">
             <BookingCard {...listing} />
           </div>
         </Col>
