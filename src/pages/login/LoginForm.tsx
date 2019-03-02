@@ -38,7 +38,7 @@ interface LoginFormInput {
 }
 
 const LoginForm = (props: LoginProps) => {
-  const [providerError, setError] = React.useState<String | null>(null);
+  const [providerError, setError] = React.useState<string | null>(null);
   const { EMAIL, PASSWORD, SUBMIT_ERROR } = LoginFormField;
 
   return (
@@ -79,9 +79,9 @@ const LoginForm = (props: LoginProps) => {
             <Label for={PASSWORD} className="form-label">
               <span className="d-flex justify-content-between align-items-center">
                 Password{' '}
-                <a className="link-muted text-capitalize font-weight-normal" href="/work">
+                <Link className="link-muted text-capitalize font-weight-normal" to="/work/forgot_password">
                   Forgot Password?
-                </a>
+                </Link>
               </span>
             </Label>
             <Input

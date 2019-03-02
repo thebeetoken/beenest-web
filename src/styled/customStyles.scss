@@ -1,10 +1,29 @@
+$HEADER-HEIGHT: 4.125rem;
+
 // home custom styles
-.home-affiliations,
-.home-testimonials {
+.bee-home-affiliations,
+.bee-home-testimonials {
   >div:last-of-type {
     margin-bottom: 0!important;
   }
 }
+
+.bee-home-hero-img {
+  @media (min-width: 768px) {
+    min-height: 0;
+    height: 72vh;
+  }
+}
+
+.bee-home-search-autocomplete {
+  height: calc(3rem + 2px);
+}
+
+// login/signup styles
+.bee-auth-container {
+  min-height: calc(100vh - #{$HEADER-HEIGHT});
+}
+
 // carousel custom styles
 .carousel-item {
   >img {
@@ -26,13 +45,21 @@
 
 // custom fixed header height to ensure we know the exact header height
 .custom-header-height {
-  height: 4rem;
+   min-height: $HEADER-HEIGHT;
 
   nav {
     height: 100%;
   }
 }
 
+.bee-top {
+  top: 4.125rem;
+}
+
+.bee-search-map {
+  height: calc(100vh - 11.25rem);
+  z-index: 999; // Behind bootstrap overlays
+}
 
 // add not-allowed cursor and no transform on disabled items
 * {
@@ -43,4 +70,9 @@
       transform: none;
     }
   }
+}
+
+// flex div
+.bee-flex-div {
+  flex-grow: 1;
 }

@@ -1,9 +1,7 @@
 import * as React from 'react';
-import { Col, Container, Row } from 'reactstrap';
+import { Col, Container, Fade, Row } from 'reactstrap';
 import { Redirect, RouteProps } from 'react-router-dom';
 
-import AuthHeader from 'components/work/AuthHeader';
-import UserTestimonials from 'components/work/UserTestimonials';
 import { FirebaseConsumer, FirebaseUserProps } from 'HOCs/FirebaseProvider';
 import Loading from 'shared/loading/Loading';
 import { AUTH_CONTAINER, AUTH_CONTENT } from 'styled/sharedClasses/authentication';
@@ -29,8 +27,6 @@ const Login = (props: RouteProps) => (
       }
       return (
         <Container className={AUTH_CONTAINER} fluid>
-          <AuthHeader />
-          <UserTestimonials />
           <LoginContent />
         </Container>
       );
@@ -39,14 +35,13 @@ const Login = (props: RouteProps) => (
 );
 
 const LoginContent = () => (
-  <Container>
-    <Row noGutters>
+  <Container tag={Fade}>
+    <Row className="justify-content-center" noGutters>
       <Col
         className={AUTH_CONTENT}
-        md={{ size: 8, offset: 2 }}
-        lg={{ size: 7, offset: 2 }}
-        xl={{ size: 6, offset: 3 }}
-      >
+        md="8"
+        lg="5"
+        xl="6">
         <LoginForm />
       </Col>
     </Row>

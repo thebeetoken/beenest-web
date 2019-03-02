@@ -1,25 +1,31 @@
 import * as React from 'react';
-import { Nav, NavItem, NavLink, Container, Col, Row } from 'reactstrap';
+import { Nav, NavItem, NavLink, Container, Col, Fade, Row, Badge } from 'reactstrap';
 import { Query } from 'react-apollo';
 import { Route, Redirect, Switch } from 'react-router';
 import { NavLink as RRNavLink } from 'react-router-dom';
 import { GET_ACCOUNT_PAGE } from 'networking/users';
 
-import AudioLoading from 'shared/loading/AudioLoading';
+import Loading from 'shared/loading/Loading';
 import NotFound from 'components/routes/NotFound';
 import { FirebaseConsumer, FirebaseUserProps } from 'HOCs/FirebaseProvider';
+import { VIEWPORT_CENTER_LAYOUT } from 'styled/sharedClasses/layout';
 
 import AccountGeneral from './AccountGeneral';
 import AccountPayment from './AccountPayment';
 import AccountSecurity from './AccountSecurity';
 import AccountVerification from './AccountVerification';
+import ProfilePhotoUploader from 'components/work/ProfilePhotoUploader';
 
 const Account = () => {
   return (
     <Query query={GET_ACCOUNT_PAGE}>
       {({ loading, error, data }) => {
         if (loading) {
-          return <AudioLoading height={48} width={96} />;
+          return (
+            <Container tag={Fade} className={VIEWPORT_CENTER_LAYOUT}>
+              <Loading height="8rem" width="8rem" />
+            </Container>
+          );
         }
         if (error || !data) {
           return <h1>{error ? error.message : 'Error / No Data'}</h1>;
@@ -27,10 +33,10 @@ const Account = () => {
 
         const { creditBalance, user } = data;
         return (
-          <Container>
+          <Container className="pt-8 pb-6" tag={Fade}>
             <h1>Profile</h1>
             <hr />
-            <Nav tabs>
+            <Nav className="mb-5 w-lg-50" tabs>
               {[
                 {
                   tag: RRNavLink,
@@ -54,17 +60,22 @@ const Account = () => {
                 },
               ].map(({ title, tag, to }) => (
                 <NavItem key={to}>
-                  <NavLink tag={tag} to={to}>
+                  <NavLink
+                    className="d-flex align-items-center"
+                    tag={tag}
+                    to={to}>
                     {title}
+                    {title === 'Verification'
+                      && !user.completedVerification
+                      && <Badge className="ml-2" color="danger">!</Badge>}
                   </NavLink>
                 </NavItem>
               ))}
             </Nav>
 
-            <Container>
-              <Row>
-                <Col md={6}>
-                  <hr />
+            <Container tag={Fade}>
+              <Row className="flex-column-reverse flex-md-row">
+                <Col md="6" className="mb-5">
                   <Switch>
                     <Route
                       exact
@@ -81,6 +92,9 @@ const Account = () => {
                     <Redirect exact from="/work/account" to="/work/account/general" />
                     <Route component={NotFound} />
                   </Switch>
+                </Col>
+                <Col md="4" className="d-flex justify-content-center mb-3 mb-md-0 offset-md-1">
+                  <ProfilePhotoUploader profilePicUrl={user.profilePicUrl} />
                 </Col>
               </Row>
             </Container>

@@ -54,8 +54,17 @@ export interface Listing {
   title: string;
   totalQuantity: number;
   updatedAt: string;
-  host: Host | null;
+  host: Host;
   wifi: Wifi;
+}
+
+export interface ListingSearchCriteria {
+  checkInDate?: string;
+  checkOutDate?: string;
+  numberOfGuests?: number;
+  locationQuery: string;
+  bounds?: LatLngBounds;
+  coordinates?: LatLng;
 }
 
 export interface ListingShort {
@@ -128,6 +137,11 @@ export interface HostListingReservations {
   title: string;
 }
 
+export interface LatLng {
+  lat: number;
+  lng: number;
+}
+
 export interface LatLngBounds {
   east: number;
   north: number;
@@ -160,6 +174,7 @@ const LISTING_CARD_FRAGMENT = gql`
   fragment ListingCard on Listing {
     city
     country
+    homeType
     id
     idSlug
     pricePerNightUsd
@@ -168,6 +183,7 @@ const LISTING_CARD_FRAGMENT = gql`
       pricePerNight
       securityDeposit
     }
+    sleepingArrangement
     state
     title
   }
@@ -186,7 +202,6 @@ const LISTING_DETAILS_FRAGMENT = gql`
     checkOutDate
     checkOutTime
     description
-    homeType
     houseRules
     lat
     lng
@@ -202,7 +217,6 @@ const LISTING_DETAILS_FRAGMENT = gql`
     }
     securityDepositUsd
     sharedBathroom
-    sleepingArrangement
     totalQuantity
     wifi {
       mbps

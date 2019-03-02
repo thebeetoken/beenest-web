@@ -70,7 +70,7 @@ class HostBookingCard extends React.Component<Props, State> {
                 <h4 className="status-message">{getDisplayHostBookingStatus(status, currency)}</h4>
               }
               Contact
-              <a href={`mailto:support@beenest.com?subject=Booking ${id}`}> Beenest Support </a>
+              <a target="_blank" href="https://support.beenest.com/"> Beenest Support </a>
               to {status === BookingStatus.GUEST_CONFIRMED ? 'accept or reject' : 'update'} this booking.
             </p>
           }

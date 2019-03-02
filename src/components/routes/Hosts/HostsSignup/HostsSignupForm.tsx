@@ -310,17 +310,13 @@ class HostsSignupForm extends React.Component<HostsSignupProps, State> {
   handleSubmit = (event: React.FormEvent) => {
     event.preventDefault();
     const { inputForm } = this.state;
-    const newInputForm = {
-      ...inputForm,
-      autopilotSessionId: window.AutopilotAnywhere.sessionId,
-    }
 
     this.setState({
       isSubmitting: true,
       submitted: true,
     });
-    this.props.createUser(newInputForm)
-      .then((_) => login(newInputForm.email, newInputForm.password))
+    this.props.createUser(inputForm)
+      .then((_) => login(inputForm.email, inputForm.password))
       .then((_) => !auth.currentUser ? Promise.resolve() : auth.currentUser.sendEmailVerification())
       .catch((error: Error) => this.setSignupError(error));
   }

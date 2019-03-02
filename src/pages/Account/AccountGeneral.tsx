@@ -1,6 +1,6 @@
 import * as React from 'react';
 import { Field, Formik, FormikProps, FormikActions } from 'formik';
-import { Button, Col, Form, FormGroup, FormFeedback, Input, Label, Row, Alert } from 'reactstrap';
+import { Button, Col, Fade, Form, FormGroup, FormFeedback, Input, Label, Row, Alert } from 'reactstrap';
 import * as Yup from 'yup';
 import { compose, graphql } from 'react-apollo';
 import { UPDATE_USER, User, GET_ACCOUNT_PAGE, UserField } from 'networking/users';
@@ -41,13 +41,13 @@ function AccountGeneral({ user, updateUser }: any) {
       validationSchema={GeneralInfoSchema}
       onSubmit={handleSubmit}>
       {({ errors, isSubmitting, setFieldTouched, setFieldValue, submitForm, touched, values }: FormikProps<any>) => (
-        <Form method="POST">
+        <Form method="POST" tag={Fade}>
           <Alert color={alert.color} isOpen={!!alert.show} toggle={() => setAlert({ ...alert, show: !alert.show })}>{alert.msg}</Alert>
 
           <Row>
             <Col md={6}>
               <FormGroup>
-                <Label for={UserField.FIRST_NAME} className="form-label">First Name</Label>
+                <Label for={UserField.FIRST_NAME}>First Name</Label>
                 <Input
                   id={UserField.FIRST_NAME}
                   invalid={!!errors.firstName && !!touched.firstName}
@@ -60,7 +60,7 @@ function AccountGeneral({ user, updateUser }: any) {
             </Col>
             <Col md={6}>
               <FormGroup>
-                <Label for={UserField.LAST_NAME} className="form-label">Last Name</Label>
+                <Label for={UserField.LAST_NAME}>Last Name</Label>
                 <Input
                   id={UserField.LAST_NAME}
                   invalid={!!errors.lastName && !!touched.lastName}
@@ -74,7 +74,7 @@ function AccountGeneral({ user, updateUser }: any) {
           </Row>
           
           <FormGroup>
-            <Label for={UserField.EMAIL} className="form-label">Email</Label>
+            <Label for={UserField.EMAIL}>Email</Label>
             <Input
               disabled
               id={UserField.EMAIL}
@@ -86,7 +86,7 @@ function AccountGeneral({ user, updateUser }: any) {
           </FormGroup>
 
           <FormGroup>
-            <Label for={UserField.ABOUT} className="form-label">About</Label>
+            <Label for={UserField.ABOUT}>About</Label>
             <Textarea
               className={`form-control${errors.about ? ' is-invalid' : ''}`}
               html
@@ -100,7 +100,7 @@ function AccountGeneral({ user, updateUser }: any) {
             <FormFeedback>{errors.about}</FormFeedback>
           </FormGroup>
 
-          <hr />
+          <hr className="mt-6 mb-4" />
 
           <Row className="align-items-center justify-content-end">
             <Col className="text-right">

@@ -8,22 +8,22 @@ export enum HomeUser {
 
 export const guestValueProps = [
   {
-    alt: '',
-    src: 'https://placeholdit.imgix.net/~text?txtsize=33&txt=318%C3%97180&w=318&h=180',
+    alt: 'High Quality Prices',
+    src: 'https://static.beenest.com/images/work/home/guestValue1.jpg',
     title: 'High Quality Places',
     body:
       'We are highly selective of places we list to fit your needs. Feel free to apply any filters such as Wifi, Amenities, Close to locations.',
   },
   {
-    alt: '',
-    src: 'https://placeholdit.imgix.net/~text?txtsize=33&txt=318%C3%97180&w=318&h=180',
+    alt: 'Best Price',
+    src: 'https://static.beenest.com/images/work/home/guestValue2.jpg',
     title: 'Best Price, Best Consistency',
     body:
       'We list places that match with your price, and we make sure that every stay for your business trips are perfect consistently.',
   },
   {
-    alt: '',
-    src: 'https://placeholdit.imgix.net/~text?txtsize=33&txt=318%C3%97180&w=318&h=180',
+    alt: 'Intuative Booking',
+    src: 'https://static.beenest.com/images/work/home/guestValue3.jpg',
     title: 'Fast and Intuative Booking',
     body:
       'We make sure that you can browse and select a place within few clicks. We also make sure that payment is smooth.',
@@ -32,22 +32,22 @@ export const guestValueProps = [
 
 export const hostValueProps = [
   {
-    alt: '',
-    src: 'https://placeholdit.imgix.net/~text?txtsize=33&txt=318%C3%97180&w=318&h=180',
+    alt: 'Professional Guests',
+    src: 'https://static.beenest.com/images/work/home/hostValue1.jpg',
     title: 'Professional Guests',
     body:
       'We only accept business travelers who are looking for a quality place and will not leave any mess for your rooms.',
   },
   {
-    alt: '',
-    src: 'https://placeholdit.imgix.net/~text?txtsize=33&txt=318%C3%97180&w=318&h=180',
+    alt: 'Increase Your Income',
+    src: 'https://static.beenest.com/images/work/home/hostValue2.jpg',
     title: 'Increase Your Income',
     body:
       'You will be able to maximize your profit, as our target users are business travelers. Simply list your place, sit back and enjoy.',
   },
   {
-    alt: '',
-    src: 'https://placeholdit.imgix.net/~text?txtsize=33&txt=318%C3%97180&w=318&h=180',
+    alt: 'Easy Set Up',
+    src: 'https://static.beenest.com/images/work/home/hostValue3.jpg',
     title: 'Easy Set Up and Tracking',
     body:
       'We make sure that you can list your place in few steps. We also have an advanced dashboard for you to track your houses.',
@@ -56,32 +56,36 @@ export const hostValueProps = [
 
 export const testimonials = [
   {
-    alt: '',
-    body: 'I used Beenest 3 times, and all 3 times, the houses have been consistently well equipped with amenities.',
-    subtitle: 'Frontend Engineer',
-    src: 'https://placeholdit.imgix.net/~text?txtsize=33&txt=350%C3%97400&w=350&h=400',
-    title: 'Kevin Van',
+    alt: 'Janelle Testimonial',
+    body: '"Booked for an executive team of 3 for a conference in LA, and I am very pleased with my experience. We saved money not having to reserve multiple hotel rooms and even enjoyed views of the beach!"',
+    subtitle: 'Administrative Business Partner',
+    src: 'https://static.beenest.com/images/work/home/janelle.jpg',
+    title: 'Janelle',
+    link: '',
   },
   {
-    alt: '',
-    body: 'I used Beenest 3 times, and all 3 times, the houses have been consistently well equipped with amenities.',
-    subtitle: 'CTO',
-    src: 'https://placeholdit.imgix.net/~text?txtsize=33&txt=350%C3%97400&w=350&h=400',
-    title: 'Tony Tran',
+    alt: 'Benedict Testimonial',
+    body: '"Property damage is a major concern as a property manager. Beenest has always provided me with professional guests, and I worry less about things being broken. List on Beenest for better bookings."',
+    subtitle: 'Property Manager',
+    src: 'https://s3-us-west-2.amazonaws.com/beenest-public/images/work/home/benedict.jpg',
+    title: 'Benedict',
+    link: 'https://homevest.co/',
   },
   {
-    alt: '',
-    body: 'I used Beenest 3 times, and all 3 times, the houses have been consistently well equipped with amenities.',
-    subtitle: 'Frontend Engineer',
-    src: 'https://placeholdit.imgix.net/~text?txtsize=33&txt=350%C3%97400&w=350&h=400',
-    title: 'Jeremy Kwa',
+    alt: 'Kyle Testimonial',
+    body: '"Booking with Beenest saved me so much time and headache! The site is designed well, doesn’t overwhelm you with information, and I was able to find both hotels and homes in New York City."',
+    subtitle: 'Lead Customer Success Manager',
+    src: 'https://static.beenest.com/images/work/home/kyle.jpg',
+    title: 'Kyle',
+    link: '',
   },
   {
-    alt: '',
-    body: 'I used Beenest 3 times, and all 3 times, the houses have been consistently well equipped with amenities.',
-    subtitle: 'Head of Engineering',
-    src: 'https://placeholdit.imgix.net/~text?txtsize=33&txt=350%C3%97400&w=350&h=400',
-    title: 'Tommy Chheng',
+    alt: 'Ben Testimonial',
+    body: '"I travel a lot as a consultant and Beenest helped me immensely with accommodations. Such a great site and easy to use! My go-to option when I travel to conferences. Thanks and best of luck to the Beenest team!"',
+    subtitle: `Marketing Consultant`,
+    src: 'https://static.beenest.com/images/work/home/ben.jpg',
+    title: 'Ben',
+    link: '',
   },
 ];
 
