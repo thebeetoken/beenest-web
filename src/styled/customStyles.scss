@@ -19,8 +19,8 @@ $HEADER-HEIGHT: 4.125rem;
   height: calc(3rem + 2px);
 }
 
-// login/signup styles
-.bee-auth-container {
+// 100vh without header height styles
+.bee-without-header-height-container {
   min-height: calc(100vh - #{$HEADER-HEIGHT});
 }
 
