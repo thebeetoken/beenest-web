@@ -20,7 +20,7 @@ $HEADER-HEIGHT: 4.125rem;
 }
 
 // login/signup styles
-.bee-auth-container {
+.bee-without-header-height-container {
   min-height: calc(100vh - #{$HEADER-HEIGHT});
 }
 
