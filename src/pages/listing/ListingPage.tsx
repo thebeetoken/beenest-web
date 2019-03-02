@@ -22,7 +22,7 @@ const ListingPage = (listing: Listing) => (
         </Col>
       </Row>
     </Container>
-    <div className="fixed-bottom bg-white d-lg-none">
+    <div className="fixed-bottom bg-white d-lg-none p-2">
       <Button>Request to Book</Button>
     </div>
   </Row>
