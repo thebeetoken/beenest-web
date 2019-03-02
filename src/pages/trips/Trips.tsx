@@ -1,5 +1,5 @@
 import * as React from 'react';
-import { Nav, NavItem, NavLink, Container, Col, Row, Alert, Button, Fade } from 'reactstrap';
+import { Nav, NavItem, NavLink, Container, Col, Row, Alert, Fade } from 'reactstrap';
 import { Query } from 'react-apollo';
 import { Route, Redirect, Switch } from 'react-router';
 import { NavLink as RRNavLink } from 'react-router-dom';
@@ -47,8 +47,8 @@ function Trips() {
               <h2>You have no trips awaiting approval.</h2>
             </Row>
             <Row>
-              <a href='/work'>
-                <Button>Book a Home Today!</Button>
+              <a className="btn btn-secondary" href='/work'>
+                Book a Home Today!
               </a>
             </Row>
           </>;
@@ -58,8 +58,8 @@ function Trips() {
             <h2>You haven't booked any trips yet.</h2>
             </Row>
             <Row>
-              <a href='/work'>
-                <Button>Book a Home Today!</Button>
+              <a className="btn btn-secondary" href='/work'>
+                Book a Home Today!
               </a>
             </Row>
           </>;
