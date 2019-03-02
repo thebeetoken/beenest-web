@@ -122,10 +122,10 @@ export default class PasswordReset extends React.Component<Props> {
       <Container tag={Fade} className={FIREBASE_EMAIL_HANDLER_CONTAINER_CLASSES}>
         <Col md="6" lg="5">
           <h2 className={FIREBASE_EMAIL_HANDLER_TITLE_CLASSES}>Reset Password</h2>
-          <Form className="mt-4" onSubmit={this.handlePasswordResetSubmit}>
+          <Form className="mt-4" onSubmit={this.handlePasswordResetSubmit} type="POST">
             <FormGroup>
               <Label for="password" className="form-label">
-                Email Address
+                Password
               </Label>
               <Input
                 type="password"
@@ -133,7 +133,7 @@ export default class PasswordReset extends React.Component<Props> {
                 value={this.state.password}
                 id="password"
                 onChange={this.handleFormChange}
-                placeholder="Email address"
+                placeholder="********"
               />
             </FormGroup>
             <Button color="primary" className={`${FIREBASE_EMAIL_HANDLER_BUTTON} w-100 mt-3`} type="submit">Save</Button>
