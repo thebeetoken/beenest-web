@@ -3,15 +3,13 @@ import { Button, Col, Container, Fade, Form, FormGroup, Label, Input, Row } from
 import { Link } from 'react-router-dom';
 
 import Loading from 'shared/loading/Loading';
+import {
+  CONTAINER_CLASSES,
+  CONTENT_CLASSES,
+  PRIMARY_BUTTON_CLASSES
+} from 'styled/custom.styled';
 import { VIEWPORT_CENTER_LAYOUT } from 'styled/sharedClasses/layout';
 import { auth } from 'utils/firebase';
-
-import {
-  FIREBASE_EMAIL_HANDLER_BUTTON,
-  FIREBASE_EMAIL_HANDLER_CONTAINER_CLASSES,
-  FIREBASE_EMAIL_HANDLER_TITLE_CLASSES,
-  FIREBASE_EMAIL_HANDLER_SUBTITLE_CLASSES,
-} from './firebaseEmailHandler.styled';
 
 interface State {
   isSubmitting: boolean;
@@ -105,12 +103,12 @@ export default class PasswordReset extends React.Component<Props> {
 
   renderError(): React.ReactNode {
     return (
-      <Container tag={Fade} className={FIREBASE_EMAIL_HANDLER_CONTAINER_CLASSES}>
-        <h2 className={FIREBASE_EMAIL_HANDLER_TITLE_CLASSES}>Sorry, there was an error</h2>
-        <p className={FIREBASE_EMAIL_HANDLER_SUBTITLE_CLASSES}>{this.state.errorMessage}</p>
+      <Container tag={Fade} className={CONTAINER_CLASSES}>
+        <h2 className={CONTENT_CLASSES.TITLE}>Sorry, there was an error</h2>
+        <p className={CONTENT_CLASSES.SUBTITLE}>{this.state.errorMessage}</p>
         <Row>
           <a target="_blank" href="https://support.beenest.com/">
-            <Button color="primary" className={FIREBASE_EMAIL_HANDLER_BUTTON}>Contact us for further help.</Button>
+            <Button color="primary" className={PRIMARY_BUTTON_CLASSES}>Contact us for further help.</Button>
           </a>
         </Row>
       </Container>
@@ -119,9 +117,9 @@ export default class PasswordReset extends React.Component<Props> {
 
   renderPasswordResetForm(): React.ReactNode {
     return (
-      <Container tag={Fade} className={FIREBASE_EMAIL_HANDLER_CONTAINER_CLASSES}>
+      <Container tag={Fade} className={CONTAINER_CLASSES}>
         <Col md="6" lg="5">
-          <h2 className={FIREBASE_EMAIL_HANDLER_TITLE_CLASSES}>Reset Password</h2>
+          <h2 className={CONTENT_CLASSES.TITLE}>Reset Password</h2>
           <Form className="mt-4" onSubmit={this.handlePasswordResetSubmit} type="POST">
             <FormGroup>
               <Label for="password" className="form-label">
@@ -136,7 +134,7 @@ export default class PasswordReset extends React.Component<Props> {
                 placeholder="********"
               />
             </FormGroup>
-            <Button color="primary" className={`${FIREBASE_EMAIL_HANDLER_BUTTON} w-100 mt-3`} type="submit">Save</Button>
+            <Button color="primary" className={`${PRIMARY_BUTTON_CLASSES} w-100 mt-3`} type="submit">Save</Button>
           </Form>
         </Col>
       </Container>
@@ -145,12 +143,12 @@ export default class PasswordReset extends React.Component<Props> {
 
   renderPasswordResetSuccess() {
     return (
-      <Container tag={Fade} className={FIREBASE_EMAIL_HANDLER_CONTAINER_CLASSES}>
-        <h2 className={FIREBASE_EMAIL_HANDLER_TITLE_CLASSES}>You have changed your password</h2>
-        <p className={FIREBASE_EMAIL_HANDLER_SUBTITLE_CLASSES}>You can now login with your new password.</p>
+      <Container tag={Fade} className={CONTAINER_CLASSES}>
+        <h2 className={CONTENT_CLASSES.TITLE}>You have changed your password</h2>
+        <p className={CONTENT_CLASSES.SUBTITLE}>You can now login with your new password.</p>
         <Row>
           <Link to="/work/login">
-            <Button color="primary" className={FIREBASE_EMAIL_HANDLER_BUTTON}>Login</Button>
+            <Button color="primary" className={PRIMARY_BUTTON_CLASSES}>Login</Button>
           </Link>
         </Row>
       </Container>

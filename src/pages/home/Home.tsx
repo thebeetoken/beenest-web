@@ -2,12 +2,12 @@ import * as React from 'react';
 import { Button, Col, Container, Fade, Jumbotron, Row } from 'reactstrap';
 
 import { affiliations, guestValueProps, HomeUser, hostValueProps, testimonials } from './home.config';
-import { AFFILIATE_CLASSES, CONTENT_CLASSES, JUMBOTRON_CLASSES, TESTIMONIAL_CLASSES } from './home.styled';
 
 import Footer from 'components/work/Footer';
 import SearchBar from 'components/work/SearchBar';
 import TestimonialCard from 'components/work/TestimonialCard';
 import ValuePropCard from 'components/work/ValuePropCard';
+import { AFFILIATE_CLASSES, CONTENT_CLASSES, JUMBOTRON_CLASSES, TESTIMONIAL_CLASSES } from 'styled/custom.styled';
 import { FLEX_CENTER } from 'styled/sharedClasses/layout';
 
 const Home = () => {

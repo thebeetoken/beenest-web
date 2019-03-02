@@ -4,14 +4,12 @@ import { auth } from 'utils/firebase';
 import { Button, Container, Fade, Row } from 'reactstrap';
 import { Link } from 'react-router-dom';
 import { FirebaseConsumer, FirebaseUserProps } from 'HOCs/FirebaseProvider';
-import { VIEWPORT_CENTER_LAYOUT } from 'styled/sharedClasses/layout';
-
 import {
-  FIREBASE_EMAIL_HANDLER_BUTTON,
-  FIREBASE_EMAIL_HANDLER_CONTAINER_CLASSES,
-  FIREBASE_EMAIL_HANDLER_TITLE_CLASSES,
-  FIREBASE_EMAIL_HANDLER_SUBTITLE_CLASSES,
-} from './firebaseEmailHandler.styled';
+  CONTAINER_CLASSES,
+  CONTENT_CLASSES,
+  PRIMARY_BUTTON_CLASSES
+} from 'styled/custom.styled';
+import { VIEWPORT_CENTER_LAYOUT } from 'styled/sharedClasses/layout';
 
 interface State {
   isSubmitting: boolean;
@@ -62,12 +60,12 @@ export default class EmailVerify extends React.Component<Props> {
 
   renderError() {
     return (
-      <Container tag={Fade} className={FIREBASE_EMAIL_HANDLER_CONTAINER_CLASSES}>
-        <h2 className={FIREBASE_EMAIL_HANDLER_TITLE_CLASSES}>Sorry, there was an error</h2>
-        <p className={FIREBASE_EMAIL_HANDLER_SUBTITLE_CLASSES}>{this.state.errorMessage}</p>
+      <Container tag={Fade} className={CONTAINER_CLASSES}>
+        <h2 className={CONTENT_CLASSES.TITLE}>Sorry, there was an error</h2>
+        <p className={CONTENT_CLASSES.SUBTITLE}>{this.state.errorMessage}</p>
         <Row>
           <a target="_blank" href="https://support.beenest.com/">
-            <Button color="primary" className={FIREBASE_EMAIL_HANDLER_BUTTON}>Contact us for further help.</Button>
+            <Button color="primary" className={PRIMARY_BUTTON_CLASSES}>Contact us for further help.</Button>
           </a>
         </Row>
       </Container>
@@ -89,13 +87,13 @@ export default class EmailVerify extends React.Component<Props> {
 
             if (user && !completedVerification) {
               return (
-                <Container tag={Fade} className={FIREBASE_EMAIL_HANDLER_CONTAINER_CLASSES}>
-                  <h2 className={FIREBASE_EMAIL_HANDLER_TITLE_CLASSES}>Thank you</h2>
-                  <p className={FIREBASE_EMAIL_HANDLER_SUBTITLE_CLASSES}>
+                <Container tag={Fade} className={CONTAINER_CLASSES}>
+                  <h2 className={CONTENT_CLASSES.TITLE}>Thank you</h2>
+                  <p className={CONTENT_CLASSES.SUBTITLE}>
                     Finish your account verification by confirming your phone number to book a rental.
                   </p>
                   <Link to="/work/account/verification">
-                    <Button color="primary" className={FIREBASE_EMAIL_HANDLER_BUTTON}>Verify Here</Button>
+                    <Button color="primary" className={PRIMARY_BUTTON_CLASSES}>Verify Here</Button>
                   </Link>
                 </Container>
               );
@@ -103,19 +101,19 @@ export default class EmailVerify extends React.Component<Props> {
 
             if (user && !!completedVerification) {
               return (
-                <Container tag={Fade} className={FIREBASE_EMAIL_HANDLER_CONTAINER_CLASSES}>
-                  <h2 className={FIREBASE_EMAIL_HANDLER_TITLE_CLASSES}>Thank you</h2>
-                  <p className={FIREBASE_EMAIL_HANDLER_SUBTITLE_CLASSES}>
+                <Container tag={Fade} className={CONTAINER_CLASSES}>
+                  <h2 className={CONTENT_CLASSES.TITLE}>Thank you</h2>
+                  <p className={CONTENT_CLASSES.SUBTITLE}>
                     You can now
                   </p>
                   <a href="/host/listings">
-                    <Button color="primary" className={FIREBASE_EMAIL_HANDLER_BUTTON}>List your home to rent</Button>
+                    <Button color="primary" className={PRIMARY_BUTTON_CLASSES}>List your home to rent</Button>
                   </a>
-                  <p className={`${FIREBASE_EMAIL_HANDLER_SUBTITLE_CLASSES} my-3`}>
+                  <p className={`${CONTENT_CLASSES.SUBTITLE} my-3`}>
                     or
                   </p>
                   <Link to="/work">
-                    <Button color="primary" className={FIREBASE_EMAIL_HANDLER_BUTTON}>Find a place to stay at</Button>
+                    <Button color="primary" className={PRIMARY_BUTTON_CLASSES}>Find a place to stay at</Button>
                   </Link>
                 </Container>
               );
