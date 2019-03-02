@@ -23,7 +23,7 @@ const Work = () => (
     <Header />
     <Switch>
       <Route path="/work/about" component={About} />
-      <Route exact path="/work/account/action" component={FirebaseEmailHandler} />
+      <Route path="/work/account/action" component={FirebaseEmailHandler} />
       <Route path="/work/account" component={Account} />
       <Route path="/work/forgot_password" component={ForgotPassword} />
       <Route exact path="/work/listings/:id" component={Listing} />
