@@ -25,9 +25,6 @@ const LoginSchema = Yup.object().shape({
   password: Yup.string()
     .min(8, 'Your password is too short, please enter a password that is at least 8 characters long')
     .required('Please enter a valid password.'),
-  confirmPassword: Yup.string()
-    .oneOf([Yup.ref('password')], 'Your passwords do not match.')
-    .required('Please re-enter your password here.'),
 });
 
 enum SignupFormField {
@@ -35,7 +32,6 @@ enum SignupFormField {
   FIRST_NAME = 'firstName',
   LAST_NAME = 'lastName',
   PASSWORD = 'password',
-  CONFIRM_PASSWORD = 'confirmPassword',
   SUBMIT_ERROR = 'submitError',
 }
 
@@ -44,7 +40,6 @@ interface SignupFormInput {
   [SignupFormField.FIRST_NAME]: string;
   [SignupFormField.LAST_NAME]: string;
   [SignupFormField.PASSWORD]: string;
-  [SignupFormField.CONFIRM_PASSWORD]: string;
   [SignupFormField.SUBMIT_ERROR]: string;
 }
 
@@ -55,7 +50,6 @@ const SignupForm = (props: SignupProps) => {
     FIRST_NAME,
     LAST_NAME,
     PASSWORD,
-    CONFIRM_PASSWORD,
     SUBMIT_ERROR
   } = SignupFormField;
 
@@ -66,13 +60,12 @@ const SignupForm = (props: SignupProps) => {
         [FIRST_NAME]: '',
         [LAST_NAME]: '',
         [PASSWORD]: '',
-        [CONFIRM_PASSWORD]: '',
         [SUBMIT_ERROR]: '',
       }}
       validationSchema={LoginSchema}
       onSubmit={handleSubmit}
     >
-      {({ errors, touched, setFieldValue, submitForm, isSubmitting }) => (
+      {({ errors, touched, setFieldValue, isSubmitting }) => (
         <Form tag={FormikForm}>
           <div className="mb-7">
             <h2 className="h3 text-primary font-weight-normal mb-0">
@@ -150,22 +143,6 @@ const SignupForm = (props: SignupProps) => {
             <FormFeedback>{errors[PASSWORD]}</FormFeedback>
           </FormGroup>
 
-          <FormGroup>
-            <Label for={CONFIRM_PASSWORD} className="form-label">
-              Confirm Password
-            </Label>
-            <Input
-              type="password"
-              name={CONFIRM_PASSWORD}
-              id={CONFIRM_PASSWORD}
-              tag={Field}
-              onChange={(event: React.FormEvent<HTMLInputElement>) => handleChange(event, setFieldValue)}
-              placeholder="Re-enter password"
-              invalid={!!errors[CONFIRM_PASSWORD] && touched[CONFIRM_PASSWORD]}
-            />
-            <FormFeedback>{errors[CONFIRM_PASSWORD]}</FormFeedback>
-          </FormGroup>
-
           <FormText className="mb-3" color="danger">
             {errors[SUBMIT_ERROR] || providerError}
           </FormText>
@@ -175,7 +152,6 @@ const SignupForm = (props: SignupProps) => {
               <Button
                 className="btn-primary transition-3d-hover w-100"
                 type="submit"
-                onClick={submitForm}
                 disabled={isSubmitting}
                 color="primary"
               >
@@ -212,14 +188,14 @@ const SignupForm = (props: SignupProps) => {
       EMAIL,
       FIRST_NAME,
       LAST_NAME,
-      CONFIRM_PASSWORD,
+      PASSWORD,
       SUBMIT_ERROR,
     } = SignupFormField;
     const input = {
       email: values[EMAIL],
       firstName: values[FIRST_NAME],
       lastName: values[LAST_NAME],
-      password: values[CONFIRM_PASSWORD],
+      password: values[PASSWORD],
     }
 
     props.createUser(input)
