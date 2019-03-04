@@ -12,8 +12,8 @@ interface Props {
 
 const ListingCarousel = ({ photos }: Props) =>  {
   const [index, setIndex] = React.useState<number>(0);
-  const next = () => setIndex(Math.min(index + 1, photos.length - 1));
-  const previous = () => setIndex(Math.max(index - 1, 0));
+  const next = () => setIndex(Math.min((index + 1) % photos.length);
+  const previous = () => setIndex((index - 1 + photos.length) % photos.length);
   return <Carousel activeIndex={index} next={next} previous={previous}>
     {photos.map((url: string, index: number) => (
       <CarouselItem key={url}>
