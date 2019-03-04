@@ -19,3 +19,5 @@ const ContactHostButton = (props: Props) => {
     <ContactHostFormModal isOpen={isOpen} {...props} />
   </Fade>;
 };
+
+export default ContactHostButton;

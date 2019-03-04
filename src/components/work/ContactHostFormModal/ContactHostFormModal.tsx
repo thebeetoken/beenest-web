@@ -3,7 +3,6 @@ import { Formik, Field, Form as FormikForm } from 'formik';
 import * as Yup from 'yup';
 import { compose, graphql } from 'react-apollo';
 
-import { Booking } from 'networking/bookings';
 import { CONTACT_USER, ContactUserField, User } from 'networking/users';
 import { Button, Form, FormGroup, Label, FormFeedback, Input, ModalFooter, ModalBody, Modal, ModalHeader } from 'reactstrap';
 import Textarea from 'components/shared/Textarea';
@@ -12,7 +11,9 @@ import Loading from 'components/shared/loading/Loading';
 
 interface Props {
   contactUser: (input: ContactUserInput) => Promise<EmailResponse>;
-  booking: Booking;
+  bookingId?: string;
+  listingId?: string;
+  host: User;
   isOpen: boolean;
   onModalAction: () => void;
 }
@@ -47,10 +48,9 @@ const ContactHostSchema = Yup.object({
   message: Yup.string().required('Please fill out the message field.'),
 });
 
-function ContactHostForm({ booking, contactUser, isOpen, onModalAction }: Props) {
+function ContactHostForm({ bookingId, contactUser, listingId, host, isOpen, onModalAction }: Props) {
   const [successMessage, setSuccessMessage] = React.useState<string>('');
   const [errorMessage, setErrorMessage] = React.useState<string>('');
-  const { host, listingId, id } = booking;
 
   if (successMessage) {
     return (
@@ -74,7 +74,7 @@ function ContactHostForm({ booking, contactUser, isOpen, onModalAction }: Props)
       validationSchema={ContactHostSchema}
       onSubmit={({ message, subject }, actions) => {
         const input = {
-          bookingId: id,
+          bookingId,
           listingId,
           message,
           recipientId: host.id,

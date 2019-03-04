@@ -1,5 +1,5 @@
 import * as React from 'react';
-import { Button, Fade } from 'reactstrap';
+import { Fade } from 'reactstrap';
 import sanitizeHtml from 'sanitize-html';
 
 import { Listing } from 'networking/listings';

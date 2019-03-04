@@ -162,8 +162,8 @@ function Trips() {
               <CancelBookingModal booking={booking} onModalAction={handleModalAction} setAlert={setAlert}/>
             }
 
-            {modal === ModalType.CONTACT_HOST &&
-              <ContactHostFormModal isOpen booking={booking} onModalAction={handleModalAction} />
+            {modal === ModalType.CONTACT_HOST && !!booking &&
+              <ContactHostFormModal isOpen bookingId={booking.id} host={booking.host} onModalAction={handleModalAction} />
             }
           </Container>
         );
