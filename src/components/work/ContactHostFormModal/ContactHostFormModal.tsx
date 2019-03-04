@@ -95,7 +95,7 @@ function ContactHostForm({ bookingId, contactUser, listingId, host, isOpen, onMo
       }}
     >
       {({ errors, isSubmitting, setFieldTouched, setFieldValue, touched, values }) => (
-        <Modal isOpen toggle={onModalAction}>
+        <Modal isOpen={isOpen} toggle={onModalAction}>
           <Form tag={FormikForm}>
             <ModalHeader>Contact {host.firstName || 'Host'}</ModalHeader>
             <ModalBody>

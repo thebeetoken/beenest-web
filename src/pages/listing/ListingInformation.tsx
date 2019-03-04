@@ -58,7 +58,7 @@ const ListingInformation = ({
   <h1>About {host.displayName}</h1>
   <p><small>Member since {formatMonth(host.createdAt)}</small></p>
   <LazyImage src={host.profilePicUrl || DEFAULT_PROFILE_URL} width="5rem" height="5rem" />
-  <ContactHostButton listingId={id} hostId={host.id} />
+  <ContactHostButton listingId={id} host={host} />
   <p dangerouslySetInnerHTML={{ __html: sanitizeHtml(host.about) }} />
 </Fade>;
 
