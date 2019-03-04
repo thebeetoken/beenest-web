@@ -2,6 +2,7 @@ import * as React from 'react';
 import { Container, Row, Button, Fade } from 'reactstrap';
 
 import { parseQueryString } from 'utils/queryParams';
+import { PRIMARY_BUTTON_CLASSES } from 'styled/custom.styled';
 import EmailVerify from './EmailVerify';
 import PasswordReset from './PasswordReset';
 
@@ -71,8 +72,8 @@ const ErrorMessage = () => (
   <Container tag={Fade} className="d-flex bee-without-header-height-container flex-column align-items-center justify-content-center">
   <h2 className="font-weight-regular text-center text-lh-sm">Sorry, there was an error</h2>
   <Row>
-    <a target="_blank" href="https://support.beenest.com/">
-      <Button color="primary" className="btn-primary transition-3d-hover">Contact us for further help.</Button>
+    <a target="_blank" href="https://support.beenest.com/" className={PRIMARY_BUTTON_CLASSES}>
+      Contact us for further help
     </a>
   </Row>
 </Container>
