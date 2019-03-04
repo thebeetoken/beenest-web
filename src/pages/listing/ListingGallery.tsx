@@ -1,5 +1,5 @@
 import * as React from 'react';
-import { Button, Modal, ModalHeader, Row } from 'reactstrap';
+import { Button, Modal, ModalBody, ModalHeader, Row } from 'reactstrap';
 
 import ImageGrid from 'shared/ImageGrid';
 import ListingCarousel from './ListingCarousel';
@@ -15,7 +15,9 @@ const ListingGallery = ({ listingPicUrl, photos }: Listing) => {
     </Button>
     <Modal centered size="lg" isOpen={isOpen}>
       <ModalHeader toggle={() => setOpen(false)} />
-      <ListingCarousel photos={[listingPicUrl, ...photos]} />
+      <ModalBody className="px-5 pt-0 pb-5">
+        <ListingCarousel photos={[listingPicUrl, ...photos]} />
+      </ModalBody>
     </Modal>
   </Row>
 };
