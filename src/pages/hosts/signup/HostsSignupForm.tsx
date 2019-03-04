@@ -24,9 +24,6 @@ const LoginSchema = Yup.object().shape({
   password: Yup.string()
     .min(8, 'Your password is too short, please enter a password that is at least 8 characters long')
     .required('Please enter a valid password.'),
-  confirmPassword: Yup.string()
-    .oneOf([Yup.ref('password')], 'Your passwords do not match.')
-    .required('Please re-enter your password here.'),
 });
 
 enum HostsSignupFormField {
@@ -34,7 +31,6 @@ enum HostsSignupFormField {
   FIRST_NAME = 'firstName',
   LAST_NAME = 'lastName',
   PASSWORD = 'password',
-  CONFIRM_PASSWORD = 'confirmPassword',
   PROPERTIES_MANAGED = 'propertiesManaged',
   IS_ALREADY_LISTED = 'isAlreadyListed',
   SUBMIT_ERROR = 'submitError',
@@ -45,7 +41,6 @@ interface HostsSignupFormInput {
   [HostsSignupFormField.FIRST_NAME]: string;
   [HostsSignupFormField.LAST_NAME]: string;
   [HostsSignupFormField.PASSWORD]: string;
-  [HostsSignupFormField.CONFIRM_PASSWORD]: string;
   [HostsSignupFormField.PROPERTIES_MANAGED]: string;
   [HostsSignupFormField.IS_ALREADY_LISTED]: string;
   [HostsSignupFormField.SUBMIT_ERROR]: string;
@@ -65,7 +60,6 @@ const HostsSignupForm = (props: HostsSignupProps) => {
     FIRST_NAME,
     LAST_NAME,
     PASSWORD,
-    CONFIRM_PASSWORD,
     PROPERTIES_MANAGED,
     IS_ALREADY_LISTED,
     SUBMIT_ERROR,
@@ -78,7 +72,6 @@ const HostsSignupForm = (props: HostsSignupProps) => {
         [FIRST_NAME]: '',
         [LAST_NAME]: '',
         [PASSWORD]: '',
-        [CONFIRM_PASSWORD]: '',
         [PROPERTIES_MANAGED]: NUMBER_OF_PROPERTIES_MANAGED[0],
         [IS_ALREADY_LISTED]: 'true',
         [SUBMIT_ERROR]: '',
@@ -163,22 +156,6 @@ const HostsSignupForm = (props: HostsSignupProps) => {
             <FormFeedback>{errors[PASSWORD]}</FormFeedback>
           </FormGroup>
 
-          <FormGroup>
-            <Label for={CONFIRM_PASSWORD} className="form-label">
-              Confirm Password
-            </Label>
-            <Input
-              type="password"
-              name={CONFIRM_PASSWORD}
-              id={CONFIRM_PASSWORD}
-              tag={Field}
-              onChange={(event: React.FormEvent<HTMLInputElement>) => handleChange(event, setFieldValue)}
-              placeholder="Re-enter password"
-              invalid={!!errors[CONFIRM_PASSWORD] && touched[CONFIRM_PASSWORD]}
-            />
-            <FormFeedback>{errors[CONFIRM_PASSWORD]}</FormFeedback>
-          </FormGroup>
-
           <FormGroup tag="fieldset">
             <Label for={PROPERTIES_MANAGED} className="small font-weight-medium">
               How many properties do you own?
@@ -259,16 +236,16 @@ const HostsSignupForm = (props: HostsSignupProps) => {
       EMAIL,
       FIRST_NAME,
       LAST_NAME,
-      CONFIRM_PASSWORD,
       PROPERTIES_MANAGED,
       IS_ALREADY_LISTED,
+      PASSWORD,
       SUBMIT_ERROR,
     } = HostsSignupFormField;
     const input = {
       email: values[EMAIL],
       firstName: values[FIRST_NAME],
       lastName: values[LAST_NAME],
-      password: values[CONFIRM_PASSWORD],
+      password: values[PASSWORD],
       propertiesManaged: values[PROPERTIES_MANAGED],
       isAlreadyListed: values[IS_ALREADY_LISTED],
     }
