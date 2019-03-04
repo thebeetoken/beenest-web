@@ -44,6 +44,7 @@ const Header = () => (
     <Route exact path="/work/forgot_password" render={() => <SimpleHeader white fixed />} />
     <Route exact path="/work/login" render={() => <SimpleHeader primary block />} />
     <Route exact path="/work/signup" render={() => <SimpleHeader primary block />} />
+    <Route exact path="/work/hosts/signup" component={NoopComponent} />
     <Route component={DetailedHeader} />
   </Switch>
 );
@@ -60,11 +61,11 @@ const DetailedHeader = () => {
         <NavbarToggler onClick={handleToggleNavbar} className="mr-2" />
         <Collapse isOpen={isOpen} navbar>
           <Nav className="ml-auto u-header__navbar-nav pt-5 pb-3 pt-md-0 pb-md-0" navbar>
-            <a href="/hosts/signup">
+            <Link to="/work/hosts/signup">
               <Button className="mb-4 mb-md-0 mr-md-4 w-100 w-md-auto" type="button" outline color="primary">
                 Become a Host
               </Button>
-            </a>
+            </Link>
             <FirebaseConsumer>
               {({ loading, user }: FirebaseUserProps) => {
                 if (loading) {
@@ -102,5 +103,7 @@ const DetailedHeader = () => {
     toggleNavbar(!isOpen);
   }
 };
+
+const NoopComponent = () => null;
 
 export default Header;
