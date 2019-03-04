@@ -5,13 +5,12 @@ import { compose, graphql } from 'react-apollo';
 import { Link } from 'react-router-dom';
 import * as Yup from 'yup';
 
-import { CreateUser, CREATE_OR_LOGIN_WITH_PROVIDERS, CREATE_USER, User } from 'networking/users';
-import { auth, login, signInWithGooglePopUp } from 'utils/firebase';
+import { CreateHost, CREATE_HOST, User } from 'networking/users';
+import { auth, login } from 'utils/firebase';
 import { getFriendlyErrorMessage } from 'utils/validators';
 
 interface HostsSignupProps {
-  createOrLoginWithProviders: (id: string) => Promise<any>;
-  createUser: (user: CreateUser) => Promise<User>;
+  createHost: (user: CreateHost) => Promise<User>;
 }
 
 const LoginSchema = Yup.object().shape({
@@ -239,21 +238,9 @@ const HostsSignupForm = (props: HostsSignupProps) => {
                 disabled={isSubmitting}
                 color="primary"
               >
-                Create an account
+                Start Earning Now
               </Button>
             </Col>
-          </Row>
-
-          <Row className="d-flex flex-column align-items-center px-3">
-            <Button
-              className="btn-google transition-3d-hover w-100 d-flex justify-content-between align-items-center"
-              type="button"
-              onClick={signInWithProvider.bind(null, signInWithGooglePopUp)}
-            >
-              <i className="fab fa-google" />
-              Signup with Google
-              <div />
-            </Button>
           </Row>
 
           <Row className="d-flex align-items-center mt-3">
@@ -274,6 +261,7 @@ const HostsSignupForm = (props: HostsSignupProps) => {
       LAST_NAME,
       CONFIRM_PASSWORD,
       PROPERTIES_MANAGED,
+      IS_ALREADY_LISTED,
       SUBMIT_ERROR,
     } = HostsSignupFormField;
     const input = {
@@ -282,9 +270,10 @@ const HostsSignupForm = (props: HostsSignupProps) => {
       lastName: values[LAST_NAME],
       password: values[CONFIRM_PASSWORD],
       propertiesManaged: values[PROPERTIES_MANAGED],
+      isAlreadyListed: values[IS_ALREADY_LISTED],
     }
 
-    props.createUser(input)
+    props.createHost(input)
       .then((_) => login(input.email, input.password))
       .then((_) => !auth.currentUser ? Promise.resolve() : auth.currentUser.sendEmailVerification())
       .catch((error: Error) => {
@@ -300,34 +289,13 @@ const HostsSignupForm = (props: HostsSignupProps) => {
       setError(null);
     }
   }
-
-  function signInWithProvider(callback: () => Promise<any>) {
-    callback()
-      .then(result => {
-        return props.createOrLoginWithProviders(result.user.uid);
-      })
-      .catch(error => {
-        if (error.message.includes('You are already logged in.')) {
-          return;
-        }
-
-        setError(error.message);
-      });
-  };
 }
 
 export default compose(
-  graphql(CREATE_USER, {
+  graphql(CREATE_HOST, {
     props: ({ mutate }: any) => ({
-      createUser: (input: CreateUser): Promise<any> => {
+      createHost: (input: CreateHost): Promise<any> => {
         return mutate({ variables: { input } });
-      },
-    }),
-  }),
-  graphql(CREATE_OR_LOGIN_WITH_PROVIDERS, {
-    props: ({ mutate }: any) => ({
-      createOrLoginWithProviders: (id: string): Promise<User> => {
-        return mutate({ variables: { id } });
       },
     }),
   })
