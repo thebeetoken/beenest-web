@@ -1,5 +1,5 @@
 import * as React from 'react';
-import { Carousel, CarouselItem } from 'reactstrap';
+import { Carousel, CarouselControl, CarouselItem } from 'reactstrap';
 
 import LazyImage from 'components/shared/LazyImage';
 
@@ -23,6 +23,8 @@ const ListingCarousel = ({ photos }: Props) =>  {
         </figure>
       </CarouselItem>
     ))}
+    <CarouselControl direction="prev" directionText="Previous" onClickHandler={previous} />
+    <CarouselControl direction="next" directionText="Next" onClickHandler={next} />
   </Carousel>;
 };
 
