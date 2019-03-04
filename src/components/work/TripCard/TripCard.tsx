@@ -50,7 +50,9 @@ const TripCard = ({ booking, handleOpenCancelBookingModal, handleOpenContactHost
             xs="4"
             onClick={handleOpenContactHostModal}
             className="u-ver-divider">
-            <h5 className="small c-pointer font-weight-normal text-secondary mb-0">Contact Host</h5>
+            <a href="#" onClick={(event: React.MouseEvent<HTMLElement>) => event.preventDefault()}>
+              <h5 className="small font-weight-normal text-secondary mb-0">Contact Host</h5>
+            </a>
           </Col>
           <Col
             xs="4"
@@ -62,7 +64,9 @@ const TripCard = ({ booking, handleOpenCancelBookingModal, handleOpenContactHost
           <Col
             xs="4"
             onClick={handleOpenCancelBookingModal}>
-            <h5 className="small c-pointer font-weight-normal text-secondary mb-0">Cancel Trip</h5>
+            <a href="#" onClick={(event: React.MouseEvent<HTMLElement>) => event.preventDefault()}>
+              <h5 className="small font-weight-normal text-secondary mb-0">Cancel Trip</h5>
+            </a>
           </Col>
         </Row>
       </CardFooter>
