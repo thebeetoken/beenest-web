@@ -211,10 +211,8 @@ const HostsSignupForm = (props: HostsSignupProps) => {
               <Button
                 className="btn-primary transition-3d-hover w-100"
                 type="submit"
-                onClick={submitForm}
                 disabled={isSubmitting}
-                color="primary"
-              >
+                color="primary">
                 Start Earning Now
               </Button>
             </Col>
