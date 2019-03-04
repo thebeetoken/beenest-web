@@ -1,37 +1,98 @@
 import * as React from 'react';
-import { Nav, NavItem, NavLink, Container, Col, Row } from 'reactstrap';
-import { Query, compose, graphql } from 'react-apollo';
+import { Nav, NavItem, NavLink, Container, Col, Row, Alert, Fade } from 'reactstrap';
+import { Query } from 'react-apollo';
 import { Route, Redirect, Switch } from 'react-router';
 import { NavLink as RRNavLink } from 'react-router-dom';
+import { GET_GUEST_SORTED_BOOKINGS, Booking } from 'networking/bookings';
 
-import AudioLoading from 'shared/loading/AudioLoading';
+import { VIEWPORT_CENTER_LAYOUT } from 'styled/sharedClasses/layout';
 import NotFound from 'components/routes/NotFound';
-import { GET_GUEST_SORTED_BOOKINGS, Booking, Currency, GUEST_CANCEL_BOOKING } from 'networking/bookings';
-import { differenceInDays } from 'date-fns';
-import { cancel, loadWeb3 } from 'utils/web3';
+import Loading from 'components/shared/loading/Loading';
+import TripCard from 'components/work/TripCard';
+import { AlertProperties } from 'components/work/Alert/Alert';
+import ContactHostFormModal from 'components/work/ContactHostFormModal';
+import CancelBookingModal from 'components/work/CancelBookingModal.tsx';
 
-const Trips = () => {
+
+enum ModalType {
+  CANCEL_BOOKING = 'CANCEL_BOOKING',
+  CONTACT_HOST = 'CONTACT_HOST',
+}
+
+function Trips() {
+  const [modal, setModal] = React.useState<ModalType | undefined>(undefined);
+  const [alert, setAlert] = React.useState<AlertProperties>({ color: '', msg: '', show: false });
+  const [booking, setBooking] = React.useState<Booking | undefined>(undefined);
+
   return (
     <Query query={GET_GUEST_SORTED_BOOKINGS}>
       {({ loading, error, data }) => {
         if (loading) {
-          return <AudioLoading height={48} width={96} />;
+          return (
+            <Container tag={Fade} className={VIEWPORT_CENTER_LAYOUT}>
+              <Loading height="8rem" width="8rem" />
+            </Container>
+          );
         }
         if (error || !data) {
           return <h1>{error ? error.message : 'Error / No Data'}</h1>;
         }
 
-        const { cancelled, current, past, upcoming } = data;
+        const { current, upcoming } = data;
         const isCurrentEmpty = !(current || []).length;
-        // const isUpcomingEmpty = !(upcoming || []).length;
+        const isUpcomingEmpty = !(upcoming || []).length;
+        const renderCurrentEmpty = 
+          <>
+            <Row className="mb-2">
+              <h2>You have no trips awaiting approval.</h2>
+            </Row>
+            <Row>
+              <a className="btn btn-secondary" href='/work'>
+                Book a Home Today!
+              </a>
+            </Row>
+          </>;
+        const renderUpcomingEmpty = 
+          <>
+            <Row className="mb-2">
+            <h2>You haven't booked any trips yet.</h2>
+            </Row>
+            <Row>
+              <a className="btn btn-secondary" href='/work'>
+                Book a Home Today!
+              </a>
+            </Row>
+          </>;
+        const renderCards = Object.keys(data).reduce((result: any, category) => {
+          return {
+            ...result,
+            [category]: 
+              <Row>
+                {data[category].map((booking: Booking) => (
+                  <Col key={booking.id} className="d-flex" md="6" lg="4">
+                    <TripCard
+                      key={booking.id}
+                      booking={booking}
+                      handleOpenContactHostModal={() => handleModalAction(ModalType.CONTACT_HOST, booking)}
+                      handleOpenCancelBookingModal={() => handleModalAction(ModalType.CANCEL_BOOKING, booking)} />
+                  </Col>
+                ))}
+              </Row>
+          };
+        }, {});
+        const renderCancelledCards = renderCards.cancelled;
+        const renderCurrentCards = renderCards.current;
+        const renderPastCards = renderCards.past;
+        const renderUpcomingCards = renderCards.upcoming;
+
         return (
-          <Container>
+          <Container className="pt-8 pb-6" tag={Fade}>
             <h1>Trips</h1>
             <hr />
-            <Nav tabs>
+            <Nav className="mb-5" tabs>
               {[
                 {
-                  to: '/work/trips/current',
+                to: '/work/trips/current',
                   title: 'Current',
                 },
                 {
@@ -48,94 +109,72 @@ const Trips = () => {
                 },
               ].map(({ title, to }) => (
                 <NavItem key={to}>
-                  <NavLink tag={RRNavLink} to={to}>
+                  <NavLink 
+                    tag={RRNavLink}
+                    to={to}>
                     {title}
                   </NavLink>
                 </NavItem>
               ))}
             </Nav>
+            
+            <Alert
+              color={alert.color}
+              isOpen={alert.show}
+              toggle={() => setAlert({ ...alert, show: !alert.show })}>
+              {alert.msg}
+            </Alert>
+            
+            <Switch>
+              <Route
+                exact
+                path="/work/trips/current"
+                component={() => (
+                  isCurrentEmpty
+                    ? renderCurrentEmpty
+                    : renderCurrentCards
+                )}
+              />
+              <Route
+                exact
+                path="/work/trips/upcoming"
+                component={() => (
+                  isUpcomingEmpty
+                    ? renderUpcomingEmpty
+                    : renderUpcomingCards
+                )}
+              />
+              <Route
+                exact
+                path="/work/trips/past"
+                component={() => renderPastCards}
+              />
+              <Route
+                exact
+                path="/work/trips/cancelled"
+                component={() => renderCancelledCards}
+              />
+              <Redirect exact from="/work/trips" to={isCurrentEmpty ? "/work/trips/upcoming" : "/work/trips/current"} />
+              <Route component={NotFound} />
+            </Switch>
 
-            <Container>
-              <Row>
-                <Col md="6">
-                  <Switch>
-                    <Route
-                      exact
-                      path="/work/trips/current"
-                      component={() => (
-                        <>
-                          <h1>This is the current page</h1>
-                          <p>{JSON.stringify(current)}</p>
-                        </>
-                      )}
-                    />
-                    <Route
-                      exact
-                      path="/work/trips/upcoming"
-                      component={() => (
-                        <>
-                          <h1>This is the upcoming page</h1>
-                          <p>{JSON.stringify(upcoming)}</p>
-                        </>
-                      )}
-                    />
-                    <Route
-                      exact
-                      path="/work/trips/past"
-                      component={() => (
-                        <>
-                          <h1>This is the past page</h1>
-                          <p>{JSON.stringify(past)}</p>
-                        </>
-                      )}
-                    />
-                    <Route
-                      exact
-                      path="/work/trips/cancelled"
-                      component={() => (
-                        <>
-                          <h1>This is the cancelled page</h1>
-                          <p>{JSON.stringify(cancelled)}</p>
-                        </>
-                      )}
-                    />
-                    <Redirect exact from="/work/trips" to={isCurrentEmpty ? "/work/trips/upcoming" : "/work/trips/current"} />
-                    <Route component={NotFound} />
-                  </Switch>
-                </Col>
-              </Row>
-            </Container>
+            {modal === ModalType.CANCEL_BOOKING &&
+              <CancelBookingModal booking={booking} onModalAction={handleModalAction} setAlert={setAlert}/>
+            }
+
+            {modal === ModalType.CONTACT_HOST &&
+              <ContactHostFormModal booking={booking} onModalAction={handleModalAction} />
+            }
           </Container>
         );
       }}
     </Query>
   );
+
+  function handleModalAction(modal?: ModalType, booking?: Booking) {
+    setBooking(booking);
+    setModal(modal);
+  }
 };
 
-export default compose(
-  graphql(GUEST_CANCEL_BOOKING, {
-    props: ({ mutate }: any) => ({
-      cancelBooking: async (booking: Booking) => {
-        const { id, currency, checkInDate, status } = booking;
-        const days = differenceInDays(checkInDate, Date.now());
-        if (currency === Currency.BEE && days >= 7 && status === 'guest_paid') {
-          const web3 = loadWeb3();
-          await cancel(web3.eth, id);
-        }
-        return mutate({
-          variables: { id },
-          refetchQueries: [{ query: GET_GUEST_SORTED_BOOKINGS }],
-          update: (store: any, { data: guestCancelBooking }: any) => {
-            if (!store.data.data.ROOT_QUERY || !store.data.data.ROOT_QUERY.allBookings) {
-              return;
-            }
-            const { allBookings } = store.readQuery({ query: GET_GUEST_SORTED_BOOKINGS });
-            const index = allBookings.findIndex((booking: Booking) => booking.id === id);
-            allBookings[index].status = guestCancelBooking.status;
-            store.writeQuery({ query: GET_GUEST_SORTED_BOOKINGS, data: allBookings });
-          },
-        });
-      },
-    }),
-  })
-)(Trips);
+export default Trips;
