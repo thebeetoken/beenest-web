@@ -60,13 +60,12 @@ const SignupForm = (props: SignupProps) => {
         [FIRST_NAME]: '',
         [LAST_NAME]: '',
         [PASSWORD]: '',
-        [CONFIRM_PASSWORD]: '',
         [SUBMIT_ERROR]: '',
       }}
       validationSchema={LoginSchema}
       onSubmit={handleSubmit}
     >
-      {({ errors, touched, setFieldValue, submitForm, isSubmitting }) => (
+      {({ errors, touched, setFieldValue, isSubmitting }) => (
         <Form tag={FormikForm}>
           <div className="mb-7">
             <h2 className="h3 text-primary font-weight-normal mb-0">
