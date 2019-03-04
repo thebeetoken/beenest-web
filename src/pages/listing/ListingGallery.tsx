@@ -1,5 +1,5 @@
 import * as React from 'react';
-import { Button, Modal, Row } from 'reactstrap';
+import { Button, Modal, ModalHeader, Row } from 'reactstrap';
 
 import ImageGrid from 'shared/ImageGrid';
 import ListingCarousel from './ListingCarousel';
@@ -14,7 +14,7 @@ const ListingGallery = ({ listingPicUrl, photos }: Listing) => {
       View Photos <span className="fas fa-camera"></span>
     </Button>
     <Modal isOpen={isOpen}>
-      <Button close onClick={() => setOpen(false)} />
+      <ModalHeader toggle={() => setOpen(false)} />
       <ListingCarousel photos={[listingPicUrl, ...photos]} />
     </Modal>
   </Row>
