@@ -79,7 +79,7 @@ const HostsSignupForm = (props: HostsSignupProps) => {
       validationSchema={LoginSchema}
       onSubmit={handleSubmit}
     >
-      {({ errors, touched, setFieldValue, submitForm, isSubmitting, values }) => (
+      {({ errors, touched, setFieldValue, isSubmitting, values }) => (
         <Form tag={FormikForm}>
           <div className="mb-4">
             <h2 className="h3 text-primary font-weight-normal mb-0">
