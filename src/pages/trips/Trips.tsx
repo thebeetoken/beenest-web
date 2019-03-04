@@ -73,7 +73,8 @@ function Trips() {
                     <TripCard
                       key={booking.id}
                       booking={booking}
-                      handleModalAction={(modal: ModalType) => handleModalAction(modal, booking)} />
+                      handleOpenContactHostModal={() => handleModalAction(ModalType.CONTACT_HOST, booking)}
+                      handleOpenCancelBookingModal={() => handleModalAction(ModalType.CANCEL_BOOKING, booking)} />
                   </Col>
                 ))}
               </Row>

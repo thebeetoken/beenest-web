@@ -5,17 +5,13 @@ import { getUserBookingDisplayStatus } from 'utils/bookingsDisplayStatus';
 import { formatAddress, formatGeolocationAddress } from 'utils/formatter';
 import { formatSingleDate } from 'utils/formatDate';
 
-enum ModalType {
-  CANCEL_BOOKING = 'CANCEL_BOOKING',
-  CONTACT_HOST = 'CONTACT_HOST',
-}
-
 interface Props {
   booking: Booking;
-  handleModalAction: (modal: ModalType) => void;
+  handleOpenCancelBookingModal: () => void;
+  handleOpenContactHostModal: () => void;
 }
 
-const TripCard = ({ booking, handleModalAction }: Props) => {
+const TripCard = ({ booking, handleOpenCancelBookingModal, handleOpenContactHostModal }: Props) => {
   const { checkInDate, checkOutDate, id, listing, status } = booking;
   const { addressLine1, addressLine2, city, country, lat, lng, postalCode, state } = listing;
   const displayStatus = getUserBookingDisplayStatus(status);
@@ -52,7 +48,7 @@ const TripCard = ({ booking, handleModalAction }: Props) => {
         <Row className="align-items-center">
           <Col
             xs="4"
-            onClick={() => handleModalAction(ModalType.CONTACT_HOST)}
+            onClick={handleOpenContactHostModal}
             className="u-ver-divider">
             <h5 className="small c-pointer font-weight-normal text-secondary mb-0">Contact Host</h5>
           </Col>
@@ -65,7 +61,7 @@ const TripCard = ({ booking, handleModalAction }: Props) => {
           </Col>
           <Col
             xs="4"
-            onClick={() => handleModalAction(ModalType.CANCEL_BOOKING)}>
+            onClick={handleOpenCancelBookingModal}>
             <h5 className="small c-pointer font-weight-normal text-secondary mb-0">Cancel Trip</h5>
           </Col>
         </Row>
