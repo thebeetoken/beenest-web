@@ -1,12 +1,14 @@
 import * as React from 'react';
 import { Button, Fade } from 'reactstrap';
 
+import { Host } from 'networking/listings';
+
 import ContactHostFormModal from '../ContactHostFormModal';
 
 interface Props {
   bookingId?: string;
   listingId?: string;
-  hostId: string;
+  host: Host;
 }
 
 const ContactHostButton = (props: Props) => {
