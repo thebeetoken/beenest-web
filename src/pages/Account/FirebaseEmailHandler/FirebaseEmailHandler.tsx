@@ -1,5 +1,5 @@
 import * as React from 'react';
-import { Container, Row, Button, Fade } from 'reactstrap';
+import { Container, Row, Fade } from 'reactstrap';
 
 import { parseQueryString } from 'utils/queryParams';
 import { PRIMARY_BUTTON_CLASSES } from 'styled/custom.styled';
