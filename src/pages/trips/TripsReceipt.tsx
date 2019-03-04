@@ -1,11 +1,13 @@
 import * as React from 'react';
 import { Booking, GET_BOOKING_TRIPS_RECEIPT } from 'networking/bookings';
-import { Container, Fade, Row, Col } from 'reactstrap';
+import { Container, Fade, Row, Col, ListGroupItem, Table } from 'reactstrap';
 import { Query } from 'react-apollo';
-import { formatAddress } from 'utils/formatter';
+import { formatAddress, formatGeolocationAddress } from 'utils/formatter';
 import Loading from 'components/shared/loading/Loading';
 import { VIEWPORT_CENTER_LAYOUT } from 'styled/sharedClasses/layout';
 import { formatDateRange } from 'utils/formatDate';
+import ListGroup from 'reactstrap/lib/ListGroup';
+import GoogleMaps from 'components/shared/GoogleMaps';
 
 function TripsReceipt({ match }: RouterProps) {
   return (
@@ -23,13 +25,17 @@ function TripsReceipt({ match }: RouterProps) {
         }
 
         const { booking } = data;
-        const { guestTxHash, guestTotalAmount, host, listing, checkInDate, checkOutDate, currency, numberOfGuests } = booking;
+        const { guestTxHash, guestTotalAmount, host, listing, checkInDate, checkOutDate, currency, numberOfGuests, priceQuotes } = booking;
         const { createdAt, firstName, profilePicUrl } = host;
-        const { city, country, state, title } = listing;
+        const { addressLine1, addressLine2, city, country, lat, lng, postalCode, state, title } = listing;
+        const priceQuote = (priceQuotes || []).find((quote) => quote.currency === currency);
+
+        const { creditAmountApplied, pricePerNight, priceTotalNights, securityDeposit, transactionFee } = priceQuote;
+  
         return (
           <Container className="pt-8 pb-6" tag={Fade}>
             <Row>
-              <Col md="7">
+              <Col lg="7">
                 <h1>Receipt</h1>
                 <hr />
                 <h3>{title}</h3>
@@ -44,26 +50,48 @@ function TripsReceipt({ match }: RouterProps) {
                     <p>Guests: {numberOfGuests}</p>
                   </Col>
                 </Row>
-                <Row>
-                  <Col>
-                    <i className="fas fa-money-check" />
-                    <p>Total Paid: {currency === 'USD' ? roundToUsdPrice(guestTotalAmount) : guestTotalAmount} {currency}</p>
-                  </Col>
-                </Row>
+                <Table>
+                  <thead>
+                    <tr>
+                      <th>Item</th>
+                      <th>Price</th>
+                    </tr>
+                  </thead>
+                  <tbody>
+                    <tr>
+                      <th scope="row">{pricePerNight} {currency} x {Math.floor((priceTotalNights / pricePerNight))} {(priceTotalNights / pricePerNight) > 1 ? 'nights' : 'night'}</th>
+                      <td>{currency === 'USD' ? roundToUsdPrice(priceTotalNights) : priceTotalNights} {currency}</td>
+                    </tr>
+                    <tr>
+                      <th scope="row">Security Deposit</th>
+                      <td>{currency === 'USD' ? roundToUsdPrice(securityDeposit || 0) : (securityDeposit || 0)} {currency}</td>
+                    </tr>
+                    <tr>
+                      <th scope="row">Transaction Fee</th>
+                      <td>{transactionFee} {currency}</td>
+                    </tr>
+                  </tbody>
+                  <tfoot>
+                    <tr className="h6">
+                      <td scope="row">Total</td>
+                      <td colSpan={3}>{currency === 'USD' ? roundToUsdPrice(guestTotalAmount) : guestTotalAmount} {currency}</td>
+                    </tr>
+                  </tfoot>
+                </Table>
                 <hr />
                 <Row>
                   <Col>
-                  
-                  </Col>
-                </Row>
-                <hr />
-                <Row>
-                  <Col>
-                  
+                    <p>
+                      <i className="fas fa-map-marker-alt mr-2 text-primary" />
+                      {addressLine1 
+                        ? formatAddress(addressLine1, addressLine2, city, state, country, postalCode)
+                        : formatGeolocationAddress({ lat, lng, city, country })}
+                    </p>
+                    <GoogleMaps lat={lat} lng={lng} showCircle />
                   </Col>
                 </Row>
               </Col>
-              <Col md="5"></Col>
+              <Col lg="5"></Col>
             </Row>
           </Container>
         );
@@ -71,5 +99,7 @@ function TripsReceipt({ match }: RouterProps) {
     </Query>
   );
 }
+
+const roundToUsdPrice = (price: Number) => price.toFixed(2);
 
 export default TripsReceipt;
