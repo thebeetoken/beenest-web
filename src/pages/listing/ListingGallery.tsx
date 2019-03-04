@@ -14,6 +14,7 @@ const ListingGallery = ({ listingPicUrl, photos }: Listing) => {
       View Photos <span className="fas fa-camera"></span>
     </Button>
     <Modal isOpen={isOpen}>
+      <Button close onClick={() => setOpen(false)} />
       <ListingCarousel photos={[listingPicUrl, ...photos]} />
     </Modal>
   </Row>
