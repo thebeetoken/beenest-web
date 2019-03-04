@@ -26,7 +26,7 @@ const ActiveTripCard = ({ onCancelClick, trip }: Props) => {
   const { checkInDate, checkOutDate, id, listing, status } = trip;
   const { addressLine1, addressLine2, city, country, lat, lng, postalCode, state } = listing;
   const displayStatus = getUserBookingDisplayStatus(status);
-  const titleLink = status === 'started' ? `/bookings/${id}/options` : `listings/${listing.idSlug}`;
+  const titleLink = status === 'started' ? `/bookings/${id}/options` : `/listings/${listing.idSlug}`;
   return (
     <ActiveTripCardContainer className="active-trip-card">
       <div className="active-trip-photo">
@@ -34,7 +34,7 @@ const ActiveTripCard = ({ onCancelClick, trip }: Props) => {
       </div>
       <div className="active-trip-info">
         <h3>
-          <BeeLink to={titleLink}>{listing.title}</BeeLink>
+          <BeeLink href={titleLink}>{listing.title}</BeeLink>
         </h3>
         <div className="bee-flex-div" />
         <div className="address">

@@ -20,7 +20,7 @@ $HEADER-HEIGHT: 4.125rem;
 }
 
 // login/signup styles
-.bee-auth-container {
+.bee-without-header-height-container {
   min-height: calc(100vh - #{$HEADER-HEIGHT});
 }
 
@@ -35,12 +35,11 @@ $HEADER-HEIGHT: 4.125rem;
 
 .bee-top {
   top: 4.125rem;
+  z-index: 999; // Behind bootstrap overlays
 }
 
 .bee-search-map {
   height: calc(100vh - 11.25rem);
-  top: 11.25rem;
-  z-index: 999;
 }
 
 
@@ -57,11 +56,6 @@ $HEADER-HEIGHT: 4.125rem;
     }
   }
 }
-
-// add cursor pointer to any element
-.c-pointer {
-  cursor: pointer;
- }
  
 // fit image to div
 %img-fit {

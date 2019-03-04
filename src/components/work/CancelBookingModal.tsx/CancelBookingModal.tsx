@@ -23,7 +23,7 @@ function CancelBookingModal({ booking, cancelBooking, onModalAction, setAlert }:
   }
 
   return (
-    <Modal isOpen toggle={() => !isSubmitting && onModalAction}>
+    <Modal isOpen toggle={() => !isSubmitting && onModalAction()}>
       <ModalHeader>Cancel Booking</ModalHeader>
       <ModalBody>
         <h6>Are you sure you want to cancel this booking?</h6>

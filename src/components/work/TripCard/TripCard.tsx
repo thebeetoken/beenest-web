@@ -5,20 +5,18 @@ import { getUserBookingDisplayStatus, cancelledDisplayMap } from 'utils/bookings
 import { formatAddress, formatGeolocationAddress } from 'utils/formatter';
 import { formatSingleDate } from 'utils/formatDate';
 
-enum ModalType {
-  CANCEL_BOOKING = 'CANCEL_BOOKING',
-  CONTACT_HOST = 'CONTACT_HOST',
-}
-
 interface Props {
   booking: Booking;
   category: GUEST_SORTED_BOOKINGS;
-  handleModalAction: (modal: ModalType) => void;
+  handleOpenCancelBookingModal: () => void;
+  handleOpenContactHostModal: () => void;
 }
 
-const TripCard = ({ booking, category, handleModalAction }: Props) => {
+const TripCard = ({ booking, category, handleOpenCancelBookingModal, handleOpenContactHostModal }: Props) => {
   const { checkInDate, checkOutDate, id, listing, status } = booking;
   const { addressLine1, addressLine2, city, country, lat, lng, postalCode, state } = listing;
+  const titleLink = `/listings/${listing.idSlug}`;
+  
   const cancelledStatus = cancelledDisplayMap[status] || '';
   const displayStatus = getUserBookingDisplayStatus(status);
   const isCancelButtonShown = category !== GUEST_SORTED_BOOKINGS.PAST && category !== GUEST_SORTED_BOOKINGS.CANCELLED;
@@ -30,7 +28,9 @@ const TripCard = ({ booking, category, handleModalAction }: Props) => {
         </div>
       </div>
       <CardBody className="d-flex flex-column">
-        <CardTitle className="h5 font-weight-normal mb-3">{booking.listing.title}</CardTitle>
+        <a href={titleLink} className="text-dark">
+          <CardTitle className="h5 font-weight-normal mb-3">{booking.listing.title}</CardTitle>
+        </a>
         <div className="bee-flex-div" />
         <CardSubtitle className="small mb-3">
           {addressLine1
@@ -59,7 +59,10 @@ const TripCard = ({ booking, category, handleModalAction }: Props) => {
           {[
             {
               label: 'Contact Host',
-              onClick: () => handleModalAction(ModalType.CONTACT_HOST),
+              onClick: (event: React.MouseEvent<HTMLElement>) => {
+                event.preventDefault();
+                handleOpenContactHostModal();
+              },
               show: true,
             },
             {
@@ -69,7 +72,10 @@ const TripCard = ({ booking, category, handleModalAction }: Props) => {
             },
             {
               label: 'Cancel Trip',
-              onClick: () => handleModalAction(ModalType.CANCEL_BOOKING),
+              onClick: (event: React.MouseEvent<HTMLElement>) => {
+                event.preventDefault();
+                handleOpenCancelBookingModal();
+              },
               show: isCancelButtonShown,
             },
           ]
@@ -77,13 +83,9 @@ const TripCard = ({ booking, category, handleModalAction }: Props) => {
             .map(({ label, href, onClick }, i, arr) => {
               return (
                 <Col key={i} onClick={onClick} className={i !== arr.length - 1 ? 'u-ver-divider' : ''}>
-                  {href ? (
-                    <a href={href}>
-                      <h5 className="small font-weight-normal text-secondary mb-0">{label}</h5>
-                    </a>
-                  ) : (
-                    <h5 className="small c-pointer font-weight-normal text-secondary mb-0">{label}</h5>
-                  )}
+                  <a href={href || '#'}>
+                    <h5 className="small font-weight-normal text-secondary mb-0">{label}</h5>
+                  </a>
                 </Col>
               );
             })}
