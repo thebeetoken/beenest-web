@@ -13,6 +13,7 @@ import Loading from 'components/shared/loading/Loading';
 interface Props {
   contactUser: (input: ContactUserInput) => Promise<EmailResponse>;
   booking: Booking;
+  isOpen: boolean;
   onModalAction: () => void;
 }
 
@@ -46,14 +47,14 @@ const ContactHostSchema = Yup.object({
   message: Yup.string().required('Please fill out the message field.'),
 });
 
-function ContactHostForm({ booking, contactUser, onModalAction }: Props) {
+function ContactHostForm({ booking, contactUser, isOpen, onModalAction }: Props) {
   const [successMessage, setSuccessMessage] = React.useState<string>('');
   const [errorMessage, setErrorMessage] = React.useState<string>('');
   const { host, listingId, id } = booking;
 
   if (successMessage) {
     return (
-      <Modal isOpen toggle={onModalAction}>
+      <Modal isOpen={isOpen} toggle={onModalAction}>
         <ModalHeader>Message Successfully Sent</ModalHeader>
         <ModalBody>
           <p>{successMessage}</p>

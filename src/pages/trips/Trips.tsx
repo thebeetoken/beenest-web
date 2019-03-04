@@ -163,7 +163,7 @@ function Trips() {
             }
 
             {modal === ModalType.CONTACT_HOST &&
-              <ContactHostFormModal booking={booking} onModalAction={handleModalAction} />
+              <ContactHostFormModal isOpen booking={booking} onModalAction={handleModalAction} />
             }
           </Container>
         );
