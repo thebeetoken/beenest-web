@@ -28,13 +28,23 @@ function TripsReceipt({ match }: RouterProps) {
         }
 
         const { booking } = data;
-        const { guestTxHash, guestTotalAmount, host, listing, checkInDate, checkOutDate, currency, numberOfGuests, priceQuotes } = booking;
+        const {
+          guestTxHash,
+          guestTotalAmount,
+          host,
+          listing,
+          checkInDate,
+          checkOutDate,
+          currency,
+          numberOfGuests,
+          priceQuotes,
+        } = booking;
         const { createdAt, firstName, profilePicUrl } = host;
         const { addressLine1, addressLine2, city, country, lat, lng, postalCode, state, title } = listing;
-        const priceQuote = (priceQuotes || []).find((quote) => quote.currency === currency);
+        const priceQuote = (priceQuotes || []).find(quote => quote.currency === currency);
 
         const { creditAmountApplied, pricePerNight, priceTotalNights, securityDeposit, transactionFee } = priceQuote;
-  
+
         return (
           <Container className="pt-8 pb-6" tag={Fade}>
             <Row>
@@ -45,7 +55,11 @@ function TripsReceipt({ match }: RouterProps) {
                 <h6 className="text-primary mb-4">{formatAddress(city, state, country)}</h6>
                 <Row className="mb-5">
                   <Col className="d-flex">
-                    <img className="u-lg-avatar rounded-circle mr-4" src={host.profilePicUrl || DEFAULT_PROFILE_URL} alt="Guest Profile Picture" />
+                    <img
+                      className="u-lg-avatar rounded-circle mr-4"
+                      src={host.profilePicUrl || DEFAULT_PROFILE_URL}
+                      alt="Guest Profile Picture"
+                    />
                     <div className="d-flex flex-column justify-content-center">
                       <h6 className="p mb-1 font-weight-light">Hosted by: {firstName}</h6>
                       <small className="text-muted">Member Since {dateToYear(createdAt)}</small>
@@ -60,6 +74,16 @@ function TripsReceipt({ match }: RouterProps) {
                     <p>Guests: {numberOfGuests}</p>
                   </Col>
                 </Row>
+
+                {guestTxHash && (
+                  <Row className="mb-5">
+                    <Col>
+                      <h6>Transaction Confirmation Number</h6>
+                      <h6>{guestTxHash}</h6>
+                    </Col>
+                  </Row>
+                )}
+                
                 <Table>
                   <thead>
                     <tr>
@@ -69,22 +93,41 @@ function TripsReceipt({ match }: RouterProps) {
                   </thead>
                   <tbody>
                     <tr>
-                      <th scope="row">{pricePerNight} {currency} x {Math.floor((priceTotalNights / pricePerNight))} {(priceTotalNights / pricePerNight) > 1 ? 'nights' : 'night'}</th>
-                      <td>{currency === 'USD' ? roundToUsdPrice(priceTotalNights) : priceTotalNights} {currency}</td>
+                      <th scope="row">
+                        {pricePerNight} {currency} x {Math.floor(priceTotalNights / pricePerNight)}{' '}
+                        {priceTotalNights / pricePerNight > 1 ? 'nights' : 'night'}
+                      </th>
+                      <td>
+                        {currency === 'USD' ? roundToUsdPrice(priceTotalNights) : priceTotalNights} {currency}
+                      </td>
                     </tr>
                     <tr>
                       <th scope="row">Security Deposit</th>
-                      <td>{currency === 'USD' ? roundToUsdPrice(securityDeposit || 0) : (securityDeposit || 0)} {currency}</td>
+                      <td>
+                        {currency === 'USD' ? roundToUsdPrice(securityDeposit || 0) : securityDeposit || 0} {currency}
+                      </td>
                     </tr>
                     <tr>
                       <th scope="row">Transaction Fee</th>
-                      <td>{transactionFee} {currency}</td>
+                      <td>
+                        {transactionFee} {currency}
+                      </td>
                     </tr>
+                    {!!creditAmountApplied && (
+                      <tr>
+                        <th scope="row">Credits Applied</th>
+                        <td>
+                          -{creditAmountApplied} {currency}
+                        </td>
+                      </tr>
+                    )}
                   </tbody>
                   <tfoot>
                     <tr className="h6">
                       <td scope="row">Total</td>
-                      <td colSpan={3}>{currency === 'USD' ? roundToUsdPrice(guestTotalAmount) : guestTotalAmount} {currency}</td>
+                      <td colSpan={3}>
+                        {currency === 'USD' ? roundToUsdPrice(guestTotalAmount) : guestTotalAmount} {currency}
+                      </td>
                     </tr>
                   </tfoot>
                 </Table>
@@ -93,7 +136,7 @@ function TripsReceipt({ match }: RouterProps) {
                   <Col>
                     <p>
                       <i className="fas fa-map-marker-alt mr-2 text-primary" />
-                      {addressLine1 
+                      {addressLine1
                         ? formatAddress(addressLine1, addressLine2, city, state, country, postalCode)
                         : formatGeolocationAddress({ lat, lng, city, country })}
                     </p>
@@ -101,7 +144,7 @@ function TripsReceipt({ match }: RouterProps) {
                   </Col>
                 </Row>
               </Col>
-              <Col lg="5"></Col>
+              <Col lg="5" />
             </Row>
           </Container>
         );
