@@ -1,14 +1,12 @@
 import * as React from 'react';
-import { Booking, GET_BOOKING_TRIPS_RECEIPT } from 'networking/bookings';
-import { Container, Fade, Row, Col, ListGroupItem, Table, Media } from 'reactstrap';
+import { GET_BOOKING_TRIPS_RECEIPT, PriceQuote } from 'networking/bookings';
+import { Container, Fade, Row, Col, Table } from 'reactstrap';
 import { Query } from 'react-apollo';
 import { formatAddress, formatGeolocationAddress } from 'utils/formatter';
 import Loading from 'components/shared/loading/Loading';
 import { VIEWPORT_CENTER_LAYOUT } from 'styled/sharedClasses/layout';
 import { formatDateRange, dateToYear } from 'utils/formatDate';
-import ListGroup from 'reactstrap/lib/ListGroup';
 import GoogleMaps from 'components/shared/GoogleMaps';
-import LazyImage from 'components/shared/LazyImage';
 
 const DEFAULT_PROFILE_URL = 'https://static.beenest.com/images/app/misc/profile.png';
 
@@ -41,23 +39,23 @@ function TripsReceipt({ match }: RouterProps) {
         } = booking;
         const { createdAt, firstName, profilePicUrl } = host;
         const { addressLine1, addressLine2, city, country, lat, lng, postalCode, state, title } = listing;
-        const priceQuote = (priceQuotes || []).find(quote => quote.currency === currency);
+        const priceQuote = (priceQuotes || []).find((quote: PriceQuote) => quote.currency === currency);
 
         const { creditAmountApplied, pricePerNight, priceTotalNights, securityDeposit, transactionFee } = priceQuote;
 
         return (
           <Container className="pt-8 pb-6" tag={Fade}>
             <Row>
-              <Col lg="7">
+              <Col lg="6">
                 <h1 className="mb-0">Receipt</h1>
                 <hr className="mb-5" />
                 <h3>{title}</h3>
-                <h6 className="text-primary mb-4">{formatAddress(city, state, country)}</h6>
+                <h6 className="mb-4 text-primary text-uppercase">{formatAddress(city, state, country)}</h6>
                 <Row className="mb-5">
                   <Col className="d-flex">
                     <img
                       className="u-lg-avatar rounded-circle mr-4"
-                      src={host.profilePicUrl || DEFAULT_PROFILE_URL}
+                      src={profilePicUrl || DEFAULT_PROFILE_URL}
                       alt="Guest Profile Picture"
                     />
                     <div className="d-flex flex-column justify-content-center">
@@ -67,33 +65,35 @@ function TripsReceipt({ match }: RouterProps) {
                   </Col>
                 </Row>
                 <hr className="mb-5" />
-                <Row className="mb-5">
+                <Row className="mb-4">
                   <Col>
-                    <i className="far fa-calendar-alt mr-2 text-primary" />
-                    <span>Booked on: {formatDateRange(checkInDate, checkOutDate)}</span>
-                    <p>Guests: {numberOfGuests}</p>
+                    <p>
+                      <i className="far fa-calendar-alt mr-2 text-primary" />
+                      <span className="text-dark">Booked: {formatDateRange(checkInDate, checkOutDate)}</span>
+                    </p>
+                    <p>
+                      <i className="far fa-user mr-2 text-primary" />
+                      <span className="text-dark">Guests: {numberOfGuests}</span>
+                    </p>
+                    {guestTxHash && (
+                      <>
+                        <h6 className="text-muted font-weight-light">Transaction Confirmation Number</h6>
+                        <h6 className="text-muted font-weight-light text-break">{guestTxHash}</h6>
+                      </>
+                    )}
                   </Col>
                 </Row>
-
-                {guestTxHash && (
-                  <Row className="mb-5">
-                    <Col>
-                      <h6>Transaction Confirmation Number</h6>
-                      <h6>{guestTxHash}</h6>
-                    </Col>
-                  </Row>
-                )}
                 
-                <Table>
+                <Table className="table-heighlighted mb-8">
                   <thead>
-                    <tr>
-                      <th>Item</th>
-                      <th>Price</th>
+                    <tr className="text-uppercase text-secondary">
+                      <th scope="col" className="font-weight-medium">Item</th>
+                      <th scope="col" className="font-weight-medium">Price</th>
                     </tr>
                   </thead>
                   <tbody>
                     <tr>
-                      <th scope="row">
+                      <th scope="row" className="font-weight-normal">
                         {pricePerNight} {currency} x {Math.floor(priceTotalNights / pricePerNight)}{' '}
                         {priceTotalNights / pricePerNight > 1 ? 'nights' : 'night'}
                       </th>
@@ -102,13 +102,13 @@ function TripsReceipt({ match }: RouterProps) {
                       </td>
                     </tr>
                     <tr>
-                      <th scope="row">Security Deposit</th>
+                      <th scope="row" className="font-weight-normal">Security Deposit</th>
                       <td>
                         {currency === 'USD' ? roundToUsdPrice(securityDeposit || 0) : securityDeposit || 0} {currency}
                       </td>
                     </tr>
                     <tr>
-                      <th scope="row">Transaction Fee</th>
+                      <th scope="row" className="font-weight-normal">Transaction Fee</th>
                       <td>
                         {transactionFee} {currency}
                       </td>
@@ -126,25 +126,31 @@ function TripsReceipt({ match }: RouterProps) {
                     <tr className="h6">
                       <td scope="row">Total</td>
                       <td colSpan={3}>
-                        {currency === 'USD' ? roundToUsdPrice(guestTotalAmount) : guestTotalAmount} {currency}
+                        <span className="font-weight-medium">
+                          {currency === 'USD' ? roundToUsdPrice(guestTotalAmount) : guestTotalAmount} {currency}
+                        </span>
                       </td>
                     </tr>
                   </tfoot>
                 </Table>
-                <hr className="mb-5" />
+
+                <hr className="my-5" />
+                
                 <Row>
                   <Col>
-                    <p>
+                    <p className="mb-4">
                       <i className="fas fa-map-marker-alt mr-2 text-primary" />
-                      {addressLine1
-                        ? formatAddress(addressLine1, addressLine2, city, state, country, postalCode)
-                        : formatGeolocationAddress({ lat, lng, city, country })}
+                      <span className="text-dark">
+                        {addressLine1
+                          ? formatAddress(addressLine1, addressLine2, city, state, country, postalCode)
+                          : formatGeolocationAddress({ lat, lng, city, country })}
+                      </span>
                     </p>
                     <GoogleMaps lat={lat} lng={lng} showCircle />
                   </Col>
                 </Row>
               </Col>
-              <Col lg="5" />
+              <Col lg="6" />
             </Row>
           </Container>
         );
