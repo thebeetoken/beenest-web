@@ -12,7 +12,7 @@ interface Props {
 const SearchResults = ({ listings }: Props) => (
   <Row>
     {listings.map((listing, index) => (
-      <Col xs="12" md="6" key={index} className="mb-5">
+      <Col xs="12" md="6" key={index} className="mb-5 d-flex">
         <ListingCard {...listing} />
       </Col>
     ))}

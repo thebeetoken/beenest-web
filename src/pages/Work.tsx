@@ -8,6 +8,7 @@ import Home from './home';
 import Listing from './listing';
 import Login from './login';
 import Logout from './logout';
+import NotFound from './notFound';
 import Search from './search';
 import Signup from './signup';
 import Trips from './trips';
@@ -32,7 +33,8 @@ const Work = () => (
       <Route exact path="/work/signup" component={Signup} />
       <AuthenticatedRoute exact path="/work/trips/:id/receipt" component={TripsReceipt} />
       <AuthenticatedRoute path="/work/trips" component={Trips} />
-      <Route path="/work" component={Home} />
+      <Route exact path="/work" component={Home} />
+      <Route path="/work" component={NotFound} />
     </Switch>
   </div>
 );
