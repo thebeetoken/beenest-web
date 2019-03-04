@@ -14,7 +14,7 @@ const ContactHostButton = (props: Props) => {
   return <Fade>
     <Button onClick={() => setOpen(true)}>
       Contact Host
-      <span className="fas fa-envelope"></span>
+      <span className="fas fa-envelope pl-3"></span>
     </Button>
     <ContactHostFormModal isOpen={isOpen} onModalAction={() => setOpen(false)} {...props} />
   </Fade>;
