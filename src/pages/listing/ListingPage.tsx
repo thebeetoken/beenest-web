@@ -1,5 +1,5 @@
 import * as React from 'react';
-import { Col, Container, Row } from 'reactstrap';
+import { Col, Container, Fade, Row } from 'reactstrap';
 
 import ListingGallery from './ListingGallery';
 import ListingInformation from './ListingInformation';
@@ -9,7 +9,7 @@ import BookingBar from './BookingBar';
 import { Listing } from 'networking/listings';
 
 const ListingPage = (listing: Listing) => (
-  <>
+  <Fade>
     <ListingGallery {...listing} />
     <Container>
       <Row>
@@ -26,6 +26,6 @@ const ListingPage = (listing: Listing) => (
     <footer className="fixed-bottom bg-white d-lg-none">
       <BookingBar {...listing} />
     </footer>
-  </>
+  </Fade>
 );
 export default ListingPage;
