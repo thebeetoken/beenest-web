@@ -82,8 +82,8 @@ const TripCard = ({ booking, category, handleOpenCancelBookingModal, handleOpenC
             .filter(({ show }) => show)
             .map(({ label, href, onClick }, i, arr) => {
               return (
-                <Col key={i} onClick={onClick} className={i !== arr.length - 1 ? 'u-ver-divider' : ''}>
-                  <a href={href || '#'}>
+                <Col key={i} className={i !== arr.length - 1 ? 'u-ver-divider' : ''}>
+                  <a href={href || '#'} onClick={onClick}>
                     <h5 className="small font-weight-normal text-secondary mb-0">{label}</h5>
                   </a>
                 </Col>
