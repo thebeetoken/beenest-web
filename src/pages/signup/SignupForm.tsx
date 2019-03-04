@@ -78,7 +78,7 @@ const SignupForm = (props: SignupProps) => {
             <h2 className="h3 text-primary font-weight-normal mb-0">
               Welcome to <span className="font-weight-semi-bold">Beenest</span>
             </h2>
-            <p>Fill out the form to get started.</p>
+            <p>Signup to start using Beenest.</p>
           </div>
 
           <Row className="d-flex flex-sm-column flex-md-row">
