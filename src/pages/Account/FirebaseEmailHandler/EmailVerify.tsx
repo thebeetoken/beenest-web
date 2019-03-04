@@ -1,7 +1,7 @@
 import * as React from 'react';
 import Loading from 'shared/loading/Loading';
 import { auth } from 'utils/firebase';
-import { Button, Container, Fade, Row } from 'reactstrap';
+import { Container, Fade, Row } from 'reactstrap';
 import { Link } from 'react-router-dom';
 import { FirebaseConsumer, FirebaseUserProps } from 'HOCs/FirebaseProvider';
 import {
