@@ -64,8 +64,8 @@ export default class EmailVerify extends React.Component<Props> {
         <h2 className={CONTENT_CLASSES.TITLE}>Sorry, there was an error</h2>
         <p className={CONTENT_CLASSES.SUBTITLE}>{this.state.errorMessage}</p>
         <Row>
-          <a target="_blank" href="https://support.beenest.com/">
-            <Button color="primary" className={PRIMARY_BUTTON_CLASSES}>Contact us for further help.</Button>
+          <a target="_blank" href="https://support.beenest.com/" className={PRIMARY_BUTTON_CLASSES}>
+            Contact us for further help
           </a>
         </Row>
       </Container>
