@@ -1,5 +1,5 @@
 import * as React from 'react';
-import { Carousel, CarouselControl, CarouselItem } from 'reactstrap';
+import { Carousel, CarouselCaption, CarouselControl, CarouselItem } from 'reactstrap';
 
 import LazyImage from 'components/shared/LazyImage';
 
@@ -12,15 +12,15 @@ interface Props {
 
 const ListingCarousel = ({ photos }: Props) =>  {
   const [index, setIndex] = React.useState<number>(0);
-  const next = () => setIndex(Math.min((index + 1) % photos.length);
+  const next = () => setIndex((index + 1) % photos.length);
   const previous = () => setIndex((index - 1 + photos.length) % photos.length);
   return <Carousel activeIndex={index} next={next} previous={previous}>
     {photos.map((url: string, index: number) => (
       <CarouselItem key={url}>
         <figure className="height-60vh max-height-60vh">
           <LazyImage src={url} transition />
-          <figcaption>Photo {index + 1} of {photos.length}</figcaption>
         </figure>
+        <CarouselCaption captionText={`Photo ${index + 1} of ${photos.length}`} />
       </CarouselItem>
     ))}
     <CarouselControl direction="prev" directionText="Previous" onClickHandler={previous} />
