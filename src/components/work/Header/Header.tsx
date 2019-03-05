@@ -7,6 +7,8 @@ import { BeenestSVGPrimary } from 'shared/svgComponents/SvgComponents';
 import Loading from 'shared/loading/Loading';
 import SimpleHeader from 'components/work/SimpleHeader';
 
+const HOST_INTEREST_LINK = '/work/hosts/signup?utm_source=header_host_signup_button';
+
 const helpNavItem = {
   header: 'Help',
   link: '/work',
@@ -60,11 +62,9 @@ const DetailedHeader = () => {
         <NavbarToggler onClick={handleToggleNavbar} className="mr-2" />
         <Collapse isOpen={isOpen} navbar>
           <Nav className="ml-auto u-header__navbar-nav pt-5 pb-3 pt-md-0 pb-md-0" navbar>
-            <a href="/hosts/signup">
-              <Button className="mb-4 mb-md-0 mr-md-4 w-100 w-md-auto" type="button" outline color="primary">
-                Become a Host
-              </Button>
-            </a>
+            <Link to={HOST_INTEREST_LINK} className="mb-4 mb-md-0 mr-md-4 w-100 w-md-auto btn btn-outline-primary">
+              Become a Host
+            </Link>
             <FirebaseConsumer>
               {({ loading, user }: FirebaseUserProps) => {
                 if (loading) {
