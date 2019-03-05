@@ -997,7 +997,7 @@ class AdminListingsForm extends React.Component<Props, State> {
           <AdminInputLabel htmlFor="wifi">Wifi Screenshot:</AdminInputLabel>
           <div className="single-input-validator-container">
             <PhotoUploader
-              initialPhotos={this.props.listing.wifi && this.props.listing.wifi.photoUrl ? [{ url: this.props.listing.wifi.photoUrl }] : []}
+              initialPhotos={this.props.listing && this.props.listing.wifi && this.props.listing.wifi.photoUrl ? [{ url: this.props.listing.wifi.photoUrl }] : []}
               maxFiles={1}
               onPhotosUpdated={(photos: Photo[]) => this.setWifiPhoto(photos)}
             />
