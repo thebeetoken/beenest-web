@@ -32,7 +32,7 @@ const contentData = [
   {
     header: 'Company',
     links: [
-      ['About', `${BEENEST_HOST}/work/about`],
+      ['About', `${BEENEST_HOST}/about`],
       ['Blog', 'https://medium.com/thebeetoken', '_blank'],
     ],
   },
@@ -71,11 +71,11 @@ const socialData = [
 
 const Footer = () => (
   <Switch>
-    <Route path="/work/account" component={DetailedFooter} />
-    <Route exact path="/work" component={DetailedFooter} />
-    <Route exact path="/work/about" component={DetailedFooter} />
-    <Route exact path="/work/login" component={NoopComponent} />
-    <Route exact path="/work/signup" component={NoopComponent} />
+    <Route path="/account" component={DetailedFooter} />
+    <Route exact path="/" component={DetailedFooter} />
+    <Route exact path="/about" component={DetailedFooter} />
+    <Route exact path="/login" component={NoopComponent} />
+    <Route exact path="/signup" component={NoopComponent} />
     <Route component={DetailedFooter} />
   </Switch>
 )

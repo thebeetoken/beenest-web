@@ -1,6 +1,6 @@
 import * as React from 'react';
 
-import Button from 'components/shared/Button';
+import Button from 'legacy/shared/Button';
 import ListingBottomBarContainer from './ListingBottomBar.container';
 import { numberToLocaleString } from 'utils/numberToLocaleString';
 import { Currency } from 'networking/bookings';

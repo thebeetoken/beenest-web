@@ -3,6 +3,7 @@ import { Route, Switch } from 'react-router-dom';
 
 import About from './about';
 import Account from './Account';
+import FirebaseEmailHandler from './Account/FirebaseEmailHandler';
 import ForgotPassword from './forgotPassword';
 import Home from './home';
 import HostSignup from './hosts/signup';
@@ -15,7 +16,7 @@ import Signup from './signup';
 import Trips from './trips';
 import AuthenticatedRoute from 'HOCs/AuthenticatedRoute';
 
-import Header from 'components/work/Header';
+import Header from 'legacy/work/Header';
 
 import '../styled/customStyles.scss';
 
@@ -23,7 +24,8 @@ const Work = () => (
   <div>
     <Header />
     <Switch>
-    <Route path="/about" component={About} />
+      <Route path="/about" component={About} />
+      <Route path="/account/action" component={FirebaseEmailHandler} />
       <Route path="/account" component={Account} />
       <Route path="/forgot_password" component={ForgotPassword} />
       <Route exact path="/listings/:id" component={Listing} />

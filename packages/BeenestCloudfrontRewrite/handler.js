@@ -16,10 +16,6 @@ function getS3HtmlPath(path) {
     return '/legacy.html';
   }
 
-  if (path.startsWith('/work')) {
-    return '/work.html';
-  }
-
   return path;
 }
 

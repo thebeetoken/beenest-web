@@ -2,7 +2,7 @@ import * as React from 'react';
 
 import ErrorBoundaryWrapper from 'HOCs/ErrorBoundaryWrapper';
 import Checkbox from 'legacy/shared/Checkbox';
-import GoogleMapsWithMarkers from 'components/shared/GoogleMapsWithMarkers';
+import GoogleMapsWithMarkers from 'legacy/shared/GoogleMapsWithMarkers';
 import { LatLngBounds, ListingShort } from 'networking/listings';
 
 interface Props {

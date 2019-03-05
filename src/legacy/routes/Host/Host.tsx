@@ -16,7 +16,7 @@ import AuthenticatedRoute from 'HOCs/AuthenticatedRoute';
 import { compose, graphql } from 'react-apollo';
 import { CREATE_LISTING, Listing, GET_HOST_LISTINGS } from 'networking/listings';
 import { getFriendlyErrorMessage } from 'utils/validators';
-import TabNavBar from 'components/shared/TabNavBar';
+import TabNavBar from 'legacy/shared/TabNavBar';
 
 interface Props extends RouterProps {
   createListing: () => Promise<Listing>;

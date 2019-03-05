@@ -1,11 +1,11 @@
 import * as React from 'react';
 
 import ImageGrid from 'legacy/shared/ImageGrid';
-import Button from 'components/shared/Button';
-import { ToggleProvider, ToggleProviderRef } from 'components/shared/ToggleProvider';
-import CloseButton from 'components/shared/CloseButton';
-import Portal from 'components/shared/Portal';
-import ListingCarousel from 'components/routes/Listing/Listing/ListingCarousel';
+import Button from 'legacy/shared/Button';
+import { ToggleProvider, ToggleProviderRef } from 'legacy/shared/ToggleProvider';
+import CloseButton from 'legacy/shared/CloseButton';
+import Portal from 'legacy/shared/Portal';
+import ListingCarousel from './ListingCarousel';
 
 import ListingCarouselPortalContainer from './ListingCarouselPortal.container';
 

@@ -114,7 +114,7 @@ const ForgotPasswordForm = (props: RouterProps) => {
   }
 
   function routeHome() {
-    return props.history.push('/work');
+    return props.history.push('/');
   }
 };
 

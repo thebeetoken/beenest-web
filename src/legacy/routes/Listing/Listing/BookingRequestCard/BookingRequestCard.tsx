@@ -15,7 +15,7 @@ import AudioLoading from 'shared/loading/AudioLoading';
 import Button from 'shared/Button';
 import InputLabel from 'shared/InputLabel';
 import InputWrapper from 'shared/InputWrapper';
-import { AppConsumer, AppConsumerProps, ScreenType } from 'components/App.context';
+import { AppConsumer, AppConsumerProps, ScreenType } from 'legacy/Legacy.context';
 import { numberToLocaleString } from 'utils/numberToLocaleString';
 import { parseQueryString, addQueryParams } from 'utils/queryParams';
 

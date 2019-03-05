@@ -22,7 +22,7 @@ const Signup = (props: RouteProps) => (
 
       if (user) {
         const state = (props.location && props.location.state) || {};
-        const destination = state.referrer || '/work';
+        const destination = state.referrer || '/';
         return <Redirect to={destination} />;
       }
       return (

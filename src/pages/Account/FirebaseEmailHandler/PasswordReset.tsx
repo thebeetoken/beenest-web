@@ -147,7 +147,7 @@ export default class PasswordReset extends React.Component<Props> {
         <h2 className={CONTENT_CLASSES.TITLE}>You have changed your password</h2>
         <p className={CONTENT_CLASSES.SUBTITLE}>You can now login with your new password.</p>
         <Row>
-          <Link to="/work/login" className={PRIMARY_BUTTON_CLASSES}>
+          <Link to="/login" className={PRIMARY_BUTTON_CLASSES}>
             Login
           </Link>
         </Row>

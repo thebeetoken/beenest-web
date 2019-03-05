@@ -11,7 +11,7 @@ const ListingCard = ({
   pricePerNightUsd,
   title
 }: ListingShort) => (
-  <Link to={`/work/listings/${idSlug}`} className="w-100 h-100">
+  <Link to={`/listings/${idSlug}`} className="w-100 h-100">
     <Card tag={Fade} className="w-100 h-100">
       <div className="embed-responsive embed-responsive-4by3">
         <div className="embed-responsive-item">

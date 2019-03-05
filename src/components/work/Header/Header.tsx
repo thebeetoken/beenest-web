@@ -7,22 +7,22 @@ import { BeenestSVGPrimary } from 'shared/svgComponents/SvgComponents';
 import Loading from 'shared/loading/Loading';
 import SimpleHeader from 'components/work/SimpleHeader';
 
-const HOST_INTEREST_LINK = '/work/hosts/signup?utm_source=header_host_signup_button';
+const HOST_INTEREST_LINK = '/hosts/signup?utm_source=header_host_signup_button';
 
 const helpNavItem = {
   header: 'Help',
-  link: '/work',
+  link: '/',
 }
 
 const navItems = [
   helpNavItem,
   {
     header: 'Login',
-    link: '/work/login',
+    link: '/login',
   },
   {
     header: 'Signup',
-    link: '/work/signup',
+    link: '/signup',
   },
 ];
 
@@ -30,27 +30,27 @@ const authNavItems = [
   helpNavItem,
   {
     header: 'Account',
-    link: '/work/account',
+    link: '/account',
   },
   {
     header: 'Trips',
-    link: '/work/trips',
+    link: '/trips',
   },
   {
     header: 'Logout',
-    link: '/work/logout',
+    link: '/logout',
   },
 ];
 
 const Header = () => (
   <Switch>
-    <Route path="/work/account" component={DetailedHeader} />
-    <Route exact path="/work" component={DetailedHeader} />
-    <Route exact path="/work/about" component={DetailedHeader} />
-    <Route exact path="/work/forgot_password" render={() => <SimpleHeader white fixed />} />
-    <Route exact path="/work/login" render={() => <SimpleHeader primary block />} />
-    <Route exact path="/work/signup" render={() => <SimpleHeader primary block />} />
-    <Route exact path="/work/hosts/signup" component={NoopComponent} />
+    <Route path="/account" component={DetailedHeader} />
+    <Route exact path="/" component={DetailedHeader} />
+    <Route exact path="/about" component={DetailedHeader} />
+    <Route exact path="/forgot_password" render={() => <SimpleHeader white fixed />} />
+    <Route exact path="/login" render={() => <SimpleHeader primary block />} />
+    <Route exact path="/signup" render={() => <SimpleHeader primary block />} />
+    <Route exact path="/hosts/signup" component={NoopComponent} />
     <Route component={DetailedHeader} />
   </Switch>
 );
@@ -61,7 +61,7 @@ const DetailedHeader = () => {
   return (
     <header className="sticky-top bg-white custom-header-height shadow" id="bee-main-header">
       <Navbar light expand="md">
-        <NavbarBrand href="/work">
+        <NavbarBrand tag={Link} to="/">
           <BeenestSVGPrimary />
         </NavbarBrand>
         <NavbarToggler onClick={handleToggleNavbar} className="mr-2" />

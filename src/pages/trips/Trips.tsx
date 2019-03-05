@@ -2,7 +2,7 @@ import * as React from 'react';
 import { Nav, NavItem, NavLink, Container, Col, Row, Alert, Fade } from 'reactstrap';
 import { Query } from 'react-apollo';
 import { Route, Redirect, Switch } from 'react-router';
-import { NavLink as RRNavLink } from 'react-router-dom';
+import { NavLink as RRNavLink, Link } from 'react-router-dom';
 import { GET_GUEST_SORTED_BOOKINGS, GUEST_SORTED_BOOKINGS, Booking } from 'networking/bookings';
 
 import { VIEWPORT_CENTER_LAYOUT } from 'styled/sharedClasses/layout';
@@ -47,9 +47,9 @@ function Trips() {
               <h2>You have no trips awaiting approval.</h2>
             </Row>
             <Row>
-              <a className="btn btn-secondary" href='/work'>
+              <Link className="btn btn-secondary" to='/'>
                 Book a Home Today!
-              </a>
+              </Link>
             </Row>
           </>;
         const renderUpcomingEmpty = 
@@ -58,9 +58,9 @@ function Trips() {
             <h2>You haven't booked any trips yet.</h2>
             </Row>
             <Row>
-              <a className="btn btn-secondary" href='/work'>
+              <Link className="btn btn-secondary" to='/'>
                 Book a Home Today!
-              </a>
+              </Link>
             </Row>
           </>;
         const renderCards = Object.keys(data).reduce((result: any, category: GUEST_SORTED_BOOKINGS) => {
@@ -93,19 +93,19 @@ function Trips() {
             <Nav className="mb-5" tabs>
               {[
                 {
-                to: '/work/trips/current',
+                to: '/trips/current',
                   title: 'Current',
                 },
                 {
-                  to: '/work/trips/upcoming',
+                  to: '/trips/upcoming',
                   title: 'Upcoming',
                 },
                 {
-                  to: '/work/trips/past',
+                  to: '/trips/past',
                   title: 'Past',
                 },
                 {
-                  to: '/work/trips/cancelled',
+                  to: '/trips/cancelled',
                   title: 'Cancelled',
                 },
               ].map(({ title, to }) => (
@@ -129,7 +129,7 @@ function Trips() {
             <Switch>
               <Route
                 exact
-                path="/work/trips/current"
+                path="/trips/current"
                 component={() => (
                   isCurrentEmpty
                     ? renderCurrentEmpty
@@ -138,7 +138,7 @@ function Trips() {
               />
               <Route
                 exact
-                path="/work/trips/upcoming"
+                path="/trips/upcoming"
                 component={() => (
                   isUpcomingEmpty
                     ? renderUpcomingEmpty
@@ -147,15 +147,15 @@ function Trips() {
               />
               <Route
                 exact
-                path="/work/trips/past"
+                path="/trips/past"
                 component={() => renderPastCards}
               />
               <Route
                 exact
-                path="/work/trips/cancelled"
+                path="/trips/cancelled"
                 component={() => renderCancelledCards}
               />
-              <Redirect exact from="/work/trips" to={isCurrentEmpty ? "/work/trips/upcoming" : "/work/trips/current"} />
+              <Redirect exact from="/trips" to={isCurrentEmpty ? "/trips/upcoming" : "/trips/current"} />
               <Route component={NotFound} />
             </Switch>
 

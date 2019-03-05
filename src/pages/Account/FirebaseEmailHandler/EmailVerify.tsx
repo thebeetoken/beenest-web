@@ -92,7 +92,7 @@ export default class EmailVerify extends React.Component<Props> {
                   <p className={CONTENT_CLASSES.SUBTITLE}>
                     Finish your account verification by confirming your phone number to book a rental.
                   </p>
-                  <Link to="/work/account/verification" className={PRIMARY_BUTTON_CLASSES}>
+                  <Link to="/account/verification" className={PRIMARY_BUTTON_CLASSES}>
                     Verify Here
                   </Link>
                 </Container>
@@ -112,7 +112,7 @@ export default class EmailVerify extends React.Component<Props> {
                   <p className={`${CONTENT_CLASSES.SUBTITLE} my-3`}>
                     or
                   </p>
-                  <Link to="/work" className={PRIMARY_BUTTON_CLASSES}>
+                  <Link to="/" className={PRIMARY_BUTTON_CLASSES}>
                     Find a place to stay at
                   </Link>
                 </Container>

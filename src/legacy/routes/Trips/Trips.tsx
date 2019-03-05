@@ -23,7 +23,7 @@ import BeeLink from 'legacy/shared/BeeLink';
 import LoadingPortal from 'legacy/shared/LoadingPortal';
 import TabNavBar from 'legacy/shared/TabNavBar';
 import { Switch, Route, Redirect } from 'react-router';
-import NotFound from 'components/routes/NotFound';
+import NotFound from 'legacy/routes/NotFound';
 
 interface Props {
   cancelBooking: (booking: Booking) => Promise<void>;

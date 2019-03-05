@@ -20,7 +20,7 @@ import { History } from 'history';
 import ListingHelp from './ListingHelp';
 import { ApolloError } from 'apollo-client';
 import { AppConsumer, AppConsumerProps, ScreenType } from 'legacy/Legacy.context';
-import AudioLoading from 'components/shared/loading/AudioLoading';
+import AudioLoading from 'legacy/shared/loading/AudioLoading';
 
 interface FormValues {
   [name: string]: boolean | string | string[] | number | object | undefined;

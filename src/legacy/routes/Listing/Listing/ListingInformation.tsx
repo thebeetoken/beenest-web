@@ -10,9 +10,9 @@ import LazyImage from 'legacy/shared/LazyImage';
 import ListItem from 'legacy/shared/ListItem';
 import Svg from 'legacy/shared/Svg';
 import { formatAddress  } from 'utils/formatter'
-import Portal from 'components/shared/Portal';
-import ContactHostForm from 'components/shared/ContactHostForm';
-import { ToggleProviderRef, ToggleProvider } from 'components/shared/ToggleProvider';
+import Portal from 'legacy/shared/Portal';
+import ContactHostForm from 'legacy/shared/ContactHostForm';
+import { ToggleProviderRef, ToggleProvider } from 'legacy/shared/ToggleProvider';
 import format from 'date-fns/format';
 
 interface Props {

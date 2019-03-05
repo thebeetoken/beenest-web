@@ -36,7 +36,7 @@ const SimpleHeader = ({ primary = false, white = false, fixed = false, block = f
         <Navbar className="d-lg-none vw-100">
           <NavbarBrand
             tag={Link}
-            to="/work"
+            to="/"
             className={NAVBAR_BRAND_CLASSES}
           >
             <div className="d-lg-none" style={BRAND_CONTAINER_STYLE}>
@@ -48,7 +48,7 @@ const SimpleHeader = ({ primary = false, white = false, fixed = false, block = f
         <Navbar className="d-none d-lg-flex">
           <NavbarBrand
             tag={Link}
-            to="/work"
+            to="/"
             className={NAVBAR_BRAND_CLASSES}
           >
             <div className="d-none d-lg-flex" style={BRAND_CONTAINER_STYLE}>

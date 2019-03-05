@@ -1,7 +1,7 @@
 import * as React from 'react';
 
 import NumberInputContainer from './NumberInput.container';
-import Fab from 'components/shared/Fab';
+import Fab from 'legacy/shared/Fab';
 
 /**
  * This component is a

@@ -40,22 +40,22 @@ const Account = () => {
               {[
                 {
                   tag: RRNavLink,
-                  to: '/work/account/general',
+                  to: '/account/general',
                   title: 'General Info',
                 },
                 {
                   tag: RRNavLink,
-                  to: '/work/account/payment',
+                  to: '/account/payment',
                   title: 'Payment',
                 },
                 {
                   tag: RRNavLink,
-                  to: '/work/account/security',
+                  to: '/account/security',
                   title: 'Security',
                 },
                 {
                   tag: RRNavLink,
-                  to: '/work/account/verification',
+                  to: '/account/verification',
                   title: 'Verification',
                 },
               ].map(({ title, tag, to }) => (
@@ -79,17 +79,17 @@ const Account = () => {
                   <Switch>
                     <Route
                       exact
-                      path="/work/account/general"
+                      path="/account/general"
                       render={(props: RouterProps) => <AccountGeneral {...props} user={user} />}
                     />
                     <Route
                       exact
-                      path="/work/account/payment"
+                      path="/account/payment"
                       render={(props: RouterProps) => <AccountPayment {...props} creditBalance={creditBalance} />}
                     />
-                    <Route exact path="/work/account/security" component={AccountSecurity} />
-                    <Route exact path="/work/account/verification" component={AccountVerification} />
-                    <Redirect exact from="/work/account" to="/work/account/general" />
+                    <Route exact path="/account/security" component={AccountSecurity} />
+                    <Route exact path="/account/verification" component={AccountVerification} />
+                    <Redirect exact from="/account" to="/account/general" />
                     <Route component={NotFound} />
                   </Switch>
                 </Col>
@@ -111,7 +111,7 @@ export default () => (
       if (loading) {
         return null;
       }
-      return user ? <Account /> : <Redirect to="/work/login" />;
+      return user ? <Account /> : <Redirect to="/login" />;
     }}
   </FirebaseConsumer>
 );

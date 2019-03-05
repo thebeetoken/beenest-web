@@ -1,5 +1,5 @@
 import * as React from 'react';
-import NotFound from 'components/routes/NotFound';
+import NotFound from 'legacy/routes/NotFound';
 import { Route, Redirect, Switch } from 'react-router-dom';
 
 const generateSearchLink = (market:string, lat:number, lng:number) => (

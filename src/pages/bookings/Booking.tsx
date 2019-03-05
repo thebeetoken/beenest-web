@@ -10,11 +10,11 @@ const Booking = () => (
   <BookingContainer className="bee-booking">
     <div className="booking-body-container">
       <Switch>
-        <Route exact path="/work/bookings/:id/options" component={BookingOptions} />
-        <Route exact path="/work/bookings/:id/payment" component={BookingPayment} />
-        <Route exact path="/work/bookings/:id/receipt" component={BookingReceipt} />
-        <Redirect from="/work/bookings/:id" to="/work/bookings/:id/options" />
-        <Route component={() => <Redirect to="/work" />} />
+        <Route exact path="/bookings/:id/options" component={BookingOptions} />
+        <Route exact path="/bookings/:id/payment" component={BookingPayment} />
+        <Route exact path="/bookings/:id/receipt" component={BookingReceipt} />
+        <Redirect from="/bookings/:id" to="/bookings/:id/options" />
+        <Route component={() => <Redirect to="/" />} />
       </Switch>
     </div>
   </BookingContainer>
