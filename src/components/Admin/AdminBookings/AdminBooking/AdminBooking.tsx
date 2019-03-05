@@ -9,6 +9,7 @@ import { GET_ADMIN_BOOKING } from 'networking/bookings';
 import BeeLink from 'shared/BeeLink';
 import { formatSingleDate } from 'utils/formatDate';
 import { numberToLocaleString } from 'utils/numberToLocaleString';
+import { getAdminBookingDisplayStatus } from 'utils/bookingsDisplayStatus';
 
 const AdminBooking = ({ match }: any): JSX.Element => (
   <AdminBookingContainer>
@@ -47,6 +48,7 @@ const AdminBooking = ({ match }: any): JSX.Element => (
                 </p>
               </div>
               <div>
+                <p>Status: {getAdminBookingDisplayStatus(booking.status)}</p>
                 <AdminBookingStatus {...booking} />
               </div>
             </div>
