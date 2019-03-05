@@ -310,3 +310,8 @@ export enum UserField {
   FIRST_NAME = 'firstName',
   LAST_NAME = 'lastName',
 }
+
+export enum ContactUserField {
+  SUBJECT = 'subject',
+  MESSAGE = 'message',
+}
