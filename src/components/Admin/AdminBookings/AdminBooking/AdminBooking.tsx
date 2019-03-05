@@ -21,6 +21,8 @@ const AdminBooking = ({ match }: any): JSX.Element => (
           return <h1>{error ? error.message : 'Error / No Data'}</h1>;
         }
         const { booking } = data;
+        const agodaId = booking.listing.id.includes('agoda_') ? booking.listing.id.split('agoda_')[1] : '';
+        const agodaLink = agodaId ? `https://www.agoda.com/partners/partnersearch.aspx?pcs=1&cid=1819819&hid=${agodaId}` : '';
         return (
           <>
             <div>
@@ -59,6 +61,14 @@ const AdminBooking = ({ match }: any): JSX.Element => (
               </p>
               <p>
                 Guest Id: <BeeLink to={`/admin/users/${booking.guest.id}`}>{booking.guest.id}</BeeLink>
+              </p>
+            </div>
+            <div>
+              <p>
+                Agoda Affiliate Link:{' '}
+                  {agodaLink
+                    ? <BeeLink href={agodaLink}>{agodaLink}</BeeLink>
+                    : <span>Could not provide agoda link due to missing listing id.</span>}
               </p>
             </div>
           </>
