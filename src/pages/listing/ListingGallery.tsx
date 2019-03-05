@@ -13,7 +13,7 @@ const ListingGallery = ({ listingPicUrl, photos }: Listing) => {
     <Button className="position-absolute bottom-0 right-0 m-4" onClick={() => setOpen(true)}>
       View Photos <span className="fas fa-camera"></span>
     </Button>
-    <Modal centered size="lg" isOpen={isOpen}>
+    <Modal centered size="lg" isOpen={isOpen} toggle={() => setOpen(false)}>
       <ModalHeader toggle={() => setOpen(false)} />
       <ModalBody className="px-5 pt-0 pb-5">
         <ListingCarousel photos={[listingPicUrl, ...photos]} />
