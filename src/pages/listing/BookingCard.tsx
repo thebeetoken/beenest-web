@@ -9,11 +9,12 @@ import { formatPrice } from 'utils/formatter';
 
 const BookingCard = ({
   pricePerNightUsd
-}: Listing) => (<Card className="p-5 m-3">
+}: Listing) => (<Card className="p-5 m-3 shadow">
   <Row className="m-0">
-    <strong>{formatPrice(pricePerNightUsd)} per night</strong>
+    <h3 className="d-inline">{formatPrice(pricePerNightUsd)}</h3>
+    <small className="pl-3 mt-3"> per night</small>
   </Row>
-  <Row className="w-100 m-0">
+  <Row className="w-100 m-0 mb-3">
     <DateRangePicker
       isOutsideRange={() => false}
       startDate={null} // momentPropTypes.momentObj or null,
@@ -30,7 +31,7 @@ const BookingCard = ({
       numberOfMonths={1}
     />
   </Row>
-  <Row className="w-100 m-0">
+  <Row className="w-100 m-0 mb-3">
     <Input
       type="select"
       name="numberOfGuests"
@@ -44,7 +45,7 @@ const BookingCard = ({
     </Input>
   </Row>
   <Row className="w-100 m-0">
-    <Button>Request to Book</Button>
+    <Button className="w-100">Request to Book</Button>
   </Row>
 </Card>);
 export default BookingCard;
