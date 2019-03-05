@@ -36,16 +36,25 @@ const ListingInformation = ({
   <h1>Description</h1>
   <p dangerouslySetInnerHTML={{ __html: sanitizeHtml(description) }} />
   <h1>Accommodations</h1>
-  <dl>
-    <dt>Home Type</dt><dd>{homeType}</dd>
-    <dt>Sleeping arrangement</dt><dd>{sleepingArrangement}</dd>
-    <dt>Number of bedrooms</dt><dd>{numberOfBedrooms}</dd>
-    <dt>Number of bathrooms</dt><dd>{numberOfBathrooms}</dd>
-    <dt>Shared bathroom</dt><dd>{sharedBathroom}</dd>
-    <dt>Maximum number of guests</dt><dd>{maxGuests}</dd>
-    <dt>Minimum number of nights</dt><dd>{minimumNights}</dd>
-    <dt>Check-in</dt><dd>{checkInTime.from} to {checkInTime.to}</dd>
-    <dt>Check-out</dt><dd>{checkOutTime}</dd>
+  <dl className="row">
+    <dt className="col-6">Home Type</dt>
+    <dd className="col-6">{homeType}</dd>
+    <dt className="col-6">Sleeping arrangement</dt>
+    <dd className="col-6">{sleepingArrangement}</dd>
+    <dt className="col-6">Number of bedrooms</dt>
+    <dd className="col-6">{numberOfBedrooms}</dd>
+    <dt className="col-6">Number of bathrooms</dt>
+    <dd className="col-6">{numberOfBathrooms}</dd>
+    <dt className="col-6">Shared bathroom</dt>
+    <dd className="col-6">{sharedBathroom}</dd>
+    <dt className="col-6">Maximum number of guests</dt>
+    <dd className="col-6">{maxGuests}</dd>
+    <dt className="col-6">Minimum number of nights</dt>
+    <dd className="col-6">{minimumNights}</dd>
+    <dt className="col-6">Check-in</dt>
+    <dd className="col-6">{checkInTime.from} to {checkInTime.to}</dd>
+    <dt className="col-6">Check-out</dt>
+    <dd className="col-6">{checkOutTime}</dd>
   </dl>
   <h1>Amenities</h1>
   <ul>
