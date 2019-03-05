@@ -46,6 +46,7 @@ const Header = () => (
     <Route exact path="/work/forgot_password" render={() => <SimpleHeader white fixed />} />
     <Route exact path="/work/login" render={() => <SimpleHeader primary block />} />
     <Route exact path="/work/signup" render={() => <SimpleHeader primary block />} />
+    <Route exact path="/work/hosts/signup" component={NoopComponent} />
     <Route component={DetailedHeader} />
   </Switch>
 );
@@ -102,5 +103,7 @@ const DetailedHeader = () => {
     toggleNavbar(!isOpen);
   }
 };
+
+const NoopComponent = () => null;
 
 export default Header;

@@ -6,6 +6,7 @@ import Account from './Account';
 import FirebaseEmailHandler from './Account/FirebaseEmailHandler';
 import ForgotPassword from './forgotPassword';
 import Home from './home';
+import HostSignup from './hosts/signup';
 import Listing from './listing';
 import Login from './login';
 import Logout from './logout';
@@ -33,6 +34,7 @@ const Work = () => (
       <Route exact path="/work/search" component={Search} />
       <Route exact path="/work/signup" component={Signup} />
       <AuthenticatedRoute path="/work/trips" component={Trips} />
+      <Route path="/work/hosts/signup" component={HostSignup} />
       <Route exact path="/work" component={Home} />
       <Route path="/work" component={NotFound} />
     </Switch>

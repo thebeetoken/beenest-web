@@ -25,7 +25,7 @@ const AccountPayment = ({ creditBalance }: Props) => {
   const [modal, setModal] = React.useState<ModalType | undefined>(undefined);
   const [alert, setAlert] = React.useState<AlertProperties>({ msg: '', color: '', show: false });
   const [paymentSource, setPaymentSource] = React.useState<PaymentSource | undefined>(undefined);
-  
+
   return (
     <Query query={GET_PAYMENT_SOURCES}>
       {({ loading, error, data }) => {

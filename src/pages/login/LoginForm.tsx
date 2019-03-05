@@ -115,7 +115,7 @@ const LoginForm = (props: LoginProps) => {
                 disabled={isSubmitting}
                 color="primary"
               >
-                Get Started
+                Login
               </Button>
             </Col>
           </Row>
