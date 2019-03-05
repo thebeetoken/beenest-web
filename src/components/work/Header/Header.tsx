@@ -33,6 +33,10 @@ const authNavItems = [
     link: '/work/account',
   },
   {
+    header: 'Trips',
+    link: '/work/trips',
+  },
+  {
     header: 'Logout',
     link: '/work/logout',
   },

@@ -3,7 +3,7 @@ import { Nav, NavItem, NavLink, Container, Col, Row, Alert, Fade } from 'reactst
 import { Query } from 'react-apollo';
 import { Route, Redirect, Switch } from 'react-router';
 import { NavLink as RRNavLink } from 'react-router-dom';
-import { GET_GUEST_SORTED_BOOKINGS, Booking } from 'networking/bookings';
+import { GET_GUEST_SORTED_BOOKINGS, GUEST_SORTED_BOOKINGS, Booking } from 'networking/bookings';
 
 import { VIEWPORT_CENTER_LAYOUT } from 'styled/sharedClasses/layout';
 import NotFound from 'components/routes/NotFound';
@@ -63,7 +63,7 @@ function Trips() {
               </a>
             </Row>
           </>;
-        const renderCards = Object.keys(data).reduce((result: any, category) => {
+        const renderCards = Object.keys(data).reduce((result: any, category: GUEST_SORTED_BOOKINGS) => {
           return {
             ...result,
             [category]: 
@@ -72,6 +72,7 @@ function Trips() {
                   <Col key={booking.id} className="d-flex" md="6" lg="4">
                     <TripCard
                       key={booking.id}
+                      category={category}
                       booking={booking}
                       handleOpenContactHostModal={() => handleModalAction(ModalType.CONTACT_HOST, booking)}
                       handleOpenCancelBookingModal={() => handleModalAction(ModalType.CANCEL_BOOKING, booking)} />
@@ -80,10 +81,10 @@ function Trips() {
               </Row>
           };
         }, {});
-        const renderCancelledCards = renderCards.cancelled;
-        const renderCurrentCards = renderCards.current;
-        const renderPastCards = renderCards.past;
-        const renderUpcomingCards = renderCards.upcoming;
+        const renderCancelledCards = renderCards[GUEST_SORTED_BOOKINGS.CANCELLED];
+        const renderCurrentCards = renderCards[GUEST_SORTED_BOOKINGS.CURRENT];
+        const renderPastCards = renderCards[GUEST_SORTED_BOOKINGS.PAST];
+        const renderUpcomingCards = renderCards[GUEST_SORTED_BOOKINGS.UPCOMING];
 
         return (
           <Container className="pt-8 pb-6" tag={Fade}>

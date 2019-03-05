@@ -410,3 +410,10 @@ export const PAYOUT_BOOKING = gql`
     }
   }
 `;
+
+export enum GUEST_SORTED_BOOKINGS {
+  CURRENT = 'current',
+  UPCOMING = 'upcoming',
+  PAST = 'past',
+  CANCELLED = 'cancelled',
+}

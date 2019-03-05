@@ -24,25 +24,6 @@ $HEADER-HEIGHT: 4.125rem;
   min-height: calc(100vh - #{$HEADER-HEIGHT});
 }
 
-// carousel custom styles
-.carousel-item {
-  >img {
-    height: 100%;
-    object-fit: cover;
-    object-position: center;
-    width: 100%;
-  }
-
-  &.bee-center-carousel-text {
-    div {
-      bottom: auto;
-      left: auto;
-      right: auto;
-      top: auto;
-    }
-  }
-}
-
 // custom fixed header height to ensure we know the exact header height
 .custom-header-height {
    min-height: $HEADER-HEIGHT;
@@ -61,6 +42,10 @@ $HEADER-HEIGHT: 4.125rem;
   z-index: 0;
 }
 
+
+
+// START UTILITY CLASSES
+
 // add not-allowed cursor and no transform on disabled items
 * {
   &:disabled {
@@ -68,6 +53,34 @@ $HEADER-HEIGHT: 4.125rem;
 
     &:hover {
       transform: none;
+    }
+  }
+}
+ 
+// fit image to div
+%img-fit {
+  height: 100%;
+  object-fit: cover;
+  object-position: center;
+  width: 100%;
+}
+
+.card-img {
+  @extend %img-fit;
+}
+
+// carousel custom styles
+.carousel-item {
+  > img {
+    @extend %img-fit;
+  }
+
+  &.bee-center-carousel-text {
+    div {
+      bottom: auto;
+      left: auto;
+      right: auto;
+      top: auto;
     }
   }
 }
