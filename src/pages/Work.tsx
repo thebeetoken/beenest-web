@@ -1,11 +1,15 @@
 import * as React from 'react';
 import { Route, Switch } from 'react-router-dom';
 
+import ZendeskWebWidgetWrapper from 'HOCs/ZendeskWebWidgetWrapper';
+import Header from 'components/work/Header';
+
 import About from './about';
 import Account from './Account';
 import FirebaseEmailHandler from './Account/FirebaseEmailHandler';
 import ForgotPassword from './forgotPassword';
 import Home from './home';
+import Host from './host';
 import HostSignup from './hosts/signup';
 import Listing from './listing';
 import Login from './login';
@@ -15,10 +19,14 @@ import Search from './search';
 import Signup from './signup';
 import Trips from './trips';
 import AuthenticatedRoute from 'HOCs/AuthenticatedRoute';
-
-import Header from 'components/work/Header';
-
 import '../styled/customStyles.scss';
+
+
+const HostWithZendesk = (props: RouterProps) => (
+  <ZendeskWebWidgetWrapper>
+    <Host {...props} />
+  </ZendeskWebWidgetWrapper>
+);
 
 const Work = () => (
   <div>
@@ -28,6 +36,7 @@ const Work = () => (
       <Route path="/work/account/action" component={FirebaseEmailHandler} />
       <Route path="/work/account" component={Account} />
       <Route path="/work/forgot_password" component={ForgotPassword} />
+      <AuthenticatedRoute path="/work/host" component={HostWithZendesk} />
       <Route exact path="/work/listings/:id" component={Listing} />
       <Route exact path="/work/login" component={Login} />
       <Route exact path="/work/logout" component={Logout} />
