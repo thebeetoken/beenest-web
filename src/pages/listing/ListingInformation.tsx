@@ -1,5 +1,5 @@
 import * as React from 'react';
-import { Fade } from 'reactstrap';
+import { Col, Fade, Row } from 'reactstrap';
 import sanitizeHtml from 'sanitize-html';
 
 import { Listing } from 'networking/listings';
@@ -64,8 +64,10 @@ const ListingInformation = ({
   <GoogleMaps lat={lat} lng={lng} showCircle />
   <h1>About {host.displayName}</h1>
   <p><small>Member since {formatMonth(host.createdAt)}</small></p>
-  <Avatar user={host} />
-  <ContactHostButton listingId={id} host={host} />
+  <Row className="align-items-center">
+    <Col><Avatar user={host} /></Col>
+    <Col><ContactHostButton listingId={id} host={host} /></Col>
+  </Row>
   <p dangerouslySetInnerHTML={{ __html: sanitizeHtml(host.about) }} />
 </Fade>;
 
