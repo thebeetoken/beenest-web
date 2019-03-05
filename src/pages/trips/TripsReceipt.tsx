@@ -51,7 +51,7 @@ function TripsReceipt({ match }: RouterProps) {
         const { creditAmountApplied, pricePerNight, priceTotalNights, securityDeposit, transactionFee } = priceQuote;
 
         return (
-          <Container className="pt-8 pb-6" tag={Fade}>
+          <Container className="pt-8 pb-8" tag={Fade}>
             <Row>
               <Col lg="6">
                 <h1 className="mb-0">Receipt</h1>
