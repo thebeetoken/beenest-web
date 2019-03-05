@@ -4,7 +4,9 @@ import { Listing } from "networking/listings";
 // comma-separates terms and leaves no trailing commas
 export function formatAddress(...args: Array<string | undefined>): string {
   const clean = args.filter(str => !!str && !(str.toUpperCase() === 'US' || str.toUpperCase() === 'USA'));
-  return (clean.slice(0, -1).join(', ') + (clean.slice(-1) ? ' ' + clean.slice(-1) : '')).trim();
+  return /^([0-9]|-)+$/.test(clean[clean.length - 1] || '') // No comma before postal code, if present
+    ? clean.slice(0, -1).join(', ') + ' ' + clean.slice(-1)
+    : clean.join(', ');
 }
 
 interface FormatGeolocationAddress {
