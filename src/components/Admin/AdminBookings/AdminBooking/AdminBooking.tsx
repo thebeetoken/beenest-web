@@ -72,7 +72,7 @@ const AdminBooking = ({ match }: any): JSX.Element => (
               <div>
                 <p>Agoda Affiliate Link:</p>
                 <p>
-                  <BeeLink href={agodaLink}>{agodaLink}</BeeLink>
+                  <BeeLink href={agodaLink} target="_blank">{agodaLink}</BeeLink>
                 </p>
               </div>
             }
