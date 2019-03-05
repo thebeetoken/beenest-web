@@ -14,9 +14,7 @@ const ListingCarousel = ({ photos }: Props) =>  {
   return <Carousel activeIndex={index} next={next} previous={previous} interval={false}>
     {photos.map((url: string, index: number) => (
       <CarouselItem key={url}>
-        <figure className="height-60vh max-height-60vh">
-          <LazyImage src={url} transition />
-        </figure>
+        <LazyImage src={url} transition />
         <CarouselCaption captionText={`Photo ${index + 1} of ${photos.length}`} />
       </CarouselItem>
     ))}
