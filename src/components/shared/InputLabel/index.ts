@@ -1,1 +1,1 @@
-export { default } from 'components/shared/InputLabel/InputLabel';
+export { default } from 'legacy/shared/InputLabel/InputLabel';

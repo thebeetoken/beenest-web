@@ -4,7 +4,7 @@ import TabNavContainer from './TabNav.container';
 
 import BeeLink from 'shared/BeeLink';
 import Svg from 'shared/Svg';
-import { AppConsumer, AppConsumerProps, ScreenType } from 'components/App.context';
+import { AppConsumer, AppConsumerProps, ScreenType } from 'legacy/Legacy.context';
 
 interface Props {
   badge?: string;

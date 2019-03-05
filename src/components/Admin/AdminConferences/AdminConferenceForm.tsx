@@ -6,11 +6,11 @@ import { WithContext as ReactTags } from 'react-tag-input';
 import _ from 'lodash';
 
 //import Svg from 'shared/Svg';
-import AdminInputLabel from 'components/shared/AdminInputLabel';
-import AdminInputWrapper from 'components/shared/AdminInputWrapper';
+import AdminInputLabel from 'legacy/shared/AdminInputLabel';
+import AdminInputWrapper from 'legacy/shared/AdminInputWrapper';
 import Button from 'shared/Button';
 import { PhotoUploader, Photo } from 'shared/PhotoUploader';
-import TextareaContainer from 'components/shared/Textarea/Textarea.container';
+import TextareaContainer from 'legacy/shared/Textarea/Textarea.container';
 
 import { Conference, CREATE_CONFERENCE, UPDATE_CONFERENCE, GET_ALL_CONFERENCES } from 'networking/conferences';
 

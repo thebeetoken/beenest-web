@@ -10,7 +10,7 @@ import Button from 'shared/Button';
 import GoogleAutoComplete from 'shared/GoogleAutoComplete';
 import InputWrapper from 'shared/InputWrapper';
 import { parseQueryString, stringifyQueryString } from 'utils/queryParams';
-import { AppConsumer, AppConsumerProps, ScreenType } from 'components/App.context';
+import { AppConsumer, AppConsumerProps, ScreenType } from 'legacy/Legacy.context';
 
 interface QueryParams {
   checkInDate?: string;

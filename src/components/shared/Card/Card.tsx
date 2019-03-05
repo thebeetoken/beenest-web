@@ -2,7 +2,7 @@ import * as React from 'react';
 
 import CardContainer from './Card.container';
 
-import CloseButton from 'components/shared/CloseButton';
+import CloseButton from 'legacy/shared/CloseButton';
 
 type Props = Partial<{
   children: React.ReactNode;
