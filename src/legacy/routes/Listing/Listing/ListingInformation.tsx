@@ -1,0 +1,176 @@
+import * as React from 'react';
+import sanitizeHtml from 'sanitize-html';
+
+import { FirebaseConsumer, FirebaseUserProps } from 'HOCs/FirebaseProvider';
+import { Listing, Host } from 'networking/listings';
+import Button from 'legacy/shared/Button';
+import Divider from 'legacy/shared/Divider';
+import GoogleMaps from 'legacy/shared/GoogleMaps';
+import LazyImage from 'legacy/shared/LazyImage';
+import ListItem from 'legacy/shared/ListItem';
+import Svg from 'legacy/shared/Svg';
+import { formatAddress  } from 'utils/formatter'
+import Portal from 'components/shared/Portal';
+import ContactHostForm from 'components/shared/ContactHostForm';
+import { ToggleProviderRef, ToggleProvider } from 'components/shared/ToggleProvider';
+import format from 'date-fns/format';
+
+interface Props {
+  listing: Listing;
+  host: Host;
+}
+
+const DEFAULT_PROFILE_URL = 'https://static.beenest.com/images/app/misc/profile.png';
+
+const ListingInformation = ({ listing, host }: Props) => {
+  const {
+    amenities,
+    checkInTime,
+    checkOutTime,
+    city,
+    country,
+    description,
+    homeType,
+    id,
+    lat,
+    lng,
+    maxGuests,
+    minimumNights,
+    numberOfBathrooms,
+    numberOfBedrooms,
+    sharedBathroom,
+    sleepingArrangement,
+    state,
+    title,
+    wifi,
+  } = listing;
+  const { about, createdAt, displayName, profilePicUrl } = host;
+  const renderAmenities = (amenities || []).map(amenity => {
+    const noFlex = amenity && amenity.length > 25;
+    return (
+      <ListItem noFlex={!!noFlex} noHover prefixColor="style" start="tiniest" key={amenity}>
+        <Svg className="prefix" src="utils/check-circle" />
+        <span>{amenity}</span>
+      </ListItem>
+    );
+  });
+  
+  return (
+    <div className="listing-information-container">
+      <div className="heading-container">
+        <h1>{title}</h1>
+        <h3>
+          {formatAddress(city, state, country)}
+        </h3>
+      </div>
+
+      <div className="host-welcome-container">
+        <h3>Host: {displayName}</h3>
+        <div className="host-welcome-container--img">
+          <LazyImage src={profilePicUrl || DEFAULT_PROFILE_URL} />
+        </div>
+      </div>
+
+      <div className="description-container">
+        <h2>Description</h2>
+        {description && <div className="description-container--content" dangerouslySetInnerHTML={{ __html: sanitizeHtml(description) }} />}
+      </div>
+
+      {wifi &&
+        <div className="wifi-container">
+          <h2>Wifi</h2>
+          {wifi.mbps && <p>Confirmed Speed: {wifi.mbps} Mbps</p>}
+          {wifi.photoUrl &&
+            <div className="wifi-container--img">
+              <LazyImage src={wifi.photoUrl} />
+            </div>
+          }
+        </div>
+      }
+
+      <div className="accommodations-container">
+        <h2>Accommodations</h2>
+        <ul>
+          {homeType && <li>Home type: {homeType}</li>}
+          {sleepingArrangement && <li>Sleeping arrangement: {sleepingArrangement}</li>}
+          {numberOfBedrooms >= 0 && <li>Number of bedrooms: {numberOfBedrooms}</li>}
+          {numberOfBedrooms >= 0 && <li>Number of bathrooms: {numberOfBathrooms}</li>}
+          {sharedBathroom && <li>Shared bathroom: {sharedBathroom}</li>}
+          {maxGuests >= 1 && <li>Maximum number of guests: {maxGuests}</li>}
+          {minimumNights >= 1 && <li>Minimum number of nights: {minimumNights}</li>}
+          {checkInTime && <li>Check-in: {checkInTime.from} to {checkInTime.to}</li>}
+          {checkOutTime && <li>Check-out: {checkOutTime}</li>}
+        </ul>
+      </div>
+
+      {(amenities || []).length !== 0 &&
+        <div className="amenities-container">
+          <h2>Amenities</h2>
+          <div className="amenities-list-container">
+            <ul>{renderAmenities}</ul>
+          </div>
+        </div>
+      }
+
+      <Divider className="divider-style" />
+
+      <div className="location-container">
+        <h2>Location</h2>
+        <h3>(Specific location will be revealed once booking is confirmed)</h3>
+        <GoogleMaps lat={lat} lng={lng} showCircle />
+      </div>
+
+      <Divider className="divider-style" />
+
+      <div className="about-host-container">
+        <div className="about-host-heading-container">
+          <div className="about-host-heading-container--title">
+            <h2>About {displayName}</h2>
+            {createdAt && <h3>Joined since {format(createdAt, 'MMMM YYYY')}</h3>}
+          </div>
+          <div className="about-host--row">
+            <div className="about-host--img">
+              <LazyImage src={profilePicUrl || DEFAULT_PROFILE_URL} />
+            </div>
+            <FirebaseConsumer>
+              {({ completedVerification }: FirebaseUserProps) => {
+                if (!completedVerification) {
+                  return null;
+                }
+                return (
+                  <ToggleProvider>
+                    {({ show, toggle }: ToggleProviderRef) => (
+                      <>
+                        <Button
+                          background="white"
+                          border="core"
+                          className="about-host--contact-btn"
+                          color="core"
+                          onClick={toggle}
+                          size="small"
+                          suffix="decorative/email">
+                          Contact Host
+                        </Button>
+                        {show && (
+                          <Portal color="up" opacity={0.9} onClick={toggle}>
+                            <ContactHostForm
+                              host={host}
+                              listingId={id}
+                              onClose={toggle} />
+                          </Portal>
+                        )}
+                      </>
+                    )}
+                  </ToggleProvider>
+                );
+              }}
+            </FirebaseConsumer>
+          </div>
+        </div>
+        {about && <div className="about-host-container--description" dangerouslySetInnerHTML={{ __html: sanitizeHtml(about) }} />}
+      </div>
+    </div>
+  );
+};
+
+export default ListingInformation;

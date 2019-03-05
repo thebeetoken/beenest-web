@@ -12,6 +12,10 @@ function getS3HtmlPath(path) {
     return '/admin.html';
   }
 
+  if (path.startsWith('/legacy')) {
+    return '/legacy.html';
+  }
+
   if (path.startsWith('/work')) {
     return '/work.html';
   }

@@ -36,11 +36,13 @@ if (isDevelopmentNodeEnv) {
   );
   opn(`http://localhost:${PORT}/`);
   app.use('/admin', (req, res) => res.sendFile('templates/admin.development.html', { root: __dirname }));
+  app.use('/legacy', (req, res) => res.sendFile('templates/legacy.development.html', { root: __dirname }));
   app.use('/work', (req, res) => res.sendFile('templates/work.development.html', { root: __dirname }));
   app.use((req, res) => res.sendFile('templates/index.development.html', { root: __dirname }));
 } else {
   app.use('/js', serveStatic(path.join(__dirname, '..', 'dist', 'js')));
   app.use('/admin', serveStatic(path.join(__dirname, '..', 'dist', 'admin.html')));
+  app.use('/legacy', serveStatic(path.join(__dirname, '..', 'dist', 'legacy.html')));
   app.use('/work', serveStatic(path.join(__dirname, '..', 'dist', 'work.html')));
   app.use((req, res) => res.sendFile(path.resolve(__dirname, '..', 'dist', 'index.html')));
 }
