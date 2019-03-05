@@ -7,7 +7,7 @@ import { FirebaseConsumer, FirebaseUserProps } from 'HOCs/FirebaseProvider';
 import { auth, FirebaseUser } from 'utils/firebase';
 
 import PhoneNumberVerificationForm from './PhoneNumberVerificationForm';
-import { AlertProperties } from 'components/work/Alert/Alert';
+import { AlertProperties } from 'legacy/work/Alert/Alert';
 import { getDisplaySuccessMessage, SuccessMessage } from 'utils/validators';
 
 interface Props {

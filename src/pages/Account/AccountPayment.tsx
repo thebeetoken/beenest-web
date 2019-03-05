@@ -10,7 +10,7 @@ import { VIEWPORT_CENTER_LAYOUT } from 'styled/sharedClasses/layout';
 
 import NewCardForm from './NewCardForm';
 import DeleteCardForm from './DeleteCardForm';
-import { AlertProperties } from 'components/work/Alert/Alert';
+import { AlertProperties } from 'legacy/work/Alert/Alert';
 
 interface Props extends RouterProps {
   creditBalance: CreditBalance;

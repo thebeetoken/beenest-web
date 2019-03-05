@@ -5,7 +5,7 @@ import sanitizeHtml from 'sanitize-html';
 import { Listing } from 'networking/listings';
 import GoogleMaps from 'shared/GoogleMaps';
 import LazyImage from 'shared/LazyImage';
-import ContactHostButton from 'components/work/ContactHostButton';
+import ContactHostButton from 'legacy/work/ContactHostButton';
 import { formatAddress, formatMonth } from 'utils/formatter';
 
 const DEFAULT_PROFILE_URL = 'https://static.beenest.com/images/app/misc/profile.png';

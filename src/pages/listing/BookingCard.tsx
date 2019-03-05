@@ -1,8 +1,8 @@
 import * as React from 'react';
 import { Button, Card, Input, Row } from 'reactstrap';
 
-import DateRangePicker from 'components/work/DateRangePicker';
-import { guestsSelectboxOptions } from 'components/work/SearchBar/searchBar.config';
+import DateRangePicker from 'legacy/work/DateRangePicker';
+import { guestsSelectboxOptions } from 'legacy/work/SearchBar/searchBar.config';
 
 import { Listing } from 'networking/listings';
 import { formatPrice } from 'utils/formatter';

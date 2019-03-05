@@ -2,7 +2,7 @@ import * as React from 'react';
 import { Query } from 'react-apollo';
 import { Fade } from 'reactstrap';
 
-import Footer from 'components/work/Footer';
+import Footer from 'legacy/work/Footer';
 
 import Loading from 'shared/loading/Loading';
 

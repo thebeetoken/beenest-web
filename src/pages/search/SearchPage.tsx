@@ -5,7 +5,7 @@ import { Listing } from 'networking/listings';
 
 import GoogleMapsWithMarkers from 'shared/GoogleMapsWithMarkers';
 
-import SearchBar from 'components/work/SearchBar';
+import SearchBar from 'legacy/work/SearchBar';
 import SearchForm from './SearchForm';
 import SearchResults from './SearchResults';
 

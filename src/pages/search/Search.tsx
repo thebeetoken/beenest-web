@@ -4,7 +4,7 @@ import { Query } from 'react-apollo';
 
 import { SEARCH_LISTINGS } from 'networking/listings';
 
-import Footer from 'components/work/Footer';
+import Footer from 'legacy/work/Footer';
 import Loading from 'shared/loading/Loading';
 
 import { LISTING_CARD_IMAGE_DIMENSIONS } from 'utils/imageDimensions';

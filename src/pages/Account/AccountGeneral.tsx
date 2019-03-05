@@ -7,7 +7,7 @@ import { UPDATE_USER, User, GET_ACCOUNT_PAGE, UserField } from 'networking/users
 
 import Textarea from 'shared/Textarea';
 import { TextareaEvent } from 'shared/Textarea/Textarea';
-import { AlertProperties } from 'components/work/Alert/Alert';
+import { AlertProperties } from 'legacy/work/Alert/Alert';
 
 interface FormValues {
   [name: string]: boolean | string | string[] | number | object | undefined;
