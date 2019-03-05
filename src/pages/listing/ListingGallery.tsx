@@ -7,7 +7,7 @@ import ListingCarousel from './ListingCarousel';
 import { Listing } from 'networking/listings';
 
 const MODAL_CLASSES = {
-  className: 'w-100 h-100 w-lg-75 h-lg-75 mw-100 mh-100 mx-auto my-0 p-0',
+  className: 'w-100 h-100 w-lg-75 h-lg-75 mw-100 mh-100 mx-auto my-0 my-lg-7 p-0',
   contentClassName: 'h-100 mh-100 w-100'
 };
 
