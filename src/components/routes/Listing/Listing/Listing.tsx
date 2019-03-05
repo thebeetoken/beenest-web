@@ -15,6 +15,8 @@ import Button from 'shared/Button';
 import AudioLoading from 'shared/loading/AudioLoading';
 import PopUpCard from 'shared/PopUpCard';
 
+import { parseQueryString } from 'utils/queryParams';
+
 const PROFILE_IMAGE_PARAMETERS = { width: 300, height: 300 };
 
 class Listing extends React.Component<RouterProps> {
@@ -26,9 +28,11 @@ class Listing extends React.Component<RouterProps> {
 
   render() {
     const { id } = this.props.match.params;
+    const { checkInDate, checkOutDate, numberOfGuests }: any = parseQueryString(location.search);
+    const input = { checkInDate, checkOutDate, numberOfGuests };
     return (
       <ListingContainer>
-        <Query query={GET_PUBLIC_LISTING} fetchPolicy="cache-and-network" variables={{ id, ...PROFILE_IMAGE_PARAMETERS }}>
+        <Query query={GET_PUBLIC_LISTING} fetchPolicy="cache-and-network" variables={{ id, input, ...PROFILE_IMAGE_PARAMETERS }}>
           {({ loading, error, data }) => {
             if (loading) {
               return <AudioLoading height={48} width={96} />;
