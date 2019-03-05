@@ -46,7 +46,7 @@ const Header = () => (
   <Switch>
     <Route path="/work/account" component={DetailedHeader} />
     <Route exact path="/work" component={DetailedHeader} />
-    <Route exact path="/work/about" component={SimpleHeader} />
+    <Route exact path="/work/about" component={DetailedHeader} />
     <Route exact path="/work/forgot_password" render={() => <SimpleHeader white fixed />} />
     <Route exact path="/work/login" render={() => <SimpleHeader primary block />} />
     <Route exact path="/work/signup" render={() => <SimpleHeader primary block />} />

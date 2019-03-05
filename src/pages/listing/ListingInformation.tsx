@@ -1,10 +1,11 @@
 import * as React from 'react';
-import { Button, Fade } from 'reactstrap';
+import { Fade } from 'reactstrap';
 import sanitizeHtml from 'sanitize-html';
 
 import { Listing } from 'networking/listings';
 import GoogleMaps from 'shared/GoogleMaps';
 import LazyImage from 'shared/LazyImage';
+import ContactHostButton from 'components/work/ContactHostButton';
 import { formatAddress, formatMonth } from 'utils/formatter';
 
 const DEFAULT_PROFILE_URL = 'https://static.beenest.com/images/app/misc/profile.png';
@@ -18,6 +19,7 @@ const ListingInformation = ({
   description,
   homeType,
   host,
+  id,
   lat,
   lng,
   minimumNights,
@@ -56,7 +58,7 @@ const ListingInformation = ({
   <h1>About {host.displayName}</h1>
   <p><small>Member since {formatMonth(host.createdAt)}</small></p>
   <LazyImage src={host.profilePicUrl || DEFAULT_PROFILE_URL} width="5rem" height="5rem" />
-  <Button>Contact Host <span className="fas fa-envelope"></span></Button>
+  <ContactHostButton listingId={id} host={host} />
   <p dangerouslySetInnerHTML={{ __html: sanitizeHtml(host.about) }} />
 </Fade>;
 
