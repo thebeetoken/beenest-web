@@ -34,7 +34,7 @@ const ListingInformation = ({
   <h1>{title}</h1>
   <address>{formatAddress(city, state, country)}</address>
   <p>Host: {host.displayName}</p>
-  <LazyImage src={host.profilePicUrl || DEFAULT_PROFILE_URL} width="5rem" height="5rem" />
+  <LazyImage className="rounded-circle" src={host.profilePicUrl || DEFAULT_PROFILE_URL} width="5rem" height="5rem" />
   <h1>Description</h1>
   <p dangerouslySetInnerHTML={{ __html: sanitizeHtml(description) }} />
   <h1>Accommodations</h1>
@@ -57,7 +57,7 @@ const ListingInformation = ({
   <GoogleMaps lat={lat} lng={lng} showCircle />
   <h1>About {host.displayName}</h1>
   <p><small>Member since {formatMonth(host.createdAt)}</small></p>
-  <LazyImage src={host.profilePicUrl || DEFAULT_PROFILE_URL} width="5rem" height="5rem" />
+  <LazyImage className="rounded-circle" src={host.profilePicUrl || DEFAULT_PROFILE_URL} width="5rem" height="5rem" />
   <ContactHostButton listingId={id} host={host} />
   <p dangerouslySetInnerHTML={{ __html: sanitizeHtml(host.about) }} />
 </Fade>;
