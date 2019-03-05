@@ -31,14 +31,19 @@ const AdminBooking = ({ match }: any): JSX.Element => (
               </div>
               <div>
                 <p>
-                  Total Amount:
-                  {booking.guestTotalAmount ? numberToLocaleString(booking.guestTotalAmount, booking.currency) : '-'}
+                  Number of Guests: <span>{booking.numberOfGuests}</span>
+                </p>
+              </div>
+              <div>
+                <p>
+                  Total Amount:{' '}
+                  {booking.guestTotalAmount ? numberToLocaleString(booking.guestTotalAmount, booking.currency) : '-'}{' '}
                   <span>{booking.currency}</span>
                 </p>
               </div>
               <div>
                 <p>
-                  Listing: <BeeLink to={`/admin/listings/${booking.listingId}/edit`}>{booking.listingId}</BeeLink>
+                  Listing: <BeeLink to={`/admin/listings/${booking.listing.id}/edit`}>{booking.listing.id}</BeeLink>
                 </p>
               </div>
               <div>

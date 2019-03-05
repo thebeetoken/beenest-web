@@ -134,9 +134,12 @@ export const GET_HOST_BOOKINGS = gql`
 export const GET_ADMIN_BOOKING = gql`
   query booking($id: ID!) {
     booking(id: $id) {
+      approvedBy
+      cancelledBy
       checkInDate
       checkOutDate
       currency
+      guestTotalAmount
       numberOfGuests
       id
       listing {
@@ -151,6 +154,7 @@ export const GET_ADMIN_BOOKING = gql`
         id
         firstName
       }
+      rejectedBy
       status
     }
   }

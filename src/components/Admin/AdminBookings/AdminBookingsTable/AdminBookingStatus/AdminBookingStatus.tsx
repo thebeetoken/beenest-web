@@ -37,6 +37,7 @@ const StatusHandler = ({ type, person }: StatusHandlerProps) => {
 
 const renderStatus = (props: Booking) => {
   const { status, rejectedBy, cancelledBy } = props;
+  console.log('props:', props);
   switch (status) {
     case 'guest_confirmed':
     case 'guest_paid':
