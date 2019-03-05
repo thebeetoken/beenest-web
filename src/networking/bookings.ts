@@ -152,7 +152,9 @@ export const GET_ADMIN_BOOKING = gql`
       }
       guest {
         id
+        email
         firstName
+        lastName
       }
       rejectedBy
       status

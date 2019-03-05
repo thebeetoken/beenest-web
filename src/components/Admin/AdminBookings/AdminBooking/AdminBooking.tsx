@@ -62,7 +62,10 @@ const AdminBooking = ({ match }: any): JSX.Element => (
             </div>
             <div>
               <p>
-                Guest: <BeeLink to={`/admin/users/${booking.guest.id}`}>{booking.guest.firstName}</BeeLink>
+                Guest: <BeeLink to={`/admin/users/${booking.guest.id}`}>{booking.guest.firstName} {booking.guest.lastName}</BeeLink>
+              </p>
+              <p>
+                Guest Email: <span>{booking.guest.email}</span>
               </p>
               <p>
                 Guest Id: <BeeLink to={`/admin/users/${booking.guest.id}`}>{booking.guest.id}</BeeLink>
