@@ -1,5 +1,5 @@
 import * as React from 'react';
-import ListingForm from 'routes/Host/ListingForm';
+import ListingForm from 'legacy/routes/Host/ListingForm';
 import AudioLoading from 'legacy/shared/loading/AudioLoading';
 import { Query } from 'react-apollo';
 import { GET_LISTING_FORM } from 'networking/listings';

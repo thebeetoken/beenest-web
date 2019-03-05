@@ -13,7 +13,7 @@ import AccountVerification from './AccountVerification';
 import AudioLoading from 'legacy/shared/loading/AudioLoading';
 import Divider from 'legacy/shared/Divider';
 import GeneralWrapper from 'legacy/shared/GeneralWrapper';
-import NotFound from 'routes/NotFound';
+import NotFound from 'legacy/routes/NotFound';
 import TabNavBar from 'legacy/shared/TabNavBar';
 import { GET_ACCOUNT_PAGE } from 'networking/users';
 

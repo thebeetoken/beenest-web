@@ -62,7 +62,7 @@ const AccountGeneralContainerMobile = styled.section`
           width: 35%;
         }
         .submit {
-          width: 58%:
+          width: 58%;
         }
       }
       .bee-error-message {

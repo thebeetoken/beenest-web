@@ -6,7 +6,7 @@ import { NavLink as RRNavLink } from 'react-router-dom';
 import { GET_ACCOUNT_PAGE } from 'networking/users';
 
 import Loading from 'shared/loading/Loading';
-import NotFound from 'components/routes/NotFound';
+import NotFound from 'legacy/routes/NotFound';
 import { FirebaseConsumer, FirebaseUserProps } from 'HOCs/FirebaseProvider';
 import { VIEWPORT_CENTER_LAYOUT } from 'styled/sharedClasses/layout';
 
@@ -14,7 +14,7 @@ import AccountGeneral from './AccountGeneral';
 import AccountPayment from './AccountPayment';
 import AccountSecurity from './AccountSecurity';
 import AccountVerification from './AccountVerification';
-import ProfilePhotoUploader from 'components/work/ProfilePhotoUploader';
+import ProfilePhotoUploader from 'legacy/work/ProfilePhotoUploader';
 
 const Account = () => {
   return (

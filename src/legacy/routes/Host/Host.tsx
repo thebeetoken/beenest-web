@@ -7,7 +7,7 @@ import HostPayments from './HostPayments';
 import HostContainer from './Host.container';
 
 import { FirebaseConsumer, FirebaseUserProps } from 'HOCs/FirebaseProvider';
-import NotFound from 'routes/NotFound';
+import NotFound from 'legacy/routes/NotFound';
 import Button from 'legacy/shared/Button';
 import Divider from 'legacy/shared/Divider';
 import GeneralWrapper from 'legacy/shared/GeneralWrapper';

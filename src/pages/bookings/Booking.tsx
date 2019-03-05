@@ -1,10 +1,10 @@
 import * as React from 'react';
 import { Redirect, Route, Switch } from 'react-router-dom';
 
-import BookingContainer from 'routes/Booking/Booking.container';
-import BookingOptions from 'routes/Booking/BookingOptions';
-import BookingPayment from 'routes/Booking/BookingPayment';
-import BookingReceipt from 'routes/Booking/BookingReceipt';
+import BookingContainer from 'legacy/routes/Booking/Booking.container';
+import BookingOptions from 'legacy/routes/Booking/BookingOptions';
+import BookingPayment from 'legacy/routes/Booking/BookingPayment';
+import BookingReceipt from 'legacy/routes/Booking/BookingReceipt';
 
 const Booking = () => (
   <BookingContainer className="bee-booking">

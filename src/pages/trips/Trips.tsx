@@ -6,12 +6,12 @@ import { NavLink as RRNavLink, Link } from 'react-router-dom';
 import { GET_GUEST_SORTED_BOOKINGS, GUEST_SORTED_BOOKINGS, Booking } from 'networking/bookings';
 
 import { VIEWPORT_CENTER_LAYOUT } from 'styled/sharedClasses/layout';
-import NotFound from 'components/routes/NotFound';
-import Loading from 'components/shared/loading/Loading';
-import TripCard from 'components/work/TripCard';
-import { AlertProperties } from 'components/work/Alert/Alert';
-import ContactHostFormModal from 'components/work/ContactHostFormModal';
-import CancelBookingModal from 'components/work/CancelBookingModal.tsx';
+import NotFound from 'legacy/routes/NotFound';
+import Loading from 'legacy/shared/loading/Loading';
+import TripCard from 'legacy/work/TripCard';
+import { AlertProperties } from 'legacy/work/Alert/Alert';
+import ContactHostFormModal from 'legacy/work/ContactHostFormModal';
+import CancelBookingModal from 'legacy/work/CancelBookingModal.tsx';
 
 
 enum ModalType {

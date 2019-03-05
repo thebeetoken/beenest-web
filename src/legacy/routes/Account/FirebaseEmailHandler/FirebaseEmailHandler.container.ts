@@ -11,7 +11,6 @@ const FirebaseEmailHandlerContainer = styled.div`
       margin: 16px 0 28px;
       width: 100%;
     }
-  }
 `;
 
 export default FirebaseEmailHandlerContainer;

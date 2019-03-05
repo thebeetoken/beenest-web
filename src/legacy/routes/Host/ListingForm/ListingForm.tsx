@@ -13,7 +13,7 @@ import PricingAvailabilityForm from './PricingAvailabilityForm';
 import ListingFormNav from './ListingFormNav';
 import ListingFormContainer from './ListingForm.container';
 import GeneralWrapper from 'legacy/shared/GeneralWrapper';
-import NotFound from 'routes/NotFound';
+import NotFound from 'legacy/routes/NotFound';
 import Button from 'legacy/shared/Button';
 import timeOptions from 'utils/timeOptions';
 import { History } from 'history';
