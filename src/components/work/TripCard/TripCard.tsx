@@ -4,6 +4,7 @@ import { Booking, GUEST_SORTED_BOOKINGS } from 'networking/bookings';
 import { getUserBookingDisplayStatus, cancelledDisplayMap } from 'utils/bookingsDisplayStatus';
 import { formatAddress, formatGeolocationAddress } from 'utils/formatter';
 import { formatSingleDate } from 'utils/formatDate';
+import { Link } from 'react-router-dom';
 
 interface Props {
   booking: Booking;
@@ -67,7 +68,7 @@ const TripCard = ({ booking, category, handleOpenCancelBookingModal, handleOpenC
             },
             {
               label: 'Receipt',
-              href: `/trips/${booking.id}/receipt`,
+              to: `/work/trips/${booking.id}/receipt`,
               show: true,
             },
             {
@@ -80,12 +81,12 @@ const TripCard = ({ booking, category, handleOpenCancelBookingModal, handleOpenC
             },
           ]
             .filter(({ show }) => show)
-            .map(({ label, href, onClick }, i, arr) => {
+            .map(({ label, to, onClick }, i, arr) => {
               return (
                 <Col key={i} className={i !== arr.length - 1 ? 'u-ver-divider' : ''}>
-                  <a href={href || '#'} onClick={onClick}>
+                  <Link to={to || '#'} onClick={onClick}>
                     <h5 className="small font-weight-normal text-secondary mb-0">{label}</h5>
-                  </a>
+                  </Link>
                 </Col>
               );
             })}

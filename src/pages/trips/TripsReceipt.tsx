@@ -10,6 +10,13 @@ import GoogleMaps from 'components/shared/GoogleMaps';
 
 const DEFAULT_PROFILE_URL = 'https://static.beenest.com/images/app/misc/profile.png';
 
+const HOST_IMG_STYLES = {
+  backgroundPosition: 'center center',
+  backgroundRepeat: 'no-repeat',
+  backgroundColor: 'white',
+  overflow: 'hidden',
+}
+
 function TripsReceipt({ match }: RouterProps) {
   return (
     <Query query={GET_BOOKING_TRIPS_RECEIPT} variables={{ id: match.params.id }}>
@@ -53,11 +60,9 @@ function TripsReceipt({ match }: RouterProps) {
                 <h6 className="mb-4 text-primary text-uppercase">{formatAddress(city, state, country)}</h6>
                 <Row className="mb-5">
                   <Col className="d-flex">
-                    <img
-                      className="u-lg-avatar rounded-circle mr-4"
-                      src={profilePicUrl || DEFAULT_PROFILE_URL}
-                      alt="Guest Profile Picture"
-                    />
+                    <div
+                      className="bg-img-hero d-flex align-items-center justify-content-center rounded-circle u-lg-avatar mr-4"
+                      style={{ ...HOST_IMG_STYLES, backgroundImage: `url(${profilePicUrl || DEFAULT_PROFILE_URL})` }} />
                     <div className="d-flex flex-column justify-content-center">
                       <h6 className="p mb-1 font-weight-light">Hosted by: {firstName}</h6>
                       <small className="text-muted">Member Since {dateToYear(createdAt)}</small>
@@ -87,8 +92,8 @@ function TripsReceipt({ match }: RouterProps) {
                 <Table className="table-heighlighted mb-8">
                   <thead>
                     <tr className="text-uppercase text-secondary">
-                      <th scope="col" className="font-weight-medium">Item</th>
-                      <th scope="col" className="font-weight-medium">Price</th>
+                      <th scope="col" className="font-weight-medium text-dark">Item</th>
+                      <th scope="col" className="font-weight-medium text-dark">Price</th>
                     </tr>
                   </thead>
                   <tbody>
@@ -98,19 +103,25 @@ function TripsReceipt({ match }: RouterProps) {
                         {priceTotalNights / pricePerNight > 1 ? 'nights' : 'night'}
                       </th>
                       <td>
-                        {currency === 'USD' ? roundToUsdPrice(priceTotalNights) : priceTotalNights} {currency}
+                        <span className="font-weight-normal">
+                          {currency === 'USD' ? roundToUsdPrice(priceTotalNights) : priceTotalNights} {currency}
+                        </span>
                       </td>
                     </tr>
                     <tr>
                       <th scope="row" className="font-weight-normal">Security Deposit</th>
                       <td>
-                        {currency === 'USD' ? roundToUsdPrice(securityDeposit || 0) : securityDeposit || 0} {currency}
+                        <span className="font-weight-normal">
+                          {currency === 'USD' ? roundToUsdPrice(securityDeposit || 0) : securityDeposit || 0} {currency}
+                        </span>
                       </td>
                     </tr>
                     <tr>
                       <th scope="row" className="font-weight-normal">Transaction Fee</th>
                       <td>
-                        {transactionFee} {currency}
+                        <span className="font-weight-normal">
+                          {currency === 'USD' ? roundToUsdPrice(transactionFee) : transactionFee} {currency}
+                        </span>
                       </td>
                     </tr>
                     {!!creditAmountApplied && (
