@@ -37,6 +37,11 @@ const AdminBooking = ({ match }: any): JSX.Element => (
               </div>
               <div>
                 <p>
+                  Price per night: <span>{booking.pricePerNight} {booking.currency}</span>
+                </p>
+              </div>
+              <div>
+                <p>
                   Total Amount:{' '}
                   {booking.guestTotalAmount ? numberToLocaleString(booking.guestTotalAmount, booking.currency) : '-'}{' '}
                   <span>{booking.currency}</span>
@@ -57,7 +62,7 @@ const AdminBooking = ({ match }: any): JSX.Element => (
                 Host: <BeeLink to={`/admin/users/${booking.guest.id}`}>{booking.host.firstName}</BeeLink>
               </p>
               <p>
-                Host Id: <BeeLink to={`/admin/users/${booking.host.id}`}>{booking.host.id}</BeeLink>
+                Host ID: <BeeLink to={`/admin/users/${booking.host.id}`}>{booking.host.id}</BeeLink>
               </p>
             </div>
             <div>
@@ -68,7 +73,10 @@ const AdminBooking = ({ match }: any): JSX.Element => (
                 Guest Email: <span>{booking.guest.email}</span>
               </p>
               <p>
-                Guest Id: <BeeLink to={`/admin/users/${booking.guest.id}`}>{booking.guest.id}</BeeLink>
+                Guest Phone Number: <span>{booking.guest.phoneNumber}</span>
+              </p>
+              <p>
+                Guest ID: <BeeLink to={`/admin/users/${booking.guest.id}`}>{booking.guest.id}</BeeLink>
               </p>
             </div>
           </>

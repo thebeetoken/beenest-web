@@ -140,22 +140,24 @@ export const GET_ADMIN_BOOKING = gql`
       checkOutDate
       currency
       guestTotalAmount
-      numberOfGuests
-      id
-      listing {
-        id
-        idSlug
-      }
-      host {
-        id
-        firstName
-      }
       guest {
         id
         email
         firstName
         lastName
+        phoneNumber
       }
+      host {
+        id
+        firstName
+      }
+      id
+      listing {
+        id
+        idSlug
+      }
+      numberOfGuests
+      pricePerNight
       rejectedBy
       status
     }
