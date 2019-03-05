@@ -94,3 +94,13 @@ $HEADER-HEIGHT: 4.125rem;
 .bee-flex-div {
   flex-grow: 1;
 }
+
+// not included in front/bootstrap
+@media (min-width:992px) {
+  .h-lg-75 {
+    height: 75%!important;
+  }
+  .mh-lg-75 {
+    max-height: 75%!important;
+  }
+}

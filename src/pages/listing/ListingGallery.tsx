@@ -7,7 +7,7 @@ import ListingCarousel from './ListingCarousel';
 import { Listing } from 'networking/listings';
 
 const MODAL_CLASSES = {
-  className: 'w-100 h-100 w-lg-75 h-lg-auto mh-lg-75 mw-100 mh-100 mx-auto my-0 p-0',
+  className: 'w-100 h-100 w-lg-75 h-lg-75 mw-100 mh-100 mx-auto my-0 p-0',
   contentClassName: 'h-100 mh-100 w-100'
 };
 
@@ -18,7 +18,7 @@ const ListingGallery = ({ listingPicUrl, photos }: Listing) => {
     <Button className="position-absolute bottom-0 right-0 m-4" onClick={() => setOpen(true)}>
       View Photos <span className="fas fa-camera"></span>
     </Button>
-    <Modal {...MODAL_CLASSES} centered isOpen={isOpen} toggle={() => setOpen(false)}>
+    <Modal {...MODAL_CLASSES} isOpen={isOpen} toggle={() => setOpen(false)}>
       <ModalHeader toggle={() => setOpen(false)} />
       <ModalBody className="px-5 pt-0 pb-5">
         <div className="w-100 h-100" style={{ background: 'black' }}>
