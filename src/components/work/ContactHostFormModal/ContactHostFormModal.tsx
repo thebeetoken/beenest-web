@@ -3,7 +3,6 @@ import { Formik, Field, Form as FormikForm } from 'formik';
 import * as Yup from 'yup';
 import { compose, graphql } from 'react-apollo';
 
-import { Booking } from 'networking/bookings';
 import { CONTACT_USER, ContactUserField, User } from 'networking/users';
 import { Button, Form, FormGroup, Label, FormFeedback, Input, ModalFooter, ModalBody, Modal, ModalHeader } from 'reactstrap';
 import Textarea from 'components/shared/Textarea';
@@ -12,7 +11,10 @@ import Loading from 'components/shared/loading/Loading';
 
 interface Props {
   contactUser: (input: ContactUserInput) => Promise<EmailResponse>;
-  booking: Booking;
+  bookingId?: string;
+  listingId?: string;
+  host: User;
+  isOpen: boolean;
   onModalAction: () => void;
 }
 
@@ -46,14 +48,13 @@ const ContactHostSchema = Yup.object({
   message: Yup.string().required('Please fill out the message field.'),
 });
 
-function ContactHostForm({ booking, contactUser, onModalAction }: Props) {
+function ContactHostForm({ bookingId, contactUser, listingId, host, isOpen, onModalAction }: Props) {
   const [successMessage, setSuccessMessage] = React.useState<string>('');
   const [errorMessage, setErrorMessage] = React.useState<string>('');
-  const { host, listingId, id } = booking;
 
   if (successMessage) {
     return (
-      <Modal isOpen toggle={onModalAction}>
+      <Modal isOpen={isOpen} toggle={onModalAction}>
         <ModalHeader>Message Successfully Sent</ModalHeader>
         <ModalBody>
           <p>{successMessage}</p>
@@ -73,7 +74,7 @@ function ContactHostForm({ booking, contactUser, onModalAction }: Props) {
       validationSchema={ContactHostSchema}
       onSubmit={({ message, subject }, actions) => {
         const input = {
-          bookingId: id,
+          bookingId,
           listingId,
           message,
           recipientId: host.id,
@@ -94,7 +95,7 @@ function ContactHostForm({ booking, contactUser, onModalAction }: Props) {
       }}
     >
       {({ errors, isSubmitting, setFieldTouched, setFieldValue, touched, values }) => (
-        <Modal isOpen toggle={onModalAction}>
+        <Modal isOpen={isOpen} toggle={onModalAction}>
           <Form tag={FormikForm}>
             <ModalHeader>Contact {host.firstName || 'Host'}</ModalHeader>
             <ModalBody>
