@@ -5,6 +5,7 @@ import { Query } from 'react-apollo';
 import { SEARCH_LISTINGS } from 'networking/listings';
 import Footer from 'components/work/Footer';
 import Loading from 'shared/loading/Loading';
+import { getFriendlyErrorMessage } from 'utils/validators';
 
 import SearchBar from 'components/work/SearchBar';
 import { LISTING_CARD_IMAGE_DIMENSIONS } from 'utils/imageDimensions';
@@ -38,29 +39,56 @@ const Search = () => {
             </Container>
           );
         }
-        if (error && error.message.includes('400') && Object.keys(queryParams).length === 0) {
+        if (error && error.graphQLErrors[0].extensions && error.graphQLErrors[0].extensions.code === 'BAD_USER_INPUT') {
           return (
-            <Container tag={Fade} className="d-flex flex-column align-items-center justify-content-center bee-without-header-height-container">
-              <Row className="d-flex justify-content-center px-0 mx-0 bg-white bee-top">
-                <Col className="w-100 p-5">
-                  <SearchBar />
-                </Col>
-              </Row>
-              <Row className="px-4" noGutters>
-                <h5 className="text-center">Please enter in a city or region to see results.</h5>
-              </Row>
+            <Container tag={Fade} className="d-flex flex-column align-items-center justify-content-center bee-without-header-height-container p-0" fluid>
+              <div
+                className="bg-img-hero d-flex flex-column align-items-center justify-content-center gradient-overlay-half-primary-v1 bee-without-header-height-container w-100"
+                style={{ backgroundImage: `url('https://static.beenest.com/images/app/misc/painted-ladies2.jpg')` }}>
+                <Row className="px-4 mb-4" noGutters>
+                  <h5 className="font-size-md-down-5text-center text-white">Please enter in a city or region to see results.</h5>
+                </Row>
+                <Row className="d-flex justify-content-center px-0 mx-0 bg-white bee-top">
+                  <Col tag={Fade} className="w-100 p-5">
+                    <SearchBar />
+                  </Col>
+                </Row>
+              </div>
             </Container>
           );
         } else if (error) {
           return (
             <Container tag={Fade} className={`${VIEWPORT_CENTER_LAYOUT} flex-column bee-without-header-height-container`}>
-              <h2 className="font-size-md-down-5 text-center">Error: {error.message}</h2>
-              <h5 className="text-center">Please contact support if this continues.</h5>
+              <h2 className="font-size-md-down-5 text-center">{getFriendlyErrorMessage(error)}</h2>
+              <h5 className="text-center">Please contact{' '}
+                <a className="text-primary" href="https://support.beenest.com/" target="_blank">support</a>{' '}
+                if this continues.
+              </h5>
             </Container>
           );
         }
-        
-        return <SearchPage listings={data.searchListings} />;
+
+        const { searchListings } = data;
+        if (searchListings.length === 0) {
+          return (
+            <Container tag={Fade} className="d-flex flex-column align-items-center justify-content-center bee-without-header-height-container p-0" fluid>
+            <div
+              className="bg-img-hero d-flex flex-column align-items-center justify-content-center gradient-overlay-half-primary-v1 bee-without-header-height-container w-100"
+              style={{ backgroundImage: `url('https://static.beenest.com/images/app/misc/painted-ladies2.jpg')` }}>
+              <Row className="px-4 mb-4" noGutters>
+                <h5 className="text-center text-white font-weight-normal">No listings in this area, please try a different city or region.</h5>
+              </Row>
+              <Row className="d-flex justify-content-center px-0 mx-0 bg-white bee-top">
+                <Col tag={Fade} className="w-100 p-5">
+                  <SearchBar />
+                </Col>
+              </Row>
+            </div>
+          </Container>
+          );
+        }
+
+        return <SearchPage listings={searchListings} />;
       }}
     </Query>
     <Footer />
