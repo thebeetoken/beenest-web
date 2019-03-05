@@ -21,9 +21,7 @@ const ListingGallery = ({ listingPicUrl, photos }: Listing) => {
     <Modal {...MODAL_CLASSES} isOpen={isOpen} toggle={() => setOpen(false)}>
       <ModalHeader toggle={() => setOpen(false)} />
       <ModalBody className="px-5 pt-0 pb-5">
-        <div className="w-100 h-100" style={{ background: 'black' }}>
-        </div>
-        {/*<ListingCarousel photos={[listingPicUrl, ...photos]} />*/}
+        <ListingCarousel photos={[listingPicUrl, ...photos]} />
       </ModalBody>
     </Modal>
   </Row>
