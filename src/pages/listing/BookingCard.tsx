@@ -9,7 +9,7 @@ import { formatPrice } from 'utils/formatter';
 
 const BookingCard = ({
   pricePerNightUsd
-}: Listing) => (<Card>
+}: Listing) => (<Card className="p-5 m-3">
   <Row><strong>{formatPrice(pricePerNightUsd)} per night</strong></Row>
   <Row><DateRangePicker
     isOutsideRange={() => false}
