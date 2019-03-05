@@ -11,7 +11,7 @@ const ListingCarousel = ({ photos }: Props) =>  {
   const [index, setIndex] = React.useState<number>(0);
   const next = () => setIndex((index + 1) % photos.length);
   const previous = () => setIndex((index - 1 + photos.length) % photos.length);
-  return <Carousel activeIndex={index} next={next} previous={previous}>
+  return <Carousel activeIndex={index} next={next} previous={previous} interval={false}>
     {photos.map((url: string, index: number) => (
       <CarouselItem key={url}>
         <figure className="height-60vh max-height-60vh">
