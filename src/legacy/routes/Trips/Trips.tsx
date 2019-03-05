@@ -13,10 +13,10 @@ import Divider from 'legacy/shared/Divider';
 import GeneralWrapper from 'legacy/shared/GeneralWrapper';
 
 import TripsContainer from './Trips.container';
-import ActiveTripCard from 'routes/Trips/ActiveTripCard';
+import ActiveTripCard from './ActiveTripCard';
 import { compose } from 'recompose';
 import Snackbar from 'legacy/shared/Snackbar';
-import ExpiredTripCard from 'routes/Trips/ExpiredTripCard';
+import ExpiredTripCard from './ExpiredTripCard';
 import { cancel, loadWeb3 } from 'utils/web3';
 import Button from 'legacy/shared/Button';
 import BeeLink from 'legacy/shared/BeeLink';

@@ -31,7 +31,7 @@ const ExpiredTripCard = ({ trip }: Props) => {
           {formatDateRange(checkInDate, checkOutDate)}
         </h2>
         <h3>
-          <BeeLink to={`listings/${listing.idSlug}`}>{listing.title}</BeeLink>
+          <BeeLink to={`/legacy/listings/${listing.idSlug}`}>{listing.title}</BeeLink>
         </h3>
         <div className="bee-flex-div" />
         <h4>
@@ -76,7 +76,7 @@ const ExpiredTripCard = ({ trip }: Props) => {
               </>
             )}
           </ToggleProvider>
-          <BeeLink href={`/legacy/trips/${trip.id}/receipt`}>
+          <BeeLink to={`/legacy/trips/${trip.id}/receipt`}>
             <Fab
               clear
               color="upper"

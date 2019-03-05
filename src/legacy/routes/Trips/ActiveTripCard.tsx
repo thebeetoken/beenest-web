@@ -34,7 +34,7 @@ const ActiveTripCard = ({ onCancelClick, trip }: Props) => {
       </div>
       <div className="active-trip-info">
         <h3>
-          <BeeLink href={titleLink}>{listing.title}</BeeLink>
+          <BeeLink to={titleLink}>{listing.title}</BeeLink>
         </h3>
         <div className="bee-flex-div" />
         <div className="address">
@@ -94,7 +94,7 @@ const ActiveTripCard = ({ onCancelClick, trip }: Props) => {
               </>
             )}
           </ToggleProvider>
-          <BeeLink href={`/legacy/trips/${trip.id}/receipt`}>
+          <BeeLink to={`/legacy/trips/${trip.id}/receipt`}>
             <Fab
               clear
               color="upper"
