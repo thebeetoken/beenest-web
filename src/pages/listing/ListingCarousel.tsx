@@ -7,9 +7,6 @@ interface Props {
   photos: string[];
 }
 
-// TODO: add a ref so that keyboard can be used immediately when carousel opens
-// see: https://github.com/akiran/react-slick/issues/738
-
 const ListingCarousel = ({ photos }: Props) =>  {
   const [index, setIndex] = React.useState<number>(0);
   const next = () => setIndex((index + 1) % photos.length);
