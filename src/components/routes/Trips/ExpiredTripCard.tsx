@@ -11,27 +11,11 @@ import { formatDateRange } from 'utils/formatDate';
 import { ToggleProvider, ToggleProviderRef } from 'shared/ToggleProvider';
 import Portal from 'shared/Portal';
 import ContactHostForm from 'shared/ContactHostForm';
-import { getUserBookingDisplayStatus } from 'utils/bookingsDisplayStatus';
+import { getUserBookingDisplayStatus, cancelledDisplayMap } from 'utils/bookingsDisplayStatus';
 
 interface Props {
   trip: Booking;
 }
-
-interface DisplayMap {
-  [key: string]: string;
-}
-
-const cancelledDisplayMap: DisplayMap = {
-  host_cancelled: 'Trip cancelled by host',
-  host_rejected: 'Trip rejected by host',
-  guest_cancelled: 'Trip cancelled by you',
-  guest_cancel_initiated: 'Cancel initiated by you',
-  guest_rejected: 'Trip rejected by you',
-  guest_rejected_payment: 'Payment rejected by you',
-  expired_before_host_approved: 'Expired before host approved',
-  payment_failed: 'Payment failed',
-  refunded: 'Refunded',
-};
 
 const ExpiredTripCard = ({ trip }: Props) => {
   const { checkInDate, checkOutDate, id, listing, status } = trip;

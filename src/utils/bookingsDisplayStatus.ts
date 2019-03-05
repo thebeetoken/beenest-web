@@ -111,6 +111,18 @@ const bookingStatus: BookingDisplayStatus = {
   'completed': UserBookingDisplayStatus.COMPLETED,
 }
 
+export const cancelledDisplayMap: { [key: string]: string } = {
+  host_cancelled: 'Trip cancelled by host',
+  host_rejected: 'Trip rejected by host',
+  guest_cancelled: 'Trip cancelled by you',
+  guest_cancel_initiated: 'Cancel initiated by you',
+  guest_rejected: 'Trip rejected by you',
+  guest_rejected_payment: 'Payment rejected by you',
+  expired_before_host_approved: 'Expired before host approved',
+  payment_failed: 'Payment failed',
+  refunded: 'Refunded',
+};
+
 export function getHostBookingDisplayStatusEnum(status: string): BookingStatus {
   switch (status) {
     case 'guest_confirmed':
