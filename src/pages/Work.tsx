@@ -14,6 +14,7 @@ import NotFound from './notFound';
 import Search from './search';
 import Signup from './signup';
 import Trips from './trips';
+import TripsReceipt from './trips/TripsReceipt';
 import AuthenticatedRoute from 'HOCs/AuthenticatedRoute';
 
 import Header from 'components/work/Header';
@@ -33,6 +34,7 @@ const Work = () => (
       <Route exact path="/work/logout" component={Logout} />
       <Route exact path="/work/search" component={Search} />
       <Route exact path="/work/signup" component={Signup} />
+      <AuthenticatedRoute exact path="/work/trips/:id/receipt" component={TripsReceipt} />
       <AuthenticatedRoute path="/work/trips" component={Trips} />
       <Route path="/work/hosts/signup" component={HostSignup} />
       <Route exact path="/work" component={Home} />

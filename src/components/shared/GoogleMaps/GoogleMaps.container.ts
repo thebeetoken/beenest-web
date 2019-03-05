@@ -8,6 +8,7 @@ interface Props {
 
 const GoogleMapsContainer = styled.div`
   height: 100%;
+  min-height: 136px;
   position: relative;
   width: 100%;
 
