@@ -19,6 +19,7 @@ const BookingCard = ({
   const [focusedInput, setFocusedInput] = React.useState<'startDate' | 'endDate' | null>(null);
   const [startDate, setStartDate] = React.useState<moment.Moment | null>(null);
   const [endDate, setEndDate] = React.useState<moment.Moment | null>(null);
+  const [numberOfGuests, setNumberOfGuests] = React.useState<number>(1);
   const setDates = ({ startDate, endDate }: Dates) => (setStartDate(startDate), setEndDate(endDate));
 
   return <Card className="p-5 m-3 shadow">
@@ -47,7 +48,8 @@ const BookingCard = ({
       <Input
         type="select"
         name="numberOfGuests"
-        onChange={() => console.log('Guests changedd')}
+        value={numberOfGuests}
+        onChange={event => setNumberOfGuests(parseInt(event.target.value))}
         component="select">
         {guestsSelectboxOptions.map(option => (
           <option value={option.value} key={option.value}>
