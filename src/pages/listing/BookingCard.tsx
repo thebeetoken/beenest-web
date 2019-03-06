@@ -22,19 +22,21 @@ interface Dates {
   endDate: moment.Moment | null;
 }
 
-interface Props {
-  listing: Listing;
-}
-
-const BookingCard = ({ listing }: Props) => {
+const BookingCard = ({
+  checkInDate,
+  checkOutDate,
+  id,
+  reservations,
+  totalQuantity
+}: Listing) => {
   const params: Params = parseQueryString(location.search);
-  const { checkInDate, checkOutDate } = params;
-  const { id, reservations, totalQuantity } = listing;
+
   const [focusedInput, setFocusedInput] = React.useState<'startDate' | 'endDate' | null>(null);
-  const [startDate, setStartDate] = React.useState<moment.Moment | null>(checkInDate ? moment.utc(checkInDate) : null);
-  const [endDate, setEndDate] = React.useState<moment.Moment | null>(checkOutDate ? moment.utc(checkOutDate) : null);
+  const [startDate, setStartDate] = React.useState<moment.Moment | null>(params.checkInDate ? moment.utc(params.checkInDate) : null);
+  const [endDate, setEndDate] = React.useState<moment.Moment | null>(params.checkOutDate ? moment.utc(params.checkOutDate) : null);
   const [numberOfGuests, setNumberOfGuests] = React.useState<number>(params.numberOfGuests || 1);
   const setDates = ({ startDate, endDate }: Dates) => (setStartDate(startDate), setEndDate(endDate));
+
   const input = { checkInDate: startDate, checkOutDate: endDate, numberOfGuests };
 
   return <Card className="p-5 shadow">
@@ -85,9 +87,9 @@ const BookingCard = ({ listing }: Props) => {
 
   function isOutsideDateRange(day: moment.Moment) {
     const utcDay = day.clone().utc().set('hours', 0);
-    const firstDay = listing.checkInDate ? moment.utc(listing.checkInDate) :
+    const firstDay = checkInDate ? moment.utc(checkInDate) :
       moment().startOf('day').utc().set('hours', 0);
-    const lastDay = listing.checkOutDate ? moment.utc(listing.checkOutDate) :
+    const lastDay = checkOutDate ? moment.utc(checkOutDate) :
       moment().startOf('day').utc().add(6, 'months');
     return utcDay.isBefore(firstDay) || utcDay.isAfter(lastDay);
   }
