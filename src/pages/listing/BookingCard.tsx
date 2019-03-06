@@ -10,6 +10,7 @@ import { formatPrice } from 'utils/formatter';
 const BookingCard = ({
   pricePerNightUsd
 }: Listing) => {
+  const [focusedInput, setFocusedInput] = React.useState<'startDate' | 'endDate' | null>(null);
   return <Card className="p-5 m-3 shadow">
     <Row className="m-0">
       <h3 className="d-inline">{formatPrice(pricePerNightUsd)}</h3>
@@ -26,8 +27,8 @@ const BookingCard = ({
         endDateId="endDate"
         endDatePlaceholderText="Check-Out"
         onDatesChange={() => console.log('dates change')} // PropTypes.func.isRequired,
-        focusedInput={null} // PropTypes.oneOf(['startDate', 'endDate']) or null,
-        onFocusChange={() => console.log('focus change')} // PropTypes.func.isRequired,
+        focusedInput={focusedInput} // PropTypes.oneOf(['startDate', 'endDate']) or null,
+        onFocusChange={setFocusedInput} // PropTypes.func.isRequired,
         minimumNights={1}
         numberOfMonths={1}
       />
