@@ -64,9 +64,9 @@ const ListingInformation = ({
   <GoogleMaps lat={lat} lng={lng} showCircle />
   <h1>About {host.displayName}</h1>
   <p><small>Member since {formatMonth(host.createdAt)}</small></p>
-  <Row className="align-items-center">
-    <Col><Avatar user={host} /></Col>
-    <Col><ContactHostButton listingId={id} host={host} /></Col>
+  <Row className="align-items-center justify-content-between">
+    <Col xs="auto"><Avatar user={host} /></Col>
+    <Col xs="auto"><ContactHostButton listingId={id} host={host} /></Col>
   </Row>
   <p dangerouslySetInnerHTML={{ __html: sanitizeHtml(host.about) }} />
 </Fade>;
