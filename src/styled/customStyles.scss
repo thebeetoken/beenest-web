@@ -39,10 +39,7 @@ $HEADER-HEIGHT: 4.125rem;
 
 .bee-search-map {
   height: calc(100vh - 11.25rem);
-  z-index: 0;
 }
-
-
 
 // START UTILITY CLASSES
 
@@ -84,6 +81,12 @@ $HEADER-HEIGHT: 4.125rem;
     }
   }
 }
+
+// z-indexing
+.z-index-0 {
+  z-index: 0;
+}
+
 
 // flex div
 .bee-flex-div {

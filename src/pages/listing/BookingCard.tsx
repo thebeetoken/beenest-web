@@ -9,34 +9,43 @@ import { formatPrice } from 'utils/formatter';
 
 const BookingCard = ({
   pricePerNightUsd
-}: Listing) => (<Card>
-  <Row><strong>{formatPrice(pricePerNightUsd)} per night</strong></Row>
-  <Row><DateRangePicker
-    isOutsideRange={() => false}
-    startDate={null} // momentPropTypes.momentObj or null,
-    startDateId="startDate"
-    startDatePlaceholderText="Check-In"
-    daySize={32}
-    endDate={null} // momentPropTypes.momentObj or null,
-    endDateId="endDate"
-    endDatePlaceholderText="Check-Out"
-    onDatesChange={() => console.log('dates change')} // PropTypes.func.isRequired,
-    focusedInput={null} // PropTypes.oneOf(['startDate', 'endDate']) or null,
-    onFocusChange={() => console.log('focus change')} // PropTypes.func.isRequired,
-    minimumNights={1}
-    numberOfMonths={1}
-  /></Row>
-  <Row><Input
-    type="select"
-    name="numberOfGuests"
-    onChange={() => console.log('Guests changedd')}
-    component="select">
-    {guestsSelectboxOptions.map(option => (
-      <option value={option.value} key={option.value}>
-        {option.option}
-      </option>
-    ))}
-  </Input></Row>
-  <Row><Button>Request to Book</Button></Row>
+}: Listing) => (<Card className="p-5 m-3 shadow">
+  <Row className="m-0">
+    <h3 className="d-inline">{formatPrice(pricePerNightUsd)}</h3>
+    <small className="pl-3 mt-3"> per night</small>
+  </Row>
+  <Row className="w-100 m-0 mb-3">
+    <DateRangePicker
+      isOutsideRange={() => false}
+      startDate={null} // momentPropTypes.momentObj or null,
+      startDateId="startDate"
+      startDatePlaceholderText="Check-In"
+      daySize={32}
+      endDate={null} // momentPropTypes.momentObj or null,
+      endDateId="endDate"
+      endDatePlaceholderText="Check-Out"
+      onDatesChange={() => console.log('dates change')} // PropTypes.func.isRequired,
+      focusedInput={null} // PropTypes.oneOf(['startDate', 'endDate']) or null,
+      onFocusChange={() => console.log('focus change')} // PropTypes.func.isRequired,
+      minimumNights={1}
+      numberOfMonths={1}
+    />
+  </Row>
+  <Row className="w-100 m-0 mb-3">
+    <Input
+      type="select"
+      name="numberOfGuests"
+      onChange={() => console.log('Guests changedd')}
+      component="select">
+      {guestsSelectboxOptions.map(option => (
+        <option value={option.value} key={option.value}>
+          {option.option}
+        </option>
+      ))}
+    </Input>
+  </Row>
+  <Row className="w-100 m-0">
+    <Button className="w-100">Request to Book</Button>
+  </Row>
 </Card>);
 export default BookingCard;
