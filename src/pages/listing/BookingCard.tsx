@@ -14,6 +14,8 @@ interface Dates {
 }
 
 const BookingCard = ({
+  checkInDate,
+  checkOutDate,
   pricePerNightUsd,
   reservations,
   totalQuantity
@@ -31,7 +33,7 @@ const BookingCard = ({
     </Row>
     <Row className="w-100 m-0 mb-3">
       <DateRangePicker
-        isOutsideRange={() => false}
+        isOutsideRange={isOutsideDateRange}
         isDayBlocked={isDayBlocked}
         startDate={startDate} // momentPropTypes.momentObj or null,
         startDateId="startDate"
@@ -65,6 +67,15 @@ const BookingCard = ({
       <Button className="w-100">Request to Book</Button>
     </Row>
   </Card>;
+
+  function isOutsideDateRange(day: moment.Moment) {
+    const utcDay = day.clone().utc().set('hours', 0);
+    const firstDay = checkInDate ? moment.utc(checkInDate) :
+      moment().startOf('day').utc().set('hours', 0);
+    const lastDay = checkOutDate ? moment.utc(checkOutDate) :
+      moment().startOf('day').utc().add(6, 'months');
+    return utcDay.isBefore(firstDay) || utcDay.isAfter(lastDay);
+  }
 
   function isDayBlocked(day: moment.Moment) {
     const quantity = totalQuantity || 1;
