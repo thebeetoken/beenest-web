@@ -1,11 +1,13 @@
 import * as React from 'react';
 import { Button, Card, Input, Row } from 'reactstrap';
 import moment from 'moment';
+import { Query } from 'react-apollo';
 
 import DateRangePicker from 'components/work/DateRangePicker';
 import { guestsSelectboxOptions } from 'components/work/SearchBar/searchBar.config';
+import Loading from 'shared/loading/Loading';
 
-import { Listing, Reservation } from 'networking/listings';
+import { GET_PUBLIC_LISTING, Listing, Reservation } from 'networking/listings';
 import { formatPrice } from 'utils/formatter';
 
 interface Dates {
@@ -16,7 +18,7 @@ interface Dates {
 const BookingCard = ({
   checkInDate,
   checkOutDate,
-  pricePerNightUsd,
+  id,
   reservations,
   totalQuantity
 }: Listing) => {
@@ -25,12 +27,17 @@ const BookingCard = ({
   const [endDate, setEndDate] = React.useState<moment.Moment | null>(null);
   const [numberOfGuests, setNumberOfGuests] = React.useState<number>(1);
   const setDates = ({ startDate, endDate }: Dates) => (setStartDate(startDate), setEndDate(endDate));
+  const input = { checkInDate: startDate, checkOutDate: endDate, numberOfGuests };
 
   return <Card className="p-5 shadow">
-    <Row className="m-0">
-      <h3 className="d-inline">{formatPrice(pricePerNightUsd)}</h3>
-      <small className="pl-3 mt-3"> per night</small>
-    </Row>
+    <Query query={GET_PUBLIC_LISTING} fetchPolicy="cache-and-network" variables={{ id, input }}>
+      {({ loading, error, data }) => <Row className="m-0">
+        <h3 className="d-inline">
+          {loading ? <Loading width="2rem" height="2rem" /> : error ? error.message : formatPrice(data.listing.pricePerNightUsd)}
+        </h3>
+        <small className="pl-3 mt-3"> per night</small>
+      </Row>}
+    </Query>
     <Row className="w-100 m-0 mb-3">
       <DateRangePicker
         isOutsideRange={isOutsideDateRange}
