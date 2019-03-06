@@ -22,7 +22,7 @@ const BookingCard = ({
   const [numberOfGuests, setNumberOfGuests] = React.useState<number>(1);
   const setDates = ({ startDate, endDate }: Dates) => (setStartDate(startDate), setEndDate(endDate));
 
-  return <Card className="p-5 m-3 shadow">
+  return <Card className="p-5 shadow">
     <Row className="m-0">
       <h3 className="d-inline">{formatPrice(pricePerNightUsd)}</h3>
       <small className="pl-3 mt-3"> per night</small>
@@ -63,4 +63,5 @@ const BookingCard = ({
     </Row>
   </Card>;
 };
+
 export default BookingCard;
