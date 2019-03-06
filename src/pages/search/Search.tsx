@@ -32,7 +32,7 @@ const Search = () => {
       {({ loading, error, data }) =>
         loading ? <Loading /> :
         error ? <h2>Error: {error.message}</h2> :
-        <SearchPage listings={data.searchListings} />
+        <SearchPage listings={data.searchListings} {...queryParams} />
       }
     </Query>
     <Footer />
