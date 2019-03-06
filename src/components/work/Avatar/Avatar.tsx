@@ -1,11 +1,10 @@
 import * as React from 'react';
-import { Fade } from 'reactstrap';
 
-import { User } from 'networking/user';
+import { Host } from 'networking/listings';
 import LazyImage from 'shared/LazyImage';
 
 interface Props {
-  user: User;
+  user: Host;
   width?: string;
   height?: string;
 }
