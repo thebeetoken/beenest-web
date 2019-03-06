@@ -13,7 +13,7 @@ interface FormValues {
   [name: string]: boolean | string | string[] | number | object | undefined;
 }
 
-const GeneralInfoSchema = Yup.object().shape({
+const GeneralInfoSchema = Yup.object({
   [UserField.FIRST_NAME]: Yup.string()
     .required('Please provide your first name.'),
   [UserField.LAST_NAME]: Yup.string()
@@ -21,7 +21,7 @@ const GeneralInfoSchema = Yup.object().shape({
   [UserField.EMAIL]: Yup.string(),
   [UserField.ABOUT]: Yup.string()
     .required('Please fill out the About section.'),
-})
+});
 
 const defaultValues: FormValues = {
   [UserField.FIRST_NAME]: '',
@@ -88,7 +88,7 @@ function AccountGeneral({ user, updateUser }: any) {
           <FormGroup>
             <Label for={UserField.ABOUT}>About</Label>
             <Textarea
-              className={`form-control${errors.about ? ' is-invalid' : ''}`}
+              className={`form-control${errors.about && touched.about ? ' is-invalid' : ''}`}
               html
               name={UserField.ABOUT}
               onBlur={() => setFieldTouched(UserField.ABOUT, true)}

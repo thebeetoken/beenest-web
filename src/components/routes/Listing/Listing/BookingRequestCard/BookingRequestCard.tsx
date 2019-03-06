@@ -1,6 +1,6 @@
 import 'react-dates/initialize';
 import * as React from 'react';
-import { compose, graphql } from 'react-apollo';
+import { compose, graphql, Query } from 'react-apollo';
 import { withRouter } from 'react-router';
 
 import moment from 'moment';
@@ -9,7 +9,9 @@ import { DateRangePicker } from 'react-dates';
 import BookingRequestCardContainer from './BookingRequestCard.container';
 import DateRangePickerContainer from 'styled/containers/DateRangePicker.container';
 import { Booking, Currency, CREATE_BOOKING, GET_GUEST_SORTED_BOOKINGS } from 'networking/bookings';
-import { Price, Reservation } from 'networking/listings';
+import { GET_PUBLIC_LISTING, Price, Reservation } from 'networking/listings';
+
+import AudioLoading from 'shared/loading/AudioLoading';
 import Button from 'shared/Button';
 import InputLabel from 'shared/InputLabel';
 import InputWrapper from 'shared/InputWrapper';
@@ -87,7 +89,7 @@ class BookingRequestCard extends React.Component<Props, State> {
   readonly state = getInitialState(this.props);
 
   render() {
-    const { prices, pricePerNightUsd } = this.props;
+    const id = this.props.listingId;
     const { endDate, startDate, focusedInput, isDisabled, numberOfGuests } = this.state;
     return (
       <BookingRequestCardContainer>
@@ -97,23 +99,29 @@ class BookingRequestCard extends React.Component<Props, State> {
               if (screenType < ScreenType.DESKTOP) {
                 return null;
               }
+              const input = { checkInDate: startDate, checkOutDate: endDate, numberOfGuests };
               return (
-                <div className="pricing-container">
-                  <div className="pricing-container--primary">
-                    {pricePerNightUsd && <h4>{numberToLocaleString(pricePerNightUsd)}</h4>}
-                    <span>USD / night</span>
-                  </div>
-                  <div className="pricing-container--other-rates">
-                    {prices
-                      .filter(({ currency }) => Object.values(Currency).includes(currency))
-                      .map(({ currency, pricePerNight }) => (
-                      <h5 key={currency}>
-                        {numberToLocaleString(pricePerNight, currency)}
-                        <span>{currency}</span>
-                      </h5>
-                    ))}
-                  </div>
-                </div>
+                <Query query={GET_PUBLIC_LISTING} fetchPolicy="cache-and-network" variables={{ id, input }}>
+                  {({ loading, error, data }) => <div className="pricing-container">
+                    <div className="pricing-container--primary">
+                      {!loading && !error && data.listing.pricePerNightUsd && <h4>
+                        {numberToLocaleString(data.listing.pricePerNightUsd)}
+                      </h4>}
+                      {loading && <AudioLoading />}
+                      <span>USD / night</span>
+                    </div>
+                    <div className="pricing-container--other-rates">
+                      {!loading && !error && data.listing.prices
+                        .filter(({ currency }: Price) => Object.values(Currency).includes(currency))
+                        .map(({ currency, pricePerNight }: Price) => (
+                        <h5 key={currency}>
+                          {numberToLocaleString(pricePerNight, currency)}
+                          <span>{currency}</span>
+                        </h5>
+                      ))}
+                    </div>
+                  </div>}
+                </Query>
               );
             }}
           </AppConsumer>

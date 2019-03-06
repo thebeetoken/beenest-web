@@ -5,13 +5,12 @@ import { compose, graphql } from 'react-apollo';
 import { Link } from 'react-router-dom';
 import * as Yup from 'yup';
 
-import { CreateUser, CREATE_OR_LOGIN_WITH_PROVIDERS, CREATE_USER, User } from 'networking/users';
-import { auth, login, signInWithGooglePopUp } from 'utils/firebase';
+import { CreateHost, CREATE_HOST, User } from 'networking/users';
+import { auth, login } from 'utils/firebase';
 import { getFriendlyErrorMessage } from 'utils/validators';
 
-interface SignupProps {
-  createOrLoginWithProviders: (id: string) => Promise<any>;
-  createUser: (user: CreateUser) => Promise<User>;
+interface HostsSignupProps {
+  createHost: (user: CreateHost) => Promise<User>;
 }
 
 const LoginSchema = Yup.object().shape({
@@ -27,31 +26,44 @@ const LoginSchema = Yup.object().shape({
     .required('Please enter a valid password.'),
 });
 
-enum SignupFormField {
+enum HostsSignupFormField {
   EMAIL = 'email',
   FIRST_NAME = 'firstName',
   LAST_NAME = 'lastName',
   PASSWORD = 'password',
+  PROPERTIES_MANAGED = 'propertiesManaged',
+  IS_ALREADY_LISTED = 'isAlreadyListed',
   SUBMIT_ERROR = 'submitError',
 }
 
-interface SignupFormInput {
-  [SignupFormField.EMAIL]: string;
-  [SignupFormField.FIRST_NAME]: string;
-  [SignupFormField.LAST_NAME]: string;
-  [SignupFormField.PASSWORD]: string;
-  [SignupFormField.SUBMIT_ERROR]: string;
+interface HostsSignupFormInput {
+  [HostsSignupFormField.EMAIL]: string;
+  [HostsSignupFormField.FIRST_NAME]: string;
+  [HostsSignupFormField.LAST_NAME]: string;
+  [HostsSignupFormField.PASSWORD]: string;
+  [HostsSignupFormField.PROPERTIES_MANAGED]: string;
+  [HostsSignupFormField.IS_ALREADY_LISTED]: string;
+  [HostsSignupFormField.SUBMIT_ERROR]: string;
 }
 
-const SignupForm = (props: SignupProps) => {
+const NUMBER_OF_PROPERTIES_MANAGED = [
+  '1-5',
+  '6-10',
+  '11-50',
+  '51-100+',
+];
+
+const HostsSignupForm = (props: HostsSignupProps) => {
   const [providerError, setError] = React.useState<string | null>(null);
   const {
     EMAIL,
     FIRST_NAME,
     LAST_NAME,
     PASSWORD,
-    SUBMIT_ERROR
-  } = SignupFormField;
+    PROPERTIES_MANAGED,
+    IS_ALREADY_LISTED,
+    SUBMIT_ERROR,
+  } = HostsSignupFormField;
 
   return (
     <Formik
@@ -60,18 +72,19 @@ const SignupForm = (props: SignupProps) => {
         [FIRST_NAME]: '',
         [LAST_NAME]: '',
         [PASSWORD]: '',
+        [PROPERTIES_MANAGED]: NUMBER_OF_PROPERTIES_MANAGED[0],
+        [IS_ALREADY_LISTED]: 'true',
         [SUBMIT_ERROR]: '',
       }}
       validationSchema={LoginSchema}
       onSubmit={handleSubmit}
     >
-      {({ errors, touched, setFieldValue, isSubmitting }) => (
+      {({ errors, touched, setFieldValue, isSubmitting, values }) => (
         <Form tag={FormikForm}>
-          <div className="mb-7">
+          <div className="mb-4">
             <h2 className="h3 text-primary font-weight-normal mb-0">
-              Welcome to <span className="font-weight-semi-bold">Beenest</span>
+              Earn passive income on <span className="font-weight-semi-bold">Beenest</span>
             </h2>
-            <p>Signup to start using Beenest.</p>
           </div>
 
           <Row className="d-flex flex-sm-column flex-md-row">
@@ -93,7 +106,7 @@ const SignupForm = (props: SignupProps) => {
               </FormGroup>
             </Col>
             <Col md={6}>
-            <FormGroup>
+              <FormGroup>
                 <Label for={LAST_NAME} className="form-label">
                   First Name
                 </Label>
@@ -143,6 +156,52 @@ const SignupForm = (props: SignupProps) => {
             <FormFeedback>{errors[PASSWORD]}</FormFeedback>
           </FormGroup>
 
+          <FormGroup tag="fieldset">
+            <Label for={PROPERTIES_MANAGED} className="small font-weight-medium">
+              How many properties do you own?
+            </Label>
+            {NUMBER_OF_PROPERTIES_MANAGED.map((option) => {
+              return (
+                <FormGroup check key={option}>
+                  <Input
+                    type="radio"
+                    name={PROPERTIES_MANAGED}
+                    id={option}
+                    checked={option === values[PROPERTIES_MANAGED]}
+                    tag={Field}
+                    value={option} />
+                  <span>{option}</span>
+                </FormGroup>
+              );
+            })}
+          </FormGroup>
+
+          <FormGroup tag="fieldset">
+            <Label className="small font-weight-medium">
+              Is your property already listed on another platform?
+            </Label>
+            <FormGroup check>
+              <Input
+                type="radio"
+                name={IS_ALREADY_LISTED}
+                id={IS_ALREADY_LISTED}
+                checked={'true' === values[IS_ALREADY_LISTED]}
+                tag={Field}
+                value='true' />
+              <span>Yes, it's already listed</span>
+            </FormGroup>
+            <FormGroup check>
+              <Input
+                type="radio"
+                name={IS_ALREADY_LISTED}
+                id={IS_ALREADY_LISTED}
+                checked={'false' === values[IS_ALREADY_LISTED]}
+                tag={Field}
+                value='false' />
+              <span>No, it's my first time earning</span>
+            </FormGroup>
+          </FormGroup>
+
           <FormText className="mb-3" color="danger">
             {errors[SUBMIT_ERROR] || providerError}
           </FormText>
@@ -153,23 +212,10 @@ const SignupForm = (props: SignupProps) => {
                 className="btn-primary transition-3d-hover w-100"
                 type="submit"
                 disabled={isSubmitting}
-                color="primary"
-              >
-                Create an account
+                color="primary">
+                Start Earning Now
               </Button>
             </Col>
-          </Row>
-
-          <Row className="d-flex flex-column align-items-center px-3">
-            <Button
-              className="btn-google transition-3d-hover w-100 d-flex justify-content-between align-items-center"
-              type="button"
-              onClick={signInWithProvider.bind(null, signInWithGooglePopUp)}
-            >
-              <i className="fab fa-google" />
-              Signup with Google
-              <div />
-            </Button>
           </Row>
 
           <Row className="d-flex align-items-center mt-3">
@@ -183,22 +229,26 @@ const SignupForm = (props: SignupProps) => {
     </Formik>
   );
 
-  function handleSubmit(values: SignupFormInput, actions: FormikActions<SignupFormInput>) {
+  function handleSubmit(values: HostsSignupFormInput, actions: FormikActions<HostsSignupFormInput>) {
     const {
       EMAIL,
       FIRST_NAME,
       LAST_NAME,
+      PROPERTIES_MANAGED,
+      IS_ALREADY_LISTED,
       PASSWORD,
       SUBMIT_ERROR,
-    } = SignupFormField;
+    } = HostsSignupFormField;
     const input = {
       email: values[EMAIL],
       firstName: values[FIRST_NAME],
       lastName: values[LAST_NAME],
       password: values[PASSWORD],
+      propertiesManaged: values[PROPERTIES_MANAGED],
+      isAlreadyListed: values[IS_ALREADY_LISTED],
     }
 
-    props.createUser(input)
+    props.createHost(input)
       .then((_) => login(input.email, input.password))
       .then((_) => !auth.currentUser ? Promise.resolve() : auth.currentUser.sendEmailVerification())
       .catch((error: Error) => {
@@ -214,35 +264,14 @@ const SignupForm = (props: SignupProps) => {
       setError(null);
     }
   }
-
-  function signInWithProvider(callback: () => Promise<any>) {
-    callback()
-      .then(result => {
-        return props.createOrLoginWithProviders(result.user.uid);
-      })
-      .catch(error => {
-        if (error.message.includes('You are already logged in.')) {
-          return;
-        }
-
-        setError(error.message);
-      });
-  };
 }
 
 export default compose(
-  graphql(CREATE_USER, {
+  graphql(CREATE_HOST, {
     props: ({ mutate }: any) => ({
-      createUser: (input: CreateUser): Promise<any> => {
+      createHost: (input: CreateHost): Promise<any> => {
         return mutate({ variables: { input } });
       },
     }),
-  }),
-  graphql(CREATE_OR_LOGIN_WITH_PROVIDERS, {
-    props: ({ mutate }: any) => ({
-      createOrLoginWithProviders: (id: string): Promise<User> => {
-        return mutate({ variables: { id } });
-      },
-    }),
   })
-)(SignupForm);
+)(HostsSignupForm);
