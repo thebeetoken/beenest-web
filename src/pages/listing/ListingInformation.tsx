@@ -29,13 +29,13 @@ const ListingInformation = ({
   state,
   title
 }: Listing) => <Fade className="mt-3">
-  <h1>{title}</h1>
+  <h3>{title}</h3>
   <address>{formatAddress(city, state, country)}</address>
   <p>Host: {host.displayName}</p>
   <Avatar user={host} />
-  <h1>Description</h1>
+  <h3>Description</h3>
   <p dangerouslySetInnerHTML={{ __html: sanitizeHtml(description) }} />
-  <h1>Accommodations</h1>
+  <h3>Accommodations</h3>
   <dl className="row">
     {homeType && <>
       <dt className="col-6">Home Type</dt>
@@ -74,13 +74,13 @@ const ListingInformation = ({
       <dd className="col-6">{checkOutTime}</dd>
     </>}
   </dl>
-  <h1 className={amenities.length > 0 ? '' : 'd-none'}>Amenities</h1>
+  <h3 className={amenities.length > 0 ? '' : 'd-none'}>Amenities</h3>
   <ul>
     {amenities.map(amenity => <li key={amenity}>{amenity}</li>)}
   </ul>
-  <h1 className="d-none d-md-block">Location</h1>
+  <h3 className="d-none d-md-block">Location</h3>
   <GoogleMaps lat={lat} lng={lng} showCircle />
-  <h1>About {host.displayName}</h1>
+  <h3>About {host.displayName}</h3>
   <p><small>Member since {formatMonth(host.createdAt)}</small></p>
   <Row className="align-items-center justify-content-between">
     <Col xs="auto"><Avatar user={host} /></Col>
