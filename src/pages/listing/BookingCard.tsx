@@ -15,13 +15,14 @@ interface Dates {
   endDate: moment.Moment | null;
 }
 
+interface Props {
+  listing: Listing;
+}
+
 const BookingCard = ({
-  checkInDate,
-  checkOutDate,
-  id,
-  reservations,
-  totalQuantity
-}: Listing) => {
+  listing
+}: Props) => {
+  const { id, reservations, totalQuantity } = listing;
   const [focusedInput, setFocusedInput] = React.useState<'startDate' | 'endDate' | null>(null);
   const [startDate, setStartDate] = React.useState<moment.Moment | null>(null);
   const [endDate, setEndDate] = React.useState<moment.Moment | null>(null);
@@ -77,9 +78,9 @@ const BookingCard = ({
 
   function isOutsideDateRange(day: moment.Moment) {
     const utcDay = day.clone().utc().set('hours', 0);
-    const firstDay = checkInDate ? moment.utc(checkInDate) :
+    const firstDay = listing.checkInDate ? moment.utc(listing.checkInDate) :
       moment().startOf('day').utc().set('hours', 0);
-    const lastDay = checkOutDate ? moment.utc(checkOutDate) :
+    const lastDay = listing.checkOutDate ? moment.utc(listing.checkOutDate) :
       moment().startOf('day').utc().add(6, 'months');
     return utcDay.isBefore(firstDay) || utcDay.isAfter(lastDay);
   }
