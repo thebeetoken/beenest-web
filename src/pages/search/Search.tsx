@@ -49,7 +49,7 @@ const Search = () => {
           return <EmptySearchPage />;
         }
 
-        return <SearchPage listings={data.searchListings} />;
+        return <SearchPage listings={data.searchListings} {...queryParams} />;
       }}
     </Query>
     <Footer />
