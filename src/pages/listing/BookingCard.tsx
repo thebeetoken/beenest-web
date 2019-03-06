@@ -1,13 +1,16 @@
 import * as React from 'react';
 import { Button, Card, Input, Row } from 'reactstrap';
 import moment from 'moment';
-import { Query } from 'react-apollo';
+import { compose, graphql, Query } from 'react-apollo';
+import { withRouter } from 'react-router';
 
 import DateRangePicker from 'components/work/DateRangePicker';
 import { guestsSelectboxOptions } from 'components/work/SearchBar/searchBar.config';
 import Loading from 'shared/loading/Loading';
 
+import { CREATE_BOOKING, GET_GUEST_SORTED_BOOKINGS, CreateBookingInput } from 'networking/bookings';
 import { GET_PUBLIC_LISTING, Listing, Reservation } from 'networking/listings';
+
 import { formatPrice } from 'utils/formatter';
 import { parseQueryString } from 'utils/queryParams';
 
@@ -22,13 +25,19 @@ interface Dates {
   endDate: moment.Moment | null;
 }
 
+interface Props extends RouterProps, Listing {
+  createBooking: (input: CreateBookingInput) => Promise<any>
+}
+
 const BookingCard = ({
   checkInDate,
   checkOutDate,
+  createBooking,
+  history,
   id,
   reservations,
   totalQuantity
-}: Listing) => {
+}: Props) => {
   const params: Params = parseQueryString(location.search);
 
   const [focusedInput, setFocusedInput] = React.useState<'startDate' | 'endDate' | null>(null);
@@ -115,10 +124,50 @@ const BookingCard = ({
     }).length >= quantity;
   }
 
-  function startBooking() {
+  async function startBooking() {
     setBooking(true);
-    console.log({ checkInDate, checkOutDate, numberOfGuests });
+    try {
+      const { data } = await createBooking({
+        checkInDate: String(startDate),
+        checkOutDate: String(endDate),
+        listingId: id,
+        numberOfGuests: numberOfGuests
+      });
+      history.push(`/bookings/${data.createBooking.id}`);
+    } catch (e) {
+      console.log(e);
+      alert(e.message);
+      setBooking(false);
+    }
   }
 };
 
-export default BookingCard;
+
+export default compose(
+  graphql(CREATE_BOOKING, {
+    props: ({ mutate }: any) => ({
+      createBooking: (input: CreateBookingInput) => {
+        return mutate({
+          variables: { input },
+          refetchQueries: [{ query: GET_GUEST_SORTED_BOOKINGS }],
+          update: (store: any, { data }: any) => {
+            if (!store.data.data.ROOT_QUERY || !store.data.data.ROOT_QUERY.guestBookings) {
+              return;
+            }
+            const { createBooking } = data;
+            const { guestBookings } = store.readQuery({ query: GET_GUEST_SORTED_BOOKINGS });
+            store.writeQuery({
+              query: GET_GUEST_SORTED_BOOKINGS,
+              data: {
+                guestBookings: {
+                  ...guestBookings,
+                  current: [...guestBookings.current, createBooking],
+                },
+              },
+            });
+          },
+        });
+      },
+    }),
+  })
+)(withRouter(BookingCard));

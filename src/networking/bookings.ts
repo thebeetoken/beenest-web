@@ -29,6 +29,13 @@ export interface Booking {
   status: string;
 }
 
+export interface CreateBookingInput {
+  checkInDate: string;
+  checkOutDate: string;
+  listingId: string | number;
+  numberOfGuests: number;
+}
+
 export enum BookingStatus {
   GUEST_CONFIRMED,
   HOST_APPROVED,
