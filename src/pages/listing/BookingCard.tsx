@@ -81,7 +81,9 @@ const BookingCard = ({
       </Input>
     </Row>
     <Row className="w-100 m-0">
-      <Button className="w-100">Request to Book</Button>
+      <Button onClick={startBooking} className="w-100" disabled={!startDate || !endDate}>
+        Request to Book
+      </Button>
     </Row>
   </Card>;
 
@@ -110,6 +112,10 @@ const BookingCard = ({
     return reservations.filter(({ startDate, endDate }: Reservation) => {
       return utcDay.isBetween(startDate, endDate, undefined, pickingEnd ? '(]' : '[)');
     }).length >= quantity;
+  }
+
+  function startBooking() {
+    console.log({ checkInDate, checkOutDate, numberOfGuests });
   }
 };
 
