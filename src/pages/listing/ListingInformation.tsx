@@ -56,7 +56,7 @@ const ListingInformation = ({
     <dt className="col-6">Check-out</dt>
     <dd className="col-6">{checkOutTime}</dd>
   </dl>
-  <h1>Amenities</h1>
+  <h1 className={amenities.length > 0 ? '' : 'd-none'}>Amenities</h1>
   <ul>
     {amenities.map(amenity => <li key={amenity}>{amenity}</li>)}
   </ul>
