@@ -15,8 +15,6 @@ import { withRouter } from 'react-router-dom';
 
 import { AppProvider, AppState, getScreenType } from './Legacy.context';
 import LegacyRoutes from './Legacy.routes';
-import Footer from './Footer';
-import Header from './Header';
 
 
 
@@ -43,9 +41,7 @@ class App extends React.Component<RouterProps, AppState> {
   render(): JSX.Element {
     return (
       <AppProvider value={this.state}>
-        <Header />
         <LegacyRoutes />
-        <Footer />
       </AppProvider>
     );
   }
