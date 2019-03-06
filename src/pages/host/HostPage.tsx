@@ -7,6 +7,21 @@ import NotFound from '../notFound';
 import { compose, graphql } from 'react-apollo';
 import { getFriendlyErrorMessage } from 'utils/validators';
 
+const HostRoutes = [
+  {
+    to: '/work/host/bookings',
+    title: 'Bookings',
+  },
+  {
+    to: '/work/host/listings',
+    title: 'Listings',
+  },
+  {
+    to: '/work/host/payments',
+    title: 'Payments',
+  },
+];
+
 interface Props extends RouterProps {
   createListing: () => Promise<Listing>;
 }
@@ -31,20 +46,7 @@ const HostPage = ({ createListing, history }: Props) => {
       </Row>
       <hr />
       <Nav className="mb-5" tabs>
-        {[
-          {
-          to: '/work/host/bookings',
-            title: 'Bookings',
-          },
-          {
-            to: '/work/host/listings',
-            title: 'Listings',
-          },
-          {
-            to: '/work/host/payments',
-            title: 'Payments',
-          },
-        ].map(({ title, to }) => (
+        {HostRoutes.map(({ title, to }) => (
           <NavItem key={to}>
             <NavLink 
               tag={RRNavLink}
@@ -55,9 +57,9 @@ const HostPage = ({ createListing, history }: Props) => {
         ))}
       </Nav>
         <Switch>
-          <AuthenticatedRoute exact path="/work/host/bookings" component={() => <h1>This is Host Bookings</h1>} />
-          <AuthenticatedRoute exact path="/work/host/listings" render={() => <h1>This is Host Listings</h1>} />
-          <AuthenticatedRoute exact path="/work/host/payments" component={() => <h1>This is Host Payments</h1>} />
+          {HostRoutes.map(({ title, to }) => (
+            <AuthenticatedRoute exact path={to} component={() => <h1>This is Host {title}</h1>} />
+          ))}
           <Redirect from="/work/host" to="/work/host/listings" />
           <Route component={NotFound} />
         </Switch>
