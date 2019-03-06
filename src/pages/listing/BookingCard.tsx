@@ -46,6 +46,7 @@ const BookingCard = ({
   const [numberOfGuests, setNumberOfGuests] = React.useState<number>(params.numberOfGuests || 1);
   const [isBooking, setBooking] = React.useState<boolean>(false);
   const setDates = ({ startDate, endDate }: Dates) => (setStartDate(startDate), setEndDate(endDate));
+  const input = { checkInDate: startDate, checkOutDate: endDate, numberOfGuests };
 
   const input = { checkInDate: startDate, checkOutDate: endDate, numberOfGuests };
 
