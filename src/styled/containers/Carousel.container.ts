@@ -73,10 +73,10 @@ const CarouselContainerMobile = styled.div`
     color: #fff;
   }
   .slick-prev {
-    left: -25px;
+    right: calc(100% + 8px);
   }
   [dir='rtl'] .slick-prev {
-    right: -25px;
+    left: calc(100% + 8px);
     left: auto;
   }
   .slick-prev:before {
@@ -87,11 +87,11 @@ const CarouselContainerMobile = styled.div`
     content: '>';
   }
   .slick-next {
-    right: -25px;
+    left: calc(100% + 8px);
   }
   [dir='rtl'] .slick-next {
     right: auto;
-    left: -25px;
+    right: calc(100% + 8px);
   }
   [dir='rtl'] .slick-next:before {
     content: '>';
@@ -269,12 +269,6 @@ const CarouselContainerDesktop = styled(CarouselContainerTablet)`
     .slick-next:before,
     .slick-prev:before {
       font-size: 144px;
-    }
-    .slick-prev {
-      left: -40px;
-    }
-    .slick-next {
-      right: -40px;
     }
   }
 `;
