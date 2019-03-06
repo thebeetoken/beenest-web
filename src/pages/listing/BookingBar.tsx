@@ -1,18 +1,25 @@
 import * as React from 'react';
-import { Button, Col, Row } from 'reactstrap';
+import { Button, Col, Modal, Row } from 'reactstrap';
 
 import { Listing } from 'networking/listings';
 import { formatPrice } from 'utils/formatter';
 
-const BookingBar = ({
-  pricePerNightUsd
-}: Listing) => (
-  <Row className="w-100 p-2 align-items-center justify-content-between">
+import BookingCard from './BookingCard';
+
+const BookingBar = (listing: Listing) => {
+  const [isOpen, setOpen] = React.useState<boolean>(false);
+
+  return <Row className="w-100 p-2 align-items-center justify-content-between">
     <Col>
-      {formatPrice(pricePerNightUsd)} per night
+      From {formatPrice(listing.pricePerNightUsd)} per night
     </Col>
-    <Button>Request to Book</Button>
-  </Row>
-);
+    <Button onClick={() => setOpen(true)}>
+      Request to Book
+    </Button>
+    <Modal isOpen={isOpen} toggle={() => setOpen(false)}>
+      <BookingCard {...listing} />
+    </Modal>
+  </Row>;
+};
 
 export default BookingBar;
