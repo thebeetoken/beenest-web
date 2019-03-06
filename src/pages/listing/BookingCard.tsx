@@ -9,6 +9,13 @@ import Loading from 'shared/loading/Loading';
 
 import { GET_PUBLIC_LISTING, Listing, Reservation } from 'networking/listings';
 import { formatPrice } from 'utils/formatter';
+import { parseQueryString } from 'utils/queryParams';
+
+interface Params {
+  checkInDate?: string;
+  checkOutDate?: string;
+  numberOfGuests?: number;
+}
 
 interface Dates {
   startDate: moment.Moment | null;
@@ -19,14 +26,14 @@ interface Props {
   listing: Listing;
 }
 
-const BookingCard = ({
-  listing
-}: Props) => {
+const BookingCard = ({ listing }: Props) => {
+  const params: Params = parseQueryString(location.search);
+  const { checkInDate, checkOutDate } = params;
   const { id, reservations, totalQuantity } = listing;
   const [focusedInput, setFocusedInput] = React.useState<'startDate' | 'endDate' | null>(null);
-  const [startDate, setStartDate] = React.useState<moment.Moment | null>(null);
-  const [endDate, setEndDate] = React.useState<moment.Moment | null>(null);
-  const [numberOfGuests, setNumberOfGuests] = React.useState<number>(1);
+  const [startDate, setStartDate] = React.useState<moment.Moment | null>(checkInDate ? moment.utc(checkInDate) : null);
+  const [endDate, setEndDate] = React.useState<moment.Moment | null>(checkOutDate ? moment.utc(checkOutDate) : null);
+  const [numberOfGuests, setNumberOfGuests] = React.useState<number>(params.numberOfGuests || 1);
   const setDates = ({ startDate, endDate }: Dates) => (setStartDate(startDate), setEndDate(endDate));
   const input = { checkInDate: startDate, checkOutDate: endDate, numberOfGuests };
 
