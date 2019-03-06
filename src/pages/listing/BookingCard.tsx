@@ -9,7 +9,7 @@ import { formatPrice } from 'utils/formatter';
 
 const BookingCard = ({
   pricePerNightUsd
-}: Listing) => (<Card className="p-5 m-3 shadow">
+}: Listing) => (<Card className="p-5 shadow">
   <Row className="m-0">
     <h3 className="d-inline">{formatPrice(pricePerNightUsd)}</h3>
     <small className="pl-3 mt-3"> per night</small>
