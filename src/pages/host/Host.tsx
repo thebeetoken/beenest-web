@@ -18,10 +18,13 @@ const Host = ({ createListing, history }: Props) => {
     <Container className="pt-8 pb-6" tag={Fade}>
       <Row>
         <Col>
-          <h1>Host Profile</h1>
+          <h1 className="mb-0">Host Profile</h1>
         </Col>
-        <Col>
-          <Button disabled={isCreateListingClicked} onClick={handleNewListingClick} size="small">
+        <Col md="4" lg="3" xl="2" className="d-flex align-items-center justify-content-end">
+          <Button
+            block
+            disabled={isCreateListingClicked}
+            onClick={handleNewListingClick}>
             Add New Listing
           </Button>
         </Col>
