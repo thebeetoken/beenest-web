@@ -10,12 +10,12 @@ const PortalContainer = styled.div`
   opacity: 0;
   position: fixed;
   top: 0;
-  z-index: 101;
+  z-index: 1101;
   width: 100%;
 
 
   .bee-portal--children {
-    z-index: 100;
+    z-index: 1100;
   }
 
 
