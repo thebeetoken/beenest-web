@@ -69,10 +69,10 @@ const socialData = [
   },
 ];
 
-export const Footer = () => (
+const Footer = () => (
   <Switch>
     <Route path="/work/account" component={DetailedFooter} />
-    <Route exact path="/work/listings/:id" component={NoopComponent} />
+    <Route exact path="/work/listings/:id" render={() => <DetailedFooter className="d-none d-lg-block" />} />
     <Route exact path="/work" component={DetailedFooter} />
     <Route exact path="/work/about" component={DetailedFooter} />
     <Route exact path="/work/login" component={NoopComponent} />
@@ -81,7 +81,7 @@ export const Footer = () => (
   </Switch>
 )
 
-export const DetailedFooter = ({ className }: { className: string }) => (
+const DetailedFooter = ({ className }: { className: string }) => (
   <footer className={`pt-md-10${className ? ' ' + className : ''}`}>
     <Container className="space-lg-2 border-bottom">
       <Row className="justify-content-md-between">
@@ -160,3 +160,5 @@ export const DetailedFooter = ({ className }: { className: string }) => (
 );
 
 const NoopComponent = () => null;
+
+export default Footer;

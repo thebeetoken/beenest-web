@@ -3,7 +3,6 @@ import { Query } from 'react-apollo';
 import { Fade } from 'reactstrap';
 import { GET_PUBLIC_LISTING } from 'networking/listings';
 
-import { DetailedFooter } from 'components/work/Footer';
 import Loading from 'shared/loading/Loading';
 
 import ListingPage from './ListingPage';
@@ -18,7 +17,6 @@ const Listing = ({ match }: RouterProps) => (
         <ListingPage {...data.listing} />
       }
     </Query>
-    <DetailedFooter className="d-none d-lg-block" />
   </Fade>
 );
 

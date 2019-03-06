@@ -18,7 +18,7 @@ import TripsReceipt from './trips/TripsReceipt';
 import AuthenticatedRoute from 'HOCs/AuthenticatedRoute';
 
 import Header from 'components/work/Header';
-import { Footer } from 'components/work/Footer';
+import Footer from 'components/work/Footer';
 
 import '../styled/customStyles.scss';
 
