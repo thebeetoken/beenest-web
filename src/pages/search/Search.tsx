@@ -1,12 +1,9 @@
 import * as React from 'react';
 import { Fade } from 'reactstrap';
 import { Query } from 'react-apollo';
-
 import { SEARCH_LISTINGS } from 'networking/listings';
 
-import Footer from 'components/work/Footer';
 import Loading from 'shared/loading/Loading';
-
 import { LISTING_CARD_IMAGE_DIMENSIONS } from 'utils/imageDimensions';
 import { parseQueryString } from 'utils/queryParams';
 
@@ -35,7 +32,6 @@ const Search = () => {
         <SearchPage listings={data.searchListings} />
       }
     </Query>
-    <Footer />
   </Fade>);
 };
 
