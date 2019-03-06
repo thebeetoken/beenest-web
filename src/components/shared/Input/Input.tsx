@@ -1,7 +1,7 @@
 import * as React from 'react';
 import omit from 'lodash.omit';
 
-import Svg from 'shared/Svg';
+import Svg from 'legacy/shared/Svg';
 import InputContainer from './Input.container';
 
 /**

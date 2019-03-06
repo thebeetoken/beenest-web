@@ -5,7 +5,7 @@ import { GET_PAYMENT_SOURCES, PaymentSource } from 'networking/paymentSources';
 import { CreditBalance } from 'networking/users';
 
 
-import Loading from 'shared/loading/Loading';
+import Loading from 'legacy/shared/loading/Loading';
 import { VIEWPORT_CENTER_LAYOUT } from 'styled/sharedClasses/layout';
 
 import NewCardForm from './NewCardForm';

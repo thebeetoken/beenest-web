@@ -1,7 +1,7 @@
 import * as React from 'react';
 
-import GridLoading from 'shared/loading/GridLoading';
-import Portal from 'shared/Portal';
+import GridLoading from 'legacy/shared/loading/GridLoading';
+import Portal from 'legacy/shared/Portal';
 import { Currency } from 'networking/bookings';
 import LoadingPortalContainer from './LoadingPortal.container';
 

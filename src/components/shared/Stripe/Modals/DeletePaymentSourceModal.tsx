@@ -4,9 +4,9 @@ import { compose, graphql } from 'react-apollo';
 import PaymentSourceModalContainer from './PaymentSourceModal.container';
 
 import { DELETE_PAYMENT_SOURCE, GET_PAYMENT_SOURCES, PaymentSource } from 'networking/paymentSources';
-import CloseButton from 'shared/CloseButton';
-import Button from 'shared/Button';
-import Divider from 'shared/Divider';
+import CloseButton from 'legacy/shared/CloseButton';
+import Button from 'legacy/shared/Button';
+import Divider from 'legacy/shared/Divider';
 
 interface Props {
   paymentSource: PaymentSource;

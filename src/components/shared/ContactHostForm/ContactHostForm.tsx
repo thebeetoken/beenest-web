@@ -1,18 +1,18 @@
 import * as React from 'react';
 import ContactHostFormContainer from './ContactHostForm.container';
-import Button from 'shared/Button';
+import Button from 'legacy/shared/Button';
 import { Formik, Field, ErrorMessage, Form } from 'formik';
 import * as Yup from 'yup';
-import InputWrapper from 'shared/InputWrapper';
-import Textarea from 'shared/Textarea';
-import InputLabel from 'shared/InputLabel';
-import ErrorMessageWrapper from 'shared/ErrorMessageWrapper';
-import { TextareaEvent } from 'shared/Textarea/Textarea';
+import InputWrapper from 'legacy/shared/InputWrapper';
+import Textarea from 'legacy/shared/Textarea';
+import InputLabel from 'legacy/shared/InputLabel';
+import ErrorMessageWrapper from 'legacy/shared/ErrorMessageWrapper';
+import { TextareaEvent } from 'legacy/shared/Textarea/Textarea';
 import { compose, graphql } from 'react-apollo';
 import { CONTACT_USER } from 'networking/users';
 import { Host } from 'networking/listings';
-import AlertCard from 'shared/AlertCard';
-import Card from 'shared/Card';
+import AlertCard from 'legacy/shared/AlertCard';
+import Card from 'legacy/shared/Card';
 
 interface Props {
   contactUser: (input: ContactHostInput) => Promise<EmailResponse>;

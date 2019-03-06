@@ -11,9 +11,9 @@ import {
 import PaymentSourceFormContainer from './PaymentSourceForm.container';
 
 import { CREATE_PAYMENT_SOURCE, GET_PAYMENT_SOURCES } from 'networking/paymentSources';
-import Button from 'shared/Button';
-import Divider from 'shared/Divider';
-import InputWrapper from 'shared/InputWrapper';
+import Button from 'legacy/shared/Button';
+import Divider from 'legacy/shared/Divider';
+import InputWrapper from 'legacy/shared/InputWrapper';
 import { isNotEmpty, errorMessages, FieldValidation, getInputErrorClass } from 'utils/validators';
 
 interface Props {

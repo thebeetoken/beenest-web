@@ -4,7 +4,7 @@ import { Fade } from 'reactstrap';
 
 import Footer from 'legacy/work/Footer';
 
-import Loading from 'shared/loading/Loading';
+import Loading from 'legacy/shared/loading/Loading';
 
 import { GET_PUBLIC_LISTING } from 'networking/listings';
 

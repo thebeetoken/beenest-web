@@ -3,8 +3,8 @@ import { Collapse, Navbar, NavbarToggler, NavbarBrand, Nav, NavItem, NavLink } f
 import { Link, Route, Switch } from 'react-router-dom';
 
 import { FirebaseConsumer, FirebaseUserProps } from 'HOCs/FirebaseProvider';
-import { BeenestSVGPrimary } from 'shared/svgComponents/SvgComponents';
-import Loading from 'shared/loading/Loading';
+import { BeenestSVGPrimary } from 'legacy/shared/svgComponents/SvgComponents';
+import Loading from 'legacy/shared/loading/Loading';
 import SimpleHeader from 'legacy/work/SimpleHeader';
 
 const HOST_INTEREST_LINK = '/hosts/signup?utm_source=header_host_signup_button';

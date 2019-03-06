@@ -5,8 +5,8 @@ import { withRouter } from 'react-router-dom';
 import BannerContainer from './Banner.container';
 
 import { AppConsumer, AppConsumerProps, ScreenType } from 'legacy/Legacy.context';
-import BeeLink from 'shared/BeeLink';
-import CloseButton from 'shared/CloseButton';
+import BeeLink from 'legacy/shared/BeeLink';
+import CloseButton from 'legacy/shared/CloseButton';
 
 interface Props extends RouterProps {
   background?: string;

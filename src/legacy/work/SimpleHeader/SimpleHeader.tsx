@@ -2,7 +2,7 @@ import * as React from 'react';
 import { Navbar, NavbarBrand } from 'reactstrap';
 import { Link } from 'react-router-dom';
 
-import { BeenestSVGPrimary, BeenestSVGWhite } from 'shared/svgComponents/SvgComponents'
+import { BeenestSVGPrimary, BeenestSVGWhite } from 'legacy/shared/svgComponents/SvgComponents'
 
 const HEADER_CLASSES = 'd-flex align-items-center custom-header-height';
 const NAVBAR_BRAND_CLASSES = 'navbar-brand u-header__navbar-brand u-header__navbar-brand-center u-header__navbar-brand-default p-0 m-0 h-auto w-auto'

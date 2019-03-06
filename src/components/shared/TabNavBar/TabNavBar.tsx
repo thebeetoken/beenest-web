@@ -2,7 +2,7 @@ import * as React from 'react';
 
 import TabNavBarContainer from './TabNavBar.container';
 
-import TabNav from 'shared/TabNav/TabNav';
+import TabNav from 'legacy/shared/TabNav/TabNav';
 
 interface Props {
   config: TabNavItem[];

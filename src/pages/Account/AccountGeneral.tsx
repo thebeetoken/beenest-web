@@ -5,8 +5,8 @@ import * as Yup from 'yup';
 import { compose, graphql } from 'react-apollo';
 import { UPDATE_USER, User, GET_ACCOUNT_PAGE, UserField } from 'networking/users';
 
-import Textarea from 'shared/Textarea';
-import { TextareaEvent } from 'shared/Textarea/Textarea';
+import Textarea from 'legacy/shared/Textarea';
+import { TextareaEvent } from 'legacy/shared/Textarea/Textarea';
 import { AlertProperties } from 'legacy/work/Alert/Alert';
 
 interface FormValues {

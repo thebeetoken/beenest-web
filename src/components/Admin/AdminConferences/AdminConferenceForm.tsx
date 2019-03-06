@@ -5,11 +5,11 @@ import { compose, graphql } from 'react-apollo';
 import { WithContext as ReactTags } from 'react-tag-input';
 import _ from 'lodash';
 
-//import Svg from 'shared/Svg';
+//import Svg from 'legacy/shared/Svg';
 import AdminInputLabel from 'legacy/shared/AdminInputLabel';
 import AdminInputWrapper from 'legacy/shared/AdminInputWrapper';
-import Button from 'shared/Button';
-import { PhotoUploader, Photo } from 'shared/PhotoUploader';
+import Button from 'legacy/shared/Button';
+import { PhotoUploader, Photo } from 'legacy/shared/PhotoUploader';
 import TextareaContainer from 'legacy/shared/Textarea/Textarea.container';
 
 import { Conference, CREATE_CONFERENCE, UPDATE_CONFERENCE, GET_ALL_CONFERENCES } from 'networking/conferences';

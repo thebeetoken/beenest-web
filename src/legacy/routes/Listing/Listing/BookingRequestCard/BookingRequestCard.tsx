@@ -11,10 +11,10 @@ import DateRangePickerContainer from 'styled/containers/DateRangePicker.containe
 import { Booking, Currency, CREATE_BOOKING, GET_GUEST_SORTED_BOOKINGS } from 'networking/bookings';
 import { GET_PUBLIC_LISTING, Price, Reservation } from 'networking/listings';
 
-import AudioLoading from 'shared/loading/AudioLoading';
-import Button from 'shared/Button';
-import InputLabel from 'shared/InputLabel';
-import InputWrapper from 'shared/InputWrapper';
+import AudioLoading from 'legacy/shared/loading/AudioLoading';
+import Button from 'legacy/shared/Button';
+import InputLabel from 'legacy/shared/InputLabel';
+import InputWrapper from 'legacy/shared/InputWrapper';
 import { AppConsumer, AppConsumerProps, ScreenType } from 'legacy/Legacy.context';
 import { numberToLocaleString } from 'utils/numberToLocaleString';
 import { parseQueryString, addQueryParams } from 'utils/queryParams';

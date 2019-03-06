@@ -2,8 +2,8 @@ import * as React from 'react';
 import CopyToClipboard from 'react-copy-to-clipboard';
 import { Link } from 'react-router-dom';
 
-import BeeLink from 'shared/BeeLink';
-import Fab from 'shared/Fab';
+import BeeLink from 'legacy/shared/BeeLink';
+import Fab from 'legacy/shared/Fab';
 import { getListingStatus } from 'utils/listingStatus';
 import { Listing } from 'networking/listings';
 import { formatSingleDate } from 'utils/formatDate';

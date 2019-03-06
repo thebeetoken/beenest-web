@@ -1,5 +1,5 @@
 import * as React from 'react';
-import Svg from 'shared/Svg';
+import Svg from 'legacy/shared/Svg';
 import CheckboxContainer from './Checkbox.container';
 import { generateClassNamesFromProps } from 'styled/utils';
 

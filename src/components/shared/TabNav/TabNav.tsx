@@ -2,8 +2,8 @@ import * as React from 'react';
 
 import TabNavContainer from './TabNav.container';
 
-import BeeLink from 'shared/BeeLink';
-import Svg from 'shared/Svg';
+import BeeLink from 'legacy/shared/BeeLink';
+import Svg from 'legacy/shared/Svg';
 import { AppConsumer, AppConsumerProps, ScreenType } from 'legacy/Legacy.context';
 
 interface Props {

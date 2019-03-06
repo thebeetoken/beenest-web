@@ -49,15 +49,15 @@ class Host extends React.Component<Props, State> {
           <TabNavBar config={[
               {
                 title: 'Bookings',
-                to: '/host/bookings',
+                to: '/legacy/host/bookings',
               },
               {
                 title: 'Listings',
-                to: '/host/listings',
+                to: '/legacy/host/listings',
               },
               {
                 title: 'Payments',
-                to: '/host/payments',
+                to: '/legacy/host/payments',
               }
           ]} />
           <FirebaseConsumer>
@@ -72,9 +72,9 @@ class Host extends React.Component<Props, State> {
 
               return (
                 <Switch>
-                  <AuthenticatedRoute exact path="/host/bookings" component={HostBookings} />
+                  <AuthenticatedRoute exact path="/legacy/host/bookings" component={HostBookings} />
                   <AuthenticatedRoute exact path="/legacy/host/listings" render={() => <HostListings createListing={this.handleNewListingClick} />} />
-                  <AuthenticatedRoute exact path="/host/payments" component={HostPayments} />
+                  <AuthenticatedRoute exact path="/legacy/host/payments" component={HostPayments} />
                   <Redirect from="/host" to="/legacy/host/listings" />
                   <Route component={NotFound} />
                 </Switch>

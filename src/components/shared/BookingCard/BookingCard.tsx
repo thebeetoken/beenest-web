@@ -3,8 +3,8 @@ import * as React from 'react';
 import BookingCardContainer from './BookingCard.container';
 
 import { Booking } from 'networking/bookings';
-import Button from 'shared/Button';
-import Svg from 'shared/Svg';
+import Button from 'legacy/shared/Button';
+import Svg from 'legacy/shared/Svg';
 import { getAdminBookingDisplayStatus } from 'utils/bookingsDisplayStatus';
 import { formatSingleDate } from 'utils/formatDate';
 

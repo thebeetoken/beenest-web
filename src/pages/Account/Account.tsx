@@ -5,7 +5,7 @@ import { Route, Redirect, Switch } from 'react-router';
 import { NavLink as RRNavLink } from 'react-router-dom';
 import { GET_ACCOUNT_PAGE } from 'networking/users';
 
-import Loading from 'shared/loading/Loading';
+import Loading from 'legacy/shared/loading/Loading';
 import NotFound from 'legacy/routes/NotFound';
 import { FirebaseConsumer, FirebaseUserProps } from 'HOCs/FirebaseProvider';
 import { VIEWPORT_CENTER_LAYOUT } from 'styled/sharedClasses/layout';

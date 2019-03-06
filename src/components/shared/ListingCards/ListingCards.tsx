@@ -1,8 +1,8 @@
 import * as React from 'react';
 
-import ListingCardsContainer from 'shared/ListingCards/ListingCards.container';
+import ListingCardsContainer from 'legacy/shared/ListingCards/ListingCards.container';
 import { ListingShort } from 'networking/listings';
-import { ListingCard } from 'shared/ListingCard';
+import { ListingCard } from 'legacy/shared/ListingCard';
 
 interface Props {
   listings: ListingShort[];

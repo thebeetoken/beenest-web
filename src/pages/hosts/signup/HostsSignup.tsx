@@ -3,7 +3,7 @@ import { Col, Container, Fade, Row } from 'reactstrap';
 import { Redirect, RouteProps } from 'react-router-dom';
 
 import { FirebaseConsumer, FirebaseUserProps } from 'HOCs/FirebaseProvider';
-import Loading from 'shared/loading/Loading';
+import Loading from 'legacy/shared/loading/Loading';
 import { AUTH_CONTENT } from 'styled/sharedClasses/authentication';
 import { VIEWPORT_CENTER_LAYOUT } from 'styled/sharedClasses/layout';
 

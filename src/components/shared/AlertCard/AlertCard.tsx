@@ -1,9 +1,9 @@
 import * as React from 'react';
 
 import AlertCardContainer from './AlertCard.container';
-import Card from 'shared/Card';
-import Svg from 'shared/Svg';
-import Button from 'shared/Button';
+import Card from 'legacy/shared/Card';
+import Svg from 'legacy/shared/Svg';
+import Button from 'legacy/shared/Button';
 
 type Props = Partial<{
   buttonBackgroundColor: string;

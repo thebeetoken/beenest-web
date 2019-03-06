@@ -1,5 +1,5 @@
 import * as React from 'react';
-import Loading from 'shared/loading/Loading';
+import Loading from 'legacy/shared/loading/Loading';
 import { auth } from 'utils/firebase';
 import { Container, Fade, Row } from 'reactstrap';
 import { Link } from 'react-router-dom';

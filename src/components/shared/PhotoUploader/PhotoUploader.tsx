@@ -13,7 +13,7 @@ import { DropzoneComponent } from 'react-dropzone-component';
 import { SETTINGS } from 'configs/settings';
 const { BEENEST_HOST_API } = SETTINGS;
 
-import Svg from 'shared/Svg';
+import Svg from 'legacy/shared/Svg';
 
 import PhotoUploaderContainer from './PhotoUploader.container';
 import { getTokenFromFirebase } from 'utils/firebase';

@@ -2,9 +2,9 @@ import * as React from 'react';
 
 import PaymentSourceModalContainer from './PaymentSourceModal.container';
 
-import CloseButton from 'shared/CloseButton';
+import CloseButton from 'legacy/shared/CloseButton';
 import StripeWrapper from 'HOCs/StripeWrapper';
-import CreatePaymentSourceForm from 'shared/Stripe/CreatePaymentSourceForm';
+import CreatePaymentSourceForm from 'legacy/shared/Stripe/CreatePaymentSourceForm';
 
 interface Props {
   handleClose: () => void;

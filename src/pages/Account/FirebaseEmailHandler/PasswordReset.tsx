@@ -2,7 +2,7 @@ import * as React from 'react';
 import { Button, Col, Container, Fade, Form, FormGroup, Label, Input, Row } from 'reactstrap';
 import { Link } from 'react-router-dom';
 
-import Loading from 'shared/loading/Loading';
+import Loading from 'legacy/shared/loading/Loading';
 import {
   CONTAINER_CLASSES,
   CONTENT_CLASSES,

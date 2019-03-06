@@ -3,8 +3,8 @@ import * as React from 'react';
 import AdBannerContainer from './AdBanner.container';
 
 import { AppConsumer, AppConsumerProps, ScreenType } from 'legacy/Legacy.context';
-import BeeLink from 'shared/BeeLink';
-import LazyImage from 'shared/LazyImage';
+import BeeLink from 'legacy/shared/BeeLink';
+import LazyImage from 'legacy/shared/LazyImage';
 
 type Props = Partial<{
   href: string;

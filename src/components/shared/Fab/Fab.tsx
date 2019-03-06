@@ -1,6 +1,6 @@
 import * as React from 'react';
 import FabContainer from './Fab.container';
-import Svg from 'shared/Svg';
+import Svg from 'legacy/shared/Svg';
 import { generateClassNamesFromProps } from 'styled/utils';
 
 /**

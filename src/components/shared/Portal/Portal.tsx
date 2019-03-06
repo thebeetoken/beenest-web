@@ -1,7 +1,7 @@
 import * as React from 'react';
 import * as ReactDOM from 'react-dom';
 
-import Overlay from 'shared/Overlay';
+import Overlay from 'legacy/shared/Overlay';
 import PortalContainer from './Portal.container';
 
 /**

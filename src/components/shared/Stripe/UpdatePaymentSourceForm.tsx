@@ -4,11 +4,11 @@ import { compose, graphql } from 'react-apollo';
 import PaymentSourceFormContainer from './PaymentSourceForm.container';
 
 import { GET_PAYMENT_SOURCES, PaymentSource, UPDATE_PAYMENT_SOURCE, UpdatePaymentSourceInput } from 'networking/paymentSources';
-import Button from 'shared/Button';
-import Divider from 'shared/Divider';
-import InputLabel from 'shared/InputLabel';
-import InputWrapper from 'shared/InputWrapper';
-import Svg from 'shared/Svg';
+import Button from 'legacy/shared/Button';
+import Divider from 'legacy/shared/Divider';
+import InputLabel from 'legacy/shared/InputLabel';
+import InputWrapper from 'legacy/shared/InputWrapper';
+import Svg from 'legacy/shared/Svg';
 import {
   errorMessages,
   FieldValidation,

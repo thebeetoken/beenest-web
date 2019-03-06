@@ -6,7 +6,7 @@ import { SETTINGS } from 'configs/settings';
 const { GOOGLE_MAPS_KEY } = SETTINGS;
 
 import GoogleMapsContainer from './GoogleMaps.container';
-import AudioLoading from 'shared/loading/AudioLoading';
+import AudioLoading from 'legacy/shared/loading/AudioLoading';
 
 interface Props {
   address?: string;

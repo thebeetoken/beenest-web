@@ -4,9 +4,9 @@ import { Query } from 'react-apollo';
 import AdminBookingContainer from './AdminBooking.container';
 import AdminBookingStatus from './../AdminBookingsTable/AdminBookingStatus';
 
-import AdminLoading from 'components/Admin/adminShared/components/AdminLoading';
+import AdminLoading from '../../adminShared/components/AdminLoading';
 import { GET_ADMIN_BOOKING } from 'networking/bookings';
-import BeeLink from 'shared/BeeLink';
+import BeeLink from 'legacy/shared/BeeLink';
 import { formatSingleDate } from 'utils/formatDate';
 import { numberToLocaleString } from 'utils/numberToLocaleString';
 

@@ -1,6 +1,6 @@
 import * as React from 'react';
-import Textarea from 'shared/Textarea';
-import { TextareaEvent } from 'shared/Textarea/Textarea';
+import Textarea from 'legacy/shared/Textarea';
+import { TextareaEvent } from 'legacy/shared/Textarea/Textarea';
 
 interface Props {
   admin?: boolean;

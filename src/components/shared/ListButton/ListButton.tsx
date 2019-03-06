@@ -2,7 +2,7 @@ import * as React from 'react';
 
 import ListButtonContainer from './ListButton.container';
 
-import Svg from 'shared/Svg';
+import Svg from 'legacy/shared/Svg';
 
 /**
  * This component is a

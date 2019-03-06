@@ -2,8 +2,8 @@ import * as React from 'react';
 
 import PaymentSourceModalContainer from './PaymentSourceModal.container';
 
-import Svg from 'shared/Svg';
-import UpdatePaymentSourceForm from 'shared/Stripe/UpdatePaymentSourceForm';
+import Svg from 'legacy/shared/Svg';
+import UpdatePaymentSourceForm from 'legacy/shared/Stripe/UpdatePaymentSourceForm';
 import { PaymentSource } from 'networking/paymentSources';
 
 interface Props {

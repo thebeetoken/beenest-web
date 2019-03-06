@@ -1,5 +1,5 @@
 import * as React from 'react';
-import LazyImage from 'shared/LazyImage';
+import LazyImage from 'legacy/shared/LazyImage';
 import ImageGridContainer from './ImageGrid.container';
 
 interface Props {

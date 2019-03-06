@@ -3,10 +3,10 @@ import { GET_BOOKING_TRIPS_RECEIPT, PriceQuote } from 'networking/bookings';
 import { Container, Fade, Row, Col, Table } from 'reactstrap';
 import { Query } from 'react-apollo';
 import { formatAddress, formatGeolocationAddress } from 'utils/formatter';
-import Loading from 'components/shared/loading/Loading';
+import Loading from 'legacy/shared/loading/Loading';
 import { VIEWPORT_CENTER_LAYOUT } from 'styled/sharedClasses/layout';
 import { formatDateRange, dateToYear } from 'utils/formatDate';
-import GoogleMaps from 'components/shared/GoogleMaps';
+import GoogleMaps from 'legacy/shared/GoogleMaps';
 
 const DEFAULT_PROFILE_URL = 'https://static.beenest.com/images/app/misc/profile.png';
 

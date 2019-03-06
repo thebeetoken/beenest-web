@@ -6,7 +6,7 @@ import { InfoWindow, Marker, GoogleMap, withGoogleMap, withScriptjs } from 'reac
 import { SETTINGS } from 'configs/settings';
 const { GOOGLE_MAPS_KEY } = SETTINGS;
 
-import { ListingCard } from 'shared/ListingCard';
+import { ListingCard } from 'legacy/shared/ListingCard';
 import { LatLngBounds, ListingShort } from 'networking/listings';
 
 import GoogleMapsWithMarkersContainer from './GoogleMapsWithMarkers.container';

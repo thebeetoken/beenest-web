@@ -2,7 +2,7 @@ import * as React from 'react';
 
 import SnackbarContainer from './Snackbar.container';
 
-import Svg from 'shared/Svg';
+import Svg from 'legacy/shared/Svg';
 
 interface Props {
   autoHideDuration?: number; // milliseconds
