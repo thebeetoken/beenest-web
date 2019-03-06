@@ -60,7 +60,7 @@ const ListingInformation = ({
   <ul>
     {amenities.map(amenity => <li key={amenity}>{amenity}</li>)}
   </ul>
-  <h1>Location</h1>
+  <h1 className="d-none d-md-block">Location</h1>
   <GoogleMaps lat={lat} lng={lng} showCircle />
   <h1>About {host.displayName}</h1>
   <p><small>Member since {formatMonth(host.createdAt)}</small></p>
