@@ -18,6 +18,7 @@ import TripsReceipt from './trips/TripsReceipt';
 import AuthenticatedRoute from 'HOCs/AuthenticatedRoute';
 
 import Header from 'components/work/Header';
+import Footer from 'components/work/Footer';
 
 import '../styled/customStyles.scss';
 
@@ -40,6 +41,7 @@ const Work = () => (
       <Route exact path="/work" component={Home} />
       <Route path="/work" component={NotFound} />
     </Switch>
+    <Footer />
   </div>
 );
 
