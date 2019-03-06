@@ -35,6 +35,7 @@ const BookingCard = ({
   const [startDate, setStartDate] = React.useState<moment.Moment | null>(params.checkInDate ? moment.utc(params.checkInDate) : null);
   const [endDate, setEndDate] = React.useState<moment.Moment | null>(params.checkOutDate ? moment.utc(params.checkOutDate) : null);
   const [numberOfGuests, setNumberOfGuests] = React.useState<number>(params.numberOfGuests || 1);
+  const [isBooking, setBooking] = React.useState<boolean>(false);
   const setDates = ({ startDate, endDate }: Dates) => (setStartDate(startDate), setEndDate(endDate));
 
   const input = { checkInDate: startDate, checkOutDate: endDate, numberOfGuests };
@@ -81,8 +82,8 @@ const BookingCard = ({
       </Input>
     </Row>
     <Row className="w-100 m-0">
-      <Button onClick={startBooking} className="w-100" disabled={!startDate || !endDate}>
-        Request to Book
+      <Button onClick={startBooking} className="w-100" disabled={!startDate || !endDate || isBooking}>
+        {isBooking ? <Loading height="1rem" width="1rem" /> : 'Request to Book'}
       </Button>
     </Row>
   </Card>;
@@ -115,6 +116,7 @@ const BookingCard = ({
   }
 
   function startBooking() {
+    setBooking(true);
     console.log({ checkInDate, checkOutDate, numberOfGuests });
   }
 };
