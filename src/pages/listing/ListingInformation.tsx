@@ -28,7 +28,7 @@ const ListingInformation = ({
   sleepingArrangement,
   state,
   title
-}: Listing) => <Fade className="mt-3">
+}: Listing) => <Fade className="mt-6">
   <h3>{title}</h3>
   <address>{formatAddress(city, state, country)}</address>
 
