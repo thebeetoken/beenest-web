@@ -21,6 +21,13 @@ const AdminBooking = ({ match }: any): JSX.Element => (
           return <h1>{error ? error.message : 'Error / No Data'}</h1>;
         }
         const { booking } = data;
+        const agodaId = booking.listing.id.includes('agoda_') ? booking.listing.id.split('agoda_')[1] : '';
+        const agodaLink = agodaId
+          ? 'https://www.agoda.com/partners/partnersearch.aspx?pcs=1&cid=1819819'
+            + `&hid=${agodaId}`
+            + `&checkIn=${formatSingleDate(booking.checkInDate, 'YYYY-MM-DD')}`
+            + `&checkOut=${formatSingleDate(booking.checkOutDate, 'YYYY-MM-DD')}`
+          : '';
         return (
           <>
             <div>
@@ -61,6 +68,14 @@ const AdminBooking = ({ match }: any): JSX.Element => (
                 Guest Id: <BeeLink to={`/admin/users/${booking.guest.id}`}>{booking.guest.id}</BeeLink>
               </p>
             </div>
+            {agodaLink && 
+              <div>
+                <p>Agoda Affiliate Link:</p>
+                <p>
+                  <BeeLink href={agodaLink} target="_blank">{agodaLink}</BeeLink>
+                </p>
+              </div>
+            }
           </>
         );
       }}
