@@ -137,7 +137,7 @@ const BookingOptionsCrypto = ({ booking, currency, fromBee, history }: Props) =>
                           <Button
                             className="back-button"
                             background="light"
-                            onClick={() => history.push(`/legacy/listings/${booking.listingId}`)}
+                            onClick={() => history.push(`/listings/${booking.listingId}`)}
                           >
                             Back
                           </Button>
@@ -145,7 +145,7 @@ const BookingOptionsCrypto = ({ booking, currency, fromBee, history }: Props) =>
                             booking={booking}
                             currency={outputCurrency}
                             disabled={isDisabled}
-                            onSuccess={() => history.push(`/legacy/bookings/${booking.id}/payment?currency=${currency}`)}
+                            onSuccess={() => history.push(`/bookings/${booking.id}/payment?currency=${currency}`)}
                           />
                         </div>
                       </div>

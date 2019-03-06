@@ -118,8 +118,8 @@ class BookingOptionsUSDCard extends React.Component<Props, State> {
     this.setState({ paymentSourceId: event.target.value });
   };
 
-  goBack = () => this.props.history.push(`/legacy/listings/${this.props.booking.listingId}`);
-  handleSuccessPaymentOption = () => this.props.history.push(`/legacy/bookings/${this.props.booking.id}/payment`);
+  goBack = () => this.props.history.push(`/listings/${this.props.booking.listingId}`);
+  handleSuccessPaymentOption = () => this.props.history.push(`/bookings/${this.props.booking.id}/payment`);
 }
 
 export default withRouter(BookingOptionsUSDCard);

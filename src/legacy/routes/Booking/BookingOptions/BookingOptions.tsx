@@ -18,7 +18,7 @@ const BookingOptions = ({ match }: RouterProps) => (
       const booking: Booking = data.booking;
       if (booking.status !== 'started') {
         alert('Booking may not be adjusted at this time.');
-        return <Redirect to={`/legacy/listings/${booking.listingId}`} />;
+        return <Redirect to={`/listings/${booking.listingId}`} />;
       }
       return (
         <div className="booking-body">

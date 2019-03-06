@@ -45,7 +45,7 @@ const BookingOptionsBar = ({ booking, currency, disabled, history }: Props) => (
         booking={booking}
         disabled={disabled}
         currency={currency}
-        onSuccess={() => history.push(`/legacy/bookings/${booking.id}/payment`)}
+        onSuccess={() => history.push(`/bookings/${booking.id}/payment`)}
       />
     </div>
   </BookingOptionsBarContainer>

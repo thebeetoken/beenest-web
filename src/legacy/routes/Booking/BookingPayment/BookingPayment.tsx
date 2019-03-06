@@ -40,11 +40,11 @@ const BookingPayment = ({ history, match }: RouterProps) => (
       if (booking.status !== 'started') {
         // If status is invalid, we want to alert and re-route to home
         alert('Booking may not be adjusted at this time.');
-        return <Redirect to={`/legacy/listings/${booking.listingId}`} />;
+        return <Redirect to={`/listings/${booking.listingId}`} />;
       }
       if (!booking.currency) {
         alert('Please select a payment option.');
-        return <Redirect to={`/legacy/bookings/${match.params.id}/options`} />;
+        return <Redirect to={`/bookings/${match.params.id}/options`} />;
       }
       const queryParams: QueryParams = parseQueryString(location.search);
       const currency = Object.values(Currency).find(c => c === queryParams.currency);
@@ -80,7 +80,7 @@ const BookingPayment = ({ history, match }: RouterProps) => (
                           <Button
                             className="back-button"
                             background="light"
-                            onClick={() => history.push(`/legacy/bookings/${booking.id}/options`)}
+                            onClick={() => history.push(`/bookings/${booking.id}/options`)}
                           >
                             Go Back
                           </Button>
@@ -88,7 +88,7 @@ const BookingPayment = ({ history, match }: RouterProps) => (
                             booking={booking}
                             currency={currency}
                             fromBee={fromBee}
-                            onSuccess={() => history.push(`/legacy/bookings/${booking.id}/receipt`)}
+                            onSuccess={() => history.push(`/bookings/${booking.id}/receipt`)}
                           />
                         </div>
                       </div>

@@ -39,7 +39,7 @@ const BookingPaymentBar = ({ booking, history }: Props) => (
       )}
     </ToggleProvider>
     <div className="booking-payment-bar-button-container">
-      <BookingPaymentButton booking={booking} onSuccess={() => history.push(`/legacy/bookings/${booking.id}/receipt`)} />
+      <BookingPaymentButton booking={booking} onSuccess={() => history.push(`/bookings/${booking.id}/receipt`)} />
     </div>
   </BookingPaymentBarContainer>
 );

@@ -129,7 +129,7 @@ export const teamMembers = [
   },
   {
     name: 'Kevin Van',
-    title: 'Senior Frontend Engineer',
+    title: 'Full Stack Engineer',
     avatar: 'https://static.beenest.com/images/work/members/kevin-avatar.jpg',
     handle: 'https://twitter.com/kevincvan',
     social: [

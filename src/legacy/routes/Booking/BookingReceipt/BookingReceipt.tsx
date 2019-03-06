@@ -25,7 +25,7 @@ const BookingReceipt = ({ match }: RouterProps) => (
       const booking: Booking = data.booking;
       if (booking.status === 'started') {
         alert('Please complete your booking.');
-        return <Redirect to={`/legacy/bookings/${match.params.id}/options`} />;
+        return <Redirect to={`/bookings/${match.params.id}/options`} />;
       }
       const { currency, guestTotalAmount, guestWalletAddress, guestTxHash } = booking;
       const totalPaid = `${numberToLocaleString(guestTotalAmount, currency)} ${currency}`;
@@ -76,7 +76,7 @@ const BookingReceipt = ({ match }: RouterProps) => (
                   }
                   return (
                     <div className="booking-receipt-button-container">
-                      <Link to={`/legacy/trips/${booking.id}/receipt`}>
+                      <Link to={`/trips/${booking.id}/receipt`}>
                         <Button noRadius>Finish</Button>
                       </Link>
                     </div>

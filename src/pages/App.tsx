@@ -3,6 +3,7 @@ import { Route, Switch } from 'react-router-dom';
 
 import About from './about';
 import Account from './Account';
+import Booking from 'legacy/routes/Booking';
 import FirebaseEmailHandler from './Account/FirebaseEmailHandler';
 import ForgotPassword from './forgotPassword';
 import Home from './home';
@@ -28,6 +29,7 @@ const Work = () => (
       <Route path="/about" component={About} />
       <Route path="/account/action" component={FirebaseEmailHandler} />
       <Route path="/account" component={Account} />
+      <AuthenticatedRoute path="/bookings" component={Booking} />
       <Route path="/forgot_password" component={ForgotPassword} />
       <Route exact path="/listings/:id" component={Listing} />
       <Route exact path="/login" component={Login} />

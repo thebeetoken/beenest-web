@@ -11,7 +11,7 @@ interface Props extends RouterProps {
 }
 
 const BookingReceiptBar = ({ booking, history }: Props) => {
-  const link = `/legacy/trips/${booking.id}/receipt`;
+  const link = `/trips/${booking.id}/receipt`;
   return (
     <BookingReceiptBarContainer>
       <Fab
