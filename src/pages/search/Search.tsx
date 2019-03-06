@@ -41,12 +41,15 @@ const Search = () => {
           );
         }
 
-        if (error) isBadUserInputError(error) ? <SearchErrorPage /> : <ErrorPage error={error} />;
+        if (error) {
+          return isBadUserInputError(error) ? <SearchErrorPage /> : <ErrorPage error={error} />;
+        }
         
-        const { searchListings } = data;
-        if (searchListings.length < 1) <EmptySearchPage />;
+        if (data.searchListings.length < 1) {
+          return <EmptySearchPage />;
+        }
 
-        return <SearchPage listings={searchListings} />;
+        return <SearchPage listings={data.searchListings} />;
       }}
     </Query>
     <Footer />
