@@ -2,7 +2,7 @@ import styled from 'styled-components';
 import { color, typography } from 'styled/utils';
 
 const CarouselContainerMobile = styled.div`
-  width: 320px;
+  width: calc(100vw - 80px);
 
   .carousel-image-wrapper {
     outline: 0;
@@ -223,7 +223,7 @@ const CarouselContainerMobile = styled.div`
     height: auto;
     margin: 0 auto;
     max-height: 204px;
-    max-width: 320px;
+    max-width: calc(100vw - 80px);
     width: auto;
   }
   .slick-slide.slick-loading img {
