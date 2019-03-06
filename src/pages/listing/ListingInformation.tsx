@@ -37,24 +37,42 @@ const ListingInformation = ({
   <p dangerouslySetInnerHTML={{ __html: sanitizeHtml(description) }} />
   <h1>Accommodations</h1>
   <dl className="row">
-    <dt className="col-6">Home Type</dt>
-    <dd className="col-6">{homeType}</dd>
-    <dt className="col-6">Sleeping arrangement</dt>
-    <dd className="col-6">{sleepingArrangement}</dd>
-    <dt className="col-6">Number of bedrooms</dt>
-    <dd className="col-6">{numberOfBedrooms}</dd>
-    <dt className="col-6">Number of bathrooms</dt>
-    <dd className="col-6">{numberOfBathrooms}</dd>
-    <dt className="col-6">Shared bathroom</dt>
-    <dd className="col-6">{sharedBathroom}</dd>
-    <dt className="col-6">Maximum number of guests</dt>
-    <dd className="col-6">{maxGuests}</dd>
-    <dt className="col-6">Minimum number of nights</dt>
-    <dd className="col-6">{minimumNights}</dd>
-    <dt className="col-6">Check-in</dt>
-    <dd className="col-6">{checkInTime.from} to {checkInTime.to}</dd>
-    <dt className="col-6">Check-out</dt>
-    <dd className="col-6">{checkOutTime}</dd>
+    {homeType && <>
+      <dt className="col-6">Home Type</dt>
+      <dd className="col-6">{homeType}</dd>
+    </>}
+    {sleepingArrangement && <>
+      <dt className="col-6">Sleeping arrangement</dt>
+      <dd className="col-6">{sleepingArrangement}</dd>
+    </>}
+    {typeof numberOfBedrooms === 'number' && <>
+      <dt className="col-6">Number of bedrooms</dt>
+      <dd className="col-6">{numberOfBedrooms}</dd>
+    </>}
+    {typeof numberOfBathrooms === 'number' && <>
+      <dt className="col-6">Number of bathrooms</dt>
+      <dd className="col-6">{numberOfBathrooms}</dd>
+    </>}
+    {sharedBathroom && <>
+      <dt className="col-6">Shared bathroom</dt>
+      <dd className="col-6">{sharedBathroom}</dd>
+    </>}
+    {typeof maxGuests === 'number' && <>
+      <dt className="col-6">Maximum number of guests</dt>
+      <dd className="col-6">{maxGuests}</dd>
+    </>}
+    {typeof minimumNights === 'number' && <>
+      <dt className="col-6">Minimum number of nights</dt>
+      <dd className="col-6">{minimumNights}</dd>
+    </>}
+    {checkInTime && <>
+      <dt className="col-6">Check-in</dt>
+      <dd className="col-6">{checkInTime.from} to {checkInTime.to}</dd>
+    </>}
+    {checkOutTime && <>
+      <dt className="col-6">Check-out</dt>
+      <dd className="col-6">{checkOutTime}</dd>
+    </>}
   </dl>
   <h1 className={amenities.length > 0 ? '' : 'd-none'}>Amenities</h1>
   <ul>
@@ -68,7 +86,7 @@ const ListingInformation = ({
     <Col xs="auto"><Avatar user={host} /></Col>
     <Col xs="auto"><ContactHostButton listingId={id} host={host} /></Col>
   </Row>
-  <p dangerouslySetInnerHTML={{ __html: sanitizeHtml(host.about) }} />
+  {host.about && <p dangerouslySetInnerHTML={{ __html: sanitizeHtml(host.about) }} />}
 </Fade>;
 
 export default ListingInformation;
