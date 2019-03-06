@@ -1,7 +1,6 @@
 import * as React from 'react';
 import { Route, Switch } from 'react-router-dom';
 
-import ZendeskWebWidgetWrapper from 'HOCs/ZendeskWebWidgetWrapper';
 import Header from 'components/work/Header';
 
 import About from './about';
@@ -22,13 +21,6 @@ import TripsReceipt from './trips/TripsReceipt';
 import AuthenticatedRoute from 'HOCs/AuthenticatedRoute';
 import '../styled/customStyles.scss';
 
-
-const HostWithZendesk = (props: RouterProps) => (
-  <ZendeskWebWidgetWrapper>
-    <Host {...props} />
-  </ZendeskWebWidgetWrapper>
-);
-
 const Work = () => (
   <div>
     <Header />
@@ -37,7 +29,7 @@ const Work = () => (
       <Route path="/work/account/action" component={FirebaseEmailHandler} />
       <Route path="/work/account" component={Account} />
       <Route path="/work/forgot_password" component={ForgotPassword} />
-      <AuthenticatedRoute path="/work/host" component={HostWithZendesk} />
+      <AuthenticatedRoute path="/work/host" component={Host} />
       <Route exact path="/work/listings/:id" component={Listing} />
       <Route exact path="/work/login" component={Login} />
       <Route exact path="/work/logout" component={Logout} />
