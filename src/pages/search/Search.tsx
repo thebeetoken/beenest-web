@@ -1,10 +1,8 @@
 import * as React from 'react';
 import { Col, Container, Fade, Row } from 'reactstrap';
 import { Query } from 'react-apollo';
-
 import { SEARCH_LISTINGS } from 'networking/listings';
 
-import Footer from 'legacy/work/Footer';
 import Loading from 'legacy/shared/loading/Loading';
 import { getFriendlyErrorMessage } from 'utils/validators';
 
@@ -50,10 +48,9 @@ const Search = () => {
           return <EmptySearchPage />;
         }
 
-        return <SearchPage listings={data.searchListings} />;
+        return <SearchPage listings={data.searchListings} {...queryParams} />;
       }}
     </Query>
-    <Footer />
   </Fade>);
 };
 

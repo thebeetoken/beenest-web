@@ -3,7 +3,6 @@ import { Button, Col, Container, Fade, Jumbotron, Row } from 'reactstrap';
 
 import { affiliations, guestValueProps, HomeUser, hostValueProps, testimonials } from './home.config';
 
-import Footer from 'legacy/work/Footer';
 import SearchBar from 'legacy/work/SearchBar';
 import TestimonialCard from 'legacy/work/TestimonialCard';
 import ValuePropCard from 'legacy/work/ValuePropCard';
@@ -108,7 +107,6 @@ const Home = () => {
           </Row>
         </Container>
       </Container>
-      <Footer />
     </>
   );
 

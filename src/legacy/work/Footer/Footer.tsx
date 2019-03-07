@@ -72,6 +72,7 @@ const socialData = [
 const Footer = () => (
   <Switch>
     <Route path="/work/account" component={DetailedFooter} />
+    <Route exact path="/work/listings/:id" render={() => <DetailedFooter className="d-none d-lg-block" />} />
     <Route exact path="/work" component={DetailedFooter} />
     <Route exact path="/work/about" component={DetailedFooter} />
     <Route exact path="/work/login" component={NoopComponent} />
@@ -80,8 +81,8 @@ const Footer = () => (
   </Switch>
 )
 
-const DetailedFooter = () => (
-  <footer className="pt-md-10">
+const DetailedFooter = ({ className }: { className: string }) => (
+  <footer className={`pt-md-10${className ? ' ' + className : ''}`}>
     <Container className="space-lg-2 border-bottom">
       <Row className="justify-content-md-between">
         <Col lg="3" className="d-none d-lg-flex mb-4 mb-lg-0">
