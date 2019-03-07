@@ -1,26 +1,28 @@
 import * as React from 'react';
-import { Button, Container, Input, Row } from 'reactstrap';
+import { Container, Input } from 'reactstrap';
 
 import GoogleAutoComplete from 'components/shared/GoogleAutoComplete';
 
 interface Props {
-  onFilterChange?: () => void;
+  onFilterChange?: (filter: any) => void;
 }
 
 const TransitTime = ({ onFilterChange }: Props) => {
   const [place, setPlace] = React.useState<google.maps.places.PlaceResult | null>(null);
   const inputRef: React.RefObject<HTMLInputElement | null> = React.createRef();
 
-  const handlePlace = place => {
+  const handlePlace = (place: google.maps.places.PlaceResult) => {
     const { lat, lng } = place.geometry.location;
     setPlace(place);
     if (onFilterChange) {
       onFilterChange({ near: { lat, lng }});
     }
   };
-  const handleClear = event => {
+  const handleClear = (event: React.MouseEvent<HTMLAnchorElement, MouseEvent>) => {
     event.preventDefault();
-    inputRef.current.value = "";
+    if (inputRef.current) {
+      inputRef.current.value = "";
+    }
     setPlace(null);
     if (onFilterChange) {
       onFilterChange({});

@@ -6,7 +6,7 @@ import TransitTime from './filters/TransitTime';
 import SearchFilter from './SearchFilter';
 
 interface Props {
-  onFilterChange?: () => void;
+  onFilterChange?: (filter: any) => void;
 }
 
 const SEARCH_FILTERS = [
@@ -20,7 +20,7 @@ const SEARCH_FILTERS = [
   // },
   {
     label: 'Transit Time',
-    render: (props) => <TransitTime {...props} />
+    render: (props: Props) => <TransitTime {...props} />
   },
   // {
   //   label: 'More Filters',
@@ -33,7 +33,7 @@ const SearchForm = ({ onFilterChange }: Props) => {
 
   return <Container>
     <Row>
-    {SEARCH_FILTERS.map(({ label, render }) => (
+    {SEARCH_FILTERS.map(({ label, render }, index) => (
       <Col key={label}>
         <SearchFilter label={label}>
           {render({ onFilterChange: filter => handleFilterChange(index, filter) })}
@@ -43,7 +43,7 @@ const SearchForm = ({ onFilterChange }: Props) => {
     </Row>
   </Container>;
 
-  function handleFilterChange(index, filter) {
+  function handleFilterChange(index: number, filter: any) {
     const newFilters = [
       ...(filters.slice(0, index)),
       filter,
