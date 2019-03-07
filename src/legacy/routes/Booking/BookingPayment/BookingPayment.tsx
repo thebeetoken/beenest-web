@@ -11,7 +11,6 @@ import BookingQuote from '../BookingQuote';
 import BookingPaymentBar from './BookingPaymentBar';
 import BookingPaymentButton from './BookingPaymentButton';
 import BookingNavBar from '../BookingNavBar';
-import { AppConsumer, AppConsumerProps, ScreenType } from 'legacy/Legacy.context';
 import { parseQueryString } from 'utils/queryParams';
 import { loadWeb3, priceWithEther, priceWithToken } from 'utils/web3';
 
@@ -60,49 +59,41 @@ const BookingPayment = ({ history, match }: RouterProps) => (
           return (
             <BookingPaymentContainer>
               <BookingNavBar />
-              <AppConsumer>
-                {({ screenType }: AppConsumerProps) => {
-                  if (screenType < ScreenType.TABLET) {
-                    return (
-                      <div className="booking-payment-mobile-body">
-                        <TermsAndConditions houseRules={booking.listing.houseRules} />
-                        <div className="booking-payment-footer-container">
-                          <BookingPaymentBar booking={booking} />
-                        </div>
-                      </div>
-                    );
-                  }
-                  return (
-                    <div className="booking-payment-desktop-body">
-                      <div className="booking-payment-terms">
-                        <TermsAndConditions houseRules={booking.listing.houseRules} />
-                        <div className="booking-payment-button-container">
-                          <Button
-                            className="back-button"
-                            background="light"
-                            onClick={() => history.push(`/bookings/${booking.id}/options`)}
-                          >
-                            Go Back
-                          </Button>
-                          <BookingPaymentButton
-                            booking={booking}
-                            currency={currency}
-                            fromBee={fromBee}
-                            onSuccess={() => history.push(`/bookings/${booking.id}/receipt`)}
-                          />
-                        </div>
-                      </div>
-                      <div className="booking-payment-quote-container">
-                        <BookingQuote
-                          booking={booking}
-                          currency={currency || booking.currency || Currency.BEE}
-                          fromBee={fromBee}
-                        />
-                      </div>
-                    </div>
-                  );
-                }}
-              </AppConsumer>
+
+              <div className="d-md-none booking-payment-mobile-body">
+                <TermsAndConditions houseRules={booking.listing.houseRules} />
+                <div className="booking-payment-footer-container">
+                  <BookingPaymentBar booking={booking} />
+                </div>
+              </div>
+
+              <div className="d-none d-md-flex booking-payment-desktop-body">
+                <div className="booking-payment-terms">
+                  <TermsAndConditions houseRules={booking.listing.houseRules} />
+                  <div className="booking-payment-button-container">
+                    <Button
+                      className="back-button"
+                      background="light"
+                      onClick={() => history.push(`/bookings/${booking.id}/options`)}>
+                      Go Back
+                    </Button>
+                    <BookingPaymentButton
+                      booking={booking}
+                      currency={currency}
+                      fromBee={fromBee}
+                      onSuccess={() => history.push(`/bookings/${booking.id}/receipt`)}
+                    />
+                  </div>
+                </div>
+                <div className="d-none d-md-block booking-payment-quote-container">
+                  <BookingQuote
+                    booking={booking}
+                    currency={currency || booking.currency || Currency.BEE}
+                    fromBee={fromBee}
+                  />
+                </div>
+              </div>
+
             </BookingPaymentContainer>
           );
         }} />
@@ -120,7 +111,7 @@ interface Prop {
 }
 
 const TermsAndConditions = ({ houseRules }: Prop) => (
-  <div className="terms-conditions-body">
+  <div className="terms-conditions-body pt-6 pb-8 pt-md-0 pb-md-0">
     <h1 className="policies">House Rules, Terms, and Policies.</h1>
     <span className="house-rules" dangerouslySetInnerHTML={{ __html: sanitize(houseRules) }} />
     <div className="conditions">

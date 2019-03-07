@@ -56,33 +56,26 @@ const BookingReceipt = ({ match }: RouterProps) => (
                   </>
                 )}
               </div>
-              <AppConsumer>
-                {({ screenType }: AppConsumerProps) => {
-                  if (screenType < ScreenType.DESKTOP) {
-                    return (
-                      <>
-                        {isCrypto && (
-                          <div className="transaction-container">
-                            <h3>Transaction Confirmation</h3>
-                            <h4>{guestTxHash}</h4>
-                            <a href={generateEtherScanLink(guestTxHash)}>View Transaction on Etherscan</a>
-                          </div>
-                        )}
-                        <div className="booking-receipt-bar-container">
-                          <BookingReceiptBar booking={booking} />
-                        </div>
-                      </>
-                    );
-                  }
-                  return (
-                    <div className="booking-receipt-button-container">
-                      <Link to={`/trips/${booking.id}/receipt`}>
-                        <Button noRadius>Finish</Button>
-                      </Link>
-                    </div>
-                  );
-                }}
-              </AppConsumer>
+
+              <>
+                {isCrypto && (
+                  <div className="d-md-none transaction-container">
+                    <h3>Transaction Confirmation</h3>
+                    <h4>{guestTxHash}</h4>
+                    <a href={generateEtherScanLink(guestTxHash)}>View Transaction on Etherscan</a>
+                  </div>
+                )}
+                <div className="d-lg-none booking-receipt-bar-container">
+                  <BookingReceiptBar booking={booking} />
+                </div>
+              </>
+
+              <div className="d-none d-md-block booking-receipt-button-container">
+                <Link to={`/trips/${booking.id}/receipt`}>
+                  <Button color="white">Finish</Button>
+                </Link>
+              </div>
+
             </div>
           </div>
         </BookingReceiptContainer>

@@ -6,7 +6,6 @@ import BookingOptionsUSDContainer from './BookingOptionsUSD.container';
 import BookingOptionsBar from '../BookingOptionsBar';
 import SelectPaymentButton from '../SelectPaymentButton';
 
-import { AppConsumer, AppConsumerProps, ScreenType } from 'legacy/Legacy.context';
 import StripeWrapper from 'HOCs/StripeWrapper';
 import Button from 'legacy/shared/Button';
 import ListItem from 'legacy/shared/ListItem';
@@ -50,6 +49,7 @@ class BookingOptionsUSDCard extends React.Component<Props, State> {
   render() {
     const { paymentSourceId } = this.state;
     const { booking, paymentSources } = this.props;
+    const isSelectButtonDisabled = !paymentSourceId;
     return (
       <BookingOptionsUSDContainer>
         <SelectBoxWrapper suffixSize="tiny">
@@ -84,32 +84,24 @@ class BookingOptionsUSDCard extends React.Component<Props, State> {
             </>
           )}
         </ToggleProvider>
-        <AppConsumer>
-          {({ screenType }: AppConsumerProps) => {
-            const isSelectButtonDisabled = !paymentSourceId;
-            if (screenType < ScreenType.TABLET) {
-              return (
-                <div className="booking-options-usd-bar">
-                  <BookingOptionsBar booking={booking} currency={Currency.USD} disabled={isSelectButtonDisabled} />
-                </div>
-              );
-            }
-            return (
-              <div className="booking-options-button-container">
-                <Button className="back-button" background="light" onClick={this.goBack}>
-                  Back
-                </Button>
-                <SelectPaymentButton
-                  booking={booking}
-                  disabled={isSelectButtonDisabled}
-                  currency={Currency.USD}
-                  onSuccess={this.handleSuccessPaymentOption}
-                  paymentSourceId={paymentSourceId}
-                />
-              </div>
-            );
-          }}
-        </AppConsumer>
+
+        <div className="d-md-none booking-options-usd-bar">
+          <BookingOptionsBar booking={booking} currency={Currency.USD} disabled={isSelectButtonDisabled} />
+        </div>
+
+        <div className="d-none d-md-flex booking-options-button-container">
+          <Button className="back-button" background="light" onClick={this.goBack}>
+            Back
+          </Button>
+          <SelectPaymentButton
+            booking={booking}
+            disabled={isSelectButtonDisabled}
+            currency={Currency.USD}
+            onSuccess={this.handleSuccessPaymentOption}
+            paymentSourceId={paymentSourceId}
+          />
+        </div>
+
       </BookingOptionsUSDContainer>
     );
   }

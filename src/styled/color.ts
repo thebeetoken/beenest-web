@@ -8,8 +8,8 @@
 const brand = {
   core: '#455A64',
   link: '#00969e',
-  secondary: '#00969E',
-  style: '#FFC107',
+  secondary: '#77838f',
+  style: '#377dff',
 };
 
 // Object holding Social colors

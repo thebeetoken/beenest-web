@@ -6,7 +6,6 @@ import SelectPaymentOptionContainer from './SelectPaymentOption.container';
 import BookingOptionsUSD from '../BookingOptionsUSD';
 import BookingOptionsBTC from '../BookingOptionsBTC';
 import BookingQuote from '../../BookingQuote';
-import { AppConsumer, AppConsumerProps, ScreenType } from 'legacy/Legacy.context';
 import BookingOptionsCrypto from '../BookingOptionsCrypto';
 
 import InputLabel from 'legacy/shared/InputLabel';
@@ -39,7 +38,7 @@ class SelectPaymentOption extends React.Component<Props> {
       booking.priceQuotes.some(({ currency }) => currency === Currency.BTC);
     // The 1.01 multiplier below accounts for fluctuating exchange rates etc.
     const fromBee = errorPricingToken ?
-      (() => '--.--' ) :
+      (() => '--.--') :
       conversionRateFromBee ?
         ((value: number) => value * conversionRateFromBee * 1.01) :
         undefined;
@@ -49,7 +48,7 @@ class SelectPaymentOption extends React.Component<Props> {
           <div className="payment-options-container">
             <InputLabel htmlFor="paymentOptions">Select Method of Payment</InputLabel>
             <SelectBoxWrapper suffixSize="tiny">
-              <select 
+              <select
                 id="paymentOptions"
                 name="paymentOptions"
                 value={currency}
@@ -68,15 +67,10 @@ class SelectPaymentOption extends React.Component<Props> {
           </div>
           <div>{currencyOptions(currency, booking, fromBee)}</div>
         </div>
-        <AppConsumer>
-          {({ screenType }: AppConsumerProps) =>
-            screenType >= ScreenType.TABLET && (
-              <div className="select-payment-quote-desktop">
-                <BookingQuote booking={booking} currency={currency || Currency.BEE} fromBee={fromBee} />
-              </div>
-            )
-          }
-        </AppConsumer>
+        <div className="d-none d-md-block select-payment-quote-desktop">
+          <BookingQuote booking={booking} currency={currency || Currency.BEE} fromBee={fromBee} />
+        </div>
+
       </SelectPaymentOptionContainer>
     );
   }

@@ -92,3 +92,10 @@ $HEADER-HEIGHT: 4.125rem;
 .bee-flex-div {
   flex-grow: 1;
 }
+
+// remove default negative margin from bootstrap
+.bee-svg {
+  svg {
+    margin-bottom: 0!important;
+  }
+}

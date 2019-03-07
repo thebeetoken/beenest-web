@@ -20,7 +20,7 @@ interface Props {
 
 const PopUpCard = ({ children, peekHeight, showCard, toggleCard}: Props) => 
   <PopUpCardContainer
-    background="light"
+    background="white"
     peekHeight={peekHeight}
     showCard={showCard}>
     {showCard &&

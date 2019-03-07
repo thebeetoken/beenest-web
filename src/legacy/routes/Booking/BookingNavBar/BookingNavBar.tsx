@@ -56,7 +56,7 @@ const NavBarMobile: React.SFC<Props> = ({ listingId, match }) => {
 };
 
 const NavBarDesktop: React.SFC<Props> = ({ match }) => (
-  <div className="booking-nav-desktop">
+  <div className="d-none d-md-flex booking-nav-desktop">
     {CRUMBS.map((crumb, index) => {
       if (match.path === '/legacy/bookings/:id/payment' && index === 0) {
         return (

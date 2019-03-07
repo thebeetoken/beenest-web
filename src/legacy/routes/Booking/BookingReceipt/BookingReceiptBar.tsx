@@ -26,7 +26,7 @@ const BookingReceiptBar = ({ booking, history }: Props) => {
       >
         Trip Detail
       </Fab>
-      <Button className="finish-button" noRadius onClick={() => history.push(link)}>
+      <Button className="finish-button" color="white" onClick={() => history.push(link)}>
         Finish
       </Button>
     </BookingReceiptBarContainer>
