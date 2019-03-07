@@ -62,6 +62,7 @@ const BookingCard = ({
     </Query>
     <Row className="w-100 m-0 mb-3">
       <DateRangePicker
+        className="w-100"
         isOutsideRange={isOutsideDateRange}
         isDayBlocked={isDayBlocked}
         startDate={startDate} // momentPropTypes.momentObj or null,
