@@ -11,7 +11,7 @@ import Loading from 'components/shared/loading/Loading';
 import TripCard from 'components/work/TripCard';
 import { AlertProperties } from 'components/work/Alert/Alert';
 import ContactHostFormModal from 'components/work/ContactHostFormModal';
-import CancelBookingModal from 'components/work/CancelBookingModal.tsx';
+import CancelBookingModal from 'components/work/CancelBookingModal';
 
 
 enum ModalType {

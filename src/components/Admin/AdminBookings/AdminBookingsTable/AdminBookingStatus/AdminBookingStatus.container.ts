@@ -16,6 +16,7 @@ const AdminBookingStatusContainer = styled.div`
   .admin-booking-status--approved-by,
   .admin-booking-status--rejected-by,
   .admin-booking-status--cancelled-by {
+    text-align: center;
     h4 {
       ${typography('light', 7)}
       text-transform: capitalize;
