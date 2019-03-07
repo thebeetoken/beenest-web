@@ -1,12 +1,14 @@
 import * as React from 'react';
 import { Col, Container, Row } from 'reactstrap';
 
+import { ListingSearchCriteria } from 'networking/listings';
+
 import TransitTime from './filters/TransitTime';
 
 import SearchFilter from './SearchFilter';
 
 interface Props {
-  onFilterChange?: (filter: any) => void;
+  onFilterChange?: (filter: ListingSearchCriteria) => void;
 }
 
 const SEARCH_FILTERS = [
@@ -43,7 +45,7 @@ const SearchForm = ({ onFilterChange }: Props) => {
     </Row>
   </Container>;
 
-  function handleFilterChange(index: number, filter: any) {
+  function handleFilterChange(index: number, filter: ListingSearchCriteria) {
     const newFilters = [
       ...(filters.slice(0, index)),
       filter,
