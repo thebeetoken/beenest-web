@@ -19,6 +19,10 @@ $HEADER-HEIGHT: 4.125rem;
   height: calc(3rem + 2px);
 }
 
+
+
+// START UTILITY CLASSES
+
 // 100vh without header height styles
 .bee-without-header-height-container {
   min-height: calc(100vh - #{$HEADER-HEIGHT});
@@ -40,8 +44,6 @@ $HEADER-HEIGHT: 4.125rem;
 .bee-search-map {
   height: calc(100vh - 11.25rem);
 }
-
-// START UTILITY CLASSES
 
 // add not-allowed cursor and no transform on disabled items
 * {
@@ -97,5 +99,17 @@ $HEADER-HEIGHT: 4.125rem;
 .bee-svg {
   svg {
     margin-bottom: 0!important;
+  }
+}
+
+// google maps styling
+.bee-custom-google-maps {
+  height: 200px;
+  min-height: 200px;
+  
+  @media (min-width: 768px) {
+    height: 400px;
+    min-height: 400px;
+    width: 100%;
   }
 }
