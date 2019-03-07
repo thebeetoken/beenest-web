@@ -346,12 +346,12 @@ const WorkDateRangerPickerContainer = styled.div`
 .CalendarDay__hovered_span:hover {
   background: rgba(55,125,255, 0.4);
   border: 1px double rgba(55,125,255, 0.6);
-  color: #007a87;
+  color: #fff;
 }
 .CalendarDay__hovered_span:active {
   background: rgba(55,125,255, 0.6);
   border: 1px double rgba(55,125,255, 0.6);
-  color: #007a87;
+  color: #fff;
 }
 .CalendarDay__blocked_calendar,
 .CalendarDay__blocked_calendar:active,

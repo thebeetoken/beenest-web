@@ -32,7 +32,7 @@ const contentData = [
   {
     header: 'Company',
     links: [
-      ['About', `${BEENEST_HOST}/work/about`],
+      ['About', `${BEENEST_HOST}/about`],
       ['Blog', 'https://medium.com/thebeetoken', '_blank'],
     ],
   },

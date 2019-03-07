@@ -27,7 +27,7 @@ const Account = () => {
 
         const { creditBalance, user } = data;
         return (
-          <Container className="pt-8 pb-6" tag={Fade}>
+          <Container className="pt-8 pb-6 bee-without-header-height-container" tag={Fade}>
             <h1>Profile</h1>
             <hr />
             <Nav className="mb-5 w-lg-50" tabs>

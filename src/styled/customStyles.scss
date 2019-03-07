@@ -113,3 +113,12 @@ $HEADER-HEIGHT: 4.125rem;
     width: 100%;
   }
 }
+
+#bee-modal-root {
+  position: relative;
+  z-index: 10000;
+}
+
+html, body, #root {
+  min-height: 100vh;
+}
