@@ -1,7 +1,7 @@
 import * as React from 'react';
 import { Col, Container, Fade, Row } from 'reactstrap';
 import { Query } from 'react-apollo';
-import { SEARCH_LISTINGS } from 'networking/listings';
+import { SEARCH_LISTINGS, ListingSearchCriteria } from 'networking/listings';
 
 import LoadingTakeover from 'shared/loading/LoadingTakeover';
 import { getFriendlyErrorMessage } from 'utils/validators';
@@ -24,11 +24,13 @@ const SEARCH_PARAMS = [
 ];
 
 const Search = () => {
+  const [filter, setFilter] = React.useState<ListingSearchCriteria>({});
   const queryParams: any = parseQueryString(location.search);
-  const input: any = SEARCH_PARAMS.reduce(
+  const queryInput: any = SEARCH_PARAMS.reduce(
     (obj, param) => queryParams[param] ? { ...obj, [param]: queryParams[param] } : obj,
     {}
   );
+  const input = { ...queryInput, ...filter };
   return (<Fade>
     <Query query={SEARCH_LISTINGS} variables={{ input, ...LISTING_CARD_IMAGE_DIMENSIONS }}>
       {({ loading, error, data }) => {
@@ -44,7 +46,7 @@ const Search = () => {
 
         return <SearchPage
           listings={data.searchListings}
-          onFilterChange={filter => console.log(filter)}
+          onFilterChange={setFilter}
           {...queryParams}
         />;
       }}
