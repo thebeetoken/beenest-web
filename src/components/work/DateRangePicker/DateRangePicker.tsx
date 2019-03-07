@@ -4,8 +4,12 @@ import { DateRangePicker, DateRangePickerShape } from 'react-dates';
 
 import WorkDateRangePickerContainer from 'styled/containers/WorkDateRangePicker.container';
 
-const WorkDateRangePicker = (props: DateRangePickerShape) => (
-  <WorkDateRangePickerContainer>
+interface Props extends DateRangePickerShape {
+  className?: string;
+}
+
+const WorkDateRangePicker = (props: Props) => (
+  <WorkDateRangePickerContainer className={props.className}>
     <DateRangePicker {...props} />
   </WorkDateRangePickerContainer>
 );
