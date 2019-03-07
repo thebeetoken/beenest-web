@@ -12,22 +12,10 @@ interface Props {
 }
 
 const SEARCH_FILTERS = [
-  // {
-  //   label: 'Home Type',
-  //   component: <strong>Home type!</strong>
-  // },
-  // {
-  //   label: 'Price Range',
-  //   component: <strong>Price range!</strong>
-  // },
   {
     label: 'Transit Time',
     render: (props: Props) => <TransitTime {...props} />
-  },
-  // {
-  //   label: 'More Filters',
-  //   component: <strong>Moar filters!</strong>
-  // }
+  }
 ];
 
 const SearchForm = ({ onFilterChange }: Props) => {
