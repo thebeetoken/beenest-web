@@ -1,5 +1,5 @@
 # Beenest Web
-Welcome to developing on beenest
+Welcome to developing on beenest, a DAPP marketplace for home sharing.
 
 ## Development Process
 
@@ -8,9 +8,8 @@ Welcome to developing on beenest
 * Make changes and run/test locally: ``npm start``
 
 * Optional Verification Step:
-
-** Deploy to remote dev server to allow others to test: `scripts/deploy -i dev01` where `01` can be `02, 03, etc`
-** Visit https://dev01.beenest.io
+    * Deploy to remote dev server to allow others to test: `scripts/deploy -i dev01` where `01` can be `02, 03, etc`
+    * Visit https://dev01.beenest.io
 
 * Git commit and push your changes to Github.
 
