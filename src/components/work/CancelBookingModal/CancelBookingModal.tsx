@@ -4,8 +4,8 @@ import { GUEST_CANCEL_BOOKING, Booking, Currency, GET_GUEST_SORTED_BOOKINGS } fr
 import { graphql, compose } from 'react-apollo';
 import { differenceInDays } from 'date-fns';
 import { cancel, loadWeb3 } from 'utils/web3';
-import { AlertProperties } from 'components/work/Alert/Alert';
-import LoadingPortal from 'components/work/LoadingPortal';
+import { AlertProperties } from 'legacy/work/Alert/Alert';
+import LoadingPortal from 'legacy/work/LoadingPortal';
 import { getFriendlyErrorMessage } from 'utils/validators';
 
 interface Props {
