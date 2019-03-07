@@ -5,8 +5,8 @@ import Header from 'components/work/Header';
 import Footer from 'components/work/Footer';
 
 import About from './about';
-import Account from './Account';
-import FirebaseEmailHandler from './Account/FirebaseEmailHandler';
+import Account from './account';
+import FirebaseEmailHandler from './account/FirebaseEmailHandler';
 import ForgotPassword from './forgotPassword';
 import Home from './home';
 import Host from './host';
