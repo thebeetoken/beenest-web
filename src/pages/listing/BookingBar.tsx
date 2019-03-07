@@ -9,7 +9,7 @@ import BookingCard from './BookingCard';
 const BookingBar = (listing: Listing) => {
   const [isOpen, setOpen] = React.useState<boolean>(false);
 
-  return <Row className="w-100 p-2 align-items-center justify-content-between">
+  return <Row className="w-100 align-items-center justify-content-between" noGutters>
     <Col>
       From {formatPrice(listing.pricePerNightUsd)} per night
     </Col>

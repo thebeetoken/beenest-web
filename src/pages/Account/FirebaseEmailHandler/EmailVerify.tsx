@@ -1,15 +1,15 @@
 import * as React from 'react';
-import Loading from 'shared/loading/Loading';
-import { auth } from 'utils/firebase';
 import { Container, Fade, Row } from 'reactstrap';
 import { Link } from 'react-router-dom';
+
+import LoadingTakeover from 'shared/loading/LoadingTakeover';
+import { auth } from 'utils/firebase';
 import { FirebaseConsumer, FirebaseUserProps } from 'HOCs/FirebaseProvider';
 import {
   CONTAINER_CLASSES,
   CONTENT_CLASSES,
   PRIMARY_BUTTON_CLASSES
 } from 'styled/custom.styled';
-import { VIEWPORT_CENTER_LAYOUT } from 'styled/sharedClasses/layout';
 
 interface State {
   isSubmitting: boolean;
@@ -77,13 +77,7 @@ export default class EmailVerify extends React.Component<Props> {
       <>
         <FirebaseConsumer>
           {({ loading, user, completedVerification }: FirebaseUserProps) => {
-            if (loading) {
-              return (
-                <Container tag={Fade} className={VIEWPORT_CENTER_LAYOUT}>
-                  <Loading height="8rem" width="8rem" />
-                </Container>
-              );
-            }
+            if (loading) return <LoadingTakeover />;
 
             if (user && !completedVerification) {
               return (
@@ -127,13 +121,7 @@ export default class EmailVerify extends React.Component<Props> {
   }
 
   render() {
-    if (this.state.isSubmitting) {
-      return (
-        <Container tag={Fade} className={VIEWPORT_CENTER_LAYOUT}>
-          <Loading height="8rem" width="8rem" />
-        </Container>
-      );
-    }
+    if (this.state.isSubmitting) return <LoadingTakeover />;
 
     return (
       <Fade>

@@ -5,9 +5,8 @@ import { Route, Redirect, Switch } from 'react-router';
 import { NavLink as RRNavLink } from 'react-router-dom';
 import { GET_GUEST_SORTED_BOOKINGS, GUEST_SORTED_BOOKINGS, Booking } from 'networking/bookings';
 
-import { VIEWPORT_CENTER_LAYOUT } from 'styled/sharedClasses/layout';
 import NotFound from 'components/routes/NotFound';
-import Loading from 'components/shared/loading/Loading';
+import LoadingTakeover from 'shared/loading/LoadingTakeover';
 import TripCard from 'components/work/TripCard';
 import { AlertProperties } from 'components/work/Alert/Alert';
 import ContactHostFormModal from 'components/work/ContactHostFormModal';
@@ -27,13 +26,8 @@ function Trips() {
   return (
     <Query query={GET_GUEST_SORTED_BOOKINGS}>
       {({ loading, error, data }) => {
-        if (loading) {
-          return (
-            <Container tag={Fade} className={VIEWPORT_CENTER_LAYOUT}>
-              <Loading height="8rem" width="8rem" />
-            </Container>
-          );
-        }
+        if (loading) return <LoadingTakeover />;
+        
         if (error || !data) {
           return <h1>{error ? error.message : 'Error / No Data'}</h1>;
         }

@@ -3,22 +3,16 @@ import { Col, Container, Fade, Row } from 'reactstrap';
 import { Redirect, RouteProps } from 'react-router-dom';
 
 import { FirebaseConsumer, FirebaseUserProps } from 'HOCs/FirebaseProvider';
-import Loading from 'shared/loading/Loading';
+import LoadingTakeover from 'shared/loading/LoadingTakeover';
 import { AUTH_CONTENT } from 'styled/sharedClasses/authentication';
-import { VIEWPORT_CENTER_LAYOUT } from 'styled/sharedClasses/layout';
+
 
 import HostsSignupForm from './HostsSignupForm';
 
 const HostsSignup = (props: RouteProps) => (
   <FirebaseConsumer>
     {({ loading, user }: FirebaseUserProps) => {
-      if (loading) {
-        return (
-          <Container className={VIEWPORT_CENTER_LAYOUT}>
-            <Loading height="8rem" width="8rem" />
-          </Container>
-        );
-      }
+      if (loading) return <LoadingTakeover />;
 
       if (user) {
         const state = (props.location && props.location.state) || {};
