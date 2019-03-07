@@ -27,21 +27,21 @@ const Work = () => (
   <div>
     <Header />
     <Switch>
-      <Route path="/work/about" component={About} />
-      <Route path="/work/account/action" component={FirebaseEmailHandler} />
-      <Route path="/work/account" component={Account} />
-      <Route path="/work/forgot_password" component={ForgotPassword} />
-      <AuthenticatedRoute path="/work/host" component={Host} />
-      <Route exact path="/work/listings/:id" component={Listing} />
-      <Route exact path="/work/login" component={Login} />
-      <Route exact path="/work/logout" component={Logout} />
-      <Route exact path="/work/search" component={Search} />
-      <Route exact path="/work/signup" component={Signup} />
-      <AuthenticatedRoute exact path="/work/trips/:id/receipt" component={TripsReceipt} />
-      <AuthenticatedRoute path="/work/trips" component={Trips} />
-      <Route path="/work/hosts/signup" component={HostSignup} />
-      <Route exact path="/work" component={Home} />
-      <Route path="/work" component={NotFound} />
+      <Route path="/about" component={About} />
+      <Route path="/account/action" component={FirebaseEmailHandler} />
+      <Route path="/account" component={Account} />
+      <Route path="/forgot_password" component={ForgotPassword} />
+      <AuthenticatedRoute path="/host" component={Host} />
+      <Route exact path="/listings/:id" component={Listing} />
+      <Route exact path="/login" component={Login} />
+      <Route exact path="/logout" component={Logout} />
+      <Route exact path="/search" component={Search} />
+      <Route exact path="/signup" component={Signup} />
+      <AuthenticatedRoute exact path="/trips/:id/receipt" component={TripsReceipt} />
+      <AuthenticatedRoute path="/trips" component={Trips} />
+      <Route path="/hosts/signup" component={HostSignup} />
+      <Route exact path="/" component={Home} />
+      <Route path="/" component={NotFound} />
     </Switch>
     <Footer />
   </div>
