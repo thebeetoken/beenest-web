@@ -1,11 +1,15 @@
 import * as React from 'react';
 import { Route, Switch } from 'react-router-dom';
 
+import Header from 'components/work/Header';
+import Footer from 'components/work/Footer';
+
 import About from './about';
 import Account from './Account';
 import FirebaseEmailHandler from './Account/FirebaseEmailHandler';
 import ForgotPassword from './forgotPassword';
 import Home from './home';
+import Host from './host';
 import HostSignup from './hosts/signup';
 import Listing from './listing';
 import Login from './login';
@@ -17,9 +21,6 @@ import Trips from './trips';
 import TripsReceipt from './trips/TripsReceipt';
 import AuthenticatedRoute from 'HOCs/AuthenticatedRoute';
 
-import Header from 'components/work/Header';
-import Footer from 'components/work/Footer';
-
 import '../styled/customStyles.scss';
 
 const Work = () => (
@@ -30,6 +31,7 @@ const Work = () => (
       <Route path="/work/account/action" component={FirebaseEmailHandler} />
       <Route path="/work/account" component={Account} />
       <Route path="/work/forgot_password" component={ForgotPassword} />
+      <AuthenticatedRoute path="/work/host" component={Host} />
       <Route exact path="/work/listings/:id" component={Listing} />
       <Route exact path="/work/login" component={Login} />
       <Route exact path="/work/logout" component={Logout} />
