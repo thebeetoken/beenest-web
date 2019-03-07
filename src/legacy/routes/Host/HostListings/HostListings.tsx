@@ -6,7 +6,7 @@ import HostListingsContainer from './HostListings.container';
 
 import { GET_HOST_LISTINGS, HostListingShort } from 'networking/listings';
 import Button from 'legacy/shared/Button';
-import AudioLoading from 'legacy/shared/loading/AudioLoading';
+import LoadingTakeover from 'legacy/shared/loading/LoadingTakeover';
 
 interface Props {
   createListing: () => void;
@@ -16,9 +16,8 @@ const HostListings = ({ createListing }: Props): JSX.Element => (
   <HostListingsContainer>
     <Query query={GET_HOST_LISTINGS}>
       {({ loading, error, data }) => {
-        if (loading) {
-          return <AudioLoading height={48} width={96} />;
-        }
+        if (loading) return <LoadingTakeover />;
+        
         if (error || !data) {
           return <h1>{error ? error.message : 'Error / No Data'}</h1>;
         }

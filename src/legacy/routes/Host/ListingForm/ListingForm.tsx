@@ -14,13 +14,12 @@ import ListingFormNav from './ListingFormNav';
 import ListingFormContainer from './ListingForm.container';
 import GeneralWrapper from 'legacy/shared/GeneralWrapper';
 import NotFound from 'legacy/routes/NotFound';
-import Button from 'legacy/shared/Button';
 import timeOptions from 'utils/timeOptions';
 import { History } from 'history';
 import ListingHelp from './ListingHelp';
 import { ApolloError } from 'apollo-client';
-import { AppConsumer, AppConsumerProps, ScreenType } from 'legacy/Legacy.context';
-import AudioLoading from 'legacy/shared/loading/AudioLoading';
+import Loading from 'legacy/shared/loading/Loading';
+import { Button, Col, Row } from 'reactstrap';
 
 interface FormValues {
   [name: string]: boolean | string | string[] | number | object | undefined;
@@ -237,25 +236,31 @@ class ListingForm extends React.Component<Props, State> {
                     <Redirect exact from="/host/listings/:id/edit" to="/host/listings/:id/listing_info" />
                     <Route component={NotFound} />
                   </Switch>
-                  <Button
-                    disabled={FormikProps.isSubmitting}
-                    onClick={() => {
-                      if (!FormikProps.isValid) {
-                        alert(
-                          `Cannot save changes due to errors:\n\n${Object.values(flat(FormikProps.errors))
-                            .join('\n')
-                            .toString()}`
-                        );
-                      }
-                      FormikProps.submitForm();
-                    }}
-                    type="button">
-                    {FormikProps.isSubmitting
-                      ? <AudioLoading color="dark" height={24} width={48} />
-                      : 'Save & Continue'}
-                  </Button>
+                  <Row noGutters className="d-flex justify-content-end">
+                    <Col className="p-0" lg="4">
+                      <Button
+                        className="text-white w-100"
+                        color="success"
+                        disabled={FormikProps.isSubmitting}
+                        onClick={() => {
+                          if (!FormikProps.isValid) {
+                            alert(
+                              `Cannot save changes due to errors:\n\n${Object.values(flat(FormikProps.errors))
+                                .join('\n')
+                                .toString()}`
+                            );
+                          }
+                          FormikProps.submitForm();
+                        }}
+                        type="button">
+                        {FormikProps.isSubmitting
+                          ? <Loading color="secondary" width="1.4rem" height="1.4rem" />
+                          : 'Save & Continue'}
+                      </Button>
+                    </Col>
+                  </Row>
                 </Form>
-                <aside>
+                <aside className="d-none d-lg-block">
                   <div className="background-extender" />
                   <div className="aside-container">
                     {isFirstFocused(this.state.focus) && AsideHeaders[getCurrentCrumb(this.props.history)]}

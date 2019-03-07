@@ -12,7 +12,7 @@ const GoogleMapsContainer = styled.div`
   width: 100%;
 
   div {
-    > h1 {
+    > h4 {
       text-align: center;
     }
   }

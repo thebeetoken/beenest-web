@@ -10,7 +10,7 @@ import BeeLink from 'legacy/shared/BeeLink';
 import Button from 'legacy/shared/Button';
 import InputLabel from 'legacy/shared/InputLabel';
 import InputWrapper from 'legacy/shared/InputWrapper';
-import AudioLoading from 'legacy/shared/loading/AudioLoading';
+import LoadingTakeover from 'legacy/shared/loading/LoadingTakeover';
 import ErrorMessageWrapper from 'legacy/shared/ErrorMessageWrapper';
 import Snackbar from 'legacy/shared/Snackbar';
 import {
@@ -26,9 +26,8 @@ const HostPayments = (): JSX.Element => {
   return (
     <Query query={GET_HOST_PAGE}>
       {({ loading, error, data }) => {
-        if (loading) {
-          return <AudioLoading height={48} width={96} />;
-        }
+        if (loading) return <LoadingTakeover />;
+
         if (error || !data) {
           return <h1>{error ? error.message : 'Error / No Data'}</h1>;
         }
