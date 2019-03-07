@@ -84,8 +84,7 @@ const BookingCard = ({
         type="select"
         name="numberOfGuests"
         value={numberOfGuests}
-        onChange={event => setNumberOfGuests(parseInt(event.target.value))}
-        component="select">
+        onChange={event => setNumberOfGuests(parseInt(event.target.value))}>
         {guestsSelectboxOptions.map(option => (
           <option value={option.value} key={option.value}>
             {option.option}
