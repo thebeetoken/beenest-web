@@ -5,10 +5,9 @@ import { Route, Redirect, Switch } from 'react-router';
 import { NavLink as RRNavLink } from 'react-router-dom';
 import { GET_ACCOUNT_PAGE } from 'networking/users';
 
-import Loading from 'shared/loading/Loading';
+import LoadingTakeover from 'shared/loading/LoadingTakeover';
 import NotFound from 'components/routes/NotFound';
 import { FirebaseConsumer, FirebaseUserProps } from 'HOCs/FirebaseProvider';
-import { VIEWPORT_CENTER_LAYOUT } from 'styled/sharedClasses/layout';
 
 import AccountGeneral from './AccountGeneral';
 import AccountPayment from './AccountPayment';
@@ -20,13 +19,8 @@ const Account = () => {
   return (
     <Query query={GET_ACCOUNT_PAGE}>
       {({ loading, error, data }) => {
-        if (loading) {
-          return (
-            <Container tag={Fade} className={VIEWPORT_CENTER_LAYOUT}>
-              <Loading height="8rem" width="8rem" />
-            </Container>
-          );
-        }
+        if (loading) return <LoadingTakeover />;
+
         if (error || !data) {
           return <h1>{error ? error.message : 'Error / No Data'}</h1>;
         }

@@ -4,9 +4,7 @@ import { Query } from 'react-apollo';
 import { GET_PAYMENT_SOURCES, PaymentSource } from 'networking/paymentSources';
 import { CreditBalance } from 'networking/users';
 
-
-import Loading from 'shared/loading/Loading';
-import { VIEWPORT_CENTER_LAYOUT } from 'styled/sharedClasses/layout';
+import LoadingTakeover from 'shared/loading/LoadingTakeover';
 
 import NewCardForm from './NewCardForm';
 import DeleteCardForm from './DeleteCardForm';
@@ -29,13 +27,8 @@ const AccountPayment = ({ creditBalance }: Props) => {
   return (
     <Query query={GET_PAYMENT_SOURCES}>
       {({ loading, error, data }) => {
-        if (loading) {
-          return (
-            <Container className={VIEWPORT_CENTER_LAYOUT}>
-              <Loading height="8rem" width="8rem" />
-            </Container>
-          );
-        }
+        if (loading) return <LoadingTakeover />;
+        
         if (error || !data) {
           return (
             <UncontrolledAlert color="danger">

@@ -1,15 +1,22 @@
 import * as React from 'react';
 import { Button, Card, Input, Row } from 'reactstrap';
 import moment from 'moment';
-import { Query } from 'react-apollo';
+import { compose, graphql, Query } from 'react-apollo';
 
 import DateRangePicker from 'components/work/DateRangePicker';
 import { guestsSelectboxOptions } from 'components/work/SearchBar/searchBar.config';
 import Loading from 'shared/loading/Loading';
 
+import { CREATE_BOOKING, GET_GUEST_SORTED_BOOKINGS, CreateBookingInput } from 'networking/bookings';
 import { GET_PUBLIC_LISTING, Listing, Reservation } from 'networking/listings';
+
+import { SETTINGS } from 'configs/settings';
+
 import { formatPrice } from 'utils/formatter';
 import { parseQueryString } from 'utils/queryParams';
+
+const { BEENEST_HOST } = SETTINGS;
+
 
 interface Params {
   checkInDate?: string;
@@ -22,23 +29,29 @@ interface Dates {
   endDate: moment.Moment | null;
 }
 
+interface Props extends Listing {
+  createBooking: (input: CreateBookingInput) => Promise<any>
+}
+
 const BookingCard = ({
   checkInDate,
   checkOutDate,
+  createBooking,
   id,
   reservations,
   totalQuantity
-}: Listing) => {
+}: Props) => {
   const params: Params = parseQueryString(location.search);
 
   const [focusedInput, setFocusedInput] = React.useState<'startDate' | 'endDate' | null>(null);
   const [startDate, setStartDate] = React.useState<moment.Moment | null>(params.checkInDate ? moment.utc(params.checkInDate) : null);
   const [endDate, setEndDate] = React.useState<moment.Moment | null>(params.checkOutDate ? moment.utc(params.checkOutDate) : null);
   const [numberOfGuests, setNumberOfGuests] = React.useState<number>(params.numberOfGuests || 1);
+  const [isBooking, setBooking] = React.useState<boolean>(false);
   const setDates = ({ startDate, endDate }: Dates) => (setStartDate(startDate), setEndDate(endDate));
   const input = { checkInDate: startDate, checkOutDate: endDate, numberOfGuests };
 
-  return <Card className="p-5 shadow">
+  return <Card className="p-5 shadow border-0">
     <Query query={GET_PUBLIC_LISTING} fetchPolicy="cache-and-network" variables={{ id, input }}>
       {({ loading, error, data }) => <Row className="m-0">
         <h3 className="d-inline">
@@ -49,6 +62,7 @@ const BookingCard = ({
     </Query>
     <Row className="w-100 m-0 mb-3">
       <DateRangePicker
+        className="w-100"
         isOutsideRange={isOutsideDateRange}
         isDayBlocked={isDayBlocked}
         startDate={startDate} // momentPropTypes.momentObj or null,
@@ -70,8 +84,7 @@ const BookingCard = ({
         type="select"
         name="numberOfGuests"
         value={numberOfGuests}
-        onChange={event => setNumberOfGuests(parseInt(event.target.value))}
-        component="select">
+        onChange={event => setNumberOfGuests(parseInt(event.target.value))}>
         {guestsSelectboxOptions.map(option => (
           <option value={option.value} key={option.value}>
             {option.option}
@@ -80,7 +93,9 @@ const BookingCard = ({
       </Input>
     </Row>
     <Row className="w-100 m-0">
-      <Button className="w-100">Request to Book</Button>
+      <Button onClick={startBooking} className="w-100" disabled={!startDate || !endDate || isBooking}>
+        {isBooking ? <Loading height="1rem" width="1rem" /> : 'Request to Book'}
+      </Button>
     </Row>
   </Card>;
 
@@ -110,6 +125,51 @@ const BookingCard = ({
       return utcDay.isBetween(startDate, endDate, undefined, pickingEnd ? '(]' : '[)');
     }).length >= quantity;
   }
+
+  async function startBooking() {
+    setBooking(true);
+    try {
+      const { data } = await createBooking({
+        checkInDate: String(startDate),
+        checkOutDate: String(endDate),
+        listingId: id,
+        numberOfGuests: numberOfGuests
+      });
+      window.location.href = `${BEENEST_HOST}/bookings/${data.createBooking.id}`;
+    } catch (e) {
+      console.log(e);
+      alert(e.message);
+      setBooking(false);
+    }
+  }
 };
 
-export default BookingCard;
+
+export default compose(
+  graphql(CREATE_BOOKING, {
+    props: ({ mutate }: any) => ({
+      createBooking: (input: CreateBookingInput) => {
+        return mutate({
+          variables: { input },
+          refetchQueries: [{ query: GET_GUEST_SORTED_BOOKINGS }],
+          update: (store: any, { data }: any) => {
+            if (!store.data.data.ROOT_QUERY || !store.data.data.ROOT_QUERY.guestBookings) {
+              return;
+            }
+            const { createBooking } = data;
+            const { guestBookings } = store.readQuery({ query: GET_GUEST_SORTED_BOOKINGS });
+            store.writeQuery({
+              query: GET_GUEST_SORTED_BOOKINGS,
+              data: {
+                guestBookings: {
+                  ...guestBookings,
+                  current: [...guestBookings.current, createBooking],
+                },
+              },
+            });
+          },
+        });
+      },
+    }),
+  })
+)(BookingCard);
