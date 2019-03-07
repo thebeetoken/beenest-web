@@ -6,10 +6,17 @@ import GoogleAutoComplete from 'components/shared/GoogleAutoComplete';
 const TransitTime = () => {
   const [place, setPlace] = React.useState<google.maps.places.PlaceResult | null>(null);
   const inputRef: React.RefObject<HTMLInputElement | null> = React.createRef();
+  const handleClear = event => {
+    event.preventDefault();
+    inputRef.current.value = "";
+    setPlace(null);
+  };
   return <Container>
     <h5 className={place ? '' : 'text-muted'}>
       {place ? place.name : 'Add destination'}
-      <Button close className={place ? 'mt-2' : 'd-none'} onClick={() => setPlace(null)} />
+      <small className={place ? 'ml-3 text-muted' : 'd-none'}>
+        <a href="#" onClick={handleClear}>Clear</a>
+      </small>
     </h5>
     <GoogleAutoComplete
       types={[]}
