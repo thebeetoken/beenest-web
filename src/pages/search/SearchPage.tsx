@@ -24,10 +24,9 @@ const SearchPage = (props: Props) => <Fade>
   </Row>
   <Row className="min-vh-100 h-100 px-0 mx-0">
     <Col md="12" lg="5" xl="4" className="px-5">
-      <div className="d-none"> {/* TODO: Show search filters */}
+      <Row className="mb-5">
         <SearchForm />
-        <div className="mb-5" />
-      </div>
+      </Row>
       <SearchResults {...props} />
     </Col>
     <Col md="0" lg="7" xl="8" className="px-0 d-md-none d-lg-block">
