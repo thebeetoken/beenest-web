@@ -15,7 +15,7 @@ interface Props extends Booking {
   shouldCancel?: boolean;
 }
 
-class AdminBookingStatusOptionsCard extends React.Component<Props> {
+class BookingStatusOptionsCard extends React.Component<Props> {
   render() {
     const {
       shouldCancel,
@@ -93,5 +93,5 @@ class AdminBookingStatusOptionsCard extends React.Component<Props> {
   }
 }
 
-export default AdminBookingStatusOptionsCard;
+export default BookingStatusOptionsCard;
 
