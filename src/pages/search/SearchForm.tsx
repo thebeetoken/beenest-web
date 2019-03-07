@@ -13,7 +13,7 @@ interface Props {
 
 const SEARCH_FILTERS = [
   {
-    label: 'Transit Time',
+    label: 'Close To...',
     render: (props: Props) => <TransitTime {...props} />
   }
 ];
