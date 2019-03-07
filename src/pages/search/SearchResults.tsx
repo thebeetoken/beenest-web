@@ -17,11 +17,8 @@ interface Props extends Params {
   listings: ListingShort[];
 }
 
-function listingPath(listing: ListingShort, params: Params) {
-  const query = stringifyQueryString(params);
-  console.log(params, query);
-  return `/work/listings/${listing.idSlug}?${query}`;
-}
+const listingPath = (listing: ListingShort, params: Params) =>
+  `/work/listings/${listing.idSlug}?${stringifyQueryString(params)}`;
 
 const SearchResults = ({
   listings,
