@@ -1,12 +1,12 @@
 import * as React from 'react';
 import { Col, Container, Fade, Row } from 'reactstrap';
+import { Listing } from 'networking/listings';
 
 import ListingGallery from './ListingGallery';
 import ListingInformation from './ListingInformation';
 import BookingCard from './BookingCard';
 import BookingBar from './BookingBar';
 
-import { Listing } from 'networking/listings';
 
 const ListingPage = (listing: Listing) => (
   <Fade>
@@ -17,7 +17,7 @@ const ListingPage = (listing: Listing) => (
           <ListingInformation {...listing} />
         </Col>
         <Col>
-          <div className="sticky-top bee-top d-none d-lg-block">
+          <div className="sticky-top bee-top d-none d-lg-block z-index-0 p-5">
             <BookingCard {...listing} />
           </div>
         </Col>

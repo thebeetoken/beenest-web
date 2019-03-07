@@ -2,6 +2,7 @@ import * as React from 'react';
 import { Route, Switch } from 'react-router-dom';
 
 import Header from 'components/work/Header';
+import Footer from 'components/work/Footer';
 
 import About from './about';
 import Account from './Account';
@@ -19,6 +20,7 @@ import Signup from './signup';
 import Trips from './trips';
 import TripsReceipt from './trips/TripsReceipt';
 import AuthenticatedRoute from 'HOCs/AuthenticatedRoute';
+
 import '../styled/customStyles.scss';
 
 const Work = () => (
@@ -41,6 +43,7 @@ const Work = () => (
       <Route exact path="/work" component={Home} />
       <Route path="/work" component={NotFound} />
     </Switch>
+    <Footer />
   </div>
 );
 
