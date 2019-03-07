@@ -643,7 +643,6 @@ const WorkDateRangerPickerContainer = styled.div`
   border-left: 0;
   border-radius: 0;
   height: calc(3rem + 2px);
-  font-size: 1rem;
   line-height: 1.5;
   border-radius: .25rem;
   &::-webkit-input-placeholder {
