@@ -5,6 +5,10 @@ import TransitTime from './filters/TransitTime';
 
 import SearchFilter from './SearchFilter';
 
+interface Props {
+  onFilterChange?: () => void;
+}
+
 const SEARCH_FILTERS = [
   // {
   //   label: 'Home Type',
@@ -16,7 +20,7 @@ const SEARCH_FILTERS = [
   // },
   {
     label: 'Transit Time',
-    render: () => <TransitTime />
+    render: (props) => <TransitTime {...props} />
   },
   // {
   //   label: 'More Filters',
@@ -24,18 +28,35 @@ const SEARCH_FILTERS = [
   // }
 ];
 
-const SearchForm = () => (
-  <Container>
+const SearchForm = ({ onFilterChange }: Props) => {
+  const [filters, setFilters] = React.useState<any[]>(SEARCH_FILTERS.map(() => ({})));
+
+  return <Container>
     <Row>
     {SEARCH_FILTERS.map(({ label, render }) => (
       <Col key={label}>
         <SearchFilter label={label}>
-          {render()}
+          {render({ onFilterChange: filter => handleFilterChange(index, filter) })}
         </SearchFilter>
       </Col>
     ))}
     </Row>
-  </Container>
-);
+  </Container>;
+
+  function handleFilterChange(index, filter) {
+    const newFilters = [
+      ...(filters.slice(0, index)),
+      filter,
+      ...(filters.slice(index + 1))
+    ];
+    setFilters(newFilters);
+    if (onFilterChange) {
+      onFilterChange(newFilters.reduce(
+        (allFilters, nextFilter) => ({ ...allFilters, ...nextFilter }),
+        {}
+      ));
+    }
+  }
+};
 
 export default SearchForm;
