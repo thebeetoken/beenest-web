@@ -7,7 +7,7 @@ import NotFound from '../notFound';
 import { compose, graphql } from 'react-apollo';
 import { getFriendlyErrorMessage } from 'utils/validators';
 
-const HostRoutes = [
+const HOST_ROUTES = [
   {
     to: '/work/host/bookings',
     title: 'Bookings',
@@ -46,7 +46,7 @@ const HostPage = ({ createListing, history }: Props) => {
       </Row>
       <hr />
       <Nav className="mb-5" tabs>
-        {HostRoutes.map(({ title, to }) => (
+        {HOST_ROUTES.map(({ title, to }) => (
           <NavItem key={to}>
             <NavLink 
               tag={RRNavLink}
@@ -57,7 +57,7 @@ const HostPage = ({ createListing, history }: Props) => {
         ))}
       </Nav>
         <Switch>
-          {HostRoutes.map(({ title, to }) => (
+          {HOST_ROUTES.map(({ title, to }) => (
             <AuthenticatedRoute exact path={to} component={() => <h1>This is Host {title}</h1>} />
           ))}
           <Redirect from="/work/host" to="/work/host/listings" />
