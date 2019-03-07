@@ -13,13 +13,15 @@ interface Props {
 
 const ContactHostButton = (props: Props) => {
   const [isOpen, setOpen] = React.useState<boolean>(false);
-  return <Fade>
-    <Button onClick={() => setOpen(true)}>
-      Contact Host
-      <span className="fas fa-envelope pl-3"></span>
-    </Button>
-    <ContactHostFormModal isOpen={isOpen} onModalAction={() => setOpen(false)} {...props} />
-  </Fade>;
+  return (
+    <Fade>
+      <Button onClick={() => setOpen(true)}>
+        Contact Host
+        <span className="fas fa-envelope pl-3" />
+      </Button>
+      <ContactHostFormModal isOpen={isOpen} onModalAction={() => setOpen(false)} {...props} />
+    </Fade>
+  );
 };
 
 export default ContactHostButton;

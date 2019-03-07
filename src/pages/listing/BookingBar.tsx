@@ -7,7 +7,7 @@ import { formatPrice } from 'utils/formatter';
 const BookingBar = ({
   pricePerNightUsd
 }: Listing) => (
-  <Row className="w-100 p-2 align-items-center justify-content-between">
+  <Row className="w-100 align-items-center justify-content-between" noGutters>
     <Col>
       {formatPrice(pricePerNightUsd)} per night
     </Col>
