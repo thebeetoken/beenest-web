@@ -1,12 +1,9 @@
 import * as React from 'react';
 import { Query } from 'react-apollo';
 import { Fade } from 'reactstrap';
-
-import Footer from 'components/work/Footer';
+import { GET_PUBLIC_LISTING } from 'networking/listings';
 
 import Loading from 'shared/loading/Loading';
-
-import { GET_PUBLIC_LISTING } from 'networking/listings';
 
 import ListingPage from './ListingPage';
 
@@ -20,7 +17,6 @@ const Listing = ({ match }: RouterProps) => (
         <ListingPage {...data.listing} />
       }
     </Query>
-    <Footer />
   </Fade>
 );
 
