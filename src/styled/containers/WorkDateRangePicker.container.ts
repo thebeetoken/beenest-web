@@ -887,6 +887,11 @@ const WorkDateRangerPickerContainer = styled.div`
   width: 15px;
   fill: #cacccd;
 }
+@media (max-width: 767.99px) {
+  .DateInput_input {
+    font-size: 0.75rem;
+  }
+}
 `;
 
 export default WorkDateRangerPickerContainer;
