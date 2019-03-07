@@ -112,46 +112,39 @@ const BookingOptionsCrypto = ({ booking, currency, fromBee, history }: Props) =>
                 {!isTwoDaysFromNow && <div className="booking-options-error">
                   <p>Bookings paid using Ethereum or ERC-20 tokens must be made more than two days in advance.</p>
                 </div>}
-                <AppConsumer>
-                  {({ screenType }: AppConsumerProps) => {
-                    if (screenType < ScreenType.TABLET) {
-                      return (
-                        <div className="booking-options-crypto-bar">
-                          <BookingOptionsBar booking={booking} currency={currency} disabled={isDisabled} />
-                        </div>
-                      );
-                    }
-                    return (
-                      <div>
-                        {accounts && (
-                          <div className="booking-options-disclaimer">
-                            <p>
-                              <span>Note:&nbsp;</span>
-                              Wallet Address is automatically updated to the current wallet selected in your Metamask
-                              browser application. Make sure the correct wallet is selected and matches the wallet address
-                              below.
+
+                <div className="d-lg-none booking-options-crypto-bar">
+                  <BookingOptionsBar booking={booking} currency={currency} disabled={isDisabled} />
+                </div>
+
+                <div>
+                  {accounts && (
+                    <div className="booking-options-disclaimer">
+                      <p>
+                        <span>Note:&nbsp;</span>
+                        Wallet Address is automatically updated to the current wallet selected in your Metamask
+                        browser application. Make sure the correct wallet is selected and matches the wallet address
+                        below.
                             </p>
-                          </div>
-                        )}
-                        <div className="crypto-button-container">
-                          <Button
-                            className="back-button"
-                            background="light"
-                            onClick={() => history.push(`/listings/${booking.listingId}`)}
-                          >
-                            Back
+                    </div>
+                  )}
+                  <div className="d-none d-lg-flex crypto-button-container">
+                    <Button
+                      className="back-button"
+                      background="light"
+                      onClick={() => history.push(`/listings/${booking.listingId}`)}
+                    >
+                      Back
                           </Button>
-                          <SelectPaymentButton
-                            booking={booking}
-                            currency={outputCurrency}
-                            disabled={isDisabled}
-                            onSuccess={() => history.push(`/bookings/${booking.id}/payment?currency=${currency}`)}
-                          />
-                        </div>
-                      </div>
-                    );
-                  }}
-                </AppConsumer>
+                    <SelectPaymentButton
+                      booking={booking}
+                      currency={outputCurrency}
+                      disabled={isDisabled}
+                      onSuccess={() => history.push(`/bookings/${booking.id}/payment?currency=${currency}`)}
+                    />
+                  </div>
+                </div>
+
               </BookingOptionsCryptoContainer>
             );
           }} />

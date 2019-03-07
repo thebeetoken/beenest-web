@@ -11,7 +11,7 @@ interface Props extends RouterProps {
 }
 
 const BookingNavBar = (props: Props) => (
-  <BookingNavBarContainer>
+  <BookingNavBarContainer className="px-6">
     <AppConsumer>
       {({ screenType }: AppConsumerProps) =>
         screenType < ScreenType.TABLET ? <NavBarMobile {...props} /> : <NavBarDesktop {...props} />

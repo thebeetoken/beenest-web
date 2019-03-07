@@ -25,6 +25,7 @@ const BookingPaymentContainer = styled.div`
     .booking-payment-quote-container {
       height: 440px;
       width: 352px;
+      min-width: 352px;
     }
   }
   .booking-payment-button-container {

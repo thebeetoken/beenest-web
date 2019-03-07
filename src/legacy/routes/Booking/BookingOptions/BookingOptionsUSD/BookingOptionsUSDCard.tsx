@@ -85,11 +85,11 @@ class BookingOptionsUSDCard extends React.Component<Props, State> {
           )}
         </ToggleProvider>
 
-        <div className="d-md-none booking-options-usd-bar">
+        <div className="d-lg-none booking-options-usd-bar">
           <BookingOptionsBar booking={booking} currency={Currency.USD} disabled={isSelectButtonDisabled} />
         </div>
 
-        <div className="d-none d-md-flex booking-options-button-container">
+        <div className="d-none d-lg-flex booking-options-button-container">
           <Button className="back-button" background="light" onClick={this.goBack}>
             Back
           </Button>

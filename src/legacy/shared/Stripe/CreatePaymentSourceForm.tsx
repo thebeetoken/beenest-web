@@ -14,7 +14,7 @@ import { CREATE_PAYMENT_SOURCE, GET_PAYMENT_SOURCES } from 'networking/paymentSo
 import Button from 'legacy/shared/Button';
 import Divider from 'legacy/shared/Divider';
 import InputWrapper from 'legacy/shared/InputWrapper';
-import { isNotEmpty, errorMessages, FieldValidation, getInputErrorClass } from 'utils/validators';
+import { isNotEmpty, FieldValidation, getInputErrorClass } from 'utils/validators';
 
 interface Props {
   stripe: Window['Stripe'];
@@ -81,9 +81,9 @@ class CreatePaymentSourceForm extends React.Component<Props, State> {
                   value={form.nameOnCard}
                 />
               </InputWrapper>
-              <span className={`name-error bee-error-message ${getInputErrorClass(validation.nameOnCard)}`.trim()}>
+              {/* <span className={`name-error bee-error-message ${getInputErrorClass(validation.nameOnCard)}`.trim()}>
                 {errorMessages.isEmpty}
-              </span>
+              </span> */}
             </div>
             <div className="payment-source-form card-elements">
               <div className="number-field stripe-input-container">
@@ -132,10 +132,10 @@ class CreatePaymentSourceForm extends React.Component<Props, State> {
           <div className="bottom">
             <Divider />
             <div className="actions">
-              <Button className="cancel" textStyle="title-8" type="button" background="light" onClick={this.clearAndClose}>
+              <Button className="cancel" type="button" background="light" onClick={this.clearAndClose}>
                 Cancel
               </Button>
-              <Button className="submit" textStyle="title-8" type="submit" background="style" disabled={this.isSubmitDisabled() || isSubmitting}>
+              <Button className="submit" color="white" type="submit" background="style" disabled={this.isSubmitDisabled() || isSubmitting}>
                 Add Card
               </Button>
             </div>

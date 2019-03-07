@@ -60,14 +60,14 @@ const BookingPayment = ({ history, match }: RouterProps) => (
             <BookingPaymentContainer>
               <BookingNavBar />
 
-              <div className="d-md-none booking-payment-mobile-body">
+              <div className="d-lg-none booking-payment-mobile-body pb-6">
                 <TermsAndConditions houseRules={booking.listing.houseRules} />
                 <div className="booking-payment-footer-container">
                   <BookingPaymentBar booking={booking} />
                 </div>
               </div>
 
-              <div className="d-none d-md-flex booking-payment-desktop-body">
+              <div className="d-none d-lg-flex booking-payment-desktop-body">
                 <div className="booking-payment-terms">
                   <TermsAndConditions houseRules={booking.listing.houseRules} />
                   <div className="booking-payment-button-container">
@@ -85,7 +85,7 @@ const BookingPayment = ({ history, match }: RouterProps) => (
                     />
                   </div>
                 </div>
-                <div className="d-none d-md-block booking-payment-quote-container">
+                <div className="d-none d-lg-block booking-payment-quote-container">
                   <BookingQuote
                     booking={booking}
                     currency={currency || booking.currency || Currency.BEE}

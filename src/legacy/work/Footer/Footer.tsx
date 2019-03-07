@@ -71,12 +71,13 @@ const socialData = [
 
 const Footer = () => (
   <Switch>
-    <Route path="/work/account" component={DetailedFooter} />
-    <Route exact path="/work/listings/:id" render={() => <DetailedFooter className="d-none d-lg-block" />} />
-    <Route exact path="/work" component={DetailedFooter} />
-    <Route exact path="/work/about" component={DetailedFooter} />
-    <Route exact path="/work/login" component={NoopComponent} />
-    <Route exact path="/work/signup" component={NoopComponent} />
+    <Route path="/account" component={DetailedFooter} />
+    <Route path="/bookings" component={NoopComponent} />
+    <Route exact path="/listings/:id" render={() => <DetailedFooter className="d-none d-lg-block" />} />
+    <Route exact path="/" component={DetailedFooter} />
+    <Route exact path="/about" component={DetailedFooter} />
+    <Route exact path="/login" component={NoopComponent} />
+    <Route exact path="/signup" component={NoopComponent} />
     <Route component={DetailedFooter} />
   </Switch>
 )

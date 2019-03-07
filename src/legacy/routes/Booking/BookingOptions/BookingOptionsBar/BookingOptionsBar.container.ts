@@ -10,6 +10,7 @@ const BookingOptionsBarContainer = styled.div`
   width: 100%;
 
   .bar-button {
+    background-color: white;
     box-sizing: border-box;
     padding: 16px 16px;
     height: 100%;
