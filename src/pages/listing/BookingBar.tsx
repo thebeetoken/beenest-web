@@ -1,5 +1,5 @@
 import * as React from 'react';
-import { Button, Col, Modal, Row } from 'reactstrap';
+import { Button, Col, Modal, ModalHeader, Row } from 'reactstrap';
 
 import { Listing } from 'networking/listings';
 import { formatPrice } from 'utils/formatter';
@@ -17,6 +17,9 @@ const BookingBar = (listing: Listing) => {
       Request to Book
     </Button>
     <Modal isOpen={isOpen} toggle={() => setOpen(false)}>
+      <ModalHeader toggle={() => setOpen(false)}>
+        {listing.title}
+      </ModalHeader>
       <BookingCard {...listing} />
     </Modal>
   </Row>;
