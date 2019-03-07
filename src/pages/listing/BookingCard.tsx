@@ -2,7 +2,6 @@ import * as React from 'react';
 import { Button, Card, Input, Row } from 'reactstrap';
 import moment from 'moment';
 import { compose, graphql, Query } from 'react-apollo';
-import { withRouter } from 'react-router';
 
 import DateRangePicker from 'components/work/DateRangePicker';
 import { guestsSelectboxOptions } from 'components/work/SearchBar/searchBar.config';
@@ -11,8 +10,13 @@ import Loading from 'shared/loading/Loading';
 import { CREATE_BOOKING, GET_GUEST_SORTED_BOOKINGS, CreateBookingInput } from 'networking/bookings';
 import { GET_PUBLIC_LISTING, Listing, Reservation } from 'networking/listings';
 
+import { SETTINGS } from 'configs/settings';
+
 import { formatPrice } from 'utils/formatter';
 import { parseQueryString } from 'utils/queryParams';
+
+const { BEENEST_HOST } = SETTINGS;
+
 
 interface Params {
   checkInDate?: string;
@@ -25,7 +29,7 @@ interface Dates {
   endDate: moment.Moment | null;
 }
 
-interface Props extends RouterProps, Listing {
+interface Props extends Listing {
   createBooking: (input: CreateBookingInput) => Promise<any>
 }
 
@@ -33,7 +37,6 @@ const BookingCard = ({
   checkInDate,
   checkOutDate,
   createBooking,
-  history,
   id,
   reservations,
   totalQuantity
@@ -132,7 +135,7 @@ const BookingCard = ({
         listingId: id,
         numberOfGuests: numberOfGuests
       });
-      history.push(`/bookings/${data.createBooking.id}`);
+      window.location.href = `${BEENEST_HOST}/bookings/${data.createBooking.id}`;
     } catch (e) {
       console.log(e);
       alert(e.message);
@@ -169,4 +172,4 @@ export default compose(
       },
     }),
   })
-)(withRouter(BookingCard));
+)(BookingCard);
