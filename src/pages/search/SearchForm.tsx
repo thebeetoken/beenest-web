@@ -4,22 +4,22 @@ import { Col, Container, Row } from 'reactstrap';
 import SearchFilter from './SearchFilter';
 
 const SEARCH_FILTERS = [
+  // {
+  //   label: 'Home Type',
+  //   component: <strong>Home type!</strong>
+  // },
+  // {
+  //   label: 'Price Range',
+  //   component: <strong>Price range!</strong>
+  // },
   {
-    label: 'Home Type',
-    component: <strong>Home type!</strong>
-  },
-  {
-    label: 'Price Range',
-    component: <strong>Price range!</strong>
-  },
-  {
-    label: 'Transit Time',
+    label: 'Distance',
     component: <strong>Transit time!</strong>
   },
-  {
-    label: 'More Filters',
-    component: <strong>Moar filters!</strong>
-  }  
+  // {
+  //   label: 'More Filters',
+  //   component: <strong>Moar filters!</strong>
+  // }
 ];
 
 const SearchForm = () => (
