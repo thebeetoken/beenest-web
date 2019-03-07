@@ -16,7 +16,7 @@ const SEARCH_FILTERS = [
   // },
   {
     label: 'Distance From...',
-    component: () => <DistanceFrom />
+    render: () => <DistanceFrom />
   },
   // {
   //   label: 'More Filters',
@@ -27,10 +27,10 @@ const SEARCH_FILTERS = [
 const SearchForm = () => (
   <Container>
     <Row>
-    {SEARCH_FILTERS.map(({ label, component }) => (
+    {SEARCH_FILTERS.map(({ label, render }) => (
       <Col key={label}>
         <SearchFilter label={label}>
-          {component}
+          {render()}
         </SearchFilter>
       </Col>
     ))}
