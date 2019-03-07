@@ -8,7 +8,7 @@ const TransitTime = () => {
   const inputRef: React.RefObject<HTMLInputElement | null> = React.createRef();
   return <Container>
     <h5 className={place ? '' : 'text-muted'}>
-      {place ? place.name : 'No place specified'}
+      {place ? place.name : 'Add destination'}
       <Button close className={place ? 'mt-2' : 'd-none'} onClick={() => setPlace(null)} />
     </h5>
     <GoogleAutoComplete
