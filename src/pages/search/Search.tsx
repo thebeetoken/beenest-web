@@ -42,7 +42,11 @@ const Search = () => {
           return <EmptySearchPage />;
         }
 
-        return <SearchPage listings={data.searchListings} {...queryParams} />;
+        return <SearchPage
+          listings={data.searchListings}
+          onFilterChange={filter => console.log(filter)}
+          {...queryParams}
+        />;
       }}
     </Query>
   </Fade>);
