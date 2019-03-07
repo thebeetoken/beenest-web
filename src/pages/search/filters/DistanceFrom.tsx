@@ -6,7 +6,10 @@ import GoogleAutoComplete from 'components/shared/GoogleAutoComplete';
 const DistanceFrom = () => {
   const inputRef = React.createRef();
   return <Container>
-    <GoogleAutoComplete inputRef={inputRef} onPlaceChange={event => console.log(event)}>
+    <GoogleAutoComplete
+      types={[]}
+      inputRef={inputRef}
+      onPlaceChange={event => console.log(event)}>
       <Input
         onChange={event => console.log(event)}
         tag="input"
