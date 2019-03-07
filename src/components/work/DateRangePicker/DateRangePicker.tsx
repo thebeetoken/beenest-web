@@ -1,4 +1,5 @@
 import * as React from 'react';
+import omit from 'lodash.omit';
 
 import { DateRangePicker, DateRangePickerShape } from 'react-dates';
 
@@ -10,7 +11,7 @@ interface Props extends DateRangePickerShape {
 
 const WorkDateRangePicker = (props: Props) => (
   <WorkDateRangePickerContainer className={props.className}>
-    <DateRangePicker {...props} />
+    <DateRangePicker {...omit(props, ['className'])} />
   </WorkDateRangePickerContainer>
 );
 
