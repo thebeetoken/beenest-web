@@ -1,12 +1,12 @@
 import * as React from 'react';
 import { Col, Container, Fade, Row } from 'reactstrap';
+import { Listing } from 'networking/listings';
 
 import ListingGallery from './ListingGallery';
 import ListingInformation from './ListingInformation';
 import BookingCard from './BookingCard';
 import BookingBar from './BookingBar';
 
-import { Listing } from 'networking/listings';
 
 const ListingPage = (listing: Listing) => (
   <Fade>

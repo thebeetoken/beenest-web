@@ -1,12 +1,16 @@
 import * as React from 'react';
 import { Route, Switch } from 'react-router-dom';
 
+import Header from 'legacy/work/Header';
+import Footer from 'legacy/work/Footer';
+
 import About from './about';
 import Account from './Account';
 import Booking from 'legacy/routes/Booking';
 import FirebaseEmailHandler from './Account/FirebaseEmailHandler';
 import ForgotPassword from './forgotPassword';
 import Home from './home';
+import Host from './host';
 import HostSignup from './hosts/signup';
 import Listing from './listing';
 import Login from './login';
@@ -17,8 +21,6 @@ import Signup from './signup';
 import Trips from './trips';
 import TripsReceipt from './trips/TripsReceipt';
 import AuthenticatedRoute from 'HOCs/AuthenticatedRoute';
-
-import Header from 'legacy/work/Header';
 
 import '../styled/customStyles.scss';
 
@@ -31,6 +33,7 @@ const Work = () => (
       <Route path="/account" component={Account} />
       <AuthenticatedRoute path="/bookings" component={Booking} />
       <Route path="/forgot_password" component={ForgotPassword} />
+      <AuthenticatedRoute path="/host" component={Host} />
       <Route exact path="/listings/:id" component={Listing} />
       <Route exact path="/login" component={Login} />
       <Route exact path="/logout" component={Logout} />
@@ -42,6 +45,7 @@ const Work = () => (
       <Route exact path="/" component={Home} />
       <Route path="/" component={NotFound} />
     </Switch>
+    <Footer />
   </div>
 );
 
