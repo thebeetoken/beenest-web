@@ -4,14 +4,17 @@ import { Container, Input } from 'reactstrap';
 import GoogleAutoComplete from 'components/shared/GoogleAutoComplete';
 
 const DistanceFrom = () => {
+  const [place, setPlace] = React.useState<google.maps.places.PlaceResult | null>(null);
   const inputRef = React.createRef();
   return <Container>
+    <h5 className={place ? '' : 'text-muted'}>
+      {place ? place.name : 'No place specified'}
+    </h5>
     <GoogleAutoComplete
       types={[]}
       inputRef={inputRef}
-      onPlaceChange={event => console.log(event)}>
+      onPlaceChange={setPlace}>
       <Input
-        onChange={event => console.log(event)}
         tag="input"
         innerRef={inputRef}
         id="distanceFrom"
