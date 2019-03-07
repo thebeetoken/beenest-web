@@ -3,14 +3,30 @@ import { Button, Container, Input, Row } from 'reactstrap';
 
 import GoogleAutoComplete from 'components/shared/GoogleAutoComplete';
 
-const TransitTime = () => {
+interface Props {
+  onFilterChange?: () => void;
+}
+
+const TransitTime = ({ onFilterChange }: Props) => {
   const [place, setPlace] = React.useState<google.maps.places.PlaceResult | null>(null);
   const inputRef: React.RefObject<HTMLInputElement | null> = React.createRef();
+
+  const handlePlace = place => {
+    const { lat, lng } = place.geometry.location;
+    setPlace(place);
+    if (onFilterChange) {
+      onFilterChange({ near: { lat, lng }});
+    }
+  };
   const handleClear = event => {
     event.preventDefault();
     inputRef.current.value = "";
     setPlace(null);
+    if (onFilterChange) {
+      onFilterChange({});
+    }
   };
+
   return <Container>
     <h5 className={place ? '' : 'text-muted'}>
       {place ? place.name : 'Add destination'}
@@ -21,7 +37,7 @@ const TransitTime = () => {
     <GoogleAutoComplete
       types={[]}
       inputRef={inputRef}
-      onPlaceChange={setPlace}>
+      onPlaceChange={handlePlace}>
       <Input
         tag="input"
         innerRef={inputRef}
