@@ -23,6 +23,8 @@ import TripsReceipt from './trips/TripsReceipt';
 import AuthenticatedRoute from 'HOCs/AuthenticatedRoute';
 
 import '../styled/customStyles.scss';
+import HostListingEdit from 'legacy/routes/Host/HostListing/HostListingEdit';
+import HostListingCalendar from 'legacy/routes/Host/HostListingCalendar';
 
 const Work = () => (
   <div>
@@ -33,6 +35,8 @@ const Work = () => (
       <Route path="/account" component={Account} />
       <AuthenticatedRoute path="/bookings" component={Booking} />
       <Route path="/forgot_password" component={ForgotPassword} />
+      <AuthenticatedRoute path="/host/listings/:id/calendar" component={HostListingCalendar} />
+      <AuthenticatedRoute path="/host/listings/:id" render={(props: RouterProps) => <HostListingEdit {...props} />} />
       <AuthenticatedRoute path="/host" component={Host} />
       <Route exact path="/listings/:id" component={Listing} />
       <Route exact path="/login" component={Login} />

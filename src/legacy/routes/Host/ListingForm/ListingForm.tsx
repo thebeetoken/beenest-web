@@ -208,33 +208,33 @@ class ListingForm extends React.Component<Props, State> {
                   <Switch>
                     <Route
                       exact
-                      path="/legacy/host/listings/:id/accommodations"
+                      path="/host/listings/:id/accommodations"
                       render={() => {
                         return <AccommodationsForm {...FormikProps} setFocus={this.handleFocus} />
                       }}
                     />
                     <Route
                       exact
-                      path="/legacy/host/listings/:id/checkin_details"
+                      path="/host/listings/:id/checkin_details"
                       render={() => (
                         <CheckinDetailsForm {...FormikProps} setFocus={this.handleFocus} />
                       )}
                     />
                     <Route
                       exact
-                      path="/legacy/host/listings/:id/listing_info"
+                      path="/host/listings/:id/listing_info"
                       render={() => (
                         <ListingInfoForm {...FormikProps} setFocus={this.handleFocus} />
                       )}
                     />
                     <Route
                       exact
-                      path="/legacy/host/listings/:id/pricing_availability"
+                      path="/host/listings/:id/pricing_availability"
                       render={() => (
                         <PricingAvailabilityForm {...FormikProps} setFocus={this.handleFocus} />
                       )}
                     />
-                    <Redirect exact from="/legacy/host/listings/:id/edit" to="/legacy/host/listings/:id/listing_info" />
+                    <Redirect exact from="/host/listings/:id/edit" to="/host/listings/:id/listing_info" />
                     <Route component={NotFound} />
                   </Switch>
                   <Button
@@ -255,19 +255,13 @@ class ListingForm extends React.Component<Props, State> {
                       : 'Save & Continue'}
                   </Button>
                 </Form>
-                <AppConsumer>
-                  {({ screenType }: AppConsumerProps) =>
-                    screenType >= ScreenType.DESKTOP && (
-                      <aside>
-                        <div className="background-extender" />
-                        <div className="aside-container">
-                          {isFirstFocused(this.state.focus) && AsideHeaders[getCurrentCrumb(this.props.history)]}
-                          {ListingHelp[this.state.focus]}
-                        </div>
-                      </aside>
-                    )
-                  }
-                </AppConsumer>
+                <aside>
+                  <div className="background-extender" />
+                  <div className="aside-container">
+                    {isFirstFocused(this.state.focus) && AsideHeaders[getCurrentCrumb(this.props.history)]}
+                    {ListingHelp[this.state.focus]}
+                  </div>
+                </aside>
               </GeneralWrapper>
             </>
           )}
@@ -356,7 +350,7 @@ function omitFields(key: string, value: any) {
 
 function getCurrentCrumb(history: History): string {
   const path = history.location.pathname;
-  return path.substr(path.lastIndexOf('/legacy') + 1);
+  return path.substr(path.lastIndexOf('/') + 1);
 }
 
 function minStringError(readableName: string) {

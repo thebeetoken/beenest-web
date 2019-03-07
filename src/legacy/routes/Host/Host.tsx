@@ -78,6 +78,7 @@ const HostPage = ({ createListing, history }: Props) => {
     createListing()
       .then((response: any) => {
         const { id } = response.data.createListing;
+        setCreateListingClicked(false);
         history.push(`/host/listings/${id}/edit`);
       })
       .catch((error: Error) => {

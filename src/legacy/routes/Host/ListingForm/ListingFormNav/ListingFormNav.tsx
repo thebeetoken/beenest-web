@@ -22,19 +22,19 @@ const ListingFormNav = ({ formikProps, history, id, onSubmit, setNextCrumb, show
   const listingFormNavConfig = [
     {
       title: 'Listing Info',
-      to: `/legacy/${id}/listing_info`,
+      to: `/host/listings/${id}/listing_info`,
     },
     {
       title: 'Accommodations',
-      to: `/legacy/host/listings/${id}/accommodations`,
+      to: `/host/listings/${id}/accommodations`,
     },
     {
       title: 'Pricing & Availability',
-      to: `/legacy/host/listings/${id}/pricing_availability`,
+      to: `/host/listings/${id}/pricing_availability`,
     },
     {
       title: 'Check-in Details',
-      to: `/legacy/host/listings/${id}/checkin_details`,
+      to: `/host/listings/${id}/checkin_details`,
     },
   ];
 
