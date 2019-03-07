@@ -38,8 +38,6 @@ const BookingCard = ({
   const setDates = ({ startDate, endDate }: Dates) => (setStartDate(startDate), setEndDate(endDate));
   const input = { checkInDate: startDate, checkOutDate: endDate, numberOfGuests };
 
-  const input = { checkInDate: startDate, checkOutDate: endDate, numberOfGuests };
-
   return <Card className="p-5 shadow">
     <Query query={GET_PUBLIC_LISTING} fetchPolicy="cache-and-network" variables={{ id, input }}>
       {({ loading, error, data }) => <Row className="m-0">
