@@ -23,7 +23,7 @@ const ListingPage = (listing: Listing) => (
         </Col>
       </Row>
     </Container>
-    <footer className="fixed-bottom bg-white d-lg-none">
+    <footer className="fixed-bottom bg-white d-lg-none w-100 shadow-lg">
       <BookingBar {...listing} />
     </footer>
   </Fade>
