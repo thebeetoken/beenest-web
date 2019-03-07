@@ -3,7 +3,7 @@ import { Container, Input } from 'reactstrap';
 
 import GoogleAutoComplete from 'components/shared/GoogleAutoComplete';
 
-const DistanceFrom = () => {
+const TransitTime = () => {
   const [place, setPlace] = React.useState<google.maps.places.PlaceResult | null>(null);
   const inputRef = React.createRef();
   return <Container>
@@ -26,4 +26,4 @@ const DistanceFrom = () => {
   </Container>;
 }
 
-export default DistanceFrom;
+export default TransitTime;

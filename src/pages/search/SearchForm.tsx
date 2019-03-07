@@ -1,7 +1,7 @@
 import * as React from 'react';
 import { Col, Container, Row } from 'reactstrap';
 
-import DistanceFrom from './filters/DistanceFrom';
+import TransitTime from './filters/TransitTime';
 
 import SearchFilter from './SearchFilter';
 
@@ -15,8 +15,8 @@ const SEARCH_FILTERS = [
   //   component: <strong>Price range!</strong>
   // },
   {
-    label: 'Distance From...',
-    render: () => <DistanceFrom />
+    label: 'Transit Time',
+    render: () => <TransitTime />
   },
   // {
   //   label: 'More Filters',
