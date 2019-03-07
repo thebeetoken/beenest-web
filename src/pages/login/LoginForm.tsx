@@ -79,7 +79,7 @@ const LoginForm = (props: LoginProps) => {
             <Label for={PASSWORD} className="form-label">
               <span className="d-flex justify-content-between align-items-center">
                 Password{' '}
-                <Link className="link-muted text-capitalize font-weight-normal" to="/work/forgot_password">
+                <Link className="link-muted text-capitalize font-weight-normal" to="/forgot_password">
                   Forgot Password?
                 </Link>
               </span>
@@ -103,7 +103,7 @@ const LoginForm = (props: LoginProps) => {
           <Row className="d-flex align-items-center my-5">
             <Col xs="6">
               <span className="small text-muted">Don't have an account?</span>{' '}
-              <Link className="small" to="/work/signup">
+              <Link className="small" to="/signup">
                 Signup
               </Link>
             </Col>

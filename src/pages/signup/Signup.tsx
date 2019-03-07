@@ -3,7 +3,7 @@ import { Col, Container, Fade, Row } from 'reactstrap';
 import { Redirect, RouteProps } from 'react-router-dom';
 
 import { FirebaseConsumer, FirebaseUserProps } from 'HOCs/FirebaseProvider';
-import LoadingTakeover from 'shared/loading/LoadingTakeover';
+import LoadingTakeover from 'legacy/shared/loading/LoadingTakeover';
 import { AUTH_CONTAINER, AUTH_CONTENT } from 'styled/sharedClasses/authentication';
 
 import SignupForm from './SignupForm';
@@ -15,7 +15,7 @@ const Signup = (props: RouteProps) => (
 
       if (user) {
         const state = (props.location && props.location.state) || {};
-        const destination = state.referrer || '/work';
+        const destination = state.referrer || '/';
         return <Redirect to={destination} />;
       }
       return (

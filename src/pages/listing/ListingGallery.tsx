@@ -1,8 +1,8 @@
 import * as React from 'react';
 import { Button, Row } from 'reactstrap';
 
-import ImageGrid from 'shared/ImageGrid';
-import CarouselPortal from 'components/work/CarouselPortal';
+import ImageGrid from 'legacy/shared/ImageGrid';
+import CarouselPortal from 'legacy/work/CarouselPortal';
 
 import { Listing } from 'networking/listings';
 

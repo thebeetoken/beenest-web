@@ -9,7 +9,7 @@ import {
   AdminUsersEditHost,
 } from './AdminUsersHostForm';
 
-import NotFound from 'routes/NotFound';
+import NotFound from 'legacy/routes/NotFound';
 
 const AdminUsers = () => (
   <AdminUsersContainer className="admin-sub-container">

@@ -7,8 +7,8 @@ import AdminListingTableRow from './AdminListingTableRow';
 import { Listing, DELETE_LISTING, GET_ALL_LISTINGS } from 'networking/listings';
 import AdminLoading from '../../adminShared/components/AdminLoading';
 
-import Button from 'shared/Button';
-import { Paginator, PaginatorRef } from 'shared/Paginator';
+import Button from 'legacy/shared/Button';
+import { Paginator, PaginatorRef } from 'legacy/shared/Paginator';
 import { parseQueryString } from 'utils/queryParams';
 
 interface QueryParams {

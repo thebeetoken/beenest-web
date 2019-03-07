@@ -28,6 +28,7 @@
       "ABIs/*": ["ABIs/*"],
       "assets/*": ["assets/*"],
       "components/*": ["components/*"],
+      "legacy/*": ["legacy/*"],
       "routes/*": ["components/routes/*"],
       "shared/*": ["components/shared/*"],
       "HOCs/*": ["HOCs/*"],
@@ -41,7 +42,7 @@
     "lib": ["dom", "es5", "es6", "esnext", "scripthost"]
   },
   "files": ["custom.d.ts"],
-  "include": ["src/**/*"],
+  "include": ["src/**/*", "src/legacy/.routes.tsx"],
   "exclude": ["node_modules", "dist", "config", "docs"],
   "awesomeTypescriptLoaderOptions": {
     "useCache": true,

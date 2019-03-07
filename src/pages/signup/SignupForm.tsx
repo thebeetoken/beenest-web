@@ -175,7 +175,7 @@ const SignupForm = (props: SignupProps) => {
           <Row className="d-flex align-items-center mt-3">
             <Col className="d-flex align-items-center justify-content-center">
               <span className="small text-muted">Already have an account?</span>
-              <Link className="small ml-1" to="/work/login">Login</Link>
+              <Link className="small ml-1" to="/login">Login</Link>
             </Col>
           </Row>
         </Form>

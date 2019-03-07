@@ -12,7 +12,7 @@ const NotFound = () => (
         <CardBody className="d-flex flex-column align-items-center">
           <h1 className="display-4 font-size-md-down-5 text-primary px-4">404</h1>
           <p className="text-center">Sorry, the page you were looking for was not found.</p>
-          <Link to="/work">
+          <Link to="/">
             <Button
               className="btn-primary transition-3d-hover w-100"
               type="button"

@@ -3,8 +3,8 @@ import { withRouter } from 'react-router-dom';
 import { ListingCardContainer, ListingCardPlaceholderContainer } from './ListingCard.container';
 
 import { ListingShort } from 'networking/listings';
-import BeeLink from 'shared/BeeLink';
-import LazyImage from 'shared/LazyImage';
+import BeeLink from 'legacy/shared/BeeLink';
+import LazyImage from 'legacy/shared/LazyImage';
 import { numberToLocaleString } from 'utils/numberToLocaleString';
 import { Currency } from 'networking/bookings';
 import { parseQueryString, stringifyQueryString } from 'utils/queryParams';

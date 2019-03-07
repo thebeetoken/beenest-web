@@ -3,10 +3,10 @@ import { Col, Container, Fade, Row } from 'reactstrap';
 import { Query } from 'react-apollo';
 import { SEARCH_LISTINGS } from 'networking/listings';
 
-import LoadingTakeover from 'shared/loading/LoadingTakeover';
+import LoadingTakeover from 'legacy/shared/loading/LoadingTakeover';
 import { getFriendlyErrorMessage } from 'utils/validators';
 
-import SearchBar from 'components/work/SearchBar';
+import SearchBar from 'legacy/work/SearchBar';
 import { LISTING_CARD_IMAGE_DIMENSIONS } from 'utils/imageDimensions';
 import { parseQueryString } from 'utils/queryParams';
 import { VIEWPORT_CENTER_LAYOUT } from 'styled/sharedClasses/layout';

@@ -3,7 +3,7 @@ import { Redirect, Route, Switch } from 'react-router-dom';
 import AdminBookingsContainer from './AdminBookings.container';
 import AdminBookingsTable from './AdminBookingsTable';
 import AdminBooking from './AdminBooking';
-import NotFound from 'routes/NotFound';
+import NotFound from 'legacy/routes/NotFound';
 
 const AdminBookings = () => (
   <AdminBookingsContainer className="admin-sub-container">

@@ -4,11 +4,11 @@ import { Query } from 'react-apollo';
 import { GET_PAYMENT_SOURCES, PaymentSource } from 'networking/paymentSources';
 import { CreditBalance } from 'networking/users';
 
-import LoadingTakeover from 'shared/loading/LoadingTakeover';
+import LoadingTakeover from 'legacy/shared/loading/LoadingTakeover';
 
 import NewCardForm from './NewCardForm';
 import DeleteCardForm from './DeleteCardForm';
-import { AlertProperties } from 'components/work/Alert/Alert';
+import { AlertProperties } from 'legacy/work/Alert/Alert';
 
 interface Props extends RouterProps {
   creditBalance: CreditBalance;
