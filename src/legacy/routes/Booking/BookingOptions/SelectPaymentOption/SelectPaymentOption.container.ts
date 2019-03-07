@@ -5,7 +5,6 @@ const SelectPaymentOptionContainerMobile = styled.div`
   justify-content: space-between;
   margin: 0 auto;
   padding: 32px 24px;
-  height: 100%;
   width: 100%;
   
 
@@ -41,6 +40,7 @@ const SelectPaymentOptionContainerTablet = styled(SelectPaymentOptionContainerMo
 
     .select-payment-quote-desktop {
       width: 352px;
+      min-width: 352px;
     }
   }
 `
@@ -52,6 +52,7 @@ const SelectPaymentOptionContainer = styled(SelectPaymentOptionContainerTablet)`
 
     .select-payment-quote-desktop {
       width: 352px;
+      min-width: 352px;
     }
   }
 `

@@ -15,6 +15,7 @@ import HostSignup from './hosts/signup';
 import Listing from './listing';
 import Login from './login';
 import Logout from './logout';
+import Markets from 'legacy/routes/Markets';
 import NotFound from './notFound';
 import Search from './search';
 import Signup from './signup';
@@ -27,12 +28,13 @@ import HostListingEdit from 'legacy/routes/Host/HostListing/HostListingEdit';
 import HostListingCalendar from 'legacy/routes/Host/HostListingCalendar';
 
 const Work = () => (
-  <div>
+  <div className="min-height-100vh">
     <Header />
     <Switch>
       <Route path="/about" component={About} />
       <Route path="/account/action" component={FirebaseEmailHandler} />
       <Route path="/account" component={Account} />
+      <Route path="/markets" component={Markets} />
       <AuthenticatedRoute path="/bookings" component={Booking} />
       <Route path="/forgot_password" component={ForgotPassword} />
       <AuthenticatedRoute path="/host/listings/:id/calendar" component={HostListingCalendar} />

@@ -3,7 +3,7 @@ import NotFound from 'legacy/routes/NotFound';
 import { Route, Redirect, Switch } from 'react-router-dom';
 
 const generateSearchLink = (market:string, lat:number, lng:number) => (
-  `/legacy/listings?locationQuery=${encodeURIComponent(market.replace(/-/g,' '))}&coordinates%5Blat%5D=${lat}&coordinates%5Blng%5D=${lng}`
+  `/search?locationQuery=${encodeURIComponent(market.replace(/-/g,' '))}&coordinates%5Blat%5D=${lat}&coordinates%5Blng%5D=${lng}`
 );
 
 const markets = [
@@ -28,7 +28,7 @@ export default function Markets() {
   return (
     <Switch>
       {markets.map((market: {id:string, lat:number, lng:number}) => (
-         <Redirect from={`/legacy/markets/${market.id}`} to={generateSearchLink(market.id, market.lat, market.lng)} key={market.id} />
+         <Redirect from={`/markets/${market.id}`} to={generateSearchLink(market.id, market.lat, market.lng)} key={market.id} />
         )
       )}
       <Route component={NotFound} />

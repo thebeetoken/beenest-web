@@ -33,7 +33,7 @@ const BookingReceipt = ({ match }: RouterProps) => (
       return (
         <BookingReceiptContainer>
           <BookingNavBar />
-          <div className="booking-receipt-wrapper">
+          <div className="booking-receipt-wrapper container pt-4">
             <div className="booking-receipt-body">
               <div className="confirmation-container">
                 {currency !== Currency.BTC &&
@@ -70,7 +70,7 @@ const BookingReceipt = ({ match }: RouterProps) => (
                 </div>
               </>
 
-              <div className="d-none d-md-block booking-receipt-button-container">
+              <div className="d-none d-lg-block booking-receipt-button-container">
                 <Link to={`/trips/${booking.id}/receipt`}>
                   <Button color="white">Finish</Button>
                 </Link>

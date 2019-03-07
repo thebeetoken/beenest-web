@@ -21,7 +21,7 @@ const BookingOptions = ({ match }: RouterProps) => (
         return <Redirect to={`/listings/${booking.listingId}`} />;
       }
       return (
-        <div className="booking-body">
+        <div className="booking-body bee-without-header-height-container">
           <BookingNavBar listingId={booking.listingId} />
           <SelectPaymentOption booking={booking} />
         </div>

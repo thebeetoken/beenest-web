@@ -3,7 +3,7 @@ import { Col, Container, Fade, Row } from 'reactstrap';
 import { Query } from 'react-apollo';
 import { SEARCH_LISTINGS } from 'networking/listings';
 
-import Loading from 'legacy/shared/loading/Loading';
+import LoadingTakeover from 'legacy/shared/loading/LoadingTakeover';
 import { getFriendlyErrorMessage } from 'utils/validators';
 
 import SearchBar from 'legacy/work/SearchBar';
@@ -32,13 +32,7 @@ const Search = () => {
   return (<Fade>
     <Query query={SEARCH_LISTINGS} variables={{ input, ...LISTING_CARD_IMAGE_DIMENSIONS }}>
       {({ loading, error, data }) => {
-        if (loading) {
-          return (
-            <Container tag={Fade} className={VIEWPORT_CENTER_LAYOUT}>
-              <Loading height="8rem" width="8rem" />
-            </Container>
-          );
-        }
+        if (loading) return <LoadingTakeover />;
 
         if (error) {
           return isBadUserInputError(error) ? <SearchErrorPage /> : <ErrorPage error={error} />;
