@@ -6,7 +6,10 @@ import { FirebaseConsumer, FirebaseUserProps } from 'HOCs/FirebaseProvider';
 import { BeenestSVGPrimary } from 'legacy/shared/svgComponents/SvgComponents';
 import Loading from 'legacy/shared/loading/Loading';
 import SimpleHeader from 'legacy/work/SimpleHeader';
+import { Query } from 'react-apollo';
+import { GET_USER_BY_ID } from 'networking/users';
 
+const HOST_PORTAL_LINK = '/host';
 const HOST_INTEREST_LINK = '/hosts/signup?utm_source=header_host_signup_button';
 
 // const helpNavItem = {
@@ -68,9 +71,6 @@ const DetailedHeader = () => {
         <NavbarToggler onClick={handleToggleNavbar} className="mr-2" />
         <Collapse isOpen={isOpen} navbar>
           <Nav className="ml-auto u-header__navbar-nav pt-5 pb-3 pt-md-0 pb-md-0" navbar>
-            <Link to={HOST_INTEREST_LINK} className="mb-4 mb-md-0 mr-md-4 w-100 w-md-auto btn btn-outline-primary">
-              Become a Host
-            </Link>
             <FirebaseConsumer>
               {({ loading, user }: FirebaseUserProps) => {
                 if (loading) {
@@ -78,23 +78,51 @@ const DetailedHeader = () => {
                 }
                 if (user) {
                   return (
-                    authNavItems.map(item => (
+                    <Query query={GET_USER_BY_ID} variables={{ id: user.uid }}>
+                      {({ loading, error, data }) => {
+                        if (loading) {
+                          return <Loading />;
+                        }
+                        if (error || !data) {
+                          return <h1>{error ? error.message : 'Error / No Data'}</h1>;
+                        }
+                        const beeUser = data.getUserById;
+                        return (
+                          <>
+                            {beeUser.listingCount > 0
+                              ? <Link to={HOST_PORTAL_LINK} className="mb-4 mb-md-0 mr-md-4 w-100 w-md-auto btn btn-outline-primary">
+                                  Host Profile
+                                </Link>
+                              : <Link to={HOST_INTEREST_LINK} className="mb-4 mb-md-0 mr-md-4 w-100 w-md-auto btn btn-outline-primary">
+                                  Become a Host
+                                </Link>
+                            } 
+                            {authNavItems.map(item => (
+                              <NavItem className="px-2" key={item.header}>
+                                <NavLink to={item.link} tag={Link}>
+                                  {item.header}
+                                </NavLink>
+                              </NavItem>
+                            ))}
+                          </>
+                        );
+                      }}
+                    </Query>
+                  )
+                }
+                return (
+                  <>
+                    <Link to={HOST_INTEREST_LINK} className="mb-4 mb-md-0 mr-md-4 w-100 w-md-auto btn btn-outline-primary">
+                      Become a Host
+                    </Link>
+                    {navItems.map(item => (
                       <NavItem className="px-2" key={item.header}>
                         <NavLink to={item.link} tag={Link}>
                           {item.header}
                         </NavLink>
                       </NavItem>
-                    ))
-                  );
-                }
-                return (
-                  navItems.map(item => (
-                    <NavItem className="px-2" key={item.header}>
-                      <NavLink to={item.link} tag={Link}>
-                        {item.header}
-                      </NavLink>
-                    </NavItem>
-                  ))
+                    ))}
+                  </>
                 );
               }}
             </FirebaseConsumer>
