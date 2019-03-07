@@ -140,8 +140,7 @@ class SearchBar extends React.Component<RouterProps, State> {
             <Input
               type="select"
               name={NUMBER_OF_GUESTS}
-              onChange={this.handleGuestChange}
-              component="select">
+              onChange={this.handleGuestChange}>
               {guestsSelectboxOptions.map(option => (
                 <option value={option.value} key={option.value}>
                   {option.option}
