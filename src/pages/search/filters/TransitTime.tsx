@@ -19,7 +19,7 @@ const TransitTime = () => {
         innerRef={inputRef}
         id="distanceFrom"
         name="distanceFrom"
-        placeholder="Try &quot;Disneyland&quot;"
+        placeholder="Try &quot;Moscone Center&quot;"
         defaultValue={''}
         required />
     </GoogleAutoComplete>
