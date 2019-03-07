@@ -1,111 +1,91 @@
 import * as React from 'react';
-import { Redirect, Route, Switch } from 'react-router-dom';
+import { Redirect, Route, Switch, NavLink as RRNavLink } from 'react-router-dom';
 
 import HostBookings from './HostBookings';
 import HostListings from './HostListings';
 import HostPayments from './HostPayments';
-import HostContainer from './Host.container';
 
-import { FirebaseConsumer, FirebaseUserProps } from 'HOCs/FirebaseProvider';
 import NotFound from 'legacy/routes/NotFound';
-import Button from 'legacy/shared/Button';
-import Divider from 'legacy/shared/Divider';
-import GeneralWrapper from 'legacy/shared/GeneralWrapper';
-import AudioLoading from 'legacy/shared/loading/AudioLoading';
 import AuthenticatedRoute from 'HOCs/AuthenticatedRoute';
 import { compose, graphql } from 'react-apollo';
 import { CREATE_LISTING, Listing, GET_HOST_LISTINGS } from 'networking/listings';
 import { getFriendlyErrorMessage } from 'utils/validators';
-import TabNavBar from 'legacy/shared/TabNavBar';
+import { Container, Row, Col, Fade, Button, Nav, NavItem, NavLink } from 'reactstrap';
 
 interface Props extends RouterProps {
   createListing: () => Promise<Listing>;
 }
 
-interface State {
-  isCreateListingClicked: boolean;
-}
+const HostPage = ({ createListing, history }: Props) => {
+  const [isCreateListingClicked, setCreateListingClicked] = React.useState<boolean>(false);
+  const HOST_ROUTES = [
+    {
+      to: '/host/bookings',
+      title: 'Bookings',
+      component: <HostBookings />,
+    },
+    {
+      to: '/host/listings',
+      title: 'Listings',
+      component: <HostListings createListing={handleNewListingClick} />,
+    },
+    {
+      to: '/host/payments',
+      title: 'Payments',
+      component: <HostPayments />,
+    },
+  ];
 
-class Host extends React.Component<Props, State> {
-  readonly state: State = {
-    isCreateListingClicked: false,
-  };
+  return (
+    <Container className="pt-8 pb-6" tag={Fade}>
+      <Row>
+        <Col>
+          <h1 className="mb-0">Host Profile</h1>
+        </Col>
+        <Col md="4" lg="3" xl="2" className="d-flex align-items-center justify-content-end">
+          <Button
+            block
+            disabled={isCreateListingClicked}
+            onClick={handleNewListingClick}>
+            Add New Listing
+          </Button>
+        </Col>
+      </Row>
+      <hr />
+      <Nav className="mb-5" tabs>
+        {HOST_ROUTES.map(({ title, to }) => (
+          <NavItem key={to}>
+            <NavLink
+              tag={RRNavLink}
+              to={to}>
+              {title}
+            </NavLink>
+          </NavItem>
+        ))}
+      </Nav>
+        <Switch>
+          {HOST_ROUTES.map(({ component, to }) => (
+            <AuthenticatedRoute key={to} exact path={to} component={() => component} />
+          ))}
+          <Redirect from="/host" to="/host/listings" />
+          <Route component={NotFound} />
+        </Switch>
+    </Container>
+  );
 
-  render() {
-    return (
-      <HostContainer>
-        <GeneralWrapper
-          align="flex-start"
-          direction="column"
-          justify="flex-start"
-          width={976}>
-          <header>
-            <h1>Host Profile</h1>
-            <Button disabled={this.state.isCreateListingClicked} onClick={this.handleNewListingClick} size="small">
-              Add New Listing
-            </Button>
-          </header>
-          <Divider color="light" size="tall" />
-          <TabNavBar config={[
-              {
-                title: 'Bookings',
-                to: '/legacy/host/bookings',
-              },
-              {
-                title: 'Listings',
-                to: '/legacy/host/listings',
-              },
-              {
-                title: 'Payments',
-                to: '/legacy/host/payments',
-              }
-          ]} />
-          <FirebaseConsumer>
-            {({ loading, user }: FirebaseUserProps) => {
-              if (loading) {
-                return <AudioLoading height={48} width={96} />;
-              }
-
-              if (!user) {
-                return <h1>You are not logged in.</h1>;
-              }
-
-              return (
-                <Switch>
-                  <AuthenticatedRoute exact path="/legacy/host/bookings" component={HostBookings} />
-                  <AuthenticatedRoute exact path="/legacy/host/listings" render={() => <HostListings createListing={this.handleNewListingClick} />} />
-                  <AuthenticatedRoute exact path="/legacy/host/payments" component={HostPayments} />
-                  <Redirect from="/host" to="/legacy/host/listings" />
-                  <Route component={NotFound} />
-                </Switch>
-              );
-            }}
-          </FirebaseConsumer>
-        </GeneralWrapper>
-      </HostContainer>
-    );
+  function handleNewListingClick() {
+    setCreateListingClicked(true);
+    createListing()
+      .then((response: any) => {
+        const { id } = response.data.createListing;
+        history.push(`/host/listings/${id}/edit`);
+      })
+      .catch((error: Error) => {
+        console.error(error);
+        setCreateListingClicked(false);
+        alert(`There was a problem creating this listing: ${getFriendlyErrorMessage(error)}`);
+      });
   }
-
-  handleNewListingClick = () => {
-    this.setState(
-      {
-        isCreateListingClicked: true,
-      },
-      () => {
-        this.props
-          .createListing()
-          .then((listing: any) => {
-            const { id } = listing.data.createListing;
-            this.props.history.push(`/host/listings/${id}/edit`);
-          })
-          .catch((error: Error) => {
-            console.error(error);
-            this.setState({ isCreateListingClicked: false })
-            alert(`There was a problem creating this listing: ${getFriendlyErrorMessage(error)}`);
-          });
-      }
-    );
-  };
 }
 
 export default compose(
@@ -131,4 +111,4 @@ export default compose(
       },
     }),
   })
-)(Host);
+)(HostPage);

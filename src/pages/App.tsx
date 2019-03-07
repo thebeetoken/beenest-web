@@ -10,7 +10,7 @@ import Booking from 'legacy/routes/Booking';
 import FirebaseEmailHandler from './Account/FirebaseEmailHandler';
 import ForgotPassword from './forgotPassword';
 import Home from './home';
-import Host from './host';
+import Host from 'legacy/routes/Host';
 import HostSignup from './hosts/signup';
 import Listing from './listing';
 import Login from './login';
