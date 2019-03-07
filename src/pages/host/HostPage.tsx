@@ -9,15 +9,15 @@ import { getFriendlyErrorMessage } from 'utils/validators';
 
 const HOST_ROUTES = [
   {
-    to: '/work/host/bookings',
+    to: '/host/bookings',
     title: 'Bookings',
   },
   {
-    to: '/work/host/listings',
+    to: '/host/listings',
     title: 'Listings',
   },
   {
-    to: '/work/host/payments',
+    to: '/host/payments',
     title: 'Payments',
   },
 ];
@@ -60,7 +60,7 @@ const HostPage = ({ createListing, history }: Props) => {
           {HOST_ROUTES.map(({ title, to }) => (
             <AuthenticatedRoute exact path={to} component={() => <h1>This is Host {title}</h1>} />
           ))}
-          <Redirect from="/work/host" to="/work/host/listings" />
+          <Redirect from="/host" to="/host/listings" />
           <Route component={NotFound} />
         </Switch>
     </Container>
@@ -71,7 +71,7 @@ const HostPage = ({ createListing, history }: Props) => {
     createListing()
       .then((response: any) => {
         const { id } = response.data.createListing;
-        history.push(`/work/host/listings/${id}/edit`);
+        history.push(`/host/listings/${id}/edit`);
       })
       .catch((error: Error) => {
         console.error(error);

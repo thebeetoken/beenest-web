@@ -1,4 +1,5 @@
 import * as React from 'react';
+import { Container, Fade } from 'reactstrap';
 import { compose, graphql, Query } from 'react-apollo';
 
 import { loadWeb3, invoice, refund } from 'utils/web3';
@@ -13,8 +14,9 @@ import {
   CANCEL_BOOKING,
   GET_HOST_BOOKINGS,
   REJECT_BOOKING } from 'networking/bookings';
-import AudioLoading from 'legacy/shared/loading/AudioLoading';
 import generateUpdatedBookings from 'utils/generateUpdatedBookings';
+import Loading from '../../../shared/loading/Loading';
+import { VIEWPORT_CENTER_LAYOUT } from 'styled/sharedClasses/layout';
 
 interface Props {
   approveBooking: (booking: Booking) => Promise<void>;
@@ -30,7 +32,9 @@ const HostBookings = (props: Props): JSX.Element => {
         {({ loading, error, data }) => {
           if (loading) {
             return (
-              <AudioLoading height={48} width={96} />
+              <Container tag={Fade} className={VIEWPORT_CENTER_LAYOUT}>
+                <Loading />
+              </Container>
             );
           }
           if (error || !data) {
