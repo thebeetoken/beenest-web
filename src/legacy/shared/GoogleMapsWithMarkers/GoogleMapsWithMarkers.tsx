@@ -78,6 +78,7 @@ class GoogleMapsWithMarkers extends React.Component<Props, State> {
           }}
           position={near.geometry.location}
           title={near.name}
+          zIndex={1000}
         />}
         {listings.map(listing => (
           <Marker key={listing.id}
