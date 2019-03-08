@@ -62,6 +62,15 @@ class GoogleMapsWithMarkers extends React.Component<Props, State> {
         ref={this.handleMapMounted}
       >
         {near && <Marker
+          icon={{
+            fillColor: '#AADBFF',
+            fillOpacity: 1,
+            labelOrigin: { x: 0, y: -5 },
+            scale: 4,
+            strokeColor: '#1164FF',
+            path: google.maps.SymbolPath.CIRCLE,
+            strokeWeight: 2
+          }}
           label={near.name}
           position={near.geometry.location}
           title={near.name}
