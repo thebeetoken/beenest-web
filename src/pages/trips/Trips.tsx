@@ -37,23 +37,31 @@ function Trips() {
         const renderCurrentEmpty = 
           <>
             <Row className="mb-2">
-              <h2>You have no trips awaiting approval.</h2>
+              <Col>
+                <h2>You have no trips awaiting approval.</h2>
+              </Col>
             </Row>
             <Row>
-              <Link className="btn btn-secondary" to='/'>
-                Book a Home Today!
-              </Link>
+              <Col>
+                <Link className="btn btn-secondary" to='/'>
+                  Book a Home Today!
+                </Link>
+              </Col>
             </Row>
           </>;
         const renderUpcomingEmpty = 
           <>
             <Row className="mb-2">
-            <h2>You haven't booked any trips yet.</h2>
+              <Col>
+                <h2>You haven't booked any trips yet.</h2>
+              </Col>
             </Row>
             <Row>
-              <Link className="btn btn-secondary" to='/'>
-                Book a Home Today!
-              </Link>
+              <Col>
+                <Link className="btn btn-secondary" to='/'>
+                  Book a Home Today!
+                </Link>
+              </Col>
             </Row>
           </>;
         const renderCards = Object.keys(data).reduce((result: any, category: GUEST_SORTED_BOOKINGS) => {
