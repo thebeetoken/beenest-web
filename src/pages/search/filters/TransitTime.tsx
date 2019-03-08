@@ -6,17 +6,20 @@ import GoogleAutoComplete from 'components/shared/GoogleAutoComplete';
 import { ListingSearchCriteria } from 'networking/listings';
 
 interface Props {
+  place?: google.maps.places.PlaceResult;
+  onPlaceChange?: (place: google.maps.places.PlaceResult | null) => void;
   onFilterChange?: (filter: ListingSearchCriteria) => void;
 }
 
-const TransitTime = ({ onFilterChange }: Props) => {
-  const [place, setPlace] = React.useState<google.maps.places.PlaceResult | null>(null);
+const TransitTime = ({ place, onFilterChange, onPlaceChange }: Props) => {
   const inputRef: React.RefObject<HTMLInputElement | null> = React.createRef();
 
   const handlePlace = (place: google.maps.places.PlaceResult) => {
-    const { lat, lng } = place.geometry.location;
-    setPlace(place);
+    if (onPlaceChange) {
+      onPlaceChange(place);
+    }
     if (onFilterChange) {
+      const { lat, lng } = place.geometry.location;
       onFilterChange({ near: { lat: lat(), lng: lng() }});
     }
   };
@@ -25,7 +28,9 @@ const TransitTime = ({ onFilterChange }: Props) => {
     if (inputRef.current) {
       inputRef.current.value = "";
     }
-    setPlace(null);
+    if (onPlaceChange) {
+      onPlaceChange(null);
+    }
     if (onFilterChange) {
       onFilterChange({});
     }
@@ -48,7 +53,7 @@ const TransitTime = ({ onFilterChange }: Props) => {
         id="distanceFrom"
         name="distanceFrom"
         placeholder="Try &quot;Moscone Center&quot;"
-        defaultValue={''}
+        defaultValue={place ? place.name : ''}
         required />
     </GoogleAutoComplete>
   </Container>;
