@@ -35,7 +35,7 @@ class GoogleMapsWithMarkers extends React.Component<Props, State> {
     if (!map) {
       return;
     }
-    const googleMap: google.maps.Map = map.____SECRET_MAP_DO_NOT_USE_OR_YOU_WILL_BE_FIRED;
+    const googleMap: google.maps.Map = map.context.__SECRET_MAP_DO_NOT_USE_OR_YOU_WILL_BE_FIRED;
     this.directionsDisplay.setMap(googleMap);
 
     const { bounds, listings } = this.props;
