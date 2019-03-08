@@ -1,4 +1,4 @@
-import { getScreenType } from 'components/App.context';
+import { getScreenType } from 'legacy/Legacy.context';
 
 describe('getScreenType', () => {
   it('Screen Type function should be working & only return enum allowed numbers', () => {

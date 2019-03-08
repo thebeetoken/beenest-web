@@ -1,7 +1,7 @@
 import * as React from 'react';
 import { Col, Container, Fade, Row } from 'reactstrap';
 
-import TeamCard from 'components/work/TeamCard';
+import TeamCard from 'legacy/work/TeamCard';
 
 import { teamMembers } from './about.config';
 

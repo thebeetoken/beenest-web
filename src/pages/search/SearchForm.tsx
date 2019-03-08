@@ -1,39 +1,34 @@
 import * as React from 'react';
 import { Col, Container, Row } from 'reactstrap';
 
+import { SearchFilterCriteria } from './SearchCriteria';
+import TransitTime from './filters/TransitTime';
 import SearchFilter from './SearchFilter';
 
-const SEARCH_FILTERS = [
-  {
-    label: 'Home Type',
-    component: <strong>Home type!</strong>
-  },
-  {
-    label: 'Price Range',
-    component: <strong>Price range!</strong>
-  },
-  {
-    label: 'Transit Time',
-    component: <strong>Transit time!</strong>
-  },
-  {
-    label: 'More Filters',
-    component: <strong>Moar filters!</strong>
-  }  
-];
+interface Props {
+  filter?: SearchFilterCriteria;
+  onFilterChange?: (filter: SearchFilterCriteria) => void;
+}
 
-const SearchForm = () => (
-  <Container>
+const SearchForm = ({ filter, onFilterChange }: Props) => {
+  return <Container>
     <Row>
-    {SEARCH_FILTERS.map(({ label, component }) => (
-      <Col key={label}>
-        <SearchFilter label={label}>
-          {component}
+      <Col>
+        <SearchFilter label="Close To...">
+          <TransitTime
+            place={filter ? filter.near : undefined}
+            onPlaceChange={handlePlaceChange}
+          />
         </SearchFilter>
       </Col>
-    ))}
     </Row>
-  </Container>
-);
+  </Container>;
+
+  function handlePlaceChange(place: google.maps.places.PlaceResult | null) {
+    if (onFilterChange) {
+      onFilterChange(place ? { near: place } : {});
+    }
+  }
+};
 
 export default SearchForm;

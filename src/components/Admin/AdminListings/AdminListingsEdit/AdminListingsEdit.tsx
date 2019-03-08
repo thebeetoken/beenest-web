@@ -4,7 +4,7 @@ import { Query } from 'react-apollo';
 import AdminListingsFormContainer from '../AdminListingsForm/AdminListingsForm.container';
 import AdminListingsForm from '../AdminListingsForm';
 import { GET_LISTING_FORM } from 'networking/listings';
-import AdminLoading from 'components/Admin/adminShared/components/AdminLoading';
+import AdminLoading from '../../adminShared/components/AdminLoading';
 
 const AdminListingsEdit = ({ match }: any): JSX.Element => (
   <AdminListingsFormContainer>

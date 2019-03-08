@@ -3,9 +3,9 @@ import * as React from 'react';
 import { HotelCardContainer, HotelCardPlaceholderContainer } from './HotelCard.container';
 
 import { ListingShort } from 'networking/listings';
-import BeeLink from 'shared/BeeLink'
-import LazyImage from 'shared/LazyImage';
-import Svg from 'shared/Svg';
+import BeeLink from 'legacy/shared/BeeLink'
+import LazyImage from 'legacy/shared/LazyImage';
+import Svg from 'legacy/shared/Svg';
 import { formatSingleDate } from 'utils/formatDate';
 
 interface Props extends ListingShort {

@@ -58,13 +58,14 @@ export interface Listing {
   wifi: Wifi;
 }
 
-export interface ListingSearchCriteria {
+export interface ListingSearchInput {
   checkInDate?: string;
   checkOutDate?: string;
   numberOfGuests?: number;
-  locationQuery: string;
+  locationQuery?: string;
   bounds?: LatLngBounds;
   coordinates?: LatLng;
+  near?: LatLng;
 }
 
 export interface ListingShort {

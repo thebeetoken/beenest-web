@@ -3,7 +3,7 @@ import { Query } from 'react-apollo';
 
 import AdminConferenceForm from './AdminConferenceForm';
 import { GET_CONFERENCE_FORM } from 'networking/conferences';
-import AdminLoading from 'components/Admin/adminShared/components/AdminLoading';
+import AdminLoading from '../adminShared/components/AdminLoading';
 
 const AdminConferenceEdit = ({ match }: RouterProps): JSX.Element => {
   return <div>

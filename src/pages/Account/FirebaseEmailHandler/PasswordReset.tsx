@@ -2,13 +2,12 @@ import * as React from 'react';
 import { Button, Col, Container, Fade, Form, FormGroup, Label, Input, Row } from 'reactstrap';
 import { Link } from 'react-router-dom';
 
-import Loading from 'shared/loading/Loading';
+import LoadingTakeover from 'legacy/shared/loading/LoadingTakeover';
 import {
   CONTAINER_CLASSES,
   CONTENT_CLASSES,
   PRIMARY_BUTTON_CLASSES
 } from 'styled/custom.styled';
-import { VIEWPORT_CENTER_LAYOUT } from 'styled/sharedClasses/layout';
 import { auth } from 'utils/firebase';
 
 interface State {
@@ -147,7 +146,7 @@ export default class PasswordReset extends React.Component<Props> {
         <h2 className={CONTENT_CLASSES.TITLE}>You have changed your password</h2>
         <p className={CONTENT_CLASSES.SUBTITLE}>You can now login with your new password.</p>
         <Row>
-          <Link to="/work/login" className={PRIMARY_BUTTON_CLASSES}>
+          <Link to="/login" className={PRIMARY_BUTTON_CLASSES}>
             Login
           </Link>
         </Row>
@@ -156,13 +155,7 @@ export default class PasswordReset extends React.Component<Props> {
   }
 
   render() {
-    if (this.state.isSubmitting) {
-      return (
-        <Container tag={Fade} className={VIEWPORT_CENTER_LAYOUT}>
-          <Loading height="8rem" width="8rem" />
-        </Container>
-      );
-    }
+    if (this.state.isSubmitting) return <LoadingTakeover />;
 
     return (
       <Fade>

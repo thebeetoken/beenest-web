@@ -15,7 +15,7 @@ import ApolloWrapper from 'HOCs/ApolloWrapper';
 import { BannerProvider, BannerConsumer, BannerConsumerProps } from 'HOCs/BannerProvider';
 import ErrorBoundaryWrapper from 'HOCs/ErrorBoundaryWrapper';
 import { FirebaseProvider } from 'HOCs/FirebaseProvider';
-import App from './components/App';
+import Legacy from 'legacy/Legacy';
 
 // Google Analytics to only work on production
 import { AppEnv, APP_ENV } from 'configs/settings';
@@ -40,7 +40,7 @@ ReactDOM.render(
               return (
                 <FirebaseProvider {...bannerData}>
                   <BrowserRouter>
-                    <App />
+                    <Legacy />
                   </BrowserRouter>
                 </FirebaseProvider>
               );

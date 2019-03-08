@@ -8,8 +8,8 @@
 const brand = {
   core: '#455A64',
   link: '#00969e',
-  secondary: '#00969E',
-  style: '#FFC107',
+  secondary: '#77838f',
+  style: '#377dff',
 };
 
 // Object holding Social colors
@@ -37,7 +37,7 @@ const tone = {
 const utility = {
   black: '#000000',
   body: '#263238',
-  correct: '#18B28A',
+  correct: '#00C9A7',
   edit: '#5A869A',
   error: '#E7643A',
   incorrect: '#CC4733',

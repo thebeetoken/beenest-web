@@ -6,11 +6,11 @@ import moment from 'moment';
 import SearchBarContainer from './SearchBar.container';
 import DateRangePickerContainer from 'styled/containers/DateRangePicker.container';
 
-import Button from 'shared/Button';
-import GoogleAutoComplete from 'shared/GoogleAutoComplete';
-import InputWrapper from 'shared/InputWrapper';
+import Button from 'legacy/shared/Button';
+import GoogleAutoComplete from 'legacy/shared/GoogleAutoComplete';
+import InputWrapper from 'legacy/shared/InputWrapper';
 import { parseQueryString, stringifyQueryString } from 'utils/queryParams';
-import { AppConsumer, AppConsumerProps, ScreenType } from 'components/App.context';
+import { AppConsumer, AppConsumerProps, ScreenType } from 'legacy/Legacy.context';
 
 interface QueryParams {
   checkInDate?: string;

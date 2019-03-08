@@ -6,7 +6,7 @@ const AdminActionCardContainer = styled.div`
   box-shadow: 0 0 25px ${color('black', 0.1)};
   display: flex;
   flex-direction: column;
-  font-family: Montserrat, Arial, sans-serif;
+  font-family: Poppins, Helvetica, Arial, sans-serif;
   height: 256px;
   padding: 24px 24px 32px;
   position: relative;

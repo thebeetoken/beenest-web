@@ -4,13 +4,11 @@ import { Query } from 'react-apollo';
 import { GET_PAYMENT_SOURCES, PaymentSource } from 'networking/paymentSources';
 import { CreditBalance } from 'networking/users';
 
-
-import Loading from 'shared/loading/Loading';
-import { VIEWPORT_CENTER_LAYOUT } from 'styled/sharedClasses/layout';
+import LoadingTakeover from 'legacy/shared/loading/LoadingTakeover';
 
 import NewCardForm from './NewCardForm';
 import DeleteCardForm from './DeleteCardForm';
-import { AlertProperties } from 'components/work/Alert/Alert';
+import { AlertProperties } from 'legacy/work/Alert/Alert';
 
 interface Props extends RouterProps {
   creditBalance: CreditBalance;
@@ -29,13 +27,8 @@ const AccountPayment = ({ creditBalance }: Props) => {
   return (
     <Query query={GET_PAYMENT_SOURCES}>
       {({ loading, error, data }) => {
-        if (loading) {
-          return (
-            <Container className={VIEWPORT_CENTER_LAYOUT}>
-              <Loading height="8rem" width="8rem" />
-            </Container>
-          );
-        }
+        if (loading) return <LoadingTakeover />;
+        
         if (error || !data) {
           return (
             <UncontrolledAlert color="danger">
@@ -76,6 +69,7 @@ const AccountPayment = ({ creditBalance }: Props) => {
               <Col xs="12">
                 <Button
                   color="primary"
+                  className="mt-6"
                   onClick={() => handleModalAction(ModalType.ADD_NEW_CARD)}>
                   <span className="fas fa-plus-circle pull-left mr-2"></span>
                   Add New Card

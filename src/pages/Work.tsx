@@ -1,8 +1,8 @@
 import * as React from 'react';
 import { Route, Switch } from 'react-router-dom';
 
-import Header from 'components/work/Header';
-import Footer from 'components/work/Footer';
+import Header from 'legacy/work/Header';
+import Footer from 'legacy/work/Footer';
 
 import About from './about';
 import Account from './Account';

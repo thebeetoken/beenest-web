@@ -1,18 +1,21 @@
 import * as React from 'react';
 import { Col, Container, Fade, Row } from 'reactstrap';
 import { Query } from 'react-apollo';
+import { ApolloError } from 'apollo-client';
+
 import { SEARCH_LISTINGS } from 'networking/listings';
 
-import Loading from 'shared/loading/Loading';
-import { getFriendlyErrorMessage } from 'utils/validators';
+import LoadingTakeover from 'legacy/shared/loading/LoadingTakeover';
+import SearchBar from 'legacy/work/SearchBar';
 
-import SearchBar from 'components/work/SearchBar';
-import { LISTING_CARD_IMAGE_DIMENSIONS } from 'utils/imageDimensions';
-import { parseQueryString } from 'utils/queryParams';
 import { VIEWPORT_CENTER_LAYOUT } from 'styled/sharedClasses/layout';
 
+import { LISTING_CARD_IMAGE_DIMENSIONS } from 'utils/imageDimensions';
+import { parseQueryString } from 'utils/queryParams';
+import { getFriendlyErrorMessage } from 'utils/validators';
+
+import { SearchFilterCriteria, toListingSearchInput } from './SearchCriteria';
 import SearchPage from './SearchPage';
-import { ApolloError } from 'apollo-client';
 
 const SEARCH_PARAMS = [
   'bounds',
@@ -24,21 +27,17 @@ const SEARCH_PARAMS = [
 ];
 
 const Search = () => {
+  const [filter, setFilter] = React.useState<SearchFilterCriteria>({});
   const queryParams: any = parseQueryString(location.search);
-  const input: any = SEARCH_PARAMS.reduce(
+  const queryInput: any = SEARCH_PARAMS.reduce(
     (obj, param) => queryParams[param] ? { ...obj, [param]: queryParams[param] } : obj,
     {}
   );
+  const input = { ...queryInput, ...toListingSearchInput(filter) };
   return (<Fade>
     <Query query={SEARCH_LISTINGS} variables={{ input, ...LISTING_CARD_IMAGE_DIMENSIONS }}>
       {({ loading, error, data }) => {
-        if (loading) {
-          return (
-            <Container tag={Fade} className={VIEWPORT_CENTER_LAYOUT}>
-              <Loading height="8rem" width="8rem" />
-            </Container>
-          );
-        }
+        if (loading) return <LoadingTakeover />;
 
         if (error) {
           return isBadUserInputError(error) ? <SearchErrorPage /> : <ErrorPage error={error} />;
@@ -48,7 +47,12 @@ const Search = () => {
           return <EmptySearchPage />;
         }
 
-        return <SearchPage listings={data.searchListings} {...queryParams} />;
+        return <SearchPage
+          listings={data.searchListings}
+          filter={filter}
+          onFilterChange={setFilter}
+          {...queryParams}
+        />;
       }}
     </Query>
   </Fade>);

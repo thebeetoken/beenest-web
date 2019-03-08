@@ -15,7 +15,7 @@ const signOut = (props: Props) => {
   const { client } = props;
   signOutOfFirebase()
     .then((_) => client.resetStore())
-    .then(() => window.location.assign('/work'));
+    .then(() => window.location.assign('/'));
 };
 
 export default withRouter(withApollo(Logout));

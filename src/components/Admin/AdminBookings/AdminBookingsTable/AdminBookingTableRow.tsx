@@ -3,7 +3,7 @@ import * as React from 'react';
 import AdminBookingStatus from './AdminBookingStatus';
 
 import { getAdminBookingDisplayStatus } from 'utils/bookingsDisplayStatus';
-import BeeLink from 'shared/BeeLink';
+import BeeLink from 'legacy/shared/BeeLink';
 import { Booking } from 'networking/bookings';
 import { formatSingleDate } from 'utils/formatDate';
 import { numberToLocaleString } from 'utils/numberToLocaleString';

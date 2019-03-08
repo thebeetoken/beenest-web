@@ -346,12 +346,12 @@ const WorkDateRangerPickerContainer = styled.div`
 .CalendarDay__hovered_span:hover {
   background: rgba(55,125,255, 0.4);
   border: 1px double rgba(55,125,255, 0.6);
-  color: #007a87;
+  color: #fff;
 }
 .CalendarDay__hovered_span:active {
   background: rgba(55,125,255, 0.6);
   border: 1px double rgba(55,125,255, 0.6);
-  color: #007a87;
+  color: #fff;
 }
 .CalendarDay__blocked_calendar,
 .CalendarDay__blocked_calendar:active,
@@ -643,7 +643,6 @@ const WorkDateRangerPickerContainer = styled.div`
   border-left: 0;
   border-radius: 0;
   height: calc(3rem + 2px);
-  font-size: 1rem;
   line-height: 1.5;
   border-radius: .25rem;
   &::-webkit-input-placeholder {
@@ -887,6 +886,11 @@ const WorkDateRangerPickerContainer = styled.div`
   height: 15px;
   width: 15px;
   fill: #cacccd;
+}
+@media (max-width: 575.99px) {
+  .DateInput_input {
+    font-size: 0.75rem;
+  }
 }
 `;
 

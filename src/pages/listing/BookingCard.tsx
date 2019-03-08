@@ -3,9 +3,9 @@ import { Button, Card, Input, Row } from 'reactstrap';
 import moment from 'moment';
 import { compose, graphql, Query } from 'react-apollo';
 
-import DateRangePicker from 'components/work/DateRangePicker';
-import { guestsSelectboxOptions } from 'components/work/SearchBar/searchBar.config';
-import Loading from 'shared/loading/Loading';
+import DateRangePicker from 'legacy/work/DateRangePicker';
+import { guestsSelectboxOptions } from 'legacy/work/SearchBar/searchBar.config';
+import Loading from 'legacy/shared/loading/Loading';
 
 import { CREATE_BOOKING, GET_GUEST_SORTED_BOOKINGS, CreateBookingInput } from 'networking/bookings';
 import { GET_PUBLIC_LISTING, Listing, Reservation } from 'networking/listings';
@@ -51,7 +51,7 @@ const BookingCard = ({
   const setDates = ({ startDate, endDate }: Dates) => (setStartDate(startDate), setEndDate(endDate));
   const input = { checkInDate: startDate, checkOutDate: endDate, numberOfGuests };
 
-  return <Card className="p-5 shadow">
+  return <Card className="p-5 shadow border-0">
     <Query query={GET_PUBLIC_LISTING} fetchPolicy="cache-and-network" variables={{ id, input }}>
       {({ loading, error, data }) => <Row className="m-0">
         <h3 className="d-inline">
@@ -62,6 +62,7 @@ const BookingCard = ({
     </Query>
     <Row className="w-100 m-0 mb-3">
       <DateRangePicker
+        className="w-100"
         isOutsideRange={isOutsideDateRange}
         isDayBlocked={isDayBlocked}
         startDate={startDate} // momentPropTypes.momentObj or null,
@@ -83,8 +84,7 @@ const BookingCard = ({
         type="select"
         name="numberOfGuests"
         value={numberOfGuests}
-        onChange={event => setNumberOfGuests(parseInt(event.target.value))}
-        component="select">
+        onChange={event => setNumberOfGuests(parseInt(event.target.value))}>
         {guestsSelectboxOptions.map(option => (
           <option value={option.value} key={option.value}>
             {option.option}
@@ -93,7 +93,7 @@ const BookingCard = ({
       </Input>
     </Row>
     <Row className="w-100 m-0">
-      <Button onClick={startBooking} className="w-100" disabled={!startDate || !endDate || isBooking}>
+      <Button onClick={startBooking} className="w-100" color="primary" disabled={!startDate || !endDate || isBooking}>
         {isBooking ? <Loading height="1rem" width="1rem" /> : 'Request to Book'}
       </Button>
     </Row>
