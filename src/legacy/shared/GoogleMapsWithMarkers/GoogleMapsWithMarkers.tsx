@@ -65,7 +65,7 @@ class GoogleMapsWithMarkers extends React.Component<Props, State> {
         ref={this.handleMapMounted}
       >
         {near && <Marker
-          icon={nearMarker}
+          icon={{ url: nearMarker, labelOrigin: { x: 16, y: -12 } }}
           label={{
             color: '#333',
             fontSize: '1rem',
