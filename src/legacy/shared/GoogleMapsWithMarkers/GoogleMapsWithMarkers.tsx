@@ -61,7 +61,11 @@ class GoogleMapsWithMarkers extends React.Component<Props, State> {
         defaultCenter={getCenterCoordinates(listings)}
         ref={this.handleMapMounted}
       >
-        {near && <Marker position={near.geometry.location} />}
+        {near && <Marker
+          label={near.name}
+          position={near.geometry.location}
+          title={near.name}
+        />}
         {listings.map(listing => (
           <Marker key={listing.id}
             position={{ lat: listing.lat, lng: listing.lng }}
