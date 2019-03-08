@@ -16,7 +16,7 @@ const ProfilePhotoUploader = ({ profilePicUrl, updateUser }: any) => {
   const hideUploaderClass = isUploadSuccessful ? 'hide-uploader' : '';
   return (
     <Container className="d-flex flex-column align-items-center">
-      <Card className="p-3 mb-3 rounded-0">
+      <Card className="p-3 mb-3 shadow border-0 rounded-0">
         <ProfilePhotoUploaderContainer>
           <div
             className="photo-uploader-container"

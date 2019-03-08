@@ -10,7 +10,7 @@ import Booking from 'legacy/routes/Booking';
 import FirebaseEmailHandler from './Account/FirebaseEmailHandler';
 import ForgotPassword from './forgotPassword';
 import Home from './home';
-import Host from './host';
+import Host from 'legacy/routes/Host';
 import HostSignup from './hosts/signup';
 import Listing from './listing';
 import Login from './login';
@@ -22,8 +22,12 @@ import Signup from './signup';
 import Trips from './trips';
 import TripsReceipt from './trips/TripsReceipt';
 import AuthenticatedRoute from 'HOCs/AuthenticatedRoute';
+import { StripeLink, StripeComplete, StripeNew } from 'legacy/routes/Account/Stripe';
+
 
 import '../styled/customStyles.scss';
+import HostListingEdit from 'legacy/routes/Host/HostListing/HostListingEdit';
+import HostListingCalendar from 'legacy/routes/Host/HostListingCalendar';
 
 const Work = () => (
   <div className="min-height-100vh">
@@ -31,11 +35,16 @@ const Work = () => (
     <div className="min-height-100vh">
       <Switch>
         <Route path="/about" component={About} />
+        <Route exact path="/account/stripe/link" component={StripeLink} />
+        <Route exact path="/account/stripe/new" component={StripeNew} />
+        <Route exact path="/account/stripe/complete" component={StripeComplete} />
         <Route path="/account/action" component={FirebaseEmailHandler} />
         <Route path="/account" component={Account} />
         <Route path="/markets" component={Markets} />
         <AuthenticatedRoute path="/bookings" component={Booking} />
         <Route path="/forgot_password" component={ForgotPassword} />
+        <AuthenticatedRoute path="/host/listings/:id/calendar" component={HostListingCalendar} />
+        <AuthenticatedRoute path="/host/listings/:id" render={(props: RouterProps) => <HostListingEdit {...props} />} />
         <AuthenticatedRoute path="/host" component={Host} />
         <Route exact path="/listings/:id" component={Listing} />
         <Route exact path="/login" component={Login} />

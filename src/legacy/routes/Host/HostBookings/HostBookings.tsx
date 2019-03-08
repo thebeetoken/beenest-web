@@ -13,8 +13,8 @@ import {
   CANCEL_BOOKING,
   GET_HOST_BOOKINGS,
   REJECT_BOOKING } from 'networking/bookings';
-import AudioLoading from 'legacy/shared/loading/AudioLoading';
 import generateUpdatedBookings from 'utils/generateUpdatedBookings';
+import LoadingTakeover from 'legacy/shared/loading/LoadingTakeover';
 
 interface Props {
   approveBooking: (booking: Booking) => Promise<void>;
@@ -28,11 +28,8 @@ const HostBookings = (props: Props): JSX.Element => {
     <HostBookingsContainer>
       <Query query={GET_HOST_BOOKINGS}>
         {({ loading, error, data }) => {
-          if (loading) {
-            return (
-              <AudioLoading height={48} width={96} />
-            );
-          }
+          if (loading) return <LoadingTakeover />;
+
           if (error || !data) {
             return <h1>{error ? error.message : 'Error / No Data'}</h1>;
           }

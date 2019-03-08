@@ -10,12 +10,11 @@ const ListingFormMobileContainer = styled.section`
     width: 100%;
     min-width: 100%;
     form {
+      display: flex;
+      flex-direction: column;
       min-height: calc(100% - 128px);
       padding: 48px 24px 56px;
       width: 100%;
-      .bee-button {
-        width: 160px;
-      }
       label {
         margin-bottom: 8px;
       }
@@ -110,7 +109,7 @@ const ListingFormTabletContainer = styled(ListingFormMobileContainer)`
 `;
 
 const ListingFormDesktopContainer = styled(ListingFormTabletContainer)`
-  @media (min-width: 1025px) {
+  @media (min-width: 992px) { /* change to comply with bootstrap lg display */
     & > .bee-general-wrapper {
       margin: 0;
       padding-left: calc((100% - 976px) / 2);

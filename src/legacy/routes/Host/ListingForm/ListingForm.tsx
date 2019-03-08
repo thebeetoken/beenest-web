@@ -14,13 +14,12 @@ import ListingFormNav from './ListingFormNav';
 import ListingFormContainer from './ListingForm.container';
 import GeneralWrapper from 'legacy/shared/GeneralWrapper';
 import NotFound from 'legacy/routes/NotFound';
-import Button from 'legacy/shared/Button';
 import timeOptions from 'utils/timeOptions';
 import { History } from 'history';
 import ListingHelp from './ListingHelp';
 import { ApolloError } from 'apollo-client';
-import { AppConsumer, AppConsumerProps, ScreenType } from 'legacy/Legacy.context';
-import AudioLoading from 'legacy/shared/loading/AudioLoading';
+import Loading from 'legacy/shared/loading/Loading';
+import { Button, Col, Row } from 'reactstrap';
 
 interface FormValues {
   [name: string]: boolean | string | string[] | number | object | undefined;
@@ -208,66 +207,66 @@ class ListingForm extends React.Component<Props, State> {
                   <Switch>
                     <Route
                       exact
-                      path="/legacy/host/listings/:id/accommodations"
+                      path="/host/listings/:id/accommodations"
                       render={() => {
                         return <AccommodationsForm {...FormikProps} setFocus={this.handleFocus} />
                       }}
                     />
                     <Route
                       exact
-                      path="/legacy/host/listings/:id/checkin_details"
+                      path="/host/listings/:id/checkin_details"
                       render={() => (
                         <CheckinDetailsForm {...FormikProps} setFocus={this.handleFocus} />
                       )}
                     />
                     <Route
                       exact
-                      path="/legacy/host/listings/:id/listing_info"
+                      path="/host/listings/:id/listing_info"
                       render={() => (
                         <ListingInfoForm {...FormikProps} setFocus={this.handleFocus} />
                       )}
                     />
                     <Route
                       exact
-                      path="/legacy/host/listings/:id/pricing_availability"
+                      path="/host/listings/:id/pricing_availability"
                       render={() => (
                         <PricingAvailabilityForm {...FormikProps} setFocus={this.handleFocus} />
                       )}
                     />
-                    <Redirect exact from="/legacy/host/listings/:id/edit" to="/legacy/host/listings/:id/listing_info" />
+                    <Redirect exact from="/host/listings/:id/edit" to="/host/listings/:id/listing_info" />
                     <Route component={NotFound} />
                   </Switch>
-                  <Button
-                    disabled={FormikProps.isSubmitting}
-                    onClick={() => {
-                      if (!FormikProps.isValid) {
-                        alert(
-                          `Cannot save changes due to errors:\n\n${Object.values(flat(FormikProps.errors))
-                            .join('\n')
-                            .toString()}`
-                        );
-                      }
-                      FormikProps.submitForm();
-                    }}
-                    type="button">
-                    {FormikProps.isSubmitting
-                      ? <AudioLoading color="dark" height={24} width={48} />
-                      : 'Save & Continue'}
-                  </Button>
+                  <Row noGutters className="d-flex justify-content-end">
+                    <Col className="p-0" lg="4">
+                      <Button
+                        className="text-white w-100"
+                        color="success"
+                        disabled={FormikProps.isSubmitting}
+                        onClick={() => {
+                          if (!FormikProps.isValid) {
+                            alert(
+                              `Cannot save changes due to errors:\n\n${Object.values(flat(FormikProps.errors))
+                                .join('\n')
+                                .toString()}`
+                            );
+                          }
+                          FormikProps.submitForm();
+                        }}
+                        type="button">
+                        {FormikProps.isSubmitting
+                          ? <Loading color="secondary" width="1.4rem" height="1.4rem" />
+                          : 'Save & Continue'}
+                      </Button>
+                    </Col>
+                  </Row>
                 </Form>
-                <AppConsumer>
-                  {({ screenType }: AppConsumerProps) =>
-                    screenType >= ScreenType.DESKTOP && (
-                      <aside>
-                        <div className="background-extender" />
-                        <div className="aside-container">
-                          {isFirstFocused(this.state.focus) && AsideHeaders[getCurrentCrumb(this.props.history)]}
-                          {ListingHelp[this.state.focus]}
-                        </div>
-                      </aside>
-                    )
-                  }
-                </AppConsumer>
+                <aside className="d-none d-lg-block">
+                  <div className="background-extender" />
+                  <div className="aside-container">
+                    {isFirstFocused(this.state.focus) && AsideHeaders[getCurrentCrumb(this.props.history)]}
+                    {ListingHelp[this.state.focus]}
+                  </div>
+                </aside>
               </GeneralWrapper>
             </>
           )}
@@ -356,7 +355,7 @@ function omitFields(key: string, value: any) {
 
 function getCurrentCrumb(history: History): string {
   const path = history.location.pathname;
-  return path.substr(path.lastIndexOf('/legacy') + 1);
+  return path.substr(path.lastIndexOf('/') + 1);
 }
 
 function minStringError(readableName: string) {

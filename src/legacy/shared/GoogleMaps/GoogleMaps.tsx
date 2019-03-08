@@ -79,11 +79,11 @@ function GoogleMaps(props: Props) {
   }
 
   if (coordinates.lat === 0 && coordinates.lng === 0) {
-    return <h1>Please provide a valid address</h1>;
+    return <h4>Please provide a valid address</h4>;
   }
 
   if (error) {
-    return <h1>Error</h1>;
+    return <h4>Error</h4>;
   }
 
   return (

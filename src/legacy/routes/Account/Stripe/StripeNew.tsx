@@ -1,5 +1,5 @@
 import * as React from 'react';
-import AudioLoading from 'legacy/shared/loading/AudioLoading';
+import LoadingTakeover from 'legacy/shared/loading/LoadingTakeover';
 
 import { SETTINGS } from 'configs/settings';
 const { BEENEST_HOST, STRIPE_CLIENT_ID } = SETTINGS;
@@ -22,6 +22,6 @@ export const getStripeRedirectUrl = () => {
  **/
 export const StripeNew = () => {
   window.location.assign(getStripeRedirectUrl());
-  return <AudioLoading height={150} width={150} />;
+  return <LoadingTakeover />;
 };
 

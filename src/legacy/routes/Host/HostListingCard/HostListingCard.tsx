@@ -57,25 +57,25 @@ const HostListingCard = (props: Props): JSX.Element => {
         <div className="bee-flex-div" />
         <h3>Last edited: {format(updatedAt, 'MM/DD/YY [at] hh:mmA')}</h3>
         <BeeLink to={`/host/listings/${id}/calendar`}>
-          <Button clear color="link" suffix="utils/carat-right">
+          <Button clear color="style" suffix="utils/carat-right">
             View Calendar
           </Button>
         </BeeLink>
         <div className="host-listing-meta--button-container">
           <BeeLink to={`/host/listings/${id}/edit`}>
-            <Button background="core" color="white" size="small">
+            <Button background="secondary" color="white" size="small">
               Edit
             </Button>
           </BeeLink>
-          <BeeLink target="_blank" to={`/legacy/listings/${idSlug}`}>
-            <Button background="white" border="core" color="core" size="small">
+          <BeeLink target="_blank" to={`/listings/${idSlug}`}>
+            <Button background="white" border="secondary" color="secondary" size="small">
               Preview
             </Button>
           </BeeLink>
-          <Button background="white" border="core" color="core" size="small" onClick={() => duplicateListing(id)}>
+          <Button background="white" border="secondary" color="secondary" size="small" onClick={() => duplicateListing(id)}>
             Duplicate
           </Button>
-          <Button background="white" border="core" color="core" size="small" onClick={() => deleteListing(id)}>
+          <Button background="white" border="secondary" color="secondary" size="small" onClick={() => deleteListing(id)}>
             Delete
           </Button>
           <FirebaseConsumer>
