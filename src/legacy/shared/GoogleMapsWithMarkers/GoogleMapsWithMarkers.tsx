@@ -26,12 +26,18 @@ interface State {
 }
 
 class GoogleMapsWithMarkers extends React.Component<Props, State> {
+  directionsService = new google.maps.DirectionsService();
+  directionsDisplay = new google.maps.DirectionsRenderer();
+
   state: State = {}
 
   handleMapMounted = (map: GoogleMap) => {
     if (!map) {
       return;
     }
+    const googleMap: google.maps.Map = map.____SECRET_MAP_DO_NOT_USE_OR_YOU_WILL_BE_FIRED;
+    this.directionsDisplay.setMap(googleMap);
+
     const { bounds, listings } = this.props;
     if (bounds) {
       map.fitBounds(bounds);
@@ -55,6 +61,26 @@ class GoogleMapsWithMarkers extends React.Component<Props, State> {
   render() {
     const { listings, near } = this.props;
     const { selectedListing } = this.state;
+
+    if (selectedListing && near) {
+      console.log('DIRECTIONS');
+      this.directionsService.route({
+        origin: { lat: selectedListing.lat, lng: selectedListing.lng },
+        destination: near.geometry.location,
+        travelMode: google.maps.TravelMode.DRIVING
+      }, (response, status) => {
+        console.log(status);
+        console.log(response);
+        if (status === google.maps.DirectionsStatus.OK) {
+          console.log('setting...')
+          this.directionsDisplay.setDirections(response);
+          console.log('???');
+        } else {
+          console.log(`Failed to retrieve directions: ${status}`);
+        }
+      });
+    }
+
     return (
       <GoogleMap
         defaultZoom={10}
