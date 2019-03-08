@@ -63,18 +63,13 @@ class GoogleMapsWithMarkers extends React.Component<Props, State> {
     const { selectedListing } = this.state;
 
     if (selectedListing && near) {
-      console.log('DIRECTIONS');
       this.directionsService.route({
         origin: { lat: selectedListing.lat, lng: selectedListing.lng },
         destination: near.geometry.location,
         travelMode: google.maps.TravelMode.DRIVING
       }, (response, status) => {
-        console.log(status);
-        console.log(response);
         if (status === google.maps.DirectionsStatus.OK) {
-          console.log('setting...')
           this.directionsDisplay.setDirections(response);
-          console.log('???');
         } else {
           console.log(`Failed to retrieve directions: ${status}`);
         }
