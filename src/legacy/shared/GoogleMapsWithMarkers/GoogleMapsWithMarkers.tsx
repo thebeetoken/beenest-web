@@ -112,6 +112,7 @@ class GoogleMapsWithMarkers extends React.Component<Props, State> {
             onClick={() => this.setState({ selectedListing: listing })} />
         ))}
         {!!selectedListing && <InfoWindow
+          options={{ pixelOffset: { height: -32, width: 0 } }}
           position={{ lat: selectedListing.lat, lng: selectedListing.lng }}
           onCloseClick={() => this.setState({ selectedListing: undefined })} >
           <ListingCard target="_blank" {...selectedListing} />
