@@ -4,8 +4,8 @@ import omit from 'lodash.omit';
 
 import { Listing } from 'networking/listings';
 
-import GoogleMapsWithMarkers from 'shared/GoogleMapsWithMarkers';
-import SearchBar from 'components/work/SearchBar';
+import GoogleMapsWithMarkers from 'legacy/shared/GoogleMapsWithMarkers';
+import SearchBar from 'legacy/work/SearchBar';
 
 import { SearchFilterCriteria } from './SearchCriteria';
 import SearchForm from './SearchForm';

@@ -6,7 +6,7 @@ import AdminListingsContainer from './AdminListings.container';
 import AdminListingsNew from './AdminListingsNew';
 import AdminListingsEdit from './AdminListingsEdit';
 
-import NotFound from 'routes/NotFound';
+import NotFound from 'legacy/routes/NotFound';
 
 const AdminListings = () => (
   <AdminListingsContainer className="admin-sub-container">

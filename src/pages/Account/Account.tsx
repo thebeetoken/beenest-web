@@ -5,15 +5,15 @@ import { Route, Redirect, Switch } from 'react-router';
 import { NavLink as RRNavLink } from 'react-router-dom';
 import { GET_ACCOUNT_PAGE } from 'networking/users';
 
-import LoadingTakeover from 'shared/loading/LoadingTakeover';
-import NotFound from 'components/routes/NotFound';
+import LoadingTakeover from 'legacy/shared/loading/LoadingTakeover';
+import NotFound from 'legacy/routes/NotFound';
 import { FirebaseConsumer, FirebaseUserProps } from 'HOCs/FirebaseProvider';
 
 import AccountGeneral from './AccountGeneral';
 import AccountPayment from './AccountPayment';
 import AccountSecurity from './AccountSecurity';
 import AccountVerification from './AccountVerification';
-import ProfilePhotoUploader from 'components/work/ProfilePhotoUploader';
+import ProfilePhotoUploader from 'legacy/work/ProfilePhotoUploader';
 
 const Account = () => {
   return (
@@ -27,29 +27,29 @@ const Account = () => {
 
         const { creditBalance, user } = data;
         return (
-          <Container className="pt-8 pb-6" tag={Fade}>
+          <Container className="pt-8 pb-6 bee-without-header-height-container" tag={Fade}>
             <h1>Profile</h1>
             <hr />
             <Nav className="mb-5 w-lg-50" tabs>
               {[
                 {
                   tag: RRNavLink,
-                  to: '/work/account/general',
+                  to: '/account/general',
                   title: 'General Info',
                 },
                 {
                   tag: RRNavLink,
-                  to: '/work/account/payment',
+                  to: '/account/payment',
                   title: 'Payment',
                 },
                 {
                   tag: RRNavLink,
-                  to: '/work/account/security',
+                  to: '/account/security',
                   title: 'Security',
                 },
                 {
                   tag: RRNavLink,
-                  to: '/work/account/verification',
+                  to: '/account/verification',
                   title: 'Verification',
                 },
               ].map(({ title, tag, to }) => (
@@ -73,17 +73,17 @@ const Account = () => {
                   <Switch>
                     <Route
                       exact
-                      path="/work/account/general"
+                      path="/account/general"
                       render={(props: RouterProps) => <AccountGeneral {...props} user={user} />}
                     />
                     <Route
                       exact
-                      path="/work/account/payment"
+                      path="/account/payment"
                       render={(props: RouterProps) => <AccountPayment {...props} creditBalance={creditBalance} />}
                     />
-                    <Route exact path="/work/account/security" component={AccountSecurity} />
-                    <Route exact path="/work/account/verification" component={AccountVerification} />
-                    <Redirect exact from="/work/account" to="/work/account/general" />
+                    <Route exact path="/account/security" component={AccountSecurity} />
+                    <Route exact path="/account/verification" component={AccountVerification} />
+                    <Redirect exact from="/account" to="/account/general" />
                     <Route component={NotFound} />
                   </Switch>
                 </Col>
@@ -105,7 +105,7 @@ export default () => (
       if (loading) {
         return null;
       }
-      return user ? <Account /> : <Redirect to="/work/login" />;
+      return user ? <Account /> : <Redirect to="/login" />;
     }}
   </FirebaseConsumer>
 );

@@ -95,6 +95,13 @@ $HEADER-HEIGHT: 4.125rem;
   flex-grow: 1;
 }
 
+// remove default negative margin from bootstrap
+.bee-svg {
+  svg {
+    margin-bottom: 0!important;
+  }
+}
+
 // google maps styling
 .bee-custom-google-maps {
   height: 200px;
@@ -105,4 +112,9 @@ $HEADER-HEIGHT: 4.125rem;
     min-height: 400px;
     width: 100%;
   }
+}
+
+#bee-modal-root {
+  position: relative;
+  z-index: 10000;
 }

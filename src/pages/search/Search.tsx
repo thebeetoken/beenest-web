@@ -5,8 +5,8 @@ import { ApolloError } from 'apollo-client';
 
 import { SEARCH_LISTINGS } from 'networking/listings';
 
-import LoadingTakeover from 'shared/loading/LoadingTakeover';
-import SearchBar from 'components/work/SearchBar';
+import LoadingTakeover from 'legacy/shared/loading/LoadingTakeover';
+import SearchBar from 'legacy/work/SearchBar';
 
 import { VIEWPORT_CENTER_LAYOUT } from 'styled/sharedClasses/layout';
 

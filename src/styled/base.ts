@@ -26,5 +26,5 @@ export const base: Base = {
   ...defaults,
   'background-color': `${color('white')}`,
   'box-sizing': 'border-box',
-  'font-family': 'Montserrat, sans-serif',
+  'font-family': 'Poppins, Helvetica, Arial, sans-serif',
 };

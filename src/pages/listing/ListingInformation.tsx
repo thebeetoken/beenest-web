@@ -3,9 +3,9 @@ import { Col, Fade, Row } from 'reactstrap';
 import sanitizeHtml from 'sanitize-html';
 
 import { Listing } from 'networking/listings';
-import GoogleMaps from 'shared/GoogleMaps';
-import Avatar from 'components/work/Avatar';
-import ContactHostButton from 'components/work/ContactHostButton';
+import GoogleMaps from 'legacy/shared/GoogleMaps';
+import Avatar from 'legacy/work/Avatar';
+import ContactHostButton from 'legacy/work/ContactHostButton';
 import { formatAddress, formatMonth } from 'utils/formatter';
 
 const ListingInformation = ({

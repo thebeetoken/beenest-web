@@ -1,6 +1,6 @@
 import * as React from 'react';
 
-import CloseButton from 'shared/CloseButton';
+import CloseButton from 'legacy/shared/CloseButton';
 import PopUpCardContainer from './PopUpCard.container';
 
 /**

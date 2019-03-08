@@ -3,9 +3,9 @@ import { Button, Card, Input, Row } from 'reactstrap';
 import moment from 'moment';
 import { compose, graphql, Query } from 'react-apollo';
 
-import DateRangePicker from 'components/work/DateRangePicker';
-import { guestsSelectboxOptions } from 'components/work/SearchBar/searchBar.config';
-import Loading from 'shared/loading/Loading';
+import DateRangePicker from 'legacy/work/DateRangePicker';
+import { guestsSelectboxOptions } from 'legacy/work/SearchBar/searchBar.config';
+import Loading from 'legacy/shared/loading/Loading';
 
 import { CREATE_BOOKING, GET_GUEST_SORTED_BOOKINGS, CreateBookingInput } from 'networking/bookings';
 import { GET_PUBLIC_LISTING, Listing, Reservation } from 'networking/listings';
