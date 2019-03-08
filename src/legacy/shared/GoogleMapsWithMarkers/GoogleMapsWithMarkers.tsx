@@ -71,7 +71,11 @@ class GoogleMapsWithMarkers extends React.Component<Props, State> {
             path: google.maps.SymbolPath.CIRCLE,
             strokeWeight: 2
           }}
-          label={near.name}
+          label={{
+            color: '#333',
+            fontSize: '1rem',
+            text: near.name
+          }}
           position={near.geometry.location}
           title={near.name}
         />}
