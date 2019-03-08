@@ -30,7 +30,7 @@ const HostPage = ({ createListing, history }: Props) => {
   const [isCreateListingClicked, setCreateListingClicked] = React.useState<boolean>(false);
 
   return (
-    <Container className="pt-8 pb-6 min-vh-100" tag={Fade}>
+    <Container className="pt-8 pb-8 min-vh-100" tag={Fade}>
       <Row>
         <Col>
           <h1 className="mb-0">Host Profile</h1>
