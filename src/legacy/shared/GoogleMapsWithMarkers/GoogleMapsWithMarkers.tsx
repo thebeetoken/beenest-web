@@ -53,7 +53,7 @@ class GoogleMapsWithMarkers extends React.Component<Props, State> {
     }
   }
 
-  handleSelection(selectedListing: ListingShort) {
+  handleSelection(selectedListing?: ListingShort) {
     const { near } = this.props;
     this.setState({ selectedListing });
     if (selectedListing && near) {
@@ -69,6 +69,8 @@ class GoogleMapsWithMarkers extends React.Component<Props, State> {
           console.log(`Failed to retrieve directions: ${status}`);
         }
       });
+    } else {
+      this.setState({ directions: undefined });
     }
   }
 
@@ -109,7 +111,7 @@ class GoogleMapsWithMarkers extends React.Component<Props, State> {
         {!!selectedListing && <InfoWindow
           options={{ pixelOffset: new google.maps.Size(0, -32) }}
           position={{ lat: selectedListing.lat, lng: selectedListing.lng }}
-          onCloseClick={() => this.setState({ selectedListing: undefined })} >
+          onCloseClick={() => this.handleSelection(undefined)} >
           <ListingCard target="_blank" {...selectedListing} />
         </InfoWindow>}
         {directions && <DirectionsRenderer directions={directions} />}
