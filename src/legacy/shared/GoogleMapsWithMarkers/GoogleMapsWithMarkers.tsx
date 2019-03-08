@@ -69,6 +69,11 @@ class GoogleMapsWithMarkers extends React.Component<Props> {
           console.log(`Failed to retrieve directions: ${status}`);
         }
       });
+    } else {
+      this.directionsDisplay.setDirections({
+        geocoded_waypoints: [],
+        routes: []
+      });
     }
 
     return (
