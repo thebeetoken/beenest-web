@@ -1,7 +1,7 @@
 import * as React from 'react';
 import { withRouter } from 'react-router-dom';
 import { compose, withProps } from 'recompose';
-import { InfoWindow, Marker, GoogleMap, withGoogleMap, withScriptjs } from 'react-google-maps';
+import { DirectionsRenderer, InfoWindow, Marker, GoogleMap, withGoogleMap, withScriptjs } from 'react-google-maps';
 
 import { SETTINGS } from 'configs/settings';
 const { GOOGLE_MAPS_KEY } = SETTINGS;
@@ -22,22 +22,17 @@ interface Props extends RouterProps {
 }
 
 interface State {
+  directions?: google.maps.DirectionsResult;
   selectedListing?: ListingShort
 }
 
 class GoogleMapsWithMarkers extends React.Component<Props, State> {
-  directionsService = new google.maps.DirectionsService();
-  directionsDisplay = new google.maps.DirectionsRenderer();
-
   state: State = {}
 
   handleMapMounted = (map: GoogleMap) => {
     if (!map) {
       return;
     }
-    const googleMap: google.maps.Map = map.context.__SECRET_MAP_DO_NOT_USE_OR_YOU_WILL_BE_FIRED;
-    this.directionsDisplay.setMap(googleMap);
-
     const { bounds, listings } = this.props;
     if (bounds) {
       map.fitBounds(bounds);
@@ -58,23 +53,28 @@ class GoogleMapsWithMarkers extends React.Component<Props, State> {
     }
   }
 
-  render() {
-    const { listings, near } = this.props;
-    const { selectedListing } = this.state;
-
+  handleSelection(selectedListing: ListingShort) {
+    const { near } = this.props;
+    this.setState({ selectedListing });
     if (selectedListing && near) {
-      this.directionsService.route({
+      const directionsService = new google.maps.DirectionsService();
+      directionsService.route({
         origin: { lat: selectedListing.lat, lng: selectedListing.lng },
         destination: near.geometry.location,
         travelMode: google.maps.TravelMode.DRIVING
-      }, (response, status) => {
+      }, (directions, status) => {
         if (status === google.maps.DirectionsStatus.OK) {
-          this.directionsDisplay.setDirections(response);
+          this.setState({ directions });
         } else {
           console.log(`Failed to retrieve directions: ${status}`);
         }
       });
     }
+  }
+
+  render() {
+    const { listings, near } = this.props;
+    const { directions, selectedListing } = this.state;
 
     return (
       <GoogleMap
@@ -104,7 +104,7 @@ class GoogleMapsWithMarkers extends React.Component<Props, State> {
         {listings.map(listing => (
           <Marker key={listing.id}
             position={{ lat: listing.lat, lng: listing.lng }}
-            onClick={() => this.setState({ selectedListing: listing })} />
+            onClick={() => this.handleSelection(listing)} />
         ))}
         {!!selectedListing && <InfoWindow
           options={{ pixelOffset: new google.maps.Size(0, -32) }}
@@ -112,6 +112,7 @@ class GoogleMapsWithMarkers extends React.Component<Props, State> {
           onCloseClick={() => this.setState({ selectedListing: undefined })} >
           <ListingCard target="_blank" {...selectedListing} />
         </InfoWindow>}
+        {directions && <DirectionsRenderer directions={directions} />}
       </GoogleMap>
     );
   }
