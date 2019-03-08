@@ -16,20 +16,16 @@ interface Props extends RouterProps {
   children?: React.ReactNode;
   className?: string;
   height?: string;
+  selectedListing?: ListingShort;
   listings: ListingShort[];
   near?: google.maps.places.PlaceResult;
   width?: string;
+  onSelect: (listing: ListingShort | null) => void;
 }
 
-interface State {
-  selectedListing?: ListingShort
-}
-
-class GoogleMapsWithMarkers extends React.Component<Props, State> {
+class GoogleMapsWithMarkers extends React.Component<Props> {
   directionsService = new google.maps.DirectionsService();
   directionsDisplay = new google.maps.DirectionsRenderer();
-
-  state: State = {}
 
   handleMapMounted = (map: GoogleMap) => {
     if (!map) {
@@ -59,8 +55,7 @@ class GoogleMapsWithMarkers extends React.Component<Props, State> {
   }
 
   render() {
-    const { listings, near } = this.props;
-    const { selectedListing } = this.state;
+    const { listings, near, selectedListing, onSelect } = this.props;
 
     if (selectedListing && near) {
       this.directionsService.route({
@@ -104,12 +99,12 @@ class GoogleMapsWithMarkers extends React.Component<Props, State> {
         {listings.map(listing => (
           <Marker key={listing.id}
             position={{ lat: listing.lat, lng: listing.lng }}
-            onClick={() => this.setState({ selectedListing: listing })} />
+            onClick={() => onSelect(listing)} />
         ))}
         {!!selectedListing && <InfoWindow
-          options={{ pixelOffset: { height: -32, width: 0 } }}
+          options={{ pixelOffset: new google.maps.Size(0, -32) }}
           position={{ lat: selectedListing.lat, lng: selectedListing.lng }}
-          onCloseClick={() => this.setState({ selectedListing: undefined })} >
+          onCloseClick={() => onSelect(null)} >
           <ListingCard target="_blank" {...selectedListing} />
         </InfoWindow>}
       </GoogleMap>
