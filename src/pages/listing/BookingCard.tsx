@@ -93,7 +93,7 @@ const BookingCard = ({
       </Input>
     </Row>
     <Row className="w-100 m-0">
-      <Button onClick={startBooking} className="w-100" disabled={!startDate || !endDate || isBooking}>
+      <Button onClick={startBooking} className="w-100" color="primary" disabled={!startDate || !endDate || isBooking}>
         {isBooking ? <Loading height="1rem" width="1rem" /> : 'Request to Book'}
       </Button>
     </Row>

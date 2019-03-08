@@ -15,7 +15,7 @@ const ContactHostButton = (props: Props) => {
   const [isOpen, setOpen] = React.useState<boolean>(false);
   return (
     <Fade>
-      <Button onClick={() => setOpen(true)}>
+      <Button onClick={() => setOpen(true)} outline>
         Contact Host
         <span className="fas fa-envelope pl-3" />
       </Button>
