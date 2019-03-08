@@ -1,18 +1,21 @@
 import * as React from 'react';
 import { Col, Container, Fade, Row } from 'reactstrap';
 import { Query } from 'react-apollo';
-import { SEARCH_LISTINGS, ListingSearchCriteria } from 'networking/listings';
+import { ApolloError } from 'apollo-client';
+
+import { SEARCH_LISTINGS } from 'networking/listings';
 
 import LoadingTakeover from 'legacy/shared/loading/LoadingTakeover';
-import { getFriendlyErrorMessage } from 'utils/validators';
-
 import SearchBar from 'legacy/work/SearchBar';
-import { LISTING_CARD_IMAGE_DIMENSIONS } from 'utils/imageDimensions';
-import { parseQueryString } from 'utils/queryParams';
+
 import { VIEWPORT_CENTER_LAYOUT } from 'styled/sharedClasses/layout';
 
+import { LISTING_CARD_IMAGE_DIMENSIONS } from 'utils/imageDimensions';
+import { parseQueryString } from 'utils/queryParams';
+import { getFriendlyErrorMessage } from 'utils/validators';
+
+import { SearchFilterCriteria, toListingSearchInput } from './SearchCriteria';
 import SearchPage from './SearchPage';
-import { ApolloError } from 'apollo-client';
 
 const SEARCH_PARAMS = [
   'bounds',
@@ -24,13 +27,13 @@ const SEARCH_PARAMS = [
 ];
 
 const Search = () => {
-  const [filter, setFilter] = React.useState<ListingSearchCriteria>({});
+  const [filter, setFilter] = React.useState<SearchFilterCriteria>({});
   const queryParams: any = parseQueryString(location.search);
   const queryInput: any = SEARCH_PARAMS.reduce(
     (obj, param) => queryParams[param] ? { ...obj, [param]: queryParams[param] } : obj,
     {}
   );
-  const input = { ...queryInput, ...filter };
+  const input = { ...queryInput, ...toListingSearchInput(filter) };
   return (<Fade>
     <Query query={SEARCH_LISTINGS} variables={{ input, ...LISTING_CARD_IMAGE_DIMENSIONS }}>
       {({ loading, error, data }) => {
@@ -46,6 +49,7 @@ const Search = () => {
 
         return <SearchPage
           listings={data.searchListings}
+          filter={filter}
           onFilterChange={setFilter}
           {...queryParams}
         />;
