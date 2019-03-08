@@ -1,39 +1,52 @@
 import * as React from 'react';
 import { Col, Container, Row } from 'reactstrap';
 
+import { ListingSearchCriteria } from 'networking/listings';
+
+import TransitTime from './filters/TransitTime';
+
 import SearchFilter from './SearchFilter';
+
+interface Props {
+  onFilterChange?: (filter: ListingSearchCriteria) => void;
+}
 
 const SEARCH_FILTERS = [
   {
-    label: 'Home Type',
-    component: <strong>Home type!</strong>
-  },
-  {
-    label: 'Price Range',
-    component: <strong>Price range!</strong>
-  },
-  {
-    label: 'Transit Time',
-    component: <strong>Transit time!</strong>
-  },
-  {
-    label: 'More Filters',
-    component: <strong>Moar filters!</strong>
-  }  
+    label: 'Close To...',
+    render: (props: Props) => <TransitTime {...props} />
+  }
 ];
 
-const SearchForm = () => (
-  <Container>
+const SearchForm = ({ onFilterChange }: Props) => {
+  const [filters, setFilters] = React.useState<any[]>(SEARCH_FILTERS.map(() => ({})));
+
+  return <Container>
     <Row>
-    {SEARCH_FILTERS.map(({ label, component }) => (
+    {SEARCH_FILTERS.map(({ label, render }, index) => (
       <Col key={label}>
         <SearchFilter label={label}>
-          {component}
+          {render({ onFilterChange: filter => handleFilterChange(index, filter) })}
         </SearchFilter>
       </Col>
     ))}
     </Row>
-  </Container>
-);
+  </Container>;
+
+  function handleFilterChange(index: number, filter: ListingSearchCriteria) {
+    const newFilters = [
+      ...(filters.slice(0, index)),
+      filter,
+      ...(filters.slice(index + 1))
+    ];
+    setFilters(newFilters);
+    if (onFilterChange) {
+      onFilterChange(newFilters.reduce(
+        (allFilters, nextFilter) => ({ ...allFilters, ...nextFilter }),
+        {}
+      ));
+    }
+  }
+};
 
 export default SearchForm;

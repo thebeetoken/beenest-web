@@ -62,9 +62,10 @@ export interface ListingSearchCriteria {
   checkInDate?: string;
   checkOutDate?: string;
   numberOfGuests?: number;
-  locationQuery: string;
+  locationQuery?: string;
   bounds?: LatLngBounds;
   coordinates?: LatLng;
+  near?: LatLng;
 }
 
 export interface ListingShort {

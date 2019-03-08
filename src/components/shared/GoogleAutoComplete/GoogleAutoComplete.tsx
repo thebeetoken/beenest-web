@@ -9,6 +9,7 @@ interface Props {
   onPlaceChange(place: google.maps.places.PlaceResult): void;
   inputRef: React.RefObject<HTMLInputElement>;
   children: React.ReactNode;
+  types?: string[];
 }
 
 
@@ -24,9 +25,10 @@ class GoogleAutoComplete extends React.Component<Props, any> {
     if (!this.props.inputRef.current) return;
     if (!window.google) return;
 
+    const types = this.props.types || ['(regions)'];
     this.autocomplete = new google.maps.places.Autocomplete(
       this.props.inputRef.current,
-      {"types": ["(regions)"]}
+      { types }
     );
     if (this.autocomplete.setFields) this.autocomplete.setFields(['geometry', 'name']);
     this.autocomplete.addListener('place_changed', this.handlePlaceChanged);
