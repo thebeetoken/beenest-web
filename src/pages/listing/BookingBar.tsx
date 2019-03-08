@@ -13,7 +13,7 @@ const BookingBar = (listing: Listing) => {
     <Col>
       From {formatPrice(listing.pricePerNightUsd)} per night
     </Col>
-    <Button onClick={() => setOpen(true)}>
+    <Button color="primary" onClick={() => setOpen(true)}>
       Request to Book
     </Button>
     <Modal isOpen={isOpen} toggle={() => setOpen(false)}>
