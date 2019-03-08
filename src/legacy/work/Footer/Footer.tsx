@@ -78,7 +78,7 @@ const Footer = () => (
     <Route exact path="/signup" component={NoopComponent} />
     <Route path="/account" component={DetailedFooter} />
     <Route path="/bookings" component={NoopComponent} />
-    <Route path="/host" component={NoopComponent} />
+    <Route path="/hosts" component={NoopComponent} />
     <Route component={DetailedFooter} />
   </Switch>
 )
