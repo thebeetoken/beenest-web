@@ -37,7 +37,7 @@ const HostPage = ({ createListing, history }: Props) => {
   ];
 
   return (
-    <Container className="pt-8 pb-6" tag={Fade}>
+    <Container className="pt-8 pb-10 mb-6" tag={Fade}>
       <Row>
         <Col>
           <h1 className="mb-0">Host Profile</h1>

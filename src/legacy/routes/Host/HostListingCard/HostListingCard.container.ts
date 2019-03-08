@@ -17,7 +17,7 @@ const HostListingCardContainer = styled.article`
     height: 100%;
     width: 436px;
     h1 {
-      ${typography('title', 4)};
+      ${typography('title', 6)};
     }
     h2 {
       ${typography('read', 1)};
