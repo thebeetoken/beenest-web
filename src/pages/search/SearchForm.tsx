@@ -1,42 +1,33 @@
 import * as React from 'react';
 import { Col, Container, Row } from 'reactstrap';
 
-import { ListingSearchCriteria } from 'networking/listings';
-
+import { SearchFilterCriteria } from './SearchCriteria';
 import TransitTime from './filters/TransitTime';
-
 import SearchFilter from './SearchFilter';
 
-export interface SearchFormState {
-  place?: google.maps.places.PlaceResult | null;
-}
-
 interface Props {
-  onFilterChange?: (filter: ListingSearchCriteria) => void;
+  filter?: SearchFilterCriteria;
+  onFilterChange?: (filter: SearchFilterCriteria) => void;
 }
 
-const SearchForm = ({ onFilterChange }: Props) => {
-  const [state, setState] = React.useState<SearchFormState>({
-    place: null
-  });
-  const [filters, setFilters] = React.useState<ListingSearchCriteria>({});
-
+const SearchForm = ({ filter, onFilterChange }: Props) => {
   return <Container>
     <Row>
-      <Col key={label}>
+      <Col>
         <SearchFilter label="Close To...">
           <TransitTime
-            place={state.place}
-            onFilterChange={setFilters}
-            onPlaceChange={setPlace}
+            place={filter ? filter.near : undefined}
+            onPlaceChange={handlePlaceChange}
           />
         </SearchFilter>
       </Col>
     </Row>
   </Container>;
 
-  function setPlace(place: google.maps.places.PlaceResult | null) {
-    return setState({ ...state, place: place });
+  function handlePlaceChange(place: google.maps.places.PlaceResult | null) {
+    if (onFilterChange) {
+      onFilterChange(place ? { near: place } : {});
+    }
   }
 };
 

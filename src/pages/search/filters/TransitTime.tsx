@@ -3,24 +3,17 @@ import { Container, Input } from 'reactstrap';
 
 import GoogleAutoComplete from 'components/shared/GoogleAutoComplete';
 
-import { ListingSearchCriteria } from 'networking/listings';
-
 interface Props {
   place?: google.maps.places.PlaceResult;
   onPlaceChange?: (place: google.maps.places.PlaceResult | null) => void;
-  onFilterChange?: (filter: ListingSearchCriteria) => void;
 }
 
-const TransitTime = ({ place, onFilterChange, onPlaceChange }: Props) => {
+const TransitTime = ({ place, onPlaceChange }: Props) => {
   const inputRef: React.RefObject<HTMLInputElement | null> = React.createRef();
 
   const handlePlace = (place: google.maps.places.PlaceResult) => {
     if (onPlaceChange) {
       onPlaceChange(place);
-    }
-    if (onFilterChange) {
-      const { lat, lng } = place.geometry.location;
-      onFilterChange({ near: { lat: lat(), lng: lng() }});
     }
   };
   const handleClear = (event: React.MouseEvent<HTMLAnchorElement, MouseEvent>) => {
@@ -30,9 +23,6 @@ const TransitTime = ({ place, onFilterChange, onPlaceChange }: Props) => {
     }
     if (onPlaceChange) {
       onPlaceChange(null);
-    }
-    if (onFilterChange) {
-      onFilterChange({});
     }
   };
 

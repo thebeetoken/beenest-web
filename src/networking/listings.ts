@@ -58,7 +58,7 @@ export interface Listing {
   wifi: Wifi;
 }
 
-export interface ListingSearchCriteria {
+export interface ListingSearchInput {
   checkInDate?: string;
   checkOutDate?: string;
   numberOfGuests?: number;
