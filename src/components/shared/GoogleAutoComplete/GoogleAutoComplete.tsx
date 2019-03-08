@@ -1,5 +1,4 @@
 import * as React from 'react';
-import { Fade } from 'reactstrap';
 import { compose, withProps } from 'recompose';
 import { withScriptjs } from 'react-google-maps';
 
@@ -38,11 +37,7 @@ class GoogleAutoComplete extends React.Component<Props, any> {
   }
 
   render() {
-    return (
-      <Fade>
-        {this.props.children}
-      </Fade>
-    );
+    return this.props.children;
   }
 }
 
