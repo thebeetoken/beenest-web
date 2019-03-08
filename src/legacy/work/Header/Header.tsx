@@ -7,7 +7,7 @@ import { BeenestSVGPrimary } from 'legacy/shared/svgComponents/SvgComponents';
 import Loading from 'legacy/shared/loading/Loading';
 import SimpleHeader from 'legacy/work/SimpleHeader';
 import { Query } from 'react-apollo';
-import { GET_USER_BY_ID } from 'networking/users';
+import { GET_USER } from 'networking/users';
 
 const HOST_PORTAL_LINK = '/host';
 const HOST_INTEREST_LINK = '/hosts/signup?utm_source=header_host_signup_button';
@@ -78,7 +78,7 @@ const DetailedHeader = () => {
                 }
                 if (user) {
                   return (
-                    <Query query={GET_USER_BY_ID} variables={{ id: user.uid }}>
+                    <Query query={GET_USER}>
                       {({ loading, error, data }) => {
                         if (loading) {
                           return <Loading />;
@@ -86,7 +86,7 @@ const DetailedHeader = () => {
                         if (error || !data) {
                           return <h1>{error ? error.message : 'Error / No Data'}</h1>;
                         }
-                        const beeUser = data.getUserById;
+                        const beeUser = data.user;
                         return (
                           <>
                             {beeUser.listingCount > 0

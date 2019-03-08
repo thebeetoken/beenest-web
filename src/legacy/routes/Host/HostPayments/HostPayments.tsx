@@ -144,7 +144,7 @@ class EnhancedComponent extends React.Component<Props, HostPaymentsContentState>
               Stripe Express is only available to hosts in the United States and Canada.<br/>
               This account will be limited to receiving payouts from Beenest.
             </p>}
-            {!stripeAccountDashboardLink && <BeeLink to="/legacy/account/stripe/link" target="_blank">
+            {!stripeAccountDashboardLink && <BeeLink to="/account/stripe/link" target="_blank">
               <Button background="secondary" color="white" size="small">
                 Connect Existing Stripe Account
               </Button>

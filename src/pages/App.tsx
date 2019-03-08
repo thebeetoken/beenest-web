@@ -22,6 +22,8 @@ import Signup from './signup';
 import Trips from './trips';
 import TripsReceipt from './trips/TripsReceipt';
 import AuthenticatedRoute from 'HOCs/AuthenticatedRoute';
+import { StripeLink, StripeComplete, StripeNew } from 'legacy/routes/Account/Stripe';
+
 
 import '../styled/customStyles.scss';
 import HostListingEdit from 'legacy/routes/Host/HostListing/HostListingEdit';
@@ -32,6 +34,9 @@ const Work = () => (
     <Header />
     <Switch>
       <Route path="/about" component={About} />
+      <Route exact path="/account/stripe/link" component={StripeLink} />
+      <Route exact path="/account/stripe/new" component={StripeNew} />
+      <Route exact path="/account/stripe/complete" component={StripeComplete} />
       <Route path="/account/action" component={FirebaseEmailHandler} />
       <Route path="/account" component={Account} />
       <Route path="/markets" component={Markets} />

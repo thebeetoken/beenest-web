@@ -1,5 +1,5 @@
 import * as React from 'react';
-import AudioLoading from 'legacy/shared/loading/AudioLoading';
+import LoadingTakeover from 'legacy/shared/loading/LoadingTakeover';
 
 import { SETTINGS } from 'configs/settings';
 
@@ -15,6 +15,6 @@ const STRIPE_REDIRECT = `https://connect.stripe.com/oauth/authorize?redirect_uri
  **/
 export const StripeLink = () => {
   window.location.assign(STRIPE_REDIRECT);
-  return <AudioLoading height={150} width={150} />;
+  return <LoadingTakeover />;
 };
 
