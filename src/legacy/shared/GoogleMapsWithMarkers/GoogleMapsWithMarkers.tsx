@@ -17,6 +17,7 @@ interface Props extends RouterProps {
   className?: string;
   height?: string;
   listings: ListingShort[];
+  near?: google.maps.places.PlaceResult;
   width?: string;
 }
 
@@ -52,7 +53,7 @@ class GoogleMapsWithMarkers extends React.Component<Props, State> {
   }
 
   render() {
-    const { listings } = this.props;
+    const { listings, near } = this.props;
     const { selectedListing } = this.state;
     return (
       <GoogleMap
@@ -60,6 +61,7 @@ class GoogleMapsWithMarkers extends React.Component<Props, State> {
         defaultCenter={getCenterCoordinates(listings)}
         ref={this.handleMapMounted}
       >
+        {near && <Marker position={near.geometry.location} />}
         {listings.map(listing => (
           <Marker key={listing.id}
             position={{ lat: listing.lat, lng: listing.lng }}
