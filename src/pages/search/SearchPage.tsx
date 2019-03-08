@@ -1,6 +1,5 @@
 import * as React from 'react';
 import { Col, Fade, Row } from 'reactstrap';
-import omit from 'lodash.omit';
 
 import { Listing, ListingShort } from 'networking/listings';
 
@@ -20,7 +19,14 @@ interface Props {
   listings: Listing[];
 }
 
-const SearchPage = (props: Props) => {
+const SearchPage = ({
+  checkInDate,
+  checkOutDate,
+  numberOfGuests,
+  filter,
+  onFilterChange,
+  listings
+}: Props) => {
   const [selectedListing, selectListing] = React.useState<ListingShort | null>(null);
   return <Fade>
     <Row className="px-0 mx-0 bg-white bee-top">
@@ -31,16 +37,22 @@ const SearchPage = (props: Props) => {
     <Row className="min-vh-100 h-100 px-0 mx-0">
       <Col md="12" lg="5" xl="4" className="px-5">
         <Row className="mb-5">
-          <SearchForm filter={props.filter} onFilterChange={props.onFilterChange}/>
+          <SearchForm filter={filter} onFilterChange={onFilterChange}/>
         </Row>
-        <SearchResults {...omit(props, ['filter', 'onFilterChange'])} />
+        <SearchResults
+          checkInDate={checkInDate}
+          checkOutDate={checkOutDate}
+          numberOfGuests={numberOfGuests}
+          onSelect={selectListing}
+          listings={listings}
+        />
       </Col>
       <Col md="0" lg="7" xl="8" className="px-0 d-md-none d-lg-block">
         <div className="w-100 sticky-top bee-top bee-search-map z-index-0">
           <GoogleMapsWithMarkers
             className="w-100 h-100"
-            listings={props.listings}
-            near={props.filter.near}
+            listings={listings}
+            near={filter.near}
             selectedListing={selectedListing || undefined}
             onSelect={selectListing}
           />
