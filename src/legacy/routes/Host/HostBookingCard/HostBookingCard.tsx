@@ -12,7 +12,7 @@ import {
 import { currencyToDisplay } from 'utils/currencyToDisplay';
 import { formatDateRange } from 'utils/formatDate';
 import { Card, Col, Row } from 'reactstrap';
-import Loading from '../../../shared/loading/Loading';
+import Loading from 'legacy/shared/loading/Loading';
 
 interface State {
   errorMessage: string;
