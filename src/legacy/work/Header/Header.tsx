@@ -87,16 +87,12 @@ const DetailedHeader = () => {
                           return <h1>{error ? error.message : 'Error / No Data'}</h1>;
                         }
                         const beeUser = data.user;
+                        const isHost = beeUser.listingCount > 0;
                         return (
                           <>
-                            {beeUser.listingCount > 0
-                              ? <Link to={HOST_PORTAL_LINK} className="mb-4 mb-md-0 mr-md-4 w-100 w-md-auto btn btn-outline-primary">
-                                  Host Profile
-                                </Link>
-                              : <Link to={HOST_INTEREST_LINK} className="mb-4 mb-md-0 mr-md-4 w-100 w-md-auto btn btn-outline-primary">
-                                  Become a Host
-                                </Link>
-                            } 
+                            <Link to={isHost ? HOST_PORTAL_LINK : HOST_INTEREST_LINK} className="mb-4 mb-md-0 mr-md-4 w-100 w-md-auto btn btn-outline-primary">
+                              {isHost ? 'Host Profile' : 'Become a Host'}
+                            </Link>
                             {authNavItems.map(item => (
                               <NavItem className="px-2" key={item.header}>
                                 <NavLink to={item.link} tag={Link}>
