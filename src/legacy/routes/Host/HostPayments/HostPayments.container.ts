@@ -4,7 +4,7 @@ import { color, typography } from 'styled/utils';
 const HostPaymentsContainer = styled.section`
   display: flex;
   flex-direction: column;
-  width: 624px;
+  max-width: 624px;
 
   .host-payments-section-container {
     justify-content: space-between;
@@ -12,7 +12,7 @@ const HostPaymentsContainer = styled.section`
     margin-bottom: 8px;
 
     .host-payments-section-container--input {
-      width: 416px;
+      max-width: 416px;
     }
     p {
       margin-top: 8px;
