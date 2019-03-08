@@ -7,45 +7,36 @@ import TransitTime from './filters/TransitTime';
 
 import SearchFilter from './SearchFilter';
 
+export interface SearchFormState {
+  place?: google.maps.places.PlaceResult | null;
+}
+
 interface Props {
   onFilterChange?: (filter: ListingSearchCriteria) => void;
 }
 
-const SEARCH_FILTERS = [
-  {
-    label: 'Close To...',
-    render: (props: Props) => <TransitTime {...props} />
-  }
-];
-
 const SearchForm = ({ onFilterChange }: Props) => {
-  const [filters, setFilters] = React.useState<any[]>(SEARCH_FILTERS.map(() => ({})));
+  const [state, setState] = React.useState<SearchFormState>({
+    place: null
+  });
+  const [filters, setFilters] = React.useState<ListingSearchCriteria>({});
 
   return <Container>
     <Row>
-    {SEARCH_FILTERS.map(({ label, render }, index) => (
       <Col key={label}>
-        <SearchFilter label={label}>
-          {render({ onFilterChange: filter => handleFilterChange(index, filter) })}
+        <SearchFilter label="Close To...">
+          <TransitTime
+            place={state.place}
+            onFilterChange={setFilters}
+            onPlaceChange={setPlace}
+          />
         </SearchFilter>
       </Col>
-    ))}
     </Row>
   </Container>;
 
-  function handleFilterChange(index: number, filter: ListingSearchCriteria) {
-    const newFilters = [
-      ...(filters.slice(0, index)),
-      filter,
-      ...(filters.slice(index + 1))
-    ];
-    setFilters(newFilters);
-    if (onFilterChange) {
-      onFilterChange(newFilters.reduce(
-        (allFilters, nextFilter) => ({ ...allFilters, ...nextFilter }),
-        {}
-      ));
-    }
+  function setPlace(place: google.maps.places.PlaceResult | null) {
+    return setState({ ...state, place: place });
   }
 };
 
