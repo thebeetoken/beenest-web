@@ -1,6 +1,6 @@
 import * as React from 'react';
 import * as ReactDOM from 'react-dom';
-import { BrowserRouter } from 'react-router-dom';
+import { BrowserRouter, withRouter } from 'react-router-dom';
 
 import ApolloWrapper from 'HOCs/ApolloWrapper';
 import ErrorBoundaryWrapper from 'HOCs/ErrorBoundaryWrapper';
@@ -17,13 +17,29 @@ if (APP_ENV === AppEnv.PRODUCTION) {
 import App from './pages';
 import '../src/styled/customStyles.scss';
 
+class ScrollToTop extends React.Component<RouterProps, {}> {
+  componentDidUpdate(prevProps: RouterProps) {
+    if (this.props.location.pathname !== prevProps.location.pathname) {
+      window.scrollTo(0, 0);
+    }
+  }
+
+  render() {
+    return this.props.children;
+  }
+}
+
+const ScrollToTopWithRouter = withRouter(ScrollToTop);
+
 ReactDOM.render(
   <>
     <ErrorBoundaryWrapper>
       <ApolloWrapper>
         <FirebaseProvider>
           <BrowserRouter>
-            <App />
+            <ScrollToTopWithRouter>
+              <App />
+            </ScrollToTopWithRouter>
           </BrowserRouter>
         </FirebaseProvider>
       </ApolloWrapper>
