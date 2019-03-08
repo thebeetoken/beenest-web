@@ -124,10 +124,12 @@ export const GET_HOST_BOOKINGS = gql`
       hostWalletAddress
       id
       listing {
+        id
         title
       }
       status
       guest {
+        id
         email
         firstName
         lastName

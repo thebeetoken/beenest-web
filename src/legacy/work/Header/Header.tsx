@@ -9,7 +9,7 @@ import SimpleHeader from 'legacy/work/SimpleHeader';
 import { Query } from 'react-apollo';
 import { GET_USER } from 'networking/users';
 
-const HOST_PORTAL_LINK = '/host';
+const HOST_PORTAL_LINK = '/host/bookings';
 const HOST_INTEREST_LINK = '/hosts/signup?utm_source=header_host_signup_button';
 
 // const helpNavItem = {
