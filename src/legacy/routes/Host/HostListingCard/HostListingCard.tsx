@@ -67,7 +67,7 @@ const HostListingCard = (props: Props): JSX.Element => {
               Edit
             </Button>
           </BeeLink>
-          <BeeLink target="_blank" to={`/legacy/listings/${idSlug}`}>
+          <BeeLink target="_blank" to={`/listings/${idSlug}`}>
             <Button background="white" border="secondary" color="secondary" size="small">
               Preview
             </Button>
