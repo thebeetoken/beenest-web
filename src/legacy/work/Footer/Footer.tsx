@@ -90,7 +90,7 @@ const DetailedFooter = ({ className }: { className: string }) => (
           <BeenestSVGPrimary />
         </Col>
 
-        <div className="d-md-none space-1">
+        <Col xs="12" className="d-md-none space-1 px-0">
           {contentData.map(item => (
             <UncontrolledDropdown key={item.header}>
               <DropdownToggle className="u-header__nav-link" nav>
@@ -105,7 +105,7 @@ const DetailedFooter = ({ className }: { className: string }) => (
               </DropdownMenu>
             </UncontrolledDropdown>
           ))}
-        </div>
+        </Col>
 
         {contentData.map(item => (
           <Col sm="3" lg="2" className="d-none d-md-flex mb-4 mb-lg-0" key={item.header}>
