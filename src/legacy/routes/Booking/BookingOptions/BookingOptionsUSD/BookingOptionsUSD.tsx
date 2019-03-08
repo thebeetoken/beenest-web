@@ -5,7 +5,7 @@ import { Booking } from 'networking/bookings';
 import { GET_PAYMENT_SOURCES } from 'networking/paymentSources';
 
 import BookingOptionsUSDCard from './BookingOptionsUSDCard';
-import AudioLoading from 'legacy/shared/loading/AudioLoading';
+import LoadingTakeover from 'legacy/shared/loading/LoadingTakeover';
 
 interface Props {
   booking: Booking;
@@ -14,9 +14,7 @@ interface Props {
 const BookingOptionsUSD = ({ booking }: Props) => (
   <Query query={GET_PAYMENT_SOURCES}>
     {({ loading, error, data }) => {
-      if (loading) {
-        return <AudioLoading height={48} width={96} />;
-      }
+      if (loading) return <LoadingTakeover />;
       if (error || !data) {
         return <h1>{error ? error.message : 'Error / No Data'}</h1>;
       }

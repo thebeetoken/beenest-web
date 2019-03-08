@@ -25,7 +25,7 @@ const BookingReceipt = ({ match }: RouterProps) => (
       const booking: Booking = data.booking;
       if (booking.status === 'started') {
         alert('Please complete your booking.');
-        return <Redirect to={`/legacy/bookings/${match.params.id}/options`} />;
+        return <Redirect to={`/bookings/${match.params.id}/options`} />;
       }
       const { currency, guestTotalAmount, guestWalletAddress, guestTxHash } = booking;
       const totalPaid = `${numberToLocaleString(guestTotalAmount, currency)} ${currency}`;
@@ -33,7 +33,7 @@ const BookingReceipt = ({ match }: RouterProps) => (
       return (
         <BookingReceiptContainer>
           <BookingNavBar />
-          <div className="booking-receipt-wrapper">
+          <div className="booking-receipt-wrapper container pt-4">
             <div className="booking-receipt-body">
               <div className="confirmation-container">
                 {currency !== Currency.BTC &&
@@ -56,33 +56,26 @@ const BookingReceipt = ({ match }: RouterProps) => (
                   </>
                 )}
               </div>
-              <AppConsumer>
-                {({ screenType }: AppConsumerProps) => {
-                  if (screenType < ScreenType.DESKTOP) {
-                    return (
-                      <>
-                        {isCrypto && (
-                          <div className="transaction-container">
-                            <h3>Transaction Confirmation</h3>
-                            <h4>{guestTxHash}</h4>
-                            <a href={generateEtherScanLink(guestTxHash)}>View Transaction on Etherscan</a>
-                          </div>
-                        )}
-                        <div className="booking-receipt-bar-container">
-                          <BookingReceiptBar booking={booking} />
-                        </div>
-                      </>
-                    );
-                  }
-                  return (
-                    <div className="booking-receipt-button-container">
-                      <Link to={`/legacy/trips/${booking.id}/receipt`}>
-                        <Button noRadius>Finish</Button>
-                      </Link>
-                    </div>
-                  );
-                }}
-              </AppConsumer>
+
+              <>
+                {isCrypto && (
+                  <div className="d-md-none transaction-container">
+                    <h3>Transaction Confirmation</h3>
+                    <h4>{guestTxHash}</h4>
+                    <a href={generateEtherScanLink(guestTxHash)}>View Transaction on Etherscan</a>
+                  </div>
+                )}
+                <div className="d-lg-none booking-receipt-bar-container">
+                  <BookingReceiptBar booking={booking} />
+                </div>
+              </>
+
+              <div className="d-none d-lg-block booking-receipt-button-container">
+                <Link to={`/trips/${booking.id}/receipt`}>
+                  <Button color="white">Finish</Button>
+                </Link>
+              </div>
+
             </div>
           </div>
         </BookingReceiptContainer>

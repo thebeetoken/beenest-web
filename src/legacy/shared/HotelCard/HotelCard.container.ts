@@ -28,7 +28,7 @@ const HotelCardContainerMobile = styled.article`
     flex-direction: column;
     flex-shrink: 0;
     justify-content: space-between;
-    padding: 0 16px
+    padding: 0 16px;
     width: 100%;
     .hotel-card--heading-container {
       align-items: center;

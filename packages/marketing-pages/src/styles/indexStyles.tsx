@@ -14,9 +14,9 @@ export const mediaQuery = `@media (max-width: ${responsiveWidth})`;
 
 injectGlobal`
   * {
-    @import url('https://fonts.googleapis.com/css?family=Montserrat:300,400');
+    @import url('https://fonts.googleapis.com/css?family=Poppins:300,400,500,600,700');
     color: ${black};
-    font-family: 'Montserrat', sans-serif;
+    font-family: Poppins, Helvetica, Arial, sans-serif;
   }  
   
   body {
@@ -236,7 +236,7 @@ export const CalculatorInput = styled.div`
     box-sizing: border-box;
     color: #494c4d;
     display: block;
-    font-family: Montserrat;
+    font-family: Poppins, Helvetica, Arial, sans-serif;
     font-size: 24px;
     font-weight: 500;
     height: 64px;

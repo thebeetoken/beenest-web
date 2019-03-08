@@ -9,15 +9,15 @@ const ListingCard = ({
   pricePerNightUsd,
   title
 }: ListingShort) => (
-  <Card tag={Fade} className="w-100 h-100">
+  <Card tag={Fade} className="w-100 h-100 shadow border-0">
     <div className="embed-responsive embed-responsive-4by3">
       <div className="embed-responsive-item">
         <CardImg className="w-100" src={listingPicUrl} alt={`Photo of ${title}`} />
       </div>
     </div>
     <CardBody>
-      <CardSubtitle>{homeType}</CardSubtitle>
-      <CardTitle tag="h5">{title}</CardTitle>
+      <CardSubtitle className="small text-secondary">{homeType}</CardSubtitle>
+      <CardTitle tag="h6">{title}</CardTitle>
     </CardBody>
     <CardFooter>
       <CardText>${pricePerNightUsd} per night</CardText>

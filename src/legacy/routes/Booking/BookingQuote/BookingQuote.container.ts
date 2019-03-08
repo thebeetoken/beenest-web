@@ -7,6 +7,10 @@ const BookingQuoteContainer = styled.div`
   padding: 24px 24px 32px 24px;
   height: 100%;
   width: 100%;
+
+  @media (min-width: 1025px) {
+    height: auto;
+  }
   .booking-quote-title-container {
     .title {
       ${typography('title', 6)}

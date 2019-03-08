@@ -28,7 +28,7 @@ const BookingNavBarContainer = styled.div`
     }
   }
   .booking-nav-desktop {
-    ${typography('title', 4)}
+    ${typography('title', 6)}
     align-items: center;
     color: ${color('upper')};
     display: flex;

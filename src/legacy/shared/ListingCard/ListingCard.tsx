@@ -46,7 +46,7 @@ const enhancedListingCard = ({
   const beePrice = prices.find(({ currency }) => currency === Currency.BEE);
   const queryParams = !!Object.keys(queryString).length ? `?${queryString}` : '';
   return (
-    <BeeLink target={target} to={`/legacy/listings/${idSlug}${queryParams}`}>
+    <BeeLink target={target} to={`/listings/${idSlug}${queryParams}`}>
       <ListingCardContainer className={`bee-listing-card ${className || ''}`.trim()} {...{ hover }}>
         <div className="listing-card--image">
           <LazyImage src={listingPicUrl} transition />

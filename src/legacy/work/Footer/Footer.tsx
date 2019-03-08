@@ -32,7 +32,7 @@ const contentData = [
   {
     header: 'Company',
     links: [
-      ['About', `${BEENEST_HOST}/work/about`],
+      ['About', `${BEENEST_HOST}/about`],
       ['Blog', 'https://medium.com/thebeetoken', '_blank'],
     ],
   },
@@ -71,12 +71,13 @@ const socialData = [
 
 const Footer = () => (
   <Switch>
-    <Route path="/work/account" component={DetailedFooter} />
-    <Route exact path="/work/listings/:id" render={() => <DetailedFooter className="d-none d-lg-block" />} />
-    <Route exact path="/work" component={DetailedFooter} />
-    <Route exact path="/work/about" component={DetailedFooter} />
-    <Route exact path="/work/login" component={NoopComponent} />
-    <Route exact path="/work/signup" component={NoopComponent} />
+    <Route path="/account" component={DetailedFooter} />
+    <Route path="/bookings" component={NoopComponent} />
+    <Route exact path="/listings/:id" render={() => <DetailedFooter className="d-none d-lg-block" />} />
+    <Route exact path="/" component={DetailedFooter} />
+    <Route exact path="/about" component={DetailedFooter} />
+    <Route exact path="/login" component={NoopComponent} />
+    <Route exact path="/signup" component={NoopComponent} />
     <Route component={DetailedFooter} />
   </Switch>
 )
@@ -89,7 +90,7 @@ const DetailedFooter = ({ className }: { className: string }) => (
           <BeenestSVGPrimary />
         </Col>
 
-        <div className="d-md-none space-1">
+        <Col xs="12" className="d-md-none space-1 px-0">
           {contentData.map(item => (
             <UncontrolledDropdown key={item.header}>
               <DropdownToggle className="u-header__nav-link" nav>
@@ -104,7 +105,7 @@ const DetailedFooter = ({ className }: { className: string }) => (
               </DropdownMenu>
             </UncontrolledDropdown>
           ))}
-        </div>
+        </Col>
 
         {contentData.map(item => (
           <Col sm="3" lg="2" className="d-none d-md-flex mb-4 mb-lg-0" key={item.header}>

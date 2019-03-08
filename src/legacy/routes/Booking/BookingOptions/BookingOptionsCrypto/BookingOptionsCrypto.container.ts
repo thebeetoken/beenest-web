@@ -16,10 +16,10 @@ const BookingOptionsCryptoContainer = styled.div`
       display: flex;
       flex-direction: column;
       justify-content: space-evenly;
-      height: 64px;
+      /* height: 64px; */
       padding-bottom: 16px;
       @media (min-width: 768px) {
-        height: 60px;
+        /* height: 60px; */
         padding-bottom: 24px;
       }
       h3 {

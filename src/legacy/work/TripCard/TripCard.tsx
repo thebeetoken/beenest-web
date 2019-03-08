@@ -68,7 +68,7 @@ const TripCard = ({ booking, category, handleOpenCancelBookingModal, handleOpenC
             },
             {
               label: 'Receipt',
-              to: `/work/trips/${booking.id}/receipt`,
+              to: `/trips/${booking.id}/receipt`,
               show: true,
             },
             {

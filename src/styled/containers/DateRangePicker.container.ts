@@ -613,7 +613,7 @@ const DateRangePickerContainer = styled.div`
   }
   .DateInput_input {
     caret-color: ${color('body')};
-    font-family: 'Montserrat';
+    font-family: Poppins, Helvetica, Arial, sans-serif;
     ${typography('read', 1)}
     line-height: 1;
     height: 39px;
@@ -626,7 +626,7 @@ const DateRangePickerContainer = styled.div`
     transition: all 0.15s ease-in-out;
     &::placeholder {
       color: ${color('upper')};
-      font: 300 14px 'Montserrat';
+      font: 300 14px 'Poppins, Helvetica, Arial, sans-serif';
       line-height: 20px;
     }
     &::-moz-placeholder {

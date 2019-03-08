@@ -56,7 +56,7 @@ class BookingPaymentButton extends React.Component<Props, State> {
             </Portal>
           }
           <Button
-            textStyle="title-9"
+            color="white"
             disabled={isSubmitting}
             onClick={() => this.handleSubmit()}>
             Submit Payment

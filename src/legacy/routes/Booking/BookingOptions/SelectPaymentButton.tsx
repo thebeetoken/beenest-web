@@ -35,6 +35,7 @@ const SelectPaymentButton = ({ booking, className, currency, disabled, onSuccess
       <Button
         className={className}
         disabled={disabled || loading}
+        color="white"
         onClick={async () => {
           try {
             await guestSelectPaymentFunc({

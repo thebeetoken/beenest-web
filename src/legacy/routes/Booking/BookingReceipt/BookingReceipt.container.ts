@@ -72,6 +72,9 @@ const BookingReceiptContainer = styled.div`
     .total-paid-container {
       height: 48px;
       margin-bottom: 8px; 
+      h2 {
+        margin-bottom: 0;
+      }
       @media (min-width: 768px) {
         display: flex;
         align-items: center;

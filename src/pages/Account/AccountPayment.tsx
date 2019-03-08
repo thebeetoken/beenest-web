@@ -69,6 +69,7 @@ const AccountPayment = ({ creditBalance }: Props) => {
               <Col xs="12">
                 <Button
                   color="primary"
+                  className="mt-6"
                   onClick={() => handleModalAction(ModalType.ADD_NEW_CARD)}>
                   <span className="fas fa-plus-circle pull-left mr-2"></span>
                   Add New Card
