@@ -11,12 +11,16 @@ import { LatLngBounds, ListingShort } from 'networking/listings';
 
 import GoogleMapsWithMarkersContainer from './GoogleMapsWithMarkers.container';
 
+const hotelMarker = require('assets/images/iconmonstr-location-12-32.png');
+const nearMarker = require('assets/images/iconmonstr-location-13-32.png');
+
 interface Props extends RouterProps {
   bounds?: LatLngBounds;
   children?: React.ReactNode;
   className?: string;
   height?: string;
   listings: ListingShort[];
+  near?: google.maps.places.PlaceResult;
   width?: string;
 }
 
@@ -52,18 +56,35 @@ class GoogleMapsWithMarkers extends React.Component<Props, State> {
   }
 
   render() {
-    const { listings } = this.props;
+    const { listings, near } = this.props;
     const { selectedListing } = this.state;
+    const nearIcon: google.maps.Icon = {
+      url: nearMarker,
+      labelOrigin: new google.maps.Point(16, -12)
+    };
     return (
       <GoogleMap
         defaultZoom={10}
         defaultCenter={getCenterCoordinates(listings)}
         ref={this.handleMapMounted}
       >
+        {near && <Marker
+          icon={nearIcon}
+          label={{
+            color: '#333',
+            fontSize: '1rem',
+            text: near.name
+          }}
+          position={near.geometry.location}
+          title={near.name}
+          zIndex={1000}
+        />}
         {listings.map(listing => (
           <Marker key={listing.id}
+            icon={hotelMarker}
             position={{ lat: listing.lat, lng: listing.lng }}
-            onClick={() => this.setState({ selectedListing: listing })} />
+            onClick={() => this.setState({ selectedListing: listing })}
+          />
         ))}
         {!!selectedListing && <InfoWindow
           position={{ lat: selectedListing.lat, lng: selectedListing.lng }}

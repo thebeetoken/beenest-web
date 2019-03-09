@@ -16,7 +16,7 @@ interface Props {
   checkOutDate?: string;
   numberOfGuests?: number;
   onFilterChange?: (filter: SearchFilterCriteria) => void;
-  filter?: SearchFilterCriteria;
+  filter: SearchFilterCriteria;
   listings: Listing[];
 }
 
@@ -35,7 +35,11 @@ const SearchPage = (props: Props) => <Fade>
     </Col>
     <Col md="0" lg="7" xl="8" className="px-0 d-md-none d-lg-block">
       <div className="w-100 sticky-top bee-top bee-search-map z-index-0">
-        <GoogleMapsWithMarkers className="w-100 h-100" listings={props.listings} />
+        <GoogleMapsWithMarkers
+          className="w-100 h-100"
+          listings={props.listings}
+          near={props.filter.near}
+        />
       </div>
     </Col>
   </Row>
