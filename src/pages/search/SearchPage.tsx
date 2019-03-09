@@ -6,6 +6,8 @@ import { Listing, ListingShort } from 'networking/listings';
 import GoogleMapsWithMarkers from 'legacy/shared/GoogleMapsWithMarkers';
 import SearchBar from 'legacy/work/SearchBar';
 
+import { useDebounce } from 'utils/hooks';
+
 import { SearchFilterCriteria } from './SearchCriteria';
 import SearchForm from './SearchForm';
 import SearchResults from './SearchResults';
@@ -28,6 +30,7 @@ const SearchPage = ({
   listings
 }: Props) => {
   const [selectedListing, selectListing] = React.useState<ListingShort | null>(null);
+  const debouncedListing = useDebounce(selectedListing, 250);
   return <Fade>
     <Row className="px-0 mx-0 bg-white bee-top">
       <Col className="p-5" xs="12" lg="10" xl="9">
@@ -53,7 +56,7 @@ const SearchPage = ({
             className="w-100 h-100"
             listings={listings}
             near={filter.near}
-            selectedListing={selectedListing || undefined}
+            selectedListing={debouncedListing || undefined}
             onSelect={selectListing}
           />
         </div>
