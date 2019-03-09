@@ -90,12 +90,17 @@ const DetailedHeader = () => {
                         const isHost = beeUser.listingCount > 0;
                         return (
                           <>
-                            <Link to={isHost ? HOST_PORTAL_LINK : HOST_INTEREST_LINK} className="mb-4 mb-md-0 mr-md-4 w-100 w-md-auto btn btn-outline-primary">
+                            <Link
+                              to={isHost ? HOST_PORTAL_LINK : HOST_INTEREST_LINK}
+                              className="mb-4 mb-md-0 mr-md-4 w-100 w-md-auto btn btn-outline-primary">
                               {isHost ? 'Host Profile' : 'Become a Host'}
                             </Link>
                             {authNavItems.map(item => (
                               <NavItem className="px-2" key={item.header}>
-                                <NavLink to={item.link} tag={Link}>
+                                <NavLink
+                                  onClick={() => toggleNavbar(false)}
+                                  tag={Link}
+                                  to={item.link}>
                                   {item.header}
                                 </NavLink>
                               </NavItem>
@@ -113,7 +118,10 @@ const DetailedHeader = () => {
                     </Link>
                     {navItems.map(item => (
                       <NavItem className="px-2" key={item.header}>
-                        <NavLink to={item.link} tag={Link}>
+                        <NavLink
+                          onClick={() => toggleNavbar(false)}
+                          tag={Link}
+                          to={item.link}>
                           {item.header}
                         </NavLink>
                       </NavItem>
