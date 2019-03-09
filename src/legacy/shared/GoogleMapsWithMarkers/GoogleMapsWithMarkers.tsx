@@ -114,7 +114,10 @@ class GoogleMapsWithMarkers extends React.Component<Props, State> {
           onCloseClick={() => this.handleSelection(undefined)} >
           <ListingCard target="_blank" {...selectedListing} />
         </InfoWindow>}
-        {directions && <DirectionsRenderer directions={directions} />}
+        {directions && <DirectionsRenderer
+          directions={directions}
+          options={{ suppressMarkers: true }}
+        />}
       </GoogleMap>
     );
   }
