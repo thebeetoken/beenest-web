@@ -1,7 +1,7 @@
 import * as React from 'react';
 import { withRouter } from 'react-router-dom';
 import { compose, withProps } from 'recompose';
-import { InfoWindow, Marker, GoogleMap, withGoogleMap, withScriptjs } from 'react-google-maps';
+import { DirectionsRenderer, InfoWindow, Marker, GoogleMap, withGoogleMap, withScriptjs } from 'react-google-maps';
 
 import { SETTINGS } from 'configs/settings';
 const { GOOGLE_MAPS_KEY } = SETTINGS;
@@ -25,6 +25,7 @@ interface Props extends RouterProps {
 }
 
 interface State {
+  directions?: google.maps.DirectionsResult;
   selectedListing?: ListingShort
 }
 
@@ -55,9 +56,30 @@ class GoogleMapsWithMarkers extends React.Component<Props, State> {
     }
   }
 
+  handleSelection(selectedListing?: ListingShort) {
+    const { near } = this.props;
+    this.setState({ selectedListing });
+    if (selectedListing && near) {
+      const directionsService = new google.maps.DirectionsService();
+      directionsService.route({
+        origin: { lat: selectedListing.lat, lng: selectedListing.lng },
+        destination: near.geometry.location,
+        travelMode: google.maps.TravelMode.DRIVING
+      }, (directions, status) => {
+        if (status === google.maps.DirectionsStatus.OK) {
+          this.setState({ directions });
+        } else {
+          console.log(`Failed to retrieve directions: ${status}`);
+        }
+      });
+    } else {
+      this.setState({ directions: undefined });
+    }
+  }
+
   render() {
     const { listings, near } = this.props;
-    const { selectedListing } = this.state;
+    const { directions, selectedListing } = this.state;
     const nearIcon: google.maps.Icon = {
       url: nearMarker,
       labelOrigin: new google.maps.Point(16, -12)
@@ -83,14 +105,19 @@ class GoogleMapsWithMarkers extends React.Component<Props, State> {
           <Marker key={listing.id}
             icon={hotelMarker}
             position={{ lat: listing.lat, lng: listing.lng }}
-            onClick={() => this.setState({ selectedListing: listing })}
+            onClick={() => this.handleSelection(listing)}
           />
         ))}
         {!!selectedListing && <InfoWindow
+          options={{ pixelOffset: new google.maps.Size(0, -32) }}
           position={{ lat: selectedListing.lat, lng: selectedListing.lng }}
-          onCloseClick={() => this.setState({ selectedListing: undefined })} >
+          onCloseClick={() => this.handleSelection(undefined)} >
           <ListingCard target="_blank" {...selectedListing} />
         </InfoWindow>}
+        {directions && <DirectionsRenderer
+          directions={directions}
+          options={{ suppressMarkers: true }}
+        />}
       </GoogleMap>
     );
   }
