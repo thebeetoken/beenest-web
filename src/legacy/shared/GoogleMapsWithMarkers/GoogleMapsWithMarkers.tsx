@@ -1,7 +1,7 @@
 import * as React from 'react';
 import { withRouter } from 'react-router-dom';
 import { compose, withProps } from 'recompose';
-import { InfoWindow, Marker, GoogleMap, withGoogleMap, withScriptjs } from 'react-google-maps';
+import { DirectionsRenderer, InfoWindow, Marker, GoogleMap, withGoogleMap, withScriptjs } from 'react-google-maps';
 
 import { SETTINGS } from 'configs/settings';
 const { GOOGLE_MAPS_KEY } = SETTINGS;
@@ -10,6 +10,9 @@ import { ListingCard } from 'legacy/shared/ListingCard';
 import { LatLngBounds, ListingShort } from 'networking/listings';
 
 import GoogleMapsWithMarkersContainer from './GoogleMapsWithMarkers.container';
+
+const hotelMarker = require('assets/images/iconmonstr-location-12-32.png');
+const nearMarker = require('assets/images/iconmonstr-location-13-32.png');
 
 interface Props extends RouterProps {
   bounds?: LatLngBounds;
@@ -23,17 +26,17 @@ interface Props extends RouterProps {
   onSelect: (listing: ListingShort | null) => void;
 }
 
-class GoogleMapsWithMarkers extends React.Component<Props> {
-  directionsService = new google.maps.DirectionsService();
-  directionsDisplay = new google.maps.DirectionsRenderer();
+interface State {
+  directions?: google.maps.DirectionsResult;
+}
+
+class GoogleMapsWithMarkers extends React.Component<Props, State> {
+  state: State = {}
 
   handleMapMounted = (map: GoogleMap) => {
     if (!map) {
       return;
     }
-    const googleMap: google.maps.Map = map.context.__SECRET_MAP_DO_NOT_USE_OR_YOU_WILL_BE_FIRED;
-    this.directionsDisplay.setMap(googleMap);
-
     const { bounds, listings } = this.props;
     if (bounds) {
       map.fitBounds(bounds);
@@ -54,28 +57,36 @@ class GoogleMapsWithMarkers extends React.Component<Props> {
     }
   }
 
-  render() {
-    const { listings, near, selectedListing, onSelect } = this.props;
-
+  componentDidUpdate(prevProps: Props) {
+    const { near, selectedListing } = this.props;
+    if (near === prevProps.near && selectedListing === prevProps.selectedListing) {
+      return;
+    }
     if (selectedListing && near) {
-      this.directionsService.route({
+      const directionsService = new google.maps.DirectionsService();
+      directionsService.route({
         origin: { lat: selectedListing.lat, lng: selectedListing.lng },
         destination: near.geometry.location,
         travelMode: google.maps.TravelMode.DRIVING
-      }, (response, status) => {
+      }, (directions, status) => {
         if (status === google.maps.DirectionsStatus.OK) {
-          this.directionsDisplay.setDirections(response);
+          this.setState({ directions });
         } else {
           console.log(`Failed to retrieve directions: ${status}`);
         }
       });
     } else {
-      this.directionsDisplay.setDirections({
-        geocoded_waypoints: [],
-        routes: []
-      });
+      this.setState({ directions: undefined });
     }
+  }
 
+  render() {
+    const { listings, near, selectedListing, onSelect } = this.props;
+    const { directions } = this.state;
+    const nearIcon: google.maps.Icon = {
+      url: nearMarker,
+      labelOrigin: new google.maps.Point(16, -12)
+    };
     return (
       <GoogleMap
         defaultZoom={10}
@@ -83,15 +94,7 @@ class GoogleMapsWithMarkers extends React.Component<Props> {
         ref={this.handleMapMounted}
       >
         {near && <Marker
-          icon={{
-            fillColor: '#AADBFF',
-            fillOpacity: 1,
-            labelOrigin: { x: 0, y: -5 },
-            scale: 4,
-            strokeColor: '#1164FF',
-            path: google.maps.SymbolPath.CIRCLE,
-            strokeWeight: 2
-          }}
+          icon={nearIcon}
           label={{
             color: '#333',
             fontSize: '1rem',
@@ -103,8 +106,10 @@ class GoogleMapsWithMarkers extends React.Component<Props> {
         />}
         {listings.map(listing => (
           <Marker key={listing.id}
+            icon={hotelMarker}
             position={{ lat: listing.lat, lng: listing.lng }}
-            onClick={() => onSelect(listing)} />
+            onClick={() => onSelect(listing)}
+          />
         ))}
         {!!selectedListing && <InfoWindow
           options={{ pixelOffset: new google.maps.Size(0, -32) }}
@@ -112,6 +117,10 @@ class GoogleMapsWithMarkers extends React.Component<Props> {
           onCloseClick={() => onSelect(null)} >
           <ListingCard target="_blank" {...selectedListing} />
         </InfoWindow>}
+        {directions && <DirectionsRenderer
+          directions={directions}
+          options={{ suppressMarkers: true }}
+        />}
       </GoogleMap>
     );
   }
