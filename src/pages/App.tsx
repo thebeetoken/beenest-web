@@ -46,7 +46,7 @@ const ScrollToTopWithRouter = withRouter(ScrollToTop);
 const Work = () => (
   <div className="min-height-100vh">
     <Header />
-    <div className="min-height-100vh">
+    <div className="bee-without-header-height-container">
       <ScrollToTopWithRouter>
         <Switch>
           <Route path="/about" component={About} />

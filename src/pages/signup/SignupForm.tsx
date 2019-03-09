@@ -69,7 +69,7 @@ const SignupForm = (props: SignupProps) => {
         <Form tag={FormikForm}>
           <div className="mb-7">
             <h2 className="h3 text-primary font-weight-normal mb-0">
-              Welcome to <span className="font-weight-semi-bold">Beenest</span>
+              Welcome
             </h2>
             <p>Signup to start using Beenest.</p>
           </div>
