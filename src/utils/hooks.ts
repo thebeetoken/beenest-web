@@ -15,19 +15,3 @@ export function useDebounce(value: any, delay: number) {
 
   return debouncedValue;
 };
-
-export function useThrottle(value: any, delay: number) {
-  const [isWaiting, setWaiting] = useState(false);
-  const [throttledValue, setThrottledValue] = useState(value);
-
-  useEffect(() => {
-    setWaiting(true);
-    const handler = setTimeout(() => {
-      setThrottledValue(value);
-      setWaiting(false);
-    }, delay);
-    return () => clearTimeout(handler);
-  }, [value]);
-
-  return isWaiting ? throttledValue : value;
-}
