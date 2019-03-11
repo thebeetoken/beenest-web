@@ -32,8 +32,8 @@ const SearchResults = ({
     {listings.map((listing, index) => (
       <Col xs="12" md="6" key={index} className="mb-5 d-flex">
         <Link
-          onMouseOver={() => onSelect(listing)}
-          onMouseOut={() => onSelect(null)}
+          onMouseEnter={() => onSelect(listing)}
+          onMouseLeave={() => onSelect(null)}
           to={listingPath(listing, { checkInDate, checkOutDate, numberOfGuests })}
           className="w-100 h-100">
           <ListingCard {...listing} />
