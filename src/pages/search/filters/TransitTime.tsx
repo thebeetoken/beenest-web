@@ -1,7 +1,9 @@
 import * as React from 'react';
-import { Container, Input } from 'reactstrap';
+import { Col, Container, Input, Row } from 'reactstrap';
 
 import GoogleAutoComplete from 'components/shared/GoogleAutoComplete';
+
+const TRAVEL_MODES = [ 'Driving', 'Transit', 'Walking', 'Bicycling' ];
 
 interface Props {
   place?: google.maps.places.PlaceResult;
@@ -46,6 +48,13 @@ const TransitTime = ({ place, onPlaceChange }: Props) => {
         defaultValue={place ? place.name : ''}
         required />
     </GoogleAutoComplete>
+    <h6 className="mt-3">Travel Mode</h6>
+    <Row tag="form" className="form-check form-check-inline">
+      {TRAVEL_MODES.map(mode => <Col xs="6" key={mode}>
+        <Input className="form-check-input" id={mode.toLowerCase()} type="radio" name="travelMode" value={mode.toUpperCase()} />
+        <label className="form-check-label" htmlFor={mode.toLowerCase()}>{mode}</label>
+      </Col>)}
+    </Row>
   </Container>;
 }
 
