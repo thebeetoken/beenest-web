@@ -19,14 +19,15 @@ interface Props extends RouterProps {
   children?: React.ReactNode;
   className?: string;
   height?: string;
+  selectedListing?: ListingShort;
   listings: ListingShort[];
   near?: google.maps.places.PlaceResult;
   width?: string;
+  onSelect: (listing: ListingShort | null) => void;
 }
 
 interface State {
   directions?: google.maps.DirectionsResult;
-  selectedListing?: ListingShort
 }
 
 class GoogleMapsWithMarkers extends React.Component<Props, State> {
@@ -56,9 +57,11 @@ class GoogleMapsWithMarkers extends React.Component<Props, State> {
     }
   }
 
-  handleSelection(selectedListing?: ListingShort) {
-    const { near } = this.props;
-    this.setState({ selectedListing });
+  componentDidUpdate(prevProps: Props) {
+    const { near, selectedListing } = this.props;
+    if (near === prevProps.near && selectedListing === prevProps.selectedListing) {
+      return;
+    }
     if (selectedListing && near) {
       const directionsService = new google.maps.DirectionsService();
       directionsService.route({
@@ -78,8 +81,8 @@ class GoogleMapsWithMarkers extends React.Component<Props, State> {
   }
 
   render() {
-    const { listings, near } = this.props;
-    const { directions, selectedListing } = this.state;
+    const { listings, near, selectedListing, onSelect } = this.props;
+    const { directions } = this.state;
     const nearIcon: google.maps.Icon = {
       url: nearMarker,
       labelOrigin: new google.maps.Point(16, -12)
@@ -105,13 +108,13 @@ class GoogleMapsWithMarkers extends React.Component<Props, State> {
           <Marker key={listing.id}
             icon={hotelMarker}
             position={{ lat: listing.lat, lng: listing.lng }}
-            onClick={() => this.handleSelection(listing)}
+            onClick={() => onSelect(listing)}
           />
         ))}
         {!!selectedListing && <InfoWindow
           options={{ pixelOffset: new google.maps.Size(0, -32) }}
           position={{ lat: selectedListing.lat, lng: selectedListing.lng }}
-          onCloseClick={() => this.handleSelection(undefined)} >
+          onCloseClick={() => onSelect(null)} >
           <ListingCard target="_blank" {...selectedListing} />
         </InfoWindow>}
         {directions && <DirectionsRenderer

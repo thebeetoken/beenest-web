@@ -8,6 +8,8 @@ const { GOOGLE_MAPS_KEY } = SETTINGS;
 import GoogleMapsContainer from './GoogleMaps.container';
 import AudioLoading from 'legacy/shared/loading/AudioLoading';
 
+import { useDebounce } from 'utils/hooks';
+
 interface Props {
   address?: string;
   children?: React.ReactNode;
@@ -129,20 +131,4 @@ function fetchCoordinates(address: string): Promise<google.maps.LatLngLiteral> {
       }
     });
   });
-}
-
-// https://dev.to/gabe_ragland/debouncing-with-react-hooks-jci
-function useDebounce(value: any, delay: number) {
-  const [debouncedValue, setDebouncedValue] = useState(value);
-
-  useEffect(() => {
-    const handler = setTimeout(() => {
-      setDebouncedValue(value);
-    }, delay);
-    return () => {
-      clearTimeout(handler);
-    };
-  }, [value]);
-
-  return debouncedValue;
 }
