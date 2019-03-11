@@ -1,6 +1,7 @@
 import { ListingSearchInput } from 'networking/listings';
 
 export interface SearchFilterCriteria {
+  travelMode: string;
   near?: google.maps.places.PlaceResult;
 }
 

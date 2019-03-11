@@ -17,7 +17,9 @@ const SearchForm = ({ filter, onFilterChange }: Props) => {
         <SearchFilter label="Close To...">
           <TransitTime
             place={filter ? filter.near : undefined}
+            travelMode={filter ? filter.travelMode : 'DRIVING'}
             onPlaceChange={handlePlaceChange}
+            onTravelModeChange={handleTravelModeChange}
           />
         </SearchFilter>
       </Col>
@@ -25,8 +27,20 @@ const SearchForm = ({ filter, onFilterChange }: Props) => {
   </Container>;
 
   function handlePlaceChange(place: google.maps.places.PlaceResult | null) {
-    if (onFilterChange) {
-      onFilterChange(place ? { near: place } : {});
+    if (onFilterChange && filter) {
+      const nextFilter: SearchFilterCriteria = { ...filter };
+      if (!place) {
+        delete nextFilter.near;
+      } else {
+        nextFilter.near = place;
+      }
+      onFilterChange(nextFilter);
+    }
+  }
+
+  function handleTravelModeChange(travelMode: string) {
+    if (onFilterChange && filter) {
+      onFilterChange({ ...filter, travelMode });
     }
   }
 };

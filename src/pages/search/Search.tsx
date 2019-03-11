@@ -26,8 +26,12 @@ const SEARCH_PARAMS = [
   'numberOfGuests'
 ];
 
+const DEFAULT_SEARCH_FILTER: SearchFilterCriteria = {
+  travelMode: 'DRIVING'
+};
+
 const Search = () => {
-  const [filter, setFilter] = React.useState<SearchFilterCriteria>({});
+  const [filter, setFilter] = React.useState<SearchFilterCriteria>(DEFAULT_SEARCH_FILTER);
   const queryParams: any = parseQueryString(location.search);
   const queryInput: any = SEARCH_PARAMS.reduce(
     (obj, param) => queryParams[param] ? { ...obj, [param]: queryParams[param] } : obj,
