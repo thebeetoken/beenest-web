@@ -1,5 +1,5 @@
 import * as React from 'react';
-import { Button, Col, Modal, ModalHeader, ModalBody, Row } from 'reactstrap';
+import { Alert, Button, Col, Modal, ModalHeader, ModalBody, Row } from 'reactstrap';
 import CopyToClipboard from 'react-copy-to-clipboard';
 import { withRouter } from 'react-router-dom';
 
@@ -13,6 +13,7 @@ interface Props extends RouterProps, Listing { };
 const ListingGallery = (props: Props) => {
   const [isOpen, setOpen] = React.useState<boolean>(false);
   const [isModalOpen, setModal] = React.useState<boolean>(false);
+  const [isAlertOpen, setAlert] = React.useState<boolean>(false);
 
   const { listingPicUrl, location, photos, title } = props;
   const listingLink = `https://beenest.com${location.pathname}`;
@@ -49,7 +50,7 @@ const ListingGallery = (props: Props) => {
           </a>
         </Row>
         <Row className="d-flex align-items-center mt-3" noGutters>
-          <CopyToClipboard text={listingLink}>
+          <CopyToClipboard text={listingLink} onCopy={() => toggleAlert()}>
             <div className="d-flex align-items-center w-100 pointer">
               <Col xs="2" md="1" className="p-0">
                 <Button className="btn btn-icon transition-3d-hover" size="sm" type="button">
@@ -62,6 +63,11 @@ const ListingGallery = (props: Props) => {
             </div>
           </CopyToClipboard>
         </Row>
+        <Row className="mt-3" noGutters>
+          <Alert className="mb-0" color="success" isOpen={isAlertOpen} toggle={toggleAlert}>
+            Copied to clipboard.
+          </Alert>
+        </Row>
       </ModalBody>
     </Modal>
     <Button className="position-absolute bottom-0 right-0 m-4" onClick={() => setOpen(true)}>
@@ -72,6 +78,11 @@ const ListingGallery = (props: Props) => {
 
   function toggleModal() {
     setModal(!isModalOpen);
+    setAlert(false);
+  }
+
+  function toggleAlert() {
+    setAlert(!isAlertOpen);
   }
 };
 
