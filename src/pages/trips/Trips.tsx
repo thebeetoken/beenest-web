@@ -17,6 +17,28 @@ enum ModalType {
   CONTACT_HOST = 'CONTACT_HOST',
 }
 
+const renderEmptySection = (message: string) => (
+  <>
+    <Row className="mb-2">
+      <Col>
+        <h2>{message}</h2>
+      </Col>
+    </Row>
+    <Row>
+      <Col>
+        <Link className="btn btn-secondary" to='/'>
+          Book a Home Today!
+        </Link>
+      </Col>
+    </Row>
+  </>
+);
+
+const renderCurrentEmpty = renderEmptySection('You have no current trips.');
+const renderUpcomingEmpty = renderEmptySection('You haven\'t booked any trips yet.');
+const renderPastEmpty = renderEmptySection('You have no past trips.');
+const renderCancelledEmpty = renderEmptySection('You have no cancelled trips.');
+
 function Trips() {
   const [modal, setModal] = React.useState<ModalType | undefined>(undefined);
   const [alert, setAlert] = React.useState<AlertProperties>({ color: '', msg: '', show: false });
@@ -31,39 +53,11 @@ function Trips() {
           return <h1>{error ? error.message : 'Error / No Data'}</h1>;
         }
 
-        const { current, upcoming } = data;
+        const { cancelled, current, past, upcoming, } = data;
         const isCurrentEmpty = !(current || []).length;
         const isUpcomingEmpty = !(upcoming || []).length;
-        const renderCurrentEmpty = 
-          <>
-            <Row className="mb-2">
-              <Col>
-                <h2>You have no trips awaiting approval.</h2>
-              </Col>
-            </Row>
-            <Row>
-              <Col>
-                <Link className="btn btn-secondary" to='/'>
-                  Book a Home Today!
-                </Link>
-              </Col>
-            </Row>
-          </>;
-        const renderUpcomingEmpty = 
-          <>
-            <Row className="mb-2">
-              <Col>
-                <h2>You haven't booked any trips yet.</h2>
-              </Col>
-            </Row>
-            <Row>
-              <Col>
-                <Link className="btn btn-secondary" to='/'>
-                  Book a Home Today!
-                </Link>
-              </Col>
-            </Row>
-          </>;
+        const isPastEmpty = !(past || []).length;
+        const isCancelledEmpty = !(cancelled || []).length;
         const renderCards = Object.keys(data).reduce((result: any, category: GUEST_SORTED_BOOKINGS) => {
           return {
             ...result,
@@ -149,12 +143,20 @@ function Trips() {
               <Route
                 exact
                 path="/trips/past"
-                component={() => renderPastCards}
+                component={() => (
+                  isPastEmpty
+                    ? renderPastEmpty
+                    : renderPastCards
+                )}
               />
               <Route
                 exact
                 path="/trips/cancelled"
-                component={() => renderCancelledCards}
+                component={() => (
+                  isCancelledEmpty
+                    ? renderCancelledEmpty
+                    : renderCancelledCards
+                )}
               />
               <Redirect exact from="/trips" to={isCurrentEmpty ? "/trips/upcoming" : "/trips/current"} />
               <Route component={NotFound} />
