@@ -8,11 +8,11 @@ const TRAVEL_MODES = [ 'Driving', 'Transit', 'Walking', 'Bicycling' ];
 interface Props {
   place?: google.maps.places.PlaceResult;
   onPlaceChange?: (place: google.maps.places.PlaceResult | null) => void;
-  onTravelModeChange?: (travelMode: string) => void;
+  onTravelModeChange: (travelMode: string) => void;
   travelMode: string;
 }
 
-const TransitTime = ({ place, onPlaceChange, travelMode }: Props) => {
+const TransitTime = ({ place, onPlaceChange, onTravelModeChange, travelMode }: Props) => {
   const inputRef: React.RefObject<HTMLInputElement | null> = React.createRef();
 
   const handlePlace = (place: google.maps.places.PlaceResult) => {
@@ -60,6 +60,7 @@ const TransitTime = ({ place, onPlaceChange, travelMode }: Props) => {
           name="travelMode"
           value={mode.toUpperCase()}
           checked={mode.toUpperCase() === travelMode}
+          onChange={() => onTravelModeChange(mode.toUpperCase())}
         />
         <label className="form-check-label" htmlFor={mode.toLowerCase()}>{mode}</label>
       </Col>)}
