@@ -56,6 +56,7 @@ const SearchPage = ({
             className="w-100 h-100"
             listings={listings}
             near={filter.near}
+            travelMode={filter.travelMode}
             selectedListing={debouncedListing || undefined}
             onSelect={selectListing}
           />
