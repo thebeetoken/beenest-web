@@ -50,7 +50,7 @@ const Header = () => (
     <Route path="/account" component={DetailedHeader} />
     <Route exact path="/work" component={DetailedHeader} />
     <Route exact path="/about" component={DetailedHeader} />
-    <Route  path="/bookings" render={() => <SimpleHeader primary block />} />
+    <Route path="/bookings" render={() => <SimpleHeader primary block />} />
     <Route exact path="/forgot_password" render={() => <SimpleHeader white fixed />} />
     <Route exact path="/login" render={() => <SimpleHeader primary block />} />
     <Route exact path="/signup" render={() => <SimpleHeader primary block />} />
@@ -84,7 +84,15 @@ const DetailedHeader = () => {
                           return <Loading />;
                         }
                         if (error || !data) {
-                          return <h1>{error ? error.message : 'Error / No Data'}</h1>;
+                          return (
+                            <p className="small mb-0">An error has occured. Please{' '}
+                              <Link
+                                to="/logout">
+                                logout
+                              </Link>{' '}
+                              to continue.
+                            </p>
+                          );
                         }
                         const beeUser = data.user;
                         const isHost = beeUser.listingCount > 0;
