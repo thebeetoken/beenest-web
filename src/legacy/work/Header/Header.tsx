@@ -85,12 +85,13 @@ const DetailedHeader = () => {
                         }
                         if (error || !data) {
                           return (
-                            <p className="small mb-0">An error has occured. Please{' '}
+                            <p className="small mb-0">An error has occured.{' '}
                               <Link
                                 to="/logout">
-                                logout
+                                Logout
                               </Link>{' '}
-                              to continue.
+                              to continue. If this error continues, please contact{' '}
+                              <a href="https://support.beenest.com/" target="_blank">support</a>.
                             </p>
                           );
                         }
