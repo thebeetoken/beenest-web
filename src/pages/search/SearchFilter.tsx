@@ -13,7 +13,7 @@ const SearchFilter = ({ children, label }: Props) => {
       <DropdownToggle>
         {label}
       </DropdownToggle>
-      <DropdownMenu>
+      <DropdownMenu className="w-100">
         {children}
       </DropdownMenu>
     </Dropdown>
