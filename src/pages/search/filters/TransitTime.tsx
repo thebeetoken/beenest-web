@@ -13,7 +13,7 @@ const TransitTime = ({ place, onPlaceChange }: Props) => {
 
   const handlePlace = (place: google.maps.places.PlaceResult) => {
     if (onPlaceChange) {
-      onPlaceChange(place);
+      onPlaceChange(place && place.geometry ? place : null);
     }
   };
   const handleClear = (event: React.MouseEvent<HTMLAnchorElement, MouseEvent>) => {
