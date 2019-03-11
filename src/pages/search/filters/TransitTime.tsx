@@ -12,8 +12,12 @@ const TransitTime = ({ place, onPlaceChange }: Props) => {
   const inputRef: React.RefObject<HTMLInputElement | null> = React.createRef();
 
   const handlePlace = (place: google.maps.places.PlaceResult) => {
+    if (place && !place.geometry) {
+      window.alert('Please select a destination from the list of suggestions.');
+      return;
+    }
     if (onPlaceChange) {
-      onPlaceChange(place && place.geometry ? place : null);
+      onPlaceChange(place);
     }
   };
   const handleClear = (event: React.MouseEvent<HTMLAnchorElement, MouseEvent>) => {
