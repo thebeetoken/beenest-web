@@ -12,8 +12,8 @@ const ShareModal = (props: Props) => {
   const [isAlertOpen, setAlert] = React.useState<boolean>(false);
   const { isOpen, toggle, url, title } = props;
   return (
-    <Modal isOpen={isOpen} toggle={() => toggle()}>
-      <ModalHeader className="text-primary" toggle={() => toggle()}>Share Listing</ModalHeader>
+    <Modal isOpen={isOpen} toggle={() => toggleModal()}>
+      <ModalHeader className="text-primary" toggle={() => toggleModal()}>Share Listing</ModalHeader>
       <ModalBody>
         <Row className="d-flex align-items-center" noGutters>
           <a className="d-flex align-items-center w-100" href={`https://www.facebook.com/sharer/sharer.php?u=${url}&quote=${title && title}`} target="_blank">
@@ -63,7 +63,6 @@ const ShareModal = (props: Props) => {
   );
 
   function toggleModal() {
-    console.log('hi');
     toggle();
     setAlert(!isAlertOpen);
   }
