@@ -26,7 +26,7 @@ const SearchForm = ({ filter, onFilterChange }: Props) => {
             place={filter.near}
             travelMode={filter.travelMode}
             onPlaceChange={handlePlaceChange}
-            onTravelModeChange={handleTravelModeChange}
+            onTravelModeChange={travelMode => onFilterChange({ ...filter, travelMode })}
           />
         </SearchFilter>
       </ButtonGroup>
@@ -41,10 +41,6 @@ const SearchForm = ({ filter, onFilterChange }: Props) => {
       nextFilter.near = place;
     }
     onFilterChange(nextFilter);
-  }
-
-  function handleTravelModeChange(travelMode: google.maps.TravelMode) {
-    onFilterChange({ ...filter, travelMode });
   }
 };
 
