@@ -2,6 +2,7 @@ import * as React from 'react';
 import { withRouter } from 'react-router-dom';
 import { compose, withProps } from 'recompose';
 import { DirectionsRenderer, InfoWindow, Marker, GoogleMap, OverlayView, withGoogleMap, withScriptjs } from 'react-google-maps';
+import { Popover } from 'reactstrap';
 
 import { SETTINGS } from 'configs/settings';
 const { GOOGLE_MAPS_KEY } = SETTINGS;
@@ -112,7 +113,10 @@ class GoogleMapsWithMarkers extends React.Component<Props, State> {
             mapPaneName={OverlayView.OVERLAY_MOUSE_TARGET}
             onClick={() => onSelect(listing)}
           >
-            <strong>{formatPrice(listing.pricePerNightUsd)}</strong>
+            <div className="popover p-1 bs-popover-top">
+              <strong>{formatPrice(listing.pricePerNightUsd)}</strong>
+              <div className="arrow"></div>
+            </div>
           </OverlayView>
         ))}
         {!!selectedListing && <InfoWindow
