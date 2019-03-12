@@ -1,5 +1,5 @@
 import * as React from 'react';
-import { Container, Input } from 'reactstrap';
+import { Alert, Container, Input } from 'reactstrap';
 
 import GoogleAutoComplete from 'components/shared/GoogleAutoComplete';
 
@@ -9,11 +9,12 @@ interface Props {
 }
 
 const TransitTime = ({ place, onPlaceChange }: Props) => {
+  const [isAlertShowing, setAlertShowing] = React.useState<boolean>(false);
   const inputRef: React.RefObject<HTMLInputElement | null> = React.createRef();
 
   const handlePlace = (place: google.maps.places.PlaceResult) => {
     if (place && !place.geometry) {
-      window.alert('Please select a destination from the list of suggestions.');
+      setAlertShowing(true);
       return;
     }
     if (onPlaceChange) {
@@ -37,6 +38,9 @@ const TransitTime = ({ place, onPlaceChange }: Props) => {
         <a href="#" onClick={handleClear}>Clear</a>
       </small>
     </h5>
+    <Alert color="warning" isOpen={isAlertShowing} toggle={() => setAlertShowing(false)}>
+      Please select a destination from the list of suggestions.
+    </Alert>
     <GoogleAutoComplete
       types={[]}
       inputRef={inputRef}
