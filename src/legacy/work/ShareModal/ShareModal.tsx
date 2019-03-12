@@ -65,7 +65,7 @@ const ShareModal = (props: Props) => {
 
   function toggleModal() {
     toggle();
-    setAlert(!isAlertOpen);
+    setAlert(false);
   }
 
   function toggleAlert() {
