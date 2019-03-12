@@ -111,13 +111,16 @@ class GoogleMapsWithMarkers extends React.Component<Props, State> {
         />}
         {listings.filter(
           listing => !selectedListing || listing.id !== selectedListing.id
-        ).map(listing => (
+        ).map((listing, index) => (
           <OverlayView
             key={listing.id}
             position={{ lat: listing.lat, lng: listing.lng }}
             mapPaneName={OverlayView.OVERLAY_MOUSE_TARGET}
           >
-            <button className="popover p-1 bs-popover-top" style={{ transform: 'translate(-50%, -100%)' }} onClick={() => onSelect(listing)}>
+            <button className="popover p-1 bs-popover-top" style={{
+              transform: 'translate(-50%, -100%)',
+              zIndex: listings.length - index
+            }} onClick={() => onSelect(listing)}>
               <strong>{formatPrice(listing.pricePerNightUsd)}</strong>
               <div className="arrow" style={{ left: 'calc(50% - 12px)' }}></div>
             </button>
