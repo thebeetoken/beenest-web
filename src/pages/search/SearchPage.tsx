@@ -16,7 +16,7 @@ interface Props {
   checkInDate?: string;
   checkOutDate?: string;
   numberOfGuests?: number;
-  onFilterChange?: (filter: SearchFilterCriteria) => void;
+  onFilterChange: (filter: SearchFilterCriteria) => void;
   filter: SearchFilterCriteria;
   listings: Listing[];
 }
@@ -56,6 +56,7 @@ const SearchPage = ({
             className="w-100 h-100"
             listings={listings}
             near={filter.near}
+            travelMode={filter.travelMode}
             selectedListing={debouncedListing || undefined}
             onSelect={selectListing}
           />

@@ -22,6 +22,7 @@ interface Props extends RouterProps {
   selectedListing?: ListingShort;
   listings: ListingShort[];
   near?: google.maps.places.PlaceResult;
+  travelMode?: google.maps.TravelMode;
   width?: string;
   onSelect: (listing: ListingShort | null) => void;
 }
@@ -58,16 +59,20 @@ class GoogleMapsWithMarkers extends React.Component<Props, State> {
   }
 
   componentDidUpdate(prevProps: Props) {
-    const { near, selectedListing } = this.props;
-    if (near === prevProps.near && selectedListing === prevProps.selectedListing) {
+    if (
+      prevProps.near === this.props.near &&
+      prevProps.selectedListing === this.props.selectedListing &&
+      prevProps.travelMode === this.props.travelMode
+    ) {
       return;
     }
+    const { near, selectedListing, travelMode } = this.props;
     if (selectedListing && near) {
       const directionsService = new google.maps.DirectionsService();
       directionsService.route({
         origin: { lat: selectedListing.lat, lng: selectedListing.lng },
         destination: near.geometry.location,
-        travelMode: google.maps.TravelMode.DRIVING
+        travelMode: travelMode || google.maps.TravelMode.DRIVING
       }, (directions, status) => {
         if (status === google.maps.DirectionsStatus.OK) {
           this.setState({ directions });
