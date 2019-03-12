@@ -41,7 +41,7 @@ const ShareModal = (props: Props) => {
         </Row>
         <Row className="d-flex align-items-center mt-3" noGutters>
           <CopyToClipboard text={url} onCopy={() => toggleAlert()}>
-            <div className="d-flex align-items-center w-100 pointer">
+            <a className="d-flex align-items-center w-100" href="#">
               <Col xs="2" md="1" className="p-0">
                 <Button className="btn btn-icon transition-3d-hover" size="sm" type="button">
                   <span className="fab btn-icon__inner far fa-copy" />
@@ -50,7 +50,7 @@ const ShareModal = (props: Props) => {
               <Col className="">
                 <h5 className="small mb-0 text-secondary">Copy Link</h5>
               </Col>
-            </div>
+            </a>
           </CopyToClipboard>
         </Row>
         <Row className="mt-3" noGutters>
