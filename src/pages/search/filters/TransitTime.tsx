@@ -17,7 +17,6 @@ const TransitTime = ({ place, onPlaceChange, onTravelModeChange, travelMode }: P
     'Walking': google.maps.TravelMode.WALKING,
     'Cycling': google.maps.TravelMode.BICYCLING
   } : {};
-  const selectedMode = travelMode || google.maps.TravelMode.DRIVING;
 
   const inputRef: React.RefObject<HTMLInputElement | null> = React.createRef();
 
@@ -63,14 +62,14 @@ const TransitTime = ({ place, onPlaceChange, onTravelModeChange, travelMode }: P
     </GoogleAutoComplete>
     <h6 className="mt-3">Travel Mode</h6>
     <Row tag="form" className="form-check form-check-inline">
-      {Object.entries(travelModes).map(([name, mode]) => <Col xs="6" key={mode}>
+      {Object.entries(travelModes).map(([name, mode], index) => <Col xs="6" key={mode}>
         <Input
           className="form-check-input"
           id={name.toLowerCase()}
           type="radio"
           name="travelMode"
           value={mode}
-          checked={mode === selectedMode}
+          checked={(mode === travelMode) || (!travelMode && index === 0)}
           onChange={() => mode && handleTravelMode(mode)}
         />
         <label className="form-check-label" htmlFor={name.toLowerCase()}>{name}</label>
