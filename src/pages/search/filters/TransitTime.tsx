@@ -32,12 +32,19 @@ const TransitTime = ({ place, onPlaceChange }: Props) => {
   };
 
   return <Container>
-    <h5 className={place ? '' : 'text-muted'}>
-      {place ? place.name : 'Add destination'}
-      <small className={place ? 'ml-3 text-muted' : 'd-none'}>
+    {place ? <h5>
+      {place.name}
+      <small className="ml-3">
         <a href="#" onClick={handleClear}>Clear</a>
-      </small>
-    </h5>
+       </small>
+    </h5> : <>
+      <h6>Examples:</h6>
+      <ul>
+        <li>Conference Centers</li>
+        <li>Restaurants</li>
+        <li>Landmarks</li>
+      </ul>
+    </>}
     <Alert color="warning" isOpen={isAlertShowing} toggle={() => setAlertShowing(false)}>
       Please select a destination from the list of suggestions.
     </Alert>
