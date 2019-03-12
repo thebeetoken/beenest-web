@@ -8,6 +8,7 @@ const { GOOGLE_MAPS_KEY } = SETTINGS;
 
 import { ListingCard } from 'legacy/shared/ListingCard';
 import { LatLngBounds, ListingShort } from 'networking/listings';
+import { formatPrice } from 'utils/formatter';
 
 import GoogleMapsWithMarkersContainer from './GoogleMapsWithMarkers.container';
 
@@ -105,11 +106,13 @@ class GoogleMapsWithMarkers extends React.Component<Props, State> {
           zIndex={1000}
         />}
         {listings.map(listing => (
-          <Marker key={listing.id}
-            icon={hotelMarker}
+          <InfoWindow
+            key={listing.id}
             position={{ lat: listing.lat, lng: listing.lng }}
             onClick={() => onSelect(listing)}
-          />
+          >
+            <strong>{formatPrice(listing.pricePerNightUsd)}</strong>
+          </InfoWindow>
         ))}
         {!!selectedListing && <InfoWindow
           options={{ pixelOffset: new google.maps.Size(0, -32) }}
