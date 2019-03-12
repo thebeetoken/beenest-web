@@ -100,7 +100,7 @@ const DetailedHeader = () => {
                         return (
                           <>
                             <Link
-                              to={isHost ? HOST_PORTAL_LINK : HOST_INTEREST_LINK}
+                              to={HOST_PORTAL_LINK}
                               className="mb-4 mb-md-0 mr-md-4 w-100 w-md-auto btn btn-outline-primary">
                               {isHost ? 'Host Profile' : 'Become a Host'}
                             </Link>
