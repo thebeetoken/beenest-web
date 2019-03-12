@@ -117,10 +117,10 @@ class GoogleMapsWithMarkers extends React.Component<Props, State> {
             position={{ lat: listing.lat, lng: listing.lng }}
             mapPaneName={OverlayView.OVERLAY_MOUSE_TARGET}
           >
-            <div className="popover p-1 bs-popover-top" style={{ transform: 'translate(-50%, -100%)' }} onClick={() => onSelect(listing)}>
+            <button className="popover p-1 bs-popover-top" style={{ transform: 'translate(-50%, -100%)' }} onClick={() => onSelect(listing)}>
               <strong>{formatPrice(listing.pricePerNightUsd)}</strong>
               <div className="arrow" style={{ left: 'calc(50% - 12px)' }}></div>
-            </div>
+            </button>
           </OverlayView>
         ))}
         {!!selectedListing && <InfoWindow
