@@ -14,7 +14,7 @@ const SearchForm = ({ filter, onFilterChange }: Props) => {
   return <Container>
     <Row>
       <Col>
-        <SearchFilter label="Close To...">
+        <SearchFilter label="Add Destination">
           <TransitTime
             place={filter.near}
             travelMode={filter.travelMode}

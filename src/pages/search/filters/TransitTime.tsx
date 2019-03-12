@@ -1,5 +1,5 @@
 import * as React from 'react';
-import { Col, Container, Input, Row } from 'reactstrap';
+import { Alert, Col, Container, Input, Row } from 'reactstrap';
 
 import GoogleAutoComplete from 'components/shared/GoogleAutoComplete';
 
@@ -17,12 +17,16 @@ const TransitTime = ({ place, onPlaceChange, onTravelModeChange, travelMode }: P
     'Walking': google.maps.TravelMode.WALKING,
     'Cycling': google.maps.TravelMode.BICYCLING
   } : {};
-
+  const [isAlertShowing, setAlertShowing] = React.useState<boolean>(false);
   const inputRef: React.RefObject<HTMLInputElement | null> = React.createRef();
 
   const handlePlace = (place: google.maps.places.PlaceResult) => {
+    if (place && !place.geometry) {
+      setAlertShowing(true);
+      return;
+    }
     if (onPlaceChange) {
-      onPlaceChange(place && place.geometry ? place : null);
+      onPlaceChange(place);
     }
   };
   const handleClear = (event: React.MouseEvent<HTMLAnchorElement, MouseEvent>) => {
@@ -41,12 +45,22 @@ const TransitTime = ({ place, onPlaceChange, onTravelModeChange, travelMode }: P
   };
 
   return <Container>
-    <h5 className={place ? '' : 'text-muted'}>
-      {place ? place.name : 'Add destination'}
-      <small className={place ? 'ml-3 text-muted' : 'd-none'}>
+    {place ? <h5>
+      {place.name}
+      <small className="ml-3">
         <a href="#" onClick={handleClear}>Clear</a>
-      </small>
-    </h5>
+       </small>
+    </h5> : <>
+      <h6>Examples:</h6>
+      <ul>
+        <li>Conference Centers</li>
+        <li>Restaurants</li>
+        <li>Landmarks</li>
+      </ul>
+    </>}
+    <Alert color="warning" isOpen={isAlertShowing} toggle={() => setAlertShowing(false)}>
+      Please select a destination from the list of suggestions.
+    </Alert>
     <GoogleAutoComplete
       types={[]}
       inputRef={inputRef}
