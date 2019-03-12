@@ -1,13 +1,17 @@
 import { ListingSearchInput } from 'networking/listings';
 
 export interface SearchFilterCriteria {
+  homeType?: string;
   travelMode?: google.maps.TravelMode;
   near?: google.maps.places.PlaceResult;
 }
 
-export function toListingSearchInput(filter : SearchFilterCriteria): ListingSearchInput {
-  return filter.near ? { near: {
-    lat: filter.near.geometry.location.lat(),
-    lng: filter.near.geometry.location.lng() }
-  } : {};
+export function toListingSearchInput({ near, homeType }: SearchFilterCriteria): ListingSearchInput {
+  return {
+    near: near && {
+      lat: near.geometry.location.lat(),
+      lng: near.geometry.location.lng()
+    },
+    homeType
+  };
 }
