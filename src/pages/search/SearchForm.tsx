@@ -2,6 +2,7 @@ import * as React from 'react';
 import { Col, Container, Row } from 'reactstrap';
 
 import { SearchFilterCriteria } from './SearchCriteria';
+import HomeType from './filters/HomeType';
 import TransitTime from './filters/TransitTime';
 import SearchFilter from './SearchFilter';
 
@@ -13,6 +14,14 @@ interface Props {
 const SearchForm = ({ filter, onFilterChange }: Props) => {
   return <Container>
     <Row>
+      <Col>
+        <SearchFilter label="Home Type">
+          <HomeType
+            homeType={filter.homeType}
+            onChange={homeType => console.log(homeType)}
+          />
+        </SearchFilter>
+      </Col>
       <Col>
         <SearchFilter label="Add Destination">
           <TransitTime
