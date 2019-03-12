@@ -15,13 +15,13 @@ const SearchForm = ({ filter, onFilterChange }: Props) => {
   return <Container>
     <Row>
       <ButtonGroup>
-        <SearchFilter label="Home Type">
+        <SearchFilter label="Home Type" menuClassName="bee-search-menu-narrow">
           <HomeType
             homeType={filter.homeType}
             onChange={homeType => console.log(homeType)}
           />
         </SearchFilter>
-        <SearchFilter label="Destination">
+        <SearchFilter label="Destination" menuClassName="bee-search-menu-wide">
           <TransitTime
             place={filter.near}
             travelMode={filter.travelMode}

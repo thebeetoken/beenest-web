@@ -45,9 +45,14 @@ $HEADER-HEIGHT: 4.125rem;
   height: calc(100vh - 11.25rem);
 }
 
-.bee-search-menu {
-  min-width: 16rem;
+.bee-search-menu-wide {
+  min-width: 24rem;
 }
+
+.bee-search-menu-narrow {
+  min-width: 9rem;
+}
+
 
 // add not-allowed cursor and no transform on disabled items
 * {
