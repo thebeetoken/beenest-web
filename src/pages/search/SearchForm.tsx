@@ -25,23 +25,13 @@ const SearchForm = ({ filter, onFilterChange }: Props) => {
           <TransitTime
             place={filter.near}
             travelMode={filter.travelMode}
-            onPlaceChange={handlePlaceChange}
+            onPlaceChange={near => onFilterChange({ ...filter, near })}
             onTravelModeChange={travelMode => onFilterChange({ ...filter, travelMode })}
           />
         </SearchFilter>
       </ButtonGroup>
     </Row>
   </Container>;
-
-  function handlePlaceChange(place: google.maps.places.PlaceResult | null) {
-    const nextFilter: SearchFilterCriteria = { ...filter };
-    if (!place) {
-      delete nextFilter.near;
-    } else {
-      nextFilter.near = place;
-    }
-    onFilterChange(nextFilter);
-  }
 };
 
 export default SearchForm;
