@@ -27,12 +27,19 @@ const TransitTime = ({ place, onPlaceChange }: Props) => {
   };
 
   return <Container>
-    <h6>Examples:</h6>
-    <ul>
-      <li>Conference Centers</li>
-      <li>Restaurants</li>
-      <li>Landmarks</li>
-    </ul>
+    {place ? <h5>
+      {place.name}
+      <small className="ml-3">
+        <a href="#" onClick={handleClear}>Clear</a>
+       </small>
+    </h5> : <>
+      <h6>Examples:</h6>
+      <ul>
+        <li>Conference Centers</li>
+        <li>Restaurants</li>
+        <li>Landmarks</li>
+      </ul>
+    </>}
     <GoogleAutoComplete
       types={[]}
       inputRef={inputRef}
