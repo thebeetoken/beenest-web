@@ -1,7 +1,7 @@
 import { ListingSearchInput } from 'networking/listings';
 
 export interface SearchFilterCriteria {
-  travelMode: string;
+  travelMode?: google.maps.TravelMode;
   near?: google.maps.places.PlaceResult;
 }
 

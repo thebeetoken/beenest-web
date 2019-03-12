@@ -16,7 +16,7 @@ interface Props {
   checkInDate?: string;
   checkOutDate?: string;
   numberOfGuests?: number;
-  onFilterChange?: (filter: SearchFilterCriteria) => void;
+  onFilterChange: (filter: SearchFilterCriteria) => void;
   filter: SearchFilterCriteria;
   listings: Listing[];
 }

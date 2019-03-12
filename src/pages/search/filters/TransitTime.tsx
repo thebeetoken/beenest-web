@@ -3,16 +3,21 @@ import { Col, Container, Input, Row } from 'reactstrap';
 
 import GoogleAutoComplete from 'components/shared/GoogleAutoComplete';
 
-const TRAVEL_MODES = [ 'Driving', 'Transit', 'Walking', 'Bicycling' ];
-
 interface Props {
   place?: google.maps.places.PlaceResult;
   onPlaceChange?: (place: google.maps.places.PlaceResult | null) => void;
-  onTravelModeChange: (travelMode: string) => void;
-  travelMode: string;
+  onTravelModeChange?: (travelMode: google.maps.TravelMode) => void;
+  travelMode?: google.maps.TravelMode;
 }
 
 const TransitTime = ({ place, onPlaceChange, onTravelModeChange, travelMode }: Props) => {
+  const travelModes = typeof google !== 'undefined' ? {
+    'Driving': google.maps.TravelMode.DRIVING,
+    'Transit': google.maps.TravelMode.TRANSIT,
+    'Walking': google.maps.TravelMode.WALKING,
+    'Cycling': google.maps.TravelMode.BICYCLING
+  } : {};
+
   const inputRef: React.RefObject<HTMLInputElement | null> = React.createRef();
 
   const handlePlace = (place: google.maps.places.PlaceResult) => {
@@ -27,6 +32,11 @@ const TransitTime = ({ place, onPlaceChange, onTravelModeChange, travelMode }: P
     }
     if (onPlaceChange) {
       onPlaceChange(null);
+    }
+  };
+  const handleTravelMode = (mode: google.maps.TravelMode) => {
+    if (onTravelModeChange) {
+      onTravelModeChange(mode);
     }
   };
 
@@ -52,17 +62,17 @@ const TransitTime = ({ place, onPlaceChange, onTravelModeChange, travelMode }: P
     </GoogleAutoComplete>
     <h6 className="mt-3">Travel Mode</h6>
     <Row tag="form" className="form-check form-check-inline">
-      {TRAVEL_MODES.map(mode => <Col xs="6" key={mode}>
+      {Object.entries(travelModes).map(([name, mode]) => <Col xs="6" key={mode}>
         <Input
           className="form-check-input"
-          id={mode.toLowerCase()}
+          id={name.toLowerCase()}
           type="radio"
           name="travelMode"
-          value={mode.toUpperCase()}
-          checked={mode.toUpperCase() === travelMode}
-          onChange={() => onTravelModeChange(mode.toUpperCase())}
+          value={mode}
+          checked={mode === travelMode}
+          onChange={() => mode && handleTravelMode(mode)}
         />
-        <label className="form-check-label" htmlFor={mode.toLowerCase()}>{mode}</label>
+        <label className="form-check-label" htmlFor={name.toLowerCase()}>{name}</label>
       </Col>)}
     </Row>
   </Container>;

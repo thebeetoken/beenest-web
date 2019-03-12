@@ -22,7 +22,7 @@ interface Props extends RouterProps {
   selectedListing?: ListingShort;
   listings: ListingShort[];
   near?: google.maps.places.PlaceResult;
-  travelMode?: string;
+  travelMode?: google.maps.TravelMode;
   width?: string;
   onSelect: (listing: ListingShort | null) => void;
 }

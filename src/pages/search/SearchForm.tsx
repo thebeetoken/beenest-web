@@ -6,8 +6,8 @@ import TransitTime from './filters/TransitTime';
 import SearchFilter from './SearchFilter';
 
 interface Props {
-  filter?: SearchFilterCriteria;
-  onFilterChange?: (filter: SearchFilterCriteria) => void;
+  filter: SearchFilterCriteria;
+  onFilterChange: (filter: SearchFilterCriteria) => void;
 }
 
 const SearchForm = ({ filter, onFilterChange }: Props) => {
@@ -16,8 +16,8 @@ const SearchForm = ({ filter, onFilterChange }: Props) => {
       <Col>
         <SearchFilter label="Close To...">
           <TransitTime
-            place={filter ? filter.near : undefined}
-            travelMode={filter ? filter.travelMode : 'DRIVING'}
+            place={filter.near}
+            travelMode={filter.travelMode}
             onPlaceChange={handlePlaceChange}
             onTravelModeChange={handleTravelModeChange}
           />
@@ -38,7 +38,7 @@ const SearchForm = ({ filter, onFilterChange }: Props) => {
     }
   }
 
-  function handleTravelModeChange(travelMode: string) {
+  function handleTravelModeChange(travelMode: google.maps.TravelMode) {
     if (onFilterChange && filter) {
       onFilterChange({ ...filter, travelMode });
     }
