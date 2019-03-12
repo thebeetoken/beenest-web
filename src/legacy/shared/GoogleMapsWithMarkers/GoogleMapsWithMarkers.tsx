@@ -2,7 +2,6 @@ import * as React from 'react';
 import { withRouter } from 'react-router-dom';
 import { compose, withProps } from 'recompose';
 import { DirectionsRenderer, InfoWindow, Marker, GoogleMap, OverlayView, withGoogleMap, withScriptjs } from 'react-google-maps';
-import { Popover } from 'reactstrap';
 
 import { SETTINGS } from 'configs/settings';
 const { GOOGLE_MAPS_KEY } = SETTINGS;
@@ -13,7 +12,6 @@ import { formatPrice } from 'utils/formatter';
 
 import GoogleMapsWithMarkersContainer from './GoogleMapsWithMarkers.container';
 
-const hotelMarker = require('assets/images/iconmonstr-location-12-32.png');
 const nearMarker = require('assets/images/iconmonstr-location-13-32.png');
 
 interface Props extends RouterProps {
@@ -111,9 +109,9 @@ class GoogleMapsWithMarkers extends React.Component<Props, State> {
             key={listing.id}
             position={{ lat: listing.lat, lng: listing.lng }}
             mapPaneName={OverlayView.OVERLAY_MOUSE_TARGET}
-            onClick={() => onSelect(listing)}
+            getPixelPositionOffset={(w, h) => ({ x: -w / 2, y: -h })}
           >
-            <div className="popover p-1 bs-popover-top">
+            <div className="popover p-1 bs-popover-top" onClick={() => onSelect(listing)}>
               <strong>{formatPrice(listing.pricePerNightUsd)}</strong>
               <div className="arrow" style={{ left: 'calc(50% - 12px)' }}></div>
             </div>
