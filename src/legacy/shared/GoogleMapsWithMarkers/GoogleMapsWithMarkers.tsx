@@ -1,7 +1,7 @@
 import * as React from 'react';
 import { withRouter } from 'react-router-dom';
 import { compose, withProps } from 'recompose';
-import { DirectionsRenderer, InfoWindow, Marker, GoogleMap, withGoogleMap, withScriptjs } from 'react-google-maps';
+import { DirectionsRenderer, InfoWindow, Marker, GoogleMap, OverlayView, withGoogleMap, withScriptjs } from 'react-google-maps';
 
 import { SETTINGS } from 'configs/settings';
 const { GOOGLE_MAPS_KEY } = SETTINGS;
@@ -106,13 +106,14 @@ class GoogleMapsWithMarkers extends React.Component<Props, State> {
           zIndex={1000}
         />}
         {listings.map(listing => (
-          <InfoWindow
+          <OverlayView
             key={listing.id}
             position={{ lat: listing.lat, lng: listing.lng }}
+            mapPaneName={OverlayView.OVERLAY_MOUSE_TARGET}
             onClick={() => onSelect(listing)}
           >
             <strong>{formatPrice(listing.pricePerNightUsd)}</strong>
-          </InfoWindow>
+          </OverlayView>
         ))}
         {!!selectedListing && <InfoWindow
           options={{ pixelOffset: new google.maps.Size(0, -32) }}
