@@ -59,7 +59,11 @@ class GoogleMapsWithMarkers extends React.Component<Props, State> {
   }
 
   componentDidUpdate(prevProps: Props) {
-    if (['near', 'selectedListing', 'travelMode'].every(key => prevProps[key] === this.props[key])) {
+    if (
+      prevProps.near === this.props.near &&
+      prevProps.selectedListing === this.props.selectedListing &&
+      prevProps.travelMode === this.props.travelMode
+    ) {
       return;
     }
     const { near, selectedListing, travelMode } = this.props;
