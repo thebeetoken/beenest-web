@@ -109,7 +109,9 @@ class GoogleMapsWithMarkers extends React.Component<Props, State> {
           title={near.name}
           zIndex={1000}
         />}
-        {listings.map(listing => (
+        {listings.filter(
+          listing => !selectedListing || listing.id !== selectedListing.id
+        ).map(listing => (
           <OverlayView
             key={listing.id}
             position={{ lat: listing.lat, lng: listing.lng }}
