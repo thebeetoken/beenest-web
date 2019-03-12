@@ -1,5 +1,5 @@
 import * as React from 'react';
-import { Container, Input } from 'reactstrap';
+import { Container, Input, Row } from 'reactstrap';
 
 import GoogleAutoComplete from 'components/shared/GoogleAutoComplete';
 
@@ -27,12 +27,12 @@ const TransitTime = ({ place, onPlaceChange }: Props) => {
   };
 
   return <Container>
-    <h5 className={place ? '' : 'text-muted'}>
-      {place ? place.name : 'Add destination'}
-      <small className={place ? 'ml-3 text-muted' : 'd-none'}>
-        <a href="#" onClick={handleClear}>Clear</a>
-      </small>
-    </h5>
+    <h6>Examples:</h6>
+    <ul>
+      <li>Conference Centers</li>
+      <li>Restaurants</li>
+      <li>Landmarks</li>
+    </ul>
     <GoogleAutoComplete
       types={[]}
       inputRef={inputRef}
