@@ -1,5 +1,5 @@
 import * as React from 'react';
-import { Col, Container, Row } from 'reactstrap';
+import { ButtonGroup, Container, Row } from 'reactstrap';
 
 import { SearchFilterCriteria } from './SearchCriteria';
 import HomeType from './filters/HomeType';
@@ -14,16 +14,14 @@ interface Props {
 const SearchForm = ({ filter, onFilterChange }: Props) => {
   return <Container>
     <Row>
-      <Col>
+      <ButtonGroup>
         <SearchFilter label="Home Type">
           <HomeType
             homeType={filter.homeType}
             onChange={homeType => console.log(homeType)}
           />
         </SearchFilter>
-      </Col>
-      <Col>
-        <SearchFilter label="Add Destination">
+        <SearchFilter label="Destination">
           <TransitTime
             place={filter.near}
             travelMode={filter.travelMode}
@@ -31,7 +29,7 @@ const SearchForm = ({ filter, onFilterChange }: Props) => {
             onTravelModeChange={handleTravelModeChange}
           />
         </SearchFilter>
-      </Col>
+      </ButtonGroup>
     </Row>
   </Container>;
 

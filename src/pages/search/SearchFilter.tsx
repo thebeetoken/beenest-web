@@ -9,11 +9,11 @@ interface Props {
 const SearchFilter = ({ children, label }: Props) => {
   const [isOpen, setOpen] = React.useState<boolean>(false);
   return (
-    <Dropdown isOpen={isOpen} toggle={() => setOpen(!isOpen)}>
-      <DropdownToggle outline>
+    <Dropdown group isOpen={isOpen} toggle={() => setOpen(!isOpen)}>
+      <DropdownToggle outline className="btn-sm">
         {label}
       </DropdownToggle>
-      <DropdownMenu className="w-100">
+      <DropdownMenu className="bee-search-menu">
         {children}
       </DropdownMenu>
     </Dropdown>
