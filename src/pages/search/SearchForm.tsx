@@ -34,27 +34,21 @@ const SearchForm = ({ filter, onFilterChange }: Props) => {
   </Container>;
 
   function handlePlaceChange(place: google.maps.places.PlaceResult | null) {
-    if (onFilterChange && filter) {
-      const nextFilter: SearchFilterCriteria = { ...filter };
-      if (!place) {
-        delete nextFilter.near;
-      } else {
-        nextFilter.near = place;
-      }
-      onFilterChange(nextFilter);
+    const nextFilter: SearchFilterCriteria = { ...filter };
+    if (!place) {
+      delete nextFilter.near;
+    } else {
+      nextFilter.near = place;
     }
+    onFilterChange(nextFilter);
   }
 
   function handleTravelModeChange(travelMode: google.maps.TravelMode) {
-    if (onFilterChange && filter) {
-      onFilterChange({ ...filter, travelMode });
-    }
+    onFilterChange({ ...filter, travelMode });
   }
 
   function handleHomeTypeChange(homeType: string) {
-    if (onFilterChange && filter) {
-      onFilterChange({ ...filter, homeType });
-    }
+    onFilterChange({ ...filter, homeType });
   }
 };
 
