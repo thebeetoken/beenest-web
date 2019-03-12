@@ -94,6 +94,7 @@ class GoogleMapsWithMarkers extends React.Component<Props, State> {
     };
     return (
       <GoogleMap
+        defaultClickableIcons={false}
         defaultZoom={10}
         defaultCenter={getCenterCoordinates(listings)}
         ref={this.handleMapMounted}
