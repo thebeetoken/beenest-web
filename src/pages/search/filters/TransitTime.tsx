@@ -17,6 +17,7 @@ const TransitTime = ({ place, onPlaceChange, onTravelModeChange, travelMode }: P
     'Walking': google.maps.TravelMode.WALKING,
     'Cycling': google.maps.TravelMode.BICYCLING
   } : {};
+  const selectedMode = travelMode || google.maps.TravelMode.DRIVING;
 
   const inputRef: React.RefObject<HTMLInputElement | null> = React.createRef();
 
@@ -69,7 +70,7 @@ const TransitTime = ({ place, onPlaceChange, onTravelModeChange, travelMode }: P
           type="radio"
           name="travelMode"
           value={mode}
-          checked={mode === travelMode}
+          checked={mode === selectedMode}
           onChange={() => mode && handleTravelMode(mode)}
         />
         <label className="form-check-label" htmlFor={name.toLowerCase()}>{name}</label>
