@@ -115,7 +115,7 @@ class GoogleMapsWithMarkers extends React.Component<Props, State> {
           >
             <div className="popover p-1 bs-popover-top">
               <strong>{formatPrice(listing.pricePerNightUsd)}</strong>
-              <div className="arrow"></div>
+              <div className="arrow" style={{ left: 'calc(50% - 12px)' }}></div>
             </div>
           </OverlayView>
         ))}
