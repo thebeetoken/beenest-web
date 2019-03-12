@@ -1,5 +1,5 @@
 import * as React from 'react';
-import { Container, Input, Row } from 'reactstrap';
+import { Container, Input } from 'reactstrap';
 
 import GoogleAutoComplete from 'components/shared/GoogleAutoComplete';
 
