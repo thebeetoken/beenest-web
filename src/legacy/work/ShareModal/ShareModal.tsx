@@ -1,6 +1,7 @@
 import * as React from 'react';
 import { Alert, Button, Col, Modal, ModalHeader, ModalBody, Row } from 'reactstrap';
 import CopyToClipboard from 'react-copy-to-clipboard';
+import { Link } from 'react-router-dom';
 interface Props {
   isOpen: boolean;
   toggle: () => void;
@@ -41,7 +42,7 @@ const ShareModal = (props: Props) => {
         </Row>
         <Row className="d-flex align-items-center mt-3" noGutters>
           <CopyToClipboard text={url} onCopy={() => toggleAlert()}>
-            <a className="d-flex align-items-center w-100" href="#">
+            <Link className="d-flex align-items-center w-100" to="#">
               <Col xs="2" md="1" className="p-0">
                 <Button className="btn btn-icon transition-3d-hover" size="sm" type="button">
                   <span className="fab btn-icon__inner far fa-copy" />
@@ -50,7 +51,7 @@ const ShareModal = (props: Props) => {
               <Col className="">
                 <h5 className="small mb-0 text-secondary">Copy Link</h5>
               </Col>
-            </a>
+            </Link>
           </CopyToClipboard>
         </Row>
         <Row className="mt-3" noGutters>
