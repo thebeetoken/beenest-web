@@ -3,12 +3,7 @@ import format from 'date-fns/format';
 import { compose, graphql } from 'react-apollo';
 import Switch from 'react-switch';
 
-import HostListingCardContainer from './HostListingCard.container';
-
 import { FirebaseConsumer, FirebaseUserProps } from 'HOCs/FirebaseProvider';
-import BeeLink from 'legacy/shared/BeeLink';
-import Button from 'legacy/shared/Button';
-import LazyImage from 'legacy/shared/LazyImage';
 import {
   ACTIVATE_LISTING,
   DEACTIVATE_LISTING,
@@ -20,6 +15,8 @@ import {
 } from 'networking/listings';
 import { formatAddress } from 'utils/formatter';
 import { hexColor } from 'styled/utils';
+import { Card, Row, Col, CardBody, Button, Label, UncontrolledTooltip, Badge } from 'reactstrap';
+import { Link } from 'react-router-dom';
 
 interface Props extends HostListingShort {
   activateListing: (id: string) => Promise<Listing>;
@@ -30,6 +27,15 @@ interface Props extends HostListingShort {
 
 const INCOMPLETE_LISTING = "This listing is incomplete. Click Edit to complete all required fields to publish.";
 const VERIFICATION_REQUIRED = "You must verify your email and phone to publish.";
+
+const LISTING_IMG_STYLES = {
+  backgroundPosition: 'center center',
+  backgroundRepeat: 'no-repeat',
+  backgroundColor: 'white',
+  overflow: 'hidden',
+}
+
+const LONG_CARD_HEIGHT = '248px';
 
 const HostListingCard = (props: Props): JSX.Element => {
   const {
@@ -50,59 +56,88 @@ const HostListingCard = (props: Props): JSX.Element => {
   } = props;
   const toggleListing = isActive ? deactivateListing : activateListing;
   return (
-    <HostListingCardContainer className="host-listing-card">
-      <div className="host-listing-meta">
-        <h1>{title}</h1>
-        <h2>{(city || state || country) ? formatAddress(city, state, country) : ''}</h2>
-        <div className="bee-flex-div" />
-        <h3>Last edited: {format(updatedAt, 'MM/DD/YY [at] hh:mmA')}</h3>
-        <BeeLink to={`/host/listings/${id}/calendar`}>
-          <Button clear color="style" suffix="utils/carat-right">
-            View Calendar
-          </Button>
-        </BeeLink>
-        <div className="host-listing-meta--button-container">
-          <BeeLink to={`/host/listings/${id}/edit`}>
-            <Button background="secondary" color="white" size="small">
-              Edit
-            </Button>
-          </BeeLink>
-          <BeeLink target="_blank" to={`/listings/${idSlug}`}>
-            <Button background="white" border="secondary" color="secondary" size="small">
-              Preview
-            </Button>
-          </BeeLink>
-          <Button background="white" border="secondary" color="secondary" size="small" onClick={() => duplicateListing(id)}>
-            Duplicate
-          </Button>
-          <Button background="white" border="secondary" color="secondary" size="small" onClick={() => deleteListing(id)}>
-            Delete
-          </Button>
-          <FirebaseConsumer>
-            {({ completedVerification }: FirebaseUserProps) => {
-              return (
-                <div className='host-listing-publish'>
-                  <label htmlFor={`publish-${id}`} title={canPublish ? '' : INCOMPLETE_LISTING}>
-                    <span className={canPublish ? '' : 'host-listing-meta--disabled'}>Publish</span>
-                          <Switch
-                            checked={isActive}
-                            disabled={!canPublish || !completedVerification}
-                            onColor={hexColor('correct')}
-                            onChange={() => toggleListing(id).catch((error) => alert(error))}
-                            id={`publish-${id}`} />
-                  </label>
-                  {(!completedVerification || !canPublish) &&
-                    <p className='host-listing-notice'>{!completedVerification ? VERIFICATION_REQUIRED : INCOMPLETE_LISTING}</p>}
-                </div>
-              );
-            }}
-          </FirebaseConsumer>
-        </div>
-      </div>
-      <div className="host-listing-image">
-        <LazyImage src={listingPicUrl} />
-      </div>
-    </HostListingCardContainer>
+    <Card style={{ minHeight: LONG_CARD_HEIGHT }} className="mb-5 shadow flex-fill border-0">
+      <Row className="d-flex flex-column-reverse flex-md-row h-100">
+        <Col md="7" className="h-100 pr-lg-5">
+          <CardBody style={{ minHeight: LONG_CARD_HEIGHT }} className="d-flex flex-column">
+            <h4>{title}</h4>
+            <h5>{(city || state || country) ? formatAddress(city, state, country) : ''}</h5>
+            <h6 className="font-weight-lighter font-italic">Last edited: {format(updatedAt, 'MM/DD/YY [at] hh:mmA')}</h6>
+            <div className="bee-flex-div" />
+            <Row className="mb-3 d-flex align-items-center">
+              <Col md="6" className="d-flex">
+              <Link to={`/host/listings/${id}/calendar`} className="p text-link mb-2 mb-md-0">
+                View Calendar
+                <span className="ml-2">
+                  <i className="fas fa-caret-right" />
+                </span>
+              </Link>
+              </Col>
+              <Col md="6">
+              <FirebaseConsumer>
+                {({ completedVerification }: FirebaseUserProps) => {
+                  return (
+                    <div className="d-flex align-items-center justify-content-md-end mb-0">
+                      <Label
+                        className="d-flex align-items-center mb-0"
+                        htmlFor={`publish-${id}`}
+                        title={canPublish ? '' : INCOMPLETE_LISTING}>
+                        <span className={`mr-2${canPublish ? ' text-dark' : ' text-secondary'}`}>Publish</span>
+                        {(!completedVerification || !canPublish) &&
+                        <>
+                          <Badge className="mr-2" color="secondary" id={`UncontrolledTooltipExample` + id} pill>?</Badge>
+                          <UncontrolledTooltip placement="bottom" target={`UncontrolledTooltipExample` + id}>
+                            <small className="mb-0 text-white">{!completedVerification ? VERIFICATION_REQUIRED : INCOMPLETE_LISTING}</small>
+                          </UncontrolledTooltip>
+                        </>}
+                        <Switch
+                          checked={isActive}
+                          disabled={!canPublish || !completedVerification}
+                          onColor={hexColor('correct')}
+                          onChange={() => toggleListing(id).catch((error) => alert(error))}
+                          id={`publish-${id}`} />
+                      </Label>
+                    </div>
+                  );
+                }}
+              </FirebaseConsumer>
+              </Col>
+            </Row>
+            <Row>
+              <Col md="6" lg="3" className="mb-2 mb-lg-0">
+                <Link
+                  to={`/host/listings/${id}/edit`}
+                  className="w-100 rounded-lg btn btn-sm btn-secondary">
+                  Edit
+                </Link>
+              </Col>
+              <Col md="6" lg="3" className="mb-2 mb-lg-0">
+                <Link
+                  target="_blank"
+                  to={`/listings/${idSlug}`}
+                  className="w-100 rounded-lg btn btn-sm btn-white btn-outline-secondary">
+                  Preview
+                </Link>
+              </Col>
+              <Col md="6" lg="3" className="mb-2 mb-lg-0">
+                <Button outline color="secondary" size="sm" className="w-100 rounded-lg" onClick={() => duplicateListing(id)}>
+                  Duplicate
+                </Button>
+              </Col>
+              <Col md="6" lg="3" className="mb-2 mb-lg-0">
+                <Button outline color="secondary" size="sm" className="w-100 rounded-lg" onClick={() => deleteListing(id)}>
+                  Delete
+                </Button>
+              </Col>
+            </Row>
+          </CardBody>
+        </Col>
+        <Col md="5">
+          <div className="bg-img-hero d-flex align-items-center justify-content-center u-lg-avatar h-100 w-100"
+            style={{ ...LISTING_IMG_STYLES, backgroundImage: `url(${listingPicUrl})`, minHeight: LONG_CARD_HEIGHT }} />
+        </Col>
+      </Row>
+    </Card>
   );
 }
 
