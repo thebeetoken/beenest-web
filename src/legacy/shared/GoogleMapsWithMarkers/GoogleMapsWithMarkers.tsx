@@ -59,10 +59,10 @@ class GoogleMapsWithMarkers extends React.Component<Props, State> {
   }
 
   componentDidUpdate(prevProps: Props) {
-    const { near, selectedListing, travelMode } = this.props;
-    if (near === prevProps.near && selectedListing === prevProps.selectedListing) {
+    if (['near', 'selectedListing', 'travelMode'].every(key => prevProps[key] === this.props[key])) {
       return;
     }
+    const { near, selectedListing, travelMode } = this.props;
     if (selectedListing && near) {
       const directionsService = new google.maps.DirectionsService();
       directionsService.route({
