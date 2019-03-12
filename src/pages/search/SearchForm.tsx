@@ -18,7 +18,7 @@ const SearchForm = ({ filter, onFilterChange }: Props) => {
         <SearchFilter label="Home Type" width="9rem">
           <HomeType
             homeType={filter.homeType}
-            onChange={homeType => console.log(homeType)}
+            onChange={handleHomeTypeChange}
           />
         </SearchFilter>
         <SearchFilter label="Destination" width="24rem">
@@ -48,6 +48,12 @@ const SearchForm = ({ filter, onFilterChange }: Props) => {
   function handleTravelModeChange(travelMode: google.maps.TravelMode) {
     if (onFilterChange && filter) {
       onFilterChange({ ...filter, travelMode });
+    }
+  }
+
+  function handleHomeTypeChange(homeType: string) {
+    if (onFilterChange && filter) {
+      onFilterChange({ ...filter, homeType });
     }
   }
 };
