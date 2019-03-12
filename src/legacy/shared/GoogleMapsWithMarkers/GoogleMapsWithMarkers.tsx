@@ -8,7 +8,7 @@ const { GOOGLE_MAPS_KEY } = SETTINGS;
 
 import { ListingCard } from 'legacy/shared/ListingCard';
 import { LatLngBounds, ListingShort } from 'networking/listings';
-import { formatPrice } from 'utils/formatter';
+import { formatPriceShort } from 'utils/formatter';
 
 import GoogleMapsWithMarkersContainer from './GoogleMapsWithMarkers.container';
 
@@ -122,7 +122,7 @@ class GoogleMapsWithMarkers extends React.Component<Props, State> {
               transform: 'translate(-50%, -100%)',
               zIndex: listings.length - index
             }} onClick={() => onSelect(listing)}>
-              <strong>{formatPrice(listing.pricePerNightUsd)}</strong>
+              <strong>{formatPriceShort(listing.pricePerNightUsd)}</strong>
               <div className="arrow" style={{ left: 'calc(50% - 12px)' }}></div>
             </button>
           </OverlayView>
