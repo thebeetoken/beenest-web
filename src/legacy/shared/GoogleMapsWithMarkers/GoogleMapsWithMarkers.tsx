@@ -114,16 +114,14 @@ class GoogleMapsWithMarkers extends React.Component<Props, State> {
             key={listing.id}
             position={{ lat: listing.lat, lng: listing.lng }}
             mapPaneName={OverlayView.OVERLAY_MOUSE_TARGET}
-            getPixelPositionOffset={(w, h) => ({ x: -w / 2, y: -h })}
           >
-            <div className="popover p-1 bs-popover-top" onClick={() => onSelect(listing)}>
+            <div className="popover p-1 bs-popover-top" style={{ transform: 'translate(-50%, -100%)' }} onClick={() => onSelect(listing)}>
               <strong>{formatPrice(listing.pricePerNightUsd)}</strong>
               <div className="arrow" style={{ left: 'calc(50% - 12px)' }}></div>
             </div>
           </OverlayView>
         ))}
         {!!selectedListing && <InfoWindow
-          options={{ pixelOffset: new google.maps.Size(0, -32) }}
           position={{ lat: selectedListing.lat, lng: selectedListing.lng }}
           onCloseClick={() => onSelect(null)} >
           <ListingCard target="_blank" {...selectedListing} />
