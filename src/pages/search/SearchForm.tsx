@@ -13,7 +13,7 @@ interface Props {
 
 const SearchForm = ({ filter, onFilterChange }: Props) => {
   return <Container>
-    <Row>
+    <Row noGutters>
       <ButtonGroup>
         <SearchFilter label="Home Type" width="9rem">
           <HomeType
