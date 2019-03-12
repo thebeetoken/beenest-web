@@ -50,7 +50,7 @@ const Header = () => (
     <Route path="/account" component={DetailedHeader} />
     <Route exact path="/work" component={DetailedHeader} />
     <Route exact path="/about" component={DetailedHeader} />
-    <Route  path="/bookings" render={() => <SimpleHeader primary block />} />
+    <Route path="/bookings" render={() => <SimpleHeader primary block />} />
     <Route exact path="/forgot_password" render={() => <SimpleHeader white fixed />} />
     <Route exact path="/login" render={() => <SimpleHeader primary block />} />
     <Route exact path="/signup" render={() => <SimpleHeader primary block />} />
@@ -84,14 +84,23 @@ const DetailedHeader = () => {
                           return <Loading />;
                         }
                         if (error || !data) {
-                          return <h1>{error ? error.message : 'Error / No Data'}</h1>;
+                          return (
+                            <p className="small mb-0">An error has occured.{' '}
+                              <Link
+                                to="/logout">
+                                Logout
+                              </Link>{' '}
+                              to continue. If this error continues, please contact{' '}
+                              <a href="https://support.beenest.com/" target="_blank">support</a>.
+                            </p>
+                          );
                         }
                         const beeUser = data.user;
                         const isHost = beeUser.listingCount > 0;
                         return (
                           <>
                             <Link
-                              to={isHost ? HOST_PORTAL_LINK : HOST_INTEREST_LINK}
+                              to={HOST_PORTAL_LINK}
                               className="mb-4 mb-md-0 mr-md-4 w-100 w-md-auto btn btn-outline-primary">
                               {isHost ? 'Host Profile' : 'Become a Host'}
                             </Link>

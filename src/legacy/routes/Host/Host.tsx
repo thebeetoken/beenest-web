@@ -42,7 +42,7 @@ const HostPage = ({ createListing, history }: Props) => {
         <Col>
           <h1 className="mb-0">Host Profile</h1>
         </Col>
-        <Col md="4" lg="3" xl="2" className="d-flex align-items-center justify-content-end">
+        <Col md="4" lg="3" xl="2" className="mt-2 mt-md-0 d-flex align-items-center justify-content-end">
           <Button
             block
             disabled={isCreateListingClicked}

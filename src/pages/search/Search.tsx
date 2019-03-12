@@ -27,7 +27,9 @@ const SEARCH_PARAMS = [
 ];
 
 const Search = () => {
-  const [filter, setFilter] = React.useState<SearchFilterCriteria>({});
+  const [filter, setFilter] = React.useState<SearchFilterCriteria>({
+    travelMode: typeof google !== 'undefined' ? google.maps.TravelMode.DRIVING : undefined
+  });
   const queryParams: any = parseQueryString(location.search);
   const queryInput: any = SEARCH_PARAMS.reduce(
     (obj, param) => queryParams[param] ? { ...obj, [param]: queryParams[param] } : obj,

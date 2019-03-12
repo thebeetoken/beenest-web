@@ -10,10 +10,10 @@ const SearchFilter = ({ children, label }: Props) => {
   const [isOpen, setOpen] = React.useState<boolean>(false);
   return (
     <Dropdown isOpen={isOpen} toggle={() => setOpen(!isOpen)}>
-      <DropdownToggle>
+      <DropdownToggle outline>
         {label}
       </DropdownToggle>
-      <DropdownMenu>
+      <DropdownMenu className="w-100">
         {children}
       </DropdownMenu>
     </Dropdown>
