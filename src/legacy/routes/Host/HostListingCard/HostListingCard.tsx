@@ -105,17 +105,18 @@ const HostListingCard = (props: Props): JSX.Element => {
             </Row>
             <Row>
               <Col md="6" lg="3" className="mb-2 mb-lg-0">
-                <Link to={`/host/listings/${id}/edit`} href="#" className="w-100">
-                  <Button color="secondary" size="sm" className="w-100 rounded-lg">
-                    Edit
-                  </Button>
+                <Link
+                  to={`/host/listings/${id}/edit`}
+                  className="w-100 rounded-lg btn btn-sm btn-secondary">
+                  Edit
                 </Link>
               </Col>
               <Col md="6" lg="3" className="mb-2 mb-lg-0">
-                <Link target="_blank" to={`/listings/${idSlug}`} href="#" className="w-100">
-                  <Button outline color="secondary" size="sm" className="w-100 rounded-lg">
-                    Preview
-                  </Button>
+                <Link
+                  target="_blank"
+                  to={`/listings/${idSlug}`}
+                  className="w-100 rounded-lg btn btn-sm btn-white btn-outline-secondary">
+                  Preview
                 </Link>
               </Col>
               <Col md="6" lg="3" className="mb-2 mb-lg-0">
