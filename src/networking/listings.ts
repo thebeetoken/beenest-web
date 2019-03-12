@@ -61,6 +61,7 @@ export interface Listing {
 export interface ListingSearchInput {
   checkInDate?: string;
   checkOutDate?: string;
+  homeType?: string;
   numberOfGuests?: number;
   locationQuery?: string;
   bounds?: LatLngBounds;

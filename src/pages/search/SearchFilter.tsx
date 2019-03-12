@@ -3,17 +3,18 @@ import { Dropdown, DropdownToggle, DropdownMenu } from 'reactstrap';
 
 interface Props {
   children: React.ReactNode;
-  label: String;
+  label: string;
+  width?: string;
 }
 
-const SearchFilter = ({ children, label }: Props) => {
+const SearchFilter = ({ children, label, width }: Props) => {
   const [isOpen, setOpen] = React.useState<boolean>(false);
   return (
-    <Dropdown isOpen={isOpen} toggle={() => setOpen(!isOpen)}>
-      <DropdownToggle outline>
+    <Dropdown group isOpen={isOpen} toggle={() => setOpen(!isOpen)}>
+      <DropdownToggle outline className="btn-sm">
         {label}
       </DropdownToggle>
-      <DropdownMenu className="w-100">
+      <DropdownMenu style={{ width }}>
         {children}
       </DropdownMenu>
     </Dropdown>
