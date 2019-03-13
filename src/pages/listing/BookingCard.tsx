@@ -1,5 +1,5 @@
 import * as React from 'react';
-import { Button, Card, Input, Row } from 'reactstrap';
+import { Badge, Button, Card, Input, Row, UncontrolledTooltip } from 'reactstrap';
 import moment from 'moment';
 import { compose, graphql, Query } from 'react-apollo';
 
@@ -96,9 +96,17 @@ const BookingCard = ({
           onClick={startBooking}
           className="w-100"
           color="primary"
-          disabled={!startDate || !endDate || !data.listing.isActive || isBooking}
+          disabled={!startDate || !endDate || loading || error || !data.listing.isActive || isBooking}
         >
           {isBooking ? <Loading height="1rem" width="1rem" /> : 'Request to Book'}
+          {!loading && !error && !data.listing.isActive && !!startDate && !!endDate && <>
+            <Badge className="ml-2" color="secondary" id="booking-card-tooltip" pill>?</Badge>
+            <UncontrolledTooltip placement="bottom" target="booking-card-tooltip">
+              <small className="mb-0 text-white">
+                Listing is unavailable. Try different dates.
+              </small>
+            </UncontrolledTooltip>
+          </>}
         </Button>
       </Row>
     </Card>}
