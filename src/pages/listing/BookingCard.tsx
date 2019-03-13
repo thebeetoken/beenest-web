@@ -118,7 +118,7 @@ const BookingCard = ({
           onClick={startBooking}
           className="w-100"
           color="primary"
-          disabled={!startDate || !endDate || loading || error || !data.listing.isActive || isBooking}
+          disabled={!startDate || !endDate || loading || !!error || !data.listing.isActive || isBooking}
         >
           {isBooking ? <Loading height="1rem" width="1rem" /> : 'Request to Book'}
         </Button>
