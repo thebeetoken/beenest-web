@@ -56,7 +56,9 @@ const BookingCard = ({
       <Row className="m-0">
         {(() => {
           if (loading) {
-            return <Loading width="2rem" height="2rem" />;
+            return <h3 className="d-inline">
+              <Loading width="2rem" height="2rem" />
+            </h3>;
           } else if (error) {
             return error.message;
           } else if (startDate && endDate && !data.listing.isActive) {
