@@ -100,6 +100,7 @@ const DetailedHeader = () => {
                         return (
                           <>
                             <Link
+                              onClick={() => toggleNavbar(false)}
                               to={HOST_PORTAL_LINK}
                               className="mb-4 mb-md-0 mr-md-4 w-100 w-md-auto btn btn-outline-primary">
                               {isHost ? 'Host Profile' : 'Become a Host'}
