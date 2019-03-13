@@ -1,7 +1,8 @@
 import * as React from 'react';
-import { Col, Container, Row } from 'reactstrap';
+import { ButtonGroup, Container, Row } from 'reactstrap';
 
 import { SearchFilterCriteria } from './SearchCriteria';
+import HomeType from './filters/HomeType';
 import TransitTime from './filters/TransitTime';
 import SearchFilter from './SearchFilter';
 
@@ -12,37 +13,25 @@ interface Props {
 
 const SearchForm = ({ filter, onFilterChange }: Props) => {
   return <Container>
-    <Row>
-      <Col>
-        <SearchFilter label="Add Destination">
+    <Row noGutters>
+      <ButtonGroup>
+        <SearchFilter label="Home Type" width="9rem">
+          <HomeType
+            homeType={filter.homeType}
+            onChange={homeType => onFilterChange({ ...filter, homeType })}
+          />
+        </SearchFilter>
+        <SearchFilter label="Destination" width="24rem">
           <TransitTime
             place={filter.near}
             travelMode={filter.travelMode}
-            onPlaceChange={handlePlaceChange}
-            onTravelModeChange={handleTravelModeChange}
+            onPlaceChange={near => onFilterChange({ ...filter, near })}
+            onTravelModeChange={travelMode => onFilterChange({ ...filter, travelMode })}
           />
         </SearchFilter>
-      </Col>
+      </ButtonGroup>
     </Row>
   </Container>;
-
-  function handlePlaceChange(place: google.maps.places.PlaceResult | null) {
-    if (onFilterChange && filter) {
-      const nextFilter: SearchFilterCriteria = { ...filter };
-      if (!place) {
-        delete nextFilter.near;
-      } else {
-        nextFilter.near = place;
-      }
-      onFilterChange(nextFilter);
-    }
-  }
-
-  function handleTravelModeChange(travelMode: google.maps.TravelMode) {
-    if (onFilterChange && filter) {
-      onFilterChange({ ...filter, travelMode });
-    }
-  }
 };
 
 export default SearchForm;

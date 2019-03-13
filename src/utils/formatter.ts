@@ -42,6 +42,10 @@ export function formatPrice(price: number) { // TODO: Currency?
   return `\$${price.toFixed(2)}`;
 }
 
+export function formatPriceShort(price: number) {
+  return `\$${Math.ceil(price)}`;
+}
+
 export function formatMonth(date: Date | string) {
   return format(date, 'MMMM YYYY');
 }

@@ -1,17 +1,17 @@
 import * as React from 'react';
 import { withRouter } from 'react-router-dom';
 import { compose, withProps } from 'recompose';
-import { DirectionsRenderer, InfoWindow, Marker, GoogleMap, withGoogleMap, withScriptjs } from 'react-google-maps';
+import { DirectionsRenderer, InfoWindow, Marker, GoogleMap, OverlayView, withGoogleMap, withScriptjs } from 'react-google-maps';
 
 import { SETTINGS } from 'configs/settings';
 const { GOOGLE_MAPS_KEY } = SETTINGS;
 
 import { ListingCard } from 'legacy/shared/ListingCard';
 import { LatLngBounds, ListingShort } from 'networking/listings';
+import { formatPriceShort } from 'utils/formatter';
 
 import GoogleMapsWithMarkersContainer from './GoogleMapsWithMarkers.container';
 
-const hotelMarker = require('assets/images/iconmonstr-location-12-32.png');
 const nearMarker = require('assets/images/iconmonstr-location-13-32.png');
 
 interface Props extends RouterProps {
@@ -94,6 +94,7 @@ class GoogleMapsWithMarkers extends React.Component<Props, State> {
     };
     return (
       <GoogleMap
+        defaultClickableIcons={false}
         defaultZoom={10}
         defaultCenter={getCenterCoordinates(listings)}
         ref={this.handleMapMounted}
@@ -109,15 +110,24 @@ class GoogleMapsWithMarkers extends React.Component<Props, State> {
           title={near.name}
           zIndex={1000}
         />}
-        {listings.map(listing => (
-          <Marker key={listing.id}
-            icon={hotelMarker}
+        {listings.filter(
+          listing => !selectedListing || listing.id !== selectedListing.id
+        ).map((listing, index) => (
+          <OverlayView
+            key={listing.id}
             position={{ lat: listing.lat, lng: listing.lng }}
-            onClick={() => onSelect(listing)}
-          />
+            mapPaneName={OverlayView.OVERLAY_MOUSE_TARGET}
+          >
+            <button className="popover p-1 bs-popover-top" style={{
+              transform: 'translate(-50%, -100%)',
+              zIndex: listings.length - index
+            }} onClick={() => onSelect(listing)}>
+              <strong>{formatPriceShort(listing.pricePerNightUsd)}</strong>
+              <div className="arrow" style={{ left: 'calc(50% - 12px)' }}></div>
+            </button>
+          </OverlayView>
         ))}
         {!!selectedListing && <InfoWindow
-          options={{ pixelOffset: new google.maps.Size(0, -32) }}
           position={{ lat: selectedListing.lat, lng: selectedListing.lng }}
           onCloseClick={() => onSelect(null)} >
           <ListingCard target="_blank" {...selectedListing} />

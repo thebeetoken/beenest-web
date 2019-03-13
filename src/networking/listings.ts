@@ -18,6 +18,7 @@ export interface Listing {
   airbnbLink?: string;
   amenities: string[];
   autoApprove: boolean;
+  bookingUrl?: string;
   checkInDate: Date;
   checkInTime: CheckInTime;
   checkOutDate: Date;
@@ -61,6 +62,7 @@ export interface Listing {
 export interface ListingSearchInput {
   checkInDate?: string;
   checkOutDate?: string;
+  homeType?: string;
   numberOfGuests?: number;
   locationQuery?: string;
   bounds?: LatLngBounds;
@@ -173,6 +175,7 @@ export interface Host {
 
 const LISTING_CARD_FRAGMENT = gql`
   fragment ListingCard on Listing {
+    bookingUrl
     city
     country
     homeType
@@ -368,6 +371,7 @@ export const GET_PUBLIC_LISTING = gql`
         displayName
         profilePicUrl(width: $width, height: $height)
       }
+      isActive
       ...ListingDetails
     }
   }

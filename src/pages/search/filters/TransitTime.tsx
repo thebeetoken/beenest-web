@@ -5,7 +5,7 @@ import GoogleAutoComplete from 'components/shared/GoogleAutoComplete';
 
 interface Props {
   place?: google.maps.places.PlaceResult;
-  onPlaceChange?: (place: google.maps.places.PlaceResult | null) => void;
+  onPlaceChange?: (place?: google.maps.places.PlaceResult) => void;
   onTravelModeChange?: (travelMode: google.maps.TravelMode) => void;
   travelMode?: google.maps.TravelMode;
 }
@@ -35,7 +35,7 @@ const TransitTime = ({ place, onPlaceChange, onTravelModeChange, travelMode }: P
       inputRef.current.value = "";
     }
     if (onPlaceChange) {
-      onPlaceChange(null);
+      onPlaceChange(undefined);
     }
   };
   const handleTravelMode = (mode: google.maps.TravelMode) => {

@@ -6,7 +6,6 @@ const HostBookingsContainer = styled.section`
   h1,
   p {
     color: ${color('body')};
-    width: 500px;
   }
   h1 {
     ${typography('title', 4)}

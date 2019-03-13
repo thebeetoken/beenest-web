@@ -1,5 +1,5 @@
 import * as React from 'react';
-import { Button, Card, Input, Row } from 'reactstrap';
+import { Badge, Button, Card, Input, Row, UncontrolledTooltip } from 'reactstrap';
 import moment from 'moment';
 import { compose, graphql, Query } from 'react-apollo';
 
@@ -34,6 +34,7 @@ interface Props extends Listing {
 }
 
 const BookingCard = ({
+  bookingUrl,
   checkInDate,
   checkOutDate,
   createBooking,
@@ -51,53 +52,82 @@ const BookingCard = ({
   const setDates = ({ startDate, endDate }: Dates) => (setStartDate(startDate), setEndDate(endDate));
   const input = { checkInDate: startDate, checkOutDate: endDate, numberOfGuests };
 
-  return <Card className="p-5 shadow border-0">
-    <Query query={GET_PUBLIC_LISTING} fetchPolicy="cache-and-network" variables={{ id, input }}>
-      {({ loading, error, data }) => <Row className="m-0">
-        <h3 className="d-inline">
-          {loading ? <Loading width="2rem" height="2rem" /> : error ? error.message : formatPrice(data.listing.pricePerNightUsd)}
-        </h3>
-        <small className="pl-3 mt-3"> per night</small>
-      </Row>}
-    </Query>
-    <Row className="w-100 m-0 mb-3">
-      <DateRangePicker
-        className="w-100"
-        isOutsideRange={isOutsideDateRange}
-        isDayBlocked={isDayBlocked}
-        startDate={startDate} // momentPropTypes.momentObj or null,
-        startDateId="startDate"
-        startDatePlaceholderText="Check-In"
-        daySize={32}
-        endDate={endDate} // momentPropTypes.momentObj or null,
-        endDateId="endDate"
-        endDatePlaceholderText="Check-Out"
-        onDatesChange={setDates} // PropTypes.func.isRequired,
-        focusedInput={focusedInput} // PropTypes.oneOf(['startDate', 'endDate']) or null,
-        onFocusChange={setFocusedInput} // PropTypes.func.isRequired,
-        minimumNights={1}
-        numberOfMonths={1}
-      />
-    </Row>
-    <Row className="w-100 m-0 mb-3">
-      <Input
-        type="select"
-        name="numberOfGuests"
-        value={numberOfGuests}
-        onChange={event => setNumberOfGuests(parseInt(event.target.value))}>
-        {guestsSelectboxOptions.map(option => (
-          <option value={option.value} key={option.value}>
-            {option.option}
-          </option>
-        ))}
-      </Input>
-    </Row>
-    <Row className="w-100 m-0">
-      <Button onClick={startBooking} className="w-100" color="primary" disabled={!startDate || !endDate || isBooking}>
-        {isBooking ? <Loading height="1rem" width="1rem" /> : 'Request to Book'}
-      </Button>
-    </Row>
-  </Card>;
+  return <Query query={GET_PUBLIC_LISTING} fetchPolicy="cache-and-network" variables={{ id, input }}>
+    {({ loading, error, data }) => <Card className="p-5 shadow border-0">
+      <Row className="m-0">
+        {(() => {
+          if (loading) {
+            return <h3 className="d-inline">
+              <Loading width="2rem" height="2rem" />
+            </h3>;
+          } else if (error) {
+            return error.message;
+          } else if (startDate && endDate && !data.listing.isActive) {
+            return <>
+              <h3 className="d-inline">$--.--</h3>
+              <span className="pl-3 mt-3 ml-2 d-inline">
+                <Badge color="secondary" id="booking-card-tooltip" pill>?</Badge>
+              </span>
+              <UncontrolledTooltip placement="bottom" target="booking-card-tooltip">
+                <small className="mb-0 text-white">
+                  Listing is unavailable. Try different dates.
+                </small>
+              </UncontrolledTooltip>
+            </>;
+          } else {
+            return <>
+              <h3 className="d-inline">
+                {formatPrice(data.listing.pricePerNightUsd)}
+              </h3>
+              <small className="pl-3 mt-3"> per night</small>
+            </>;
+          }
+        })()}
+      </Row>
+      <Row className="w-100 m-0 mb-3">
+        <DateRangePicker
+          className="w-100"
+          isOutsideRange={isOutsideDateRange}
+          isDayBlocked={isDayBlocked}
+          startDate={startDate} // momentPropTypes.momentObj or null,
+          startDateId="startDate"
+          startDatePlaceholderText="Check-In"
+          daySize={32}
+          endDate={endDate} // momentPropTypes.momentObj or null,
+          endDateId="endDate"
+          endDatePlaceholderText="Check-Out"
+          onDatesChange={setDates} // PropTypes.func.isRequired,
+          focusedInput={focusedInput} // PropTypes.oneOf(['startDate', 'endDate']) or null,
+          onFocusChange={setFocusedInput} // PropTypes.func.isRequired,
+          minimumNights={1}
+          numberOfMonths={1}
+        />
+      </Row>
+      <Row className="w-100 m-0 mb-3">
+        <Input
+          type="select"
+          name="numberOfGuests"
+          value={numberOfGuests}
+          onChange={event => setNumberOfGuests(parseInt(event.target.value))}>
+          {guestsSelectboxOptions.map(option => (
+            <option value={option.value} key={option.value}>
+              {option.option}
+            </option>
+          ))}
+        </Input>
+      </Row>
+      <Row className="w-100 m-0">
+        <Button
+          onClick={startBooking}
+          className="w-100"
+          color="primary"
+          disabled={!startDate || !endDate || loading || !!error || !data.listing.isActive || isBooking}
+        >
+          {isBooking ? <Loading height="1rem" width="1rem" /> : 'Request to Book'}
+        </Button>
+      </Row>
+    </Card>}
+  </Query>;
 
   function isOutsideDateRange(day: moment.Moment) {
     const utcDay = day.clone().utc().set('hours', 0);
@@ -135,7 +165,7 @@ const BookingCard = ({
         listingId: id,
         numberOfGuests: numberOfGuests
       });
-      window.location.href = `${BEENEST_HOST}/bookings/${data.createBooking.id}`;
+      window.location.href = bookingUrl || `${BEENEST_HOST}/bookings/${data.createBooking.id}`;
     } catch (e) {
       console.log(e);
       alert(e.message);
