@@ -18,6 +18,7 @@ export interface Listing {
   airbnbLink?: string;
   amenities: string[];
   autoApprove: boolean;
+  bookingUrl?: string;
   checkInDate: Date;
   checkInTime: CheckInTime;
   checkOutDate: Date;
@@ -174,6 +175,7 @@ export interface Host {
 
 const LISTING_CARD_FRAGMENT = gql`
   fragment ListingCard on Listing {
+    bookingUrl
     city
     country
     homeType

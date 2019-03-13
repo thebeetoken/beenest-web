@@ -34,6 +34,7 @@ interface Props extends Listing {
 }
 
 const BookingCard = ({
+  bookingUrl,
   checkInDate,
   checkOutDate,
   createBooking,
@@ -135,7 +136,7 @@ const BookingCard = ({
         listingId: id,
         numberOfGuests: numberOfGuests
       });
-      window.location.href = `${BEENEST_HOST}/bookings/${data.createBooking.id}`;
+      window.location.href = bookingUrl || `${BEENEST_HOST}/bookings/${data.createBooking.id}`;
     } catch (e) {
       console.log(e);
       alert(e.message);
