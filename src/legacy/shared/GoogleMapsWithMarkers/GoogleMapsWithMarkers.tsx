@@ -1,6 +1,6 @@
 import * as React from 'react';
 import { withRouter } from 'react-router-dom';
-import { compose, withProps } from 'recompose';
+import { branch, compose, lifecycle, renderComponent, withProps } from 'recompose';
 import { DirectionsRenderer, InfoWindow, Marker, GoogleMap, OverlayView, withGoogleMap, withScriptjs } from 'react-google-maps';
 
 import { SETTINGS } from 'configs/settings';
@@ -155,6 +155,14 @@ export default withRouter(
         />
       ),
     })),
+    lifecycle({
+      // @ts-ignore
+      componentDidCatch(error: any, info: any) {
+        console.log(error, info);
+        this.setState({ error: true });
+      },
+    }),
+    branch(({ error }) => error, renderComponent(() => <h1>Error loading Google Maps.</h1>)),
     withScriptjs,
     withGoogleMap
   )(GoogleMapsWithMarkers)
