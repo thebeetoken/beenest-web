@@ -11,8 +11,8 @@
 
 import * as React from 'react';
 
-import { BannerConsumerProps } from 'HOCs/BannerProvider';
-import { showAccountVerificationBanner } from 'utils/bannerUtility';
+import { WorkBannerConsumerProps } from 'HOCs/WorkBannerProvider';
+import { showAccountVerificationBanner } from 'utils/workBannerUtility';
 import { auth, FirebaseUser } from 'utils/firebase';
 
 export interface FirebaseUserProps {
@@ -30,8 +30,8 @@ interface Claims {
 }
 
 interface FirebaseProviderProps {
-  bannerActions?: BannerConsumerProps['bannerActions'];
-  bannerState?: BannerConsumerProps['bannerState'];
+  bannerDispatch?: WorkBannerConsumerProps['bannerDispatch'];
+  bannerState?: WorkBannerConsumerProps['bannerState'];
 }
 
 export class FirebaseProvider extends React.Component<FirebaseProviderProps> {
@@ -60,8 +60,8 @@ export class FirebaseProvider extends React.Component<FirebaseProviderProps> {
       const claims: Claims = tokenResult.claims;
       const isAdmin: boolean = !!claims.roles && claims.roles.includes('admin');
 
-      if (this.props.bannerActions && this.props.bannerState) {
-        showAccountVerificationBanner(hasCompletedVerification(user), this.props.bannerActions, this.props.bannerState);
+      if (this.props.bannerDispatch && this.props.bannerState) {
+        showAccountVerificationBanner(hasCompletedVerification(user), this.props.bannerDispatch, this.props.bannerState);
       }
 
       return this.setState({
