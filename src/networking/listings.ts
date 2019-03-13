@@ -371,6 +371,7 @@ export const GET_PUBLIC_LISTING = gql`
         displayName
         profilePicUrl(width: $width, height: $height)
       }
+      isActive
       ...ListingDetails
     }
   }
