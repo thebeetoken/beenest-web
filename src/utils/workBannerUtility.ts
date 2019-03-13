@@ -16,11 +16,11 @@ export const showAccountVerificationBanner = async (
   }
 
   if (userVerified) {
-    await bannerDispatch({type: 'close'});
+    await bannerDispatch({ type: 'close' });
   }
 
   if (userUnverified) {
-    // await bannerDispatch.setBannerOptions(options);
-    await bannerDispatch({type: 'open'});
+    await bannerDispatch({ type: 'set', payload: options });
+    await bannerDispatch({ type: 'open' });
   }
 }

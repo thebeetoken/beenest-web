@@ -30,7 +30,6 @@ import HostListingEdit from 'legacy/routes/Host/HostListing/HostListingEdit';
 import HostListingCalendar from 'legacy/routes/Host/HostListingCalendar';
 import Banner from 'legacy/shared/Banner';
 import { WorkBannerContext } from 'HOCs/WorkBannerProvider';
-import Button from 'reactstrap/lib/Button';
 
 class ScrollToTop extends React.Component<RouterProps, {}> {
   componentDidUpdate(prevProps: RouterProps) {
@@ -48,19 +47,13 @@ const ScrollToTopWithRouter = withRouter(ScrollToTop);
 
 const Work = () => {
   const { bannerState, bannerDispatch } = React.useContext(WorkBannerContext);
-  let open = () => bannerDispatch({type: 'open'});
   let close = () => bannerDispatch({type: 'close'});
+
   return (
     <div className="min-height-100vh">
-      {bannerState.show ? <Banner message="dsfsdaa" onClose={close} /> : <></>}
+      {bannerState.show ? <Banner onClose={close} {...bannerState} /> : <></>}
       <Header />
       <div className="bee-without-header-height-container">
-          <Button onClick={open}>
-            open
-          </Button>
-          <Button onClick={close}>
-            close
-          </Button>
         <ScrollToTopWithRouter>
           <Switch>
             <Route path="/about" component={About} />

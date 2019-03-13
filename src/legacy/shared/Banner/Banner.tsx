@@ -3,8 +3,6 @@ import * as React from 'react';
 import { withRouter } from 'react-router-dom';
 
 import BannerContainer from './Banner.container';
-
-import { AppConsumer, AppConsumerProps, ScreenType } from 'legacy/Legacy.context';
 import BeeLink from 'legacy/shared/BeeLink';
 import CloseButton from 'legacy/shared/CloseButton';
 
@@ -39,18 +37,18 @@ const Banner = (props: Props) => {
           <span>{props.message}</span>
         }
       </div>
-      <AppConsumer>
-        {({ screenType }: AppConsumerProps) => {
-          return (
-            <CloseButton
-              className="close"
-              height={screenType < ScreenType.TABLET ? '32px' : '56px'}
-              iconColor="upper"
-              onClose={props.onClose}
-              width={screenType < ScreenType.TABLET ? '32px' : '56px'} />
-          );
-        }}
-      </AppConsumer>
+      <CloseButton
+        className="d-flex d-md-none close"
+        height="32px"
+        iconColor="upper"
+        onClose={props.onClose}
+        width="32px" />
+      <CloseButton
+        className="d-none d-md-flex close"
+        height="56px"
+        iconColor="upper"
+        onClose={props.onClose}
+        width="56px" />
     </BannerContainer>
   );
 };
