@@ -1,6 +1,6 @@
 import * as React from 'react';
 import { withRouter } from 'react-router-dom';
-import { compose, withProps } from 'recompose';
+import { branch, compose, lifecycle, renderComponent, withProps } from 'recompose';
 import { DirectionsRenderer, InfoWindow, Marker, GoogleMap, OverlayView, withGoogleMap, withScriptjs } from 'react-google-maps';
 
 import { SETTINGS } from 'configs/settings';
@@ -13,6 +13,12 @@ import { formatPriceShort } from 'utils/formatter';
 import GoogleMapsWithMarkersContainer from './GoogleMapsWithMarkers.container';
 
 const nearMarker = require('assets/images/iconmonstr-location-13-32.png');
+
+// https://github.com/tomchentw/react-google-maps/issues/405
+const keyFactory = {
+  counter: 0,
+  next() { return this.counter++; }
+};
 
 interface Props extends RouterProps {
   bounds?: LatLngBounds;
@@ -114,7 +120,7 @@ class GoogleMapsWithMarkers extends React.Component<Props, State> {
           listing => !selectedListing || listing.id !== selectedListing.id
         ).map((listing, index) => (
           <OverlayView
-            key={listing.id}
+            key={keyFactory.next()}
             position={{ lat: listing.lat, lng: listing.lng }}
             mapPaneName={OverlayView.OVERLAY_MOUSE_TARGET}
           >
@@ -155,6 +161,14 @@ export default withRouter(
         />
       ),
     })),
+    lifecycle({
+      // @ts-ignore
+      componentDidCatch(error: any, info: any) {
+        console.log(error, info);
+        this.setState({ error: true });
+      },
+    }),
+    branch(({ error }) => error, renderComponent(() => <h1>Error loading Google Maps.</h1>)),
     withScriptjs,
     withGoogleMap
   )(GoogleMapsWithMarkers)

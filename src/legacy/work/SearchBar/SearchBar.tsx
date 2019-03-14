@@ -75,8 +75,7 @@ class SearchBar extends React.Component<RouterProps, State> {
 
   private firstAvailableDay: moment.Moment = moment()
     .utc()
-    .startOf('day')
-    .add(2, 'days');
+    .startOf('day');
   private futureBlockedDates: moment.Moment = moment()
     .utc()
     .startOf('day')
