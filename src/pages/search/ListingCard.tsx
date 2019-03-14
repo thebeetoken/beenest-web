@@ -1,8 +1,6 @@
 import * as React from 'react';
 import { Card, CardBody, CardFooter, CardImg, CardSubtitle, CardText, CardTitle, Fade } from 'reactstrap';
 
-// TODO: Add a .d.ts for this, or PR one to definitelytyped?
-// @ts-ignore
 import StarRatings from 'react-star-ratings';
 
 import { ListingShort } from 'networking/listings';
