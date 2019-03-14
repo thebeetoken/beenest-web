@@ -23,7 +23,7 @@ const ListingCard = ({
     <CardBody>
       <CardSubtitle className="small text-secondary justify-content-between row no-gutters">
         {homeType}
-        {rating && <div style={{ marginTop: '-0.375rem' }}>
+        {rating && <div className="mb-1" style={{ marginTop: '-0.375rem' }}>
           <StarRatings
             numberOfStars={5}
             rating={rating.average / 2}
