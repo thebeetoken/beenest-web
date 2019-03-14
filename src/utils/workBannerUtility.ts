@@ -5,7 +5,7 @@ export const ACCOUNT_VERIFICATION = 'Click here to verify your email and phone n
 export const showAccountVerificationBanner = (
   isUserVerified: boolean,
   bannerDispatch: WorkBannerConsumerProps['bannerDispatch'],
-  bannerState: WorkBannerConsumerProps['bannerState']): Promise<void> => {
+  bannerState: WorkBannerConsumerProps['bannerState']): void => {
   const userVerified = isUserVerified && bannerState.show;
   const userUnverified = !isUserVerified && !bannerState.show;
   const options = {
