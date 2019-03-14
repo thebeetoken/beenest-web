@@ -14,6 +14,12 @@ import GoogleMapsWithMarkersContainer from './GoogleMapsWithMarkers.container';
 
 const nearMarker = require('assets/images/iconmonstr-location-13-32.png');
 
+// https://github.com/tomchentw/react-google-maps/issues/405
+const keyFactory = {
+  counter: 0,
+  next() { return this.counter++; }
+};
+
 interface Props extends RouterProps {
   bounds?: LatLngBounds;
   children?: React.ReactNode;
@@ -114,7 +120,7 @@ class GoogleMapsWithMarkers extends React.Component<Props, State> {
           listing => !selectedListing || listing.id !== selectedListing.id
         ).map((listing, index) => (
           <OverlayView
-            key={listing.id}
+            key={keyFactory.next()}
             position={{ lat: listing.lat, lng: listing.lng }}
             mapPaneName={OverlayView.OVERLAY_MOUSE_TARGET}
           >

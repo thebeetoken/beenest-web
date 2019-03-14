@@ -1,12 +1,12 @@
 import * as React from 'react';
-import { Alert, Col, Container, Input, Row } from 'reactstrap';
+import { Alert, Button, Col, Container, Input, Row } from 'reactstrap';
 
 import GoogleAutoComplete from 'components/shared/GoogleAutoComplete';
 
 interface Props {
   place?: google.maps.places.PlaceResult;
-  onPlaceChange?: (place?: google.maps.places.PlaceResult) => void;
-  onTravelModeChange?: (travelMode: google.maps.TravelMode) => void;
+  onPlaceChange: (place?: google.maps.places.PlaceResult) => void;
+  onTravelModeChange: (travelMode?: google.maps.TravelMode) => void;
   travelMode?: google.maps.TravelMode;
 }
 
@@ -18,35 +18,37 @@ const TransitTime = ({ place, onPlaceChange, onTravelModeChange, travelMode }: P
     'Cycling': google.maps.TravelMode.BICYCLING
   } : {};
   const [isAlertShowing, setAlertShowing] = React.useState<boolean>(false);
+  const [chosenPlace, setPlace] = React.useState(place);
+  const [chosenMode, setTravelMode] = React.useState(travelMode);
   const inputRef: React.RefObject<HTMLInputElement | null> = React.createRef();
+  const isDirty = (chosenPlace !== place) || (chosenMode !== travelMode);
 
   const handlePlace = (place: google.maps.places.PlaceResult) => {
     if (place && !place.geometry) {
       setAlertShowing(true);
       return;
     }
-    if (onPlaceChange) {
-      onPlaceChange(place);
-    }
+    setPlace(place);
   };
   const handleClear = (event: React.MouseEvent<HTMLAnchorElement, MouseEvent>) => {
     event.preventDefault();
     if (inputRef.current) {
       inputRef.current.value = "";
     }
-    if (onPlaceChange) {
-      onPlaceChange(undefined);
-    }
+    setPlace(undefined);
   };
-  const handleTravelMode = (mode: google.maps.TravelMode) => {
-    if (onTravelModeChange) {
-      onTravelModeChange(mode);
+  const handleApply = () => {
+    if (place !== chosenPlace) {
+      onPlaceChange(chosenPlace);
+    }
+    if (travelMode !== chosenMode) {
+      onTravelModeChange(chosenMode);
     }
   };
 
   return <Container>
-    {place ? <h5>
-      {place.name}
+    {chosenPlace ? <h5>
+      {chosenPlace.name}
       <small className="ml-3">
         <a href="#" onClick={handleClear}>Clear</a>
        </small>
@@ -71,7 +73,7 @@ const TransitTime = ({ place, onPlaceChange, onTravelModeChange, travelMode }: P
         id="distanceFrom"
         name="distanceFrom"
         placeholder="Try &quot;Moscone Center&quot;"
-        defaultValue={place ? place.name : ''}
+        defaultValue={chosenPlace ? chosenPlace.name : ''}
         required />
     </GoogleAutoComplete>
     <h6 className="mt-3">Travel Mode</h6>
@@ -83,11 +85,16 @@ const TransitTime = ({ place, onPlaceChange, onTravelModeChange, travelMode }: P
           type="radio"
           name="travelMode"
           value={mode}
-          checked={(mode === travelMode) || (!travelMode && index === 0)}
-          onChange={() => mode && handleTravelMode(mode)}
+          checked={(mode === chosenMode) || (!chosenMode && index === 0)}
+          onChange={() => mode && setTravelMode(mode)}
         />
         <label className="form-check-label" htmlFor={name.toLowerCase()}>{name}</label>
       </Col>)}
+    </Row>
+    <Row className="mt-3 justify-content-end" noGutters>
+      <Button size="sm" disabled={!isDirty} onClick={handleApply}>
+        Apply
+      </Button>
     </Row>
   </Container>;
 }
