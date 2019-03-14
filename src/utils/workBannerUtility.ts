@@ -2,7 +2,7 @@ import { WorkBannerConsumerProps } from 'HOCs/WorkBannerProvider';
 
 export const ACCOUNT_VERIFICATION = 'Click here to verify your email and phone number to start booking!';
 
-export const showAccountVerificationBanner = async (
+export const showAccountVerificationBanner = (
   isUserVerified: boolean,
   bannerDispatch: WorkBannerConsumerProps['bannerDispatch'],
   bannerState: WorkBannerConsumerProps['bannerState']): Promise<void> => {
@@ -16,11 +16,11 @@ export const showAccountVerificationBanner = async (
   }
 
   if (userVerified) {
-    await bannerDispatch({ type: 'close' });
+    bannerDispatch({ type: 'close' });
   }
 
   if (userUnverified) {
-    await bannerDispatch({ type: 'set', payload: options });
-    await bannerDispatch({ type: 'open' });
+    bannerDispatch({ type: 'set', payload: options });
+    bannerDispatch({ type: 'open' });
   }
 }
