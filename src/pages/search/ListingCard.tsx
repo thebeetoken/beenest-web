@@ -30,7 +30,7 @@ const ListingCard = ({
           />
         </div>}
       </CardSubtitle>
-      <CardTitle tag="h6">{title}</CardTitle>
+      <CardTitle className="mb-0" tag="h6">{title}</CardTitle>
     </CardBody>
     <CardFooter>
       <CardText>${pricePerNightUsd} per night</CardText>
