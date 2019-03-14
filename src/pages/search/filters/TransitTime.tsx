@@ -1,5 +1,5 @@
 import * as React from 'react';
-import { Alert, Col, Container, Input, Row } from 'reactstrap';
+import { Alert, Button, Col, Container, Input, Row } from 'reactstrap';
 
 import GoogleAutoComplete from 'components/shared/GoogleAutoComplete';
 
@@ -88,6 +88,9 @@ const TransitTime = ({ place, onPlaceChange, onTravelModeChange, travelMode }: P
         />
         <label className="form-check-label" htmlFor={name.toLowerCase()}>{name}</label>
       </Col>)}
+    </Row>
+    <Row className="mt-3 justify-content-end" noGutters>
+      <Button size="sm">Apply</Button>
     </Row>
   </Container>;
 }
