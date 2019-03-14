@@ -168,7 +168,7 @@ class SearchBar extends React.Component<RouterProps, State> {
     event.preventDefault();
     const { bounds, coordinates, checkInDate, checkOutDate, numberOfGuests } = this.state;
     const locationQuery = this.inputRef.current ? this.inputRef.current.value : '';
-    return window.location.href = `${BEENEST_HOST}/search?${stringifyQueryString({
+    return this.props.history.push(`/search?${stringifyQueryString({
       locationQuery,
       utm_term: locationQuery,
       ...(bounds && { bounds }),
@@ -180,7 +180,7 @@ class SearchBar extends React.Component<RouterProps, State> {
       ...(checkOutDate && {
         checkOutDate: checkOutDate.format('YYYY-MM-DD'),
       }),
-    })}`
+    })}`);
   };
 
   handleLocationChange = (event: React.ChangeEvent<HTMLInputElement>) => {
@@ -194,7 +194,6 @@ class SearchBar extends React.Component<RouterProps, State> {
 
   handleGuestChange = (event: React.ChangeEvent<HTMLInputElement>) => {
     this.setState({ numberOfGuests: event.target.value });
-    console.log(this.state);
   }
 
   handlePlaceChange = (place: google.maps.places.PlaceResult) => {
