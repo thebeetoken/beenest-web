@@ -1,13 +1,11 @@
-import { WorkBannerConsumerProps } from 'HOCs/WorkBannerProvider';
+import { BannerConsumerProps } from 'HOCs/BannerProvider';
 
 export const ACCOUNT_VERIFICATION = 'Click here to verify your email and phone number to start booking!';
 
 export const showAccountVerificationBanner = (
-  isUserVerified: boolean,
-  bannerDispatch: WorkBannerConsumerProps['bannerDispatch'],
-  bannerState: WorkBannerConsumerProps['bannerState']): void => {
-  const userVerified = isUserVerified && bannerState.show;
-  const userUnverified = !isUserVerified && !bannerState.show;
+  userVerified: boolean,
+  bannerDispatch: BannerConsumerProps['bannerDispatch'],
+  bannerState: BannerConsumerProps['bannerState']): void => {
   const options = {
     message: ACCOUNT_VERIFICATION,
     background: 'secondary',
@@ -15,11 +13,11 @@ export const showAccountVerificationBanner = (
     to: '/account/verification',
   }
 
-  if (userVerified) {
+  if (userVerified && bannerState.show) {
     bannerDispatch({ type: 'close' });
   }
 
-  if (userUnverified) {
+  if (!(userVerified || bannerState.show)) {
     bannerDispatch({ type: 'set', payload: options });
     bannerDispatch({ type: 'open' });
   }

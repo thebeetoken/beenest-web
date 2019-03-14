@@ -15,6 +15,9 @@ interface Props extends RouterProps {
   to?: LocationDescriptor | null;
 }
 
+const MOBILE_BUTTON_SIZE = '32px';
+const DEFAULT_BUTTON_SIZE = '56px';
+
 const Banner = (props: Props) => {
   return (
     <BannerContainer className="bee-banner" {...props}>
@@ -39,16 +42,16 @@ const Banner = (props: Props) => {
       </div>
       <CloseButton
         className="d-flex d-md-none close"
-        height="32px"
+        height={MOBILE_BUTTON_SIZE}
         iconColor="upper"
         onClose={props.onClose}
-        width="32px" />
+        width={MOBILE_BUTTON_SIZE} />
       <CloseButton
         className="d-none d-md-flex close"
-        height="56px"
+        height={DEFAULT_BUTTON_SIZE}
         iconColor="upper"
         onClose={props.onClose}
-        width="56px" />
+        width={DEFAULT_BUTTON_SIZE} />
     </BannerContainer>
   );
 };

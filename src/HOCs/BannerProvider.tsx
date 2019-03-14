@@ -23,12 +23,12 @@ interface BannerDispatch {
   payload?: BannerProps;
 }
 
-export interface WorkBannerConsumerProps {
+export interface BannerConsumerProps {
   bannerState: BannerState,
   bannerDispatch: React.Dispatch<BannerDispatch>,
 }
 
-interface WorkBannerProviderProps {
+interface BannerProviderProps {
   children: React.ReactNode
 }
 
@@ -56,16 +56,16 @@ export const BannerReducer = (bannerState: BannerState, action: BannerDispatch) 
   }
 }
 
-const WorkBannerContext = React.createContext<any>({ bannerState: initialState, bannerDispatch: {} });
+const BannerContext = React.createContext<any>({ bannerState: initialState, bannerDispatch: {} });
 
-const WorkBannerProvider = (props: WorkBannerProviderProps) => {
-  const context = React.useContext(WorkBannerContext);
+const BannerProvider = (props: BannerProviderProps) => {
+  const context = React.useContext(BannerContext);
   const [bannerState, bannerDispatch] = React.useReducer(BannerReducer, context.bannerState);
   return (
-    <WorkBannerContext.Provider value={{ bannerState, bannerDispatch }}>
+    <BannerContext.Provider value={{ bannerState, bannerDispatch }}>
       {props.children}
-    </WorkBannerContext.Provider>
+    </BannerContext.Provider>
   );
 }
 
-export { WorkBannerContext, WorkBannerProvider };
+export { BannerContext, BannerProvider };

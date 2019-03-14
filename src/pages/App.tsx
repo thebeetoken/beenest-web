@@ -1,5 +1,6 @@
 import * as React from 'react';
 import { Route, Switch, withRouter } from 'react-router-dom';
+import { Fade } from 'reactstrap';
 
 import Header from 'legacy/work/Header';
 import Footer from 'legacy/work/Footer';
@@ -29,7 +30,7 @@ import '../styled/customStyles.scss';
 import HostListingEdit from 'legacy/routes/Host/HostListing/HostListingEdit';
 import HostListingCalendar from 'legacy/routes/Host/HostListingCalendar';
 import Banner from 'legacy/shared/Banner';
-import { WorkBannerContext } from 'HOCs/WorkBannerProvider';
+import { BannerContext } from 'HOCs/BannerProvider';
 
 class ScrollToTop extends React.Component<RouterProps, {}> {
   componentDidUpdate(prevProps: RouterProps) {
@@ -46,12 +47,12 @@ class ScrollToTop extends React.Component<RouterProps, {}> {
 const ScrollToTopWithRouter = withRouter(ScrollToTop);
 
 const Work = () => {
-  const { bannerState, bannerDispatch } = React.useContext(WorkBannerContext);
+  const { bannerState, bannerDispatch } = React.useContext(BannerContext);
   let close = () => bannerDispatch({type: 'close'});
 
   return (
     <div className="min-height-100vh">
-      {bannerState.show ? <Banner onClose={close} {...bannerState} /> : <></>}
+      {bannerState.show ? <Fade><Banner onClose={close} {...bannerState} /></Fade> : <></>}
       <Header />
       <div className="bee-without-header-height-container">
         <ScrollToTopWithRouter>
@@ -60,7 +61,7 @@ const Work = () => {
             <Route exact path="/account/stripe/link" component={StripeLink} />
             <Route exact path="/account/stripe/new" component={StripeNew} />
             <Route exact path="/account/stripe/complete" component={StripeComplete} />
-            <Route path="/account/action" component={FirebaseEmailHandler} />
+            <AuthenticatedRoute path="/account/action" component={FirebaseEmailHandler} />
             <Route path="/account" component={Account} />
             <Route path="/markets" component={Markets} />
             <AuthenticatedRoute path="/bookings" component={Booking} />

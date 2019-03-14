@@ -11,9 +11,9 @@
 
 import * as React from 'react';
 
-import { WorkBannerConsumerProps } from 'HOCs/WorkBannerProvider';
-import { showAccountVerificationBanner } from 'utils/workBannerUtility';
-import { auth, FirebaseUser } from 'utils/firebase';
+import { BannerConsumerProps } from 'HOCs/BannerProvider';
+import { showAccountVerificationBanner } from 'utils/bannerUtility';
+import { auth, FirebaseUser, hasCompletedVerification } from 'utils/firebase';
 
 export interface FirebaseUserProps {
   completedVerification: boolean;
@@ -30,8 +30,8 @@ interface Claims {
 }
 
 interface FirebaseProviderProps {
-  bannerDispatch?: WorkBannerConsumerProps['bannerDispatch'];
-  bannerState?: WorkBannerConsumerProps['bannerState'];
+  bannerDispatch?: BannerConsumerProps['bannerDispatch'];
+  bannerState?: BannerConsumerProps['bannerState'];
 }
 
 export class FirebaseProvider extends React.Component<FirebaseProviderProps> {
@@ -76,11 +76,4 @@ export class FirebaseProvider extends React.Component<FirebaseProviderProps> {
   render(): React.ReactNode {
     return <Provider value={this.state}>{this.props.children}</Provider>;
   }
-}
-
-function hasCompletedVerification(user: FirebaseUser): boolean {
-  if (!user || !user.emailVerified) {
-    return false;
-  }
-  return (user.providerData || []).some((provider: FirebaseUser) => provider && provider.providerId === 'phone');
 }

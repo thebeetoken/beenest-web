@@ -5,7 +5,7 @@ import { BrowserRouter } from 'react-router-dom';
 import ApolloWrapper from 'HOCs/ApolloWrapper';
 import ErrorBoundaryWrapper from 'HOCs/ErrorBoundaryWrapper';
 import { FirebaseProvider } from 'HOCs/FirebaseProvider';
-import { WorkBannerProvider, WorkBannerContext, WorkBannerConsumerProps } from 'HOCs/WorkBannerProvider';
+import { BannerProvider, BannerContext, BannerConsumerProps } from 'HOCs/BannerProvider';
 
 // Google Analytics to only work on production
 import { AppEnv, APP_ENV } from 'configs/settings';
@@ -22,9 +22,9 @@ ReactDOM.render(
   <>
     <ErrorBoundaryWrapper>
       <ApolloWrapper>
-        <WorkBannerProvider>
-          <WorkBannerContext.Consumer>
-          {({ bannerState, bannerDispatch }: WorkBannerConsumerProps) => {
+        <BannerProvider>
+          <BannerContext.Consumer>
+          {({ bannerState, bannerDispatch }: BannerConsumerProps) => {
               const bannerData = {
                 bannerState,
                 bannerDispatch,
@@ -37,8 +37,8 @@ ReactDOM.render(
                 </FirebaseProvider>
               );
             }}
-          </WorkBannerContext.Consumer>
-        </WorkBannerProvider>
+          </BannerContext.Consumer>
+        </BannerProvider>
       </ApolloWrapper>
     </ErrorBoundaryWrapper>
   </>,
