@@ -8,11 +8,8 @@ import { guestsSelectboxOptions } from './searchBar.config';
 
 import { AppConsumer, AppConsumerProps, ScreenType } from 'legacy/Legacy.context';
 import GoogleAutoComplete from 'legacy/shared/GoogleAutoComplete';
-import { SETTINGS } from 'configs/settings';
 import DateRangePicker  from 'legacy/work/DateRangePicker';
 import { parseQueryString, stringifyQueryString } from 'utils/queryParams';
-
-const { BEENEST_HOST } = SETTINGS;
 
 enum SearchBarQueryParam {
   CHECK_IN_DATE = 'checkInDate',
