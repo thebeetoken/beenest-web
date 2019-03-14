@@ -7,6 +7,7 @@ const ListingCard = ({
   homeType,
   listingPicUrl,
   pricePerNightUsd,
+  rating,
   title
 }: ListingShort) => (
   <Card tag={Fade} className="w-100 h-100 shadow border-0">
@@ -16,7 +17,10 @@ const ListingCard = ({
       </div>
     </div>
     <CardBody>
-      <CardSubtitle className="small text-secondary">{homeType}</CardSubtitle>
+      <CardSubtitle className="small text-secondary">
+        {homeType}
+        {rating && <span> &middot; {rating.average}/10 rating</span>}
+      </CardSubtitle>
       <CardTitle tag="h6">{title}</CardTitle>
     </CardBody>
     <CardFooter>
