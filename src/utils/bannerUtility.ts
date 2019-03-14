@@ -17,7 +17,7 @@ export const showAccountVerificationBanner = (
     bannerDispatch({ type: 'close' });
   }
 
-  if (!(userVerified || bannerState.show)) {
+  if (!userVerified && !bannerState.show) {
     bannerDispatch({ type: 'set', payload: options });
     bannerDispatch({ type: 'open' });
   }
