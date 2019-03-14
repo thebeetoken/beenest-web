@@ -1,5 +1,5 @@
 import * as React from 'react';
-import { Card, CardBody, CardFooter, CardImg, CardSubtitle, CardText, CardTitle, Col, Fade } from 'reactstrap';
+import { Card, CardBody, CardFooter, CardImg, CardSubtitle, CardText, CardTitle, Fade } from 'reactstrap';
 import StarRatings from 'react-star-ratings';
 
 import { ListingShort } from 'networking/listings';
