@@ -40,7 +40,7 @@ export function queryToCriteria(queryString: string): SearchFilterCriteria {
     homeType: queryParams.homeType,
     numberOfGuests: queryParams.numberOfGuests && parseInt(queryParams.numberOfGuests),
     travelMode: queryParams.travelMode,
-
+    near: queryParams.near
   };
 }
 
