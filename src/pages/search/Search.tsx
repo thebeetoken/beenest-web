@@ -13,12 +13,18 @@ import { VIEWPORT_CENTER_LAYOUT } from 'styled/sharedClasses/layout';
 import { LISTING_CARD_IMAGE_DIMENSIONS } from 'utils/imageDimensions';
 import { getFriendlyErrorMessage } from 'utils/validators';
 
-import { SearchFilterCriteria, toListingSearchInput, queryToCriteria } from './SearchCriteria';
+import { SearchFilterCriteria, criteriaToQuery, toListingSearchInput, queryToCriteria } from './SearchCriteria';
 import SearchPage from './SearchPage';
 
 const Search = () => {
   const [filter, setFilter] = React.useState<SearchFilterCriteria>(queryToCriteria(location.search));
   const input = toListingSearchInput(filter);
+  React.useEffect(() => {
+    const queryString = `?${criteriaToQuery(filter)}`;
+    if (queryString !== window.location.search) {
+      window.location.search = queryString;
+    }
+  }, [filter]);
   return (<Fade>
     <Query query={SEARCH_LISTINGS} variables={{ input, ...LISTING_CARD_IMAGE_DIMENSIONS }}>
       {({ loading, error, data }) => {
