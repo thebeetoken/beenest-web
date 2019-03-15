@@ -14,28 +14,12 @@ import { LISTING_CARD_IMAGE_DIMENSIONS } from 'utils/imageDimensions';
 import { parseQueryString } from 'utils/queryParams';
 import { getFriendlyErrorMessage } from 'utils/validators';
 
-import { SearchFilterCriteria, toListingSearchInput } from './SearchCriteria';
+import { SearchFilterCriteria, toListingSearchInput, queryToCriteria } from './SearchCriteria';
 import SearchPage from './SearchPage';
 
-const SEARCH_PARAMS = [
-  'bounds',
-  'coordinates',
-  'locationQuery',
-  'checkInDate',
-  'checkOutDate',
-  'numberOfGuests'
-];
-
 const Search = () => {
-  const [filter, setFilter] = React.useState<SearchFilterCriteria>({
-    travelMode: typeof google !== 'undefined' ? google.maps.TravelMode.DRIVING : undefined
-  });
-  const queryParams: any = parseQueryString(location.search);
-  const queryInput: any = SEARCH_PARAMS.reduce(
-    (obj, param) => queryParams[param] ? { ...obj, [param]: queryParams[param] } : obj,
-    {}
-  );
-  const input = { ...queryInput, ...toListingSearchInput(filter) };
+  const [filter, setFilter] = React.useState<SearchFilterCriteria>(queryToCriteria(location.search));
+  const input = toListingSearchInput(filter);
   return (<Fade>
     <Query query={SEARCH_LISTINGS} variables={{ input, ...LISTING_CARD_IMAGE_DIMENSIONS }}>
       {({ loading, error, data }) => {
