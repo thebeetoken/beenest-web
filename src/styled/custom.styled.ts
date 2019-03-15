@@ -12,7 +12,7 @@ export const CONTENT_CLASSES = {
   }
 };
 
-export const PRIMARY_BUTTON_CLASSES = 'btn-primary transition-3d-hover';
+export const PRIMARY_BUTTON_CLASSES = 'btn-primary btn transition-3d-hover';
 export const CONTAINER_CLASSES = 'd-flex bee-without-header-height-container flex-column align-items-center justify-content-center';
 export const JUMBOTRON_CLASSES = "bee-home-hero-img bg-img-hero d-flex flex-column align-items-center justify-content-center height-md-60vh gradient-overlay-half-primary-v1 pt-8 pb-6 pt-md-0 pb-md-0";
 
