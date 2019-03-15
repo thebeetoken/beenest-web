@@ -92,7 +92,7 @@ const TransitTime = ({ place, onPlaceChange, onTravelModeChange, travelMode }: P
           name="travelMode"
           value={mode}
           checked={(mode === chosenMode) || (!chosenMode && index === 0)}
-          onChange={() => mode && setTravelMode(mode)}
+          onChange={() => setTravelMode(mode)}
         />
         <label className="form-check-label" htmlFor={name.toLowerCase()}>{name}</label>
       </Col>)}
