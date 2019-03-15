@@ -48,6 +48,7 @@ const SearchPage = ({
           numberOfGuests={numberOfGuests}
           onSelect={selectListing}
           listings={listings}
+          selectedListing={debouncedListing || undefined}
         />
       </Col>
       <Col md="0" lg="7" xl="8" className="px-0 d-md-none d-lg-block">
