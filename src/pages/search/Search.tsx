@@ -11,7 +11,6 @@ import SearchBar from 'legacy/work/SearchBar';
 import { VIEWPORT_CENTER_LAYOUT } from 'styled/sharedClasses/layout';
 
 import { LISTING_CARD_IMAGE_DIMENSIONS } from 'utils/imageDimensions';
-import { parseQueryString } from 'utils/queryParams';
 import { getFriendlyErrorMessage } from 'utils/validators';
 
 import { SearchFilterCriteria, toListingSearchInput, queryToCriteria } from './SearchCriteria';

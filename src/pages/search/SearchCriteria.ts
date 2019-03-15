@@ -1,17 +1,6 @@
 import { LatLng, LatLngBounds, ListingSearchInput } from 'networking/listings';
 import { parseQueryString } from 'utils/queryParams';
 
-const SEARCH_PARAMS = [
-  'bounds',
-  'coordinates',
-  'locationQuery',
-  'checkInDate',
-  'checkOutDate',
-  'near',
-  'numberOfGuests',
-  'travelMode'
-];
-
 export interface SearchFilterCriteria {
   bounds?: LatLngBounds;
   checkInDate?: string;
