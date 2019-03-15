@@ -37,7 +37,6 @@ const Search = () => {
           listings={data.searchListings}
           filter={filter}
           onFilterChange={setFilter}
-          {...queryParams}
         />;
       }}
     </Query>
