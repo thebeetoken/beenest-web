@@ -59,6 +59,27 @@ export function queryToCriteria(queryString: string): SearchFilterCriteria {
   };
 }
 
-export function toListingSearchInput(criteria: SearchFilterCriteria): ListingSearchInput {
-  return criteria;
+export function toListingSearchInput({
+  bounds,
+  checkInDate,
+  checkOutDate,
+  coordinates,
+  homeType,
+  locationQuery,
+  numberOfGuests,
+  near
+}: SearchFilterCriteria): ListingSearchInput {
+  return {
+    bounds,
+    checkInDate,
+    checkOutDate,
+    coordinates,
+    homeType,
+    locationQuery,
+    numberOfGuests,
+    near: near && {
+      lat: near.lat,
+      lng: near.lng
+    }
+  };
 }
