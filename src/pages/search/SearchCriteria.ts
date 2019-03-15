@@ -55,7 +55,11 @@ export function queryToCriteria(queryString: string): SearchFilterCriteria {
     homeType: queryParams.homeType,
     numberOfGuests: queryParams.numberOfGuests && parseInt(queryParams.numberOfGuests),
     travelMode: queryParams.travelMode,
-    near: queryParams.near
+    near: queryParams.near && {
+      lat: parseFloat(queryParams.near.lat),
+      lng: parseFloat(queryParams.near.lng),
+      name: queryParams.near.name
+    }
   };
 }
 
