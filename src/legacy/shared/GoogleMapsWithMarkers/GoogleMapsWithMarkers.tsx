@@ -137,7 +137,7 @@ class GoogleMapsWithMarkers extends React.Component<Props, State> {
             mapPaneName={OverlayView.OVERLAY_MOUSE_TARGET}
           >
             <button className="popover p-1 bs-popover-top" style={{
-              opacity: '0',
+              opacity: 0,
               transform: 'translate(-50%, -100%)',
               zIndex: listings.length - index
             }} onClick={() => onSelect(listing)}>
