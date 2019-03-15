@@ -1,61 +1,71 @@
 import { LocationDescriptor } from 'history';
 import * as React from 'react';
 
-export const BannerContext = React.createContext({});
-const { Consumer, Provider } = BannerContext;
-export interface BannerProps {
-  message: string;
+interface BannerState {
   href?: string | null;
+  message?: string;
   background?: string;
   textColor?: string;
   to?: LocationDescriptor | null;
+  show: boolean;
+}
+
+type BannerProps = Partial<{
+  href: string | null;
+  message: string;
+  to: LocationDescriptor | null;
+  background: string;
+  textColor: string;
+}>
+
+interface BannerDispatch {
+  type: string;
+  payload?: BannerProps;
 }
 
 export interface BannerConsumerProps {
-  bannerState: {
-    href: string | null;
-    message: string;
-    to: LocationDescriptor | null;
-    showBanner: boolean;
-  },
-  bannerActions: {
-    closeBanner: () => void,
-    openBanner: () => void,
-    setBannerOptions: (options: BannerProps) => void,
-  },
+  bannerState: BannerState,
+  bannerDispatch: React.Dispatch<BannerDispatch>,
 }
 
-export { Consumer as BannerConsumer };
-export class BannerProvider extends React.Component {
-  readonly state = {
-    href: null,
-    message: '',
-    to: null,
-    showBanner: false,
-  }
+interface BannerProviderProps {
+  children: React.ReactNode
+}
 
-  render() {
-    return (
-      <Provider value={
-        {
-          bannerState: this.state,
-          bannerActions: {
-            closeBanner: () => this.setState({ showBanner: false }),
-            openBanner: () => this.setState({ showBanner: true }),
-            setBannerOptions: (options: BannerProps) => this.setState({
-              href: options.href || null,
-              message: options.message,
-              to: options.to || null,
-            }),
-          }
-        }
-      }>
-        {this.props.children}
-      </Provider>
-    );
+const initialState = {
+  show: false,
+  message: '',
+  to: null,
+  href: null,
+}
+
+const setBanner = (bannerState: BannerState, payload?: BannerProps) => {
+  return { ...bannerState, ...payload };
+}
+
+export const BannerReducer = (bannerState: BannerState, action: BannerDispatch) => {
+  switch (action.type) {
+    case 'open':
+      return { ...bannerState, show: true };
+    case 'close':
+      return { ...bannerState, show: false };
+    case 'set':
+      return setBanner(bannerState, action.payload);
+    default:
+      return bannerState;
   }
 }
 
+const BannerContext = React.createContext<any>({ bannerState: initialState, bannerDispatch: {} });
 
+const BannerProvider = (props: BannerProviderProps) => {
+  const context = React.useContext(BannerContext);
+  const [bannerState, bannerDispatch] = React.useReducer(BannerReducer, context.bannerState);
+  return (
+    <BannerContext.Provider value={{ bannerState, bannerDispatch }}>
+      {props.children}
+    </BannerContext.Provider>
+  );
+}
 
-
+export { BannerContext, BannerProvider };
