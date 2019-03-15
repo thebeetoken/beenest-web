@@ -114,7 +114,6 @@ class GoogleMapsWithMarkers extends React.Component<Props, State> {
           }}
           position={near.geometry.location}
           title={near.name}
-          zIndex={1000}
         />}
         {listings.filter(
           listing => !selectedListing || listing.id !== selectedListing.id
