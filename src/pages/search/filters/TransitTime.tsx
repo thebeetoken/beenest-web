@@ -3,20 +3,22 @@ import { Alert, Button, Col, Container, Input, Row } from 'reactstrap';
 
 import GoogleAutoComplete from 'components/shared/GoogleAutoComplete';
 
+import { NamedLatLng, TravelMode } from '../SearchCriteria';
+
 interface Props {
-  place?: google.maps.places.PlaceResult;
-  onPlaceChange: (place?: google.maps.places.PlaceResult) => void;
-  onTravelModeChange: (travelMode?: google.maps.TravelMode) => void;
-  travelMode?: google.maps.TravelMode;
+  place?: NamedLatLng;
+  onPlaceChange: (place?: NamedLatLng) => void;
+  onTravelModeChange: (travelMode?: TravelMode) => void;
+  travelMode?: TravelMode;
 }
 
 const TransitTime = ({ place, onPlaceChange, onTravelModeChange, travelMode }: Props) => {
-  const travelModes = typeof google !== 'undefined' ? {
-    'Driving': google.maps.TravelMode.DRIVING,
-    'Transit': google.maps.TravelMode.TRANSIT,
-    'Walking': google.maps.TravelMode.WALKING,
-    'Cycling': google.maps.TravelMode.BICYCLING
-  } : {};
+  const travelModes = {
+    'Driving': TravelMode.DRIVING,
+    'Transit': TravelMode.TRANSIT,
+    'Walking': TravelMode.WALKING,
+    'Cycling': TravelMode.BICYCLING
+  };
   const [isAlertShowing, setAlertShowing] = React.useState<boolean>(false);
   const [chosenPlace, setPlace] = React.useState(place);
   const [chosenMode, setTravelMode] = React.useState(travelMode);
@@ -28,7 +30,11 @@ const TransitTime = ({ place, onPlaceChange, onTravelModeChange, travelMode }: P
       setAlertShowing(true);
       return;
     }
-    setPlace(place);
+    setPlace({
+      lat: place.geometry.location.lat(),
+      lng: place.geometry.location.lng(),
+      name: place.name
+    });
   };
   const handleClear = (event: React.MouseEvent<HTMLAnchorElement, MouseEvent>) => {
     event.preventDefault();

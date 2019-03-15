@@ -1,13 +1,13 @@
 import { LatLng, LatLngBounds, ListingSearchInput } from 'networking/listings';
 import { parseQueryString } from 'utils/queryParams';
 
-interface NamedLatLng extends LatLng {
+export interface NamedLatLng extends LatLng {
   name: string;
 }
 
 // Redundant to google.maps.TravelMode, but that may be unavailable at
 // initialization-time; it loads asynchronously.
-enum TravelMode {
+export enum TravelMode {
   DRIVING,
   WALKING,
   TRANSIT,
@@ -26,7 +26,7 @@ export interface SearchFilterCriteria {
   near?: NamedLatLng;
 }
 
-export function toGoogleTravelMode(travelMode: TravelMode) {
+export function toGoogleTravelMode(travelMode?: TravelMode): google.maps.TravelMode | undefined {
   if (typeof google === 'undefined') {
     return undefined;
   }
@@ -36,6 +36,7 @@ export function toGoogleTravelMode(travelMode: TravelMode) {
   case TravelMode.TRANSIT: return google.maps.TravelMode.TRANSIT;
   case TravelMode.BICYCLING: return google.maps.TravelMode.BICYCLING;
   }
+  return undefined;
 }
 
 export function queryToCriteria(queryString: string): SearchFilterCriteria {
@@ -58,12 +59,6 @@ export function queryToCriteria(queryString: string): SearchFilterCriteria {
   };
 }
 
-export function toListingSearchInput({ near, homeType }: SearchFilterCriteria): ListingSearchInput {
-  return {
-    near: near && {
-      lat: near.geometry.location.lat(),
-      lng: near.geometry.location.lng()
-    },
-    homeType
-  };
+export function toListingSearchInput(criteria: SearchFilterCriteria): ListingSearchInput {
+  return criteria;
 }

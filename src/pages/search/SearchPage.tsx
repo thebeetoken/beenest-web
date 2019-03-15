@@ -8,7 +8,7 @@ import SearchBar from 'legacy/work/SearchBar';
 
 import { useDebounce } from 'utils/hooks';
 
-import { SearchFilterCriteria } from './SearchCriteria';
+import { SearchFilterCriteria, toGoogleTravelMode } from './SearchCriteria';
 import SearchForm from './SearchForm';
 import SearchResults from './SearchResults';
 
@@ -56,7 +56,7 @@ const SearchPage = ({
             className="w-100 h-100"
             listings={listings}
             near={filter.near}
-            travelMode={filter.travelMode}
+            travelMode={toGoogleTravelMode(filter.travelMode)}
             selectedListing={debouncedListing || undefined}
             onSelect={selectListing}
           />
