@@ -49,8 +49,8 @@ export function queryToCriteria(queryString: string): SearchFilterCriteria {
       south: parseFloat(queryParams.bounds.south)
     },
     coordinates: queryParams.coordinates && {
-      lat: parseFloat(queryParams.bounds.lat),
-      lng: parseFloat(queryParams.bounds.lng)
+      lat: parseFloat(queryParams.coordinates.lat),
+      lng: parseFloat(queryParams.coordinates.lng)
     },
     homeType: queryParams.homeType,
     numberOfGuests: queryParams.numberOfGuests && parseInt(queryParams.numberOfGuests),

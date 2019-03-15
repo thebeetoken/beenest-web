@@ -90,6 +90,11 @@ const EmptySearchPage = () => (
   </Container>
 );
 
-const isBadUserInputError = (error: ApolloError) => error && error.graphQLErrors[0].extensions && error.graphQLErrors[0].extensions.code === 'BAD_USER_INPUT';
+const isBadUserInputError = (error: ApolloError) =>
+  error &&
+  error.graphQLErrors &&
+  error.graphQLErrors[0] &&
+  error.graphQLErrors[0].extensions &&
+  error.graphQLErrors[0].extensions.code === 'BAD_USER_INPUT';
 
 export default Search;
