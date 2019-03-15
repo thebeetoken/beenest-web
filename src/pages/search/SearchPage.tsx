@@ -13,22 +13,17 @@ import SearchForm from './SearchForm';
 import SearchResults from './SearchResults';
 
 interface Props {
-  checkInDate?: string;
-  checkOutDate?: string;
-  numberOfGuests?: number;
   onFilterChange: (filter: SearchFilterCriteria) => void;
   filter: SearchFilterCriteria;
   listings: Listing[];
 }
 
 const SearchPage = ({
-  checkInDate,
-  checkOutDate,
-  numberOfGuests,
   filter,
   onFilterChange,
   listings
 }: Props) => {
+  const { checkInDate, checkOutDate, numberOfGuests } = filter;
   const [selectedListing, selectListing] = React.useState<ListingShort | null>(null);
   const debouncedListing = useDebounce(selectedListing, 125);
   return <Fade>
