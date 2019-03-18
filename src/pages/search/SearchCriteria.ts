@@ -1,5 +1,5 @@
 import { LatLng, LatLngBounds, ListingSearchInput } from 'networking/listings';
-import { parseQueryString } from 'utils/queryParams';
+import { parseQueryString, stringifyQueryString } from 'utils/queryParams';
 
 export interface NamedLatLng extends LatLng {
   name: string;
@@ -8,10 +8,10 @@ export interface NamedLatLng extends LatLng {
 // Redundant to google.maps.TravelMode, but that may be unavailable at
 // initialization-time; it loads asynchronously.
 export enum TravelMode {
-  DRIVING,
-  WALKING,
-  TRANSIT,
-  BICYCLING
+  DRIVING = "DRIVING",
+  WALKING = "WALKING",
+  TRANSIT = "TRANSIT",
+  BICYCLING = "CYCLING"
 }
 
 export interface SearchFilterCriteria {
@@ -55,8 +55,16 @@ export function queryToCriteria(queryString: string): SearchFilterCriteria {
     homeType: queryParams.homeType,
     numberOfGuests: queryParams.numberOfGuests && parseInt(queryParams.numberOfGuests),
     travelMode: queryParams.travelMode,
-    near: queryParams.near
+    near: queryParams.near && {
+      lat: parseFloat(queryParams.near.lat),
+      lng: parseFloat(queryParams.near.lng),
+      name: queryParams.near.name
+    }
   };
+}
+
+export function criteriaToQuery(criteria: SearchFilterCriteria): string {
+  return stringifyQueryString({ ...criteria, utm_term: criteria.locationQuery });
 }
 
 export function toListingSearchInput({
