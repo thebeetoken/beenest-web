@@ -1,7 +1,6 @@
 import * as React from 'react';
 import { Container, Row, Fade } from 'reactstrap';
 
-import { BannerContext, BannerConsumerProps } from 'HOCs/BannerProvider';
 import { parseQueryString } from 'utils/queryParams';
 import { PRIMARY_BUTTON_CLASSES } from 'styled/custom.styled';
 import EmailVerify from './EmailVerify';
@@ -50,44 +49,34 @@ class FirebaseEmailHandler extends React.Component<RouterProps> {
         this.setState({ oobCode, renderEmailVerify: true });
         break;
       default:
-        // Error: invalid mode.
+      // Error: invalid mode.
         alert('Error, invalid mode defined.');
     }
   }
 
   render() {
     return (
-      <BannerContext.Consumer>
-        {({ bannerState, bannerDispatch }: BannerConsumerProps) => {
-          const bannerData = {
-            bannerState,
-            bannerDispatch,
-          }
-          return (
-            <Container className="bee-without-header-height-container p-0" fluid>
-              {this.state.renderEmailVerify
-                ? <EmailVerify oobCode={this.state.oobCode} {...bannerData} />
-                : this.state.renderPasswordReset
-                  ? <PasswordReset oobCode={this.state.oobCode} />
-                  : <ErrorMessage />
-              }
-            </Container>
-          );
-        }}
-      </BannerContext.Consumer>
+      <Container className="bee-without-header-height-container p-0" fluid>
+        {this.state.renderEmailVerify 
+          ? <EmailVerify oobCode={this.state.oobCode} />
+          : this.state.renderPasswordReset
+          ? <PasswordReset oobCode={this.state.oobCode} />
+          : <ErrorMessage />
+      }
+      </Container>
     );
   }
 }
 
 const ErrorMessage = () => (
   <Container tag={Fade} className="d-flex bee-without-header-height-container flex-column align-items-center justify-content-center">
-    <h2 className="font-weight-regular text-center text-lh-sm">Sorry, there was an error</h2>
-    <Row>
-      <a target="_blank" href="https://support.beenest.com/" className={PRIMARY_BUTTON_CLASSES}>
-        Contact us for further help
+  <h2 className="font-weight-regular text-center text-lh-sm">Sorry, there was an error</h2>
+  <Row>
+    <a target="_blank" href="https://support.beenest.com/" className={PRIMARY_BUTTON_CLASSES}>
+      Contact us for further help
     </a>
-    </Row>
-  </Container>
+  </Row>
+</Container>
 );
 
 export default FirebaseEmailHandler;

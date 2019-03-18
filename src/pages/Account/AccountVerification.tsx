@@ -74,11 +74,9 @@ const AccountVerification: React.SFC<Props> = ({ refreshVerificationStatus }: Pr
             <ListGroup className="d-flex flex-column">
               <ListGroupItem
                 className="mb-5"
-                tag="a"
-                href="javascript:void(0);"
                 onClick={toggleModal}>
                 <CardBody>
-                  <h6 className="mb-0 text-body">Phone (Required){' '}
+                  <h6 className="mb-0">Phone (Required){' '}
                     {phoneVerified
                       ? <span className="small text-success">(Verified)</span>
                       : <span className="small text-danger">(Not{'\u00A0'}Verified)</span>
@@ -91,18 +89,16 @@ const AccountVerification: React.SFC<Props> = ({ refreshVerificationStatus }: Pr
                         : VERIFICATION_MESSAGE.PHONE.ADD
                       }
                     </h6>
-                    <i className="fa fa-lock text-body" />
+                    <i className="fa fa-lock"></i>
                   </div>
                 </CardBody>
               </ListGroupItem>
 
               <ListGroupItem
                 disabled={emailVerified || isEmailSubmitting}
-                tag="a"
-                href="javascript:void(0);"
                 onClick={handleEmailVerification}>
                 <CardBody>
-                  <h6 className="mb-0 text-body">Email (Required){' '}
+                  <h6 className="mb-0">Email (Required){' '}
                     {emailVerified
                       ? <span className="small text-success">(Verified)</span>
                       : <span className="small text-danger">(Not{'\u00A0'}Verified)</span>
@@ -115,7 +111,7 @@ const AccountVerification: React.SFC<Props> = ({ refreshVerificationStatus }: Pr
                         : VERIFICATION_MESSAGE.EMAIL.VERIFY
                       }
                     </h6>
-                    <i className="fa fa-lock text-body" />
+                    <i className="fa fa-lock"></i>
                   </div>
                 </CardBody>
               </ListGroupItem>

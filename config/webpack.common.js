@@ -15,6 +15,7 @@ const nodeModules = path.resolve(__dirname, '..', 'node_modules');
 module.exports = {
   entry: {
     index: `${root}/index.tsx`,
+    legacy: `${root}/legacy.tsx`,
     admin: `${root}/admin.tsx`,
     vendor: [
       'react',

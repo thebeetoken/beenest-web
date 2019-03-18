@@ -3,6 +3,8 @@ import * as React from 'react';
 import { withRouter } from 'react-router-dom';
 
 import BannerContainer from './Banner.container';
+
+import { AppConsumer, AppConsumerProps, ScreenType } from 'legacy/Legacy.context';
 import BeeLink from 'legacy/shared/BeeLink';
 import CloseButton from 'legacy/shared/CloseButton';
 
@@ -14,9 +16,6 @@ interface Props extends RouterProps {
   textColor?: string;
   to?: LocationDescriptor | null;
 }
-
-const MOBILE_BUTTON_SIZE = '32px';
-const DEFAULT_BUTTON_SIZE = '56px';
 
 const Banner = (props: Props) => {
   return (
@@ -40,18 +39,18 @@ const Banner = (props: Props) => {
           <span>{props.message}</span>
         }
       </div>
-      <CloseButton
-        className="d-flex d-md-none close"
-        height={MOBILE_BUTTON_SIZE}
-        iconColor="upper"
-        onClose={props.onClose}
-        width={MOBILE_BUTTON_SIZE} />
-      <CloseButton
-        className="d-none d-md-flex close"
-        height={DEFAULT_BUTTON_SIZE}
-        iconColor="upper"
-        onClose={props.onClose}
-        width={DEFAULT_BUTTON_SIZE} />
+      <AppConsumer>
+        {({ screenType }: AppConsumerProps) => {
+          return (
+            <CloseButton
+              className="close"
+              height={screenType < ScreenType.TABLET ? '32px' : '56px'}
+              iconColor="upper"
+              onClose={props.onClose}
+              width={screenType < ScreenType.TABLET ? '32px' : '56px'} />
+          );
+        }}
+      </AppConsumer>
     </BannerContainer>
   );
 };

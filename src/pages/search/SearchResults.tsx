@@ -16,7 +16,6 @@ interface Params {
 interface Props extends Params {
   listings: ListingShort[];
   onSelect: (listing: ListingShort | null) => void;
-  selectedListing?: ListingShort;
 }
 
 const listingPath = (listing: ListingShort, params: Params) =>
@@ -27,8 +26,7 @@ const SearchResults = ({
   checkInDate,
   checkOutDate,
   numberOfGuests,
-  onSelect,
-  selectedListing
+  onSelect
 }: Props) => (
   <Row>
     {listings.map((listing, index) => (
@@ -37,7 +35,7 @@ const SearchResults = ({
           onMouseEnter={() => onSelect(listing)}
           onMouseLeave={() => onSelect(null)}
           to={listingPath(listing, { checkInDate, checkOutDate, numberOfGuests })}
-          className={`w-100 h-100 ${listing === selectedListing ? 'shadow-primary-lg' : 'shadow'}`}>
+          className="w-100 h-100">
           <ListingCard {...listing} />
         </Link>
       </Col>

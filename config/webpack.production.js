@@ -58,6 +58,12 @@ module.exports = merge(common, {
       excludeChunks: ['index', 'legacy'],
       ...commonHtmlWebpackOpts,
     }),
+    new HtmlWebpackPlugin({
+      filename: 'legacy.html',
+      template: `${root}/templates/legacy.html`,
+      excludeChunks: ['index', 'admin'],
+      ...commonHtmlWebpackOpts,
+    }),
     // new BundleAnalyzerPlugin(),
   ],
 });

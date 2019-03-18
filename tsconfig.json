@@ -37,8 +37,8 @@
       "styled/*": ["styled/*"],
       "utils/*": ["utils/*"]
     },
-    "typeRoots": ["node_modules/@types", "typings"],
-    "types": ["react", "react-dom", "node", "jest", "react-star-ratings"],
+    "typeRoots": ["node_modules/@types"],
+    "types": ["react", "react-dom", "node", "jest"],
     "lib": ["dom", "es5", "es6", "esnext", "scripthost"]
   },
   "files": ["custom.d.ts"],
