@@ -98,6 +98,9 @@ class GoogleMapsWithMarkers extends React.Component<Props, State> {
       url: nearMarker,
       labelOrigin: new google.maps.Point(16, -12)
     };
+    const deselectedListings = listings.filter(
+      listing => !selectedListing || listing.id !== selectedListing.id
+    );
     return (
       <GoogleMap
         defaultClickableIcons={false}
@@ -115,9 +118,7 @@ class GoogleMapsWithMarkers extends React.Component<Props, State> {
           position={near.geometry.location}
           title={near.name}
         />}
-        {listings.filter(
-          listing => !selectedListing || listing.id !== selectedListing.id
-        ).map((listing, index) => (<>
+        {deselectedListings.map((listing, index) => (
           <OverlayView
             key={keyFactory.next()}
             position={{ lat: listing.lat, lng: listing.lng }}
@@ -131,6 +132,8 @@ class GoogleMapsWithMarkers extends React.Component<Props, State> {
               <div className="arrow" style={{ left: 'calc(50% - 12px)' }}></div>
             </button>
           </OverlayView>
+        ))}
+        {deselectedListings.map((listing, index) => (
           <OverlayView
             key={keyFactory.next()}
             position={{ lat: listing.lat, lng: listing.lng }}
@@ -145,7 +148,7 @@ class GoogleMapsWithMarkers extends React.Component<Props, State> {
               <div className="arrow" style={{ left: 'calc(50% - 12px)' }}></div>
             </button>
           </OverlayView>
-        </>))}
+        ))}
         {!!selectedListing && <InfoWindow
           position={{ lat: selectedListing.lat, lng: selectedListing.lng }}
           onCloseClick={() => onSelect(null)} >
