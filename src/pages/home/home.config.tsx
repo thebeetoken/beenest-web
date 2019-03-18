@@ -22,11 +22,11 @@ export const guestValueProps = [
       'We list places that match with your price, and we make sure that every stay for your business trips are perfect consistently.',
   },
   {
-    alt: 'Intuative Booking',
+    alt: 'Intuitive Booking',
     src: 'https://static.beenest.com/images/work/home/guestValue3.jpg',
-    title: 'Fast and Intuative Booking',
+    title: 'Fast and Intuitive Booking',
     body:
-      'We make sure that you can browse and select a place within few clicks. We also make sure that payment is smooth.',
+      'We make sure that you can browse and select a place within a few clicks. We also make sure that payment is smooth.',
   },
 ];
 
@@ -36,7 +36,7 @@ export const hostValueProps = [
     src: 'https://static.beenest.com/images/work/home/hostValue1.jpg',
     title: 'Professional Guests',
     body:
-      'We only accept business travelers who are looking for a quality place and will not leave any mess for your rooms.',
+      'We only accept business travelers who are looking for a quality place and will not leave any of your accommodations a mess.',
   },
   {
     alt: 'Increase Your Income',
@@ -46,11 +46,11 @@ export const hostValueProps = [
       'You will be able to maximize your profit, as our target users are business travelers. Simply list your place, sit back and enjoy.',
   },
   {
-    alt: 'Easy Set Up',
+    alt: 'Easy Setup',
     src: 'https://static.beenest.com/images/work/home/hostValue3.jpg',
-    title: 'Easy Set Up and Tracking',
+    title: 'Easy Setup and Tracking',
     body:
-      'We make sure that you can list your place in few steps. We also have an advanced dashboard for you to track your houses.',
+      'We make sure that you can list your place in a few steps. We also have an advanced dashboard for you to track your listings.',
   },
 ];
 

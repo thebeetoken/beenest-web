@@ -8,27 +8,22 @@ import SearchBar from 'legacy/work/SearchBar';
 
 import { useDebounce } from 'utils/hooks';
 
-import { SearchFilterCriteria } from './SearchCriteria';
+import { SearchFilterCriteria, toGoogleTravelMode } from './SearchCriteria';
 import SearchForm from './SearchForm';
 import SearchResults from './SearchResults';
 
 interface Props {
-  checkInDate?: string;
-  checkOutDate?: string;
-  numberOfGuests?: number;
   onFilterChange: (filter: SearchFilterCriteria) => void;
   filter: SearchFilterCriteria;
   listings: Listing[];
 }
 
 const SearchPage = ({
-  checkInDate,
-  checkOutDate,
-  numberOfGuests,
   filter,
   onFilterChange,
   listings
 }: Props) => {
+  const { checkInDate, checkOutDate, numberOfGuests } = filter;
   const [selectedListing, selectListing] = React.useState<ListingShort | null>(null);
   const debouncedListing = useDebounce(selectedListing, 125);
   return <Fade>
@@ -48,6 +43,7 @@ const SearchPage = ({
           numberOfGuests={numberOfGuests}
           onSelect={selectListing}
           listings={listings}
+          selectedListing={debouncedListing || undefined}
         />
       </Col>
       <Col md="0" lg="7" xl="8" className="px-0 d-md-none d-lg-block">
@@ -56,7 +52,7 @@ const SearchPage = ({
             className="w-100 h-100"
             listings={listings}
             near={filter.near}
-            travelMode={filter.travelMode}
+            travelMode={toGoogleTravelMode(filter.travelMode)}
             selectedListing={debouncedListing || undefined}
             onSelect={selectListing}
           />

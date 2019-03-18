@@ -1,5 +1,6 @@
 import * as React from 'react';
 import { Col, Fade, Row } from 'reactstrap';
+import StarRatings from 'react-star-ratings';
 import sanitizeHtml from 'sanitize-html';
 
 import { Listing } from 'networking/listings';
@@ -24,6 +25,7 @@ const ListingInformation = ({
   maxGuests,
   numberOfBedrooms,
   numberOfBathrooms,
+  rating,
   sharedBathroom,
   sleepingArrangement,
   state,
@@ -31,6 +33,18 @@ const ListingInformation = ({
 }: Listing) => <Fade className="mt-6">
   <h3>{title}</h3>
   <address>{formatAddress(city, state, country)}</address>
+
+  {rating && <section className="mb-6 row no-gutters">
+    <div className="mt-n1">
+      <StarRatings
+        numberOfStars={5}
+        rating={rating.average / 2}
+        starDimension="1.5rem"
+        starSpacing="0rem"
+      />
+    </div>
+    <small className="pl-3">{rating.count} reviews</small>
+  </section>}
 
   <section className="mb-6">
     <Avatar user={host} />

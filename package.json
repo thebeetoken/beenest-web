@@ -74,6 +74,7 @@
     "react-router": "^4.3.1",
     "react-router-dom": "^4.3.1",
     "react-slick": "^0.23.2",
+    "react-star-ratings": "^2.3.0",
     "react-stripe-elements": "^2.0.1",
     "react-switch": "^3.0.4",
     "react-tag-input": "^5.2.3",
