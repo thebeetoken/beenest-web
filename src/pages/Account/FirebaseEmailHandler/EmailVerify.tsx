@@ -2,10 +2,8 @@ import * as React from 'react';
 import { Container, Fade, Row } from 'reactstrap';
 import { Link } from 'react-router-dom';
 
-import { BannerConsumerProps } from 'HOCs/BannerProvider';
 import LoadingTakeover from 'legacy/shared/loading/LoadingTakeover';
-import { showAccountVerificationBanner } from 'utils/bannerUtility';
-import { auth, hasCompletedVerification } from 'utils/firebase';
+import { auth } from 'utils/firebase';
 import { FirebaseConsumer, FirebaseUserProps } from 'HOCs/FirebaseProvider';
 import {
   CONTAINER_CLASSES,
@@ -22,8 +20,6 @@ interface State {
 
 interface Props {
   oobCode: string; //firebase code from email
-  bannerDispatch: BannerConsumerProps['bannerDispatch'];
-  bannerState: BannerConsumerProps['bannerState'];
 }
 
 export default class EmailVerify extends React.Component<Props> {
@@ -98,8 +94,6 @@ export default class EmailVerify extends React.Component<Props> {
             }
 
             if (user && !!completedVerification) {
-              showAccountVerificationBanner(hasCompletedVerification(user), this.props.bannerDispatch, this.props.bannerState);
-              
               return (
                 <Container tag={Fade} className={CONTAINER_CLASSES}>
                   <h2 className={CONTENT_CLASSES.TITLE}>Thank you</h2>

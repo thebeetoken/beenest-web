@@ -7,7 +7,7 @@ import { SETTINGS } from 'configs/settings';
 const { GOOGLE_MAPS_KEY } = SETTINGS;
 
 import { ListingCard } from 'legacy/shared/ListingCard';
-import { LatLng, LatLngBounds, ListingShort } from 'networking/listings';
+import { LatLngBounds, ListingShort } from 'networking/listings';
 import { formatPriceShort } from 'utils/formatter';
 
 import GoogleMapsWithMarkersContainer from './GoogleMapsWithMarkers.container';
@@ -20,10 +20,6 @@ const keyFactory = {
   next() { return this.counter++; }
 };
 
-interface NamedLatLng extends LatLng {
-  name: string;
-}
-
 interface Props extends RouterProps {
   bounds?: LatLngBounds;
   children?: React.ReactNode;
@@ -31,7 +27,7 @@ interface Props extends RouterProps {
   height?: string;
   selectedListing?: ListingShort;
   listings: ListingShort[];
-  near?: NamedLatLng;
+  near?: google.maps.places.PlaceResult;
   travelMode?: google.maps.TravelMode;
   width?: string;
   onSelect: (listing: ListingShort | null) => void;
@@ -81,7 +77,7 @@ class GoogleMapsWithMarkers extends React.Component<Props, State> {
       const directionsService = new google.maps.DirectionsService();
       directionsService.route({
         origin: { lat: selectedListing.lat, lng: selectedListing.lng },
-        destination: near,
+        destination: near.geometry.location,
         travelMode: travelMode || google.maps.TravelMode.DRIVING
       }, (directions, status) => {
         if (status === google.maps.DirectionsStatus.OK) {
@@ -116,7 +112,7 @@ class GoogleMapsWithMarkers extends React.Component<Props, State> {
             fontSize: '1rem',
             text: near.name
           }}
-          position={near}
+          position={near.geometry.location}
           title={near.name}
           zIndex={1000}
         />}

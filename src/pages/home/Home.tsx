@@ -56,7 +56,7 @@ const Home = () => {
         {isGuestActive ? <HomeGuests /> : <HomeHosts />}
 
         <Container className={`${CONTENT_CLASSES.FEATURES_CONTAINER.LAYOUT} position-relative`} fluid>
-          <h3 className={CONTENT_CLASSES.TITLE}>"Booking for my business trip was never easier."</h3>
+          <h3 className={CONTENT_CLASSES.TITLE}>"Booking for my buisness trip was never easier."</h3>
           <p className={CONTENT_CLASSES.SUBTITLE}>
             Real users, Real stories.
           </p>
@@ -94,7 +94,7 @@ const Home = () => {
         <Container className="my-10 pb-lg-4">
           <h3 className={CONTENT_CLASSES.TITLE}>Partners</h3>
           <p className={`${CONTENT_CLASSES.SUBTITLE} mb-5 mb-md-0 mb-lg-3`}>
-            Beenest has been featured in the following news and magazines:
+            Beenest has been featured in the following news and magazines.
           </p>
           <Row className="py-4 py-md-10 bee-home-affiliations">
             {affiliations.map((affiliate) => (
