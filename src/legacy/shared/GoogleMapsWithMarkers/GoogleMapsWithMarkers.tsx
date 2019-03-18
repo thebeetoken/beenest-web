@@ -102,6 +102,9 @@ class GoogleMapsWithMarkers extends React.Component<Props, State> {
       url: nearMarker,
       labelOrigin: new google.maps.Point(16, -12)
     };
+    const deselectedListings = listings.filter(
+      listing => !selectedListing || listing.id !== selectedListing.id
+    );
     return (
       <GoogleMap
         defaultClickableIcons={false}
@@ -118,17 +121,30 @@ class GoogleMapsWithMarkers extends React.Component<Props, State> {
           }}
           position={near}
           title={near.name}
-          zIndex={1000}
         />}
-        {listings.filter(
-          listing => !selectedListing || listing.id !== selectedListing.id
-        ).map((listing, index) => (
+        {deselectedListings.map((listing, index) => (
+          <OverlayView
+            key={keyFactory.next()}
+            position={{ lat: listing.lat, lng: listing.lng }}
+            mapPaneName={OverlayView.OVERLAY_LAYER}
+          >
+            <button className="popover p-1 bs-popover-top" style={{
+              transform: 'translate(-50%, -100%)',
+              zIndex: listings.length - index
+            }} onClick={() => onSelect(listing)}>
+              <strong>{formatPriceShort(listing.pricePerNightUsd)}</strong>
+              <div className="arrow" style={{ left: 'calc(50% - 12px)' }}></div>
+            </button>
+          </OverlayView>
+        ))}
+        {deselectedListings.map((listing, index) => (
           <OverlayView
             key={keyFactory.next()}
             position={{ lat: listing.lat, lng: listing.lng }}
             mapPaneName={OverlayView.OVERLAY_MOUSE_TARGET}
           >
             <button className="popover p-1 bs-popover-top" style={{
+              opacity: 0,
               transform: 'translate(-50%, -100%)',
               zIndex: listings.length - index
             }} onClick={() => onSelect(listing)}>
