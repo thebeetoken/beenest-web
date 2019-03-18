@@ -112,12 +112,16 @@ const HostListingCard = (props: Props): JSX.Element => {
                 </Link>
               </Col>
               <Col md="6" lg="3" className="mb-2 mb-lg-0">
-                <Link
+                <Button
+                  outline
+                  tag={Link}
                   target="_blank"
                   to={`/listings/${idSlug}`}
-                  className="w-100 rounded-lg btn btn-sm btn-white btn-outline-secondary">
+                  color="secondary"
+                  size="sm"
+                  className="w-100 rounded-lg">
                   Preview
-                </Link>
+                </Button>
               </Col>
               <Col md="6" lg="3" className="mb-2 mb-lg-0">
                 <Button outline color="secondary" size="sm" className="w-100 rounded-lg" onClick={() => duplicateListing(id)}>
