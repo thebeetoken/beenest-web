@@ -54,3 +54,10 @@ export async function getTokenFromFirebase(): Promise<string | null> {
   // otherwise this will refresh the token and return a new one.
   return await auth.currentUser.getIdToken();
 }
+
+export function hasCompletedVerification(user: FirebaseUser): boolean {
+  if (!user || !user.emailVerified) {
+    return false;
+  }
+  return (user.providerData || []).some((provider: FirebaseUser) => provider && provider.providerId === 'phone');
+}

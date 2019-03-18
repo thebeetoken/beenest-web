@@ -47,6 +47,7 @@ export interface Listing {
   postalCode: string;
   pricePerNightUsd: number;
   prices: Price[];
+  rating: Rating;
   reservations: Reservation[];
   securityDepositUsd: number;
   sharedBathroom: string;
@@ -81,6 +82,7 @@ export interface ListingShort {
   listingPicUrl: string;
   pricePerNightUsd: number;
   prices: Price[];
+  rating: Rating;
   sleepingArrangement: string;
   state: string;
   title: string;
@@ -158,6 +160,11 @@ export interface Price {
   securityDeposit: number;
 }
 
+export interface Rating {
+  average: number;
+  count: number;
+}
+
 export interface Reservation {
   startDate: Date;
   endDate: Date;
@@ -186,6 +193,10 @@ const LISTING_CARD_FRAGMENT = gql`
       currency
       pricePerNight
       securityDeposit
+    }
+    rating {
+      average
+      count
     }
     sleepingArrangement
     state
