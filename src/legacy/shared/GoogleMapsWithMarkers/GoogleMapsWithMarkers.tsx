@@ -8,7 +8,7 @@ const { GOOGLE_MAPS_KEY } = SETTINGS;
 
 import { ListingCard } from 'legacy/shared/ListingCard';
 import { LatLng, LatLngBounds, ListingShort } from 'networking/listings';
-import { formatPriceShort } from 'utils/formatter';
+import { formatPriceShort, formatDuration } from 'utils/formatter';
 
 import GoogleMapsWithMarkersContainer from './GoogleMapsWithMarkers.container';
 
@@ -162,6 +162,18 @@ class GoogleMapsWithMarkers extends React.Component<Props, State> {
           directions={directions}
           options={{ suppressMarkers: true }}
         />}
+        {directions && <OverlayView
+          key={keyFactory.next()}
+          position={getCenterOfDirections(directions)}
+          mapPaneName={OverlayView.OVERLAY_LAYER}
+        >
+          <div className="popover p-1 bs-popover-top" style={{
+            transform: 'translate(-50%, -100%)',
+            zIndex: listings.length + 1
+          }}>
+          {getDurationOfDirections(directions)}
+          </div>
+        </OverlayView>}
       </GoogleMap>
     );
   }
@@ -207,4 +219,32 @@ function getCenterCoordinates(listings: ListingShort[]) {
     lat: lat / (length || 1),
     lng: lng / (length || 1),
   };
+}
+
+function getCenterOfDirections(directions: google.maps.DirectionsResult) {
+  const path = directions.routes[0].overview_path;
+  const distances = path.map((point, index) => index === 0 ? 0 : Math.sqrt(
+    Math.pow(path[index - 1].lat() - point.lat(), 2) +
+    Math.pow(path[index - 1].lng() - point.lng(), 2)
+  ));
+  const total = distances.reduce((a, b) => a + b, 0);
+  let start = 0;
+  let travelled = 0;
+  while (travelled + distances[start] < total / 2) {
+    travelled += distances[start];
+    start += 1;
+  }
+  const remaining = total - travelled;
+  const endWeight = remaining / distances[start];
+  const startWeight = 1 - endWeight;
+  return {
+    lat: startWeight * path[start].lat() + endWeight * path[start + 1].lat(),
+    lng: startWeight * path[start].lng() + endWeight * path[start + 1].lng()
+  };
+}
+
+function getDurationOfDirections(directions: google.maps.DirectionsResult) {
+  const durations = directions.routes[0].legs.map(leg => leg.duration ? leg.duration.value : 0);
+  const seconds = durations.reduce((total, duration) => total + duration, 0);
+  return formatDuration(seconds);
 }

@@ -49,3 +49,10 @@ export function formatPriceShort(price: number) {
 export function formatMonth(date: Date | string) {
   return format(date, 'MMMM YYYY');
 }
+
+export function formatDuration(seconds: number) {
+  const s = seconds % 60;
+  const m = Math.floor(seconds / 60) % 60;
+  const h = Math.floor(seconds / 3600);
+  return `${h}:${m < 10 ? '0' : ''}${m}:${s < 10 ? '0' : ''}${s}`;
+}
