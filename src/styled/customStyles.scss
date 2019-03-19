@@ -118,3 +118,13 @@ $HEADER-HEIGHT: 4.125rem;
   position: relative;
   z-index: 10000;
 }
+
+.bee-directions-showing {
+  .gm-style-iw {
+    opacity: 0.75;
+  }
+
+  .gm-style .gm-style-iw:hover {
+    opacity: 1;
+  }
+}
