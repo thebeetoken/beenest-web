@@ -159,9 +159,10 @@ class SearchBar extends React.Component<Props, State> {
             <Input
               type="select"
               name={NUMBER_OF_GUESTS}
+              value={numberOfGuests}
               onChange={this.handleGuestChange}>
               {guestsSelectboxOptions.map(option => (
-                <option value={option.value} key={option.value} selected={option.value === numberOfGuests}>
+                <option value={option.value} key={option.value}>
                   {option.option}
                 </option>
               ))}
