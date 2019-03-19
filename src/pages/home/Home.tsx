@@ -145,8 +145,10 @@ const HomeHosts = () => (
         Here, your guests will be business travelers so don’t worry about parties.
       </p>
 
-      <Link to="/host/listings">
-        <Button color="primary">Add a Listing</Button>
+      <Link to="/host/listings" className="w-100 w-md-auto px-7">
+        <Button color="primary" className="w-100">
+          Add a Listing
+        </Button>
       </Link>
 
       <Row className={CONTENT_CLASSES.FEATURES.LAYOUT}>
