@@ -58,23 +58,35 @@ interface SearchParams {
   checkInDate?: string;
   checkOutDate?: string;
   locationQuery?: string;
-  numberOfGuests: number;
+  numberOfGuests?: number;
 }
 
 interface Props extends RouterProps {
+  filter?: SearchParams;
   onSubmit?: (params: SearchParams) => void;
 }
 
-function getInitialState({ location }: RouterProps): State {
-  const queryParams: QueryParams = parseQueryString(location.search);
-  const { checkInDate, checkOutDate, locationQuery, numberOfGuests } = queryParams;
-  return {
-    locationQuery,
-    focusedInput: null,
-    checkInDate: checkInDate ? moment(checkInDate) : undefined,
-    checkOutDate: checkOutDate ? moment(checkOutDate) : undefined,
-    numberOfGuests: numberOfGuests && Number(numberOfGuests) ? parseInt(numberOfGuests).toFixed() : '1',
-  };
+function getInitialState({ filter, location }: Props): State {
+  if (!filter) {
+    const queryParams: QueryParams = parseQueryString(location.search);
+    const { checkInDate, checkOutDate, locationQuery, numberOfGuests } = queryParams;
+    return {
+      locationQuery,
+      focusedInput: null,
+      checkInDate: checkInDate ? moment(checkInDate) : undefined,
+      checkOutDate: checkOutDate ? moment(checkOutDate) : undefined,
+      numberOfGuests: numberOfGuests && Number(numberOfGuests) ? parseInt(numberOfGuests).toFixed() : '1',
+    };
+  } else {
+    const { checkInDate, checkOutDate, locationQuery, numberOfGuests } = filter;
+    return {
+      locationQuery,
+      focusedInput: null,
+      checkInDate: checkInDate ? moment(checkInDate) : undefined,
+      checkOutDate: checkOutDate ? moment(checkOutDate) : undefined,
+      numberOfGuests: numberOfGuests ? numberOfGuests.toFixed() : '1'
+    };
+  }
 }
 
 class SearchBar extends React.Component<Props, State> {
@@ -90,7 +102,7 @@ class SearchBar extends React.Component<Props, State> {
     .add(6, 'months');
 
   render() {
-    const { checkInDate, checkOutDate, focusedInput, locationQuery } = this.state;
+    const { checkInDate, checkOutDate, focusedInput, locationQuery, numberOfGuests } = this.state;
     const { LOCATION_QUERY, NUMBER_OF_GUESTS } = SearchBarQueryParam;
     return (
       <Form className="d-flex flex-column flex-lg-row justify-content-between w-100"
@@ -149,7 +161,7 @@ class SearchBar extends React.Component<Props, State> {
               name={NUMBER_OF_GUESTS}
               onChange={this.handleGuestChange}>
               {guestsSelectboxOptions.map(option => (
-                <option value={option.value} key={option.value}>
+                <option value={option.value} key={option.value} selected={option.value === numberOfGuests}>
                   {option.option}
                 </option>
               ))}
