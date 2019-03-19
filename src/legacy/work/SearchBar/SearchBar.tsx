@@ -43,30 +43,41 @@ interface LatLngBounds {
 }
 
 interface State {
-  bounds: LatLngBounds | null;
-  coordinates: LatLng | null;
-  checkInDate: moment.Moment | null;
-  checkOutDate: moment.Moment | null;
+  bounds?: LatLngBounds;
+  coordinates?: LatLng;
+  checkInDate?: moment.Moment;
+  checkOutDate?: moment.Moment;
   focusedInput: 'startDate' | 'endDate' | null;
-  locationQuery: string | undefined;
+  locationQuery?: string ;
   numberOfGuests: string;
+}
+
+interface SearchParams {
+  bounds?: LatLngBounds;
+  coordinates?: LatLng;
+  checkInDate?: string;
+  checkOutDate?: string;
+  locationQuery?: string;
+  numberOfGuests: number;
+}
+
+interface Props extends RouterProps {
+  onSubmit?: (params: SearchParams) => void;
 }
 
 function getInitialState({ location }: RouterProps): State {
   const queryParams: QueryParams = parseQueryString(location.search);
   const { checkInDate, checkOutDate, locationQuery, numberOfGuests } = queryParams;
   return {
-    bounds: null,
-    coordinates: null,
     locationQuery,
     focusedInput: null,
-    checkInDate: checkInDate ? moment(checkInDate) : null,
-    checkOutDate: checkOutDate ? moment(checkOutDate) : null,
+    checkInDate: checkInDate ? moment(checkInDate) : undefined,
+    checkOutDate: checkOutDate ? moment(checkOutDate) : undefined,
     numberOfGuests: numberOfGuests && Number(numberOfGuests) ? parseInt(numberOfGuests).toFixed() : '1',
   };
 }
 
-class SearchBar extends React.Component<RouterProps, State> {
+class SearchBar extends React.Component<Props, State> {
   readonly state: State = getInitialState(this.props);
   private inputRef: React.RefObject<HTMLInputElement | null> = React.createRef();
 
@@ -110,11 +121,11 @@ class SearchBar extends React.Component<RouterProps, State> {
                 return (
                   <DateRangePicker
                     isOutsideRange={this.handleIsOutsideRange}
-                    startDate={checkInDate} // momentPropTypes.momentObj or null,
+                    startDate={checkInDate || null} // momentPropTypes.momentObj or null,
                     startDateId="startDate"
                     startDatePlaceholderText="Check-In"
                     daySize={isMobile ? 32 : 40}
-                    endDate={checkOutDate} // momentPropTypes.momentObj or null,
+                    endDate={checkOutDate || null} // momentPropTypes.momentObj or null,
                     endDateId="endDate"
                     endDatePlaceholderText="Check-Out"
                     onDatesChange={this.handleOnDatesChange} // PropTypes.func.isRequired,
@@ -162,28 +173,34 @@ class SearchBar extends React.Component<RouterProps, State> {
 
   handleSubmit = (event: React.FormEvent) => {
     event.preventDefault();
-    const { bounds, coordinates, checkInDate, checkOutDate, numberOfGuests } = this.state;
+    const { bounds, coordinates } = this.state;
+    const checkInDate = this.state.checkInDate && this.state.checkInDate.format('YYYY-MM-DD');
+    const checkOutDate = this.state.checkInDate && this.state.checkInDate.format('YYYY-MM-DD');
     const locationQuery = this.inputRef.current ? this.inputRef.current.value : '';
-    return this.props.history.push(`/search?${stringifyQueryString({
+    const numberOfGuests = this.state.numberOfGuests ? parseInt(this.state.numberOfGuests) : 1;
+    return this.props.onSubmit ? this.props.onSubmit({
+      bounds,
+      coordinates,
+      checkInDate,
+      checkOutDate,
+      locationQuery,
+      numberOfGuests
+    }) : this.props.history.push(`/search?${stringifyQueryString({
       locationQuery,
       utm_term: locationQuery,
       ...(bounds && { bounds }),
       ...(coordinates && { coordinates }),
       ...(numberOfGuests && { numberOfGuests }),
-      ...(checkInDate && {
-        checkInDate: checkInDate.format('YYYY-MM-DD'),
-      }),
-      ...(checkOutDate && {
-        checkOutDate: checkOutDate.format('YYYY-MM-DD'),
-      }),
+      ...(checkInDate && { checkInDate }),
+      ...(checkOutDate && { checkOutDate }),
     })}`);
   };
 
   handleLocationChange = (event: React.ChangeEvent<HTMLInputElement>) => {
     // handlePlaceChange will be called later, if the user selects from Autocomplete
     this.setState({
-      coordinates: null,
-      bounds: null,
+      coordinates: undefined,
+      bounds: undefined,
       locationQuery: event.target.value,
     });
   };
