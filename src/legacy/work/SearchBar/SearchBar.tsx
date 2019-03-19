@@ -187,7 +187,7 @@ class SearchBar extends React.Component<Props, State> {
     event.preventDefault();
     const { bounds, coordinates } = this.state;
     const checkInDate = this.state.checkInDate && this.state.checkInDate.format('YYYY-MM-DD');
-    const checkOutDate = this.state.checkInDate && this.state.checkInDate.format('YYYY-MM-DD');
+    const checkOutDate = this.state.checkOutDate && this.state.checkOutDate.format('YYYY-MM-DD');
     const locationQuery = this.inputRef.current ? this.inputRef.current.value : '';
     const numberOfGuests = this.state.numberOfGuests ? parseInt(this.state.numberOfGuests) : 1;
     return this.props.onSubmit ? this.props.onSubmit({
