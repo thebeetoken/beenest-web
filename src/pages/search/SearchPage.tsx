@@ -29,7 +29,10 @@ const SearchPage = ({
   return <Fade>
     <Row className="px-0 mx-0 bg-white bee-top">
       <Col className="p-5" xs="12" lg="10" xl="9">
-        <SearchBar />
+        <SearchBar
+          onSubmit={params => onFilterChange({ ...filter, ...params })}
+          filter={filter}
+        />
       </Col>
     </Row>
     <Row className="min-vh-100 h-100 px-0 mx-0">
@@ -49,7 +52,7 @@ const SearchPage = ({
       <Col md="0" lg="7" xl="8" className="px-0 d-md-none d-lg-block">
         <div className="w-100 sticky-top bee-top bee-search-map z-index-0">
           <GoogleMapsWithMarkers
-            className="w-100 h-100"
+            className={`w-100 h-100${!!filter.near ? ' bee-directions-showing' : ''}`}
             listings={listings}
             near={filter.near}
             travelMode={toGoogleTravelMode(filter.travelMode)}

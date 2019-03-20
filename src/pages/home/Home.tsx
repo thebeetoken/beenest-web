@@ -1,5 +1,6 @@
 import * as React from 'react';
 import { Button, Col, Container, Fade, Jumbotron, Row } from 'reactstrap';
+import { Link } from 'react-router-dom';
 
 import { affiliations, guestValueProps, HomeUser, hostValueProps, testimonials } from './home.config';
 
@@ -142,7 +143,13 @@ const HomeHosts = () => (
       <h3 className={CONTENT_CLASSES.TITLE}>Want to rent out your homes to professionals?</h3>
       <p className={CONTENT_CLASSES.SUBTITLE}>
         Here, your guests will be business travelers so don’t worry about parties.
-        </p>
+      </p>
+
+      <Link to="/host/listings" className="w-100 w-md-auto px-7">
+        <Button color="primary" className="w-100">
+          Add a Listing
+        </Button>
+      </Link>
 
       <Row className={CONTENT_CLASSES.FEATURES.LAYOUT}>
         {hostValueProps.map(card => (

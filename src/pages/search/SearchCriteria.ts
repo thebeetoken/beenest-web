@@ -48,11 +48,14 @@ export function queryToCriteria(queryString: string): SearchFilterCriteria {
       north: parseFloat(queryParams.bounds.north),
       south: parseFloat(queryParams.bounds.south)
     },
+    checkInDate: queryParams.checkInDate,
+    checkOutDate: queryParams.checkOutDate,
     coordinates: queryParams.coordinates && {
       lat: parseFloat(queryParams.coordinates.lat),
       lng: parseFloat(queryParams.coordinates.lng)
     },
     homeType: queryParams.homeType,
+    locationQuery: queryParams.locationQuery,
     numberOfGuests: queryParams.numberOfGuests && parseInt(queryParams.numberOfGuests),
     travelMode: queryParams.travelMode,
     near: queryParams.near && {
