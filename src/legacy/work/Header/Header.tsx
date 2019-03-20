@@ -35,6 +35,7 @@ const authNavItems = [
   {
     header: 'Account',
     link: '/account',
+    className: 'd-md-none'
   },
   {
     header: 'Trips',
@@ -107,7 +108,7 @@ const DetailedHeader = () => {
                               {isHost ? 'Host Profile' : 'Become a Host'}
                             </Link>
                             {authNavItems.map(item => (
-                              <NavItem className="px-2" key={item.header}>
+                              <NavItem className={['px-2', item.className].join(' ')} key={item.header}>
                                 <NavLink
                                   onClick={() => toggleNavbar(false)}
                                   tag={Link}
