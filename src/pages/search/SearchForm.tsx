@@ -25,8 +25,7 @@ const SearchForm = ({ filter, onFilterChange }: Props) => {
           <TransitTime
             place={filter.near}
             travelMode={filter.travelMode}
-            onPlaceChange={near => onFilterChange({ ...filter, near })}
-            onTravelModeChange={travelMode => onFilterChange({ ...filter, travelMode })}
+            onChange={(near, travelMode) => onFilterChange({ ...filter, near, travelMode })}
           />
         </SearchFilter>
       </ButtonGroup>
