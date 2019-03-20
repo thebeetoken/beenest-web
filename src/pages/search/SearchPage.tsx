@@ -29,7 +29,10 @@ const SearchPage = ({
   return <Fade>
     <Row className="px-0 mx-0 bg-white bee-top">
       <Col className="p-5" xs="12" lg="10" xl="9">
-        <SearchBar />
+        <SearchBar
+          onSubmit={params => onFilterChange({ ...filter, ...params })}
+          filter={filter}
+        />
       </Col>
     </Row>
     <Row className="min-vh-100 h-100 px-0 mx-0">
