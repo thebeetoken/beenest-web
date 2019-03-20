@@ -122,9 +122,11 @@ $HEADER-HEIGHT: 4.125rem;
 .bee-directions-showing {
   .gm-style-iw {
     opacity: 0.75;
+    transition: all 0.2s ease-in-out;
   }
 
   .gm-style .gm-style-iw:hover {
     opacity: 1;
+    transition: all 0.2s ease-in-out;
   }
 }
