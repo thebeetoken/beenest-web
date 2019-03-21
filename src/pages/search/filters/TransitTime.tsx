@@ -7,12 +7,11 @@ import { NamedLatLng, TravelMode } from '../SearchCriteria';
 
 interface Props {
   place?: NamedLatLng;
-  onPlaceChange: (place?: NamedLatLng) => void;
-  onTravelModeChange: (travelMode?: TravelMode) => void;
+  onChange: (place?: NamedLatLng, travelMode?: TravelMode) => void;
   travelMode?: TravelMode;
 }
 
-const TransitTime = ({ place, onPlaceChange, onTravelModeChange, travelMode }: Props) => {
+const TransitTime = ({ place, onChange, travelMode }: Props) => {
   const travelModes = {
     'Driving': TravelMode.DRIVING,
     'Transit': TravelMode.TRANSIT,
@@ -42,14 +41,6 @@ const TransitTime = ({ place, onPlaceChange, onTravelModeChange, travelMode }: P
       inputRef.current.value = "";
     }
     setPlace(undefined);
-  };
-  const handleApply = () => {
-    if (place !== chosenPlace) {
-      onPlaceChange(chosenPlace);
-    }
-    if (travelMode !== chosenMode) {
-      onTravelModeChange(chosenMode);
-    }
   };
 
   return <Container>
@@ -98,7 +89,7 @@ const TransitTime = ({ place, onPlaceChange, onTravelModeChange, travelMode }: P
       </Col>)}
     </Row>
     <Row className="mt-3 justify-content-end" noGutters>
-      <Button size="sm" disabled={!isDirty} onClick={handleApply}>
+      <Button size="sm" disabled={!isDirty} onClick={() => onChange(chosenPlace, chosenMode)}>
         Apply
       </Button>
     </Row>
