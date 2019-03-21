@@ -8,7 +8,7 @@
  *
  */
 
-import Web3 from 'web3'; // We're only importing the types
+declare var Web3: import('web3'); // We're only importing the types
 import once from 'lodash.once';
 import Big from 'big.js'; // Deprecate in later PR
 import moment from 'moment';
@@ -65,9 +65,12 @@ export interface PaymentOptions {
   transactionFee: number;
 }
 
-export const loadWeb3: () => Web3 = once(() => new Web3(window.ethereum || Web3.givenProvider));
+export const loadWeb3: () => import('web3') = once(() => {
+  const W3 = require('web3');
+  return new W3(window.ethereum || W3.givenProvider);
+});
 
-export async function getUsersWeb3Data(ethProvider: Web3['eth']): Promise<Web3Data> {
+export async function getUsersWeb3Data(ethProvider: import('web3')['eth']): Promise<Web3Data> {
   const [accounts, networkId] = await Promise.all([getAccounts(ethProvider), ethProvider.net.getId()]);
   const networkType = getNetworkType(networkId);
   if (!accounts) {
@@ -109,14 +112,14 @@ export function getValidNetworkName(): string {
   return APP_ENV === AppEnv.PRODUCTION || APP_ENV === AppEnv.STAGING ? 'Main' : 'Ropsten';
 }
 
-async function getAccounts(ethProvider: Web3['eth']): Promise<string[] | undefined> {
+async function getAccounts(ethProvider: import('web3')['eth']): Promise<string[] | undefined> {
   if (window.ethereum) {
     await window.ethereum.enable();
   }
   return ethProvider.getAccounts();
 }
 
-async function getBeeBalance(ethProvider: Web3['eth'], walletAddress: string): Promise<number> {
+async function getBeeBalance(ethProvider: import('web3')['eth'], walletAddress: string): Promise<number> {
   const contract = new ethProvider.Contract(BEE_TOKEN_ABI, BEETOKEN_ADDRESS);
   const beeBalance: string = await contract.methods.balanceOf(walletAddress).call();
   // fromWei conversion defaults to Ether which is 10^18
@@ -124,13 +127,13 @@ async function getBeeBalance(ethProvider: Web3['eth'], walletAddress: string): P
   return parseFloat(utils.fromWei(beeBalance));
 }
 
-async function getEthBalance(ethProvider: Web3['eth'], walletAddress: string): Promise<number> {
-  const ethBalance: Web3['utils']['BN'] = await ethProvider.getBalance(walletAddress);
+async function getEthBalance(ethProvider: import('web3')['eth'], walletAddress: string): Promise<number> {
+  const ethBalance: import('web3')['utils']['BN'] = await ethProvider.getBalance(walletAddress);
   // fromWei conversion defaults to Ether which is 10^18
   return parseFloat(utils.fromWei(ethBalance.toString()));
 }
 
-async function getAccountBalance(ethProvider: Web3['eth'], walletAddress: string): Promise<Account> {
+async function getAccountBalance(ethProvider: import('web3')['eth'], walletAddress: string): Promise<Account> {
   const [availableBee, availableEth] = await Promise.all([
     getBeeBalance(ethProvider, walletAddress),
     getEthBalance(ethProvider, walletAddress),
@@ -142,7 +145,7 @@ async function getAccountBalance(ethProvider: Web3['eth'], walletAddress: string
   };
 }
 
-export async function payWithBee(ethProvider: Web3['eth'], paymentOptions: PaymentOptions): Promise<CryptoParams> {
+export async function payWithBee(ethProvider: import('web3')['eth'], paymentOptions: PaymentOptions): Promise<CryptoParams> {
   const { amount, guestWalletAddress } = paymentOptions;
   try {
     const { methods } = new ethProvider.Contract(BEE_TOKEN_ABI, BEETOKEN_ADDRESS);
@@ -169,7 +172,7 @@ export async function payWithBee(ethProvider: Web3['eth'], paymentOptions: Payme
 }
 
 export async function payWithEther(
-  ethProvider: Web3['eth'],
+  ethProvider: import('web3')['eth'],
   paymentOptions: PaymentOptions,
   ethPrice: number
 ): Promise<CryptoParams> {
@@ -198,7 +201,7 @@ export async function payWithEther(
 }
 
 export async function payWithToken(
-  ethProvider: Web3['eth'],
+  ethProvider: import('web3')['eth'],
   paymentOptions: PaymentOptions,
   currency: Currency | string,
   fromBee: (value: number) => number
@@ -239,7 +242,7 @@ export async function payWithToken(
 }
 
 export async function priceWithEther(
-  ethProvider: Web3['eth'],
+  ethProvider: import('web3')['eth'],
   beePrice: number
 ): Promise<number> {
   const beeDust = UNITS.AMOUNT_PER_BEE.times(beePrice).toFixed(0);
@@ -255,7 +258,7 @@ export async function priceWithEther(
 }
 
 export async function priceWithToken(
-  ethProvider: Web3['eth'],
+  ethProvider: import('web3')['eth'],
   currency: Currency | string,
   beePrice: number
 ): Promise<number> {
@@ -276,7 +279,7 @@ export async function priceWithToken(
 }
 
 export async function balanceOf(
-  ethProvider: Web3['eth'],
+  ethProvider: import('web3')['eth'],
   currency: Currency,
   address: string
 ): Promise<number> {
@@ -296,7 +299,7 @@ export async function balanceOf(
 }
 
 export async function invoice(
-  ethProvider: Web3['eth'],
+  ethProvider: import('web3')['eth'],
   booking: Booking
 ): Promise<CryptoParams> {
   const {
@@ -359,7 +362,7 @@ export async function invoice(
 }
 
 export async function cancel(
-  ethProvider: Web3['eth'],
+  ethProvider: import('web3')['eth'],
   id: string
 ): Promise<CryptoParams> {
   const accounts = await getAccounts(ethProvider);
@@ -390,7 +393,7 @@ export async function cancel(
 }
 
 export async function payout(
-  ethProvider: Web3['eth'],
+  ethProvider: import('web3')['eth'],
   id: string
 ): Promise<string> {
   const accounts = await getAccounts(ethProvider);
@@ -417,7 +420,7 @@ export async function payout(
 }
 
 export async function refund(
-  ethProvider: Web3['eth'],
+  ethProvider: import('web3')['eth'],
   id: string
 ): Promise<string> {
   const accounts = await getAccounts(ethProvider);
