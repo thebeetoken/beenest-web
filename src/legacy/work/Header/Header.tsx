@@ -4,6 +4,7 @@ import { Link, Route, Switch } from 'react-router-dom';
 
 import { FirebaseConsumer, FirebaseUserProps } from 'HOCs/FirebaseProvider';
 import { BeenestSVGPrimary } from 'legacy/shared/svgComponents/SvgComponents';
+import Avatar from 'legacy/work/Avatar';
 import Loading from 'legacy/shared/loading/Loading';
 import SimpleHeader from 'legacy/work/SimpleHeader';
 import { Query } from 'react-apollo';
@@ -34,6 +35,7 @@ const authNavItems = [
   {
     header: 'Account',
     link: '/account',
+    className: 'd-md-none'
   },
   {
     header: 'Trips',
@@ -106,7 +108,7 @@ const DetailedHeader = () => {
                               {isHost ? 'Host Profile' : 'Become a Host'}
                             </Link>
                             {authNavItems.map(item => (
-                              <NavItem className="px-2" key={item.header}>
+                              <NavItem className={['px-2', item.className].join(' ')} key={item.header}>
                                 <NavLink
                                   onClick={() => toggleNavbar(false)}
                                   tag={Link}
@@ -115,6 +117,9 @@ const DetailedHeader = () => {
                                 </NavLink>
                               </NavItem>
                             ))}
+                            <Link to="/account/general" className="ml-3 d-none d-md-inline">
+                              <Avatar user={beeUser} width="3rem" height="3rem" />
+                            </Link>
                           </>
                         );
                       }}
