@@ -8,7 +8,6 @@
  *
  */
 
-declare var Web3: import('web3'); // We're only importing the types
 import once from 'lodash.once';
 import Big from 'big.js'; // Deprecate in later PR
 import moment from 'moment';
@@ -24,7 +23,6 @@ const {
   ERC20_ADDRESSES,
   UNIPAY_ADDRESS
 } = SETTINGS;
-const { utils } = Web3;
 
 const THIRTY_SIX_HOURS_IN_SEC = 36 * 60 * 60;
 
@@ -69,6 +67,8 @@ export const loadWeb3: () => import('web3') = once(() => {
   const W3 = require('web3');
   return new W3(window.ethereum || W3.givenProvider);
 });
+
+export const loadUtils = () => loadWeb3().utils;
 
 export async function getUsersWeb3Data(ethProvider: import('web3')['eth']): Promise<Web3Data> {
   const [accounts, networkId] = await Promise.all([getAccounts(ethProvider), ethProvider.net.getId()]);
@@ -124,13 +124,13 @@ async function getBeeBalance(ethProvider: import('web3')['eth'], walletAddress: 
   const beeBalance: string = await contract.methods.balanceOf(walletAddress).call();
   // fromWei conversion defaults to Ether which is 10^18
   // BEE/Wei conversion is similar to ETH/Wei, both using 18 decimals
-  return parseFloat(utils.fromWei(beeBalance));
+  return parseFloat(loadUtils().fromWei(beeBalance));
 }
 
 async function getEthBalance(ethProvider: import('web3')['eth'], walletAddress: string): Promise<number> {
   const ethBalance: import('web3')['utils']['BN'] = await ethProvider.getBalance(walletAddress);
   // fromWei conversion defaults to Ether which is 10^18
-  return parseFloat(utils.fromWei(ethBalance.toString()));
+  return parseFloat(loadUtils().fromWei(ethBalance.toString()));
 }
 
 async function getAccountBalance(ethProvider: import('web3')['eth'], walletAddress: string): Promise<Account> {
