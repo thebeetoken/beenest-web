@@ -21,7 +21,7 @@ import AdminUsers from './AdminUsers';
 import AdminSideNavigation from './AdminSideNavigation';
 
 import Divider from 'legacy/shared/Divider';
-import NotFound from 'legacy/routes/NotFound';
+import NotFound from 'components/Admin/NotFound';
 
 const Admin = (): JSX.Element => (
   <AdminContainer className="admin-container">

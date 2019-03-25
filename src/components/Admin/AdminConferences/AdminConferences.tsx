@@ -5,7 +5,7 @@ import AdminConferencesTable from './AdminConferencesTable';
 import AdminConferenceNew from './AdminConferenceNew';
 import AdminConferenceEdit from './AdminConferenceEdit';
 
-import NotFound from 'legacy/routes/NotFound';
+import NotFound from 'components/Admin/NotFound';
 
 const AdminConferences = () => (
   <AdminConferencesContainer className="admin-sub-container">

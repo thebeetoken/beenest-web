@@ -5,7 +5,7 @@ import { Route, Redirect, Switch } from 'react-router';
 import { NavLink as RRNavLink, Link } from 'react-router-dom';
 import { GET_GUEST_SORTED_BOOKINGS, GUEST_SORTED_BOOKINGS, Booking } from 'networking/bookings';
 
-import NotFound from 'legacy/routes/NotFound';
+import NotFound from '../notFound';
 import LoadingTakeover from 'legacy/shared/loading/LoadingTakeover';
 import TripCard from 'legacy/work/TripCard';
 import { AlertProperties } from 'legacy/work/Alert/Alert';
