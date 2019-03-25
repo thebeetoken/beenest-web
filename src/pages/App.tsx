@@ -6,7 +6,7 @@ import Header from 'legacy/work/Header';
 import Footer from 'legacy/work/Footer';
 
 import About from './about';
-import Account from './Account';
+import Account from './account';
 import Booking from 'legacy/routes/Booking';
 import FirebaseEmailHandler from './Account/FirebaseEmailHandler';
 import ForgotPassword from './forgotPassword';

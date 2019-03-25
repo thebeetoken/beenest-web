@@ -5,7 +5,7 @@ import HostBookings from './HostBookings';
 import HostListings from './HostListings';
 import HostPayments from './HostPayments';
 
-import NotFound from 'legacy/routes/NotFound';
+import NotFound from 'components/Admin/NotFound';
 import AuthenticatedRoute from 'HOCs/AuthenticatedRoute';
 import { compose, graphql } from 'react-apollo';
 import { CREATE_LISTING, Listing, GET_HOST_LISTINGS } from 'networking/listings';

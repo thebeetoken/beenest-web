@@ -3,7 +3,7 @@ import { Redirect, Route, Switch } from 'react-router-dom';
 import AdminSupportContainer from './AdminSupport.container';
 import AdminSupportFeedbackTable from './AdminSupportFeedbackTable';
 
-import NotFound from 'legacy/routes/NotFound';
+import NotFound from 'components/Admin/NotFound';
 
 const AdminSupport = () => (
   <AdminSupportContainer className="admin-sub-container">

@@ -6,7 +6,7 @@ import { NavLink as RRNavLink } from 'react-router-dom';
 import { GET_ACCOUNT_PAGE } from 'networking/users';
 
 import LoadingTakeover from 'legacy/shared/loading/LoadingTakeover';
-import NotFound from 'legacy/routes/NotFound';
+import NotFound from '../notFound';
 import { FirebaseConsumer, FirebaseUserProps } from 'HOCs/FirebaseProvider';
 
 import AccountGeneral from './AccountGeneral';
