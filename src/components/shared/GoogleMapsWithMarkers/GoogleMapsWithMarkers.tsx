@@ -1,27 +1,44 @@
 import * as React from 'react';
 import { withRouter } from 'react-router-dom';
-import { compose, withProps } from 'recompose';
-import { InfoWindow, Marker, GoogleMap, withGoogleMap, withScriptjs } from 'react-google-maps';
+import { branch, compose, lifecycle, renderComponent, withProps } from 'recompose';
+import { DirectionsRenderer, InfoWindow, Marker, GoogleMap, OverlayView, withGoogleMap, withScriptjs } from 'react-google-maps';
 
 import { SETTINGS } from 'configs/settings';
 const { GOOGLE_MAPS_KEY } = SETTINGS;
 
 import { ListingCard } from 'legacy/shared/ListingCard';
-import { LatLngBounds, ListingShort } from 'networking/listings';
+import { LatLng, LatLngBounds, ListingShort } from 'networking/listings';
+import { formatPriceShort } from 'utils/formatter';
 
 import GoogleMapsWithMarkersContainer from './GoogleMapsWithMarkers.container';
+
+const nearMarker = require('assets/images/iconmonstr-location-13-32.png');
+
+// https://github.com/tomchentw/react-google-maps/issues/405
+const keyFactory = {
+  counter: 0,
+  next() { return this.counter++; }
+};
+
+interface NamedLatLng extends LatLng {
+  name: string;
+}
 
 interface Props extends RouterProps {
   bounds?: LatLngBounds;
   children?: React.ReactNode;
   className?: string;
   height?: string;
+  selectedListing?: ListingShort;
   listings: ListingShort[];
+  near?: NamedLatLng;
+  travelMode?: google.maps.TravelMode;
   width?: string;
+  onSelect: (listing: ListingShort | null) => void;
 }
 
 interface State {
-  selectedListing?: ListingShort
+  directions?: google.maps.DirectionsResult;
 }
 
 class GoogleMapsWithMarkers extends React.Component<Props, State> {
@@ -51,25 +68,100 @@ class GoogleMapsWithMarkers extends React.Component<Props, State> {
     }
   }
 
+  componentDidUpdate(prevProps: Props) {
+    if (
+      prevProps.near === this.props.near &&
+      prevProps.selectedListing === this.props.selectedListing &&
+      prevProps.travelMode === this.props.travelMode
+    ) {
+      return;
+    }
+    const { near, selectedListing, travelMode } = this.props;
+    if (selectedListing && near) {
+      const directionsService = new google.maps.DirectionsService();
+      directionsService.route({
+        origin: { lat: selectedListing.lat, lng: selectedListing.lng },
+        destination: near,
+        travelMode: travelMode || google.maps.TravelMode.DRIVING
+      }, (directions, status) => {
+        if (status === google.maps.DirectionsStatus.OK) {
+          this.setState({ directions });
+        } else {
+          console.log(`Failed to retrieve directions: ${status}`);
+        }
+      });
+    } else {
+      this.setState({ directions: undefined });
+    }
+  }
+
   render() {
-    const { listings } = this.props;
-    const { selectedListing } = this.state;
+    const { listings, near, selectedListing, onSelect } = this.props;
+    const { directions } = this.state;
+    const nearIcon: google.maps.Icon = {
+      url: nearMarker,
+      labelOrigin: new google.maps.Point(16, -12)
+    };
+    const deselectedListings = listings.filter(
+      listing => !selectedListing || listing.id !== selectedListing.id
+    );
     return (
       <GoogleMap
+        defaultClickableIcons={false}
         defaultZoom={10}
         defaultCenter={getCenterCoordinates(listings)}
         ref={this.handleMapMounted}
       >
-        {listings.map(listing => (
-          <Marker key={listing.id}
+        {near && <Marker
+          icon={nearIcon}
+          label={{
+            color: '#333',
+            fontSize: '1rem',
+            text: near.name
+          }}
+          position={near}
+          title={near.name}
+        />}
+        {deselectedListings.map((listing, index) => (
+          <OverlayView
+            key={keyFactory.next()}
             position={{ lat: listing.lat, lng: listing.lng }}
-            onClick={() => this.setState({ selectedListing: listing })} />
+            mapPaneName={OverlayView.OVERLAY_LAYER}
+          >
+            <button className="popover p-1 bs-popover-top" style={{
+              transform: 'translate(-50%, -100%)',
+              zIndex: listings.length - index
+            }} onClick={() => onSelect(listing)}>
+              <strong>{formatPriceShort(listing.pricePerNightUsd)}</strong>
+              <div className="arrow" style={{ left: 'calc(50% - 12px)' }}></div>
+            </button>
+          </OverlayView>
+        ))}
+        {deselectedListings.map((listing, index) => (
+          <OverlayView
+            key={keyFactory.next()}
+            position={{ lat: listing.lat, lng: listing.lng }}
+            mapPaneName={OverlayView.OVERLAY_MOUSE_TARGET}
+          >
+            <button className="popover p-1 bs-popover-top" style={{
+              opacity: 0,
+              transform: 'translate(-50%, -100%)',
+              zIndex: listings.length - index
+            }} onClick={() => onSelect(listing)}>
+              <strong>{formatPriceShort(listing.pricePerNightUsd)}</strong>
+              <div className="arrow" style={{ left: 'calc(50% - 12px)' }}></div>
+            </button>
+          </OverlayView>
         ))}
         {!!selectedListing && <InfoWindow
           position={{ lat: selectedListing.lat, lng: selectedListing.lng }}
-          onCloseClick={() => this.setState({ selectedListing: undefined })} >
+          onCloseClick={() => onSelect(null)} >
           <ListingCard target="_blank" {...selectedListing} />
         </InfoWindow>}
+        {directions && <DirectionsRenderer
+          directions={directions}
+          options={{ suppressMarkers: true }}
+        />}
       </GoogleMap>
     );
   }
@@ -89,6 +181,14 @@ export default withRouter(
         />
       ),
     })),
+    lifecycle({
+      // @ts-ignore
+      componentDidCatch(error: any, info: any) {
+        console.log(error, info);
+        this.setState({ error: true });
+      },
+    }),
+    branch(({ error }) => error, renderComponent(() => <h1>Error loading Google Maps.</h1>)),
     withScriptjs,
     withGoogleMap
   )(GoogleMapsWithMarkers)
