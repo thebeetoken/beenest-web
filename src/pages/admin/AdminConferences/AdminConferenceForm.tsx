@@ -5,12 +5,12 @@ import { compose, graphql } from 'react-apollo';
 import { WithContext as ReactTags } from 'react-tag-input';
 import _ from 'lodash';
 
-//import Svg from 'legacy/shared/Svg';
-import AdminInputLabel from 'legacy/shared/AdminInputLabel';
-import AdminInputWrapper from 'legacy/shared/AdminInputWrapper';
-import Button from 'legacy/shared/Button';
-import { PhotoUploader, Photo } from 'legacy/shared/PhotoUploader';
-import TextareaContainer from 'legacy/shared/Textarea/Textarea.container';
+//import Svg from 'components/shared/Svg';
+import AdminInputLabel from 'components/shared/AdminInputLabel';
+import AdminInputWrapper from 'components/shared/AdminInputWrapper';
+import Button from 'components/shared/Button';
+import { PhotoUploader, Photo } from 'components/shared/PhotoUploader';
+import TextareaContainer from 'components/shared/Textarea/Textarea.container';
 
 import { Conference, CREATE_CONFERENCE, UPDATE_CONFERENCE, GET_ALL_CONFERENCES } from 'networking/conferences';
 

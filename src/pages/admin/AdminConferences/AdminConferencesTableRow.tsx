@@ -1,7 +1,7 @@
 import * as React from 'react';
 import { Link } from 'react-router-dom';
 
-import Fab from 'legacy/shared/Fab';
+import Fab from 'components/shared/Fab';
 import { Conference } from 'networking/conferences';
 import { dateToYear } from 'utils/formatDate';
 

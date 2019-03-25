@@ -4,10 +4,10 @@ import CopyToClipboard from 'react-copy-to-clipboard';
 
 import AdminUsersDeleteCard from './AdminUsersDeleteCard';
 
-import BeeLink from 'legacy/shared/BeeLink';
-import Fab from 'legacy/shared/Fab';
-import Portal from 'legacy/shared/Portal';
-import { ToggleProvider, ToggleProviderRef } from 'legacy/shared/ToggleProvider';
+import BeeLink from 'components/shared/BeeLink';
+import Fab from 'components/shared/Fab';
+import Portal from 'components/shared/Portal';
+import { ToggleProvider, ToggleProviderRef } from 'components/shared/ToggleProvider';
 import { User } from 'networking/users';
 
 interface Props extends User {
