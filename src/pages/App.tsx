@@ -8,7 +8,7 @@ import Footer from 'legacy/work/Footer';
 import About from './about';
 import Account from './account';
 import Booking from 'legacy/routes/Booking';
-import FirebaseEmailHandler from './Account/FirebaseEmailHandler';
+import FirebaseEmailHandler from './account/FirebaseEmailHandler';
 import ForgotPassword from './forgotPassword';
 import Home from './home';
 import Host from 'legacy/routes/Host';
