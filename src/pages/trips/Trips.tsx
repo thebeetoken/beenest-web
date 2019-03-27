@@ -162,8 +162,8 @@ function Trips() {
               <Route component={NotFound} />
             </Switch>
 
-            {modal === ModalType.CANCEL_BOOKING &&
-              <CancelBookingModal booking={booking} onModalAction={handleModalAction} setAlert={setAlert}/>
+            {modal === ModalType.CANCEL_BOOKING && !!booking &&
+              <CancelBookingModal booking={booking} onModalAction={handleModalAction} setAlert={setAlert} />
             }
 
             {modal === ModalType.CONTACT_HOST && !!booking &&
