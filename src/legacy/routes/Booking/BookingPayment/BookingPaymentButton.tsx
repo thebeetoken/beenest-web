@@ -95,7 +95,7 @@ class BookingPaymentButton extends React.Component<Props, State> {
                   <Button
                     disabled={isButtonDisabled}
                     onClick={() => this.handleSubmit(walletAddress)}
-                    textStyle="title-9">
+                    color="white">
                     Submit Payment
                   </Button>
                 </>
