@@ -1,5 +1,5 @@
 import * as React from 'react';
-import NotFound from 'components/Admin/NotFound';
+import NotFound from 'pages/admin/NotFound';
 import { Route, Redirect, Switch } from 'react-router-dom';
 
 const generateSearchLink = (market:string, lat:number, lng:number) => (
