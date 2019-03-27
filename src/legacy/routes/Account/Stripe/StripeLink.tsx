@@ -1,5 +1,5 @@
 import * as React from 'react';
-import LoadingTakeover from 'legacy/shared/loading/LoadingTakeover';
+import LoadingTakeover from 'components/shared/loading/LoadingTakeover';
 
 import { SETTINGS } from 'configs/settings';
 

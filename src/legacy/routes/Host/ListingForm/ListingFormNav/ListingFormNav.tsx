@@ -5,9 +5,9 @@ import { History } from 'history';
 import flat from 'flat';
 
 import ListingFormNavContainer from './ListingFormNav.container';
-import GeneralWrapper from 'legacy/shared/GeneralWrapper';
+import GeneralWrapper from 'components/shared/GeneralWrapper';
 import { ListingInput } from 'networking/listings';
-import TabNavBar from 'legacy/shared/TabNavBar';
+import TabNavBar from 'components/shared/TabNavBar';
 
 interface Props {
   history: History;

@@ -8,8 +8,8 @@ import { APP_ENV, AppEnv } from 'configs/settings';
 import BookingReceiptContainer from './BookingReceipt.container';
 import BookingNavBar from '../BookingNavBar';
 import BookingReceiptBar from './BookingReceiptBar';
-import BitcoinQRCode from 'legacy/shared/BitcoinQRCode';
-import Button from 'legacy/shared/Button';
+import BitcoinQRCode from 'components/shared/BitcoinQRCode';
+import Button from 'components/shared/Button';
 import { numberToLocaleString } from 'utils/numberToLocaleString';
 import { AppConsumer, AppConsumerProps, ScreenType } from 'legacy/Legacy.context';
 

@@ -1,8 +1,8 @@
 import * as React from 'react';
 import { withRouter } from 'react-router-dom';
 import { Booking } from 'networking/bookings';
-import Fab from 'legacy/shared/Fab';
-import Button from 'legacy/shared/Button';
+import Fab from 'components/shared/Fab';
+import Button from 'components/shared/Button';
 
 import BookingReceiptBarContainer from './BookingReceiptBar.container';
 

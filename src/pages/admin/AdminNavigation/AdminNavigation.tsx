@@ -10,7 +10,7 @@
 import * as React from 'react';
 import { NavLink } from 'react-router-dom';
 
-import Fab from 'legacy/shared/Fab';
+import Fab from 'components/shared/Fab';
 import AdminNavigationContainer from './AdminNavigation.container';
 
 const AdminNavigation = (): JSX.Element => (

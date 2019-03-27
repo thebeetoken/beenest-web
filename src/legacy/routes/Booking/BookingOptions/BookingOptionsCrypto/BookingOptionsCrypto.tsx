@@ -9,9 +9,9 @@ import BookingOptionsCryptoContainer from './BookingOptionsCrypto.container';
 import BookingOptionsBar from '../BookingOptionsBar';
 import SelectPaymentButton from '../SelectPaymentButton';
 
-import Async from 'legacy/shared/Async';
-import Button from 'legacy/shared/Button';
-import BeeLink from 'legacy/shared/BeeLink';
+import Async from 'components/shared/Async';
+import Button from 'components/shared/Button';
+import BeeLink from 'components/shared/BeeLink';
 
 import { balanceOf, Web3Data, isNetworkValid, getValidNetworkName, loadWeb3 } from 'utils/web3';
 import { numberToLocaleString } from 'utils/numberToLocaleString';

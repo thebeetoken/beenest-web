@@ -20,7 +20,7 @@ import AdminNavigation from './AdminNavigation';
 import AdminUsers from './AdminUsers';
 import AdminSideNavigation from './AdminSideNavigation';
 
-import Divider from 'legacy/shared/Divider';
+import Divider from 'components/shared/Divider';
 import NotFound from 'pages/notFound';
 
 const Admin = (): JSX.Element => (

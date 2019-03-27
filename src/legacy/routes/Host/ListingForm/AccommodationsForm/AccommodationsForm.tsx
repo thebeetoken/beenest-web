@@ -2,15 +2,15 @@ import * as React from 'react';
 import { Field, ErrorMessage } from 'formik';
 
 import { ListingField } from 'networking/listings';
-import Checkbox from 'legacy/shared/Checkbox';
-import ErrorMessageWrapper from 'legacy/shared/ErrorMessageWrapper';
-import InputLabel from 'legacy/shared/InputLabel';
-import InputWrapper from 'legacy/shared/InputWrapper';
-import NumberInput from 'legacy/shared/NumberInput';
-import Textarea from 'legacy/shared/Textarea';
-import { TextareaEvent } from 'legacy/shared/Textarea/Textarea';
+import Checkbox from 'components/shared/Checkbox';
+import ErrorMessageWrapper from 'components/shared/ErrorMessageWrapper';
+import InputLabel from 'components/shared/InputLabel';
+import InputWrapper from 'components/shared/InputWrapper';
+import NumberInput from 'components/shared/NumberInput';
+import Textarea from 'components/shared/Textarea';
+import { TextareaEvent } from 'components/shared/Textarea/Textarea';
 import { stringToArray, arrayToString } from 'utils/formatter';
-import { PhotoUploader, Photo } from 'legacy/shared/PhotoUploader';
+import { PhotoUploader, Photo } from 'components/shared/PhotoUploader';
 
 const AccommodationsForm = (props: any): JSX.Element => {
   const { setFocus, setFieldTouched, setFieldValue, values } = props;

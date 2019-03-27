@@ -1,5 +1,5 @@
 import * as React from 'react';
-import AudioLoading from 'legacy/shared/loading/AudioLoading';
+import AudioLoading from 'components/shared/loading/AudioLoading';
 
 const AdminLoading = (): JSX.Element => (
   <div className="admin-table-loading">

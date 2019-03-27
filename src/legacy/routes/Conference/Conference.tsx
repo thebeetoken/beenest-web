@@ -6,14 +6,14 @@ import format from 'date-fns/format';
 import { ListingShort } from 'networking/listings';
 
 import { AppConsumer, AppConsumerProps, ScreenType } from 'legacy/Legacy.context';
-import AudioLoading from 'legacy/shared/loading/AudioLoading';
-import BeeLink from 'legacy/shared/BeeLink';
+import AudioLoading from 'components/shared/loading/AudioLoading';
+import BeeLink from 'components/shared/BeeLink';
 import ConferenceContainer from './Conference.container';
-import LazyImage from 'legacy/shared/LazyImage';
-import { HotelCard } from 'legacy/shared/HotelCard';
-import Overlay from 'legacy/shared/Overlay';
-import ListingCards from 'legacy/shared/ListingCards';
-import Button from 'legacy/shared/Button';
+import LazyImage from 'components/shared/LazyImage';
+import { HotelCard } from 'components/shared/HotelCard';
+import Overlay from 'components/shared/Overlay';
+import ListingCards from 'components/shared/ListingCards';
+import Button from 'components/shared/Button';
 
 const HOTEL_ROOM = 'Hotel Room';
 

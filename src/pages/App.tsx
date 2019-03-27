@@ -29,7 +29,7 @@ import { StripeLink, StripeComplete, StripeNew } from 'legacy/routes/Account/Str
 import '../styled/customStyles.scss';
 import HostListingEdit from 'legacy/routes/Host/HostListing/HostListingEdit';
 import HostListingCalendar from 'legacy/routes/Host/HostListingCalendar';
-import Banner from 'legacy/shared/Banner';
+import Banner from 'components/shared/Banner';
 import { BannerContext } from 'HOCs/BannerProvider';
 
 class ScrollToTop extends React.Component<RouterProps, {}> {

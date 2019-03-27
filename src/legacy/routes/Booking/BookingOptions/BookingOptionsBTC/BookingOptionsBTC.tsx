@@ -5,7 +5,7 @@ import { Booking, Currency } from 'networking/bookings';
 
 import BookingOptionsUSDContainer from '../BookingOptionsUSD/BookingOptionsUSD.container';
 import SelectPaymentButton from '../SelectPaymentButton';
-import Button from 'legacy/shared/Button';
+import Button from 'components/shared/Button';
 
 interface Props extends RouterProps {
   booking: Booking;

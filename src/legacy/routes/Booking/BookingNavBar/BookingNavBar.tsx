@@ -3,8 +3,8 @@ import { withRouter, NavLink } from 'react-router-dom';
 
 import { AppConsumer, AppConsumerProps, ScreenType } from 'legacy/Legacy.context';
 import BookingNavBarContainer from './BookingNavBar.container';
-import Fab from 'legacy/shared/Fab';
-import Svg from 'legacy/shared/Svg';
+import Fab from 'components/shared/Fab';
+import Svg from 'components/shared/Svg';
 
 interface Props extends RouterProps {
   listingId?: string;

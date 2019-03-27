@@ -6,9 +6,9 @@ import { Booking, Currency } from 'networking/bookings';
 import BookingOptionsBarContainer from './BookingOptionsBar.container';
 import SelectPaymentButton from '../SelectPaymentButton';
 import BookingQuote from '../../BookingQuote';
-import { ToggleProvider, ToggleProviderRef } from 'legacy/shared/ToggleProvider';
-import PopUpCard from 'legacy/shared/PopUpCard';
-import Fab from 'legacy/shared/Fab';
+import { ToggleProvider, ToggleProviderRef } from 'components/shared/ToggleProvider';
+import PopUpCard from 'components/shared/PopUpCard';
+import Fab from 'components/shared/Fab';
 
 interface Props extends RouterProps {
   booking: Booking;

@@ -6,7 +6,7 @@ import { NavLink as RRNavLink, Link } from 'react-router-dom';
 import { GET_GUEST_SORTED_BOOKINGS, GUEST_SORTED_BOOKINGS, Booking } from 'networking/bookings';
 
 import NotFound from '../notFound';
-import LoadingTakeover from 'legacy/shared/loading/LoadingTakeover';
+import LoadingTakeover from 'components/shared/loading/LoadingTakeover';
 import TripCard from 'legacy/work/TripCard';
 import { AlertProperties } from 'legacy/work/Alert/Alert';
 import ContactHostFormModal from 'legacy/work/ContactHostFormModal';
