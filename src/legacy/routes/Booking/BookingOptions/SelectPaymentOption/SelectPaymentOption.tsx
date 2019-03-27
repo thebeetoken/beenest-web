@@ -33,7 +33,6 @@ class SelectPaymentOption extends React.Component<Props> {
     const { currency, conversionRateFromBee, errorPricingToken } = this.state;
     const { booking } = this.props;
     const showBee = !!booking.host.walletAddress;
-    const showEth = !!booking.host.walletAddress;
     // The 1.01 multiplier below accounts for fluctuating exchange rates etc.
     const fromBee = errorPricingToken ?
       (() => '--.--') :
@@ -57,8 +56,6 @@ class SelectPaymentOption extends React.Component<Props> {
                       Select Payment Type
                     </option>
                     {showBee && <option value={Currency.BEE}>BEE</option>}
-                    {showBee && <option value={Currency.DAI}>DAI</option>}
-                    {showEth && <option value={Currency.ETH}>ETH</option>}
                     <option value={Currency.USD}>Credit Card</option>
                   </select>
                   <Svg className="suffix" src="utils/carat-down" />
