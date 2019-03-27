@@ -63,8 +63,7 @@ class ContactHostForm extends React.Component<Props, State> {
           message={`Your message ${subject ? `"${subject}" ` : ' '}was sent to ${recipient.firstName}.`}
           onClose={onClose}
           srcColor="secondary"
-          title="Success!">
-        </AlertCard>
+          title="Success!" />
       );
     }
 

@@ -16,7 +16,7 @@ import HostSignup from './hosts/signup';
 import Listing from './listing';
 import Login from './login';
 import Logout from './logout';
-import Markets from 'legacy/routes/Markets';
+import Markets from './markets';
 import NotFound from './notFound';
 import Search from './search';
 import Signup from './signup';
