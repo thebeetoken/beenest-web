@@ -5,12 +5,12 @@ import { Query } from 'react-apollo';
 import CopyToClipboard from 'react-copy-to-clipboard';
 
 import { SETTINGS } from 'configs/settings';
-import AudioLoading from 'legacy/shared/loading/AudioLoading';
-import BeeLink from 'legacy/shared/BeeLink';
-import Button from 'legacy/shared/Button';
-import Divider from 'legacy/shared/Divider';
-import SelectBoxWrapper from 'legacy/shared/SelectBoxWrapper';
-import Svg from 'legacy/shared/Svg';
+import AudioLoading from 'components/shared/loading/AudioLoading';
+import BeeLink from 'components/shared/BeeLink';
+import Button from 'components/shared/Button';
+import Divider from 'components/shared/Divider';
+import SelectBoxWrapper from 'components/shared/SelectBoxWrapper';
+import Svg from 'components/shared/Svg';
 import { GET_LISTING_CALENDAR, Reservation } from 'networking/listings';
 import { formatAddress } from 'utils/formatter';
 

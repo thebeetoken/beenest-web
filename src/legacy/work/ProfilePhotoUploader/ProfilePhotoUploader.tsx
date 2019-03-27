@@ -4,7 +4,7 @@ import { Card, Alert } from 'reactstrap';
 import { GET_USER, UPDATE_USER } from 'networking/users';
 import Container from 'reactstrap/lib/Container';
 
-import { PhotoUploader, Photo } from 'legacy/shared/PhotoUploader';
+import { PhotoUploader, Photo } from 'components/shared/PhotoUploader';
 import { AlertProperties } from 'legacy/work/Alert/Alert';
 import ProfilePhotoUploaderContainer from 'legacy/work/ProfilePhotoUploader/ProfilePhotoUploader.container';
 

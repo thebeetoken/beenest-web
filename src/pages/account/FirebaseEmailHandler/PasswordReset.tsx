@@ -2,7 +2,7 @@ import * as React from 'react';
 import { Button, Col, Container, Fade, Form, FormGroup, Label, Input, Row } from 'reactstrap';
 import { Link } from 'react-router-dom';
 
-import LoadingTakeover from 'legacy/shared/loading/LoadingTakeover';
+import LoadingTakeover from 'components/shared/loading/LoadingTakeover';
 import {
   CONTAINER_CLASSES,
   CONTENT_CLASSES,

@@ -2,12 +2,12 @@ import * as React from 'react';
 import { Field, ErrorMessage } from 'formik';
 
 import { ListingField } from 'networking/listings';
-import ErrorMessageWrapper from 'legacy/shared/ErrorMessageWrapper/ErrorMessageWrapper';
-import InputLabel from 'legacy/shared/InputLabel';
-import InputWrapper from 'legacy/shared/InputWrapper';
-import NumberInput from 'legacy/shared/NumberInput';
-import Textarea from 'legacy/shared/Textarea';
-import { TextareaEvent } from 'legacy/shared/Textarea/Textarea';
+import ErrorMessageWrapper from 'components/shared/ErrorMessageWrapper/ErrorMessageWrapper';
+import InputLabel from 'components/shared/InputLabel';
+import InputWrapper from 'components/shared/InputWrapper';
+import NumberInput from 'components/shared/NumberInput';
+import Textarea from 'components/shared/Textarea';
+import { TextareaEvent } from 'components/shared/Textarea/Textarea';
 import { stringToArray, arrayToString } from 'utils/formatter';
 
 const PricingAvailabilityForm = (props: any): JSX.Element => {

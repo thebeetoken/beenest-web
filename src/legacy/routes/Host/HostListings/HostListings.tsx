@@ -5,8 +5,8 @@ import HostListingCard from '../HostListingCard';
 import HostListingsContainer from './HostListings.container';
 
 import { GET_HOST_LISTINGS, HostListingShort } from 'networking/listings';
-import Button from 'legacy/shared/Button';
-import LoadingTakeover from 'legacy/shared/loading/LoadingTakeover';
+import Button from 'components/shared/Button';
+import LoadingTakeover from 'components/shared/loading/LoadingTakeover';
 
 interface Props {
   createListing: () => void;

@@ -12,7 +12,7 @@ import { LocationDescriptor } from 'history';
 
 import { AdminSideNavigationData } from './AdminSideNavigation.config';
 import AdminSideNavigationContainer from './AdminSideNavigation.container';
-import BeeLink from 'legacy/shared/BeeLink';
+import BeeLink from 'components/shared/BeeLink';
 
 interface AdminSideNavigationItemProps {
   href?: string;

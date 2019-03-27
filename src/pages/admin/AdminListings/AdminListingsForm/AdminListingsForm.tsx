@@ -1,15 +1,15 @@
 import * as React from 'react';
 import { Redirect } from 'react-router-dom';
 import { compose, graphql } from 'react-apollo';
-import Svg from 'legacy/shared/Svg';
+import Svg from 'components/shared/Svg';
 
-import AdminInputLabel from 'legacy/shared/AdminInputLabel';
-import AdminInputWrapper from 'legacy/shared/AdminInputWrapper';
-import AdminTextarea from 'legacy/shared/AdminTextarea';
-import Button from 'legacy/shared/Button';
-import Checkbox from 'legacy/shared/Checkbox';
+import AdminInputLabel from 'components/shared/AdminInputLabel';
+import AdminInputWrapper from 'components/shared/AdminInputWrapper';
+import AdminTextarea from 'components/shared/AdminTextarea';
+import Button from 'components/shared/Button';
+import Checkbox from 'components/shared/Checkbox';
 import { CREATE_LISTING, GET_ALL_LISTINGS, Listing, UPDATE_LISTING, ListingInput } from 'networking/listings';
-import { Photo, PhotoUploader } from 'legacy/shared/PhotoUploader';
+import { Photo, PhotoUploader } from 'components/shared/PhotoUploader';
 import {
   bypass,
   errorMessages,
@@ -33,9 +33,9 @@ import {
   isValidOptionalUrl,
 } from 'utils/validators';
 import format from 'date-fns/format';
-import Divider from 'legacy/shared/Divider';
-import { TextareaEvent } from 'legacy/shared/Textarea/Textarea';
-import SelectBoxWrapper from 'legacy/shared/SelectBoxWrapper';
+import Divider from 'components/shared/Divider';
+import { TextareaEvent } from 'components/shared/Textarea/Textarea';
+import SelectBoxWrapper from 'components/shared/SelectBoxWrapper';
 import { COUNTRY_CODES } from 'utils/countryCodes';
 import timeOptions from 'utils/timeOptions';
 import { stringToArray, arrayToString } from 'utils/formatter';

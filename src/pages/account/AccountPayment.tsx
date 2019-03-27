@@ -4,7 +4,7 @@ import { Query } from 'react-apollo';
 import { GET_PAYMENT_SOURCES, PaymentSource } from 'networking/paymentSources';
 import { CreditBalance } from 'networking/users';
 
-import LoadingTakeover from 'legacy/shared/loading/LoadingTakeover';
+import LoadingTakeover from 'components/shared/loading/LoadingTakeover';
 
 import NewCardForm from './NewCardForm';
 import DeleteCardForm from './DeleteCardForm';

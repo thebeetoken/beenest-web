@@ -8,9 +8,9 @@ import BookingOptionsUSD from '../BookingOptionsUSD';
 import BookingQuote from '../../BookingQuote';
 import BookingOptionsCrypto from '../BookingOptionsCrypto';
 
-import InputLabel from 'legacy/shared/InputLabel';
-import SelectBoxWrapper from 'legacy/shared/SelectBoxWrapper';
-import Svg from 'legacy/shared/Svg';
+import InputLabel from 'components/shared/InputLabel';
+import SelectBoxWrapper from 'components/shared/SelectBoxWrapper';
+import Svg from 'components/shared/Svg';
 import { loadWeb3, priceWithEther, priceWithToken } from 'utils/web3';
 
 interface Props {

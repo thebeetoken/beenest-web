@@ -1,7 +1,7 @@
 import * as React from 'react';
 
-import CloseButton from 'legacy/shared/CloseButton';
-import Portal from 'legacy/shared/Portal';
+import CloseButton from 'components/shared/CloseButton';
+import Portal from 'components/shared/Portal';
 import ListingCarousel from 'legacy/routes/Listing/Listing/ListingCarousel';
 import ListingCarouselPortalContainer from 'legacy/routes/Listing/Listing/ListingCarouselPortal.container';
 

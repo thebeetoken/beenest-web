@@ -1,7 +1,7 @@
 import * as React from 'react';
 
 import { Host } from 'networking/listings';
-import LazyImage from 'legacy/shared/LazyImage';
+import LazyImage from 'components/shared/LazyImage';
 
 interface Props {
   user: Host;

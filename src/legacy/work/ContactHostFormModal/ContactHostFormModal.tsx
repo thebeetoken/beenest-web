@@ -5,9 +5,9 @@ import { compose, graphql } from 'react-apollo';
 
 import { CONTACT_USER, ContactUserField, User } from 'networking/users';
 import { Button, Form, FormGroup, Label, FormFeedback, Input, ModalFooter, ModalBody, Modal, ModalHeader } from 'reactstrap';
-import Textarea from 'legacy/shared/Textarea';
-import { TextareaEvent } from 'legacy/shared/Textarea/Textarea';
-import Loading from 'legacy/shared/loading/Loading';
+import Textarea from 'components/shared/Textarea';
+import { TextareaEvent } from 'components/shared/Textarea/Textarea';
+import Loading from 'components/shared/loading/Loading';
 
 interface Props {
   contactUser: (input: ContactUserInput) => Promise<EmailResponse>;

@@ -7,7 +7,7 @@ import 'react-dates/initialize';
 import { guestsSelectboxOptions } from './searchBar.config';
 
 import { AppConsumer, AppConsumerProps, ScreenType } from 'legacy/Legacy.context';
-import GoogleAutoComplete from 'legacy/shared/GoogleAutoComplete';
+import GoogleAutoComplete from 'components/shared/GoogleAutoComplete';
 import DateRangePicker  from 'legacy/work/DateRangePicker';
 import { parseQueryString, stringifyQueryString } from 'utils/queryParams';
 

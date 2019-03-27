@@ -1,7 +1,7 @@
 import * as React from 'react';
 
 import { Currency } from 'networking/bookings';
-import Loading from 'legacy/shared/loading/Loading';
+import Loading from 'components/shared/loading/Loading';
 import { Container, Modal } from 'reactstrap';
 import { VIEWPORT_CENTER_LAYOUT } from 'styled/sharedClasses/layout';
 

@@ -1,7 +1,7 @@
 import * as React from 'react';
 import { Alert, Button, Col, Container, Input, Row } from 'reactstrap';
 
-import GoogleAutoComplete from 'legacy/shared/GoogleAutoComplete';
+import GoogleAutoComplete from 'components/shared/GoogleAutoComplete';
 
 import { NamedLatLng, TravelMode } from '../SearchCriteria';
 

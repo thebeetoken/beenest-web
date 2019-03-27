@@ -6,9 +6,9 @@ const { BEENEST_HOST_API } = SETTINGS;
 
 import StripeCompleteContainer from './StripeComplete.container';
 
-import BeeLink from 'legacy/shared/BeeLink';
-import Button from 'legacy/shared/Button';
-import GeneralWrapper from 'legacy/shared/GeneralWrapper';
+import BeeLink from 'components/shared/BeeLink';
+import Button from 'components/shared/Button';
+import GeneralWrapper from 'components/shared/GeneralWrapper';
 
 interface State {
   isSubmitting: boolean;

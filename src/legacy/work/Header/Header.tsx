@@ -3,9 +3,9 @@ import { Collapse, Navbar, NavbarToggler, NavbarBrand, Nav, NavItem, NavLink } f
 import { Link, Route, Switch } from 'react-router-dom';
 
 import { FirebaseConsumer, FirebaseUserProps } from 'HOCs/FirebaseProvider';
-import { BeenestSVGPrimary } from 'legacy/shared/svgComponents/SvgComponents';
+import { BeenestSVGPrimary } from 'components/shared/svgComponents/SvgComponents';
 import Avatar from 'legacy/work/Avatar';
-import Loading from 'legacy/shared/loading/Loading';
+import Loading from 'components/shared/loading/Loading';
 import SimpleHeader from 'legacy/work/SimpleHeader';
 import { Query } from 'react-apollo';
 import { GET_USER } from 'networking/users';

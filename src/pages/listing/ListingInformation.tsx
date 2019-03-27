@@ -4,7 +4,7 @@ import StarRatings from 'react-star-ratings';
 import sanitizeHtml from 'sanitize-html';
 
 import { Listing } from 'networking/listings';
-import GoogleMaps from 'legacy/shared/GoogleMaps';
+import GoogleMaps from 'components/shared/GoogleMaps';
 import Avatar from 'legacy/work/Avatar';
 import ContactHostButton from 'legacy/work/ContactHostButton';
 import { formatAddress, formatMonth } from 'utils/formatter';

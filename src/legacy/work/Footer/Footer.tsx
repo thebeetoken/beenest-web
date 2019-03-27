@@ -15,7 +15,7 @@ import {
 import { Route, Switch } from 'react-router-dom';
 
 import { SETTINGS } from 'configs/settings';
-import { BeenestSVGPrimary } from 'legacy/shared/svgComponents/SvgComponents';
+import { BeenestSVGPrimary } from 'components/shared/svgComponents/SvgComponents';
 
 const { BEENEST_HOST } = SETTINGS;
 

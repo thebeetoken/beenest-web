@@ -5,8 +5,8 @@ import { Redirect } from 'react-router-dom';
 import { Booking, GET_BOOKING, Currency } from 'networking/bookings';
 import BookingPaymentContainer from './BookingPayment.container';
 
-import Async from 'legacy/shared/Async';
-import Button from 'legacy/shared/Button';
+import Async from 'components/shared/Async';
+import Button from 'components/shared/Button';
 import BookingQuote from '../BookingQuote';
 import BookingPaymentBar from './BookingPaymentBar';
 import BookingPaymentButton from './BookingPaymentButton';
