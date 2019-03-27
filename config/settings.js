@@ -56,7 +56,7 @@ module.exports = {
     BEENEST_HOST: 'https://staging.beenest.io',
     BEENEST_HOST_API: 'https://api-staging.beetoken.com',
     BEETOKEN_ADDRESS: '0x4D8fc1453a0F359e99c9675954e656D80d996FbF',
-    BEETOKEN_PAYMENT_ADDRESS: '0xb3C348c4a6D95fee050bF8A770fC91EC60aa4ab2',
+    BEETOKEN_PAYMENT_ADDRESS: '0x5f72bd79e315da1d58e8a23cdb98a9e02085dacf',
     FIREBASE_CONFIG: {
       apiKey: 'AIzaSyAv9jUUQcob4SjtUIMOylkImD8UogfaqNo',
       authDomain: 'beetoken-staging.firebaseapp.com',
@@ -78,7 +78,7 @@ module.exports = {
     BEENEST_HOST: 'https://www.beenest.com',
     BEENEST_HOST_API: 'https://api.beetoken.com',
     BEETOKEN_ADDRESS: '0x4D8fc1453a0F359e99c9675954e656D80d996FbF',
-    BEETOKEN_PAYMENT_ADDRESS: '0xb3C348c4a6D95fee050bF8A770fC91EC60aa4ab2',
+    BEETOKEN_PAYMENT_ADDRESS: '0x5f72bd79e315da1d58e8a23cdb98a9e02085dacf',
     FIREBASE_CONFIG: {
       apiKey: 'AIzaSyDS9QPfvghy3gX0pLIayXLnpOCTV2rJwe0',
       authDomain: 'beetoken-prod.firebaseapp.com',
