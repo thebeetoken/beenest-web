@@ -49,13 +49,13 @@ module.exports = merge(common, {
     new HtmlWebpackPlugin({
       filename: 'index.html',
       template: `${root}/templates/index.html`,
-      excludeChunks: ['admin', 'legacy'],
+      excludeChunks: ['admin'],
       ...commonHtmlWebpackOpts,
     }),
     new HtmlWebpackPlugin({
       filename: 'admin.html',
       template: `${root}/templates/admin.html`,
-      excludeChunks: ['index', 'legacy'],
+      excludeChunks: ['index'],
       ...commonHtmlWebpackOpts,
     }),
     // new BundleAnalyzerPlugin(),

@@ -19,7 +19,7 @@ export const HotelCard = (props: Props) => {
   const { endDate, hover, idSlug, listingPicUrl, pricePerNightUsd, sleepingArrangement, startDate, title } = props;
   const queryParams = (startDate && endDate) ? `?checkInDate=${formatSingleDate(startDate, 'MM-DD-YYYY')}&checkOutDate=${formatSingleDate(endDate, 'MM-DD-YYYY')}` : '';
   return (
-    <BeeLink to={`/legacy/listings/${idSlug}${queryParams}`}>
+    <BeeLink to={`/listings/${idSlug}${queryParams}`}>
       <HotelCardContainer
         className={`bee-hotel-card ${props.className || ''}`.trim()}
         {...{ hover }}>
