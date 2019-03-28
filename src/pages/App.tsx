@@ -23,7 +23,7 @@ import Signup from './signup';
 import Trips from './trips';
 import TripsReceipt from './trips/TripsReceipt';
 import AuthenticatedRoute from 'HOCs/AuthenticatedRoute';
-import { StripeLink, StripeComplete, StripeNew } from 'legacy/routes/Account/Stripe';
+import { StripeLink, StripeComplete, StripeNew } from 'pages/account/Stripe';
 
 
 import '../styled/customStyles.scss';
