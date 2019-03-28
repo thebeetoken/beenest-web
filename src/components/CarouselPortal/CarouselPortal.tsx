@@ -2,8 +2,8 @@ import * as React from 'react';
 
 import CloseButton from 'components/CloseButton';
 import Portal from 'components/Portal';
-import ListingCarousel from 'legacy/routes/Listing/Listing/ListingCarousel';
-import ListingCarouselPortalContainer from 'legacy/routes/Listing/Listing/ListingCarouselPortal.container';
+import ListingCarousel from './ListingCarousel';
+import ListingCarouselPortalContainer from './CarouselPortal.container';
 
 interface Props {
   onClose: () => void;
