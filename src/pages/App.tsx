@@ -7,7 +7,7 @@ import Footer from 'components/Footer';
 
 import About from './about';
 import Account from './account';
-import Booking from 'legacy/routes/Booking';
+import Booking from './bookings';
 import FirebaseEmailHandler from './account/FirebaseEmailHandler';
 import ForgotPassword from './forgotPassword';
 import Home from './home';
