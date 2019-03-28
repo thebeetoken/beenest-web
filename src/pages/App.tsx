@@ -46,7 +46,7 @@ class ScrollToTop extends React.Component<RouterProps, {}> {
 
 const ScrollToTopWithRouter = withRouter(ScrollToTop);
 
-const Work = () => {
+const Work = (props: RouterProps) => {
   const { bannerState, bannerDispatch } = React.useContext(BannerContext);
   let close = () => bannerDispatch({type: 'close'});
 
@@ -72,7 +72,7 @@ const Work = () => {
             <Route exact path="/listings/:id" component={Listing} />
             <Route exact path="/login" component={Login} />
             <Route exact path="/logout" component={Logout} />
-            <Route exact path="/search" component={Search} />
+            <Route exact path="/search" render={() => <Search key={props.location.key} />} />
             <Route exact path="/signup" component={Signup} />
             <AuthenticatedRoute exact path="/trips/:id/receipt" component={TripsReceipt} />
             <AuthenticatedRoute path="/trips" component={Trips} />
@@ -87,4 +87,4 @@ const Work = () => {
   );
 };
 
-export default Work;
+export default withRouter(Work);
