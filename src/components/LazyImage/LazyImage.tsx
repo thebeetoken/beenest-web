@@ -63,7 +63,7 @@ class LazyImage extends React.Component<LazyImageProps, LazyImageStateType> {
       <LazyImageContainer
         className={`${this.lazyImageContainerClasses} ${className ? className : ''}`.trim()}
         onClick={onClick}
-        src={src.startsWith('http') ? src : require(`../../../assets/images/${src}`)}
+        src={src.startsWith('http') ? src : require(`../assets/images/${src}`)}
         alt={alt}
         height={height}
         width={width}
