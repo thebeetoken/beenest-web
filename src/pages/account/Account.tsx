@@ -5,7 +5,7 @@ import { Route, Redirect, Switch } from 'react-router';
 import { NavLink as RRNavLink } from 'react-router-dom';
 import { GET_ACCOUNT_PAGE } from 'networking/users';
 
-import LoadingTakeover from 'components/shared/loading/LoadingTakeover';
+import LoadingTakeover from 'components/loading/LoadingTakeover';
 import NotFound from '../notFound';
 import { FirebaseConsumer, FirebaseUserProps } from 'HOCs/FirebaseProvider';
 
@@ -13,7 +13,7 @@ import AccountGeneral from './AccountGeneral';
 import AccountPayment from './AccountPayment';
 import AccountSecurity from './AccountSecurity';
 import AccountVerification from './AccountVerification';
-import ProfilePhotoUploader from 'legacy/work/ProfilePhotoUploader';
+import ProfilePhotoUploader from 'components/ProfilePhotoUploader';
 
 const Account = () => {
   return (

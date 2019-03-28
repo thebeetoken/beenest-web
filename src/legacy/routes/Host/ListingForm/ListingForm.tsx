@@ -12,13 +12,13 @@ import ListingInfoForm from './ListingInfoForm';
 import PricingAvailabilityForm from './PricingAvailabilityForm';
 import ListingFormNav from './ListingFormNav';
 import ListingFormContainer from './ListingForm.container';
-import GeneralWrapper from 'components/shared/GeneralWrapper';
+import GeneralWrapper from 'components/GeneralWrapper';
 import NotFound from 'pages/admin/NotFound';
 import timeOptions from 'utils/timeOptions';
 import { History } from 'history';
 import ListingHelp from './ListingHelp';
 import { ApolloError } from 'apollo-client';
-import Loading from 'components/shared/loading/Loading';
+import Loading from 'components/loading/Loading';
 import { Button, Col, Row } from 'reactstrap';
 
 interface FormValues {

@@ -6,13 +6,13 @@ import HostPaymentsContainer from './HostPayments.container';
 
 import { SETTINGS } from 'configs/settings';
 import { GET_HOST_PAGE, UPDATE_WALLET_ADDRESS, User, CREATE_STRIPE_LOGIN_LINK } from 'networking/users';
-import BeeLink from 'components/shared/BeeLink';
-import Button from 'components/shared/Button';
-import InputLabel from 'components/shared/InputLabel';
-import InputWrapper from 'components/shared/InputWrapper';
-import LoadingTakeover from 'components/shared/loading/LoadingTakeover';
-import ErrorMessageWrapper from 'components/shared/ErrorMessageWrapper';
-import Snackbar from 'components/shared/Snackbar';
+import BeeLink from 'components/BeeLink';
+import Button from 'components/Button';
+import InputLabel from 'components/InputLabel';
+import InputWrapper from 'components/InputWrapper';
+import LoadingTakeover from 'components/loading/LoadingTakeover';
+import ErrorMessageWrapper from 'components/ErrorMessageWrapper';
+import Snackbar from 'components/Snackbar';
 import {
   getDisplaySuccessMessage,
   getFriendlyErrorMessage,

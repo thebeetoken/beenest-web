@@ -3,7 +3,7 @@ import ListingForm from 'legacy/routes/Host/ListingForm';
 import { Query } from 'react-apollo';
 import { GET_LISTING_FORM } from 'networking/listings';
 import { FirebaseConsumer, FirebaseUserProps } from 'HOCs/FirebaseProvider';
-import LoadingTakeover from 'components/shared/loading/LoadingTakeover';
+import LoadingTakeover from 'components/loading/LoadingTakeover';
 
 
 const HostListingEdit = (props: RouterProps) => (

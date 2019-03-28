@@ -2,7 +2,7 @@ import * as React from 'react';
 import Slider from 'react-slick';
 
 import CarouselContainer from 'styled/containers/Carousel.container';
-import LazyImage from 'components/shared/LazyImage';
+import LazyImage from 'components/LazyImage';
 
 interface Props {
   photos: string[];

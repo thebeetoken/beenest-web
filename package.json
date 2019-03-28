@@ -187,8 +187,6 @@
       "^assets(.*)$": "<rootDir>/src/assets$1",
       "^components(.*)$": "<rootDir>/src/components$1",
       "^configs(.*)$": "<rootDir>/src/configs$1",
-      "^routes(.*)$": "<rootDir>/src/components/routes$1",
-      "^shared(.*)$": "<rootDir>/src/components/shared$1",
       "^HOCs(.*)$": "<rootDir>/src/HOCs$1",
       "^networking(.*)$": "<rootDir>/src/networking$1",
       "^utils(.*)$": "<rootDir>/src/utils$1"

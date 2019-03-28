@@ -1,6 +1,6 @@
 import * as React from 'react';
 
-import { ForbesSVG, HuffPostSVG, FastCompanySvg, IncSVG, SFChronicalSVG } from 'components/shared/svgComponents/SvgComponents';
+import { ForbesSVG, HuffPostSVG, FastCompanySvg, IncSVG, SFChronicalSVG } from 'components/svgComponents/SvgComponents';
 export enum HomeUser {
   GUEST,
   HOST,

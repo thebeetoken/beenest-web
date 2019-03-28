@@ -7,10 +7,10 @@ import AdminUsersTableRow from './AdminUsersTableRow';
 import AdminLoading from '../../adminShared/components/AdminLoading';
 
 import { DELETE_USER, User } from 'networking/users';
-import AdminInputWrapper from 'components/shared/AdminInputWrapper';
-import Button from 'components/shared/Button';
+import AdminInputWrapper from 'components/AdminInputWrapper';
+import Button from 'components/Button';
 
-import { Paginator, PaginatorRef } from 'components/shared/Paginator';
+import { Paginator, PaginatorRef } from 'components/Paginator';
 
 const limit = 20;
 

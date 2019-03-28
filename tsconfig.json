@@ -29,8 +29,6 @@
       "assets/*": ["assets/*"],
       "components/*": ["components/*"],
       "legacy/*": ["legacy/*"],
-      "routes/*": ["components/routes/*"],
-      "shared/*": ["components/shared/*"],
       "HOCs/*": ["HOCs/*"],
       "networking/*": ["networking/*"],
       "configs/*": ["configs/*"],

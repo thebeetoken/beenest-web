@@ -2,8 +2,8 @@ import * as React from 'react';
 
 import AdminBookingStatusOptionsCardContainer from './AdminBookingStatusOptionsCard.container';
 
-import Button from 'components/shared/Button';
-import Svg from 'components/shared/Svg';
+import Button from 'components/Button';
+import Svg from 'components/Svg';
 import { getAdminBookingDisplayStatus } from 'utils/bookingsDisplayStatus';
 import { Booking } from 'networking/bookings';
 import { formatSingleDate } from 'utils/formatDate';

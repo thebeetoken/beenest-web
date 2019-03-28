@@ -12,10 +12,10 @@ import {
   GET_GUEST_SORTED_BOOKINGS,
   Currency
 } from 'networking/bookings';
-import Button from 'components/shared/Button';
-import Portal from 'components/shared/Portal';
-import GridLoading from 'components/shared/loading/GridLoading';
-import LoadingPortal from 'components/shared/LoadingPortal';
+import Button from 'components/Button';
+import Portal from 'components/Portal';
+import GridLoading from 'components/loading/GridLoading';
+import LoadingPortal from 'components/LoadingPortal';
 import { Web3Data, isNetworkValid, payWithBee, payWithEther, payWithToken, getValidNetworkName, loadWeb3 } from 'utils/web3';
 
 interface Props {

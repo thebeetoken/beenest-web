@@ -4,9 +4,9 @@ import { Link } from 'react-router-dom';
 
 import { affiliations, guestValueProps, HomeUser, hostValueProps, testimonials } from './home.config';
 
-import SearchBar from 'legacy/work/SearchBar';
-import TestimonialCard from 'legacy/work/TestimonialCard';
-import ValuePropCard from 'legacy/work/ValuePropCard';
+import SearchBar from 'components/SearchBar';
+import TestimonialCard from 'components/TestimonialCard';
+import ValuePropCard from 'components/ValuePropCard';
 import { AFFILIATE_CLASSES, CONTENT_CLASSES, JUMBOTRON_CLASSES, TESTIMONIAL_CLASSES } from 'styled/custom.styled';
 import { FLEX_CENTER } from 'styled/sharedClasses/layout';
 

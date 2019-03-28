@@ -2,7 +2,7 @@ import * as React from 'react';
 import { Link } from 'react-router-dom';
 
 import AdminHeaderContainer from './AdminHeader.container';
-import Svg from 'components/shared/Svg';
+import Svg from 'components/Svg';
 
 class AdminHeader extends React.Component {
   render() {
