@@ -45,7 +45,6 @@ module.exports = {
       ABIs: `${root}/ABIs`,
       assets: `${root}/assets`,
       components: `${root}/components`,
-      legacy: `${root}/legacy`,
       configs: `${root}/configs`,
       HOCs: `${root}/HOCs`,
       networking: `${root}/networking`,

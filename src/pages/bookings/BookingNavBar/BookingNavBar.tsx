@@ -27,9 +27,9 @@ enum Steps {
 }
 
 const CRUMBS = [
-  { path: '/legacy/bookings/:id/options', step: Steps.OPTIONS, title: 'Method of Payment' },
-  { path: '/legacy/bookings/:id/payment', step: Steps.PAYMENT, title: 'Terms & Submit Payment' },
-  { path: '/legacy/bookings/:id/receipt', step: Steps.RECEIPT, title: 'Confirmation' },
+  { path: '/bookings/:id/options', step: Steps.OPTIONS, title: 'Method of Payment' },
+  { path: '/bookings/:id/payment', step: Steps.PAYMENT, title: 'Terms & Submit Payment' },
+  { path: '/bookings/:id/receipt', step: Steps.RECEIPT, title: 'Confirmation' },
 ];
 
 const NavBarMobile: React.SFC<Props> = ({ listingId, match }) => {
@@ -37,7 +37,7 @@ const NavBarMobile: React.SFC<Props> = ({ listingId, match }) => {
   if (!crumb) {
     return <div>Error</div>;
   }
-  const navLinkTo = crumb.step === Steps.OPTIONS ? `/legacy/listings/${listingId}` : `/legacy/bookings/${match.params.id}/options`;
+  const navLinkTo = crumb.step === Steps.OPTIONS ? `/listings/${listingId}` : `/bookings/${match.params.id}/options`;
   return (
     <div className="booking-nav-mobile">
       {crumb.step !== Steps.RECEIPT && (
@@ -58,9 +58,9 @@ const NavBarMobile: React.SFC<Props> = ({ listingId, match }) => {
 const NavBarDesktop: React.SFC<Props> = ({ match }) => (
   <div className="d-none d-md-flex booking-nav-desktop">
     {CRUMBS.map((crumb, index) => {
-      if (match.path === '/legacy/bookings/:id/payment' && index === 0) {
+      if (match.path === '/bookings/:id/payment' && index === 0) {
         return (
-          <NavLink to={`/legacy/bookings/${match.params.id}/options`} key={crumb.path}>
+          <NavLink to={`/bookings/${match.params.id}/options`} key={crumb.path}>
             <div>
               {crumb.step}
               &#46; {crumb.title}
