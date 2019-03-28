@@ -1,5 +1,5 @@
 import * as React from 'react';
-import ListingForm from 'legacy/routes/Host/ListingForm';
+import ListingForm from '../../ListingForm';
 import { Query } from 'react-apollo';
 import { GET_LISTING_FORM } from 'networking/listings';
 import { FirebaseConsumer, FirebaseUserProps } from 'HOCs/FirebaseProvider';
