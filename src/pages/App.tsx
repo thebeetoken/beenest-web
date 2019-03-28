@@ -11,7 +11,7 @@ import Booking from 'legacy/routes/Booking';
 import FirebaseEmailHandler from './account/FirebaseEmailHandler';
 import ForgotPassword from './forgotPassword';
 import Home from './home';
-import Host from 'legacy/routes/Host';
+import Host from './host';
 import HostSignup from './hosts/signup';
 import Listing from './listing';
 import Login from './login';
@@ -27,8 +27,8 @@ import { StripeLink, StripeComplete, StripeNew } from 'pages/account/Stripe';
 
 
 import '../styled/customStyles.scss';
-import HostListingEdit from 'legacy/routes/Host/HostListing/HostListingEdit';
-import HostListingCalendar from 'legacy/routes/Host/HostListingCalendar';
+import HostListingEdit from './host/HostListing/HostListingEdit';
+import HostListingCalendar from './host/HostListingCalendar';
 import Banner from 'components/Banner';
 import { BannerContext } from 'HOCs/BannerProvider';
 
