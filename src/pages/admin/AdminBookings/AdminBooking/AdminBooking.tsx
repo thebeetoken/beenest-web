@@ -6,7 +6,7 @@ import AdminBookingStatus from './../AdminBookingsTable/AdminBookingStatus';
 
 import AdminLoading from '../../adminShared/components/AdminLoading';
 import { GET_ADMIN_BOOKING } from 'networking/bookings';
-import BeeLink from 'components/shared/BeeLink';
+import BeeLink from 'components/BeeLink';
 import { formatSingleDate } from 'utils/formatDate';
 import { numberToLocaleString } from 'utils/numberToLocaleString';
 import { getAdminBookingDisplayStatus } from 'utils/bookingsDisplayStatus';

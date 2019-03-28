@@ -2,9 +2,9 @@ import * as React from 'react';
 import { Button, Row } from 'reactstrap';
 import { withRouter } from 'react-router-dom';
 
-import ImageGrid from 'components/shared/ImageGrid';
-import CarouselPortal from 'legacy/work/CarouselPortal';
-import ShareModal from 'legacy/work/ShareModal';
+import ImageGrid from 'components/ImageGrid';
+import CarouselPortal from 'components/CarouselPortal';
+import ShareModal from 'components/ShareModal';
 
 import { Listing } from 'networking/listings';
 

@@ -14,7 +14,7 @@ import {
   GET_HOST_BOOKINGS,
   REJECT_BOOKING } from 'networking/bookings';
 import generateUpdatedBookings from 'utils/generateUpdatedBookings';
-import LoadingTakeover from 'components/shared/loading/LoadingTakeover';
+import LoadingTakeover from 'components/loading/LoadingTakeover';
 
 interface Props {
   approveBooking: (booking: Booking) => Promise<void>;

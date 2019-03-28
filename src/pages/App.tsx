@@ -2,8 +2,8 @@ import * as React from 'react';
 import { Route, Switch, withRouter } from 'react-router-dom';
 import { Fade } from 'reactstrap';
 
-import Header from 'legacy/work/Header';
-import Footer from 'legacy/work/Footer';
+import Header from 'components/Header';
+import Footer from 'components/Footer';
 
 import About from './about';
 import Account from './account';
@@ -29,7 +29,7 @@ import { StripeLink, StripeComplete, StripeNew } from 'legacy/routes/Account/Str
 import '../styled/customStyles.scss';
 import HostListingEdit from 'legacy/routes/Host/HostListing/HostListingEdit';
 import HostListingCalendar from 'legacy/routes/Host/HostListingCalendar';
-import Banner from 'components/shared/Banner';
+import Banner from 'components/Banner';
 import { BannerContext } from 'HOCs/BannerProvider';
 
 class ScrollToTop extends React.Component<RouterProps, {}> {

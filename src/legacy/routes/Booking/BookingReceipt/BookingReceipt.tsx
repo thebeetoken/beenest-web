@@ -8,10 +8,10 @@ import { APP_ENV, AppEnv } from 'configs/settings';
 import BookingReceiptContainer from './BookingReceipt.container';
 import BookingNavBar from '../BookingNavBar';
 import BookingReceiptBar from './BookingReceiptBar';
-import BitcoinQRCode from 'components/shared/BitcoinQRCode';
-import Button from 'components/shared/Button';
+import BitcoinQRCode from 'components/BitcoinQRCode';
+import Button from 'components/Button';
 import { numberToLocaleString } from 'utils/numberToLocaleString';
-import { AppConsumer, AppConsumerProps, ScreenType } from 'legacy/Legacy.context';
+import { AppConsumer, AppConsumerProps, ScreenType } from 'pages/App.context';
 
 const BookingReceipt = ({ match }: RouterProps) => (
   <Query query={GET_BOOKING_RECEIPT} variables={{ id: match.params.id }}>

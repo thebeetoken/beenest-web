@@ -47,8 +47,6 @@ module.exports = {
       components: `${root}/components`,
       legacy: `${root}/legacy`,
       configs: `${root}/configs`,
-      routes: `${root}/components/routes`,
-      shared: `${root}/components/shared`,
       HOCs: `${root}/HOCs`,
       networking: `${root}/networking`,
       styled: `${root}/styled`,

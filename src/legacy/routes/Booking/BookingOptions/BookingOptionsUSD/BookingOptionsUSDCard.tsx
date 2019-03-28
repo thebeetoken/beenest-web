@@ -7,13 +7,13 @@ import BookingOptionsBar from '../BookingOptionsBar';
 import SelectPaymentButton from '../SelectPaymentButton';
 
 import StripeWrapper from 'HOCs/StripeWrapper';
-import Button from 'components/shared/Button';
-import ListItem from 'components/shared/ListItem';
-import Portal from 'components/shared/Portal';
-import SelectBoxWrapper from 'components/shared/SelectBoxWrapper';
-import CreatePaymentSourceModal from 'components/shared/Stripe/Modals/CreatePaymentSourceModal';
-import Svg from 'components/shared/Svg';
-import { ToggleProvider, ToggleProviderRef } from 'components/shared/ToggleProvider';
+import Button from 'components/Button';
+import ListItem from 'components/ListItem';
+import Portal from 'components/Portal';
+import SelectBoxWrapper from 'components/SelectBoxWrapper';
+import CreatePaymentSourceModal from 'components/Stripe/Modals/CreatePaymentSourceModal';
+import Svg from 'components/Svg';
+import { ToggleProvider, ToggleProviderRef } from 'components/ToggleProvider';
 
 
 interface Props extends RouterProps {

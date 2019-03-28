@@ -2,12 +2,12 @@ import * as React from 'react';
 import { ErrorMessage } from 'formik';
 
 import { ListingField } from 'networking/listings';
-import ErrorMessageWrapper from 'components/shared/ErrorMessageWrapper';
-import InputLabel from 'components/shared/InputLabel';
-import SelectBoxWrapper from 'components/shared/SelectBoxWrapper';
-import Svg from 'components/shared/Svg';
-import Textarea from 'components/shared/Textarea';
-import { TextareaEvent } from 'components/shared/Textarea/Textarea';
+import ErrorMessageWrapper from 'components/ErrorMessageWrapper';
+import InputLabel from 'components/InputLabel';
+import SelectBoxWrapper from 'components/SelectBoxWrapper';
+import Svg from 'components/Svg';
+import Textarea from 'components/Textarea';
+import { TextareaEvent } from 'components/Textarea/Textarea';
 import timeOptions from 'utils/timeOptions';
 
 const CheckinDetailsForm = (props: any): JSX.Element => {

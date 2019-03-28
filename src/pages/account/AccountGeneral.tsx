@@ -5,9 +5,9 @@ import * as Yup from 'yup';
 import { compose, graphql } from 'react-apollo';
 import { UPDATE_USER, User, GET_ACCOUNT_PAGE, UserField } from 'networking/users';
 
-import Textarea from 'components/shared/Textarea';
-import { TextareaEvent } from 'components/shared/Textarea/Textarea';
-import { AlertProperties } from 'legacy/work/Alert/Alert';
+import Textarea from 'components/Textarea';
+import { TextareaEvent } from 'components/Textarea/Textarea';
+import { AlertProperties } from 'components/Alert/Alert';
 
 interface FormValues {
   [name: string]: boolean | string | string[] | number | object | undefined;

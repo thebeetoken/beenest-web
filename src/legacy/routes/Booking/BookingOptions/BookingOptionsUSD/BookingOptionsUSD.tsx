@@ -5,7 +5,7 @@ import { Booking } from 'networking/bookings';
 import { GET_PAYMENT_SOURCES } from 'networking/paymentSources';
 
 import BookingOptionsUSDCard from './BookingOptionsUSDCard';
-import LoadingTakeover from 'components/shared/loading/LoadingTakeover';
+import LoadingTakeover from 'components/loading/LoadingTakeover';
 
 interface Props {
   booking: Booking;

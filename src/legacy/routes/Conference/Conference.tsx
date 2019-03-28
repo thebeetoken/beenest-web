@@ -5,15 +5,15 @@ import { GET_CONFERENCE, Conference } from 'networking/conferences';
 import format from 'date-fns/format';
 import { ListingShort } from 'networking/listings';
 
-import { AppConsumer, AppConsumerProps, ScreenType } from 'legacy/Legacy.context';
-import AudioLoading from 'components/shared/loading/AudioLoading';
-import BeeLink from 'components/shared/BeeLink';
+import { AppConsumer, AppConsumerProps, ScreenType } from 'pages/App.context';
+import AudioLoading from 'components/loading/AudioLoading';
+import BeeLink from 'components/BeeLink';
 import ConferenceContainer from './Conference.container';
-import LazyImage from 'components/shared/LazyImage';
-import { HotelCard } from 'components/shared/HotelCard';
-import Overlay from 'components/shared/Overlay';
-import ListingCards from 'components/shared/ListingCards';
-import Button from 'components/shared/Button';
+import LazyImage from 'components/LazyImage';
+import { HotelCard } from 'components/HotelCard';
+import Overlay from 'components/Overlay';
+import ListingCards from 'components/ListingCards';
+import Button from 'components/Button';
 
 const HOTEL_ROOM = 'Hotel Room';
 

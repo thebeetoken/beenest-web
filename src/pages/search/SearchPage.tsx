@@ -3,8 +3,8 @@ import { Col, Fade, Row } from 'reactstrap';
 
 import { Listing, ListingShort } from 'networking/listings';
 
-import GoogleMapsWithMarkers from 'components/shared/GoogleMapsWithMarkers';
-import SearchBar from 'legacy/work/SearchBar';
+import GoogleMapsWithMarkers from 'components/GoogleMapsWithMarkers';
+import SearchBar from 'components/SearchBar';
 
 import { useDebounce } from 'utils/hooks';
 

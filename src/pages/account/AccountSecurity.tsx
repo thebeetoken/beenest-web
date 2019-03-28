@@ -5,7 +5,7 @@ import { User } from 'firebase';
 
 import { getDisplaySuccessMessage, SuccessMessage, getDisplayErrorMessage, ErrorMessage, errorMessages } from 'utils/validators';
 import { resetPassword } from 'utils/firebase';
-import { AlertProperties } from 'legacy/work/Alert/Alert';
+import { AlertProperties } from 'components/Alert/Alert';
 
 function AccountSecurity() {
   const [alert, setAlert] = React.useState<AlertProperties>({ color: '', msg: '', show: false });

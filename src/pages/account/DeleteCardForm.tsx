@@ -3,7 +3,7 @@ import { compose, graphql } from 'react-apollo';
 
 import { DELETE_PAYMENT_SOURCE, GET_PAYMENT_SOURCES, PaymentSource } from 'networking/paymentSources';
 import { Button, Row, Col } from 'reactstrap';
-import { AlertProperties } from 'legacy/work/Alert/Alert';
+import { AlertProperties } from 'components/Alert/Alert';
 
 interface Props {
   paymentSource: PaymentSource;

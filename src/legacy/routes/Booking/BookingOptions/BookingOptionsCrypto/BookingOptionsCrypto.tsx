@@ -9,13 +9,13 @@ import BookingOptionsCryptoContainer from './BookingOptionsCrypto.container';
 import BookingOptionsBar from '../BookingOptionsBar';
 import SelectPaymentButton from '../SelectPaymentButton';
 
-import Async from 'components/shared/Async';
-import Button from 'components/shared/Button';
-import BeeLink from 'components/shared/BeeLink';
+import Async from 'components/Async';
+import Button from 'components/Button';
+import BeeLink from 'components/BeeLink';
 
 import { balanceOf, Web3Data, isNetworkValid, getValidNetworkName, loadWeb3 } from 'utils/web3';
 import { numberToLocaleString } from 'utils/numberToLocaleString';
-import { AppConsumer, AppConsumerProps, ScreenType } from 'legacy/Legacy.context';
+import { AppConsumer, AppConsumerProps, ScreenType } from 'pages/App.context';
 
 const TWO_DAYS_MS = 2 * 24 * 60 * 60 * 1000;
 

@@ -1,8 +1,8 @@
 import * as React from 'react';
 
-import ListItem from 'components/shared/ListItem';
-import Svg from 'components/shared/Svg';
-import LazyImage from 'components/shared/LazyImage';
+import ListItem from 'components/ListItem';
+import Svg from 'components/Svg';
+import LazyImage from 'components/LazyImage';
 import { ListingField }from 'networking/listings';
 import { FirebaseConsumer, FirebaseUserProps } from 'HOCs/FirebaseProvider';
 

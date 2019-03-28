@@ -2,7 +2,7 @@ import * as React from 'react';
 import { Mutation } from 'react-apollo';
 
 import { Booking, Currency, GET_BOOKING, GUEST_SELECT_PAYMENT } from 'networking/bookings';
-import Button from 'components/shared/Button';
+import Button from 'components/Button';
 
 interface Props {
   booking: Booking;

@@ -1,10 +1,10 @@
 import * as React from 'react';
 import { withRouter, NavLink } from 'react-router-dom';
 
-import { AppConsumer, AppConsumerProps, ScreenType } from 'legacy/Legacy.context';
+import { AppConsumer, AppConsumerProps, ScreenType } from 'pages/App.context';
 import BookingNavBarContainer from './BookingNavBar.container';
-import Fab from 'components/shared/Fab';
-import Svg from 'components/shared/Svg';
+import Fab from 'components/Fab';
+import Svg from 'components/Svg';
 
 interface Props extends RouterProps {
   listingId?: string;

@@ -3,7 +3,7 @@ import { Col, Container, Fade, Row } from 'reactstrap';
 import { Redirect, RouteProps } from 'react-router-dom';
 
 import { FirebaseConsumer, FirebaseUserProps } from 'HOCs/FirebaseProvider';
-import LoadingTakeover from 'components/shared/loading/LoadingTakeover';
+import LoadingTakeover from 'components/loading/LoadingTakeover';
 import { AUTH_CONTAINER, AUTH_CONTENT } from 'styled/sharedClasses/authentication';
 
 

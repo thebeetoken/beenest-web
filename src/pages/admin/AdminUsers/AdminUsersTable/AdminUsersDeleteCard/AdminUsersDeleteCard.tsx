@@ -1,9 +1,9 @@
 import * as React from 'react';
 
 import AdminUsersDeleteCardContainer from './AdminUsersDeleteCard.container';
-import Button from 'components/shared/Button';
-import AudioLoading from 'components/shared/loading/AudioLoading';
-import Svg from 'components/shared/Svg';
+import Button from 'components/Button';
+import AudioLoading from 'components/loading/AudioLoading';
+import Svg from 'components/Svg';
 import { User } from 'networking/users';
 
 interface Props extends User {

@@ -3,7 +3,7 @@ import { Container, Fade, Row } from 'reactstrap';
 import { Link } from 'react-router-dom';
 
 import { BannerConsumerProps } from 'HOCs/BannerProvider';
-import LoadingTakeover from 'components/shared/loading/LoadingTakeover';
+import LoadingTakeover from 'components/loading/LoadingTakeover';
 import { showAccountVerificationBanner } from 'utils/bannerUtility';
 import { auth, hasCompletedVerification } from 'utils/firebase';
 import { FirebaseConsumer, FirebaseUserProps } from 'HOCs/FirebaseProvider';

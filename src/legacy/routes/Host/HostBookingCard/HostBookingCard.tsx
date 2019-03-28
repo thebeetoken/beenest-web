@@ -1,10 +1,10 @@
 import * as React from 'react';
 import { Booking, BookingStatus } from 'networking/bookings';
 
-import BookingCard from 'components/shared/BookingCard';
-import Button from 'components/shared/Button';
-import Portal from 'components/shared/Portal';
-import { ToggleProvider, ToggleProviderRef } from 'components/shared/ToggleProvider';
+import BookingCard from 'components/BookingCard';
+import Button from 'components/Button';
+import Portal from 'components/Portal';
+import { ToggleProvider, ToggleProviderRef } from 'components/ToggleProvider';
 import {
   getDisplayHostBookingStatus,
   getHostBookingDisplayStatusEnum
@@ -12,7 +12,7 @@ import {
 import { currencyToDisplay } from 'utils/currencyToDisplay';
 import { formatDateRange } from 'utils/formatDate';
 import { Card, Col, Row } from 'reactstrap';
-import Loading from 'components/shared/loading/Loading';
+import Loading from 'components/loading/Loading';
 
 interface State {
   errorMessage: string;

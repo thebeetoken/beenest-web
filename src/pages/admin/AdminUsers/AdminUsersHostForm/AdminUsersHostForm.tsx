@@ -4,17 +4,17 @@ import { withRouter } from 'react-router-dom';
 
 import { SETTINGS } from 'configs/settings';
 import { ADMIN_CREATE_HOST, UPDATE_HOST, SEARCH_HOSTS } from 'networking/users';
-import BeeLink from 'components/shared/BeeLink';
-import Button from 'components/shared/Button';
+import BeeLink from 'components/BeeLink';
+import Button from 'components/Button';
 import * as formHelper from 'utils/AdminFormHelper';
 import PhotoUploadContainer from '../../adminShared/containers/PhotoUpload.container';
-import { PhotoUploader, Photo } from 'components/shared/PhotoUploader';
-import Svg from 'components/shared/Svg';
-import AdminTextarea from 'components/shared/AdminTextarea';
+import { PhotoUploader, Photo } from 'components/PhotoUploader';
+import Svg from 'components/Svg';
+import AdminTextarea from 'components/AdminTextarea';
 import { getGraphQLErrorMessage, getInputValidationClass, FieldValidation } from 'utils/validators';
-import AdminInputLabel from 'components/shared/AdminInputLabel';
-import AdminInputWrapper from 'components/shared/AdminInputWrapper';
-import { TextareaEvent } from 'components/shared/Textarea/Textarea';
+import AdminInputLabel from 'components/AdminInputLabel';
+import AdminInputWrapper from 'components/AdminInputWrapper';
+import { TextareaEvent } from 'components/Textarea/Textarea';
 
 const { BEENEST_HOST } = SETTINGS;
 

@@ -4,9 +4,9 @@ import StarRatings from 'react-star-ratings';
 import sanitizeHtml from 'sanitize-html';
 
 import { Listing } from 'networking/listings';
-import GoogleMaps from 'components/shared/GoogleMaps';
-import Avatar from 'legacy/work/Avatar';
-import ContactHostButton from 'legacy/work/ContactHostButton';
+import GoogleMaps from 'components/GoogleMaps';
+import Avatar from 'components/Avatar';
+import ContactHostButton from 'components/ContactHostButton';
 import { formatAddress, formatMonth } from 'utils/formatter';
 
 const ListingInformation = ({

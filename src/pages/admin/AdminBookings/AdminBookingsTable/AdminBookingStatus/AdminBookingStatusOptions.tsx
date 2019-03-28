@@ -10,11 +10,11 @@ import {
   PAYOUT_BOOKING,
   GET_ALL_BOOKINGS
 } from 'networking/bookings';
-import AudioLoading from 'components/shared/loading/AudioLoading';
-import Fab from 'components/shared/Fab';
-import LoadingPortal from 'components/shared/LoadingPortal';
-import Portal from 'components/shared/Portal';
-import { ToggleProvider, ToggleProviderRef } from 'components/shared/ToggleProvider';
+import AudioLoading from 'components/loading/AudioLoading';
+import Fab from 'components/Fab';
+import LoadingPortal from 'components/LoadingPortal';
+import Portal from 'components/Portal';
+import { ToggleProvider, ToggleProviderRef } from 'components/ToggleProvider';
 
 import AdminBookingStatusOptionsCard from './AdminBookingStatusOptionsCard';
 import { loadWeb3, invoice, payout, refund } from 'utils/web3';
