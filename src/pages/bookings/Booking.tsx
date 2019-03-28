@@ -2,10 +2,10 @@ import * as React from 'react';
 import { Fade } from 'reactstrap';
 import { Redirect, Route, Switch } from 'react-router-dom';
 
-import BookingContainer from 'legacy/routes/Booking/Booking.container';
-import BookingOptions from 'legacy/routes/Booking/BookingOptions';
-import BookingPayment from 'legacy/routes/Booking/BookingPayment';
-import BookingReceipt from 'legacy/routes/Booking/BookingReceipt';
+import BookingContainer from './Booking.container';
+import BookingOptions from './BookingOptions';
+import BookingPayment from './BookingPayment';
+import BookingReceipt from './BookingReceipt';
 
 const Booking = () => (
   <Fade>
