@@ -2,34 +2,34 @@ import * as React from 'react';
 import { Route, Switch, withRouter } from 'react-router-dom';
 import { Fade } from 'reactstrap';
 
-import Header from 'legacy/work/Header';
-import Footer from 'legacy/work/Footer';
+import Header from 'components/Header';
+import Footer from 'components/Footer';
 
 import About from './about';
-import Account from './Account';
-import Booking from 'legacy/routes/Booking';
-import FirebaseEmailHandler from './Account/FirebaseEmailHandler';
+import Account from './account';
+import Booking from './bookings';
+import FirebaseEmailHandler from './account/FirebaseEmailHandler';
 import ForgotPassword from './forgotPassword';
 import Home from './home';
-import Host from 'legacy/routes/Host';
+import Host from './host';
 import HostSignup from './hosts/signup';
 import Listing from './listing';
 import Login from './login';
 import Logout from './logout';
-import Markets from 'legacy/routes/Markets';
+import Markets from './markets';
 import NotFound from './notFound';
 import Search from './search';
 import Signup from './signup';
 import Trips from './trips';
 import TripsReceipt from './trips/TripsReceipt';
 import AuthenticatedRoute from 'HOCs/AuthenticatedRoute';
-import { StripeLink, StripeComplete, StripeNew } from 'legacy/routes/Account/Stripe';
+import { StripeLink, StripeComplete, StripeNew } from 'pages/account/Stripe';
 
 
 import '../styled/customStyles.scss';
-import HostListingEdit from 'legacy/routes/Host/HostListing/HostListingEdit';
-import HostListingCalendar from 'legacy/routes/Host/HostListingCalendar';
-import Banner from 'legacy/shared/Banner';
+import HostListingEdit from './host/HostListing/HostListingEdit';
+import HostListingCalendar from './host/HostListingCalendar';
+import Banner from 'components/Banner';
 import { BannerContext } from 'HOCs/BannerProvider';
 
 class ScrollToTop extends React.Component<RouterProps, {}> {
@@ -46,7 +46,7 @@ class ScrollToTop extends React.Component<RouterProps, {}> {
 
 const ScrollToTopWithRouter = withRouter(ScrollToTop);
 
-const Work = () => {
+const Work = (props: RouterProps) => {
   const { bannerState, bannerDispatch } = React.useContext(BannerContext);
   let close = () => bannerDispatch({type: 'close'});
 
@@ -72,7 +72,7 @@ const Work = () => {
             <Route exact path="/listings/:id" component={Listing} />
             <Route exact path="/login" component={Login} />
             <Route exact path="/logout" component={Logout} />
-            <Route exact path="/search" component={Search} />
+            <Route exact path="/search" render={() => <Search key={props.location.key} />} />
             <Route exact path="/signup" component={Signup} />
             <AuthenticatedRoute exact path="/trips/:id/receipt" component={TripsReceipt} />
             <AuthenticatedRoute path="/trips" component={Trips} />
@@ -87,4 +87,4 @@ const Work = () => {
   );
 };
 
-export default Work;
+export default withRouter(Work);

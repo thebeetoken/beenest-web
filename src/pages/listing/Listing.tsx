@@ -3,7 +3,7 @@ import { Query } from 'react-apollo';
 import { Fade } from 'reactstrap';
 import { GET_PUBLIC_LISTING } from 'networking/listings';
 
-import LoadingTakeover from 'legacy/shared/loading/LoadingTakeover';
+import LoadingTakeover from 'components/loading/LoadingTakeover';
 
 import ListingPage from './ListingPage';
 

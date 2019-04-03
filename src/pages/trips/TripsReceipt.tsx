@@ -3,9 +3,9 @@ import { GET_BOOKING_TRIPS_RECEIPT, PriceQuote } from 'networking/bookings';
 import { Container, Fade, Row, Col, Table } from 'reactstrap';
 import { Query } from 'react-apollo';
 import { formatAddress, formatGeolocationAddress } from 'utils/formatter';
-import LoadingTakeover from 'legacy/shared/loading/LoadingTakeover';
+import LoadingTakeover from 'components/loading/LoadingTakeover';
 import { formatDateRange, dateToYear } from 'utils/formatDate';
-import GoogleMaps from 'legacy/shared/GoogleMaps';
+import GoogleMaps from 'components/GoogleMaps';
 
 const DEFAULT_PROFILE_URL = 'https://static.beenest.com/images/app/misc/profile.png';
 

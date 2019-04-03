@@ -5,12 +5,12 @@ import { Route, Redirect, Switch } from 'react-router';
 import { NavLink as RRNavLink, Link } from 'react-router-dom';
 import { GET_GUEST_SORTED_BOOKINGS, GUEST_SORTED_BOOKINGS, Booking } from 'networking/bookings';
 
-import NotFound from 'legacy/routes/NotFound';
-import LoadingTakeover from 'legacy/shared/loading/LoadingTakeover';
-import TripCard from 'legacy/work/TripCard';
-import { AlertProperties } from 'legacy/work/Alert/Alert';
-import ContactHostFormModal from 'legacy/work/ContactHostFormModal';
-import CancelBookingModal from 'legacy/work/CancelBookingModal';
+import NotFound from '../notFound';
+import LoadingTakeover from 'components/loading/LoadingTakeover';
+import TripCard from 'components/TripCard';
+import { AlertProperties } from 'components/Alert/Alert';
+import ContactHostFormModal from 'components/ContactHostFormModal';
+import CancelBookingModal from 'components/CancelBookingModal';
 
 enum ModalType {
   CANCEL_BOOKING = 'CANCEL_BOOKING',
@@ -162,8 +162,8 @@ function Trips() {
               <Route component={NotFound} />
             </Switch>
 
-            {modal === ModalType.CANCEL_BOOKING &&
-              <CancelBookingModal booking={booking} onModalAction={handleModalAction} setAlert={setAlert}/>
+            {modal === ModalType.CANCEL_BOOKING && !!booking &&
+              <CancelBookingModal booking={booking} onModalAction={handleModalAction} setAlert={setAlert} />
             }
 
             {modal === ModalType.CONTACT_HOST && !!booking &&
